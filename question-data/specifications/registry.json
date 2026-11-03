@@ -349,6 +349,87 @@
       "kind": "official_reference_contents_index",
       "status": "introduction_only_not_full_current_class_objectives",
       "note": "Not sufficient to establish complete current English Studies objectives for each class."
+    },
+    {
+      "id": "waec-history-compilation-2026",
+      "exam": "WAEC",
+      "subject": "History",
+      "kind": "user_supplied_third_party_compilation_with_partial_primary_crosschecks",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/waec-syllabus/history",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "Objectives are author-proposed mappings, not official objective codes. WAEC History official examiner-resource index confirms essay format. JAMB French PDF URL returned a JavaScript application instead of the full document. No claim of complete current specification verification or oral/listening coverage."
+    },
+    {
+      "id": "waec-french-compilation-2026",
+      "exam": "WAEC",
+      "subject": "French",
+      "kind": "user_supplied_third_party_compilation_with_partial_primary_crosschecks",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/waec-syllabus/french",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "Objectives are author-proposed mappings, not official objective codes. WAEC History official examiner-resource index confirms essay format. JAMB French PDF URL returned a JavaScript application instead of the full document. No claim of complete current specification verification or oral/listening coverage."
+    },
+    {
+      "id": "jamb-history-compilation-2026",
+      "exam": "JAMB",
+      "subject": "History",
+      "kind": "user_supplied_third_party_compilation_with_partial_primary_crosschecks",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/history",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "Objectives are author-proposed mappings, not official objective codes. WAEC History official examiner-resource index confirms essay format. JAMB French PDF URL returned a JavaScript application instead of the full document. No claim of complete current specification verification or oral/listening coverage."
+    },
+    {
+      "id": "jamb-french-compilation-2026",
+      "exam": "JAMB",
+      "subject": "French",
+      "kind": "user_supplied_third_party_compilation_with_partial_primary_crosschecks",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/french",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "Objectives are author-proposed mappings, not official objective codes. WAEC History official examiner-resource index confirms essay format. JAMB French PDF URL returned a JavaScript application instead of the full document. No claim of complete current specification verification or oral/listening coverage."
+    },
+    {
+      "id": "history-benin-primary-object-reference",
+      "kind": "museum_collection_record",
+      "source": "https://www.britishmuseum.org/collection/object/E_Af1898-0115-73",
+      "status": "limited_fact_crosscheck_only",
+      "note": "Benin brass court plaques and the 1897 British attack/looting; not an examination syllabus."
+    },
+    {
+      "id": "history-nok-primary-object-reference",
+      "kind": "nigerian_museum_collection_record",
+      "source": "https://collection.museum.ng/nok-terracotta-seated-figure/",
+      "status": "limited_fact_crosscheck_only",
+      "note": "NCMM record identifies Nok terracotta; does not establish complete culture chronology."
+    },
+    {
+      "id": "history-igbo-ukwu-museum-reference",
+      "kind": "museum_research_reference",
+      "source": "https://82nd-and-fifth.metmuseum.org/toah/ht/06/afg.html",
+      "status": "limited_fact_crosscheck_only",
+      "note": "Igbo-Ukwu copper-alloy craftsmanship; not an examination specification."
+    },
+    {
+      "id": "waec-history-examiner-index",
+      "kind": "official_examiner_resource_index",
+      "source": "https://www.waeconline.org.ng/e-learning/History/histmain.html",
+      "status": "paper_two_format_confirmed_full_current_specification_pending"
+    },
+    {
+      "id": "history-womens-war-archive-guide",
+      "kind": "official_archive_finding_aid",
+      "source": "https://www.nationalarchives.gov.uk/education/resources/womens-histories/womens-histories-finding-aid-accessible-version/",
+      "status": "primary_record_navigation_reference_only",
+      "note": "Women’s War archival collection guide; not a full current exam specification."
+    },
+    {
+      "id": "history-nigeria-diplomatic-reference",
+      "kind": "official_diplomatic_history",
+      "source": "https://www.nigeria-manila.org/history/",
+      "status": "limited_chronology_crosscheck",
+      "note": "1960 independence, 1963 republican status and 1967–1970 war; no endorsement of every narrative claim or current officeholder information implied."
     }
   ],
   "banks": [
@@ -455,7 +536,8 @@
       "subject": "History",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "waec-history-compilation-2026"
     },
     {
       "exam": "WAEC",
@@ -469,7 +551,8 @@
       "subject": "French",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "waec-french-compilation-2026"
     },
     {
       "exam": "WAEC",
@@ -686,7 +769,8 @@
       "subject": "History",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "jamb-history-compilation-2026"
     },
     {
       "exam": "JAMB",
@@ -707,7 +791,8 @@
       "subject": "French",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "jamb-french-compilation-2026"
     },
     {
       "exam": "JAMB",
@@ -4783,6 +4868,268 @@
       "specificationId": "jamb-computing-compilation-2026",
       "questionTypes": [
         "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-history-sources-v1",
+      "exam": "JAMB",
+      "subject": "History",
+      "topic": "Historical method",
+      "subtopic": "Sources and interpretation",
+      "learningObjective": "Evaluate historical evidence, provenance and competing explanations.",
+      "specificationId": "jamb-history-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-history-early-v1",
+      "exam": "JAMB",
+      "subject": "History",
+      "topic": "Early Nigerian societies",
+      "subtopic": "Material culture institutions and exchange",
+      "learningObjective": "Explain evidence for early Nigerian cultural and economic development.",
+      "specificationId": "jamb-history-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-history-trade-v1",
+      "exam": "JAMB",
+      "subject": "History",
+      "topic": "West African contacts",
+      "subtopic": "Trade migration religion and external contacts",
+      "learningObjective": "Analyse links between exchange, external contacts and social change.",
+      "specificationId": "jamb-history-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-history-colonial-v1",
+      "exam": "JAMB",
+      "subject": "History",
+      "topic": "Colonial Nigeria",
+      "subtopic": "Conquest economy resistance and social change",
+      "learningObjective": "Explain causes and consequences of colonial rule and African responses.",
+      "specificationId": "jamb-history-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-history-modern-v1",
+      "exam": "JAMB",
+      "subject": "History",
+      "topic": "Nigeria in the twentieth century",
+      "subtopic": "Independence conflict and reconstruction",
+      "learningObjective": "Relate twentieth-century Nigerian developments to chronology and historical evidence.",
+      "specificationId": "jamb-history-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-french-structure-v1",
+      "exam": "JAMB",
+      "subject": "French",
+      "topic": "Structure and usage",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Select or produce grammatical French suited to a stated context.",
+      "specificationId": "jamb-french-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-french-meaning-v1",
+      "exam": "JAMB",
+      "subject": "French",
+      "topic": "Vocabulary and communicative function",
+      "subtopic": "Meaning register and purpose",
+      "learningObjective": "Interpret lexical meaning and choose expressions suited to purpose and register.",
+      "specificationId": "jamb-french-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-french-reading-v1",
+      "exam": "JAMB",
+      "subject": "French",
+      "topic": "Reading comprehension",
+      "subtopic": "Evidence inference and cohesion",
+      "learningObjective": "Interpret an original French text using explicit detail and supported inference.",
+      "specificationId": "jamb-french-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-french-writing-v1",
+      "exam": "JAMB",
+      "subject": "French",
+      "topic": "Written production",
+      "subtopic": "Connected description and correspondence",
+      "learningObjective": "Produce coherent original French appropriate to audience purpose and task.",
+      "specificationId": "jamb-french-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-history-sources-v1",
+      "exam": "WAEC",
+      "subject": "History",
+      "topic": "Historical method",
+      "subtopic": "Sources and interpretation",
+      "learningObjective": "Evaluate historical evidence, provenance and competing explanations.",
+      "specificationId": "waec-history-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-history-early-v1",
+      "exam": "WAEC",
+      "subject": "History",
+      "topic": "Early Nigerian societies",
+      "subtopic": "Material culture institutions and exchange",
+      "learningObjective": "Explain evidence for early Nigerian cultural and economic development.",
+      "specificationId": "waec-history-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-history-trade-v1",
+      "exam": "WAEC",
+      "subject": "History",
+      "topic": "West African contacts",
+      "subtopic": "Trade migration religion and external contacts",
+      "learningObjective": "Analyse links between exchange, external contacts and social change.",
+      "specificationId": "waec-history-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-history-colonial-v1",
+      "exam": "WAEC",
+      "subject": "History",
+      "topic": "Colonial Nigeria",
+      "subtopic": "Conquest economy resistance and social change",
+      "learningObjective": "Explain causes and consequences of colonial rule and African responses.",
+      "specificationId": "waec-history-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-history-modern-v1",
+      "exam": "WAEC",
+      "subject": "History",
+      "topic": "Nigeria in the twentieth century",
+      "subtopic": "Independence conflict and reconstruction",
+      "learningObjective": "Relate twentieth-century Nigerian developments to chronology and historical evidence.",
+      "specificationId": "waec-history-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-french-structure-v1",
+      "exam": "WAEC",
+      "subject": "French",
+      "topic": "Structure and usage",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Select or produce grammatical French suited to a stated context.",
+      "specificationId": "waec-french-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-french-meaning-v1",
+      "exam": "WAEC",
+      "subject": "French",
+      "topic": "Vocabulary and communicative function",
+      "subtopic": "Meaning register and purpose",
+      "learningObjective": "Interpret lexical meaning and choose expressions suited to purpose and register.",
+      "specificationId": "waec-french-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-french-reading-v1",
+      "exam": "WAEC",
+      "subject": "French",
+      "topic": "Reading comprehension",
+      "subtopic": "Evidence inference and cohesion",
+      "learningObjective": "Interpret an original French text using explicit detail and supported inference.",
+      "specificationId": "waec-french-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-french-writing-v1",
+      "exam": "WAEC",
+      "subject": "French",
+      "topic": "Written production",
+      "subtopic": "Connected description and correspondence",
+      "learningObjective": "Produce coherent original French appropriate to audience purpose and task.",
+      "specificationId": "waec-french-compilation-2026",
+      "questionTypes": [
+        "essay"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null

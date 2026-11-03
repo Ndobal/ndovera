@@ -35,11 +35,11 @@ JAMB,Computer Studies,,,1000,25,25,0,975,6,6,partial_objective_register,candidat
 JAMB,Economics,,,1000,27,25,0,975,11,11,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Financial Accounting,,,1000,25,25,0,975,8,8,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Fine Arts,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-JAMB,French,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,French,,,1000,25,25,0,975,4,3,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Geography,,,1000,25,25,0,975,7,7,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Government,,,1000,26,25,0,975,7,7,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Hausa,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-JAMB,History,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,History,,,1000,25,25,0,975,5,5,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Home Economics,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Igbo,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Islamic Religious Knowledge (IRK),,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
@@ -141,13 +141,13 @@ WAEC,English Language,,,1000,28,25,0,975,7,7,partial_objective_register,candidat
 WAEC,Fashion Design and Garment Making,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,Financial Accounting,,,1000,29,25,0,975,8,7,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Food and Nutrition,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-WAEC,French,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,French,,,1000,25,25,0,975,4,3,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Further Mathematics,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Geography,,,1000,27,25,0,975,7,7,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Government,,,1000,27,25,0,975,7,7,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Hausa,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Health Education,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
-WAEC,History,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,History,,,1000,25,25,0,975,5,5,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Home Management,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Horticulture and Crop Production,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,Igbo,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation

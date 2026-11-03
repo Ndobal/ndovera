@@ -44,11 +44,11 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Economics | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Financial Accounting | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Fine Arts | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | French | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | French | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Geography | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Government | 1000 | 26 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Hausa | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | History | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | History | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Home Economics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Islamic Religious Knowledge (IRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -150,13 +150,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Fashion Design and Garment Making | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Financial Accounting | 1000 | 29 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Food and Nutrition | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | French | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | French | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Further Mathematics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Geography | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Government | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Hausa | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Health Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | History | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | History | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Home Management | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Horticulture and Crop Production | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -181,15 +181,15 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | 0 | 0 | 0 | 18000 | 18000 |
 | IELTS | 19 | 10 | 0 | 4000 | 3990 |
 | IGCSE | 121 | 100 | 0 | 4000 | 3900 |
-| JAMB | 953 | 250 | 0 | 25000 | 24750 |
+| JAMB | 1003 | 300 | 0 | 25000 | 24700 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 19 | 10 | 0 | 4000 | 3990 |
-| WAEC | 1049 | 250 | 0 | 42000 | 41750 |
+| WAEC | 1099 | 300 | 0 | 42000 | 41700 |
 
-Overall: {"raw": 2399, "validDrafts": 720, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2499, "validDrafts": 820, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

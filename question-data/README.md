@@ -107,3 +107,12 @@ revision date from a search engine crawl or publication timestamp.
 
 Computing verification now checks complete binary-gate truth tables. Arithmetic
 and logic checks remain narrower than academic review or program verification.
+
+## History and French checkpoint
+
+Batch 033 adds 25 drafts in each of WAEC/JAMB History and French. French
+contains written objective tasks and two original composition models with
+author-created practice rubrics. It supplies no listening recordings or oral
+performance assessment. History sources include limited museum and archival
+crosschecks; full current specification alignment is still pending. These
+additions are not complete syllabuses or independently reviewed material.
