@@ -26,6 +26,44 @@ class ValidationTests(unittest.TestCase):
                       license='original-content', academicReview={'status': 'pending', 'reviewer': None},
                       verification=[{'expression': '50/10', 'expected': '5', 'answerValue': '5', 'purpose': 'Average cost'}])
 
+    def test_component_enum_matches_schema(self):
+        self.q['practiceComponent'] = 'unseen-appreciation'
+        self.assertIn('practice_component_invalid', self.errors())
+    def test_literature_unseen_metadata(self):
+        self.obj['subject'] = self.q['subject'] = 'Literature in English'
+        self.q['literatureComponent'] = 'unseen-appreciation'
+        self.assertEqual(self.errors(), [])
+    def test_prescribed_text_requires_reference(self):
+        self.obj['subject'] = self.q['subject'] = 'Literature in English'
+        self.q['literatureComponent'] = 'prescribed-shakespeare-context'
+        self.assertIn('prescribed_text_reference_missing', self.errors())
+    def test_waec_shakespeare_not_essay(self):
+        self.obj.update(subject='Literature in English', exam='WAEC', questionTypes=['essay'])
+        self.q.update(subject='Literature in English', exam='WAEC', type='essay', maxMarks=1,
+                      markingGuide=[{'description':'criterion', 'marks':1}],
+                      literatureComponent='prescribed-shakespeare-context', studyText={'title':'Play','author':'Author'},
+                      textReference='Act 1',contentSourceId='s1')
+        self.assertIn('waec_shakespeare_context_must_be_objective', self.errors())
+
+    def test_literature_metadata_rejects_other_subject(self):
+        self.q['literatureComponent'] = 'unseen-appreciation'
+        self.assertIn('literature_component_subject_mismatch', self.errors())
+
+    def test_content_source_must_be_registered(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); (root/'specifications').mkdir()
+            registry = {'baselineCommit': 'test', 'sources': [{'id': 's1'}, {'id': 'known'}],
+                        'objectives': [self.obj], 'banks': [], 'scopeGaps': []}
+            (root/'specifications/registry.json').write_text(json.dumps(registry))
+            self.q['contentSourceId'] = 'unknown'
+            batch = {'schemaVersion': 2, 'questionCount': 1, 'questions': [self.q]}
+            target = root/'original-test.json'
+            target.write_text(json.dumps(batch))
+            self.assertIn('content_source_unregistered', audit.audit(root)['questions'][0]['errors'])
+            self.q['contentSourceId'] = 'known'
+            target.write_text(json.dumps(batch))
+            self.assertEqual(audit.audit(root)['totals']['validDrafts'], 1)
+
     def errors(self): return audit.check_question(self.q, {'o1': self.obj})
     def test_valid(self): self.assertEqual(self.errors(), [])
     def test_wrong_answer_reference(self):

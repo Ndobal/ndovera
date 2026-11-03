@@ -118,6 +118,22 @@ def check_question(q, objectives):
     if q.get('cognitiveDemand') not in COGNITION: errors.append('cognitive_demand_missing_or_invalid')
     if not isinstance(q.get('explanation'), str) or not q.get('explanation', '').strip():
         errors.append('explanation_missing')
+    if 'practiceComponent' in q and q['practiceComponent'] not in ('multiple-choice', 'theory', 'alternative-to-practical'):
+        errors.append('practice_component_invalid')
+    component = q.get('literatureComponent')
+    if 'literatureComponent' in q:
+        if component not in ('unseen-appreciation', 'prescribed-shakespeare-context', 'prescribed-text-appreciation'):
+            errors.append('literature_component_invalid')
+        if q.get('subject') != 'Literature in English': errors.append('literature_component_subject_mismatch')
+        if component in ('prescribed-shakespeare-context', 'prescribed-text-appreciation'):
+            text = q.get('studyText')
+            if (not isinstance(text, dict) or any(not isinstance(text.get(k), str) or not text[k].strip()
+                                                 for k in ('title', 'author'))
+                    or not isinstance(q.get('textReference'), str) or not q['textReference'].strip()
+                    or not isinstance(q.get('contentSourceId'), str) or not q['contentSourceId'].strip()):
+                errors.append('prescribed_text_reference_missing')
+            if component == 'prescribed-shakespeare-context' and q.get('exam') == 'WAEC' and q.get('type') != 'mcq':
+                errors.append('waec_shakespeare_context_must_be_objective')
     score = q.get('score')
     if type(score) not in (int, float) or not math.isfinite(score) or not 0 < score <= 100: errors.append('invalid_score')
     if q.get('type') == 'mcq':
@@ -306,6 +322,11 @@ def audit(root=ROOT):
                     if obj.get(field) != source.get(field): raise ValueError('objective/source mismatch: ' + obj['id'] + '/' + field)
     records, files, file_issues = load_questions(root)
     errors = [check_question(r['q'], objectives) for r in records]
+    source_ids = {s['id'] for s in specs.get('sources', [])}
+    for i, record in enumerate(records):
+        source_id = record['q'].get('contentSourceId')
+        if source_id is not None and (not isinstance(source_id, str) or source_id not in source_ids):
+            errors[i].append('content_source_unregistered')
     ids = collections.defaultdict(list)
     for i, r in enumerate(records): ids[r['q'].get('id')].append(i)
     for group in ids.values():

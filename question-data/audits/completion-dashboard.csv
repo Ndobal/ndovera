@@ -43,7 +43,7 @@ JAMB,History,,,1000,25,25,0,975,5,5,partial_objective_register,candidate_from_su
 JAMB,Home Economics,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Igbo,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Islamic Religious Knowledge (IRK),,,1000,25,25,0,975,6,6,partial_objective_register,candidate_from_supplied_compilation
-JAMB,Literature in English,,,1000,50,50,0,950,7,5,partial_objective_register,candidate_from_supplied_compilation
+JAMB,Literature in English,,,1000,75,75,0,925,12,10,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Mathematics,,,1000,673,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Music,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Physical Education,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
@@ -153,7 +153,7 @@ WAEC,Horticulture and Crop Production,,,1000,0,0,0,1000,0,0,specification_unreso
 WAEC,Igbo,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Insurance,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Islamic Religious Knowledge (IRK),,,1000,25,25,0,975,6,6,partial_objective_register,candidate_from_supplied_compilation
-WAEC,Literature in English,,,1000,50,50,0,950,6,5,partial_objective_register,candidate_from_supplied_compilation
+WAEC,Literature in English,,,1000,75,75,0,925,11,10,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Livestock Farming,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,Marketing,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Mathematics,,,1000,769,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation

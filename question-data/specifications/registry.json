@@ -600,6 +600,57 @@
         "Page 1: harmonized selected text list"
       ],
       "note": "Establishes selected works, not complete content objectives or permitted question formats. Contains printed name/title inconsistencies that require bibliographic checking before authoring text-specific questions. Full poems are not copied into the repository. Does not establish JAMB or NECO adoption."
+    },
+    {
+      "id": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "kind": "primary_public_domain_literary_work",
+      "author": "William Shakespeare",
+      "title": "Antony and Cleopatra",
+      "source": "https://www.gutenberg.org/files/1534/1534-h/1534-h.htm",
+      "retrievedOn": "2026-11-03",
+      "sha256": "fded9934a16da0f02512608c4cf0bca37579eab97975692319f1eea014fcf48b",
+      "status": "full_primary_text_retrieved_exam_edition_equivalence_not_verified",
+      "sourceSections": [
+        "Acts I–V, scene divisions of Project Gutenberg eBook 1534"
+      ],
+      "note": "Primary text for factual and interpretive checking, not evidence of current examination adoption. No commercial examination edition claimed. Original questions; no publisher commentary or historical examination questions reproduced."
+    },
+    {
+      "id": "waec-literature-shakespeare-context-2026-2030",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "kind": "official_text_selection_with_provisional_scheme_mapping",
+      "source": "https://waecnigeria.org/sites/default/files/2023-06/LITERATURE-IN-ENG%202026-2030.pdf",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "sourceSections": [
+        "Page 1: Shakespearean text — Antony and Cleopatra",
+        "Shakespeare context objective practice: third-party scheme cross-reference"
+      ],
+      "schemeEvidenceSourceId": "waec-literature-provisional-2026",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "status": "official_work_selection_verified_full_current_scheme_and_edition_pending",
+      "note": "Selection is established by official list. Objective/context format supported by provisional scheme evidence; no Shakespeare essays added. Act-level objectives are author-proposed, not official objective codes. Gutenberg edition equivalence unverified."
+    },
+    {
+      "id": "jamb-literature-shakespeare-provisional-2026",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "kind": "user_supplied_third_party_compilation",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "libraryFileId": "libfile_8f11e9a6084481918001aafc2d037ba1",
+      "sourceSections": [
+        "Literature in English: Drama and recommended texts; Shakespeare — Antony and Cleopatra"
+      ],
+      "priorEvidenceSourceId": "jamb-literature-provisional-2026",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "status": "supplied_compilation_text_adoption_current_official_verification_pending",
+      "note": "Uses previously retrieved supplied-compilation evidence, not a claimed fresh official current syllabus. Year in ID denotes checkpoint, not adopted edition. Four-option original practice, author-proposed objectives. No independent current official set-text or examination-edition verification."
     }
   ],
   "banks": [
@@ -5825,6 +5876,176 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-literature-antony-act-1-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 1; examination adoption tracked separately"
+      ]
+    },
+    {
+      "id": "jamb-literature-antony-act-1-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 1; examination adoption tracked separately"
+      ]
+    },
+    {
+      "id": "waec-literature-antony-act-2-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 2; examination adoption tracked separately"
+      ]
+    },
+    {
+      "id": "jamb-literature-antony-act-2-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 2; examination adoption tracked separately"
+      ]
+    },
+    {
+      "id": "waec-literature-antony-act-3-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 3; examination adoption tracked separately"
+      ]
+    },
+    {
+      "id": "jamb-literature-antony-act-3-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 3; examination adoption tracked separately"
+      ]
+    },
+    {
+      "id": "waec-literature-antony-act-4-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 4; examination adoption tracked separately"
+      ]
+    },
+    {
+      "id": "jamb-literature-antony-act-4-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 4; examination adoption tracked separately"
+      ]
+    },
+    {
+      "id": "waec-literature-antony-act-5-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 5; examination adoption tracked separately"
+      ]
+    },
+    {
+      "id": "jamb-literature-antony-act-5-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 5; examination adoption tracked separately"
+      ]
     }
   ],
   "scopeGaps": [

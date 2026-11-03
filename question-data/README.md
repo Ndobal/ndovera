@@ -136,7 +136,25 @@ items, not complete papers or substitutes for prescribed-text essays.
 
 The official WAEC 2026–2030 selected-work list is now registered separately.
 `specifications/waec-literature-text-inventory-2026-2030.json` records 21 works
-as unstarted, with no linked questions. It retains printed labels and flags
+with development status and linked draft questions. It retains printed labels and flags
 bibliographic inconsistencies. It is not a question batch or a full objective
 matrix. Verify editions and map objectives before adding text-specific items.
 Current JAMB/NECO adoption must be verified separately.
+
+
+Batch 036 adds 25 WAEC and 25 JAMB original context MCQs about Shakespeare’s
+*Antony and Cleopatra*, with ten distinct items per act across the two banks.
+WAEC Shakespeare practice is objective-only. Primary-text references use the
+scene divisions of Project Gutenberg eBook 1534. Commercial examination-edition
+equivalence remains unverified. The official WAEC list establishes this work’s
+2026–2030 selection; current JAMB adoption is still provisional from the supplied
+compilation, not independently established from a current official specification.
+The other twenty inventory works remain unstarted; no whole-play completion is
+implied by representing each act.
+
+The fifty unseen-appreciation metadata fields in batch 035 were corrected from
+`practiceComponent` to `literatureComponent`, preserving question content and
+counts. `practiceComponent` retains the existing IGCSE vocabulary. The validator
+now checks that vocabulary, Literature subject/component compatibility, primary
+content-source registration, required prescribed-text references and the WAEC
+Shakespeare objective format. Passing these checks is not academic review.

@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2699,
-    "validDrafts": 1020,
+    "raw": 2749,
+    "validDrafts": 1070,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -341,9 +341,15 @@
     },
     {
       "path": "original-multisubject-batch-035.json",
-      "sha256": "1bb1579ab337408780d5bd510580d8367b36a8b848c97b347d7f9d7ca840d48d",
+      "sha256": "9bf12007e1b856163171c888afa7fe711f0d40f77081ddba4f8298d00c81aa47",
       "declared": 100,
       "actual": 100
+    },
+    {
+      "path": "original-multisubject-batch-036.json",
+      "sha256": "92afcace4a84188861eb13aee02345b1650cb68e7a67a3bf50dc021e8ac8cc62",
+      "declared": 50,
+      "actual": 50
     },
     {
       "path": "original-practice-batch-001.json",
@@ -1521,20 +1527,20 @@
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
       "specificationId": "jamb-literature-provisional-2026",
-      "raw": 50,
-      "validDrafts": 50,
+      "raw": 75,
+      "validDrafts": 75,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 50
+        "mcq": 75
       },
       "difficulty": {
         "easy": 9,
-        "standard": 30,
-        "difficult": 11
+        "standard": 52,
+        "difficult": 14
       },
-      "remaining": 950,
-      "mappedObjectives": 7,
-      "representedObjectives": 5,
+      "remaining": 925,
+      "mappedObjectives": 12,
+      "representedObjectives": 10,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -3749,20 +3755,20 @@
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
       "specificationId": "waec-literature-provisional-2026",
-      "raw": 50,
-      "validDrafts": 50,
+      "raw": 75,
+      "validDrafts": 75,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 50
+        "mcq": 75
       },
       "difficulty": {
-        "standard": 35,
+        "standard": 54,
         "easy": 10,
-        "difficult": 5
+        "difficult": 11
       },
-      "remaining": 950,
-      "mappedObjectives": 6,
-      "representedObjectives": 5,
+      "remaining": 925,
+      "mappedObjectives": 11,
+      "representedObjectives": 10,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -3956,8 +3962,8 @@
   ],
   "errorCounts": {
     "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
@@ -3965,8 +3971,8 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 141,
@@ -24669,6 +24675,306 @@
       "errors": []
     },
     {
+      "id": "ndv-036-001",
+      "file": "original-multisubject-batch-036.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-002",
+      "file": "original-multisubject-batch-036.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-003",
+      "file": "original-multisubject-batch-036.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-004",
+      "file": "original-multisubject-batch-036.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-005",
+      "file": "original-multisubject-batch-036.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-006",
+      "file": "original-multisubject-batch-036.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-007",
+      "file": "original-multisubject-batch-036.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-008",
+      "file": "original-multisubject-batch-036.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-009",
+      "file": "original-multisubject-batch-036.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-010",
+      "file": "original-multisubject-batch-036.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-011",
+      "file": "original-multisubject-batch-036.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-012",
+      "file": "original-multisubject-batch-036.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-013",
+      "file": "original-multisubject-batch-036.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-014",
+      "file": "original-multisubject-batch-036.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-015",
+      "file": "original-multisubject-batch-036.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-016",
+      "file": "original-multisubject-batch-036.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-017",
+      "file": "original-multisubject-batch-036.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-018",
+      "file": "original-multisubject-batch-036.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-019",
+      "file": "original-multisubject-batch-036.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-020",
+      "file": "original-multisubject-batch-036.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-021",
+      "file": "original-multisubject-batch-036.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-022",
+      "file": "original-multisubject-batch-036.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-023",
+      "file": "original-multisubject-batch-036.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-024",
+      "file": "original-multisubject-batch-036.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-025",
+      "file": "original-multisubject-batch-036.json",
+      "index": 24,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-026",
+      "file": "original-multisubject-batch-036.json",
+      "index": 25,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-027",
+      "file": "original-multisubject-batch-036.json",
+      "index": 26,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-028",
+      "file": "original-multisubject-batch-036.json",
+      "index": 27,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-029",
+      "file": "original-multisubject-batch-036.json",
+      "index": 28,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-030",
+      "file": "original-multisubject-batch-036.json",
+      "index": 29,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-031",
+      "file": "original-multisubject-batch-036.json",
+      "index": 30,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-032",
+      "file": "original-multisubject-batch-036.json",
+      "index": 31,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-033",
+      "file": "original-multisubject-batch-036.json",
+      "index": 32,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-034",
+      "file": "original-multisubject-batch-036.json",
+      "index": 33,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-035",
+      "file": "original-multisubject-batch-036.json",
+      "index": 34,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-036",
+      "file": "original-multisubject-batch-036.json",
+      "index": 35,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-037",
+      "file": "original-multisubject-batch-036.json",
+      "index": 36,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-038",
+      "file": "original-multisubject-batch-036.json",
+      "index": 37,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-039",
+      "file": "original-multisubject-batch-036.json",
+      "index": 38,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-040",
+      "file": "original-multisubject-batch-036.json",
+      "index": 39,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-041",
+      "file": "original-multisubject-batch-036.json",
+      "index": 40,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-042",
+      "file": "original-multisubject-batch-036.json",
+      "index": 41,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-043",
+      "file": "original-multisubject-batch-036.json",
+      "index": 42,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-044",
+      "file": "original-multisubject-batch-036.json",
+      "index": 43,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-045",
+      "file": "original-multisubject-batch-036.json",
+      "index": 44,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-046",
+      "file": "original-multisubject-batch-036.json",
+      "index": 45,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-047",
+      "file": "original-multisubject-batch-036.json",
+      "index": 46,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-048",
+      "file": "original-multisubject-batch-036.json",
+      "index": 47,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-049",
+      "file": "original-multisubject-batch-036.json",
+      "index": 48,
+      "errors": []
+    },
+    {
+      "id": "ndv-036-050",
+      "file": "original-multisubject-batch-036.json",
+      "index": 49,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -43720,6 +44026,303 @@
       },
       "tiers": {
         "not_specified": 10
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-antony-act-1-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 1; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-antony-act-1-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 1; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-antony-act-2-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 2; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-antony-act-2-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 2; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-antony-act-3-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 3; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-antony-act-3-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 3; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-antony-act-4-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 4; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-antony-act-4-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 4; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-antony-act-5-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 5; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-antony-act-5-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "Primary text: Act 5; examination adoption tracked separately"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 5
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

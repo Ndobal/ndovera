@@ -52,7 +52,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Home Economics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Islamic Religious Knowledge (IRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
-| JAMB | Literature in English | 1000 | 50 | 50 | 0 | 950 | partial_objective_register |
+| JAMB | Literature in English | 1000 | 75 | 75 | 0 | 925 | partial_objective_register |
 | JAMB | Mathematics | 1000 | 673 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Music | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Physical Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -162,7 +162,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Insurance | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Islamic Religious Knowledge (IRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
-| WAEC | Literature in English | 1000 | 50 | 50 | 0 | 950 | partial_objective_register |
+| WAEC | Literature in English | 1000 | 75 | 75 | 0 | 925 | partial_objective_register |
 | WAEC | Livestock Farming | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Marketing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Mathematics | 1000 | 769 | 0 | 0 | 1000 | specification_unresolved |
@@ -181,15 +181,15 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | 0 | 0 | 0 | 18000 | 18000 |
 | IELTS | 19 | 10 | 0 | 4000 | 3990 |
 | IGCSE | 121 | 100 | 0 | 4000 | 3900 |
-| JAMB | 1103 | 400 | 0 | 25000 | 24600 |
+| JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 19 | 10 | 0 | 4000 | 3990 |
-| WAEC | 1199 | 400 | 0 | 42000 | 41600 |
+| WAEC | 1224 | 425 | 0 | 42000 | 41575 |
 
-Overall: {"raw": 2699, "validDrafts": 1020, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2749, "validDrafts": 1070, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

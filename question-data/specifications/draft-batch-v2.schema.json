@@ -347,6 +347,38 @@
               "theory",
               "alternative-to-practical"
             ]
+          },
+          "literatureComponent": {
+            "enum": [
+              "unseen-appreciation",
+              "prescribed-shakespeare-context",
+              "prescribed-text-appreciation"
+            ]
+          },
+          "contentSourceId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "textReference": {
+            "type": "string",
+            "minLength": 1
+          },
+          "studyText": {
+            "type": "object",
+            "required": [
+              "title",
+              "author"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "author": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
           }
         },
         "allOf": [
@@ -401,6 +433,28 @@
                 "tier",
                 "assessmentObjectives",
                 "practiceComponent"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "literatureComponent"
+              ],
+              "properties": {
+                "literatureComponent": {
+                  "enum": [
+                    "prescribed-shakespeare-context",
+                    "prescribed-text-appreciation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "studyText",
+                "textReference",
+                "contentSourceId"
               ]
             }
           }
