@@ -158,3 +158,12 @@ counts. `practiceComponent` retains the existing IGCSE vocabulary. The validator
 now checks that vocabulary, Literature subject/component compatibility, primary
 content-source registration, required prescribed-text references and the WAEC
 Shakespeare objective format. Passing these checks is not academic review.
+
+Batch 037 opens IELTS Academic Reading with 24 original excerpt drills in
+three passages. It uses single-answer multiple choice, identifying information,
+identifying the writer’s claims, and sentence completion. The passages describe
+fictional trials and examples. Judgement labels are recorded as short answers
+and completion items have a two-word limit. The batch uses one mark per item.
+The official Academic Reading format is registered separately from General
+Training, which still needs mapping. Full paper length, timing and band
+conversion are outside the excerpt drills.

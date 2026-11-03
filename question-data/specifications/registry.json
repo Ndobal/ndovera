@@ -651,6 +651,16 @@
       "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
       "status": "supplied_compilation_text_adoption_current_official_verification_pending",
       "note": "Uses previously retrieved supplied-compilation evidence, not a claimed fresh official current syllabus. Year in ID denotes checkpoint, not adopted edition. Four-option original practice, author-proposed objectives. No independent current official set-text or examination-edition verification."
+    },
+    {
+      "id": "ielts-academic-reading-official-format",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "kind": "official_format",
+      "source": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-reading",
+      "retrievedOn": "2026-11-03",
+      "variant": "Academic",
+      "note": "Official public format page. Author-created excerpt drills with one mark per item. General Training, full paper timing, band conversion and other task families are outside this batch."
     }
   ],
   "banks": [
@@ -1208,7 +1218,7 @@
       "subject": "Reading",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+      "scopeStatus": "academic_format_verified_general_training_mapping_pending"
     },
     {
       "exam": "IELTS",
@@ -6046,6 +6056,74 @@
       "sourceSections": [
         "Primary text: Act 5; examination adoption tracked separately"
       ]
+    },
+    {
+      "id": "ielts-academic-reading-detail-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Identifying information",
+      "learningObjective": "Distinguish supported details, contradicted details and details absent from the passage.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Identifying information"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-academic-reading-claim-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Identifying writer claims",
+      "learningObjective": "Distinguish a writer’s position from its contradiction and from claims the writer does not address.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Identifying writer claims"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-academic-reading-completion-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Sentence completion",
+      "learningObjective": "Locate a precise phrase in the passage and use it to complete a paraphrase.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Sentence completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-academic-reading-choice-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Single-answer multiple choice",
+      "learningObjective": "Select the interpretation supported by the passage.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Single-answer multiple choice"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [

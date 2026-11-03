@@ -2,22 +2,22 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_036_automated_validation_passed",
+  "phase": "batch_037_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-037.json",
+  "nextBatch": "original-multisubject-batch-038.json",
   "nextPriorities": [
-    "Prioritise an unrepresented language-skill bank: verify current IELTS Academic Reading specification and develop original passages/tasks with answer evidence and permitted formats. Reading currently has zero valid drafts; do not substitute Speaking/Writing tasks or claim all IELTS variants are mapped.",
+    "Expand IELTS Academic Reading with longer original passages and grouped matching tasks. Verify General Training Reading separately. Academic excerpt drills cover four task families and carry no full-paper timing or band conversion.",
     "Continue WAEC prescribed Literature beyond Shakespeare: verify editions, permissions and primary-text evidence for poetry/prose/drama theory. Antony and Cleopatra now has 25 WAEC context drafts and 25 provisional JAMB practice drafts; each act represented is not whole-play coverage. Verify current official JAMB set-text adoption independently.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-036.json",
-  "lastRemoteVerifiedCommit": "af6679ff32f9005607291d91f0c67184a8f8f541",
+  "lastValidatedBatch": "original-multisubject-batch-037.json",
+  "lastRemoteVerifiedCommit": "a853306712a517963986cba4c992f5ddea03b151",
   "verifiedTotals": {
-    "raw": 2749,
-    "validDrafts": 1070,
+    "raw": 2773,
+    "validDrafts": 1094,
     "reviewed": 0
   },
   "lastRunTestCount": 46
