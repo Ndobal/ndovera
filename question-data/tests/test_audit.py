@@ -1,6 +1,8 @@
 import copy
 import importlib.util
 import unittest
+import json
+import tempfile
 from pathlib import Path
 
 spec = importlib.util.spec_from_file_location('audit', Path(__file__).parents[1]/'tools/audit.py')
@@ -69,6 +71,38 @@ class ValidationTests(unittest.TestCase):
     def test_legacy_integral_error(self):
         self.q.update(prompt='For WAEC, evaluate the integral of (4x+3) from x=0 to x=2.', answer='10')
         self.assertIn('integral_answer_incorrect', self.errors())
+    def test_invalid_field_types_are_reported(self):
+        self.q.update(prompt=None, objectiveId=[], verification='not-an-array')
+        errors = self.errors()
+        self.assertIn('missing_or_invalid:prompt', errors)
+        self.assertIn('objective_mapping_missing', errors)
+        self.assertIn('verification_must_be_array', errors)
+    def test_nonfinite_score_rejected(self):
+        self.q['score'] = float('nan'); self.assertIn('invalid_score', self.errors())
+    def test_pipeline_holds_duplicate_ids(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); (root/'specifications').mkdir()
+            registry = {'baselineCommit': 'test', 'objectives': [self.obj], 'banks': [], 'scopeGaps': []}
+            (root/'specifications/registry.json').write_text(json.dumps(registry))
+            second = copy.deepcopy(self.q); second['prompt'] = 'A distinct prompt with the same ID.'
+            (root/'original-test.json').write_text(json.dumps({'schemaVersion': 2,
+                'questionCount': 2, 'questions': [self.q, second]}))
+            report = audit.audit(root)
+            self.assertEqual(report['totals']['raw'], 2)
+            self.assertEqual(report['totals']['validDrafts'], 0)
+            self.assertTrue(all('duplicate_id' in q['errors'] for q in report['questions']))
+    def test_declared_count_mismatch(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root/'original-test.json').write_text(json.dumps({'questionCount': 1000, 'questions': [self.q]}))
+            records, files, issues = audit.load_questions(root)
+            self.assertEqual(len(records), 1)
+            self.assertEqual(issues[0]['error'], 'declared_count_mismatch')
+    def test_shared_stimulus_is_not_a_near_duplicate(self):
+        long_passage = 'A shared stimulus with many repeated words. '*50
+        records = [{'q': {'subject': 'English', 'prompt': 'Which claim follows from the data?', 'passage': long_passage}},
+                   {'q': {'subject': 'English', 'prompt': 'What does the word provisional mean?', 'passage': long_passage}}]
+        self.assertEqual(audit.near_pairs(records), [])
 
 
 if __name__ == '__main__': unittest.main()

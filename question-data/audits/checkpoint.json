@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_026_automated_validation_passed",
+  "phase": "batch_027_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-027.json",
+  "nextBatch": "original-language-skills-batch-028.json",
   "nextPriorities": [
-    "Add original SAT and NCEE drafts using current sections/components.",
+    "Add a smaller carefully authored IELTS/TOEFL language-production batch with original rubrics.",
     "Acquire missing source versions and remediate legacy holds."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-026.json",
-  "lastRemoteVerifiedCommit": "41721b68afe1f8fe1bb862e2e305ed8b89722829"
+  "lastValidatedBatch": "original-multisubject-batch-027.json",
+  "lastRemoteVerifiedCommit": "1e6e6b3f7efca721b60e0f7f0b36f91531babf4b"
 }

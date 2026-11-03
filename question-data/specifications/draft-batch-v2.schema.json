@@ -101,7 +101,8 @@
               "structured",
               "essay",
               "longanswer",
-              "comprehension"
+              "comprehension",
+              "shortanswer"
             ]
           },
           "prompt": {

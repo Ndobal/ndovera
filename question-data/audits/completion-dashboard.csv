@@ -34,8 +34,8 @@ JAMB,Physics,,1000,18,15,0,985,8,8,partial_objective_register,candidate_from_sup
 JAMB,Use of English,,1000,28,25,0,975,6,5,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Yoruba,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 NCEE,Basic Science,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NCEE,Basic Science and Technology,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
-NCEE,English Studies,,1000,3,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
+NCEE,Basic Science and Technology,,1000,25,25,0,975,4,4,partial_objective_register,official_2026_paper_components_topic_specification_pending
+NCEE,English Studies,,1000,28,25,0,975,2,2,partial_objective_register,official_2026_paper_components_topic_specification_pending
 NCEE,Mathematics,,1000,15,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
 NCEE,National Values Education,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
 NCEE,Quantitative Reasoning,,1000,5,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
@@ -97,8 +97,8 @@ NERDC,[subject list unresolved],Primary 6,,0,0,0,,0,0,specification_unresolved,a
 NERDC,[subject list unresolved],SS 1,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
 NERDC,[subject list unresolved],SS 2,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
 NERDC,[subject list unresolved],SS 3,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
-SAT,Mathematics,,1000,6,0,0,1000,0,0,specification_unresolved,official_current_section_domains_seen
-SAT,Reading and Writing,,1000,3,0,0,1000,0,0,specification_unresolved,official_current_section_domains_seen
+SAT,Mathematics,,1000,31,25,0,975,4,4,partial_objective_register,official_current_section_domains_seen
+SAT,Reading and Writing,,1000,28,25,0,975,4,4,partial_objective_register,official_current_section_domains_seen
 TOEFL,Listening,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
 TOEFL,Reading,,1000,6,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
 TOEFL,Speaking,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending

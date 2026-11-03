@@ -2089,6 +2089,212 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-information-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Evidence and inference",
+      "learningObjective": "Draw warranted conclusions from short texts and data.",
+      "specificationId": "sat-current",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-craft-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Craft and Structure",
+      "subtopic": "Meaning and purpose",
+      "learningObjective": "Interpret words and rhetorical choices in context.",
+      "specificationId": "sat-current",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-expression-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Expression of Ideas",
+      "subtopic": "Synthesis and transitions",
+      "learningObjective": "Choose revisions that meet a stated rhetorical goal.",
+      "specificationId": "sat-current",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-conventions-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Standard English Conventions",
+      "subtopic": "Sentence boundaries and form",
+      "learningObjective": "Edit grammar and punctuation in context.",
+      "specificationId": "sat-current",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-math-algebra-v1",
+      "exam": "SAT",
+      "subject": "Mathematics",
+      "topic": "Algebra",
+      "subtopic": "Linear relationships",
+      "learningObjective": "Model and solve linear equations systems and inequalities.",
+      "specificationId": "sat-current",
+      "questionTypes": [
+        "mcq",
+        "shortanswer"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-math-advanced-v1",
+      "exam": "SAT",
+      "subject": "Mathematics",
+      "topic": "Advanced Math",
+      "subtopic": "Nonlinear relationships",
+      "learningObjective": "Analyse nonlinear functions and equivalent expressions.",
+      "specificationId": "sat-current",
+      "questionTypes": [
+        "mcq",
+        "shortanswer"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-math-data-v1",
+      "exam": "SAT",
+      "subject": "Mathematics",
+      "topic": "Problem-Solving and Data Analysis",
+      "subtopic": "Data and proportional reasoning",
+      "learningObjective": "Interpret quantitative evidence and proportional relationships.",
+      "specificationId": "sat-current",
+      "questionTypes": [
+        "mcq",
+        "shortanswer"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-math-geometry-v1",
+      "exam": "SAT",
+      "subject": "Mathematics",
+      "topic": "Geometry and Trigonometry",
+      "subtopic": "Shape and measurement",
+      "learningObjective": "Apply geometric and trigonometric relationships.",
+      "specificationId": "sat-current",
+      "questionTypes": [
+        "mcq",
+        "shortanswer"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-language-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "English Studies",
+      "subtopic": "Grammar and vocabulary",
+      "learningObjective": "Choose age-appropriate grammatical forms and contextual vocabulary.",
+      "specificationId": "ncee-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "level": "Primary 6"
+    },
+    {
+      "id": "ncee-english-reading-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "English Studies",
+      "subtopic": "Comprehension",
+      "learningObjective": "Locate information and make supported inferences from a passage.",
+      "specificationId": "ncee-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "level": "Primary 6"
+    },
+    {
+      "id": "ncee-science-living-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "topic": "Basic Science and Technology",
+      "subtopic": "Living things",
+      "learningObjective": "Explain elementary life processes and environmental relationships.",
+      "specificationId": "ncee-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "level": "Primary 6"
+    },
+    {
+      "id": "ncee-science-materials-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "topic": "Basic Science and Technology",
+      "subtopic": "Matter and materials",
+      "learningObjective": "Compare material properties and simple physical changes.",
+      "specificationId": "ncee-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "level": "Primary 6"
+    },
+    {
+      "id": "ncee-science-energy-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "topic": "Basic Science and Technology",
+      "subtopic": "Energy and forces",
+      "learningObjective": "Apply elementary ideas about forces energy and simple circuits.",
+      "specificationId": "ncee-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "level": "Primary 6"
+    },
+    {
+      "id": "ncee-science-technology-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "topic": "Basic Science and Technology",
+      "subtopic": "Technology and environment",
+      "learningObjective": "Choose responsible uses of tools resources and technology.",
+      "specificationId": "ncee-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "level": "Primary 6"
     }
   ],
   "scopeGaps": [
@@ -2101,7 +2307,7 @@
     "IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.",
     "IELTS Reading/Writing require Academic versus General Training variants. Listening/Speaking need original audio assets and performance rubrics; MCQ writing advice is not a writing task.",
     "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
-    "Objective register covers selected English/Economics objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
+    "Objective register covers selected English, Economics, science, NCEE and SAT objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off."
   ]

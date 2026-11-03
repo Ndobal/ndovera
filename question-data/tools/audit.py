@@ -10,6 +10,7 @@ import collections
 import csv
 import hashlib
 import json
+import math
 import re
 from fractions import Fraction
 from pathlib import Path
@@ -28,7 +29,7 @@ def normalize(text):
 
 
 def signature(q, numeric=False):
-    text = normalize(q.get('prompt', '') + '\n' + q.get('passage', ''))
+    text = normalize(str(q.get('prompt', '')) + '\n' + str(q.get('passage', '')))
     text = re.sub(r'^(?:for )?(?:waec|jamb)(?: mathematics)?[:,]?\s*', '', text)
     if numeric:
         text = re.sub(r'\d+(?:\.\d+)?', '#', text)
@@ -75,7 +76,7 @@ def check_question(q, objectives):
                 'type', 'prompt', 'answer', 'source', 'status', 'license'):
         if not isinstance(q.get(key), str) or not q[key].strip():
             errors.append('missing_or_invalid:' + key)
-    if q.get('type') not in TYPES: errors.append('unsupported_type')
+    if not isinstance(q.get('type'), str) or q.get('type') not in TYPES: errors.append('unsupported_type')
     if q.get('status') != 'draft': errors.append('review_gate:must_remain_draft')
     if q.get('source') != 'original' or q.get('license') != 'original-content':
         errors.append('originality_declaration_missing')
@@ -84,7 +85,7 @@ def check_question(q, objectives):
     if not isinstance(q.get('explanation'), str) or not q.get('explanation', '').strip():
         errors.append('explanation_missing')
     score = q.get('score')
-    if type(score) not in (int, float) or not 0 < score <= 100: errors.append('invalid_score')
+    if type(score) not in (int, float) or not math.isfinite(score) or not 0 < score <= 100: errors.append('invalid_score')
     if q.get('type') == 'mcq':
         options = q.get('options')
         if not isinstance(options, list) or len(options) != 4 or any(
@@ -97,7 +98,7 @@ def check_question(q, objectives):
                 errors.append('answer_option_mismatch')
         if q.get('exam') in {'IELTS', 'TOEFL'} and q.get('subject') in {'Writing', 'Speaking'}:
             errors.append('skill_format_mismatch:mcq_not_a_production_task')
-    elif q.get('type') in {'structured', 'essay', 'longanswer', 'comprehension'}:
+    elif q.get('type') in ('structured', 'essay', 'longanswer', 'comprehension'):
         guide = q.get('markingGuide')
         if not isinstance(guide, list) or not guide: errors.append('marking_guide_missing')
         elif any(not isinstance(g, dict) or type(g.get('marks')) not in (int, float)
@@ -109,7 +110,7 @@ def check_question(q, objectives):
     if q.get('exam') == 'NERDC' and not re.fullmatch(
             r'(?:Nursery [1-3]|Primary [1-6]|JSS [1-3]|SS [1-3]|Pre-Nursery)', q.get('level', '')):
         errors.append('class_assignment_unresolved')
-    obj = objectives.get(q.get('objectiveId'))
+    obj = objectives.get(q.get('objectiveId')) if isinstance(q.get('objectiveId'), str) else None
     if not obj: errors.append('objective_mapping_missing')
     else:
         for field in ('exam', 'subject', 'topic', 'subtopic', 'learningObjective', 'specificationId'):
@@ -118,7 +119,10 @@ def check_question(q, objectives):
         if obj.get('level') and q.get('level') != obj['level']: errors.append('objective_class_mismatch')
     if q.get('academicReview') != {'status': 'pending', 'reviewer': None}:
         errors.append('independent_review_evidence_missing_or_invalid')
-    for claim in q.get('verification', []):
+    claims = q.get('verification', [])
+    if not isinstance(claims, list):
+        errors.append('verification_must_be_array'); claims = []
+    for claim in claims:
         try:
             result = arithmetic(claim['expression'])
             if result != Fraction(str(claim['expected'])): errors.append('arithmetic_claim_incorrect')
@@ -128,7 +132,7 @@ def check_question(q, objectives):
         except (ValueError, KeyError, TypeError, SyntaxError, ZeroDivisionError, OverflowError):
             errors.append('invalid_arithmetic_claim')
     # Legacy determinant prompts have a fully parseable mathematical meaning.
-    match = re.search(r'det\(\[\[(-?\d+),\s*(-?\d+)\],\[(-?\d+),\s*(-?\d+)\]\]\)', q.get('prompt', ''))
+    match = re.search(r'det\(\[\[(-?\d+),\s*(-?\d+)\],\[(-?\d+),\s*(-?\d+)\]\]\)', str(q.get('prompt', '')))
     if match:
         a, b, c, d = map(int, match.groups())
         try:
@@ -267,6 +271,13 @@ def audit(root=ROOT):
                    'nearDuplicatePairs': len(near)},
         'files': files, 'fileIssues': file_issues, 'banks': [rows[k] for k in sorted(rows)],
         'errorCounts': dict(collections.Counter(e for es in errors for e in set(es))),
+        'mathematicalVerification': {
+            'explicitArithmeticClaims': sum(len(r['q'].get('verification', [])) for r in records
+                                           if isinstance(r['q'].get('verification', []), list)),
+            'scope': 'Exact arithmetic claims plus parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems or solutions can be machine verified.',
+            'failureCount': sum(any(e in {'arithmetic_claim_incorrect', 'arithmetic_answer_mismatch',
+                                         'determinant_answer_incorrect', 'integral_answer_incorrect',
+                                         'derivative_answer_incorrect'} for e in es) for es in errors)},
         'questions': [{'id': r['q'].get('id'), 'file': r['file'], 'index': r['index'],
                        'errors': sorted(set(errors[i]))} for i, r in enumerate(records)],
         'identicalPromptGroups': [[records[i]['q'].get('id') for i in g] for g in exact],
