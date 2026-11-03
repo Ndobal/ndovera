@@ -19,8 +19,8 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | Physics | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Agricultural Science | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Biology | 1000 | 18 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Chemistry | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Biology | 1000 | 38 | 20 | 0 | 980 | partial_objective_register |
+| JAMB | Chemistry | 1000 | 18 | 15 | 0 | 985 | partial_objective_register |
 | JAMB | Christian Religious Knowledge (CRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Commerce | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Computer Studies | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -39,7 +39,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Mathematics | 1000 | 673 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Music | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Physical Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Physics | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Physics | 1000 | 18 | 15 | 0 | 985 | partial_objective_register |
 | JAMB | Use of English | 1000 | 28 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Yoruba | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NCEE | Basic Science | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
@@ -116,10 +116,10 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Animal Husbandry | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Beauty and Cosmetology | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Biology | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Biology | 1000 | 23 | 20 | 0 | 980 | partial_objective_register |
 | WAEC | Book Keeping | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Catering Craft Practice | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Chemistry | 1000 | 6 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Chemistry | 1000 | 21 | 15 | 0 | 985 | partial_objective_register |
 | WAEC | Christian Religious Knowledge (CRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Citizenship and Heritage Studies | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | WAEC | Civic Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -151,7 +151,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Mathematics | 1000 | 769 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Music | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Office Practice | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Physics | 1000 | 6 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Physics | 1000 | 21 | 15 | 0 | 985 | partial_objective_register |
 | WAEC | Solar Photovoltaic Installation and Maintenance | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Technical Drawing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Visual Art | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -164,15 +164,15 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | 0 | 0 | 0 | 0 | 0 |
 | IELTS | 9 | 0 | 0 | 4000 | 4000 |
 | IGCSE | 21 | 0 | 0 | 4000 | 4000 |
-| JAMB | 753 | 50 | 0 | 25000 | 24950 |
+| JAMB | 803 | 100 | 0 | 25000 | 24900 |
 | NCEE | 29 | 0 | 0 | 9000 | 9000 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 9 | 0 | 0 | 2000 | 2000 |
 | TOEFL | 9 | 0 | 0 | 4000 | 4000 |
-| WAEC | 849 | 50 | 0 | 42000 | 41950 |
+| WAEC | 899 | 100 | 0 | 42000 | 41900 |
 
-Overall: {"raw": 1779, "validDrafts": 100, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 1879, "validDrafts": 200, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

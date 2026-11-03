@@ -77,6 +77,60 @@
       "id": "toefl-2026",
       "source": "https://www.ets.org/toefl/test-takers/ibt/about/content.html?version=after-jan-2026",
       "status": "post_2026_01_21_task_structure_required"
+    },
+    {
+      "id": "waec-biology-source-2026",
+      "exam": "WAEC",
+      "subject": "Biology",
+      "kind": "supplied_third_party_compilation_with_partial_official_crosscheck",
+      "source": "https://myschool.ng/classroom/waec-syllabus/biology",
+      "officialCrossCheck": "https://www.waeconline.org.ng/e-learning/Biology/Biomain.html",
+      "status": "provisional_alignment_full_current_version_and_objective_codes_pending"
+    },
+    {
+      "id": "waec-chemistry-source-2026",
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "kind": "supplied_third_party_compilation_with_partial_official_crosscheck",
+      "source": "https://myschool.ng/classroom/waec-syllabus/chemistry",
+      "officialCrossCheck": "https://www.waeconline.org.ng/e-learning/Chemistry/chemmain.html",
+      "status": "provisional_alignment_full_current_version_and_objective_codes_pending"
+    },
+    {
+      "id": "waec-physics-source-2026",
+      "exam": "WAEC",
+      "subject": "Physics",
+      "kind": "supplied_third_party_compilation_with_partial_official_crosscheck",
+      "source": "https://myschool.ng/classroom/waec-syllabus/physics",
+      "officialCrossCheck": "https://www.waeconline.org.ng/e-learning/Physics/physmain.html",
+      "status": "provisional_alignment_full_current_version_and_objective_codes_pending"
+    },
+    {
+      "id": "jamb-biology-source-2026",
+      "exam": "JAMB",
+      "subject": "Biology",
+      "kind": "supplied_third_party_compilation_with_partial_official_crosscheck",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/biology",
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Biology.pdf",
+      "status": "provisional_alignment_full_current_version_and_objective_codes_pending"
+    },
+    {
+      "id": "jamb-chemistry-source-2026",
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "kind": "supplied_third_party_compilation_with_partial_official_crosscheck",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/chemistry",
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Chemistry.pdf",
+      "status": "provisional_alignment_full_current_version_and_objective_codes_pending"
+    },
+    {
+      "id": "jamb-physics-source-2026",
+      "exam": "JAMB",
+      "subject": "Physics",
+      "kind": "supplied_third_party_compilation_with_partial_official_crosscheck",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/physics",
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Physics.pdf",
+      "status": "provisional_alignment_full_current_version_and_objective_codes_pending"
     }
   ],
   "banks": [
@@ -1334,6 +1388,702 @@
       "subtopic": "Population and structural change",
       "learningObjective": "Explain development constraints and labour market outcomes.",
       "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-biology-cells-v1",
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Cell organisation",
+      "subtopic": "Membranes and organelles",
+      "learningObjective": "Relate cellular structures to transport and energy processes.",
+      "specificationId": "waec-biology-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-biology-nutrition-v1",
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Plant and animal nutrition",
+      "learningObjective": "Interpret nutrition experiments and explain nutrient functions.",
+      "specificationId": "waec-biology-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-biology-transport-v1",
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Circulation and gas exchange",
+      "learningObjective": "Connect transport and exchange structures with their functions.",
+      "specificationId": "waec-biology-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-biology-control-v1",
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Coordination and homeostasis",
+      "subtopic": "Regulation and responses",
+      "learningObjective": "Explain responses that maintain internal conditions.",
+      "specificationId": "waec-biology-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-biology-reproduction-v1",
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Reproduction",
+      "subtopic": "Life cycles and development",
+      "learningObjective": "Distinguish reproductive processes and their consequences.",
+      "specificationId": "waec-biology-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-biology-genetics-v1",
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Heredity and variation",
+      "subtopic": "Inheritance",
+      "learningObjective": "Infer inheritance patterns from stated genetic models.",
+      "specificationId": "waec-biology-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-biology-ecology-v1",
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Populations and interactions",
+      "learningObjective": "Analyse ecological interactions and evaluate sampling evidence.",
+      "specificationId": "waec-biology-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-biology-adaptation-v1",
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Diversity and adaptation",
+      "subtopic": "Classification and selection",
+      "learningObjective": "Explain how observable features relate to classification or survival.",
+      "specificationId": "waec-biology-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-chemistry-separation-v1",
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Separation of mixtures",
+      "subtopic": "Purification and identification",
+      "learningObjective": "Choose separation methods using component properties.",
+      "specificationId": "waec-chemistry-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-chemistry-stoichiometry-v1",
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Chemical combination",
+      "subtopic": "Moles and reacting quantities",
+      "learningObjective": "Use balanced equations to calculate chemical quantities.",
+      "specificationId": "waec-chemistry-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-chemistry-gases-v1",
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "States of matter",
+      "subtopic": "Particles and gas relationships",
+      "learningObjective": "Apply particle models and gas relationships under stated conditions.",
+      "specificationId": "waec-chemistry-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-chemistry-bonding-v1",
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Atomic structure and bonding",
+      "subtopic": "Electrons and structure",
+      "learningObjective": "Relate electron arrangement and bonding to substance properties.",
+      "specificationId": "waec-chemistry-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-chemistry-energy-v1",
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Energetics and rates",
+      "subtopic": "Energy change and reaction rates",
+      "learningObjective": "Interpret energy changes and factors affecting reaction rates.",
+      "specificationId": "waec-chemistry-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-chemistry-acids-v1",
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Equilibrium and neutralisation",
+      "learningObjective": "Explain acid-base behaviour and interpret chemical equilibria.",
+      "specificationId": "waec-chemistry-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-chemistry-redox-v1",
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Oxidation and reduction",
+      "subtopic": "Electron transfer and electrolysis",
+      "learningObjective": "Use oxidation states and electrode processes to explain reactions.",
+      "specificationId": "waec-chemistry-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-chemistry-organic-v1",
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Functional groups and reactions",
+      "learningObjective": "Infer organic reactions and properties from functional groups.",
+      "specificationId": "waec-chemistry-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-physics-measurement-v1",
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Measurements and units",
+      "subtopic": "Uncertainty and dimensions",
+      "learningObjective": "Interpret measurements using units and appropriate uncertainty.",
+      "specificationId": "waec-physics-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-physics-mechanics-v1",
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Mechanics",
+      "subtopic": "Motion and forces",
+      "learningObjective": "Apply motion and force relationships with stated idealisations.",
+      "specificationId": "waec-physics-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-physics-energy-v1",
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Energy and power",
+      "subtopic": "Transfers and efficiency",
+      "learningObjective": "Calculate transfers and evaluate energy conversion.",
+      "specificationId": "waec-physics-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-physics-thermal-v1",
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Heat and temperature",
+      "learningObjective": "Explain thermal processes and quantify energy changes.",
+      "specificationId": "waec-physics-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-physics-waves-v1",
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Waves and sound",
+      "subtopic": "Propagation and interference",
+      "learningObjective": "Relate wave behaviour to frequency wavelength and speed.",
+      "specificationId": "waec-physics-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-physics-optics-v1",
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Light",
+      "subtopic": "Reflection and refraction",
+      "learningObjective": "Explain image formation and optical behaviour.",
+      "specificationId": "waec-physics-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-physics-electricity-v1",
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Electric circuits",
+      "subtopic": "Current resistance and power",
+      "learningObjective": "Analyse circuit behaviour and electrical energy.",
+      "specificationId": "waec-physics-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-physics-fields-v1",
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Fields and induction",
+      "subtopic": "Electromagnetic effects",
+      "learningObjective": "Explain field forces and induced electromotive force.",
+      "specificationId": "waec-physics-source-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-biology-cells-v1",
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Cell organisation",
+      "subtopic": "Membranes and organelles",
+      "learningObjective": "Relate cellular structures to transport and energy processes.",
+      "specificationId": "jamb-biology-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-biology-nutrition-v1",
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Plant and animal nutrition",
+      "learningObjective": "Interpret nutrition experiments and explain nutrient functions.",
+      "specificationId": "jamb-biology-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-biology-transport-v1",
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Circulation and gas exchange",
+      "learningObjective": "Connect transport and exchange structures with their functions.",
+      "specificationId": "jamb-biology-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-biology-control-v1",
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Coordination and homeostasis",
+      "subtopic": "Regulation and responses",
+      "learningObjective": "Explain responses that maintain internal conditions.",
+      "specificationId": "jamb-biology-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-biology-reproduction-v1",
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Reproduction",
+      "subtopic": "Life cycles and development",
+      "learningObjective": "Distinguish reproductive processes and their consequences.",
+      "specificationId": "jamb-biology-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-biology-genetics-v1",
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Heredity and variation",
+      "subtopic": "Inheritance",
+      "learningObjective": "Infer inheritance patterns from stated genetic models.",
+      "specificationId": "jamb-biology-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-biology-ecology-v1",
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Populations and interactions",
+      "learningObjective": "Analyse ecological interactions and evaluate sampling evidence.",
+      "specificationId": "jamb-biology-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-biology-adaptation-v1",
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Diversity and adaptation",
+      "subtopic": "Classification and selection",
+      "learningObjective": "Explain how observable features relate to classification or survival.",
+      "specificationId": "jamb-biology-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-chemistry-separation-v1",
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Separation of mixtures",
+      "subtopic": "Purification and identification",
+      "learningObjective": "Choose separation methods using component properties.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-chemistry-stoichiometry-v1",
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Chemical combination",
+      "subtopic": "Moles and reacting quantities",
+      "learningObjective": "Use balanced equations to calculate chemical quantities.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-chemistry-gases-v1",
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "States of matter",
+      "subtopic": "Particles and gas relationships",
+      "learningObjective": "Apply particle models and gas relationships under stated conditions.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-chemistry-bonding-v1",
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Atomic structure and bonding",
+      "subtopic": "Electrons and structure",
+      "learningObjective": "Relate electron arrangement and bonding to substance properties.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-chemistry-energy-v1",
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Energetics and rates",
+      "subtopic": "Energy change and reaction rates",
+      "learningObjective": "Interpret energy changes and factors affecting reaction rates.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-chemistry-acids-v1",
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Equilibrium and neutralisation",
+      "learningObjective": "Explain acid-base behaviour and interpret chemical equilibria.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-chemistry-redox-v1",
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Oxidation and reduction",
+      "subtopic": "Electron transfer and electrolysis",
+      "learningObjective": "Use oxidation states and electrode processes to explain reactions.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-chemistry-organic-v1",
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Functional groups and reactions",
+      "learningObjective": "Infer organic reactions and properties from functional groups.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-physics-measurement-v1",
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Measurements and units",
+      "subtopic": "Uncertainty and dimensions",
+      "learningObjective": "Interpret measurements using units and appropriate uncertainty.",
+      "specificationId": "jamb-physics-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-physics-mechanics-v1",
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Mechanics",
+      "subtopic": "Motion and forces",
+      "learningObjective": "Apply motion and force relationships with stated idealisations.",
+      "specificationId": "jamb-physics-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-physics-energy-v1",
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Energy and power",
+      "subtopic": "Transfers and efficiency",
+      "learningObjective": "Calculate transfers and evaluate energy conversion.",
+      "specificationId": "jamb-physics-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-physics-thermal-v1",
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Heat and temperature",
+      "learningObjective": "Explain thermal processes and quantify energy changes.",
+      "specificationId": "jamb-physics-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-physics-waves-v1",
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Waves and sound",
+      "subtopic": "Propagation and interference",
+      "learningObjective": "Relate wave behaviour to frequency wavelength and speed.",
+      "specificationId": "jamb-physics-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-physics-optics-v1",
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Light",
+      "subtopic": "Reflection and refraction",
+      "learningObjective": "Explain image formation and optical behaviour.",
+      "specificationId": "jamb-physics-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-physics-electricity-v1",
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Electric circuits",
+      "subtopic": "Current resistance and power",
+      "learningObjective": "Analyse circuit behaviour and electrical energy.",
+      "specificationId": "jamb-physics-source-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-physics-fields-v1",
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Fields and induction",
+      "subtopic": "Electromagnetic effects",
+      "learningObjective": "Explain field forces and induced electromotive force.",
+      "specificationId": "jamb-physics-source-2026",
       "questionTypes": [
         "mcq"
       ],

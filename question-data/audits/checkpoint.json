@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_025_automated_validation_passed",
+  "phase": "batch_026_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-026.json",
+  "nextBatch": "original-multisubject-batch-027.json",
   "nextPriorities": [
-    "Add original WAEC/JAMB Biology, Chemistry and Physics mapped drafts.",
+    "Add original SAT and NCEE drafts using current sections/components.",
     "Acquire missing source versions and remediate legacy holds."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-025.json",
-  "lastRemoteVerifiedCommit": "bd0af0ec87264680af5ef41fc3f0346a0471a2b0"
+  "lastValidatedBatch": "original-multisubject-batch-026.json",
+  "lastRemoteVerifiedCommit": "41721b68afe1f8fe1bb862e2e305ed8b89722829"
 }

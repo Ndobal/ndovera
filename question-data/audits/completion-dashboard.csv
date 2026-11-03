@@ -10,8 +10,8 @@ IGCSE,Mathematics,,1000,14,0,0,1000,0,0,specification_unresolved,observed_only_s
 IGCSE,Physics,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 JAMB,Agricultural Science,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Arabic,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-JAMB,Biology,,1000,18,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-JAMB,Chemistry,,1000,3,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Biology,,1000,38,20,0,980,8,8,partial_objective_register,candidate_from_supplied_compilation
+JAMB,Chemistry,,1000,18,15,0,985,8,8,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Christian Religious Knowledge (CRK),,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Commerce,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Computer Studies,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
@@ -30,7 +30,7 @@ JAMB,Literature in English,,1000,0,0,0,1000,0,0,specification_unresolved,candida
 JAMB,Mathematics,,1000,673,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Music,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Physical Education,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-JAMB,Physics,,1000,3,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Physics,,1000,18,15,0,985,8,8,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Use of English,,1000,28,25,0,975,6,5,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Yoruba,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 NCEE,Basic Science,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
@@ -107,10 +107,10 @@ WAEC,Agricultural Science,,1000,0,0,0,1000,0,0,specification_unresolved,candidat
 WAEC,Animal Husbandry,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Arabic,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,Beauty and Cosmetology,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
-WAEC,Biology,,1000,3,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Biology,,1000,23,20,0,980,8,8,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Book Keeping,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Catering Craft Practice,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-WAEC,Chemistry,,1000,6,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Chemistry,,1000,21,15,0,985,8,8,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Christian Religious Knowledge (CRK),,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Citizenship and Heritage Studies,,,0,0,0,,0,0,specification_unresolved,future_2028_not_current_exam_target
 WAEC,Civic Education,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
@@ -142,7 +142,7 @@ WAEC,Marketing,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supp
 WAEC,Mathematics,,1000,769,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Music,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Office Practice,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-WAEC,Physics,,1000,6,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Physics,,1000,21,15,0,985,8,8,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Solar Photovoltaic Installation and Maintenance,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,Technical Drawing,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Visual Art,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
