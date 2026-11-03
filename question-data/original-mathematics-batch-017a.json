@@ -148,7 +148,7 @@
       "answer": "90",
       "correctOption": "D",
       "explanation": "The feasible vertices are (0,0),(10,0),(0,10); P values 0, 90, 70. Maximum 90.",
-      "difficulty": "difficult",
+      "difficulty": "standard",
       "source": "original",
       "status": "draft",
       "license": "original-content",
