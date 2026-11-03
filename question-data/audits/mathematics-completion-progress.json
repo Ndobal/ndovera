@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 484,
-      "remainingToNumericTarget": 516,
+      "stagedQuestionCount": 584,
+      "remainingToNumericTarget": 416,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 468,
-      "remainingToNumericTarget": 532,
+      "stagedQuestionCount": 568,
+      "remainingToNumericTarget": 432,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -62,7 +62,15 @@
     "question-data/original-mathematics-batch-018a.json",
     "question-data/original-mathematics-batch-018b.json",
     "question-data/original-mathematics-batch-018c.json",
-    "question-data/original-mathematics-batch-018d.json"
+    "question-data/original-mathematics-batch-018d.json",
+    "question-data/original-mathematics-batch-019a.json",
+    "question-data/original-mathematics-batch-019b.json",
+    "question-data/original-mathematics-batch-019c.json",
+    "question-data/original-mathematics-batch-019d.json",
+    "question-data/original-mathematics-batch-019e.json",
+    "question-data/original-mathematics-batch-019f.json",
+    "question-data/original-mathematics-batch-019g.json",
+    "question-data/original-mathematics-batch-019h.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -101,12 +109,18 @@
     "batch018QuestionCount": 100,
     "batch018OptionChecksPassed": true,
     "batch018ConceptualVarietyInsufficient": true,
-    "batch018IndependentAcademicReview": false
+    "batch018IndependentAcademicReview": false,
+    "batch019QuestionCount": 200,
+    "batch019PerExam": 100,
+    "batch019StructuralChecksPassed": true,
+    "batch019ConceptFamilies": 25,
+    "batch019IndependentAcademicReview": false
   },
   "nextPriorities": [
-    "Do not consider batch 018 publication-ready: only five recurring concept templates",
-    "Prioritize conceptual diversity, rigorous explanations, and higher-order problem solving",
-    "Map syllabus objectives and conduct independent review before production"
+    "Avoid numerical template repetition and expand genuine problem-solving depth",
+    "Review WAEC theory and add original multistep structured questions",
+    "Verify syllabus objective coverage and full mathematical correctness",
+    "Retain draft status and prevent production import before review"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
