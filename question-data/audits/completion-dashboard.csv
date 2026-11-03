@@ -15,7 +15,7 @@ JAMB,Chemistry,,1000,3,0,0,1000,0,0,specification_unresolved,candidate_from_supp
 JAMB,Christian Religious Knowledge (CRK),,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Commerce,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Computer Studies,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-JAMB,Economics,,1000,2,0,0,1000,11,0,partial_objective_register,candidate_from_supplied_compilation
+JAMB,Economics,,1000,27,25,0,975,11,11,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Financial Accounting,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Fine Arts,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,French,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
@@ -31,7 +31,7 @@ JAMB,Mathematics,,1000,673,0,0,1000,0,0,specification_unresolved,candidate_from_
 JAMB,Music,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Physical Education,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Physics,,1000,3,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-JAMB,Use of English,,1000,3,0,0,1000,6,0,partial_objective_register,candidate_from_supplied_compilation
+JAMB,Use of English,,1000,28,25,0,975,6,5,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Yoruba,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 NCEE,Basic Science,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NCEE,Basic Science and Technology,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
@@ -119,8 +119,8 @@ WAEC,Computer Hardware and GSM Repairs,,1000,0,0,0,1000,0,0,specification_unreso
 WAEC,Computer Studies,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Data Processing,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Digital Technologies,,,0,0,0,,0,0,specification_unresolved,future_2028_not_current_exam_target
-WAEC,Economics,,1000,4,0,0,1000,11,0,partial_objective_register,candidate_from_supplied_compilation
-WAEC,English Language,,1000,3,0,0,1000,7,0,partial_objective_register,candidate_from_supplied_compilation
+WAEC,Economics,,1000,29,25,0,975,11,11,partial_objective_register,candidate_from_supplied_compilation
+WAEC,English Language,,1000,28,25,0,975,7,7,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Fashion Design and Garment Making,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,Financial Accounting,,1000,4,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Food and Nutrition,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation

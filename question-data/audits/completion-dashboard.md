@@ -24,7 +24,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Christian Religious Knowledge (CRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Commerce | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Computer Studies | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Economics | 1000 | 2 | 0 | 0 | 1000 | partial_objective_register |
+| JAMB | Economics | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Financial Accounting | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Fine Arts | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | French | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -40,7 +40,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Music | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Physical Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Physics | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Use of English | 1000 | 3 | 0 | 0 | 1000 | partial_objective_register |
+| JAMB | Use of English | 1000 | 28 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Yoruba | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NCEE | Basic Science | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NCEE | Basic Science and Technology | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -128,8 +128,8 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Computer Studies | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Data Processing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Digital Technologies | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
-| WAEC | Economics | 1000 | 4 | 0 | 0 | 1000 | partial_objective_register |
-| WAEC | English Language | 1000 | 3 | 0 | 0 | 1000 | partial_objective_register |
+| WAEC | Economics | 1000 | 29 | 25 | 0 | 975 | partial_objective_register |
+| WAEC | English Language | 1000 | 28 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Fashion Design and Garment Making | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Financial Accounting | 1000 | 4 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Food and Nutrition | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -164,15 +164,15 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | 0 | 0 | 0 | 0 | 0 |
 | IELTS | 9 | 0 | 0 | 4000 | 4000 |
 | IGCSE | 21 | 0 | 0 | 4000 | 4000 |
-| JAMB | 703 | 0 | 0 | 25000 | 25000 |
+| JAMB | 753 | 50 | 0 | 25000 | 24950 |
 | NCEE | 29 | 0 | 0 | 9000 | 9000 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 9 | 0 | 0 | 2000 | 2000 |
 | TOEFL | 9 | 0 | 0 | 4000 | 4000 |
-| WAEC | 799 | 0 | 0 | 42000 | 42000 |
+| WAEC | 849 | 50 | 0 | 42000 | 41950 |
 
-Overall: {"raw": 1679, "validDrafts": 0, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 1779, "validDrafts": 100, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

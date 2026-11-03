@@ -1,0 +1,3754 @@
+{
+  "schemaVersion": 2,
+  "collection": "Ndovera complete question bank — English and Economics batch 025",
+  "questionCount": 100,
+  "note": "Original drafts. Objective register is partial and author-proposed. Automated validation is not academic review; no production import authorised. Written-response rubrics are original practice guides, not official examination marking schemes.",
+  "questions": [
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-001",
+      "objectiveId": "jamb-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Complete the sentence: Neither the librarian nor the two assistants ___ available yesterday.",
+      "answer": "were",
+      "explanation": "With neither...nor, the verb agrees with the nearer subject; assistants is plural, and yesterday requires past tense.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "were",
+        "was",
+        "is",
+        "has been"
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-002",
+      "objectiveId": "jamb-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Choose the completion that correctly relates the two past events: By the time the bus arrived, the passengers ___ their tickets.",
+      "answer": "had bought",
+      "explanation": "Buying was completed before another past event, so the past perfect had bought marks the earlier action.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "have bought",
+        "will buy",
+        "are buying",
+        "had bought"
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-003",
+      "objectiveId": "jamb-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Choose the correct question tag: You have not submitted the form, ___?",
+      "answer": "have you",
+      "explanation": "A negative statement normally takes a positive tag using the same auxiliary and subject.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "do you",
+        "didn’t you",
+        "have you",
+        "haven’t you"
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-004",
+      "objectiveId": "jamb-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Select the sentence in which the opening phrase clearly describes the subject that follows.",
+      "answer": "Carrying a heavy box, Bassey walked slowly.",
+      "explanation": "Bassey carries the box, so he must be the subject immediately following the introductory phrase.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Carrying a heavy box, Bassey’s shoes became dusty.",
+        "Carrying a heavy box, Bassey walked slowly.",
+        "Carrying a heavy box, the road seemed long to Bassey.",
+        "Carrying a heavy box, the gate was opened by Bassey."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-005",
+      "objectiveId": "jamb-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which sentence correctly uses an uncountable noun?",
+      "answer": "The mechanic gave me useful advice.",
+      "explanation": "Advice is uncountable in this use. One may say a piece of advice, but not an advice or advices.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The mechanic gave me useful advice.",
+        "The mechanic gave me an advice.",
+        "The mechanic gave me many advices.",
+        "The mechanic gave me several advice."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-006",
+      "objectiveId": "jamb-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Select the sentence with a correct conditional relationship.",
+      "answer": "If the pump had worked, we would have filled the tank.",
+      "explanation": "An unreal past condition uses if + past perfect and would have + past participle.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "If the pump had worked, we will fill the tank.",
+        "If the pump would have worked, we had filled the tank.",
+        "If the pump works yesterday, we would have filled the tank.",
+        "If the pump had worked, we would have filled the tank."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-007",
+      "objectiveId": "jamb-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Complete the sentence: The pupils look forward to ___ the museum.",
+      "answer": "visiting",
+      "explanation": "To is a preposition in look forward to and is followed by an -ing form.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "visited",
+        "have visited",
+        "visiting",
+        "visit"
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-008",
+      "objectiveId": "jamb-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which revision correctly reports the command “Do not touch the exposed wire,” the technician told us?",
+      "answer": "The technician warned us not to touch the exposed wire.",
+      "explanation": "A negative reported command uses an object followed by not to and the base verb.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The technician warned us to not touched the exposed wire.",
+        "The technician warned us not to touch the exposed wire.",
+        "The technician warned us do not touch the exposed wire.",
+        "The technician warned that us not touching the exposed wire."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-009",
+      "objectiveId": "jamb-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In “The accountant’s explanation was lucid; even the new trainees understood it,” lucid means",
+      "answer": "clear",
+      "explanation": "The result clause shows that the explanation was easy to understand.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "clear",
+        "lengthy",
+        "secret",
+        "humorous"
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-010",
+      "objectiveId": "jamb-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Choose the meaning of “kept the proposal under wraps” in this sentence: The organisers kept the proposal under wraps until the sponsor approved it.",
+      "answer": "kept it secret",
+      "explanation": "Under wraps is an idiom for keeping something undisclosed. It does not describe physically wrapping the document here.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "rejected it permanently",
+        "printed it in colour",
+        "discussed it publicly",
+        "kept it secret"
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-011",
+      "objectiveId": "jamb-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Choose the opposite of reluctant as used here: Chika was reluctant to speak, although she knew the answer.",
+      "answer": "willing",
+      "explanation": "Reluctant means unwilling or hesitant; willing reverses that attitude in this context.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "anxious",
+        "uncertain",
+        "willing",
+        "silent"
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-012",
+      "objectiveId": "jamb-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In “The audit vindicated the treasurer after the allegation,” vindicated most nearly means",
+      "answer": "cleared of blame",
+      "explanation": "An audit can establish that an accused person did nothing wrong; vindicated has that sense here.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "prevented from speaking",
+        "cleared of blame",
+        "removed from office",
+        "ordered to repay money"
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Register and cohesion",
+      "learningObjective": "Select vocabulary and links suited to a communicative situation.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-013",
+      "objectiveId": "jamb-english-register-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Choose the most suitable closing sentence for a formal request to a scholarship board.",
+      "answer": "I would be grateful for your consideration of my application.",
+      "explanation": "The sentence is courteous, formal and specific to the request. The alternatives are casual, demanding or unrelated.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "I would be grateful for your consideration of my application.",
+        "Just sort it out for me, please.",
+        "You must approve this because I said so.",
+        "Anyway, that match was exciting."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Register and cohesion",
+      "learningObjective": "Select vocabulary and links suited to a communicative situation.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-014",
+      "objectiveId": "jamb-english-register-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Complete the logical link: The seedlings received enough water; ___, many died because the soil lacked nutrients.",
+      "answer": "nevertheless",
+      "explanation": "The second clause contrasts an expected benefit of watering with an adverse result. Nevertheless marks that contrast.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "therefore",
+        "similarly",
+        "for example",
+        "nevertheless"
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Register and cohesion",
+      "learningObjective": "Select vocabulary and links suited to a communicative situation.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-015",
+      "objectiveId": "jamb-english-register-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which word best fits the language of a courtroom? The witness gave ___ under oath.",
+      "answer": "testimony",
+      "explanation": "Testimony is evidence given by a witness, particularly under oath.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a dividend",
+        "a harvest",
+        "testimony",
+        "a prescription"
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Purpose and organisation",
+      "learningObjective": "Identify a writer's purpose, central point or organisation.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-016",
+      "objectiveId": "jamb-english-purpose-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What is the central recommendation of the library committee’s report?",
+      "answer": "Use evidence about pupils’ needs to guide decisions on library access.",
+      "explanation": "The final paragraph prioritises evidence of actual use when deciding how to improve access. Decoration is welcomed but is not the central recommendation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "End every reading competition.",
+        "Use evidence about pupils’ needs to guide decisions on library access.",
+        "Spend the whole grant on paint.",
+        "Replace all volunteers with paid staff."
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "passage": "At the beginning of the term, the library committee assumed that pupils borrowed few books because the shelves were unattractive. It spent part of its small grant on paint and labels. Borrowing scarcely changed. Before spending the remaining money, the committee asked pupils to keep a record of unsuccessful visits for one week. Most recorded visits occurred after afternoon clubs, when the library was already closed. Some pupils also said they avoided unfamiliar books because the catalogue listed only titles and authors.\n\nThe committee then tried two inexpensive changes. On Tuesdays and Thursdays, a volunteer kept the library open for an additional hour. Pupils also wrote brief recommendations on cards beside books they had enjoyed. Borrowing increased during the following month. However, the committee refused to describe either change as the sole cause. A new reading competition had begun at the same time, and examination preparation might also have influenced pupils’ choices.\n\nFor the next term, the committee proposed recording visits, borrowing and opening hours separately. Its report concluded that attractive shelves were welcome, but decisions about access should begin with evidence of how pupils actually used the library. The report did not recommend abandoning decoration altogether."
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Inference and evidence",
+      "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-017",
+      "objectiveId": "jamb-english-inference-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why did the pupils’ visit records challenge the committee’s original assumption?",
+      "answer": "They identified a practical barrier that repainting could not remove.",
+      "explanation": "Many unsuccessful visits happened after closing time. Attractive shelves cannot help a pupil enter a closed library.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "They identified a practical barrier that repainting could not remove.",
+        "They proved that no pupil liked reading.",
+        "They showed that every book was unsuitable.",
+        "They established that labels always reduce borrowing."
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "passage": "At the beginning of the term, the library committee assumed that pupils borrowed few books because the shelves were unattractive. It spent part of its small grant on paint and labels. Borrowing scarcely changed. Before spending the remaining money, the committee asked pupils to keep a record of unsuccessful visits for one week. Most recorded visits occurred after afternoon clubs, when the library was already closed. Some pupils also said they avoided unfamiliar books because the catalogue listed only titles and authors.\n\nThe committee then tried two inexpensive changes. On Tuesdays and Thursdays, a volunteer kept the library open for an additional hour. Pupils also wrote brief recommendations on cards beside books they had enjoyed. Borrowing increased during the following month. However, the committee refused to describe either change as the sole cause. A new reading competition had begun at the same time, and examination preparation might also have influenced pupils’ choices.\n\nFor the next term, the committee proposed recording visits, borrowing and opening hours separately. Its report concluded that attractive shelves were welcome, but decisions about access should begin with evidence of how pupils actually used the library. The report did not recommend abandoning decoration altogether."
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Inference and evidence",
+      "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-018",
+      "objectiveId": "jamb-english-inference-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which conclusion about the rise in borrowing is best supported by the library passage?",
+      "answer": "Several simultaneous changes make a single-cause explanation uncertain.",
+      "explanation": "Opening hours, recommendation cards and a competition changed together, so the passage does not isolate their separate effects.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Only the new paint caused the increase.",
+        "The reading competition had no possible effect.",
+        "Recommendation cards doubled borrowing in every class.",
+        "Several simultaneous changes make a single-cause explanation uncertain."
+      ],
+      "correctOption": "D",
+      "score": 1,
+      "passage": "At the beginning of the term, the library committee assumed that pupils borrowed few books because the shelves were unattractive. It spent part of its small grant on paint and labels. Borrowing scarcely changed. Before spending the remaining money, the committee asked pupils to keep a record of unsuccessful visits for one week. Most recorded visits occurred after afternoon clubs, when the library was already closed. Some pupils also said they avoided unfamiliar books because the catalogue listed only titles and authors.\n\nThe committee then tried two inexpensive changes. On Tuesdays and Thursdays, a volunteer kept the library open for an additional hour. Pupils also wrote brief recommendations on cards beside books they had enjoyed. Borrowing increased during the following month. However, the committee refused to describe either change as the sole cause. A new reading competition had begun at the same time, and examination preparation might also have influenced pupils’ choices.\n\nFor the next term, the committee proposed recording visits, borrowing and opening hours separately. Its report concluded that attractive shelves were welcome, but decisions about access should begin with evidence of how pupils actually used the library. The report did not recommend abandoning decoration altogether."
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-019",
+      "objectiveId": "jamb-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In the library passage, what does “scarcely changed” indicate about borrowing after the repainting?",
+      "answer": "It changed very little.",
+      "explanation": "Scarcely means hardly or almost not; it does not mean a large or rapid change.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It increased sharply.",
+        "It became impossible to measure.",
+        "It changed very little.",
+        "It stopped permanently."
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "passage": "At the beginning of the term, the library committee assumed that pupils borrowed few books because the shelves were unattractive. It spent part of its small grant on paint and labels. Borrowing scarcely changed. Before spending the remaining money, the committee asked pupils to keep a record of unsuccessful visits for one week. Most recorded visits occurred after afternoon clubs, when the library was already closed. Some pupils also said they avoided unfamiliar books because the catalogue listed only titles and authors.\n\nThe committee then tried two inexpensive changes. On Tuesdays and Thursdays, a volunteer kept the library open for an additional hour. Pupils also wrote brief recommendations on cards beside books they had enjoyed. Borrowing increased during the following month. However, the committee refused to describe either change as the sole cause. A new reading competition had begun at the same time, and examination preparation might also have influenced pupils’ choices.\n\nFor the next term, the committee proposed recording visits, borrowing and opening hours separately. Its report concluded that attractive shelves were welcome, but decisions about access should begin with evidence of how pupils actually used the library. The report did not recommend abandoning decoration altogether."
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Purpose and organisation",
+      "learningObjective": "Identify a writer's purpose, central point or organisation.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-020",
+      "objectiveId": "jamb-english-purpose-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What purpose does the final sentence of the library passage serve?",
+      "answer": "It prevents the report’s criticism from being mistaken for total rejection of decoration.",
+      "explanation": "The sentence qualifies the argument: evidence should guide access decisions, while decoration can still have value.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It claims that opening hours are irrelevant.",
+        "It prevents the report’s criticism from being mistaken for total rejection of decoration.",
+        "It announces a ban on painting.",
+        "It reveals that no shelves were painted."
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "passage": "At the beginning of the term, the library committee assumed that pupils borrowed few books because the shelves were unattractive. It spent part of its small grant on paint and labels. Borrowing scarcely changed. Before spending the remaining money, the committee asked pupils to keep a record of unsuccessful visits for one week. Most recorded visits occurred after afternoon clubs, when the library was already closed. Some pupils also said they avoided unfamiliar books because the catalogue listed only titles and authors.\n\nThe committee then tried two inexpensive changes. On Tuesdays and Thursdays, a volunteer kept the library open for an additional hour. Pupils also wrote brief recommendations on cards beside books they had enjoyed. Borrowing increased during the following month. However, the committee refused to describe either change as the sole cause. A new reading competition had begun at the same time, and examination preparation might also have influenced pupils’ choices.\n\nFor the next term, the committee proposed recording visits, borrowing and opening hours separately. Its report concluded that attractive shelves were welcome, but decisions about access should begin with evidence of how pupils actually used the library. The report did not recommend abandoning decoration altogether."
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Inference and evidence",
+      "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-021",
+      "objectiveId": "jamb-english-inference-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What explains the small traders’ concern about crate deposits?",
+      "answer": "A refundable payment can still reduce the cash available for immediate stock purchases.",
+      "explanation": "Refundability does not eliminate a short-term cash constraint between payment and refund.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A refundable payment can still reduce the cash available for immediate stock purchases.",
+        "Deposits were explicitly described as permanent taxes.",
+        "The scheme prohibited all morning sales.",
+        "The association had stopped traders buying stock."
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "passage": "When a neighbourhood market introduced reusable delivery crates, some traders welcomed the plan and others objected to the deposit. The market association explained that the deposit would be returned when an undamaged crate came back. Nevertheless, several small traders worried that money tied up in deposits would leave them unable to buy enough stock for the following morning.\n\nFor the first six weeks, the association allowed traders to share crates and returned deposits on the same day. It also weighed discarded packaging at the end of each market day. The recorded weight fell, although the records did not include packaging taken home by customers. The association therefore described the result as a reduction in waste collected at the market, rather than proof that all waste from market purchases had fallen.\n\nA trader who had initially objected later supported the scheme, saying that fewer broken containers had reduced losses during transport. Another trader remained unconvinced because her supplier would not accept the crates. The association decided to meet suppliers before expanding the scheme. Its chairperson argued that a useful environmental policy should consider how goods move through the entire supply chain, including the businesses that are least able to absorb additional costs."
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Purpose and organisation",
+      "learningObjective": "Identify a writer's purpose, central point or organisation.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-022",
+      "objectiveId": "jamb-english-purpose-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why does the market report distinguish collected waste from all waste arising from purchases?",
+      "answer": "Its measurements covered only waste left at the market.",
+      "explanation": "Packaging taken home was outside the records, so a claim about total waste would exceed the measured evidence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "No packaging was ever used at the market.",
+        "Customers were required to leave every container behind.",
+        "The association had measured every customer’s household waste.",
+        "Its measurements covered only waste left at the market."
+      ],
+      "correctOption": "D",
+      "score": 1,
+      "passage": "When a neighbourhood market introduced reusable delivery crates, some traders welcomed the plan and others objected to the deposit. The market association explained that the deposit would be returned when an undamaged crate came back. Nevertheless, several small traders worried that money tied up in deposits would leave them unable to buy enough stock for the following morning.\n\nFor the first six weeks, the association allowed traders to share crates and returned deposits on the same day. It also weighed discarded packaging at the end of each market day. The recorded weight fell, although the records did not include packaging taken home by customers. The association therefore described the result as a reduction in waste collected at the market, rather than proof that all waste from market purchases had fallen.\n\nA trader who had initially objected later supported the scheme, saying that fewer broken containers had reduced losses during transport. Another trader remained unconvinced because her supplier would not accept the crates. The association decided to meet suppliers before expanding the scheme. Its chairperson argued that a useful environmental policy should consider how goods move through the entire supply chain, including the businesses that are least able to absorb additional costs."
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Inference and evidence",
+      "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-023",
+      "objectiveId": "jamb-english-inference-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which action most directly addresses the objection of the trader whose supplier would not accept crates?",
+      "answer": "Discuss compatible packaging arrangements with suppliers.",
+      "explanation": "Her stated barrier concerns supplier acceptance, so cooperation along the supply chain addresses it more directly than publicity alone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Increase the deposit without consultation.",
+        "Stop recording discarded packaging.",
+        "Discuss compatible packaging arrangements with suppliers.",
+        "Repaint the market sign."
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "passage": "When a neighbourhood market introduced reusable delivery crates, some traders welcomed the plan and others objected to the deposit. The market association explained that the deposit would be returned when an undamaged crate came back. Nevertheless, several small traders worried that money tied up in deposits would leave them unable to buy enough stock for the following morning.\n\nFor the first six weeks, the association allowed traders to share crates and returned deposits on the same day. It also weighed discarded packaging at the end of each market day. The recorded weight fell, although the records did not include packaging taken home by customers. The association therefore described the result as a reduction in waste collected at the market, rather than proof that all waste from market purchases had fallen.\n\nA trader who had initially objected later supported the scheme, saying that fewer broken containers had reduced losses during transport. Another trader remained unconvinced because her supplier would not accept the crates. The association decided to meet suppliers before expanding the scheme. Its chairperson argued that a useful environmental policy should consider how goods move through the entire supply chain, including the businesses that are least able to absorb additional costs."
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-024",
+      "objectiveId": "jamb-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What does “absorb additional costs” mean in the market passage?",
+      "answer": "Bear extra expenses without passing them on or being unable to operate.",
+      "explanation": "Absorb is used financially: a business carries a cost rather than treating it as a physical substance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Prove that suppliers never charge fees.",
+        "Bear extra expenses without passing them on or being unable to operate.",
+        "Collect damaged containers from the road.",
+        "Measure the weight of unsold stock."
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "passage": "When a neighbourhood market introduced reusable delivery crates, some traders welcomed the plan and others objected to the deposit. The market association explained that the deposit would be returned when an undamaged crate came back. Nevertheless, several small traders worried that money tied up in deposits would leave them unable to buy enough stock for the following morning.\n\nFor the first six weeks, the association allowed traders to share crates and returned deposits on the same day. It also weighed discarded packaging at the end of each market day. The recorded weight fell, although the records did not include packaging taken home by customers. The association therefore described the result as a reduction in waste collected at the market, rather than proof that all waste from market purchases had fallen.\n\nA trader who had initially objected later supported the scheme, saying that fewer broken containers had reduced losses during transport. Another trader remained unconvinced because her supplier would not accept the crates. The association decided to meet suppliers before expanding the scheme. Its chairperson argued that a useful environmental policy should consider how goods move through the entire supply chain, including the businesses that are least able to absorb additional costs."
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Purpose and organisation",
+      "learningObjective": "Identify a writer's purpose, central point or organisation.",
+      "specificationId": "jamb-english-ibass-2026",
+      "id": "ndv-025-025",
+      "objectiveId": "jamb-english-purpose-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which description best captures the chairperson’s position on the crate scheme?",
+      "answer": "Support environmental improvement while examining its practical effects on different businesses.",
+      "explanation": "The chairperson supports a useful environmental policy but requires attention to supply chains and vulnerable businesses.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Support environmental improvement while examining its practical effects on different businesses.",
+        "Reject environmental policies in every situation.",
+        "Ignore smaller traders to maximise deposits.",
+        "Expand immediately without meeting suppliers."
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "passage": "When a neighbourhood market introduced reusable delivery crates, some traders welcomed the plan and others objected to the deposit. The market association explained that the deposit would be returned when an undamaged crate came back. Nevertheless, several small traders worried that money tied up in deposits would leave them unable to buy enough stock for the following morning.\n\nFor the first six weeks, the association allowed traders to share crates and returned deposits on the same day. It also weighed discarded packaging at the end of each market day. The recorded weight fell, although the records did not include packaging taken home by customers. The association therefore described the result as a reduction in waste collected at the market, rather than proof that all waste from market purchases had fallen.\n\nA trader who had initially objected later supported the scheme, saying that fewer broken containers had reduced losses during transport. Another trader remained unconvinced because her supplier would not accept the crates. The association decided to meet suppliers before expanding the scheme. Its chairperson argued that a useful environmental policy should consider how goods move through the entire supply chain, including the businesses that are least able to absorb additional costs."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-026",
+      "objectiveId": "waec-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Choose the correct completion: The quality of the laboratory reports ___ improved.",
+      "answer": "has",
+      "explanation": "The head of the subject is the singular noun quality; reports is inside a modifying phrase.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "have",
+        "are",
+        "were",
+        "has"
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-027",
+      "objectiveId": "waec-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which sentence punctuates a non-restrictive clause correctly?",
+      "answer": "Mrs Bello, who coaches the choir, addressed the pupils.",
+      "explanation": "The extra information about the named person is set off with a pair of commas.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Mrs Bello, who coaches the choir addressed the pupils.",
+        "Mrs Bello who coaches the choir, addressed, the pupils.",
+        "Mrs Bello, who coaches the choir, addressed the pupils.",
+        "Mrs Bello who coaches, the choir addressed the pupils."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-028",
+      "objectiveId": "waec-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Complete the sentence: This instrument is superior ___ the one we used last year.",
+      "answer": "to",
+      "explanation": "The adjective superior takes to in this comparison, rather than than.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "over",
+        "to",
+        "than",
+        "from"
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-029",
+      "objectiveId": "waec-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Choose the sentence with correct parallel structure.",
+      "answer": "The course teaches learners to measure, to record and to compare.",
+      "explanation": "All three coordinated actions use matching infinitive forms.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The course teaches learners to measure, to record and to compare.",
+        "The course teaches learners to measure, recording and comparison.",
+        "The course teaches learners measurement, to record and comparing.",
+        "The course teaches learners to measuring, to record and comparison."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-030",
+      "objectiveId": "waec-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which version makes it clear that Halima, rather than her sister, won the prize?",
+      "answer": "Halima, who won the prize, thanked her sister.",
+      "explanation": "The relative clause directly modifies Halima, so the winner is unambiguous.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Halima thanked her sister because she won the prize.",
+        "She thanked her sister when she won the prize.",
+        "Halima told her sister that she had won the prize.",
+        "Halima, who won the prize, thanked her sister."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-031",
+      "objectiveId": "waec-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Choose the correctly formed passive version of “The panel will announce the result tomorrow.”",
+      "answer": "The result will be announced by the panel tomorrow.",
+      "explanation": "The object becomes the subject and the passive retains will + be + past participle.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The result has announce by the panel tomorrow.",
+        "The result was announce by the panel tomorrow.",
+        "The result will be announced by the panel tomorrow.",
+        "The result will announced by the panel tomorrow."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-032",
+      "objectiveId": "waec-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "The manager called the explanation plausible but asked for evidence. Plausible means",
+      "answer": "apparently reasonable",
+      "explanation": "A plausible explanation seems reasonable, but the request for evidence shows it is not yet established as true.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "deliberately insulting",
+        "apparently reasonable",
+        "certainly false",
+        "fully proved"
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-033",
+      "objectiveId": "waec-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "What does “read between the lines” mean in “To understand the letter, you must read between the lines”?",
+      "answer": "Infer meanings that are suggested rather than directly stated.",
+      "explanation": "The idiom concerns implicit meaning, not the physical spaces on a page.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Infer meanings that are suggested rather than directly stated.",
+        "Read only alternate lines aloud.",
+        "Ignore the writer’s tone completely.",
+        "Copy the letter without punctuation."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-034",
+      "objectiveId": "waec-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Choose the word opposite in meaning to impartial in “We need an impartial judge.”",
+      "answer": "biased",
+      "explanation": "Impartial means fair and not favouring a side; biased expresses the opposite.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "patient",
+        "experienced",
+        "careful",
+        "biased"
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-035",
+      "objectiveId": "waec-english-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "In “The speaker digressed before returning to the budget,” digressed means",
+      "answer": "moved away from the main topic",
+      "explanation": "Returning to the budget signals that the speaker had temporarily left the subject.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "ended the meeting permanently",
+        "proved the budget was balanced",
+        "moved away from the main topic",
+        "repeated the final calculation"
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Register and cohesion",
+      "learningObjective": "Select vocabulary and links suited to a communicative situation.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-036",
+      "objectiveId": "waec-english-register-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Choose the expression most appropriate in a bank: The customer requested a printed ___ of transactions on the account.",
+      "answer": "statement",
+      "explanation": "An account statement records transactions over a period.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "syllabus",
+        "statement",
+        "diagnosis",
+        "verdict"
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Register and cohesion",
+      "learningObjective": "Select vocabulary and links suited to a communicative situation.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-037",
+      "objectiveId": "waec-english-register-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which linking expression introduces a specific illustration? “Several local materials can be reused. ___, clean jars can store seeds.”",
+      "answer": "For instance",
+      "explanation": "The second sentence supplies an example of the general statement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "For instance",
+        "In contrast",
+        "Consequently",
+        "Despite this"
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Register and cohesion",
+      "learningObjective": "Select vocabulary and links suited to a communicative situation.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-038",
+      "objectiveId": "waec-english-register-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which sentence is most appropriate in a formal laboratory report?",
+      "answer": "The solution changed from blue to colourless after heating.",
+      "explanation": "It reports an observable result precisely and avoids slang or personal judgement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The stuff went funny and looked somehow.",
+        "Honestly, that liquid was just amazing!",
+        "You know, we did a thing with heat.",
+        "The solution changed from blue to colourless after heating."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-039",
+      "objectiveId": "waec-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Choose the correct completion: There is ___ sugar in this cup than in that one.",
+      "answer": "less",
+      "explanation": "Sugar is an uncountable mass noun here, so the comparison uses less.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "fewest",
+        "many",
+        "less",
+        "fewer"
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-040",
+      "objectiveId": "waec-english-structure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which sentence places only so that it means the teacher marked the essays and no other work?",
+      "answer": "The teacher marked only the essays.",
+      "explanation": "Only immediately limits the object the essays. Placing it elsewhere changes what is restricted.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The teacher marked the essays only yesterday.",
+        "The teacher marked only the essays.",
+        "Only the teacher marked the essays.",
+        "The teacher only marked the essays."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference and evidence",
+      "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-041",
+      "objectiveId": "waec-english-inference-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "From the footpath passage, explain why lamp failure did not by itself prove that solar technology was unsuitable. Give two distinct reasons.",
+      "answer": "Some panels were shaded by branches, reducing the sunlight they received. Another lamp had loose connections, so installation and maintenance faults could explain failure without disproving the technology.",
+      "explanation": "Use the identified causes rather than assume that every failure has a technological cause.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify shading of panels as an operational cause.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Identify loose connections as an installation or maintenance cause.",
+          "marks": 2
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "passage": "A residents’ association bought solar lamps for a footpath near a stream. At first, the lamps worked well and evening traders stayed open longer. Within three months, several lamps failed. Some residents blamed the technology and demanded that the project be abandoned. An inspection found a less simple problem: tree branches shaded two panels, loose connections affected another lamp, and no one had been assigned to clean the panels or report faults.\n\nThe association moved the shaded units, paid a technician to secure the connections and drew up a maintenance rota. It also put a telephone number on each pole so that faults could be reported without waiting for a meeting. The repairs restored most of the lighting. However, the association could not yet determine how long the batteries would last, and it set aside part of the monthly levy for replacement costs.\n\nIn its report, the association distinguished buying equipment from sustaining a service. It recommended that future projects include a named maintenance team, a reporting system and a reserve fund before equipment was purchased. Residents who could not pay the full levy were allowed to contribute cleaning time instead. The report warned that the new arrangements would need regular review rather than being treated as a permanent solution."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Purpose and organisation",
+      "learningObjective": "Identify a writer's purpose, central point or organisation.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-042",
+      "objectiveId": "waec-english-purpose-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Explain the contrast between “buying equipment” and “sustaining a service” in the residents’ report.",
+      "answer": "Buying equipment is the initial acquisition of lamps. Sustaining a service means keeping the lighting usable through cleaning, repairs, fault reporting and funds for replacement.",
+      "explanation": "The contrast separates the one-time purchase from continuing responsibilities needed for reliable operation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain the initial acquisition of physical lamps.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain continuing maintenance or repair responsibilities.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Connect reporting or replacement funding to reliable lighting.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "passage": "A residents’ association bought solar lamps for a footpath near a stream. At first, the lamps worked well and evening traders stayed open longer. Within three months, several lamps failed. Some residents blamed the technology and demanded that the project be abandoned. An inspection found a less simple problem: tree branches shaded two panels, loose connections affected another lamp, and no one had been assigned to clean the panels or report faults.\n\nThe association moved the shaded units, paid a technician to secure the connections and drew up a maintenance rota. It also put a telephone number on each pole so that faults could be reported without waiting for a meeting. The repairs restored most of the lighting. However, the association could not yet determine how long the batteries would last, and it set aside part of the monthly levy for replacement costs.\n\nIn its report, the association distinguished buying equipment from sustaining a service. It recommended that future projects include a named maintenance team, a reporting system and a reserve fund before equipment was purchased. Residents who could not pay the full levy were allowed to contribute cleaning time instead. The report warned that the new arrangements would need regular review rather than being treated as a permanent solution."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference and evidence",
+      "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-043",
+      "objectiveId": "waec-english-inference-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Identify one uncertainty that remained after the lamp repairs and explain one financial response to it.",
+      "answer": "Battery lifespan remained uncertain. The association reserved part of the monthly levy to help pay for replacements when they became necessary.",
+      "explanation": "The reserve addresses an uncertain future cost; it does not establish a guaranteed battery lifespan.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify the unknown battery lifespan.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain the reserve fund for future replacement.",
+          "marks": 2
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "passage": "A residents’ association bought solar lamps for a footpath near a stream. At first, the lamps worked well and evening traders stayed open longer. Within three months, several lamps failed. Some residents blamed the technology and demanded that the project be abandoned. An inspection found a less simple problem: tree branches shaded two panels, loose connections affected another lamp, and no one had been assigned to clean the panels or report faults.\n\nThe association moved the shaded units, paid a technician to secure the connections and drew up a maintenance rota. It also put a telephone number on each pole so that faults could be reported without waiting for a meeting. The repairs restored most of the lighting. However, the association could not yet determine how long the batteries would last, and it set aside part of the monthly levy for replacement costs.\n\nIn its report, the association distinguished buying equipment from sustaining a service. It recommended that future projects include a named maintenance team, a reporting system and a reserve fund before equipment was purchased. Residents who could not pay the full levy were allowed to contribute cleaning time instead. The report warned that the new arrangements would need regular review rather than being treated as a permanent solution."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Summary",
+      "subtopic": "Selecting key information",
+      "learningObjective": "Express requested main ideas concisely without adding unsupported details.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-044",
+      "objectiveId": "waec-english-summary-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "In two sentences, state two causes of spoilage before the vegetables leave the collection point.",
+      "answer": "Harvesting at midday leaves produce warm. Tight packing bruises soft vegetables and limits airflow.",
+      "explanation": "Award credit for any two distinct pre-departure causes in the passage, including long waiting for a full vehicle; require concise sentences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "First accurate cause before departure, expressed concisely.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Second distinct accurate cause before departure, expressed concisely.",
+          "marks": 2
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "passage": "A cooperative studied why vegetables spoiled between farms and a town market. Farmers often harvested at midday, when the produce was already warm. Bags were then packed tightly, bruising soft vegetables and restricting airflow. Drivers waited until every available space in a vehicle was filled, so some loads remained at the collection point for hours. At the market, buyers sometimes refused an entire mixed load because a few damaged baskets had not been separated from the rest.\n\nThe cooperative proposed harvesting earlier in the day and keeping produce shaded until loading. It recommended using ventilated containers and avoiding excessive pressure on fragile crops. A fixed departure time would reduce waiting, even when a vehicle was not completely full. Sorting damaged produce before dispatch would help buyers assess the remaining load more fairly. Members were also advised to agree basic quality standards with buyers before harvest.\n\nThe report recognised that each proposal involved choices. Ventilated containers cost money, and a partly filled vehicle could raise transport cost per basket. Members therefore planned a small trial, recording the value of produce saved alongside the added expense. The cooperative did not promise that every proposal would be profitable for every farmer."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Summary",
+      "subtopic": "Selecting key information",
+      "learningObjective": "Express requested main ideas concisely without adding unsupported details.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-045",
+      "objectiveId": "waec-english-summary-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "In three sentences, summarise three proposed changes to harvesting, packaging and vehicle departure.",
+      "answer": "Farmers should harvest earlier and keep produce shaded. They should use ventilated containers without compressing fragile crops. Vehicles should leave at a fixed time instead of waiting indefinitely to fill up.",
+      "explanation": "Select one relevant action from each requested stage; do not replace the departure recommendation with an unrelated marketing point.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Accurate harvesting/shading action.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Accurate packaging action.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Accurate departure-time action.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "passage": "A cooperative studied why vegetables spoiled between farms and a town market. Farmers often harvested at midday, when the produce was already warm. Bags were then packed tightly, bruising soft vegetables and restricting airflow. Drivers waited until every available space in a vehicle was filled, so some loads remained at the collection point for hours. At the market, buyers sometimes refused an entire mixed load because a few damaged baskets had not been separated from the rest.\n\nThe cooperative proposed harvesting earlier in the day and keeping produce shaded until loading. It recommended using ventilated containers and avoiding excessive pressure on fragile crops. A fixed departure time would reduce waiting, even when a vehicle was not completely full. Sorting damaged produce before dispatch would help buyers assess the remaining load more fairly. Members were also advised to agree basic quality standards with buyers before harvest.\n\nThe report recognised that each proposal involved choices. Ventilated containers cost money, and a partly filled vehicle could raise transport cost per basket. Members therefore planned a small trial, recording the value of produce saved alongside the added expense. The cooperative did not promise that every proposal would be profitable for every farmer."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Summary",
+      "subtopic": "Selecting key information",
+      "learningObjective": "Express requested main ideas concisely without adding unsupported details.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-046",
+      "objectiveId": "waec-english-summary-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "In one sentence, summarise why the cooperative planned a small trial before adopting all its proposals.",
+      "answer": "It wanted to compare the value of reduced spoilage with the extra costs before deciding which changes were worthwhile.",
+      "explanation": "A complete synthesis includes benefits, costs and the decision purpose; it does not claim universal profitability.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Include the value of produce saved.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Include additional expenses.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Link comparison to deciding whether proposals are worthwhile.",
+          "marks": 2
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "passage": "A cooperative studied why vegetables spoiled between farms and a town market. Farmers often harvested at midday, when the produce was already warm. Bags were then packed tightly, bruising soft vegetables and restricting airflow. Drivers waited until every available space in a vehicle was filled, so some loads remained at the collection point for hours. At the market, buyers sometimes refused an entire mixed load because a few damaged baskets had not been separated from the rest.\n\nThe cooperative proposed harvesting earlier in the day and keeping produce shaded until loading. It recommended using ventilated containers and avoiding excessive pressure on fragile crops. A fixed departure time would reduce waiting, even when a vehicle was not completely full. Sorting damaged produce before dispatch would help buyers assess the remaining load more fairly. Members were also advised to agree basic quality standards with buyers before harvest.\n\nThe report recognised that each proposal involved choices. Ventilated containers cost money, and a partly filled vehicle could raise transport cost per basket. Members therefore planned a small trial, recording the value of produce saved alongside the added expense. The cooperative did not promise that every proposal would be profitable for every farmer."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Composition",
+      "subtopic": "Audience and organisation",
+      "learningObjective": "Develop a coherent written response appropriate to a stated audience and purpose.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-047",
+      "objectiveId": "waec-english-composition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Write a formal letter of at least 450 words to your local government chairperson requesting safer access to a busy public school. Describe two hazards, explain their effects and propose practical measures.",
+      "answer": "A successful response uses formal letter conventions, identifies specific access hazards such as speeding vehicles and obstructed walkways, explains risks to pupils, and proposes realistic measures such as a supervised crossing, clear markings and removal of obstructions. It closes courteously with a clear request.",
+      "explanation": "This is an open response, not a single memorised letter. Award marks for task fulfilment and quality of communication rather than agreement with one proposed measure.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Content: fulfil every part of the stated task with relevant, developed ideas; credit defensible alternatives.",
+          "marks": 10
+        },
+        {
+          "step": 2,
+          "description": "Organisation: use a logical sequence, effective paragraphs and suitable opening and conclusion.",
+          "marks": 10
+        },
+        {
+          "step": 3,
+          "description": "Expression: sustain appropriate tone, clear vocabulary and varied, accurate sentences.",
+          "marks": 20
+        },
+        {
+          "step": 4,
+          "description": "Mechanical accuracy: assess spelling, punctuation and grammar in context without double-penalising the same error.",
+          "marks": 10
+        }
+      ],
+      "score": 50,
+      "maxMarks": 50
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Composition",
+      "subtopic": "Audience and organisation",
+      "learningObjective": "Develop a coherent written response appropriate to a stated audience and purpose.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-048",
+      "objectiveId": "waec-english-composition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Write an article of at least 450 words for your school magazine on the topic “A useful skill every school leaver should learn”. Identify one skill, explain its value and discuss how learners can acquire and practise it responsibly.",
+      "answer": "A strong article has an engaging title, identifies one clear skill, develops reasons for its value, and gives practical learning steps and examples. It addresses school leavers in an accessible magazine style and concludes with a persuasive recommendation.",
+      "explanation": "Credit different reasonable skills. Generic lists without explaining one skill do not fully meet the task.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Content: fulfil every part of the stated task with relevant, developed ideas; credit defensible alternatives.",
+          "marks": 10
+        },
+        {
+          "step": 2,
+          "description": "Organisation: use a logical sequence, effective paragraphs and suitable opening and conclusion.",
+          "marks": 10
+        },
+        {
+          "step": 3,
+          "description": "Expression: sustain appropriate tone, clear vocabulary and varied, accurate sentences.",
+          "marks": 20
+        },
+        {
+          "step": 4,
+          "description": "Mechanical accuracy: assess spelling, punctuation and grammar in context without double-penalising the same error.",
+          "marks": 10
+        }
+      ],
+      "score": 50,
+      "maxMarks": 50
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Composition",
+      "subtopic": "Audience and organisation",
+      "learningObjective": "Develop a coherent written response appropriate to a stated audience and purpose.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-049",
+      "objectiveId": "waec-english-composition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Write a story of at least 450 words ending with the exact sentence: “Only then did I understand why she had kept the receipt.” Make the receipt significant to the resolution.",
+      "answer": "A successful story develops a coherent situation and characters, builds a problem, and resolves it through a believable use of the receipt. The prescribed sentence appears as the final sentence and follows naturally from the events.",
+      "explanation": "Assess narrative coherence and purposeful detail; there is no required plot. An unrelated receipt added only at the end weakens task fulfilment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Content: fulfil every part of the stated task with relevant, developed ideas; credit defensible alternatives.",
+          "marks": 10
+        },
+        {
+          "step": 2,
+          "description": "Organisation: use a logical sequence, effective paragraphs and suitable opening and conclusion.",
+          "marks": 10
+        },
+        {
+          "step": 3,
+          "description": "Expression: sustain appropriate tone, clear vocabulary and varied, accurate sentences.",
+          "marks": 20
+        },
+        {
+          "step": 4,
+          "description": "Mechanical accuracy: assess spelling, punctuation and grammar in context without double-penalising the same error.",
+          "marks": 10
+        }
+      ],
+      "score": 50,
+      "maxMarks": 50
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Composition",
+      "subtopic": "Audience and organisation",
+      "learningObjective": "Develop a coherent written response appropriate to a stated audience and purpose.",
+      "specificationId": "waec-english-compilation-2026",
+      "id": "ndv-025-050",
+      "objectiveId": "waec-english-composition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "As the main speaker in a school debate, write a speech of at least 450 words supporting or opposing the motion “Community service should be a graduation requirement”. Develop arguments and respond to one serious objection.",
+      "answer": "A strong debate speech states a clear position, addresses the audience, develops supported arguments and answers a credible opposing point. It connects the reasoning to a proportionate conclusion rather than merely repeating the motion.",
+      "explanation": "Either position can earn full marks. Judge reasoning, organisation, appropriate speech conventions and language, not the examiner’s preferred policy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Content: fulfil every part of the stated task with relevant, developed ideas; credit defensible alternatives.",
+          "marks": 10
+        },
+        {
+          "step": 2,
+          "description": "Organisation: use a logical sequence, effective paragraphs and suitable opening and conclusion.",
+          "marks": 10
+        },
+        {
+          "step": 3,
+          "description": "Expression: sustain appropriate tone, clear vocabulary and varied, accurate sentences.",
+          "marks": 20
+        },
+        {
+          "step": 4,
+          "description": "Mechanical accuracy: assess spelling, punctuation and grammar in context without double-penalising the same error.",
+          "marks": 10
+        }
+      ],
+      "score": 50,
+      "maxMarks": 50
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Basic economic concepts",
+      "subtopic": "Opportunity cost and allocation",
+      "learningObjective": "Analyse choices and resource allocation under scarcity.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-051",
+      "objectiveId": "jamb-economics-choice-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An apprentice can spend Saturday earning ₦8,000 at a paid job or attending a free training session. She attends the training and gives up no other benefit. What is the opportunity cost of attending?",
+      "answer": "The ₦8,000 earnings forgone.",
+      "explanation": "Opportunity cost is the value of the next-best alternative sacrificed, even when the chosen activity has no monetary fee.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The training organiser’s total expenses.",
+        "Every job she might ever obtain.",
+        "The ₦8,000 earnings forgone.",
+        "Zero because training is free."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Basic economic concepts",
+      "subtopic": "Opportunity cost and allocation",
+      "learningObjective": "Analyse choices and resource allocation under scarcity.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-052",
+      "objectiveId": "jamb-economics-choice-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A point inside a production possibility frontier represents an economy that",
+      "answer": "could increase at least one output without reducing the other, using available resources more efficiently.",
+      "explanation": "Interior points imply unemployment or inefficiency relative to the attainable frontier.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "cannot produce either good at all.",
+        "could increase at least one output without reducing the other, using available resources more efficiently.",
+        "must already use all resources efficiently.",
+        "has an unattainable combination of outputs."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Basic economic concepts",
+      "subtopic": "Opportunity cost and allocation",
+      "learningObjective": "Analyse choices and resource allocation under scarcity.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-053",
+      "objectiveId": "jamb-economics-choice-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which arrangement best illustrates a mixed economy?",
+      "answer": "Private firms operate alongside public enterprises and regulation.",
+      "explanation": "A mixed economy combines market allocation and a government role rather than relying exclusively on either.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Private firms operate alongside public enterprises and regulation.",
+        "All productive assets belong to the state.",
+        "Every economic decision is made by household custom.",
+        "Government is prohibited from owning any enterprise."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Tools of economic analysis",
+      "subtopic": "Tables and statistics",
+      "learningObjective": "Interpret economic data using appropriate quantitative tools.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-054",
+      "objectiveId": "jamb-economics-tools-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A market survey reports a mean income of ₦90,000 but a median of ₦35,000. Which explanation is consistent with these figures?",
+      "answer": "A few very high incomes may have raised the mean.",
+      "explanation": "The mean is sensitive to extreme values, while the median depends on the middle position. The figures alone do not prove the exact distribution.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every respondent earned exactly ₦90,000.",
+        "More than half must earn exactly ₦90,000.",
+        "The median must always exceed the mean.",
+        "A few very high incomes may have raised the mean."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Tools of economic analysis",
+      "subtopic": "Tables and statistics",
+      "learningObjective": "Interpret economic data using appropriate quantitative tools.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-055",
+      "objectiveId": "jamb-economics-tools-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A household spends ₦18,000 of its ₦60,000 monthly budget on transport. What angle represents transport in a pie chart?",
+      "answer": "108°",
+      "explanation": "Transport is 18,000/60,000 = 0.3 of spending. Multiply by 360° to obtain 108°.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "90°",
+        "180°",
+        "108°",
+        "30°"
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "18000/60000*360",
+          "expected": "108",
+          "answerValue": "108",
+          "purpose": "Transport share expressed as pie-chart angle"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Demand and supply",
+      "subtopic": "Market changes",
+      "learningObjective": "Distinguish curve shifts from movements and analyse price determination.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-056",
+      "objectiveId": "jamb-economics-demand-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "The price of a substitute for locally made soap rises while all other determinants remain unchanged. What is the likely initial effect on demand for the local soap?",
+      "answer": "Its demand curve shifts to the right.",
+      "explanation": "Buyers may switch from the now dearer substitute, increasing local soap demand at each own price.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Its demand curve must shift left.",
+        "Its demand curve shifts to the right.",
+        "Its own supply curve must shift left.",
+        "There is only movement down its unchanged demand curve."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Demand and supply",
+      "subtopic": "Market changes",
+      "learningObjective": "Distinguish curve shifts from movements and analyse price determination.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-057",
+      "objectiveId": "jamb-economics-demand-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Improved seed technology lowers rice production costs while demand is unchanged. In a competitive market, which result is most likely?",
+      "answer": "A lower equilibrium price and a larger equilibrium quantity.",
+      "explanation": "Lower costs increase supply, shifting its curve right. With downward-sloping demand, equilibrium price falls and quantity rises.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A lower equilibrium price and a larger equilibrium quantity.",
+        "A higher price and a smaller quantity.",
+        "A lower price and a smaller quantity.",
+        "A higher price and an unchanged quantity."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Elasticity",
+      "subtopic": "Responsiveness",
+      "learningObjective": "Apply elasticity measures to expenditure and revenue decisions.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-058",
+      "objectiveId": "jamb-economics-elasticity-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A product has price elasticity of demand of magnitude 0.4 over the relevant range. What is the likely effect of a small price rise on total sales revenue, other things equal?",
+      "answer": "Revenue rises because quantity falls proportionately less than price rises.",
+      "explanation": "Demand is inelastic: the percentage loss in quantity is smaller than the percentage gain in price for a small change.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Revenue necessarily falls by 40%.",
+        "Quantity demanded rises faster than price.",
+        "Revenue is always unchanged when demand is inelastic.",
+        "Revenue rises because quantity falls proportionately less than price rises."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Elasticity",
+      "subtopic": "Responsiveness",
+      "learningObjective": "Apply elasticity measures to expenditure and revenue decisions.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-059",
+      "objectiveId": "jamb-economics-elasticity-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Using initial values as the percentage-change base, price rises from ₦200 to ₦220 and quantity demanded falls from 500 to 450. What is the magnitude of price elasticity of demand?",
+      "answer": "1",
+      "explanation": "Quantity falls by 50/500 = 10%; price rises by 20/200 = 10%. The ratio of magnitudes is 1.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "2",
+        "10",
+        "1",
+        "0.1"
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "(50/500)/(20/200)",
+          "expected": "1",
+          "answerValue": "1",
+          "purpose": "Initial-value price elasticity magnitude"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Production and costs",
+      "subtopic": "Efficiency and costs",
+      "learningObjective": "Explain production relationships and evaluate cost information.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-060",
+      "objectiveId": "jamb-economics-production-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "When more workers are added to a fixed workshop, output eventually rises by smaller amounts. Which principle does this illustrate?",
+      "answer": "Diminishing marginal returns.",
+      "explanation": "With a fixed factor and unchanged technology, additional variable inputs can eventually add less to output.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Perfectly elastic supply of every factor.",
+        "Diminishing marginal returns.",
+        "Increasing returns to scale under proportional expansion.",
+        "A permanent fall in total output from the first worker."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Production and costs",
+      "subtopic": "Efficiency and costs",
+      "learningObjective": "Explain production relationships and evaluate cost information.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-061",
+      "objectiveId": "jamb-economics-production-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A firm’s total cost rises from ₦42,000 to ₦46,000 when output rises from 100 to 110 units. What is marginal cost per additional unit over this interval?",
+      "answer": "₦400",
+      "explanation": "Marginal cost over the interval is change in total cost divided by change in output: ₦4,000/10 = ₦400.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "₦400",
+        "₦40",
+        "₦4,000",
+        "₦4,600"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "(46000-42000)/(110-100)",
+          "expected": "400",
+          "answerValue": "400",
+          "purpose": "Interval marginal cost per unit"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Production and costs",
+      "subtopic": "Efficiency and costs",
+      "learningObjective": "Explain production relationships and evaluate cost information.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-062",
+      "objectiveId": "jamb-economics-production-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which cost must a firm pay in the short run even when its output is zero?",
+      "answer": "Rent on a factory under an existing fixed lease.",
+      "explanation": "A contractual lease payment does not vary with current output over the short-run period.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Packaging used only for sold units.",
+        "Piece-rate wages paid only for each unit produced.",
+        "Raw materials consumed only when production occurs.",
+        "Rent on a factory under an existing fixed lease."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Market structures",
+      "subtopic": "Competition and power",
+      "learningObjective": "Compare firm behaviour under different market conditions.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-063",
+      "objectiveId": "jamb-economics-market-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A competitive firm faces a market price it cannot influence. Its demand curve for its own output is conventionally drawn as",
+      "answer": "horizontal at the market price.",
+      "explanation": "A price-taking firm can sell at the given market price; raising its price would lose buyers to competitors in the model.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "the same as the downward-sloping industry demand curve.",
+        "upward sloping because it controls the market.",
+        "horizontal at the market price.",
+        "vertical at the industry’s total output."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Market structures",
+      "subtopic": "Competition and power",
+      "learningObjective": "Compare firm behaviour under different market conditions.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-064",
+      "objectiveId": "jamb-economics-market-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which barrier can help a monopoly persist?",
+      "answer": "Exclusive legal control of a necessary patented process.",
+      "explanation": "A legally protected process can restrict entry and prevent rivals from offering equivalent output using that process.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "An unlimited number of equally efficient existing suppliers.",
+        "Exclusive legal control of a necessary patented process.",
+        "Perfect freedom of entry for identical rivals.",
+        "Complete absence of product differentiation and barriers."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Money and banking",
+      "subtopic": "Credit and price level",
+      "learningObjective": "Explain monetary institutions and changes in purchasing power.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-065",
+      "objectiveId": "jamb-economics-money-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "When inflation reduces the amount of goods a fixed cash balance can buy, which function of money is most directly weakened?",
+      "answer": "Store of value.",
+      "explanation": "Money held over time loses purchasing power, making it a less reliable store of real value.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Store of value.",
+        "Unit of physical weight.",
+        "Source of unlimited real resources.",
+        "Guarantee of constant relative prices."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Money and banking",
+      "subtopic": "Credit and price level",
+      "learningObjective": "Explain monetary institutions and changes in purchasing power.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-066",
+      "objectiveId": "jamb-economics-money-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A central bank raises its policy interest rate to restrain inflation. Through the borrowing-cost channel, what is the intended effect?",
+      "answer": "Higher borrowing costs reduce some consumption and investment spending.",
+      "explanation": "More expensive credit can reduce interest-sensitive spending and aggregate demand; the effect is not immediate or guaranteed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "All prices fall instantly by the policy-rate increase.",
+        "Every bank must stop accepting deposits.",
+        "Government revenue automatically becomes zero.",
+        "Higher borrowing costs reduce some consumption and investment spending."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "National income",
+      "subtopic": "Output and welfare",
+      "learningObjective": "Interpret income measures and their limits as welfare indicators.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-067",
+      "objectiveId": "jamb-economics-national-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which transaction belongs to current domestic production in a year’s GDP?",
+      "answer": "Payment for a newly provided tailoring service.",
+      "explanation": "GDP counts the value of current final production. Transfers and resale of old assets do not themselves represent new output.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The resale value of a used bicycle produced five years ago.",
+        "A pension transfer with no current service provided.",
+        "Payment for a newly provided tailoring service.",
+        "A cash gift from a parent to a child."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "National income",
+      "subtopic": "Output and welfare",
+      "learningObjective": "Interpret income measures and their limits as welfare indicators.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-068",
+      "objectiveId": "jamb-economics-national-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Nominal output rises while the general price level rises by the same proportion. What follows about real output, using the matching price index?",
+      "answer": "Real output is unchanged.",
+      "explanation": "Real output removes the price-level effect; equal proportional increases in nominal output and the deflator cancel.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Real output must become negative.",
+        "Real output is unchanged.",
+        "Real output must double.",
+        "The nominal figure alone proves living standards improved."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Public finance",
+      "subtopic": "Taxation and spending",
+      "learningObjective": "Evaluate fiscal choices and their distributional effects.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-069",
+      "objectiveId": "jamb-economics-public-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A tax takes a smaller percentage of income as a household’s income rises. The tax is",
+      "answer": "regressive.",
+      "explanation": "Regressivity concerns the share of income paid, not whether the richer household pays more naira in total.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "regressive.",
+        "progressive.",
+        "proportional.",
+        "a subsidy."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Public finance",
+      "subtopic": "Taxation and spending",
+      "learningObjective": "Evaluate fiscal choices and their distributional effects.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-070",
+      "objectiveId": "jamb-economics-public-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which spending is capital expenditure in a government budget?",
+      "answer": "Construction of a new public bridge.",
+      "explanation": "Capital expenditure creates a durable asset, unlike routine wages, utility bills or recurring supplies.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Monthly salaries for existing clerks.",
+        "Payment for this month’s office electricity.",
+        "Purchase of stationery consumed this week.",
+        "Construction of a new public bridge."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "International trade",
+      "subtopic": "Specialisation and exchange",
+      "learningObjective": "Analyse trade choices and external transactions.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-071",
+      "objectiveId": "jamb-economics-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Country A sacrifices 2 bags of rice to produce one bale of cloth; country B sacrifices 5 bags for the same bale. Who has comparative advantage in cloth?",
+      "answer": "Country A, because its opportunity cost of cloth is lower.",
+      "explanation": "Comparative advantage depends on opportunity cost: 2 bags of rice is less than 5.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Neither country, because cloth is measured in bales.",
+        "Both countries must have identical opportunity costs.",
+        "Country A, because its opportunity cost of cloth is lower.",
+        "Country B, because it sacrifices more rice."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "International trade",
+      "subtopic": "Specialisation and exchange",
+      "learningObjective": "Analyse trade choices and external transactions.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-072",
+      "objectiveId": "jamb-economics-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "The naira depreciates against a supplier’s currency while the foreign-currency price of imported machinery stays fixed. What happens to its naira price before other charges?",
+      "answer": "It rises.",
+      "explanation": "Depreciation means more naira are needed to buy the same amount of the supplier’s currency.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It becomes independent of the exchange rate.",
+        "It rises.",
+        "It falls to zero.",
+        "It is necessarily unchanged."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Development and labour",
+      "subtopic": "Population and structural change",
+      "learningObjective": "Explain development constraints and labour market outcomes.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-073",
+      "objectiveId": "jamb-economics-development-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why may rapid GDP growth fail to reduce poverty substantially?",
+      "answer": "Growth benefits may be concentrated among a small share of the population.",
+      "explanation": "An increase in total output does not by itself specify distribution, employment access or household poverty outcomes.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Growth benefits may be concentrated among a small share of the population.",
+        "GDP growth requires every household’s income to rise equally.",
+        "Poverty depends only on the number of banknotes printed.",
+        "Unequal distribution is impossible during growth."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Development and labour",
+      "subtopic": "Population and structural change",
+      "learningObjective": "Explain development constraints and labour market outcomes.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-074",
+      "objectiveId": "jamb-economics-development-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A qualified worker stops searching for work because repeated applications have failed. Why might an unemployment rate understate labour-market distress?",
+      "answer": "Discouraged people outside the measured labour force may be excluded.",
+      "explanation": "Many unemployment measures require active job search, so discouraged non-searchers may not be counted as unemployed.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every employed worker is classified as unemployed.",
+        "Leaving the labour force always creates a new job.",
+        "The measure necessarily counts all children as unemployed.",
+        "Discouraged people outside the measured labour force may be excluded."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Development and labour",
+      "subtopic": "Population and structural change",
+      "learningObjective": "Explain development constraints and labour market outcomes.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "id": "ndv-025-075",
+      "objectiveId": "jamb-economics-development-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which policy most directly raises labour productivity through human capital?",
+      "answer": "Relevant training that improves workers’ skills.",
+      "explanation": "Human capital is productive knowledge and skill embodied in people; effective training can increase output per worker.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Printing currency without changing skills or equipment.",
+        "Reducing maintenance of productive equipment.",
+        "Relevant training that improves workers’ skills.",
+        "Renaming an existing ministry."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Basic economic concepts",
+      "subtopic": "Opportunity cost and allocation",
+      "learningObjective": "Analyse choices and resource allocation under scarcity.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-076",
+      "objectiveId": "waec-economics-choice-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which statement is normative rather than positive?",
+      "answer": "Government ought to place a higher priority on rural clinics.",
+      "explanation": "Ought to expresses a value judgement. The other statements describe claims that can be checked against evidence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The budget allocated ₦20 million to clinics.",
+        "Government ought to place a higher priority on rural clinics.",
+        "The town has three clinics.",
+        "Clinic attendance rose last month."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Basic economic concepts",
+      "subtopic": "Opportunity cost and allocation",
+      "learningObjective": "Analyse choices and resource allocation under scarcity.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-077",
+      "objectiveId": "waec-economics-choice-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A production possibility frontier shifts outward after widespread improvements in productive technology. What does this show?",
+      "answer": "The economy’s production capacity has increased.",
+      "explanation": "An outward shift expands attainable output combinations; a movement along an unchanged frontier only reallocates existing capacity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The economy’s production capacity has increased.",
+        "Only the composition of demand has changed.",
+        "Every resource has become unemployed.",
+        "The economy must produce beyond all feasible limits."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Tools of economic analysis",
+      "subtopic": "Tables and statistics",
+      "learningObjective": "Interpret economic data using appropriate quantitative tools.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-078",
+      "objectiveId": "waec-economics-tools-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why can a bar chart drawn with an unlabelled, truncated vertical axis mislead readers?",
+      "answer": "It can exaggerate the apparent size of differences.",
+      "explanation": "Starting the axis above zero without clear labelling may make small absolute differences appear visually large.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It necessarily changes the underlying observations.",
+        "It proves that every number is false.",
+        "It prevents readers from identifying any categories.",
+        "It can exaggerate the apparent size of differences."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Demand and supply",
+      "subtopic": "Market changes",
+      "learningObjective": "Distinguish curve shifts from movements and analyse price determination.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-079",
+      "objectiveId": "waec-economics-demand-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "If consumers’ income rises and demand for a particular cheap staple falls, that staple is classified, over this income range, as",
+      "answer": "an inferior good.",
+      "explanation": "An inferior good has negative income elasticity: demand decreases as income increases, other factors equal.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a public good solely because it is cheap.",
+        "a good with zero demand at every price.",
+        "an inferior good.",
+        "a normal good."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Demand and supply",
+      "subtopic": "Market changes",
+      "learningObjective": "Distinguish curve shifts from movements and analyse price determination.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-080",
+      "objectiveId": "waec-economics-demand-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A binding maximum price is set below the competitive equilibrium price. What is the immediate market imbalance, other things equal?",
+      "answer": "Quantity demanded exceeds quantity supplied.",
+      "explanation": "At the lower controlled price, consumers wish to buy more while suppliers offer less, creating a shortage.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Demand must become zero.",
+        "Quantity demanded exceeds quantity supplied.",
+        "Quantity supplied exceeds quantity demanded.",
+        "Supply becomes unlimited."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Elasticity",
+      "subtopic": "Responsiveness",
+      "learningObjective": "Apply elasticity measures to expenditure and revenue decisions.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-081",
+      "objectiveId": "waec-economics-elasticity-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which situation tends to make demand more price elastic?",
+      "answer": "Consumers have several close substitutes and time to adjust.",
+      "explanation": "Substitutes and adjustment time make it easier to reduce purchases when price rises.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Consumers have several close substitutes and time to adjust.",
+        "The good has no substitutes and is urgently needed.",
+        "Consumers cannot change any purchase during the period.",
+        "The good is the only available life-saving treatment."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Production and costs",
+      "subtopic": "Efficiency and costs",
+      "learningObjective": "Explain production relationships and evaluate cost information.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-082",
+      "objectiveId": "waec-economics-production-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which example is an external economy of scale for a group of firms?",
+      "answer": "A growing industrial area attracts specialist suppliers that lower local firms’ input costs.",
+      "explanation": "The benefit arises from the industry’s or cluster’s expansion, rather than the expansion of one firm alone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "One firm buys its own larger machine.",
+        "A single manager negotiates a discount on that firm’s order.",
+        "One firm reorganises its own accounting department.",
+        "A growing industrial area attracts specialist suppliers that lower local firms’ input costs."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Market structures",
+      "subtopic": "Competition and power",
+      "learningObjective": "Compare firm behaviour under different market conditions.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-083",
+      "objectiveId": "waec-economics-market-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Product differentiation is particularly associated with which market model?",
+      "answer": "Monopolistic competition.",
+      "explanation": "Many firms sell products perceived as different while entry is relatively open; differentiation gives each some pricing discretion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A pure monopoly with no rival producer.",
+        "A market in which no goods are sold.",
+        "Monopolistic competition.",
+        "Perfect competition with identical products."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Money and banking",
+      "subtopic": "Credit and price level",
+      "learningObjective": "Explain monetary institutions and changes in purchasing power.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-084",
+      "objectiveId": "waec-economics-money-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which institution normally has primary responsibility for issuing a country’s legal-tender banknotes?",
+      "answer": "The central bank or designated monetary authority.",
+      "explanation": "Currency issuance is a monetary-authority function; ordinary retail firms and insurers do not issue national legal tender.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A private insurance broker.",
+        "The central bank or designated monetary authority.",
+        "Every licensed supermarket.",
+        "A cooperative thrift society."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Money and banking",
+      "subtopic": "Credit and price level",
+      "learningObjective": "Explain monetary institutions and changes in purchasing power.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-085",
+      "objectiveId": "waec-economics-money-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why is barter difficult when a farmer wants shoes but the shoemaker does not want farm produce?",
+      "answer": "There is no double coincidence of wants.",
+      "explanation": "Direct exchange requires each party to want what the other offers at the same time.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "There is no double coincidence of wants.",
+        "Both parties already use the same currency.",
+        "The farmer’s produce is automatically worthless.",
+        "Every barter transaction requires a bank loan."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "National income",
+      "subtopic": "Output and welfare",
+      "learningObjective": "Interpret income measures and their limits as welfare indicators.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-086",
+      "objectiveId": "waec-economics-national-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which adjustment converts gross domestic product to net domestic product?",
+      "answer": "Subtract depreciation of fixed capital.",
+      "explanation": "Depreciation accounts for capital consumed or worn out during production; gross minus depreciation gives net.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Add the value of all intermediate goods again.",
+        "Subtract all household consumption.",
+        "Multiply output by the unemployment rate.",
+        "Subtract depreciation of fixed capital."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Public finance",
+      "subtopic": "Taxation and spending",
+      "learningObjective": "Evaluate fiscal choices and their distributional effects.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-087",
+      "objectiveId": "waec-economics-public-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A government spends more than its revenue in a financial year. The difference is a",
+      "answer": "budget deficit.",
+      "explanation": "A deficit is the excess of expenditure over revenue for the period; debt is the accumulated stock of outstanding borrowing.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "trade surplus.",
+        "balanced budget.",
+        "budget deficit.",
+        "budget surplus."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "International trade",
+      "subtopic": "Specialisation and exchange",
+      "learningObjective": "Analyse trade choices and external transactions.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-088",
+      "objectiveId": "waec-economics-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which item is normally recorded as an export of services?",
+      "answer": "A resident consulting firm earns fees from a client abroad.",
+      "explanation": "The resident supplies a service to a non-resident. A merchandise import and a domestic transaction are different categories.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A resident buys locally produced bread from a nearby bakery.",
+        "A resident consulting firm earns fees from a client abroad.",
+        "A shop imports phones for local sale.",
+        "Two local households exchange used furniture."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Development and labour",
+      "subtopic": "Population and structural change",
+      "learningObjective": "Explain development constraints and labour market outcomes.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-089",
+      "objectiveId": "waec-economics-development-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A worker’s nominal wage rises by 5% while consumer prices rise by 12%. What happens to the purchasing power of the wage?",
+      "answer": "It falls.",
+      "explanation": "The wage grows more slowly than prices, so it buys fewer goods and services. The exact real change is 1.05/1.12 minus 1.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It falls.",
+        "It rises by 17%.",
+        "It is guaranteed to remain unchanged.",
+        "It rises because any nominal increase is a real increase."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Development and labour",
+      "subtopic": "Population and structural change",
+      "learningObjective": "Explain development constraints and labour market outcomes.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-090",
+      "objectiveId": "waec-economics-development-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which situation most clearly illustrates underemployment?",
+      "answer": "A trained electrician wants full-time electrical work but can obtain only a few hours of it each week.",
+      "explanation": "Insufficient available hours relative to desired work indicate time-related underemployment. The other examples do not show inadequate work hours.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A nurse voluntarily works reduced hours and wants no more work.",
+        "A full-time teacher works the hours she wants.",
+        "A retired person does not want employment.",
+        "A trained electrician wants full-time electrical work but can obtain only a few hours of it each week."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Basic economic concepts",
+      "subtopic": "Opportunity cost and allocation",
+      "learningObjective": "Analyse choices and resource allocation under scarcity.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-091",
+      "objectiveId": "waec-economics-choice-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A school can use its last ₦120,000 either to repair a water tank or to buy library shelves. It chooses the repair. Explain scarcity and identify the opportunity cost, assuming these are the only alternatives.",
+      "answer": "Scarcity arises because the available ₦120,000 cannot meet both wants. Choosing the tank repair means giving up the library shelves, which are the next-best and only alternative in this example.",
+      "explanation": "The money is the constraint; the forgone shelves are the opportunity cost. Do not count both alternatives as sacrificed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain limited funds relative to competing wants.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Identify the library shelves as the alternative forgone.",
+          "marks": 2
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Tools of economic analysis",
+      "subtopic": "Tables and statistics",
+      "learningObjective": "Interpret economic data using appropriate quantitative tools.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-092",
+      "objectiveId": "waec-economics-tools-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A trader’s daily sales, in units, are 12, 15, 15, 18 and 40. Calculate the mean and median, then explain which better represents a typical day when the last figure reflects a special festival order.",
+      "answer": "Mean = (12+15+15+18+40)/5 = 20 units. Median = 15 units. The median is less affected by the unusually large festival order and better describes a typical non-festival day in this small record.",
+      "explanation": "Both measures are correctly calculated; the preference must be justified by the stated exceptional observation rather than a claim that means are always unsuitable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct total and mean of 20 units.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Correct median of 15 units.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain distortion by exceptional festival sales and justify the median for the stated purpose.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "verification": [
+        {
+          "expression": "(12+15+15+18+40)/5",
+          "expected": "20",
+          "answerValue": "20",
+          "purpose": "Mean daily sales"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Demand and supply",
+      "subtopic": "Market changes",
+      "learningObjective": "Distinguish curve shifts from movements and analyse price determination.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-093",
+      "objectiveId": "waec-economics-demand-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A market has demand Qd = 100 − 2P and supply Qs = 20 + 2P. Find equilibrium price and quantity. Then describe the pressure on price if it is temporarily fixed at P = 15 without enforcement of a price control.",
+      "answer": "Set 100−2P = 20+2P: 80 = 4P, so P = 20 and Q = 60. At P = 15, demand is 70 and supply is 50, giving excess demand of 20 units and upward pressure on price.",
+      "explanation": "Equilibrium equates quantities. A temporary price below equilibrium creates shortage, not surplus.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Equate demand and supply and solve P = 20.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Substitute to obtain Q = 60.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate Qd = 70 and Qs = 50 at P = 15.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Identify a 20-unit shortage and upward pressure on price.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "verification": [
+        {
+          "expression": "(100-20)/(2+2)",
+          "expected": "20",
+          "answerValue": "20",
+          "purpose": "Equilibrium price"
+        },
+        {
+          "expression": "100-2*20",
+          "expected": "60",
+          "purpose": "Equilibrium quantity"
+        },
+        {
+          "expression": "(100-2*15)-(20+2*15)",
+          "expected": "20",
+          "purpose": "Shortage at stated price"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Elasticity",
+      "subtopic": "Responsiveness",
+      "learningObjective": "Apply elasticity measures to expenditure and revenue decisions.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-094",
+      "objectiveId": "waec-economics-elasticity-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Using initial values for percentage changes, demand rises from 80 to 100 units when income rises from ₦50,000 to ₦60,000. Calculate income elasticity and classify the good over this range.",
+      "answer": "Quantity rises by 20/80 = 25%. Income rises by 10,000/50,000 = 20%. Income elasticity = 25/20 = 1.25. The positive elasticity identifies a normal good; its value above one indicates income-elastic demand over this range.",
+      "explanation": "The base convention is stated so that alternative arc-elasticity results are not confused with the required calculation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct percentage changes of 25% and 20%.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Correct ratio 1.25.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Classify as normal with income-elastic demand over this range.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "verification": [
+        {
+          "expression": "(20/80)/(10000/50000)",
+          "expected": "1.25",
+          "answerValue": "1.25",
+          "purpose": "Initial-value income elasticity"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Production and costs",
+      "subtopic": "Efficiency and costs",
+      "learningObjective": "Explain production relationships and evaluate cost information.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-095",
+      "objectiveId": "waec-economics-production-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A firm produces 200 units with total fixed cost of ₦10,000 and total variable cost of ₦30,000. Calculate average fixed cost and average total cost. Explain why average fixed cost falls when output rises while total fixed cost stays unchanged.",
+      "answer": "Average fixed cost = 10,000/200 = ₦50 per unit. Average total cost = (10,000+30,000)/200 = ₦200 per unit. As output rises, the same fixed cost is spread across more units.",
+      "explanation": "Distinguish fixed cost per unit from total fixed cost and from total variable cost.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate average fixed cost of ₦50.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate average total cost of ₦200.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain spreading unchanged fixed cost over more units.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "verification": [
+        {
+          "expression": "10000/200",
+          "expected": "50",
+          "answerValue": "50",
+          "purpose": "Average fixed cost"
+        },
+        {
+          "expression": "(10000+30000)/200",
+          "expected": "200",
+          "purpose": "Average total cost"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Market structures",
+      "subtopic": "Competition and power",
+      "learningObjective": "Compare firm behaviour under different market conditions.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-096",
+      "objectiveId": "waec-economics-market-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Explain two reasons why a monopolist cannot charge an unlimited price and expect to sell any desired quantity.",
+      "answer": "Buyers’ willingness and ability to pay constrain sales: a higher price generally reduces quantity demanded. Consumers may also use substitutes, postpone purchases or reduce consumption even if the monopolist has no identical rival product.",
+      "explanation": "Market power does not eliminate demand constraints. Credit two distinct mechanisms, including relevant regulatory limits if explained.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain a demand or purchasing-power constraint and its effect on quantity sold.",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Explain a distinct constraint such as substitution, postponement or applicable regulation.",
+          "marks": 3
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Money and banking",
+      "subtopic": "Credit and price level",
+      "learningObjective": "Explain monetary institutions and changes in purchasing power.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-097",
+      "objectiveId": "waec-economics-money-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A household holds ₦50,000 in cash while the relevant price index rises from 100 to 125. Express the later cash balance in base-period purchasing-power naira and explain the change.",
+      "answer": "Real value = 50,000×100/125 = ₦40,000 in base-period purchasing power. The nominal balance remains ₦50,000, but its purchasing power is 20% below the original base-period value.",
+      "explanation": "A 25% price increase implies a 20% loss in the purchasing power of unchanged cash; the percentages use different bases.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use cash × base index/current index.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate ₦40,000.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Distinguish unchanged nominal money from the 20% real-value loss.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "verification": [
+        {
+          "expression": "50000*100/125",
+          "expected": "40000",
+          "answerValue": "40000",
+          "purpose": "Cash in base-period purchasing-power naira"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "National income",
+      "subtopic": "Output and welfare",
+      "learningObjective": "Interpret income measures and their limits as welfare indicators.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-098",
+      "objectiveId": "waec-economics-national-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Explain why adding the full value of flour sold to a baker to the full value of the bread sold to households would overstate final output. State one correct way to avoid the error.",
+      "answer": "The bread’s value already includes the flour used to produce it, so adding both full values counts the flour twice. Count final bread only, or sum value added at each production stage.",
+      "explanation": "The intermediate input is not worthless; its contribution must be counted once through final output or value added.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain that flour is an intermediate input embodied in bread.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain double counting of the same contribution.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Give a valid final-output or value-added method.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Public finance",
+      "subtopic": "Taxation and spending",
+      "learningObjective": "Evaluate fiscal choices and their distributional effects.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-099",
+      "objectiveId": "waec-economics-public-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A council proposes a flat ₦2,000 monthly service levy on every household. Compare the burden on households earning ₦20,000 and ₦100,000 per month, and explain one equity concern.",
+      "answer": "The levy is 10% of ₦20,000 and 2% of ₦100,000. It therefore takes a greater share from the lower-income household, which may reduce its ability to pay for essentials. The levy is regressive relative to income in this comparison.",
+      "explanation": "The equal naira payment does not imply an equal income burden. Credit a reasoned equity concern rather than require a particular political view.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 10% for the lower-income household.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 2% for the higher-income household.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain the regressive income burden.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Explain a relevant equity concern.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "verification": [
+        {
+          "expression": "2000/20000*100",
+          "expected": "10",
+          "answerValue": "10",
+          "purpose": "Low-income household levy percentage"
+        },
+        {
+          "expression": "2000/100000*100",
+          "expected": "2",
+          "purpose": "Higher-income household levy percentage"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "International trade",
+      "subtopic": "Specialisation and exchange",
+      "learningObjective": "Analyse trade choices and external transactions.",
+      "specificationId": "waec-economics-compilation-2026",
+      "id": "ndv-025-100",
+      "objectiveId": "waec-economics-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Country X can use a fixed resource bundle to produce either 12 tonnes of cocoa or 6 tonnes of rubber. Country Y can produce either 8 tonnes of cocoa or 8 tonnes of rubber. Assuming straight-line frontiers, identify each country’s comparative advantage and justify your answer.",
+      "answer": "In X, one tonne of cocoa costs 6/12 = 0.5 tonne of rubber; in Y it costs 8/8 = 1 tonne of rubber, so X has comparative advantage in cocoa. One tonne of rubber costs 2 tonnes of cocoa in X but 1 in Y, so Y has comparative advantage in rubber.",
+      "explanation": "Compare opportunity costs using the same units for each good; absolute productivity alone does not establish comparative advantage.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate cocoa opportunity costs in X and Y.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Conclude X has comparative advantage in cocoa.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate rubber opportunity costs in X and Y.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Conclude Y has comparative advantage in rubber.",
+          "marks": 1
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "verification": [
+        {
+          "expression": "6/12",
+          "expected": "0.5",
+          "answerValue": "0.5",
+          "purpose": "Rubber forgone per tonne of cocoa in X"
+        }
+      ]
+    }
+  ]
+}

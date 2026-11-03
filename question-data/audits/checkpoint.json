@@ -2,14 +2,15 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "audit_framework_ready",
+  "phase": "batch_025_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-025.json",
+  "nextBatch": "original-multisubject-batch-026.json",
   "nextPriorities": [
-    "Author distinct WAEC/JAMB English and Economics items with objective mappings and detailed solutions.",
-    "Acquire versioned NECO/BECE/NERDC/IGCSE specifications and resolve all scope gaps.",
-    "Remediate legacy duplication, numerical templates, class ambiguity and missing objective mappings."
+    "Add original WAEC/JAMB Biology, Chemistry and Physics mapped drafts.",
+    "Acquire missing source versions and remediate legacy holds."
   ],
-  "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new"
+  "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
+  "lastValidatedBatch": "original-multisubject-batch-025.json",
+  "lastRemoteVerifiedCommit": "bd0af0ec87264680af5ef41fc3f0346a0471a2b0"
 }

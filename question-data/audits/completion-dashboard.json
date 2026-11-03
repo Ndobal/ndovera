@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 1679,
-    "validDrafts": 0,
+    "raw": 1779,
+    "validDrafts": 100,
     "reviewed": 0,
     "registeredBanks": 148,
     "target": 129000,
@@ -278,6 +278,12 @@
       "sha256": "32caef4677905755029d3f8b667ed5b3d501145d2476dc0b5faef82051272f03",
       "declared": 25,
       "actual": 25
+    },
+    {
+      "path": "original-multisubject-batch-025.json",
+      "sha256": "8769ab1f4b62e22f983ee1ce58b423eed1e455aefdfb579ff17da7ea8befc9c7",
+      "declared": 100,
+      "actual": 100
     },
     {
       "path": "original-practice-batch-001.json",
@@ -693,20 +699,22 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 2,
-      "validDrafts": 0,
+      "raw": 27,
+      "validDrafts": 25,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 2
+        "mcq": 27
       },
       "difficulty": {
+        "standard": 24,
+        "difficult": 1,
         "missing": 2
       },
-      "remaining": 1000,
+      "remaining": 975,
       "mappedObjectives": 11,
-      "representedObjectives": 0,
+      "representedObjectives": 11,
       "coverage": "partial_objective_register",
-      "completionStatus": "blocked_or_unmapped"
+      "completionStatus": "in_progress"
     },
     {
       "exam": "JAMB",
@@ -984,20 +992,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 3,
-      "validDrafts": 0,
+      "raw": 28,
+      "validDrafts": 25,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 3
+        "mcq": 28
       },
       "difficulty": {
+        "standard": 21,
+        "difficult": 3,
+        "easy": 1,
         "missing": 3
       },
-      "remaining": 1000,
+      "remaining": 975,
       "mappedObjectives": 6,
-      "representedObjectives": 0,
+      "representedObjectives": 5,
       "coverage": "partial_objective_register",
-      "completionStatus": "blocked_or_unmapped"
+      "completionStatus": "in_progress"
     },
     {
       "exam": "JAMB",
@@ -2700,21 +2711,25 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 4,
-      "validDrafts": 0,
+      "raw": 29,
+      "validDrafts": 25,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 4
+        "mcq": 19,
+        "structured": 10
       },
       "difficulty": {
+        "standard": 21,
+        "easy": 2,
+        "difficult": 2,
         "missing": 3,
         "very difficult": 1
       },
-      "remaining": 1000,
+      "remaining": 975,
       "mappedObjectives": 11,
-      "representedObjectives": 0,
+      "representedObjectives": 11,
       "coverage": "partial_objective_register",
-      "completionStatus": "blocked_or_unmapped"
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -2722,20 +2737,24 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 3,
-      "validDrafts": 0,
+      "raw": 28,
+      "validDrafts": 25,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 3
+        "mcq": 18,
+        "structured": 10
       },
       "difficulty": {
+        "standard": 21,
+        "easy": 2,
+        "difficult": 2,
         "missing": 3
       },
-      "remaining": 1000,
+      "remaining": 975,
       "mappedObjectives": 7,
-      "representedObjectives": 0,
+      "representedObjectives": 7,
       "coverage": "partial_objective_register",
-      "completionStatus": "blocked_or_unmapped"
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -3208,19 +3227,19 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "duplicate_options": 1,
+    "max_marks_mismatch": 81,
     "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "max_marks_mismatch": 81,
     "explanation_missing": 81,
     "marking_total_mismatch": 65
   },
@@ -17799,6 +17818,606 @@
       ]
     },
     {
+      "id": "ndv-025-001",
+      "file": "original-multisubject-batch-025.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-002",
+      "file": "original-multisubject-batch-025.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-003",
+      "file": "original-multisubject-batch-025.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-004",
+      "file": "original-multisubject-batch-025.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-005",
+      "file": "original-multisubject-batch-025.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-006",
+      "file": "original-multisubject-batch-025.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-007",
+      "file": "original-multisubject-batch-025.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-008",
+      "file": "original-multisubject-batch-025.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-009",
+      "file": "original-multisubject-batch-025.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-010",
+      "file": "original-multisubject-batch-025.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-011",
+      "file": "original-multisubject-batch-025.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-012",
+      "file": "original-multisubject-batch-025.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-013",
+      "file": "original-multisubject-batch-025.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-014",
+      "file": "original-multisubject-batch-025.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-015",
+      "file": "original-multisubject-batch-025.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-016",
+      "file": "original-multisubject-batch-025.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-017",
+      "file": "original-multisubject-batch-025.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-018",
+      "file": "original-multisubject-batch-025.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-019",
+      "file": "original-multisubject-batch-025.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-020",
+      "file": "original-multisubject-batch-025.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-021",
+      "file": "original-multisubject-batch-025.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-022",
+      "file": "original-multisubject-batch-025.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-023",
+      "file": "original-multisubject-batch-025.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-024",
+      "file": "original-multisubject-batch-025.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-025",
+      "file": "original-multisubject-batch-025.json",
+      "index": 24,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-026",
+      "file": "original-multisubject-batch-025.json",
+      "index": 25,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-027",
+      "file": "original-multisubject-batch-025.json",
+      "index": 26,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-028",
+      "file": "original-multisubject-batch-025.json",
+      "index": 27,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-029",
+      "file": "original-multisubject-batch-025.json",
+      "index": 28,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-030",
+      "file": "original-multisubject-batch-025.json",
+      "index": 29,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-031",
+      "file": "original-multisubject-batch-025.json",
+      "index": 30,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-032",
+      "file": "original-multisubject-batch-025.json",
+      "index": 31,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-033",
+      "file": "original-multisubject-batch-025.json",
+      "index": 32,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-034",
+      "file": "original-multisubject-batch-025.json",
+      "index": 33,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-035",
+      "file": "original-multisubject-batch-025.json",
+      "index": 34,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-036",
+      "file": "original-multisubject-batch-025.json",
+      "index": 35,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-037",
+      "file": "original-multisubject-batch-025.json",
+      "index": 36,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-038",
+      "file": "original-multisubject-batch-025.json",
+      "index": 37,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-039",
+      "file": "original-multisubject-batch-025.json",
+      "index": 38,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-040",
+      "file": "original-multisubject-batch-025.json",
+      "index": 39,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-041",
+      "file": "original-multisubject-batch-025.json",
+      "index": 40,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-042",
+      "file": "original-multisubject-batch-025.json",
+      "index": 41,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-043",
+      "file": "original-multisubject-batch-025.json",
+      "index": 42,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-044",
+      "file": "original-multisubject-batch-025.json",
+      "index": 43,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-045",
+      "file": "original-multisubject-batch-025.json",
+      "index": 44,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-046",
+      "file": "original-multisubject-batch-025.json",
+      "index": 45,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-047",
+      "file": "original-multisubject-batch-025.json",
+      "index": 46,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-048",
+      "file": "original-multisubject-batch-025.json",
+      "index": 47,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-049",
+      "file": "original-multisubject-batch-025.json",
+      "index": 48,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-050",
+      "file": "original-multisubject-batch-025.json",
+      "index": 49,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-051",
+      "file": "original-multisubject-batch-025.json",
+      "index": 50,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-052",
+      "file": "original-multisubject-batch-025.json",
+      "index": 51,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-053",
+      "file": "original-multisubject-batch-025.json",
+      "index": 52,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-054",
+      "file": "original-multisubject-batch-025.json",
+      "index": 53,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-055",
+      "file": "original-multisubject-batch-025.json",
+      "index": 54,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-056",
+      "file": "original-multisubject-batch-025.json",
+      "index": 55,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-057",
+      "file": "original-multisubject-batch-025.json",
+      "index": 56,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-058",
+      "file": "original-multisubject-batch-025.json",
+      "index": 57,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-059",
+      "file": "original-multisubject-batch-025.json",
+      "index": 58,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-060",
+      "file": "original-multisubject-batch-025.json",
+      "index": 59,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-061",
+      "file": "original-multisubject-batch-025.json",
+      "index": 60,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-062",
+      "file": "original-multisubject-batch-025.json",
+      "index": 61,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-063",
+      "file": "original-multisubject-batch-025.json",
+      "index": 62,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-064",
+      "file": "original-multisubject-batch-025.json",
+      "index": 63,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-065",
+      "file": "original-multisubject-batch-025.json",
+      "index": 64,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-066",
+      "file": "original-multisubject-batch-025.json",
+      "index": 65,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-067",
+      "file": "original-multisubject-batch-025.json",
+      "index": 66,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-068",
+      "file": "original-multisubject-batch-025.json",
+      "index": 67,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-069",
+      "file": "original-multisubject-batch-025.json",
+      "index": 68,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-070",
+      "file": "original-multisubject-batch-025.json",
+      "index": 69,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-071",
+      "file": "original-multisubject-batch-025.json",
+      "index": 70,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-072",
+      "file": "original-multisubject-batch-025.json",
+      "index": 71,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-073",
+      "file": "original-multisubject-batch-025.json",
+      "index": 72,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-074",
+      "file": "original-multisubject-batch-025.json",
+      "index": 73,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-075",
+      "file": "original-multisubject-batch-025.json",
+      "index": 74,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-076",
+      "file": "original-multisubject-batch-025.json",
+      "index": 75,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-077",
+      "file": "original-multisubject-batch-025.json",
+      "index": 76,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-078",
+      "file": "original-multisubject-batch-025.json",
+      "index": 77,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-079",
+      "file": "original-multisubject-batch-025.json",
+      "index": 78,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-080",
+      "file": "original-multisubject-batch-025.json",
+      "index": 79,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-081",
+      "file": "original-multisubject-batch-025.json",
+      "index": 80,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-082",
+      "file": "original-multisubject-batch-025.json",
+      "index": 81,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-083",
+      "file": "original-multisubject-batch-025.json",
+      "index": 82,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-084",
+      "file": "original-multisubject-batch-025.json",
+      "index": 83,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-085",
+      "file": "original-multisubject-batch-025.json",
+      "index": 84,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-086",
+      "file": "original-multisubject-batch-025.json",
+      "index": 85,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-087",
+      "file": "original-multisubject-batch-025.json",
+      "index": 86,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-088",
+      "file": "original-multisubject-batch-025.json",
+      "index": 87,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-089",
+      "file": "original-multisubject-batch-025.json",
+      "index": 88,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-090",
+      "file": "original-multisubject-batch-025.json",
+      "index": 89,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-091",
+      "file": "original-multisubject-batch-025.json",
+      "index": 90,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-092",
+      "file": "original-multisubject-batch-025.json",
+      "index": 91,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-093",
+      "file": "original-multisubject-batch-025.json",
+      "index": 92,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-094",
+      "file": "original-multisubject-batch-025.json",
+      "index": 93,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-095",
+      "file": "original-multisubject-batch-025.json",
+      "index": 94,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-096",
+      "file": "original-multisubject-batch-025.json",
+      "index": 95,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-097",
+      "file": "original-multisubject-batch-025.json",
+      "index": 96,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-098",
+      "file": "original-multisubject-batch-025.json",
+      "index": 97,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-099",
+      "file": "original-multisubject-batch-025.json",
+      "index": 98,
+      "errors": []
+    },
+    {
+      "id": "ndv-025-100",
+      "file": "original-multisubject-batch-025.json",
+      "index": 99,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -29633,14 +30252,19 @@
       "subtopic": "Grammar in context",
       "learningObjective": "Choose grammatically accurate forms in context.",
       "specificationId": "waec-english-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 8
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 8,
+      "validDrafts": 8,
+      "difficulty": {
+        "standard": 7,
+        "difficult": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29651,14 +30275,19 @@
       "subtopic": "Meaning in context",
       "learningObjective": "Infer the intended sense of a word or expression from its context.",
       "specificationId": "waec-english-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 4
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "easy": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29669,14 +30298,19 @@
       "subtopic": "Register and cohesion",
       "learningObjective": "Select vocabulary and links suited to a communicative situation.",
       "specificationId": "waec-english-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 3
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29687,14 +30321,18 @@
       "subtopic": "Inference and evidence",
       "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
       "specificationId": "waec-english-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29705,14 +30343,18 @@
       "subtopic": "Purpose and organisation",
       "learningObjective": "Identify a writer's purpose, central point or organisation.",
       "specificationId": "waec-english-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29723,14 +30365,19 @@
       "subtopic": "Selecting key information",
       "learningObjective": "Express requested main ideas concisely without adding unsupported details.",
       "specificationId": "waec-english-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 3
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29741,14 +30388,18 @@
       "subtopic": "Audience and organisation",
       "learningObjective": "Develop a coherent written response appropriate to a stated audience and purpose.",
       "specificationId": "waec-english-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 4
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29759,14 +30410,19 @@
       "subtopic": "Opportunity cost and allocation",
       "learningObjective": "Analyse choices and resource allocation under scarcity.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29777,14 +30433,19 @@
       "subtopic": "Tables and statistics",
       "learningObjective": "Interpret economic data using appropriate quantitative tools.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29795,14 +30456,19 @@
       "subtopic": "Market changes",
       "learningObjective": "Distinguish curve shifts from movements and analyse price determination.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29813,14 +30479,19 @@
       "subtopic": "Responsiveness",
       "learningObjective": "Apply elasticity measures to expenditure and revenue decisions.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29831,14 +30502,19 @@
       "subtopic": "Efficiency and costs",
       "learningObjective": "Explain production relationships and evaluate cost information.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29849,14 +30525,19 @@
       "subtopic": "Competition and power",
       "learningObjective": "Compare firm behaviour under different market conditions.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29867,14 +30548,21 @@
       "subtopic": "Credit and price level",
       "learningObjective": "Explain monetary institutions and changes in purchasing power.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1,
+        "difficult": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29885,14 +30573,19 @@
       "subtopic": "Output and welfare",
       "learningObjective": "Interpret income measures and their limits as welfare indicators.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29903,14 +30596,20 @@
       "subtopic": "Taxation and spending",
       "learningObjective": "Evaluate fiscal choices and their distributional effects.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29921,14 +30620,20 @@
       "subtopic": "Specialisation and exchange",
       "learningObjective": "Analyse trade choices and external transactions.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 1,
+        "difficult": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29939,14 +30644,18 @@
       "subtopic": "Population and structural change",
       "learningObjective": "Explain development constraints and labour market outcomes.",
       "specificationId": "waec-economics-compilation-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29957,14 +30666,19 @@
       "subtopic": "Grammar in context",
       "learningObjective": "Choose grammatically accurate forms in context.",
       "specificationId": "jamb-english-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 8
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 8,
+      "validDrafts": 8,
+      "difficulty": {
+        "standard": 7,
+        "difficult": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29975,14 +30689,18 @@
       "subtopic": "Meaning in context",
       "learningObjective": "Infer the intended sense of a word or expression from its context.",
       "specificationId": "jamb-english-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 6
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -29993,14 +30711,19 @@
       "subtopic": "Register and cohesion",
       "learningObjective": "Select vocabulary and links suited to a communicative situation.",
       "specificationId": "jamb-english-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 3
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "easy": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30011,14 +30734,19 @@
       "subtopic": "Inference and evidence",
       "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
       "specificationId": "jamb-english-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 4
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30029,14 +30757,19 @@
       "subtopic": "Purpose and organisation",
       "learningObjective": "Identify a writer's purpose, central point or organisation.",
       "specificationId": "jamb-english-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 4
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30065,14 +30798,18 @@
       "subtopic": "Opportunity cost and allocation",
       "learningObjective": "Analyse choices and resource allocation under scarcity.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 3
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30083,14 +30820,18 @@
       "subtopic": "Tables and statistics",
       "learningObjective": "Interpret economic data using appropriate quantitative tools.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30101,14 +30842,18 @@
       "subtopic": "Market changes",
       "learningObjective": "Distinguish curve shifts from movements and analyse price determination.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30119,14 +30864,18 @@
       "subtopic": "Responsiveness",
       "learningObjective": "Apply elasticity measures to expenditure and revenue decisions.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30137,14 +30886,18 @@
       "subtopic": "Efficiency and costs",
       "learningObjective": "Explain production relationships and evaluate cost information.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 3
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30155,14 +30908,18 @@
       "subtopic": "Competition and power",
       "learningObjective": "Compare firm behaviour under different market conditions.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30173,14 +30930,18 @@
       "subtopic": "Credit and price level",
       "learningObjective": "Explain monetary institutions and changes in purchasing power.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30191,14 +30952,18 @@
       "subtopic": "Output and welfare",
       "learningObjective": "Interpret income measures and their limits as welfare indicators.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30209,14 +30974,18 @@
       "subtopic": "Taxation and spending",
       "learningObjective": "Evaluate fiscal choices and their distributional effects.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30227,14 +30996,18 @@
       "subtopic": "Specialisation and exchange",
       "learningObjective": "Analyse trade choices and external transactions.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 2
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -30245,14 +31018,19 @@
       "subtopic": "Population and structural change",
       "learningObjective": "Explain development constraints and labour market outcomes.",
       "specificationId": "jamb-economics-ibass-2026",
-      "questionTypes": {},
+      "questionTypes": {
+        "mcq": 3
+      },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     }
   ],
