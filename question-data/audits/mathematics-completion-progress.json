@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 584,
-      "remainingToNumericTarget": 416,
+      "stagedQuestionCount": 684,
+      "remainingToNumericTarget": 316,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -70,7 +70,11 @@
     "question-data/original-mathematics-batch-019e.json",
     "question-data/original-mathematics-batch-019f.json",
     "question-data/original-mathematics-batch-019g.json",
-    "question-data/original-mathematics-batch-019h.json"
+    "question-data/original-mathematics-batch-019h.json",
+    "question-data/original-mathematics-batch-020a.json",
+    "question-data/original-mathematics-batch-020b.json",
+    "question-data/original-mathematics-batch-020c.json",
+    "question-data/original-mathematics-batch-020d.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -114,13 +118,16 @@
     "batch019PerExam": 100,
     "batch019StructuralChecksPassed": true,
     "batch019ConceptFamilies": 25,
-    "batch019IndependentAcademicReview": false
+    "batch019IndependentAcademicReview": false,
+    "batch020PartialWAECCount": 100,
+    "batch020JAMBCount": 0,
+    "batch020Incomplete": true,
+    "batch020ConceptualRepetitionFlagged": true
   },
   "nextPriorities": [
-    "Avoid numerical template repetition and expand genuine problem-solving depth",
-    "Review WAEC theory and add original multistep structured questions",
-    "Verify syllabus objective coverage and full mathematical correctness",
-    "Retain draft status and prevent production import before review"
+    "Complete requested 200 WAEC and 200 JAMB with distinct concepts rather than cloning templates",
+    "Review and repair parameterized batch 020a-d",
+    "Independently audit correctness and objective coverage before publication"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
