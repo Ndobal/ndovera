@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 684,
-      "remainingToNumericTarget": 316,
+      "stagedQuestionCount": 694,
+      "remainingToNumericTarget": 306,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -75,7 +75,8 @@
     "question-data/original-mathematics-batch-020b.json",
     "question-data/original-mathematics-batch-020c.json",
     "question-data/original-mathematics-batch-020d.json",
-    "question-data/original-jamb-mathematics-depth-batch-021a.json"
+    "question-data/original-jamb-mathematics-depth-batch-021a.json",
+    "question-data/original-waec-mathematics-theory-batch-021b.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -126,13 +127,15 @@
     "batch020ConceptualRepetitionFlagged": true,
     "batch021aQuestionCount": 20,
     "batch021aDistinctTopicCount": 20,
-    "batch021aIndependentAcademicReview": false
+    "batch021aIndependentAcademicReview": false,
+    "batch021bTheoryCount": 10,
+    "batch021bMarkingGuidesIncluded": true,
+    "batch021bIndependentAcademicReview": false
   },
   "nextPriorities": [
-    "Complete remaining 380 JAMB and 400 WAEC questions from new 400-each request",
-    "Maintain distinct problem types and detailed mathematical explanations",
-    "Complete outstanding 300 questions from earlier request without double counting",
-    "Verify every answer and distractor and audit syllabus objective coverage"
+    "Continue 400 WAEC and 400 JAMB request: 390 WAEC and 380 JAMB not yet added",
+    "Review theory marking schemes, schema compatibility and mathematical correctness",
+    "Avoid numerical padding and duplicate conceptual patterns"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
