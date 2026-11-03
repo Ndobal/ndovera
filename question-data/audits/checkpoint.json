@@ -2,22 +2,22 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_033_automated_validation_passed",
+  "phase": "batch_034_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-034.json",
+  "nextBatch": "original-multisubject-batch-035.json",
   "nextPriorities": [
-    "Prioritise underrepresented religious studies and language objectives across applicable examinations; History and French now have 25 drafts in each WAEC/JAMB bank, not full syllabus coverage.",
+    "Retrieve current specifications for remaining largely empty banks, including Literature in English and named language qualifications, and prioritise missing objectives. CRK/IRK now each have 25 drafts per WAEC/JAMB bank; recitation, tajwid, many historical themes and full religious-studies coverage remain outstanding.",
     "Retrieve full NECO BECE content objectives after the official 2026 timetable established subject and paper-format scope.",
     "Verify current NERDC class-objective adoption: new class pages return 403; older public PDFs are reference evidence only.",
     "Continue NECO SSCE source retrieval, legacy remediation and independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-033.json",
-  "lastRemoteVerifiedCommit": "b127270bf38665fc6ceb12a689a0da61df6ec086",
+  "lastValidatedBatch": "original-multisubject-batch-034.json",
+  "lastRemoteVerifiedCommit": "45c943d4cf1a6aabb75fa0c01e5f081e24e730bc",
   "verifiedTotals": {
-    "raw": 2499,
-    "validDrafts": 820,
+    "raw": 2599,
+    "validDrafts": 920,
     "reviewed": 0
   },
   "lastRunTestCount": 40

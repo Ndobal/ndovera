@@ -38,7 +38,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Biology | 1000 | 38 | 20 | 0 | 980 | partial_objective_register |
 | JAMB | Chemistry | 1000 | 18 | 15 | 0 | 985 | partial_objective_register |
-| JAMB | Christian Religious Knowledge (CRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Christian Religious Knowledge (CRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Commerce | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Computer Studies | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Economics | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
@@ -51,7 +51,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | History | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Home Economics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Islamic Religious Knowledge (IRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Islamic Religious Knowledge (IRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Literature in English | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Mathematics | 1000 | 673 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Music | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -137,7 +137,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Book Keeping | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Catering Craft Practice | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Chemistry | 1000 | 21 | 15 | 0 | 985 | partial_objective_register |
-| WAEC | Christian Religious Knowledge (CRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Christian Religious Knowledge (CRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Citizenship and Heritage Studies | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | WAEC | Civic Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Commerce | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
@@ -161,7 +161,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Horticulture and Crop Production | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Insurance | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Islamic Religious Knowledge (IRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Islamic Religious Knowledge (IRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Literature in English | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Livestock Farming | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Marketing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -181,15 +181,15 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | 0 | 0 | 0 | 18000 | 18000 |
 | IELTS | 19 | 10 | 0 | 4000 | 3990 |
 | IGCSE | 121 | 100 | 0 | 4000 | 3900 |
-| JAMB | 1003 | 300 | 0 | 25000 | 24700 |
+| JAMB | 1053 | 350 | 0 | 25000 | 24650 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 19 | 10 | 0 | 4000 | 3990 |
-| WAEC | 1099 | 300 | 0 | 42000 | 41700 |
+| WAEC | 1149 | 350 | 0 | 42000 | 41650 |
 
-Overall: {"raw": 2499, "validDrafts": 820, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2599, "validDrafts": 920, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

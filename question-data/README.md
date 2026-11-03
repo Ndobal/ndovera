@@ -116,3 +116,12 @@ author-created practice rubrics. It supplies no listening recordings or oral
 performance assessment. History sources include limited museum and archival
 crosschecks; full current specification alignment is still pending. These
 additions are not complete syllabuses or independently reviewed material.
+
+## Religious Studies checkpoint
+
+Batch 034 adds 25 drafts per WAEC/JAMB CRK and IRK bank, using the existing
+registry subject names. It contains 90 four-option questions and 10 WAEC essays
+with indicative eight-mark practice guides. Each item has a text reference.
+The guides do not reproduce official examination mark scaling. Full current
+specifications and independent specialist review remain outstanding. No Arabic
+recitation or tajwid performance is assessed by these written questions.

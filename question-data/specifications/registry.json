@@ -430,6 +430,119 @@
       "source": "https://www.nigeria-manila.org/history/",
       "status": "limited_chronology_crosscheck",
       "note": "1960 independence, 1963 republican status and 1967–1970 war; no endorsement of every narrative claim or current officeholder information implied."
+    },
+    {
+      "id": "jamb-crs-compilation-2026",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "kind": "user_supplied_third_party_compilation_with_limited_primary_text_crosschecks",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/christian-religious-knowledge-crk",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "Third-party compilation includes examination-year claims not independently verified. Author-proposed objectives are not official codes. WAEC examiner-resource indexes confirm essay format. JAMB CRS PDF URL returned JavaScript application content. Text references permit review but do not establish academic approval or recitation competence."
+    },
+    {
+      "id": "jamb-irs-compilation-2026",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "kind": "user_supplied_third_party_compilation_with_limited_primary_text_crosschecks",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/islamic-religious-knowledge-irk",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "Third-party compilation includes examination-year claims not independently verified. Author-proposed objectives are not official codes. WAEC examiner-resource indexes confirm essay format. JAMB CRS PDF URL returned JavaScript application content. Text references permit review but do not establish academic approval or recitation competence."
+    },
+    {
+      "id": "waec-crs-compilation-2026",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "kind": "user_supplied_third_party_compilation_with_limited_primary_text_crosschecks",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/waec-syllabus/christian-religious-knowledge-crk",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "Third-party compilation includes examination-year claims not independently verified. Author-proposed objectives are not official codes. WAEC examiner-resource indexes confirm essay format. JAMB CRS PDF URL returned JavaScript application content. Text references permit review but do not establish academic approval or recitation competence."
+    },
+    {
+      "id": "waec-irs-compilation-2026",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "kind": "user_supplied_third_party_compilation_with_limited_primary_text_crosschecks",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/waec-syllabus/islamic-religious-knowledge-irk",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "Third-party compilation includes examination-year claims not independently verified. Author-proposed objectives are not official codes. WAEC examiner-resource indexes confirm essay format. JAMB CRS PDF URL returned JavaScript application content. Text references permit review but do not establish academic approval or recitation competence."
+    },
+    {
+      "id": "waec-crs-examiner-index",
+      "kind": "official_examiner_resource_index",
+      "source": "https://www.waeconline.org.ng/e-learning/CRK/CRSmain.html",
+      "status": "paper_two_format_reference_full_current_specification_pending"
+    },
+    {
+      "id": "waec-irs-examiner-index",
+      "kind": "official_examiner_resource_index",
+      "source": "https://www.waeconline.org.ng/e-learning/Islamic/IRKmain.html",
+      "status": "paper_two_format_reference_full_current_specification_pending"
+    },
+    {
+      "id": "scriptural-quran-reference-034",
+      "kind": "primary_religious_text_with_translation",
+      "source": "https://quran.com",
+      "status": "selected_passages_crosschecked_interpretation_pending_specialist_review",
+      "references": [
+        "1",
+        "2:42",
+        "2:183–185",
+        "2:285",
+        "3:97",
+        "4:43",
+        "5:90–91",
+        "9:60",
+        "17:23–24",
+        "17:35",
+        "31:13–15",
+        "61:2–3",
+        "93",
+        "96:1–5",
+        "109",
+        "112",
+        "114",
+        "17:106"
+      ],
+      "note": "All wording in questions and explanations is original paraphrase, not a reproduced translation. No audio or live recitation assessed."
+    },
+    {
+      "id": "scriptural-hadith-reference-034",
+      "kind": "primary_religious_text_with_translation",
+      "source": "https://sunnah.com/nawawi40",
+      "status": "selected_reports_crosschecked_interpretation_pending_specialist_review",
+      "references": [
+        "An-Nawawi 1",
+        "An-Nawawi 13",
+        "An-Nawawi 15",
+        "An-Nawawi 16",
+        "An-Nawawi 18",
+        "An-Nawawi 34",
+        "Sahih al-Bukhari 4986",
+        "Sahih al-Bukhari 4987"
+      ],
+      "note": "Question text and explanations are original paraphrase. Hadith numbers identify sources, not question IDs.",
+      "additionalSources": [
+        "https://sunnah.com/bukhari:4986",
+        "https://sunnah.com/bukhari:4987"
+      ]
+    },
+    {
+      "id": "scriptural-bible-reference-034",
+      "kind": "primary_religious_text_reference",
+      "source": "https://www.biblegateway.com/versions/King-James-Version-KJV-Bible/",
+      "status": "passage_references_supplied_pending_specialist_review",
+      "note": "Original paraphrases, not reproduced Bible translation. Accept accurate rendering of personal names and narrative details across appropriate translations. Syllabus compilation recommends RSV; no question depends on one translation’s exact wording.",
+      "selectedPassageCrosschecks": [
+        "https://www.biblegateway.com/passage/?search=Genesis+45:1-15&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Judges+4:4-9&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Acts+5:1-11&version=KJV",
+        "https://www.biblegateway.com/passage/?search=James+5:16-18&version=KJV"
+      ]
     }
   ],
   "banks": [
@@ -515,7 +628,8 @@
       "subject": "Christian Religious Knowledge (CRK)",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "waec-crs-compilation-2026"
     },
     {
       "exam": "WAEC",
@@ -529,7 +643,8 @@
       "subject": "Islamic Religious Knowledge (IRK)",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "waec-irs-compilation-2026"
     },
     {
       "exam": "WAEC",
@@ -748,7 +863,8 @@
       "subject": "Christian Religious Knowledge (CRK)",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "jamb-crs-compilation-2026"
     },
     {
       "exam": "JAMB",
@@ -762,7 +878,8 @@
       "subject": "Islamic Religious Knowledge (IRK)",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "jamb-irs-compilation-2026"
     },
     {
       "exam": "JAMB",
@@ -5129,6 +5246,340 @@
       "learningObjective": "Produce coherent original French appropriate to audience purpose and task.",
       "specificationId": "waec-french-compilation-2026",
       "questionTypes": [
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-crs-leaders-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Old Testament leadership",
+      "subtopic": "Service planning and obedience",
+      "learningObjective": "Interpret leadership decisions and consequences in prescribed Old Testament narratives.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-crs-justice-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Old Testament prophetic themes",
+      "subtopic": "Justice repentance and reform",
+      "learningObjective": "Relate prophetic critiques and reform narratives to justice and accountability.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-crs-jesus-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Synoptic Gospel themes",
+      "subtopic": "Discipleship forgiveness and the passion",
+      "learningObjective": "Interpret Jesus’ actions and teaching in their stated Synoptic Gospel contexts.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-crs-church-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Acts of the Apostles",
+      "subtopic": "Fellowship leadership and mission",
+      "learningObjective": "Explain decisions and community challenges in the early church.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-crs-epistles-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith impartiality speech and service",
+      "learningObjective": "Apply the teaching of James and 1 Peter while retaining its textual context.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-irs-quran-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Qur’an study",
+      "subtopic": "Selected suwar and revelation",
+      "learningObjective": "Interpret themes and lessons of prescribed Qur’anic passages.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-irs-ethics-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Qur’anic moral teaching",
+      "subtopic": "Truthfulness family and social responsibility",
+      "learningObjective": "Apply prescribed Qur’anic moral principles to clearly stated situations.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-irs-hadith-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Hadith and Sunnah",
+      "subtopic": "Text transmission and moral lessons",
+      "learningObjective": "Distinguish Hadith components and interpret selected an-Nawawi traditions.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-irs-faith-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Tawhid and faith",
+      "subtopic": "Divine unity and accountability",
+      "learningObjective": "Explain Islamic teachings about divine unity faith and responsibility.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-irs-worship-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Fiqh and worship",
+      "subtopic": "Purification prayer fasting charity and pilgrimage",
+      "learningObjective": "Distinguish core worship concepts and their stated spiritual or social purposes.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-irs-history-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Historical development of Islam",
+      "subtopic": "Migration community and preservation",
+      "learningObjective": "Identify purposes and significance of selected early Islamic developments.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-crs-leaders-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Old Testament leadership",
+      "subtopic": "Service planning and obedience",
+      "learningObjective": "Interpret leadership decisions and consequences in prescribed Old Testament narratives.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-crs-justice-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Old Testament prophetic themes",
+      "subtopic": "Justice repentance and reform",
+      "learningObjective": "Relate prophetic critiques and reform narratives to justice and accountability.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-crs-jesus-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Synoptic Gospel themes",
+      "subtopic": "Discipleship forgiveness and the passion",
+      "learningObjective": "Interpret Jesus’ actions and teaching in their stated Synoptic Gospel contexts.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-crs-church-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Acts of the Apostles",
+      "subtopic": "Fellowship leadership and mission",
+      "learningObjective": "Explain decisions and community challenges in the early church.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-crs-epistles-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith impartiality speech and service",
+      "learningObjective": "Apply the teaching of James and 1 Peter while retaining its textual context.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-irs-quran-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Qur’an study",
+      "subtopic": "Selected suwar and revelation",
+      "learningObjective": "Interpret themes and lessons of prescribed Qur’anic passages.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-irs-ethics-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Qur’anic moral teaching",
+      "subtopic": "Truthfulness family and social responsibility",
+      "learningObjective": "Apply prescribed Qur’anic moral principles to clearly stated situations.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-irs-hadith-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Hadith and Sunnah",
+      "subtopic": "Text transmission and moral lessons",
+      "learningObjective": "Distinguish Hadith components and interpret selected an-Nawawi traditions.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-irs-faith-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Tawhid and faith",
+      "subtopic": "Divine unity and accountability",
+      "learningObjective": "Explain Islamic teachings about divine unity faith and responsibility.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-irs-worship-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Fiqh and worship",
+      "subtopic": "Purification prayer fasting charity and pilgrimage",
+      "learningObjective": "Distinguish core worship concepts and their stated spiritual or social purposes.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-irs-history-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Historical development of Islam",
+      "subtopic": "Migration community and preservation",
+      "learningObjective": "Identify purposes and significance of selected early Islamic developments.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-crs-creation-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "The sovereignty of God",
+      "subtopic": "Creation and human responsibility",
+      "learningObjective": "Interpret humanity’s place and responsibility in the Genesis creation narrative.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": [
+        "mcq",
         "essay"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",

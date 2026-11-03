@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2499,
-    "validDrafts": 820,
+    "raw": 2599,
+    "validDrafts": 920,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -330,6 +330,12 @@
     {
       "path": "original-multisubject-batch-033.json",
       "sha256": "bb2ad8cef0423d7ff29eaaa5a2a59febf17745f05bb9a33a33e79fbdb724277d",
+      "declared": 100,
+      "actual": 100
+    },
+    {
+      "path": "original-multisubject-batch-034.json",
+      "sha256": "c344d9f01dd153fd9eff17a4115183ea8b32aaf778acd0fa7aa3aa82db5aca94",
       "declared": 100,
       "actual": 100
     },
@@ -1210,16 +1216,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "specificationId": "jamb-crs-compilation-2026",
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 25
+      },
+      "difficulty": {
+        "standard": 21,
+        "easy": 3,
+        "difficult": 1
+      },
+      "remaining": 975,
+      "mappedObjectives": 5,
+      "representedObjectives": 5,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "JAMB",
@@ -1477,16 +1490,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "specificationId": "jamb-irs-compilation-2026",
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 25
+      },
+      "difficulty": {
+        "easy": 6,
+        "standard": 18,
+        "difficult": 1
+      },
+      "remaining": 975,
+      "mappedObjectives": 6,
+      "representedObjectives": 6,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "JAMB",
@@ -3202,16 +3222,24 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "specificationId": "waec-crs-compilation-2026",
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 20,
+        "essay": 5
+      },
+      "difficulty": {
+        "standard": 16,
+        "easy": 3,
+        "difficult": 6
+      },
+      "remaining": 975,
+      "mappedObjectives": 6,
+      "representedObjectives": 6,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -3682,16 +3710,24 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "specificationId": "waec-irs-compilation-2026",
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 20,
+        "essay": 5
+      },
+      "difficulty": {
+        "standard": 14,
+        "easy": 4,
+        "difficult": 7
+      },
+      "remaining": 975,
+      "mappedObjectives": 6,
+      "representedObjectives": 6,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -3899,9 +3935,9 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
@@ -3909,8 +3945,8 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 141,
@@ -23413,6 +23449,606 @@
       "errors": []
     },
     {
+      "id": "ndv-034-001",
+      "file": "original-multisubject-batch-034.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-002",
+      "file": "original-multisubject-batch-034.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-003",
+      "file": "original-multisubject-batch-034.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-004",
+      "file": "original-multisubject-batch-034.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-005",
+      "file": "original-multisubject-batch-034.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-006",
+      "file": "original-multisubject-batch-034.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-007",
+      "file": "original-multisubject-batch-034.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-008",
+      "file": "original-multisubject-batch-034.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-009",
+      "file": "original-multisubject-batch-034.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-010",
+      "file": "original-multisubject-batch-034.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-011",
+      "file": "original-multisubject-batch-034.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-012",
+      "file": "original-multisubject-batch-034.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-013",
+      "file": "original-multisubject-batch-034.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-014",
+      "file": "original-multisubject-batch-034.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-015",
+      "file": "original-multisubject-batch-034.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-016",
+      "file": "original-multisubject-batch-034.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-017",
+      "file": "original-multisubject-batch-034.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-018",
+      "file": "original-multisubject-batch-034.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-019",
+      "file": "original-multisubject-batch-034.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-020",
+      "file": "original-multisubject-batch-034.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-021",
+      "file": "original-multisubject-batch-034.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-022",
+      "file": "original-multisubject-batch-034.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-023",
+      "file": "original-multisubject-batch-034.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-024",
+      "file": "original-multisubject-batch-034.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-025",
+      "file": "original-multisubject-batch-034.json",
+      "index": 24,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-026",
+      "file": "original-multisubject-batch-034.json",
+      "index": 25,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-027",
+      "file": "original-multisubject-batch-034.json",
+      "index": 26,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-028",
+      "file": "original-multisubject-batch-034.json",
+      "index": 27,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-029",
+      "file": "original-multisubject-batch-034.json",
+      "index": 28,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-030",
+      "file": "original-multisubject-batch-034.json",
+      "index": 29,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-031",
+      "file": "original-multisubject-batch-034.json",
+      "index": 30,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-032",
+      "file": "original-multisubject-batch-034.json",
+      "index": 31,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-033",
+      "file": "original-multisubject-batch-034.json",
+      "index": 32,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-034",
+      "file": "original-multisubject-batch-034.json",
+      "index": 33,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-035",
+      "file": "original-multisubject-batch-034.json",
+      "index": 34,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-036",
+      "file": "original-multisubject-batch-034.json",
+      "index": 35,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-037",
+      "file": "original-multisubject-batch-034.json",
+      "index": 36,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-038",
+      "file": "original-multisubject-batch-034.json",
+      "index": 37,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-039",
+      "file": "original-multisubject-batch-034.json",
+      "index": 38,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-040",
+      "file": "original-multisubject-batch-034.json",
+      "index": 39,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-041",
+      "file": "original-multisubject-batch-034.json",
+      "index": 40,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-042",
+      "file": "original-multisubject-batch-034.json",
+      "index": 41,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-043",
+      "file": "original-multisubject-batch-034.json",
+      "index": 42,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-044",
+      "file": "original-multisubject-batch-034.json",
+      "index": 43,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-045",
+      "file": "original-multisubject-batch-034.json",
+      "index": 44,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-046",
+      "file": "original-multisubject-batch-034.json",
+      "index": 45,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-047",
+      "file": "original-multisubject-batch-034.json",
+      "index": 46,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-048",
+      "file": "original-multisubject-batch-034.json",
+      "index": 47,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-049",
+      "file": "original-multisubject-batch-034.json",
+      "index": 48,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-050",
+      "file": "original-multisubject-batch-034.json",
+      "index": 49,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-051",
+      "file": "original-multisubject-batch-034.json",
+      "index": 50,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-052",
+      "file": "original-multisubject-batch-034.json",
+      "index": 51,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-053",
+      "file": "original-multisubject-batch-034.json",
+      "index": 52,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-054",
+      "file": "original-multisubject-batch-034.json",
+      "index": 53,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-055",
+      "file": "original-multisubject-batch-034.json",
+      "index": 54,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-056",
+      "file": "original-multisubject-batch-034.json",
+      "index": 55,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-057",
+      "file": "original-multisubject-batch-034.json",
+      "index": 56,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-058",
+      "file": "original-multisubject-batch-034.json",
+      "index": 57,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-059",
+      "file": "original-multisubject-batch-034.json",
+      "index": 58,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-060",
+      "file": "original-multisubject-batch-034.json",
+      "index": 59,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-061",
+      "file": "original-multisubject-batch-034.json",
+      "index": 60,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-062",
+      "file": "original-multisubject-batch-034.json",
+      "index": 61,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-063",
+      "file": "original-multisubject-batch-034.json",
+      "index": 62,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-064",
+      "file": "original-multisubject-batch-034.json",
+      "index": 63,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-065",
+      "file": "original-multisubject-batch-034.json",
+      "index": 64,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-066",
+      "file": "original-multisubject-batch-034.json",
+      "index": 65,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-067",
+      "file": "original-multisubject-batch-034.json",
+      "index": 66,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-068",
+      "file": "original-multisubject-batch-034.json",
+      "index": 67,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-069",
+      "file": "original-multisubject-batch-034.json",
+      "index": 68,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-070",
+      "file": "original-multisubject-batch-034.json",
+      "index": 69,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-071",
+      "file": "original-multisubject-batch-034.json",
+      "index": 70,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-072",
+      "file": "original-multisubject-batch-034.json",
+      "index": 71,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-073",
+      "file": "original-multisubject-batch-034.json",
+      "index": 72,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-074",
+      "file": "original-multisubject-batch-034.json",
+      "index": 73,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-075",
+      "file": "original-multisubject-batch-034.json",
+      "index": 74,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-076",
+      "file": "original-multisubject-batch-034.json",
+      "index": 75,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-077",
+      "file": "original-multisubject-batch-034.json",
+      "index": 76,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-078",
+      "file": "original-multisubject-batch-034.json",
+      "index": 77,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-079",
+      "file": "original-multisubject-batch-034.json",
+      "index": 78,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-080",
+      "file": "original-multisubject-batch-034.json",
+      "index": 79,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-081",
+      "file": "original-multisubject-batch-034.json",
+      "index": 80,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-082",
+      "file": "original-multisubject-batch-034.json",
+      "index": 81,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-083",
+      "file": "original-multisubject-batch-034.json",
+      "index": 82,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-084",
+      "file": "original-multisubject-batch-034.json",
+      "index": 83,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-085",
+      "file": "original-multisubject-batch-034.json",
+      "index": 84,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-086",
+      "file": "original-multisubject-batch-034.json",
+      "index": 85,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-087",
+      "file": "original-multisubject-batch-034.json",
+      "index": 86,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-088",
+      "file": "original-multisubject-batch-034.json",
+      "index": 87,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-089",
+      "file": "original-multisubject-batch-034.json",
+      "index": 88,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-090",
+      "file": "original-multisubject-batch-034.json",
+      "index": 89,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-091",
+      "file": "original-multisubject-batch-034.json",
+      "index": 90,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-092",
+      "file": "original-multisubject-batch-034.json",
+      "index": 91,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-093",
+      "file": "original-multisubject-batch-034.json",
+      "index": 92,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-094",
+      "file": "original-multisubject-batch-034.json",
+      "index": 93,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-095",
+      "file": "original-multisubject-batch-034.json",
+      "index": 94,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-096",
+      "file": "original-multisubject-batch-034.json",
+      "index": 95,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-097",
+      "file": "original-multisubject-batch-034.json",
+      "index": 96,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-098",
+      "file": "original-multisubject-batch-034.json",
+      "index": 97,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-099",
+      "file": "original-multisubject-batch-034.json",
+      "index": 98,
+      "errors": []
+    },
+    {
+      "id": "ndv-034-100",
+      "file": "original-multisubject-batch-034.json",
+      "index": 99,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -41496,6 +42132,638 @@
       },
       "tiers": {
         "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-crs-leaders-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Old Testament leadership",
+      "subtopic": "Service planning and obedience",
+      "learningObjective": "Interpret leadership decisions and consequences in prescribed Old Testament narratives.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 7
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 7,
+      "validDrafts": 7,
+      "difficulty": {
+        "standard": 5,
+        "easy": 2
+      },
+      "tiers": {
+        "not_specified": 7
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-crs-justice-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Old Testament prophetic themes",
+      "subtopic": "Justice repentance and reform",
+      "learningObjective": "Relate prophetic critiques and reform narratives to justice and accountability.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-crs-jesus-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Synoptic Gospel themes",
+      "subtopic": "Discipleship forgiveness and the passion",
+      "learningObjective": "Interpret Jesus’ actions and teaching in their stated Synoptic Gospel contexts.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 6
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 5,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-crs-church-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Acts of the Apostles",
+      "subtopic": "Fellowship leadership and mission",
+      "learningObjective": "Explain decisions and community challenges in the early church.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-crs-epistles-v1",
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith impartiality speech and service",
+      "learningObjective": "Apply the teaching of James and 1 Peter while retaining its textual context.",
+      "specificationId": "jamb-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-irs-quran-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Qur’an study",
+      "subtopic": "Selected suwar and revelation",
+      "learningObjective": "Interpret themes and lessons of prescribed Qur’anic passages.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-irs-ethics-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Qur’anic moral teaching",
+      "subtopic": "Truthfulness family and social responsibility",
+      "learningObjective": "Apply prescribed Qur’anic moral principles to clearly stated situations.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 2,
+        "easy": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-irs-hadith-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Hadith and Sunnah",
+      "subtopic": "Text transmission and moral lessons",
+      "learningObjective": "Distinguish Hadith components and interpret selected an-Nawawi traditions.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 7
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 7,
+      "validDrafts": 7,
+      "difficulty": {
+        "easy": 2,
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 7
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-irs-faith-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Tawhid and faith",
+      "subtopic": "Divine unity and accountability",
+      "learningObjective": "Explain Islamic teachings about divine unity faith and responsibility.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-irs-worship-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Fiqh and worship",
+      "subtopic": "Purification prayer fasting charity and pilgrimage",
+      "learningObjective": "Distinguish core worship concepts and their stated spiritual or social purposes.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-irs-history-v1",
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Historical development of Islam",
+      "subtopic": "Migration community and preservation",
+      "learningObjective": "Identify purposes and significance of selected early Islamic developments.",
+      "specificationId": "jamb-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 2,
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-crs-leaders-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Old Testament leadership",
+      "subtopic": "Service planning and obedience",
+      "learningObjective": "Interpret leadership decisions and consequences in prescribed Old Testament narratives.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 5,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 4,
+        "easy": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-crs-justice-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Old Testament prophetic themes",
+      "subtopic": "Justice repentance and reform",
+      "learningObjective": "Relate prophetic critiques and reform narratives to justice and accountability.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-crs-jesus-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Synoptic Gospel themes",
+      "subtopic": "Discipleship forgiveness and the passion",
+      "learningObjective": "Interpret Jesus’ actions and teaching in their stated Synoptic Gospel contexts.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 5,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 4,
+        "easy": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-crs-church-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Acts of the Apostles",
+      "subtopic": "Fellowship leadership and mission",
+      "learningObjective": "Explain decisions and community challenges in the early church.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-crs-epistles-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith impartiality speech and service",
+      "learningObjective": "Apply the teaching of James and 1 Peter while retaining its textual context.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 3,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "easy": 1,
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-irs-quran-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Qur’an study",
+      "subtopic": "Selected suwar and revelation",
+      "learningObjective": "Interpret themes and lessons of prescribed Qur’anic passages.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 3,
+        "easy": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-irs-ethics-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Qur’anic moral teaching",
+      "subtopic": "Truthfulness family and social responsibility",
+      "learningObjective": "Apply prescribed Qur’anic moral principles to clearly stated situations.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-irs-hadith-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Hadith and Sunnah",
+      "subtopic": "Text transmission and moral lessons",
+      "learningObjective": "Distinguish Hadith components and interpret selected an-Nawawi traditions.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "difficult": 2,
+        "easy": 2,
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-irs-faith-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Tawhid and faith",
+      "subtopic": "Divine unity and accountability",
+      "learningObjective": "Explain Islamic teachings about divine unity faith and responsibility.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-irs-worship-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Fiqh and worship",
+      "subtopic": "Purification prayer fasting charity and pilgrimage",
+      "learningObjective": "Distinguish core worship concepts and their stated spiritual or social purposes.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 4,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "easy": 1,
+        "standard": 3,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-irs-history-v1",
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "topic": "Historical development of Islam",
+      "subtopic": "Migration community and preservation",
+      "learningObjective": "Identify purposes and significance of selected early Islamic developments.",
+      "specificationId": "waec-irs-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "essay": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "difficult": 2,
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-crs-creation-v1",
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "topic": "The sovereignty of God",
+      "subtopic": "Creation and human responsibility",
+      "learningObjective": "Interpret humanity’s place and responsibility in the Genesis creation narrative.",
+      "specificationId": "waec-crs-compilation-2026",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
