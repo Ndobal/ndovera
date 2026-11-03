@@ -6,6 +6,7 @@
     "@heroicons/react": "^2.2.0",
     "docx": "^9.8.1",
     "dompurify": "^3.4.16",
+    "fast-text-encoding": "^1.0.6",
     "framer-motion": "^12.34.3",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
@@ -14,6 +15,7 @@
     "marked": "^14.1.4",
     "qrcode": "^1.5.4",
     "react": "^18.2.0",
+    "react-app-polyfill": "^3.0.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.13.1",
     "react-scripts": "5.0.1",
@@ -25,13 +27,17 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
+    "acorn": "^8.19.0",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",
+    "postcss-color-functional-notation": "^4.2.4",
+    "postcss-color-hex-alpha": "^8.0.4",
+    "postcss-css-variables": "^0.19.0",
     "tailwindcss": "3.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "node scripts/build.cjs && node scripts/writeSpaFallback.cjs",
+    "build": "node scripts/build.cjs && node scripts/buildLegacyCss.cjs && node scripts/verifyLegacyBuild.cjs && node scripts/writeSpaFallback.cjs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -43,13 +49,13 @@
   },
   "browserslist": {
     "production": [
-      "ChromeAndroid >= 37",
+      "ChromeAndroid >= 30",
       "FirefoxAndroid >= 68",
-      "Android >= 5",
-      "Chrome >= 49",
+      "Android >= 4.4",
+      "Chrome >= 30",
       "Firefox >= 68",
-      "Safari >= 12",
-      "iOS >= 12",
+      "Safari >= 9",
+      "iOS >= 9",
       "not op_mini all"
     ],
     "development": [

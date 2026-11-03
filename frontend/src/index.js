@@ -1,9 +1,11 @@
-import 'react-app-polyfill/stable';
+// Must run before React, the router and any application module.
+import './shared/compatibility/polyfills';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
 import './shared/styles/theme.css';
+import './shared/compatibility/legacy.css';
 import { startOutbox } from './shared/offline/outbox';
 import { installFriendlyNetworkErrors } from './shared/offline/networkErrors';
 // Senders for work done offline (they register themselves with the outbox).

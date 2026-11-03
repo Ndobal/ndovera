@@ -6,6 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#191970" />
 
+    <!-- Feature detection stays ES5 so it can run before the app on older browsers. -->
+    <script>
+      (function () {
+        var supports = window.CSS && window.CSS.supports;
+        var root = document.documentElement;
+        if (!supports || !window.CSS.supports('display', 'grid')) root.className += ' ndv-no-grid';
+        if (!supports || !window.CSS.supports('color', 'var(--ndv-test)')) root.className += ' ndv-no-css-vars';
+        if (!supports || !window.CSS.supports('color', 'var(--ndv-test)') || !window.CSS.supports('color', 'rgb(1 2 3 / 1)')) root.className += ' ndv-legacy-styles';
+      })();
+    </script>
+    <meta name="ndovera-legacy-css" content="pending" />
+    <script>
+      window.__ndoveraPendingImports = [];
+      window.__ndoveraImportFailed = function () {
+        var error = new Error('Your browser could not load this optional module. Please use the standard Ndovera pages.');
+        window.__ndoveraImportModule = function () { return Promise.reject(error); };
+        window.__ndoveraPendingImports.forEach(function (request) { request[2](error); });
+        window.__ndoveraPendingImports = [];
+      };
+      window.__ndoveraImportModule = function (specifier) {
+        return new Promise(function (resolve, reject) {
+          if ('noModule' in document.createElement('script')) {
+            window.__ndoveraPendingImports.push([specifier, resolve, reject]);
+          } else {
+            reject(new Error('This module requires a newer browser. Please use the standard Ndovera pages.'));
+          }
+        });
+      };
+    </script>
+    <script id="ndovera-native-import" type="module" src="%PUBLIC_URL%/static/js/native-import.js" onerror="window.__ndoveraImportFailed()"></script>
     <title>NDOVERA — School Management Platform, Website Builder &amp; Learning Network</title>
     <meta name="description" content="NDOVERA is an all-in-one school management platform, public website builder, and learning-support network for schools, owners, heads of school, teachers, accountants, parents, and students. It covers dashboards, attendance (QR + face), continuous assessment and results, fees and receipts, payroll, a built-in AI assistant, messaging, admissions, and a growth-partner program." />
     <meta name="keywords" content="NDOVERA, school management software, school platform, school website builder, education platform Nigeria, student management, attendance, school fees, payroll, results engine, AI tutor, learning network" />
@@ -84,6 +114,7 @@
       }
       window.addEventListener('error', function (event) {
         var target = event && event.target;
+        if (target && target.id === 'ndovera-native-import') return;
         var url = target && (target.href || target.src) || '';
         if ((target && (target.tagName === 'LINK' || target.tagName === 'SCRIPT')) && url.indexOf('/static/') !== -1) reloadOnce();
       }, true);
