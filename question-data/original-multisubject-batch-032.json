@@ -1,0 +1,3826 @@
+{
+  "schemaVersion": 2,
+  "collection": "Ndovera original WAEC/JAMB Agricultural Science and Computer Studies — batch 032",
+  "questionCount": 100,
+  "note": "Original draft practice based on supplied syllabus compilations with limited primary crosschecks. Full current official alignment and independent academic review pending. Numerical farm scenarios are hypothetical. No animal medication doses, pesticide recommendations or product-version-specific interface paths are given. Written practical reasoning is not evidence of completed hands-on performance.",
+  "questions": [
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Agricultural systems",
+      "subtopic": "Production and relationships",
+      "learningObjective": "Distinguish farm systems and agricultural roles.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-001",
+      "objectiveId": "jamb-agriculture-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which enterprise is most directly part of horticulture?",
+      "answer": "Producing vegetables and ornamental flowers.",
+      "explanation": "Horticulture includes the cultivation of vegetables, fruits and ornamental plants.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Rearing cattle for beef.",
+        "Producing vegetables and ornamental flowers.",
+        "Managing timber trees for sawn wood.",
+        "Raising fish in ponds."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Agricultural systems",
+      "subtopic": "Production and relationships",
+      "learningObjective": "Distinguish farm systems and agricultural roles.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-002",
+      "objectiveId": "jamb-agriculture-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which pairing correctly links an agricultural raw material with an agro-allied industry?",
+      "answer": "Cotton and textile manufacture.",
+      "explanation": "Cotton fibre is an important textile input.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Cotton and textile manufacture.",
+        "Cocoa and hide tanning.",
+        "Maize and latex processing.",
+        "Sugarcane and sawmilling."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Agricultural systems",
+      "subtopic": "Production and relationships",
+      "learningObjective": "Distinguish farm systems and agricultural roles.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-003",
+      "objectiveId": "jamb-agriculture-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A farmer grows maize and beans together on the same plot during the same season. This is",
+      "answer": "mixed cropping.",
+      "explanation": "Mixed cropping involves more than one crop on a plot at the same time; it is not necessarily mixed farming, which includes livestock.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "crop rotation only.",
+        "mixed farming solely because two crops are present.",
+        "monocropping.",
+        "mixed cropping."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Agricultural systems",
+      "subtopic": "Production and relationships",
+      "learningObjective": "Distinguish farm systems and agricultural roles.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-004",
+      "objectiveId": "jamb-agriculture-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Integrating suitable trees with crops or livestock on agricultural land is generally called",
+      "answer": "agroforestry.",
+      "explanation": "Agroforestry combines woody plants with other farm components in a managed system.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Sole livestock production with no tree component.",
+        "A fish-hatchery system only.",
+        "agroforestry.",
+        "Crop rotation without any woody plant component."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-005",
+      "objectiveId": "jamb-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Two uncompacted soils have similar organic content. One has much larger particles and pores. Which tendency is most likely?",
+      "answer": "Faster drainage and lower water retention in the coarser soil.",
+      "explanation": "Large pores often permit rapid drainage, while fine pores can retain more water under comparable conditions.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Particle size cannot influence drainage.",
+        "Faster drainage and lower water retention in the coarser soil.",
+        "No water can ever enter the coarser soil.",
+        "The coarser soil must hold more water under every condition."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-006",
+      "objectiveId": "jamb-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which distinction between soil texture and soil structure is correct?",
+      "answer": "Texture concerns proportions of particle sizes; structure concerns how particles are arranged into aggregates.",
+      "explanation": "The two describe different physical characteristics and should not be treated as interchangeable.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Texture concerns proportions of particle sizes; structure concerns how particles are arranged into aggregates.",
+        "Texture concerns aggregate arrangement; structure concerns particle-size proportions.",
+        "Texture concerns only organic matter; structure concerns only soil pH.",
+        "Texture and structure both mean only the colour of the topsoil."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-007",
+      "objectiveId": "jamb-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Repeated heavy machinery traffic on wet soil can reduce crop performance mainly by",
+      "answer": "compacting pores and restricting aeration and root movement.",
+      "explanation": "Compaction can reduce suitable pore space, infiltration and root penetration.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Increasing large pores and making root penetration easier.",
+        "Improving aeration by reducing soil bulk density.",
+        "Eliminating resistance to root growth in the compacted layer.",
+        "compacting pores and restricting aeration and root movement."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-008",
+      "objectiveId": "jamb-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In a well-functioning legume root nodule, nitrogen-fixing bacteria help the plant mainly by",
+      "answer": "converting atmospheric nitrogen into compounds that can enter biological use.",
+      "explanation": "The association supplies biologically usable nitrogen; it is not direct manufacture of phosphorus.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "supplying sunlight from the soil.",
+        "eliminating the need for every other nutrient.",
+        "converting atmospheric nitrogen into compounds that can enter biological use.",
+        "turning all soil water into carbon dioxide."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-009",
+      "objectiveId": "jamb-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A soil test confirms excessive acidity for the intended crop. An appropriately selected liming treatment is used chiefly to",
+      "answer": "reduce acidity and improve the soil reaction for that crop.",
+      "explanation": "Liming can raise pH under appropriate conditions; it is not a universal cure for every soil problem.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Lower the soil pH further.",
+        "reduce acidity and improve the soil reaction for that crop.",
+        "Supply every required nutrient in full without another assessment.",
+        "Remove salinity regardless of soil conditions."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-010",
+      "objectiveId": "jamb-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A suitable mulch can conserve moisture chiefly by",
+      "answer": "reducing direct evaporation and moderating the exposed soil surface.",
+      "explanation": "Cover changes surface conditions; it does not add a guaranteed fixed amount of water.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "reducing direct evaporation and moderating the exposed soil surface.",
+        "increasing direct sunlight on every soil particle.",
+        "making plant roots unnecessary.",
+        "stopping all rainfall infiltration."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-011",
+      "objectiveId": "jamb-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why should transplanted seedlings be handled to minimise root injury?",
+      "answer": "Damaged roots can reduce water uptake while the seedling establishes.",
+      "explanation": "Root protection helps reduce transplant stress and supports water supply to the shoot.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Root injury always makes every seedling grow faster.",
+        "Roots have no role until the plant flowers.",
+        "All transplanted seedlings must lose every root.",
+        "Damaged roots can reduce water uptake while the seedling establishes."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-012",
+      "objectiveId": "jamb-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which planting material is commonly used to establish cassava vegetatively?",
+      "answer": "Healthy stem cuttings.",
+      "explanation": "Cassava is commonly propagated from suitable stem sections with viable buds.",
+      "cognitiveDemand": "remember",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Detached storage-root pieces with no viable buds.",
+        "Mature leaf blades without stem sections.",
+        "Healthy stem cuttings.",
+        "Dried inflorescence fragments without viable propagules."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-013",
+      "objectiveId": "jamb-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A hypothetical one-hectare field is planted at 1 m between rows and 0.5 m within rows, one stand per position. Ignoring borders and paths, how many stands fit?",
+      "answer": "20,000",
+      "explanation": "Area per stand = 1×0.5 = 0.5 m²; 10,000/0.5 = 20,000.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "50,000",
+        "20,000",
+        "5,000",
+        "10,000"
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "10000/(1*0.5)",
+          "expected": "20000",
+          "answerValue": "20000",
+          "purpose": "Planting stands per hectare"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-014",
+      "objectiveId": "jamb-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A traceable seed lot with reliable varietal-purity and germination information is useful because it",
+      "answer": "provides evidence about planting material quality before sowing.",
+      "explanation": "Quality information reduces uncertainty but does not guarantee success under every field condition.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "provides evidence about planting material quality before sowing.",
+        "guarantees that no field management is needed.",
+        "makes all varieties genetically identical.",
+        "replaces every requirement for suitable soil and water."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-015",
+      "objectiveId": "jamb-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why is grain usually dried to a suitable storage moisture level before sealed storage?",
+      "answer": "Excess moisture can promote deterioration, heating and mould growth.",
+      "explanation": "Appropriate drying and storage conditions help preserve quality; sealing wet grain does not make moisture harmless.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Water content has no effect on stored grain.",
+        "Sealing automatically kills every mould under all conditions.",
+        "Drying converts all starch to protein.",
+        "Excess moisture can promote deterioration, heating and mould growth."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop protection",
+      "subtopic": "Pests weeds and beneficial organisms",
+      "learningObjective": "Evaluate crop-protection evidence and choices.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-016",
+      "objectiveId": "jamb-agriculture-protection-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A whitefly carries a virus from an infected cassava plant to another plant. In this relationship the whitefly is",
+      "answer": "a vector.",
+      "explanation": "A vector transmits the pathogen; it is not necessarily the pathogen itself.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a soil nutrient.",
+        "a variety of cassava root.",
+        "a vector.",
+        "the virus itself."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop protection",
+      "subtopic": "Pests weeds and beneficial organisms",
+      "learningObjective": "Evaluate crop-protection evidence and choices.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-017",
+      "objectiveId": "jamb-agriculture-protection-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why might a farmer conserve ladybirds that feed on aphids?",
+      "answer": "They can act as natural enemies that reduce pest numbers.",
+      "explanation": "Beneficial predators can contribute to biological control within an integrated approach.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Predators always increase aphid reproduction.",
+        "They can act as natural enemies that reduce pest numbers.",
+        "Every insect on a farm is necessarily a crop pest.",
+        "Ladybirds replace all crop nutrients."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-018",
+      "objectiveId": "jamb-agriculture-livestock-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "How can adult ruminants obtain nutrients from fibrous feed that many non-ruminants use less efficiently?",
+      "answer": "Microorganisms in the rumen help break down cellulose.",
+      "explanation": "Symbiotic microbes assist fermentation of fibrous material.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Microorganisms in the rumen help break down cellulose.",
+        "The animal secretes cellulase from its teeth.",
+        "Fibrous particles are absorbed unchanged through the rumen wall.",
+        "Pepsin in the abomasum directly breaks down all cellulose."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-019",
+      "objectiveId": "jamb-agriculture-livestock-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In a brooder with other conditions suitable, chicks cluster tightly beneath the heat source. This pattern most strongly suggests that",
+      "answer": "the chicks may be too cold.",
+      "explanation": "Clustering near heat is a standard behavioural indication of inadequate warmth, but observations should be assessed with other conditions.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Excessive heat causing avoidance of the heated centre.",
+        "Uniformly suitable warmth indicated by an even distribution.",
+        "A feed-conversion calculation rather than a temperature response.",
+        "the chicks may be too cold."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-020",
+      "objectiveId": "jamb-agriculture-economics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which farm record is most directly needed to track the number of bags entering and leaving a grain store?",
+      "answer": "A stock or inventory record.",
+      "explanation": "Quantity movements identify receipts, issues and remaining stock; a list of staff birthdays does not.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A breeding history record only.",
+        "A cash book with no stock quantities.",
+        "A stock or inventory record.",
+        "A weather-observation record only."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-021",
+      "objectiveId": "jamb-agriculture-economics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An extension officer demonstrates a new planting method on a small comparison plot with farmers. What is a major advantage?",
+      "answer": "Farmers can observe results and ask questions before deciding on wider adoption.",
+      "explanation": "A local demonstration can connect advice to evidence without guaranteeing identical results everywhere.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It proves that one unreplicated observation is universal.",
+        "Farmers can observe results and ask questions before deciding on wider adoption.",
+        "It removes the need to consider local conditions.",
+        "It makes farmers legally unable to reject any advice."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Aquaculture and apiculture",
+      "subtopic": "Production and environment",
+      "learningObjective": "Interpret pond and pollination relationships.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-022",
+      "objectiveId": "jamb-agriculture-aquaculture-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why can dissolved oxygen in a productive pond be lowest near dawn?",
+      "answer": "Organisms respire overnight while photosynthesis is absent in darkness.",
+      "explanation": "Night-time respiration consumes oxygen without the daytime photosynthetic input.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Organisms respire overnight while photosynthesis is absent in darkness.",
+        "Photosynthesis is always fastest at midnight.",
+        "Fish do not respire during daylight.",
+        "Water can contain oxygen only when no algae are present."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Aquaculture and apiculture",
+      "subtopic": "Production and environment",
+      "learningObjective": "Interpret pond and pollination relationships.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-023",
+      "objectiveId": "jamb-agriculture-aquaculture-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Keeping bees can benefit nearby insect-pollinated crops mainly through",
+      "answer": "transfer of pollen while bees forage.",
+      "explanation": "Pollination can support fertilisation and fruit or seed formation where the crop relies on insect visitors.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Fixing atmospheric nitrogen in crop root nodules.",
+        "Supplying mineral nutrients directly to crop roots.",
+        "Replacing every other pollination agent in all crops.",
+        "transfer of pollen while bees forage."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-024",
+      "objectiveId": "jamb-agriculture-economics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which cost is most likely to vary with the number of broilers produced over a production cycle?",
+      "answer": "Feed consumed by the birds.",
+      "explanation": "Feed use generally changes with the number and growth of birds, unlike some short-run fixed facility costs.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Depreciation on the existing shed for the same time period.",
+        "Land rent fixed for the production cycle.",
+        "Feed consumed by the birds.",
+        "An insurance premium fixed for the cycle."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "id": "ndv-032-025",
+      "objectiveId": "jamb-agriculture-economics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Farm gross margin is conventionally calculated as",
+      "answer": "total revenue minus total variable cost.",
+      "explanation": "Gross margin excludes fixed costs; net profit requires further relevant deductions.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Total revenue minus fixed cost only.",
+        "total revenue minus total variable cost.",
+        "Total revenue minus all variable and fixed costs.",
+        "Total variable cost minus total revenue."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm technology",
+      "subtopic": "Tools and machinery",
+      "learningObjective": "Explain equipment choice maintenance and safety.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-026",
+      "objectiveId": "waec-agriculture-technology-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which tool is designed for making controlled pruning cuts on suitable small branches?",
+      "answer": "Secateurs.",
+      "explanation": "Secateurs provide a cutting action appropriate for pruning within their intended capacity.",
+      "cognitiveDemand": "remember",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Secateurs.",
+        "A garden rake.",
+        "A dibber.",
+        "A watering can."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm technology",
+      "subtopic": "Tools and machinery",
+      "learningObjective": "Explain equipment choice maintenance and safety.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-027",
+      "objectiveId": "waec-agriculture-technology-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why should an exposed rotating power shaft on farm machinery have its proper guard fitted?",
+      "answer": "It reduces the risk of clothing or body parts becoming entangled.",
+      "explanation": "The guard is a protective barrier; servicing still requires safe isolation and competent procedures.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It increases the shaft’s nutritional value.",
+        "It makes all maintenance unnecessary.",
+        "It guarantees that touching a moving shaft is safe.",
+        "It reduces the risk of clothing or body parts becoming entangled."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-028",
+      "objectiveId": "waec-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A crop’s roots remain waterlogged for a prolonged period. What important function can be restricted?",
+      "answer": "Aerobic root respiration because gas exchange is limited.",
+      "explanation": "Waterlogged pores contain less available air, which can constrain oxygen supply to roots.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The conversion of leaf chlorophyll directly into soil nitrogen.",
+        "An automatic increase in root-zone oxygen supply.",
+        "Aerobic root respiration because gas exchange is limited.",
+        "Complete replacement of root respiration by leaf transpiration."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-029",
+      "objectiveId": "waec-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "In grafting, the rootstock primarily supplies",
+      "answer": "the root system onto which the scion is joined.",
+      "explanation": "The scion supplies the desired shoot portion, while the stock provides the rooted base.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The desired shoot attached above the graft union.",
+        "the root system onto which the scion is joined.",
+        "Only the pollen source for every fruit.",
+        "The root-free shoot tip before grafting."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-030",
+      "objectiveId": "waec-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "What is the main purpose of hardening nursery seedlings before field planting?",
+      "answer": "Gradually prepare them for less protected field conditions.",
+      "explanation": "Controlled gradual exposure can improve adjustment rather than abruptly removing all protection.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Gradually prepare them for less protected field conditions.",
+        "Make the stems completely dry and lifeless.",
+        "Stop the seedlings from ever using water.",
+        "Convert annual crops into perennial trees."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-031",
+      "objectiveId": "waec-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which description defines an annual crop?",
+      "answer": "It normally completes its life cycle within one growing season or year.",
+      "explanation": "Annual classification concerns the life cycle rather than the number of harvest workers.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It must need two growing seasons before completing its life cycle.",
+        "It necessarily remains productive for many years without completing its cycle.",
+        "It is defined by being planted in a dry rather than a wet season.",
+        "It normally completes its life cycle within one growing season or year."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-032",
+      "objectiveId": "waec-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A viable seed has a coat that prevents sufficient water entry. This can cause",
+      "answer": "physical dormancy.",
+      "explanation": "A water-impermeable coat can prevent germination despite viability and otherwise suitable conditions.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A guaranteed loss of viability in every embryo.",
+        "Successful germination regardless of water entry.",
+        "physical dormancy.",
+        "Vegetative propagation from the seed coat."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop protection",
+      "subtopic": "Pests weeds and beneficial organisms",
+      "learningObjective": "Evaluate crop-protection evidence and choices.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-033",
+      "objectiveId": "waec-agriculture-protection-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Weeds growing densely among young crops can reduce yield mainly by",
+      "answer": "competing for resources such as light, water and nutrients.",
+      "explanation": "Competition can limit crop access to essential resources.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "preventing all insects from entering the farm.",
+        "competing for resources such as light, water and nutrients.",
+        "supplying unlimited extra light to every crop leaf.",
+        "making roots unnecessary."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-034",
+      "objectiveId": "waec-agriculture-livestock-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why should breeding decisions use performance records from animals managed under comparable conditions?",
+      "answer": "It helps separate inherited potential from differences caused by feeding or management.",
+      "explanation": "Observed performance can reflect both genotype and environment.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It helps separate inherited potential from differences caused by feeding or management.",
+        "A single appearance always reveals every inherited trait.",
+        "Nutrition has no possible effect on growth.",
+        "Records automatically eliminate all genetic variation."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-035",
+      "objectiveId": "waec-agriculture-livestock-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A balanced ration is one that",
+      "answer": "supplies required nutrients in suitable amounts and proportions for the animal’s type and stage.",
+      "explanation": "Requirements vary with species, age and production purpose; bulk alone does not define balance.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "contains equal masses of every known feed ingredient.",
+        "contains only the cheapest ingredient regardless of nutrients.",
+        "is identical for a young chick and an adult cow.",
+        "supplies required nutrients in suitable amounts and proportions for the animal’s type and stage."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-036",
+      "objectiveId": "waec-agriculture-livestock-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which is an external parasite of livestock?",
+      "answer": "A tick attached to the skin.",
+      "explanation": "A tick lives on the external body surface, unlike an intestinal worm.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A tapeworm in the intestine.",
+        "A liver fluke inside the host.",
+        "A tick attached to the skin.",
+        "A roundworm in the digestive tract."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-037",
+      "objectiveId": "waec-agriculture-livestock-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why should milk containers be cleaned appropriately before use?",
+      "answer": "To reduce contamination of the collected milk.",
+      "explanation": "Clean equipment helps prevent introduction of unwanted microorganisms and residues; appearance alone does not establish hygiene.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "To remove all protein from the milk.",
+        "To reduce contamination of the collected milk.",
+        "To increase the number of disease-causing organisms.",
+        "To guarantee milk remains fresh indefinitely without suitable storage."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Aquaculture and apiculture",
+      "subtopic": "Production and environment",
+      "learningObjective": "Interpret pond and pollination relationships.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-038",
+      "objectiveId": "waec-agriculture-aquaculture-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A pond is stocked far beyond its available oxygen and feeding capacity. What is a likely management problem?",
+      "answer": "Competition and poor water conditions can reduce growth and survival.",
+      "explanation": "More fish do not guarantee more harvest if supporting resources become limiting.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Competition and poor water conditions can reduce growth and survival.",
+        "All fish must grow faster because crowding creates food.",
+        "Oxygen demand necessarily falls to zero.",
+        "The pond’s carrying capacity becomes unlimited."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-039",
+      "objectiveId": "waec-agriculture-economics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Farm P harvests 6 tonnes from 3 hectares; farm Q harvests 5 tonnes from 2 hectares. Which has higher yield per hectare?",
+      "answer": "Farm Q.",
+      "explanation": "P yields 2 t ha⁻¹, while Q yields 2.5 t ha⁻¹. Total output and output per area are different measures.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Farm P because its total output is larger.",
+        "Both because area cannot affect the calculation.",
+        "Neither because tonnes cannot be compared.",
+        "Farm Q."
+      ],
+      "correctOption": "D",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "5/2",
+          "expected": "2.5",
+          "answerValue": "2.5",
+          "purpose": "Farm Q yield per hectare"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-040",
+      "objectiveId": "waec-agriculture-economics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A hypothetical land lease ends after two years, but a planned orchard will first produce after five years. What concern follows from these facts alone?",
+      "answer": "The farmer may lose access before receiving the expected first harvest.",
+      "explanation": "The stated tenure period and investment timeline do not match; no general legal rights beyond the scenario are assumed.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A lease date has no relevance to a long-term crop.",
+        "Planting trees automatically changes the written lease term.",
+        "The farmer may lose access before receiving the expected first harvest.",
+        "The orchard must mature within two months."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-041",
+      "objectiveId": "waec-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A settled soil sample forms layers 5 cm sand, 3 cm silt and 2 cm clay. Treat layer depth as proportional to fraction quantity for this classroom estimate. Calculate each percentage and explain one limitation of inferring field drainage from these readings alone.",
+      "answer": "Total depth = 10 cm. Sand is 50%, silt 30% and clay 20%. Field drainage also depends on structure, compaction, organic matter and other conditions; settling behaviour may not perfectly represent particle mass fractions.",
+      "explanation": "The proportional-depth assumption is explicit. Do not require a precise soil-texture class without a classification triangle or rule.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate sand 50%.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate silt 30%.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate clay 20%.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain a field-property or measurement limitation.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "5/(5+3+2)*100",
+          "expected": "50",
+          "answerValue": "50",
+          "purpose": "Estimated sand percentage"
+        },
+        {
+          "expression": "3/10*100",
+          "expected": "30",
+          "purpose": "Estimated silt percentage"
+        },
+        {
+          "expression": "2/10*100",
+          "expected": "20",
+          "purpose": "Estimated clay percentage"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-042",
+      "objectiveId": "waec-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A crop’s stated suitable soil-pH range is 6–7. Plot A has pH 4.5 and plot B pH 6.5. Select the plot that already meets the range. Explain why any treatment of A should follow soil assessment rather than assuming the same lime quantity for every field.",
+      "answer": "B already meets the stated range. A is more acidic, but a suitable amendment requirement depends on soil properties, buffering and the crop’s needs. Soil assessment should guide the choice and quantity; applying a universal amount may be ineffective or excessive.",
+      "explanation": "This is a reasoning task, not a field-specific amendment prescription.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Select B using the given range.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Identify A as more acidic.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain variation in amendment requirement and need for assessment.",
+          "marks": 3
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-043",
+      "objectiveId": "waec-agriculture-soil-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "For a hypothetical calculation, a field is 0.4 ha and its assessed requirement is 60 kg nitrogen per hectare. The only planned nitrogen source is fertiliser containing 20% nitrogen by mass. Calculate the required nitrogen and corresponding fertiliser mass. Ignore other nutrient sources.",
+      "answer": "Nitrogen requirement = 0.4×60 = 24 kg. At 20% nitrogen, fertiliser mass = 24/0.20 = 120 kg.",
+      "explanation": "Use the stated assessment and assumptions; the figures are invented practice data and are not a general application recommendation.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 24 kg nitrogen for the field.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Convert 20% to a mass fraction and divide appropriately.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Obtain 120 kg fertiliser.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "0.4*60",
+          "expected": "24",
+          "answerValue": "24",
+          "purpose": "Nitrogen requirement"
+        },
+        {
+          "expression": "0.4*60/0.2",
+          "expected": "120",
+          "purpose": "Fertiliser mass under stated assumptions"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-044",
+      "objectiveId": "waec-agriculture-crops-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A germination test of 100 seeds produces 84 normal seedlings, 8 abnormal seedlings and 8 ungerminated seeds. Using normal seedlings as the criterion, calculate germination percentage. Estimate how many seeds would be needed for an expected 420 normal seedlings at that rate, and explain why field establishment may differ.",
+      "answer": "Germination percentage = 84%. Expected seed requirement = 420/0.84 = 500. Field establishment can differ because of moisture, temperature, pests, planting depth and losses after germination. The estimate is an expectation, not a guarantee for each lot of 500.",
+      "explanation": "Normal seedlings, not all seeds showing any growth, define the stated criterion.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 84%.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate expected requirement 500 seeds.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain relevant field differences or sampling uncertainty.",
+          "marks": 3
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "84/100*100",
+          "expected": "84",
+          "answerValue": "84",
+          "purpose": "Normal-seedling germination percentage"
+        },
+        {
+          "expression": "420/(84/100)",
+          "expected": "500",
+          "purpose": "Expected seeds required"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop protection",
+      "subtopic": "Pests weeds and beneficial organisms",
+      "learningObjective": "Evaluate crop-protection evidence and choices.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-045",
+      "objectiveId": "waec-agriculture-protection-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A monitoring protocol says intervention should be considered when at least 30% of sampled plants show a specified pest damage. A representative sample has 20 damaged plants out of 100 and many natural enemies. Explain the threshold result and two sensible next management steps without assuming a particular chemical treatment.",
+      "answer": "Observed damage is 20%, below the stated 30% threshold. Continue representative monitoring and confirm the pest, crop stage and damage trend. Preserve useful natural enemies and consider appropriate preventive or non-chemical measures. The result does not justify ignoring a rising problem or automatically applying a pesticide.",
+      "explanation": "Apply the hypothetical threshold and evidence; no real pesticide, dose or universal threshold is recommended.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate or identify 20% and compare correctly with 30%.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain continued monitoring and pest/damage confirmation.",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Explain a relevant natural-enemy or preventive step.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm technology",
+      "subtopic": "Tools and machinery",
+      "learningObjective": "Explain equipment choice maintenance and safety.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-046",
+      "objectiveId": "waec-agriculture-technology-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A farm’s tractor maintenance record shows frequent breakdowns after scheduled servicing was skipped. Explain two reasons for preventive maintenance and describe three useful items to record for each service.",
+      "answer": "Preventive maintenance can detect wear before failure and support reliable, safer operation. Records can include date and operating hours, work completed and parts used, faults identified, technician identity and the next service due.",
+      "explanation": "An association in a record should prompt investigation; it does not prove that every breakdown has one cause. Credit records that support traceability and planning.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain two maintenance benefits.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Describe three useful service-record items.",
+          "marks": 3
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-047",
+      "objectiveId": "waec-agriculture-livestock-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A farmer buys animals from another herd. Explain why immediate unrestricted mixing can be risky even when no obvious illness is visible, and describe three general biosecurity arrangements to discuss with a qualified animal-health professional.",
+      "answer": "Some infections or parasites may not cause obvious signs immediately. Suitable arrangements can include separate observation facilities, verified health and movement records, controlled equipment and visitor contact, and a professionally planned health assessment.",
+      "explanation": "The task tests prevention principles, not diagnosis or a drug schedule. Credit three arrangements with a clear transmission-control purpose.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain possible unobserved infection or incubation.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain three appropriate general biosecurity arrangements.",
+          "marks": 6
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-048",
+      "objectiveId": "waec-agriculture-livestock-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Two groups of the same livestock breed grow at different rates, but one receives better feed and is older at weighing. Explain why the comparison does not establish genetic superiority and outline a fairer performance comparison.",
+      "answer": "Age and feeding differ, so growth differences cannot be attributed to genetics alone. Compare animals at matched ages and under comparable feeding, health and management, use suitable group sizes and repeated records, and assess traits relevant to the breeding objective.",
+      "explanation": "A fair comparison controls important environmental differences; it does not guarantee that every remaining difference is genetic.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify age and feeding as confounders.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Describe matched age and feeding/management.",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Explain adequate records, groups or repeat assessment.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Aquaculture and apiculture",
+      "subtopic": "Production and environment",
+      "learningObjective": "Interpret pond and pollination relationships.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-049",
+      "objectiveId": "waec-agriculture-aquaculture-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "In a hypothetical pond, dissolved oxygen is 2 mg L⁻¹ near dawn and 7 mg L⁻¹ in the afternoon. Fish show surface-gasping behaviour near dawn. Explain a possible daily biological mechanism, one further check and one general management response for low oxygen.",
+      "answer": "Photosynthesis can raise oxygen during daylight, while respiration continues at night without photosynthesis. Check oxygen measurements and other water conditions rather than assume one symptom proves the cause. Appropriate aeration and review of stocking, feeding and organic loading can form part of management.",
+      "explanation": "The supplied data support an oxygen concern but do not replace a full pond assessment or specify treatment chemicals.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain daytime photosynthesis and night respiration.",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Describe a relevant measurement or water-quality check.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain a suitable general response such as aeration or reviewing loading.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "id": "ndv-032-050",
+      "objectiveId": "waec-agriculture-economics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A farm enterprise earns ₦300,000 revenue, incurs ₦180,000 variable cost and ₦50,000 fixed cost. Calculate gross margin and net profit under these definitions. If revenue falls by 10% while costs stay unchanged, calculate the new net profit and explain the risk shown.",
+      "answer": "Gross margin = 300,000−180,000 = ₦120,000. Net profit = 120,000−50,000 = ₦70,000. New revenue = ₦270,000 and new net profit = ₦40,000. A 10% revenue fall reduces profit by ₦30,000, illustrating sensitivity when costs do not adjust.",
+      "explanation": "Distinguish gross margin from net profit and use the stated unchanged-cost assumption.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate gross margin 120,000.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate original net profit 70,000.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate new revenue 270,000 and profit 40,000.",
+          "marks": 3
+        },
+        {
+          "step": 4,
+          "description": "Explain profit sensitivity under unchanged costs.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "300000-180000",
+          "expected": "120000",
+          "answerValue": "120000",
+          "purpose": "Farm gross margin"
+        },
+        {
+          "expression": "300000-180000-50000",
+          "expected": "70000",
+          "purpose": "Original net profit"
+        },
+        {
+          "expression": "300000*0.9-180000-50000",
+          "expected": "40000",
+          "purpose": "Net profit after revenue fall"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-051",
+      "objectiveId": "jamb-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which component technology is most associated with second-generation computers in the conventional historical classification?",
+      "answer": "Transistors.",
+      "explanation": "The standard historical distinction associates second-generation machines with transistors replacing vacuum tubes.",
+      "cognitiveDemand": "remember",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Vacuum tubes.",
+        "Integrated circuits as the defining second-generation replacement.",
+        "Microprocessors as the defining second-generation component.",
+        "Transistors."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-052",
+      "objectiveId": "jamb-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A user edits a document in ordinary working RAM but has not saved it when power fails. Why can the latest changes be lost?",
+      "answer": "Working RAM is normally volatile and the unsaved changes may not be on persistent storage.",
+      "explanation": "Saved files and temporary working contents are different; ordinary RAM does not preserve its contents through power loss.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The display is the permanent storage for all edits.",
+        "Power loss converts the document into firmware.",
+        "Working RAM is normally volatile and the unsaved changes may not be on persistent storage.",
+        "Every saved file is automatically deleted whenever RAM is used."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-053",
+      "objectiveId": "jamb-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Firmware stored in non-volatile memory is useful during startup because",
+      "answer": "it can provide initial instructions before the main operating system is loaded.",
+      "explanation": "Startup requires instructions available without relying on an already running main operating system.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "it must be erased every time power is removed.",
+        "it can provide initial instructions before the main operating system is loaded.",
+        "it is identical to every user’s unsaved spreadsheet.",
+        "it replaces all processors with a keyboard."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-054",
+      "objectiveId": "jamb-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which CPU component is chiefly associated with arithmetic operations and logical comparisons?",
+      "answer": "Arithmetic and logic unit.",
+      "explanation": "The ALU performs arithmetic and logical operations, while other components coordinate or store instructions and data.",
+      "cognitiveDemand": "remember",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Arithmetic and logic unit.",
+        "Control unit.",
+        "Memory address register.",
+        "Instruction register."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-055",
+      "objectiveId": "jamb-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What is the greatest unsigned integer representable using 8 bits?",
+      "answer": "255",
+      "explanation": "Eight bits provide 2⁸ patterns representing 0 through 2⁸−1.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "8",
+        "128",
+        "256",
+        "255"
+      ],
+      "correctOption": "D",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "2**8-1",
+          "expected": "255",
+          "answerValue": "255",
+          "purpose": "Maximum unsigned eight-bit value"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-056",
+      "objectiveId": "jamb-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A field uses exactly 64 bits. How many bytes is this, using 8 bits per byte?",
+      "answer": "8 bytes",
+      "explanation": "64/8 = 8 bytes. The question concerns storage units rather than text encoding assumptions.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "64 bytes",
+        "512 bytes",
+        "8 bytes",
+        "4 bytes"
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "64/8",
+          "expected": "8",
+          "answerValue": "8",
+          "purpose": "Field size in bytes"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-057",
+      "objectiveId": "jamb-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "For a two-input AND gate, what is the output when the inputs are 1 and 0?",
+      "answer": "0",
+      "explanation": "AND outputs 1 only when both inputs are 1.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "An undefined third truth value.",
+        "0",
+        "1",
+        "10"
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-058",
+      "objectiveId": "jamb-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A NOT gate receives input 0. Its output is",
+      "answer": "1",
+      "explanation": "NOT reverses a binary truth value.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "1",
+        "0",
+        "2",
+        "The unchanged pair 00."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-059",
+      "objectiveId": "jamb-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An assembler primarily translates",
+      "answer": "assembly-language instructions into machine-code representation.",
+      "explanation": "An assembler operates on assembly language rather than serving as a word processor or database form.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Machine-code instructions back into high-level source code.",
+        "Spreadsheet formulas directly into paper layout settings.",
+        "A complete high-level program as its defining source language.",
+        "assembly-language instructions into machine-code representation."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-060",
+      "objectiveId": "jamb-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which task is normally part of an operating system’s role?",
+      "answer": "Manage memory and coordinate running processes.",
+      "explanation": "The operating system manages resources and provides services to applications.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Replace every hardware component physically.",
+        "Determine the truth of every web page.",
+        "Manage memory and coordinate running processes.",
+        "Write every student’s essay automatically as its defining function."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-061",
+      "objectiveId": "jamb-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A spreadsheet formula =B2*C2 is copied one row down using ordinary relative references. What does the copied formula become?",
+      "answer": "=B3*C3",
+      "explanation": "Both row references move down by one while the columns remain the same.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "=B1*C1",
+        "=B3*C3",
+        "=B2*C2",
+        "=C2*D2"
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-062",
+      "objectiveId": "jamb-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which reference keeps both its row and column fixed when a spreadsheet formula is copied?",
+      "answer": "$F$1",
+      "explanation": "Dollar signs before both column and row make both components absolute in the stated common spreadsheet notation.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "$F$1",
+        "F1",
+        "$F1",
+        "F$1"
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-063",
+      "objectiveId": "jamb-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why is a unique student admission number a suitable primary key for a student table?",
+      "answer": "It can identify each student record without relying on names being unique.",
+      "explanation": "A key distinguishes records; two students can legitimately have the same name.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It must contain the student’s complete address.",
+        "It guarantees that every other field is correct.",
+        "It is needed only for choosing font colour.",
+        "It can identify each student record without relying on names being unique."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-064",
+      "objectiveId": "jamb-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which database operation most directly returns records whose class field equals “SS1”?",
+      "answer": "A query with the appropriate selection condition.",
+      "explanation": "A selection query filters records according to criteria.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A data-entry form used only to add new rows.",
+        "A report-layout change with no selection criteria.",
+        "A query with the appropriate selection condition.",
+        "An import of every record without filtering."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-065",
+      "objectiveId": "jamb-computing-networks-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A school connects computers within its own nearby buildings for shared services. This is most naturally described as",
+      "answer": "a local area network.",
+      "explanation": "LAN describes a local network scope rather than a guarantee about public internet access.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a storage file extension.",
+        "a local area network.",
+        "the entire World Wide Web by definition.",
+        "an international satellite system only."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-066",
+      "objectiveId": "jamb-computing-networks-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What is the main role of a router in an ordinary IP network?",
+      "answer": "Forward packets between networks according to routing information.",
+      "explanation": "A router connects network paths; it is distinct from a document editor or a passive cable.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Forward packets between networks according to routing information.",
+        "Forward frames only within a local segment using MAC addresses as its defining role.",
+        "Resolve hostnames as its defining routing operation.",
+        "Allocate spreadsheet cell formats to network addresses."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-067",
+      "objectiveId": "jamb-computing-networks-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A browser knows a website’s hostname but needs an IP address for a connection. Which service commonly supplies the name-to-address information?",
+      "answer": "DNS.",
+      "explanation": "The Domain Name System supports hostname resolution; it does not itself prove that a site’s content is trustworthy.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A word-processing spelling checker.",
+        "A printer’s paper sensor.",
+        "A spreadsheet’s sorting tool.",
+        "DNS."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Security and ethics",
+      "subtopic": "Permissions privacy and information quality",
+      "learningObjective": "Apply responsible computing and information checks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-068",
+      "objectiveId": "jamb-computing-ethics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What does HTTPS primarily add to an ordinary web connection?",
+      "answer": "Protection of the connection through TLS, rather than a guarantee that the site’s claims are truthful.",
+      "explanation": "Encryption and authentication of the connection are different from verifying every statement or offer on the site.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A guarantee that the site operator cannot deceive users.",
+        "A guarantee that the server and user device are free of malware.",
+        "Protection of the connection through TLS, rather than a guarantee that the site’s claims are truthful.",
+        "Automatic backup of every file on the user device."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-069",
+      "objectiveId": "jamb-computing-networks-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "When sending one email to several unrelated recipients, which field can hide their addresses from one another in the ordinary recipient display?",
+      "answer": "Bcc.",
+      "explanation": "Bcc conceals those recipients from the ordinary visible recipient list, though the sender and service still process the addresses.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Visible To addresses for every recipient.",
+        "Bcc.",
+        "Subject.",
+        "Cc."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-070",
+      "objectiveId": "jamb-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Trace this pseudocode: total←0; FOR k←1 TO 4 inclusive: total←total+k; END FOR; OUTPUT total. What is output?",
+      "answer": "10",
+      "explanation": "The additions are 1+2+3+4 = 10.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "10",
+        "4",
+        "6",
+        "16"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "1+2+3+4",
+          "expected": "10",
+          "answerValue": "10",
+          "purpose": "Loop total"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-071",
+      "objectiveId": "jamb-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A field must contain an integer from 0 to 100 inclusive. Which input should a range-and-type validation reject?",
+      "answer": "105",
+      "explanation": "105 is outside the stated range; the other listed integers satisfy it.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "0",
+        "50",
+        "100",
+        "105"
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-072",
+      "objectiveId": "jamb-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why should a program be tested with values exactly at accepted limits as well as ordinary values?",
+      "answer": "Boundary mistakes can remain hidden when only middle values are tested.",
+      "explanation": "Testing endpoints helps detect incorrect comparisons such as < where ≤ is required.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Ordinary tests can never be useful.",
+        "Only the final screen colour determines correctness.",
+        "Boundary mistakes can remain hidden when only middle values are tested.",
+        "Boundary inputs automatically prove every internal algorithm is correct."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Files and maintenance",
+      "subtopic": "Storage recovery and care",
+      "learningObjective": "Evaluate storage recovery and maintenance methods.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-073",
+      "objectiveId": "jamb-computing-files-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A user renames a text file from .txt to .jpg without converting its contents. What follows?",
+      "answer": "The name changes, but the contents do not automatically become a valid JPEG image.",
+      "explanation": "A filename extension can indicate intended type, but renaming alone is not content conversion.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The file is automatically decoded and rewritten into JPEG pixel data.",
+        "The name changes, but the contents do not automatically become a valid JPEG image.",
+        "All image programs must accept the renamed content as a valid JPEG.",
+        "Renaming alone cryptographically authenticates the file contents."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Files and maintenance",
+      "subtopic": "Storage recovery and care",
+      "learningObjective": "Evaluate storage recovery and maintenance methods.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-074",
+      "objectiveId": "jamb-computing-files-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why is a successful restore test important for a backup plan?",
+      "answer": "It provides evidence that required data can actually be recovered in a usable form.",
+      "explanation": "A copied file or success message alone does not establish that recovery will work when needed.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It provides evidence that required data can actually be recovered in a usable form.",
+        "It guarantees there can never be a future device failure.",
+        "It means no further backups will ever be needed.",
+        "It replaces every need to identify which data was backed up."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Security and ethics",
+      "subtopic": "Permissions privacy and information quality",
+      "learningObjective": "Apply responsible computing and information checks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "id": "ndv-032-075",
+      "objectiveId": "jamb-computing-ethics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An AI system produces a confident reference to a book that cannot be found in reliable catalogues. What is the most appropriate conclusion?",
+      "answer": "The reference needs verification; confident wording is not evidence that it exists.",
+      "explanation": "Generated language can contain fabricated or mistaken details, so source checking remains necessary.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Confidence proves the reference is authentic.",
+        "Every AI output is necessarily false.",
+        "The user should invent a publisher to complete the citation.",
+        "The reference needs verification; confident wording is not evidence that it exists."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-076",
+      "objectiveId": "waec-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which description distinguishes an analogue representation from a digital one?",
+      "answer": "An analogue representation varies continuously, while a digital representation uses discrete values.",
+      "explanation": "This distinguishes representations, not a claim that all physical devices are purely one kind at every stage.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "An analogue representation is defined by having only binary values.",
+        "Digital representations cannot describe measured physical quantities.",
+        "An analogue representation varies continuously, while a digital representation uses discrete values.",
+        "Analogue and digital refer only to the physical size of the equipment."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-077",
+      "objectiveId": "waec-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A touchscreen is an example of a device that can",
+      "answer": "provide visual output and receive touch input.",
+      "explanation": "The display and sensing functions support both directions of interaction.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "perform no input function.",
+        "provide visual output and receive touch input.",
+        "only print hard-copy pages.",
+        "only store backups with no input or output."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-078",
+      "objectiveId": "waec-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why can a CPU cache improve performance?",
+      "answer": "It can provide faster access to frequently or recently needed data and instructions.",
+      "explanation": "A cache reduces some slower memory accesses but does not eliminate the need for main memory or storage.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It can provide faster access to frequently or recently needed data and instructions.",
+        "Store all user files permanently after power is removed.",
+        "Replace the processor control unit.",
+        "Increase installed physical RAM capacity without adding memory."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-079",
+      "objectiveId": "waec-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "An indexed image format allocates 4 bits to each pixel’s colour index. What is the maximum number of distinct indices?",
+      "answer": "16",
+      "explanation": "Four bits encode 2⁴ = 16 different index values.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "4",
+        "8",
+        "32",
+        "16"
+      ],
+      "correctOption": "D",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "2**4",
+          "expected": "16",
+          "answerValue": "16",
+          "purpose": "Four-bit colour-index capacity"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-080",
+      "objectiveId": "waec-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A registration table requires each enrolment’s student number to match an existing student record. This rule mainly supports",
+      "answer": "referential integrity.",
+      "explanation": "The reference must point to a valid related record rather than create an enrolment for a non-existent student.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "automatic correctness of every student’s name.",
+        "deletion of all student identifiers.",
+        "referential integrity.",
+        "a larger font size."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-081",
+      "objectiveId": "waec-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A cell stores the numeric value 0.25 and is displayed using percentage formatting with no decimal places. What is normally displayed?",
+      "answer": "25%",
+      "explanation": "Percentage formatting displays the stored fraction as a percentage without changing its underlying value to 25.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The word quarter in every spreadsheet.",
+        "25%",
+        "0.25%",
+        "2500%"
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Files and maintenance",
+      "subtopic": "Storage recovery and care",
+      "learningObjective": "Evaluate storage recovery and maintenance methods.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-082",
+      "objectiveId": "waec-computing-files-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "In a sequential file organisation, records are typically processed",
+      "answer": "in an ordered sequence rather than accessed solely by a direct location calculation.",
+      "explanation": "Sequential processing follows an arrangement of records; it differs from describing every retrieval as direct access.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "in an ordered sequence rather than accessed solely by a direct location calculation.",
+        "Only by a hash calculation that jumps directly to each record.",
+        "Only through a network protocol with no records.",
+        "Only by changing the file extension before every read."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-083",
+      "objectiveId": "waec-computing-networks-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A communication protocol is best described as",
+      "answer": "an agreed set of rules for exchanging data.",
+      "explanation": "Protocols define aspects of communication such as message formats and exchange behaviour.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Only the physical material of the cable.",
+        "Only the storage capacity of a server.",
+        "A database key that identifies one learner.",
+        "an agreed set of rules for exchanging data."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Files and maintenance",
+      "subtopic": "Storage recovery and care",
+      "learningObjective": "Evaluate storage recovery and maintenance methods.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-084",
+      "objectiveId": "waec-computing-files-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A computer’s cooling vents are blocked by dust. What is a plausible consequence?",
+      "answer": "Restricted airflow can contribute to overheating and unreliable operation.",
+      "explanation": "Cooling depends on suitable airflow; cleaning and servicing should follow safe, competent procedures.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "No electronic device can be affected by temperature.",
+        "Blocked vents convert RAM into permanent storage.",
+        "Restricted airflow can contribute to overheating and unreliable operation.",
+        "Dust automatically increases all processor performance."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Security and ethics",
+      "subtopic": "Permissions privacy and information quality",
+      "learningObjective": "Apply responsible computing and information checks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-085",
+      "objectiveId": "waec-computing-ethics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which arrangement is most consistent with a suitable computer workstation?",
+      "answer": "A stable seat and screen position that support comfortable posture and clear viewing.",
+      "explanation": "Ergonomics concerns the user’s working arrangement rather than simply maximising screen brightness.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A requirement to twist continuously to see the screen.",
+        "A stable seat and screen position that support comfortable posture and clear viewing.",
+        "Cables across a walkway and a screen impossible to view comfortably.",
+        "A chair that cannot support the user at all."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-086",
+      "objectiveId": "waec-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "In a conventional flowchart, which shape normally represents a decision with alternative paths?",
+      "answer": "Diamond.",
+      "explanation": "The decision symbol branches according to a condition; a rectangle commonly represents processing.",
+      "cognitiveDemand": "remember",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Diamond.",
+        "Rectangle used for a processing step.",
+        "Arrow used only as a flow line.",
+        "Parallelogram used for input/output."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-087",
+      "objectiveId": "waec-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A program outputs “Pass” if score≥50; otherwise it outputs “Retry”. What is output for score=50?",
+      "answer": "Pass",
+      "explanation": "The ≥ comparison includes the boundary value 50.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Retry",
+        "Both outputs at once under the stated rule.",
+        "No output because equality is undefined.",
+        "Pass"
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-088",
+      "objectiveId": "waec-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A score of 65 is accidentally entered as 56. Both satisfy the permitted range 0–100. Why might a range check fail to detect the error?",
+      "answer": "Validation of permitted values is not the same as checking the value against the original source.",
+      "explanation": "A plausible but incorrectly copied value can pass a range check; verification is still needed.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Range checks can detect every transposition automatically.",
+        "Verification is impossible if a number is valid.",
+        "Validation of permitted values is not the same as checking the value against the original source.",
+        "All values inside the range are guaranteed to be the intended values."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-089",
+      "objectiveId": "waec-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A school needs the same letter layout with a different learner’s name on each copy. Which word-processing feature is most directly suitable?",
+      "answer": "Mail merge using a template and a data source.",
+      "explanation": "Mail merge combines standard text with variable fields; the question concerns document preparation, not automatically sending messages.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Page orientation alone.",
+        "Mail merge using a template and a data source.",
+        "A spelling checker alone.",
+        "Manual independent copies with no shared template or data fields."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Security and ethics",
+      "subtopic": "Permissions privacy and information quality",
+      "learningObjective": "Apply responsible computing and information checks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-090",
+      "objectiveId": "waec-computing-ethics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A photograph is publicly viewable online. What is the most responsible assumption before reusing it in a publication?",
+      "answer": "Public access does not itself establish permission; check the licence or obtain suitable permission.",
+      "explanation": "Visibility and reuse rights differ. The task does not assume a particular jurisdiction’s detailed exceptions.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Public access does not itself establish permission; check the licence or obtain suitable permission.",
+        "Every publicly viewable image is automatically free of all restrictions.",
+        "Changing the filename always transfers ownership.",
+        "Removing the creator’s name always makes reuse lawful."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-091",
+      "objectiveId": "waec-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Trace this pseudocode and give x and total after each iteration: x←1; total←0; WHILE x<5: total←total+2*x; x←x+1; END WHILE. State final output total and explain what happens if the x increment is removed.",
+      "answer": "After successive iterations, (x,total) is (2,2), (3,6), (4,12), (5,20). Final total is 20. Without the increment, x remains 1, the condition stays true and the loop does not terminate under the stated model.",
+      "explanation": "Trace changing state in order; do not update x before using it unless the pseudocode says so.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct four successive state pairs.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Final total 20.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain unchanged x and non-termination if the increment is removed.",
+          "marks": 3
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "2*1+2*2+2*3+2*4",
+          "expected": "20",
+          "answerValue": "20",
+          "purpose": "Loop final total"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-092",
+      "objectiveId": "waec-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Construct the complete truth table for a two-input NAND gate and explain how its result differs from AND. Use inputs 00, 01, 10 and 11.",
+      "answer": "For 00 the output is 1; for 01 it is 1; for 10 it is 1; for 11 it is 0. NAND is the negation of AND, so it gives the opposite binary output for every input pair.",
+      "explanation": "A complete table includes all four input combinations exactly once.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct output for each of four input pairs.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Explain negation of AND.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "kind": "truth-table",
+          "operator": "NAND",
+          "rows": [
+            {
+              "inputs": [
+                0,
+                0
+              ],
+              "output": 1
+            },
+            {
+              "inputs": [
+                0,
+                1
+              ],
+              "output": 1
+            },
+            {
+              "inputs": [
+                1,
+                0
+              ],
+              "output": 1
+            },
+            {
+              "inputs": [
+                1,
+                1
+              ],
+              "output": 0
+            }
+          ],
+          "purpose": "Complete NAND truth table"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-093",
+      "objectiveId": "waec-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A spreadsheet has daily pay in B2 and days worked in C2. A fixed bonus rate is stored in F1. Write a formula in D2 for B2*C2 plus a bonus equal to that product multiplied by F1. Make F1 stay fixed when copied down, and give the resulting formula in D3.",
+      "answer": "D2: =B2*C2*(1+$F$1). Copied to D3: =B3*C3*(1+$F$1). Equivalent formulas that add the base pay and bonus separately are also valid.",
+      "explanation": "The worker-row references change while the bonus-rate reference stays absolute.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct base-pay product.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Correct bonus application and total.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Use an absolute reference for F1.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Give the correct copied row-3 formula.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-094",
+      "objectiveId": "waec-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A school stores learner details repeatedly in every subject-result row. A phone number is changed in some rows but not others. Explain the problem and propose a simpler linked-table design using a unique learner identifier.",
+      "answer": "Repeated learner details create redundancy and update anomalies. Store one learner row per unique learner identifier with the contact details, and store subject results separately with a reference to that identifier. Updating the learner contact once then avoids inconsistent copies in result rows.",
+      "explanation": "A suitable design separates learner facts from many result records while preserving a link; it does not remove necessary result data.",
+      "cognitiveDemand": "create",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain redundancy and inconsistent updates.",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Propose a learner table with unique identifier.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Propose linked result rows and explain the single update benefit.",
+          "marks": 3
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Files and maintenance",
+      "subtopic": "Storage recovery and care",
+      "learningObjective": "Evaluate storage recovery and maintenance methods.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-095",
+      "objectiveId": "waec-computing-files-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A shared folder is synchronised to another device. A user accidentally deletes files and the deletion synchronises too. Explain why synchronisation alone was insufficient and describe two recovery safeguards.",
+      "answer": "Synchronisation can copy changes, including deletion, rather than preserve an independent earlier state. Use versioned backups with suitable retention and a protected separate copy, and test restoring required files. Access controls and recovery records help prevent or investigate further loss.",
+      "explanation": "Two identical current folders are not necessarily two recoverable historical copies.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain propagation of deletion.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain two suitable safeguards linked to recoverable earlier states or protection.",
+          "marks": 4
+        },
+        {
+          "step": 3,
+          "description": "Explain a restore test or retained recovery evidence.",
+          "marks": 2
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-096",
+      "objectiveId": "waec-computing-networks-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A computer can reach a known local service by IP address but cannot resolve its hostname. Other conditions are unchanged. Identify a likely area to investigate and describe a sensible check before replacing hardware.",
+      "answer": "Investigate name resolution, including the configured DNS service or local name records. Compare a known correct hostname, check relevant settings and test whether other names resolve. Since IP access works, a complete physical-network failure is not established.",
+      "explanation": "The symptoms narrow the investigation but do not prove a single cause; check evidence before replacing a cable or adapter.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify name-resolution/DNS investigation.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Describe two relevant checks or comparisons.",
+          "marks": 4
+        },
+        {
+          "step": 3,
+          "description": "Explain why successful IP access weakens a total hardware-failure claim.",
+          "marks": 2
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-097",
+      "objectiveId": "waec-computing-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A raw uncompressed image is 100 pixels wide and 80 pixels high at 8 bits per pixel. Ignoring headers and palettes, calculate size in bits, bytes and KiB, where 1 KiB=1024 bytes. Explain why an actual saved file may have a different size.",
+      "answer": "Size = 100×80×8 = 64,000 bits = 8,000 bytes = 7.8125 KiB. Headers, palettes, metadata or compression can change the saved file size relative to the raw pixel-data calculation.",
+      "explanation": "The stated representation excludes padding and other overhead; file format matters in real storage.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 64,000 bits.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Convert to 8,000 bytes.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Convert to 7.8125 KiB.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Explain a valid file-format or compression difference.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "100*80*8",
+          "expected": "64000",
+          "answerValue": "64000",
+          "purpose": "Raw image bits"
+        },
+        {
+          "expression": "100*80*8/8",
+          "expected": "8000",
+          "purpose": "Raw image bytes"
+        },
+        {
+          "expression": "8000/1024",
+          "expected": "7.8125",
+          "purpose": "Raw image KiB"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-098",
+      "objectiveId": "waec-computing-applications-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A long school report has manually enlarged headings, repeated blank lines and inconsistent page starts. Explain how paragraph styles, proper page breaks and an automatic contents feature could improve maintainability.",
+      "answer": "Styles apply consistent heading formatting and document structure. Proper page breaks control new pages without fragile runs of blank lines. Heading-based contents can be updated when sections or pagination change.",
+      "explanation": "The response should link each feature to editing and updating the report, not claim that visual formatting alone makes the content accurate.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain styles and consistent structured headings.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain stable page breaks.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain an updateable contents list.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-099",
+      "objectiveId": "waec-computing-algorithms-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Design tests for a score input that must be an integer from 0 to 100 inclusive. Give one ordinary valid value, both valid endpoints, one value below range, one above range and a non-integer input. State expected acceptance or rejection and why these tests are not proof of the whole program’s correctness.",
+      "answer": "Examples: 50 accepted; 0 accepted; 100 accepted; −1 rejected; 101 rejected; 1.5 or non-numeric text rejected. These check representative type/range and boundary behaviour but do not test every processing path, storage action or output elsewhere in the program.",
+      "explanation": "Credit equivalent values meeting the requested categories. Distinguish successful input checks from proof of every program property.",
+      "cognitiveDemand": "create",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Ordinary valid value and both accepted endpoints.",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Rejected below-range, above-range and non-integer cases.",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Explain a limitation of the test set.",
+          "marks": 2
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Security and ethics",
+      "subtopic": "Permissions privacy and information quality",
+      "learningObjective": "Apply responsible computing and information checks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "id": "ndv-032-100",
+      "objectiveId": "waec-computing-ethics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A staff member needs a list of learners eligible for a club, but requests an unrestricted export containing home addresses and unrelated family details. Explain two privacy or access concerns and propose a proportionate information-sharing approach.",
+      "answer": "The export includes more personal information than needed and may give access beyond the staff member’s role. Provide only authorised fields relevant to eligibility, apply appropriate access controls and retain a record of the approved purpose and disclosure.",
+      "explanation": "This is an educational data-handling scenario, not a statement of every jurisdiction’s legal requirements. A legitimate task does not justify unrestricted data access.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain excess/unnecessary data concern.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain role or access-authorisation concern.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Propose a relevant minimal authorised dataset and traceable sharing arrangement.",
+          "marks": 3
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    }
+  ]
+}

@@ -91,3 +91,19 @@ Paper-style labels distinguish theory from written practical-planning/data tasks
 these do not claim that a learner has performed a laboratory experiment.
 The validator checks code/year/version/tier links and rejects MCQ practical
 items for these science qualifications. Source retrieval is not academic approval.
+
+## BECE and NERDC source checkpoint
+
+The official NECO BECE **2026 timetable** supplies 18 subject/route entries and
+observed paper formats. They now appear in the dashboard with no invented
+questions or objectives. The evidence is specific to NECO, not every state
+BECE. Timetable knowledge alone is insufficient for full syllabus coverage.
+
+The new NERDC Primary 1 and JSS 1 links returned 403 through public retrieval.
+Older official Primary 1–3 mathematics and English-introduction PDFs were found,
+but their current adoption was not established. Keep these reference sources
+separate from verified current class objectives. Do not infer a curriculum
+revision date from a search engine crawl or publication timestamp.
+
+Computing verification now checks complete binary-gate truth tables. Arithmetic
+and logic checks remain narrower than academic review or program verification.

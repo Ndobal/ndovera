@@ -2,23 +2,23 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_031_automated_validation_passed",
+  "phase": "batch_032_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-032.json",
+  "nextBatch": "original-multisubject-batch-033.json",
   "nextPriorities": [
-    "Expand Agricultural Science and Computer Studies for WAEC/JAMB using available syllabus evidence.",
-    "NERDC official new class pages /pry_1 and /jss_1 return 403; current class-subject objectives remain unresolved.",
-    "Retrieve NECO SSCE and BECE specifications rather than infer them from WAEC.",
-    "Continue source-code reconciliation, legacy remediation and academic review."
+    "Select the next applicable underrepresented examination-subject combinations from the coverage register; History, religious studies and language banks remain largely empty.",
+    "Retrieve full NECO BECE content objectives after the official 2026 timetable established subject and paper-format scope.",
+    "Verify current NERDC class-objective adoption: new class pages return 403; older public PDFs are reference evidence only.",
+    "Continue NECO SSCE source retrieval, legacy remediation and independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-031.json",
-  "lastRemoteVerifiedCommit": "98d433721ba55eb606714aecb902f810b7e6e0ac",
+  "lastValidatedBatch": "original-multisubject-batch-032.json",
+  "lastRemoteVerifiedCommit": "12ce4cb7fdb0205469458fb9906e3b0217f98aa2",
   "verifiedTotals": {
-    "raw": 2299,
-    "validDrafts": 620,
+    "raw": 2399,
+    "validDrafts": 720,
     "reviewed": 0
   },
-  "lastRunTestCount": 35
+  "lastRunTestCount": 40
 }

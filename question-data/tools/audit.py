@@ -12,6 +12,7 @@ import hashlib
 import json
 import math
 import re
+from itertools import product
 from fractions import Fraction
 from pathlib import Path
 
@@ -73,6 +74,34 @@ def arithmetic(expression):
                 return a ** int(b)
         raise ValueError('unsupported arithmetic')
     return visit(ast.parse(expression, mode='eval').body)
+
+
+def verify_logic_table(claim):
+    """Check a complete binary gate table, without executing authored code."""
+    operator = claim.get('operator')
+    if operator not in ('AND', 'OR', 'NOT', 'NAND', 'NOR', 'XOR'):
+        raise ValueError('unsupported logic gate')
+    arity = 1 if operator == 'NOT' else 2
+    rows = claim.get('rows')
+    if not isinstance(rows, list) or len(rows) != 2**arity:
+        raise ValueError('incomplete truth table')
+    observed = set()
+    correct = True
+    for row in rows:
+        if not isinstance(row, dict): raise ValueError('invalid truth-table row')
+        inputs, output = row.get('inputs'), row.get('output')
+        if not isinstance(inputs, list) or len(inputs) != arity or any(type(x) is not int or x not in (0, 1) for x in inputs):
+            raise ValueError('invalid logic inputs')
+        if type(output) is not int or output not in (0, 1): raise ValueError('invalid logic output')
+        identity = tuple(inputs)
+        if identity in observed: raise ValueError('repeated truth-table input')
+        observed.add(identity)
+        expected = {'AND': all(inputs), 'OR': any(inputs), 'NOT': not inputs[0],
+                    'NAND': not all(inputs), 'NOR': not any(inputs),
+                    'XOR': sum(inputs) == 1}[operator]
+        if output != int(expected): correct = False
+    if observed != set(product((0, 1), repeat=arity)): raise ValueError('incomplete input coverage')
+    return correct
 
 
 def check_question(q, objectives):
@@ -158,13 +187,21 @@ def check_question(q, objectives):
         errors.append('verification_must_be_array'); claims = []
     for claim in claims:
         try:
+            if not isinstance(claim, dict): raise ValueError('invalid verification claim')
+            if claim.get('kind') == 'truth-table':
+                if not verify_logic_table(claim): errors.append('logic_table_incorrect')
+                if not claim.get('purpose'): errors.append('verification_purpose_missing')
+                continue
+            if claim.get('kind', 'arithmetic') != 'arithmetic':
+                errors.append('unsupported_verification_kind'); continue
             result = arithmetic(claim['expression'])
             if result != Fraction(str(claim['expected'])): errors.append('arithmetic_claim_incorrect')
             if claim.get('answerValue') is not None and result != Fraction(str(claim['answerValue'])):
                 errors.append('arithmetic_answer_mismatch')
             if not claim.get('purpose'): errors.append('arithmetic_claim_purpose_missing')
         except (ValueError, KeyError, TypeError, SyntaxError, ZeroDivisionError, OverflowError):
-            errors.append('invalid_arithmetic_claim')
+            errors.append('invalid_logic_table' if isinstance(claim, dict) and claim.get('kind') == 'truth-table'
+                          else 'invalid_arithmetic_claim')
     if (q.get('exam') == 'SAT' and q.get('subject') == 'Mathematics'
             and q.get('type') == 'shortanswer' and claims):
         try:
@@ -328,12 +365,16 @@ def audit(root=ROOT):
         'files': files, 'fileIssues': file_issues, 'banks': [rows[k] for k in sorted(rows)],
         'errorCounts': dict(collections.Counter(e for es in errors for e in set(es))),
         'mathematicalVerification': {
-            'explicitArithmeticClaims': sum(len(r['q'].get('verification', [])) for r in records
+            'explicitArithmeticClaims': sum(sum(isinstance(c, dict) and c.get('kind', 'arithmetic') == 'arithmetic'
+                                               for c in r['q'].get('verification', [])) for r in records
                                            if isinstance(r['q'].get('verification', []), list)),
-            'scope': 'Exact arithmetic claims plus parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems or solutions can be machine verified.',
+            'scope': 'Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.',
             'failureCount': sum(any(e in {'arithmetic_claim_incorrect', 'arithmetic_answer_mismatch',
                                          'determinant_answer_incorrect', 'integral_answer_incorrect',
-                                         'derivative_answer_incorrect'} for e in es) for es in errors)},
+                                         'derivative_answer_incorrect', 'logic_table_incorrect'} for e in es) for es in errors),
+            'logicTables': sum(sum(isinstance(c, dict) and c.get('kind') == 'truth-table'
+                                  for c in r['q'].get('verification', [])) for r in records
+                              if isinstance(r['q'].get('verification', []), list))},
         'questions': [{'id': r['q'].get('id'), 'file': r['file'], 'index': r['index'],
                        'errors': sorted(set(errors[i]))} for i, r in enumerate(records)],
         'identicalPromptGroups': [[records[i]['q'].get('id') for i in g] for g in exact],

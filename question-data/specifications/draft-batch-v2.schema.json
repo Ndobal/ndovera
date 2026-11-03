@@ -219,28 +219,96 @@
           "verification": {
             "type": "array",
             "items": {
-              "type": "object",
-              "required": [
-                "expression",
-                "expected",
-                "purpose"
-              ],
-              "properties": {
-                "expression": {
-                  "type": "string",
-                  "maxLength": 160
+              "oneOf": [
+                {
+                  "type": "object",
+                  "required": [
+                    "expression",
+                    "expected",
+                    "purpose"
+                  ],
+                  "properties": {
+                    "expression": {
+                      "type": "string",
+                      "maxLength": 160
+                    },
+                    "expected": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    },
+                    "purpose": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "kind": {
+                      "const": "arithmetic"
+                    }
+                  }
                 },
-                "expected": {
-                  "type": [
-                    "string",
-                    "number"
-                  ]
-                },
-                "purpose": {
-                  "type": "string",
-                  "minLength": 1
+                {
+                  "type": "object",
+                  "required": [
+                    "kind",
+                    "operator",
+                    "rows",
+                    "purpose"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "truth-table"
+                    },
+                    "operator": {
+                      "enum": [
+                        "AND",
+                        "OR",
+                        "NOT",
+                        "NAND",
+                        "NOR",
+                        "XOR"
+                      ]
+                    },
+                    "purpose": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "rows": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 4,
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "inputs",
+                          "output"
+                        ],
+                        "properties": {
+                          "inputs": {
+                            "type": "array",
+                            "minItems": 1,
+                            "maxItems": 2,
+                            "items": {
+                              "type": "integer",
+                              "enum": [
+                                0,
+                                1
+                              ]
+                            }
+                          },
+                          "output": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
-              }
+              ]
             }
           },
           "qualificationCode": {

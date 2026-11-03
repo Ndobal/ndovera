@@ -281,6 +281,74 @@
       "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Geography.pdf",
       "status": "provisional_full_current_official_alignment_pending",
       "note": "No current officeholders, changing international memberships or current statutory thresholds assumed. Invented geographical data are explicitly hypothetical."
+    },
+    {
+      "id": "waec-agriculture-compilation-2026",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "kind": "supplied_syllabus_compilation_with_limited_primary_crosscheck",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/waec-syllabus/agricultural-science",
+      "officialCrossCheck": "https://waeconline.org.ng/e-learning/",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "JAMB Computer Studies full official PDF was not retrieved. No current product-interface details, animal medication dosages or pesticide recommendations assumed."
+    },
+    {
+      "id": "waec-computing-compilation-2026",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "kind": "supplied_syllabus_compilation_with_limited_primary_crosscheck",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/waec-syllabus/computer-studies",
+      "officialCrossCheck": "https://waeconline.org.ng/e-learning/",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "JAMB Computer Studies full official PDF was not retrieved. No current product-interface details, animal medication dosages or pesticide recommendations assumed."
+    },
+    {
+      "id": "jamb-agriculture-compilation-2026",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "kind": "supplied_syllabus_compilation_with_limited_primary_crosscheck",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/agricultural-science",
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Agriculture.pdf",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "JAMB Computer Studies full official PDF was not retrieved. No current product-interface details, animal medication dosages or pesticide recommendations assumed."
+    },
+    {
+      "id": "jamb-computing-compilation-2026",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "kind": "supplied_syllabus_compilation_with_limited_primary_crosscheck",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/computer-studies",
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/cbt",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "JAMB Computer Studies full official PDF was not retrieved. No current product-interface details, animal medication dosages or pesticide recommendations assumed."
+    },
+    {
+      "id": "neco-bece-timetable-2026",
+      "exam": "BECE",
+      "provider": "NECO",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "kind": "official_timetable_pdf_retrieved",
+      "checkedOn": "2026-11-03",
+      "status": "subject_and_format_scope_only_objectives_missing",
+      "note": "Does not establish syllabus objectives or requirements of every state-run BECE."
+    },
+    {
+      "id": "nerdc-public-reference-primary-maths",
+      "source": "https://www.nerdc.gov.ng/content_manager/primary/pri1-3_maths.pdf",
+      "kind": "official_public_reference_pdf_indexed",
+      "status": "reference_edition_current_adoption_not_verified",
+      "note": "Primary 1–3 reference. Do not use web crawl/publication metadata as proof that this is the newest curriculum."
+    },
+    {
+      "id": "nerdc-public-reference-english-intro",
+      "source": "https://www.nerdc.gov.ng/content_manager/primary/pri1-3_english_studies_intro.pdf",
+      "kind": "official_reference_contents_index",
+      "status": "introduction_only_not_full_current_class_objectives",
+      "note": "Not sufficient to establish complete current English Studies objectives for each class."
     }
   ],
   "banks": [
@@ -992,13 +1060,6 @@
       "scopeStatus": "application_class_supported_curriculum_not_in_repository"
     },
     {
-      "exam": "BECE",
-      "subject": "[subject list unresolved]",
-      "level": "",
-      "target": null,
-      "scopeStatus": "application_catalogue_supported_specification_missing"
-    },
-    {
       "exam": "IGCSE",
       "subject": "Biology",
       "level": "",
@@ -1025,6 +1086,321 @@
         2028
       ],
       "note": "Only code-specific questions may count; legacy unassigned entries remain held. Other Cambridge codes are separate unresolved scope."
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "practical"
+      ],
+      "paperCodes": [
+        "3111",
+        "3112",
+        "3113"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "computer practical",
+        "drawing"
+      ],
+      "paperCodes": [
+        "8301",
+        "8302",
+        "8303",
+        "8304"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "practical"
+      ],
+      "paperCodes": [
+        "7291",
+        "7292",
+        "7293"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "8341",
+        "8342"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Hausa (L1)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2071",
+        "2072"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Igbo (L1)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2081",
+        "2082"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Yoruba (L1)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2091",
+        "2092"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Hausa (L2)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2201"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Igbo (L2)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2211"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Yoruba (L2)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2221"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "5161",
+        "5162"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Islamic Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "5181",
+        "5182"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Mathematics",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "essay"
+      ],
+      "paperCodes": [
+        "1021",
+        "1022",
+        "1023"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "8311",
+        "8312"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "essay"
+      ],
+      "paperCodes": [
+        "1011",
+        "1012",
+        "1013"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "Arabic Language",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2061",
+        "2062"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "8331",
+        "8332"
+      ]
+    },
+    {
+      "exam": "BECE",
+      "subject": "French Language",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2051",
+        "2052"
+      ]
     }
   ],
   "objectives": [
@@ -4004,6 +4380,412 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-agriculture-systems-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Agricultural systems",
+      "subtopic": "Production and relationships",
+      "learningObjective": "Distinguish farm systems and agricultural roles.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-agriculture-soil-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-agriculture-crops-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-agriculture-protection-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop protection",
+      "subtopic": "Pests weeds and beneficial organisms",
+      "learningObjective": "Evaluate crop-protection evidence and choices.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-agriculture-livestock-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-agriculture-aquaculture-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Aquaculture and apiculture",
+      "subtopic": "Production and environment",
+      "learningObjective": "Interpret pond and pollination relationships.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-agriculture-economics-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-agriculture-technology-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm technology",
+      "subtopic": "Tools and machinery",
+      "learningObjective": "Explain equipment choice maintenance and safety.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-computing-systems-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-computing-applications-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-computing-networks-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-computing-algorithms-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-computing-files-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Files and maintenance",
+      "subtopic": "Storage recovery and care",
+      "learningObjective": "Evaluate storage recovery and maintenance methods.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-computing-ethics-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Security and ethics",
+      "subtopic": "Permissions privacy and information quality",
+      "learningObjective": "Apply responsible computing and information checks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-agriculture-systems-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Agricultural systems",
+      "subtopic": "Production and relationships",
+      "learningObjective": "Distinguish farm systems and agricultural roles.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-agriculture-soil-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-agriculture-crops-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-agriculture-protection-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop protection",
+      "subtopic": "Pests weeds and beneficial organisms",
+      "learningObjective": "Evaluate crop-protection evidence and choices.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-agriculture-livestock-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-agriculture-aquaculture-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Aquaculture and apiculture",
+      "subtopic": "Production and environment",
+      "learningObjective": "Interpret pond and pollination relationships.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-agriculture-economics-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-agriculture-technology-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Farm technology",
+      "subtopic": "Tools and machinery",
+      "learningObjective": "Explain equipment choice maintenance and safety.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-computing-systems-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-computing-applications-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-computing-networks-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-computing-algorithms-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-computing-files-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Files and maintenance",
+      "subtopic": "Storage recovery and care",
+      "learningObjective": "Evaluate storage recovery and maintenance methods.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-computing-ethics-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Security and ethics",
+      "subtopic": "Permissions privacy and information quality",
+      "learningObjective": "Apply responsible computing and information checks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -4019,6 +4801,8 @@
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
-    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved."
+    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved.",
+    "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
+    "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred."
   ]
 }

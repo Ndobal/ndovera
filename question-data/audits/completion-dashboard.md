@@ -8,7 +8,24 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 
 | Examination | Subject / class | Target | Raw | Valid drafts | Reviewed | Remaining | Coverage |
 |---|---|---:|---:|---:|---:|---:|---|
-| BECE | [subject list unresolved] | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
+| BECE | Arabic Language / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Basic Science and Technology / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Business Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Christian Religious Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Cultural and Creative Arts / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | English Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | French Language / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Hausa (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Hausa (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | History / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Igbo (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Igbo (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Islamic Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Mathematics / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | National Values Education / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Pre-Vocational Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Yoruba (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Yoruba (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | IELTS | Listening | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | IELTS | Reading | 1000 | 6 | 0 | 0 | 1000 | specification_unresolved |
 | IELTS | Speaking | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
@@ -17,13 +34,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | Chemistry [0620] | 1000 | 52 | 50 | 0 | 950 | partial_objective_register |
 | IGCSE | Mathematics | 1000 | 14 | 0 | 0 | 1000 | specification_unresolved |
 | IGCSE | Physics | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Agricultural Science | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Biology | 1000 | 38 | 20 | 0 | 980 | partial_objective_register |
 | JAMB | Chemistry | 1000 | 18 | 15 | 0 | 985 | partial_objective_register |
 | JAMB | Christian Religious Knowledge (CRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Commerce | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
-| JAMB | Computer Studies | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Computer Studies | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Economics | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Financial Accounting | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Fine Arts | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -112,7 +129,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | Reading | 1000 | 6 | 0 | 0 | 1000 | specification_unresolved |
 | TOEFL | Speaking | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | TOEFL | Writing | 1000 | 13 | 10 | 0 | 990 | partial_objective_register |
-| WAEC | Agricultural Science | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Animal Husbandry | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Beauty and Cosmetology | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -125,7 +142,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Civic Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Commerce | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Computer Hardware and GSM Repairs | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Computer Studies | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Computer Studies | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Data Processing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Digital Technologies | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | WAEC | Economics | 1000 | 29 | 25 | 0 | 975 | partial_objective_register |
@@ -161,18 +178,18 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
-| BECE | 0 | 0 | 0 | 0 | 0 |
+| BECE | 0 | 0 | 0 | 18000 | 18000 |
 | IELTS | 19 | 10 | 0 | 4000 | 3990 |
 | IGCSE | 121 | 100 | 0 | 4000 | 3900 |
-| JAMB | 903 | 200 | 0 | 25000 | 24800 |
+| JAMB | 953 | 250 | 0 | 25000 | 24750 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 19 | 10 | 0 | 4000 | 3990 |
-| WAEC | 999 | 200 | 0 | 42000 | 41800 |
+| WAEC | 1049 | 250 | 0 | 42000 | 41750 |
 
-Overall: {"raw": 2299, "validDrafts": 620, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2399, "validDrafts": 720, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -191,3 +208,5 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.
 - All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.
 - Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved.
+- NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.
+- New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.

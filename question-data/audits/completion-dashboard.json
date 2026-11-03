@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2299,
-    "validDrafts": 620,
+    "raw": 2399,
+    "validDrafts": 720,
     "reviewed": 0,
-    "registeredBanks": 148,
-    "target": 129000,
+    "registeredBanks": 165,
+    "target": 147000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -322,6 +322,12 @@
       "actual": 100
     },
     {
+      "path": "original-multisubject-batch-032.json",
+      "sha256": "20005505752aa48ffbcbaf774595288a2a567fc7a62d34597de747c7e8efb632",
+      "declared": 100,
+      "actual": 100
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -422,16 +428,494 @@
   "banks": [
     {
       "exam": "BECE",
-      "subject": "[subject list unresolved]",
-      "level": "",
-      "target": null,
-      "scopeStatus": "application_catalogue_supported_specification_missing",
+      "subject": "Arabic Language",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2061",
+        "2062"
+      ],
       "raw": 0,
       "validDrafts": 0,
       "reviewed": 0,
       "questionTypes": {},
       "difficulty": {},
-      "remaining": null,
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "computer practical",
+        "drawing"
+      ],
+      "paperCodes": [
+        "8301",
+        "8302",
+        "8303",
+        "8304"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "practical"
+      ],
+      "paperCodes": [
+        "3111",
+        "3112",
+        "3113"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "5161",
+        "5162"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "practical"
+      ],
+      "paperCodes": [
+        "7291",
+        "7292",
+        "7293"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "essay"
+      ],
+      "paperCodes": [
+        "1011",
+        "1012",
+        "1013"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "French Language",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2051",
+        "2052"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Hausa (L1)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2071",
+        "2072"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Hausa (L2)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2201"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "8341",
+        "8342"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Igbo (L1)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2081",
+        "2082"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Igbo (L2)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2211"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Islamic Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "5181",
+        "5182"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Mathematics",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective",
+        "essay"
+      ],
+      "paperCodes": [
+        "1021",
+        "1022",
+        "1023"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "8331",
+        "8332"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "8311",
+        "8312"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Yoruba (L1)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2091",
+        "2092"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Yoruba (L2)",
+      "level": "JSS 3",
+      "provider": "NECO",
+      "examinationYear": 2026,
+      "target": 1000,
+      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "specificationId": "neco-bece-timetable-2026",
+      "observedPaperFormats": [
+        "objective"
+      ],
+      "paperCodes": [
+        "2221"
+      ],
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
       "mappedObjectives": 0,
       "representedObjectives": 0,
       "coverage": "specification_unresolved",
@@ -634,16 +1118,21 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 25
+      },
+      "difficulty": {
+        "easy": 4,
+        "standard": 21
+      },
+      "remaining": 975,
+      "mappedObjectives": 8,
+      "representedObjectives": 7,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "JAMB",
@@ -754,16 +1243,21 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 25
+      },
+      "difficulty": {
+        "easy": 3,
+        "standard": 22
+      },
+      "remaining": 975,
+      "mappedObjectives": 6,
+      "representedObjectives": 6,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "JAMB",
@@ -2530,16 +3024,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 15,
+        "structured": 10
+      },
+      "difficulty": {
+        "easy": 3,
+        "standard": 19,
+        "difficult": 3
+      },
+      "remaining": 975,
+      "mappedObjectives": 8,
+      "representedObjectives": 7,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -2774,16 +3275,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 15,
+        "structured": 10
+      },
+      "difficulty": {
+        "standard": 16,
+        "easy": 4,
+        "difficult": 5
+      },
+      "remaining": 975,
+      "mappedObjectives": 6,
+      "representedObjectives": 6,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -3356,23 +3864,24 @@
     }
   ],
   "errorCounts": {
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 121,
-    "scope": "Exact arithmetic claims plus parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems or solutions can be machine verified.",
-    "failureCount": 0
+    "explicitArithmeticClaims": 141,
+    "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
+    "failureCount": 0,
+    "logicTables": 1
   },
   "questions": [
     {
@@ -21669,6 +22178,606 @@
       "errors": []
     },
     {
+      "id": "ndv-032-001",
+      "file": "original-multisubject-batch-032.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-002",
+      "file": "original-multisubject-batch-032.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-003",
+      "file": "original-multisubject-batch-032.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-004",
+      "file": "original-multisubject-batch-032.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-005",
+      "file": "original-multisubject-batch-032.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-006",
+      "file": "original-multisubject-batch-032.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-007",
+      "file": "original-multisubject-batch-032.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-008",
+      "file": "original-multisubject-batch-032.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-009",
+      "file": "original-multisubject-batch-032.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-010",
+      "file": "original-multisubject-batch-032.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-011",
+      "file": "original-multisubject-batch-032.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-012",
+      "file": "original-multisubject-batch-032.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-013",
+      "file": "original-multisubject-batch-032.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-014",
+      "file": "original-multisubject-batch-032.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-015",
+      "file": "original-multisubject-batch-032.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-016",
+      "file": "original-multisubject-batch-032.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-017",
+      "file": "original-multisubject-batch-032.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-018",
+      "file": "original-multisubject-batch-032.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-019",
+      "file": "original-multisubject-batch-032.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-020",
+      "file": "original-multisubject-batch-032.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-021",
+      "file": "original-multisubject-batch-032.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-022",
+      "file": "original-multisubject-batch-032.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-023",
+      "file": "original-multisubject-batch-032.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-024",
+      "file": "original-multisubject-batch-032.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-025",
+      "file": "original-multisubject-batch-032.json",
+      "index": 24,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-026",
+      "file": "original-multisubject-batch-032.json",
+      "index": 25,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-027",
+      "file": "original-multisubject-batch-032.json",
+      "index": 26,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-028",
+      "file": "original-multisubject-batch-032.json",
+      "index": 27,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-029",
+      "file": "original-multisubject-batch-032.json",
+      "index": 28,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-030",
+      "file": "original-multisubject-batch-032.json",
+      "index": 29,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-031",
+      "file": "original-multisubject-batch-032.json",
+      "index": 30,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-032",
+      "file": "original-multisubject-batch-032.json",
+      "index": 31,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-033",
+      "file": "original-multisubject-batch-032.json",
+      "index": 32,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-034",
+      "file": "original-multisubject-batch-032.json",
+      "index": 33,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-035",
+      "file": "original-multisubject-batch-032.json",
+      "index": 34,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-036",
+      "file": "original-multisubject-batch-032.json",
+      "index": 35,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-037",
+      "file": "original-multisubject-batch-032.json",
+      "index": 36,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-038",
+      "file": "original-multisubject-batch-032.json",
+      "index": 37,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-039",
+      "file": "original-multisubject-batch-032.json",
+      "index": 38,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-040",
+      "file": "original-multisubject-batch-032.json",
+      "index": 39,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-041",
+      "file": "original-multisubject-batch-032.json",
+      "index": 40,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-042",
+      "file": "original-multisubject-batch-032.json",
+      "index": 41,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-043",
+      "file": "original-multisubject-batch-032.json",
+      "index": 42,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-044",
+      "file": "original-multisubject-batch-032.json",
+      "index": 43,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-045",
+      "file": "original-multisubject-batch-032.json",
+      "index": 44,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-046",
+      "file": "original-multisubject-batch-032.json",
+      "index": 45,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-047",
+      "file": "original-multisubject-batch-032.json",
+      "index": 46,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-048",
+      "file": "original-multisubject-batch-032.json",
+      "index": 47,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-049",
+      "file": "original-multisubject-batch-032.json",
+      "index": 48,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-050",
+      "file": "original-multisubject-batch-032.json",
+      "index": 49,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-051",
+      "file": "original-multisubject-batch-032.json",
+      "index": 50,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-052",
+      "file": "original-multisubject-batch-032.json",
+      "index": 51,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-053",
+      "file": "original-multisubject-batch-032.json",
+      "index": 52,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-054",
+      "file": "original-multisubject-batch-032.json",
+      "index": 53,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-055",
+      "file": "original-multisubject-batch-032.json",
+      "index": 54,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-056",
+      "file": "original-multisubject-batch-032.json",
+      "index": 55,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-057",
+      "file": "original-multisubject-batch-032.json",
+      "index": 56,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-058",
+      "file": "original-multisubject-batch-032.json",
+      "index": 57,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-059",
+      "file": "original-multisubject-batch-032.json",
+      "index": 58,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-060",
+      "file": "original-multisubject-batch-032.json",
+      "index": 59,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-061",
+      "file": "original-multisubject-batch-032.json",
+      "index": 60,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-062",
+      "file": "original-multisubject-batch-032.json",
+      "index": 61,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-063",
+      "file": "original-multisubject-batch-032.json",
+      "index": 62,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-064",
+      "file": "original-multisubject-batch-032.json",
+      "index": 63,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-065",
+      "file": "original-multisubject-batch-032.json",
+      "index": 64,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-066",
+      "file": "original-multisubject-batch-032.json",
+      "index": 65,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-067",
+      "file": "original-multisubject-batch-032.json",
+      "index": 66,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-068",
+      "file": "original-multisubject-batch-032.json",
+      "index": 67,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-069",
+      "file": "original-multisubject-batch-032.json",
+      "index": 68,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-070",
+      "file": "original-multisubject-batch-032.json",
+      "index": 69,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-071",
+      "file": "original-multisubject-batch-032.json",
+      "index": 70,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-072",
+      "file": "original-multisubject-batch-032.json",
+      "index": 71,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-073",
+      "file": "original-multisubject-batch-032.json",
+      "index": 72,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-074",
+      "file": "original-multisubject-batch-032.json",
+      "index": 73,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-075",
+      "file": "original-multisubject-batch-032.json",
+      "index": 74,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-076",
+      "file": "original-multisubject-batch-032.json",
+      "index": 75,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-077",
+      "file": "original-multisubject-batch-032.json",
+      "index": 76,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-078",
+      "file": "original-multisubject-batch-032.json",
+      "index": 77,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-079",
+      "file": "original-multisubject-batch-032.json",
+      "index": 78,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-080",
+      "file": "original-multisubject-batch-032.json",
+      "index": 79,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-081",
+      "file": "original-multisubject-batch-032.json",
+      "index": 80,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-082",
+      "file": "original-multisubject-batch-032.json",
+      "index": 81,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-083",
+      "file": "original-multisubject-batch-032.json",
+      "index": 82,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-084",
+      "file": "original-multisubject-batch-032.json",
+      "index": 83,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-085",
+      "file": "original-multisubject-batch-032.json",
+      "index": 84,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-086",
+      "file": "original-multisubject-batch-032.json",
+      "index": 85,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-087",
+      "file": "original-multisubject-batch-032.json",
+      "index": 86,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-088",
+      "file": "original-multisubject-batch-032.json",
+      "index": 87,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-089",
+      "file": "original-multisubject-batch-032.json",
+      "index": 88,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-090",
+      "file": "original-multisubject-batch-032.json",
+      "index": 89,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-091",
+      "file": "original-multisubject-batch-032.json",
+      "index": 90,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-092",
+      "file": "original-multisubject-batch-032.json",
+      "index": 91,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-093",
+      "file": "original-multisubject-batch-032.json",
+      "index": 92,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-094",
+      "file": "original-multisubject-batch-032.json",
+      "index": 93,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-095",
+      "file": "original-multisubject-batch-032.json",
+      "index": 94,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-096",
+      "file": "original-multisubject-batch-032.json",
+      "index": 95,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-097",
+      "file": "original-multisubject-batch-032.json",
+      "index": 96,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-098",
+      "file": "original-multisubject-batch-032.json",
+      "index": 97,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-099",
+      "file": "original-multisubject-batch-032.json",
+      "index": 98,
+      "errors": []
+    },
+    {
+      "id": "ndv-032-100",
+      "file": "original-multisubject-batch-032.json",
+      "index": 99,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -38531,6 +39640,753 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-agriculture-systems-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Agricultural systems",
+      "subtopic": "Production and relationships",
+      "learningObjective": "Distinguish farm systems and agricultural roles.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": {},
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-agriculture-soil-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-agriculture-crops-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 4,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-agriculture-protection-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Crop protection",
+      "subtopic": "Pests weeds and beneficial organisms",
+      "learningObjective": "Evaluate crop-protection evidence and choices.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-agriculture-livestock-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 4,
+        "structured": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 4,
+        "easy": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-agriculture-aquaculture-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Aquaculture and apiculture",
+      "subtopic": "Production and environment",
+      "learningObjective": "Interpret pond and pollination relationships.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-agriculture-economics-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-agriculture-technology-v1",
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "topic": "Farm technology",
+      "subtopic": "Tools and machinery",
+      "learningObjective": "Explain equipment choice maintenance and safety.",
+      "specificationId": "waec-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-computing-systems-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 4,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-computing-applications-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 3,
+        "structured": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 5,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-computing-networks-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "easy": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-computing-algorithms-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 3,
+        "structured": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "easy": 1,
+        "standard": 3,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-computing-files-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Files and maintenance",
+      "subtopic": "Storage recovery and care",
+      "learningObjective": "Evaluate storage recovery and maintenance methods.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-computing-ethics-v1",
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "topic": "Security and ethics",
+      "subtopic": "Permissions privacy and information quality",
+      "learningObjective": "Apply responsible computing and information checks.",
+      "specificationId": "waec-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-agriculture-systems-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Agricultural systems",
+      "subtopic": "Production and relationships",
+      "learningObjective": "Distinguish farm systems and agricultural roles.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "easy": 2,
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-agriculture-soil-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Soils and plant nutrition",
+      "subtopic": "Properties and management",
+      "learningObjective": "Interpret soil evidence and nutrient management.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 6
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-agriculture-crops-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop production",
+      "subtopic": "Establishment and storage",
+      "learningObjective": "Select and evaluate crop establishment and handling methods.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-agriculture-protection-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Crop protection",
+      "subtopic": "Pests weeds and beneficial organisms",
+      "learningObjective": "Evaluate crop-protection evidence and choices.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-agriculture-livestock-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Animal production",
+      "subtopic": "Feeding breeding and health",
+      "learningObjective": "Explain livestock management using stated conditions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-agriculture-aquaculture-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Aquaculture and apiculture",
+      "subtopic": "Production and environment",
+      "learningObjective": "Interpret pond and pollination relationships.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-agriculture-economics-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Farm management",
+      "subtopic": "Records costs and extension",
+      "learningObjective": "Use records and data to evaluate farm decisions.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "easy": 1,
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-agriculture-technology-v1",
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "topic": "Farm technology",
+      "subtopic": "Tools and machinery",
+      "learningObjective": "Explain equipment choice maintenance and safety.",
+      "specificationId": "jamb-agriculture-compilation-2026",
+      "questionTypes": {},
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-computing-systems-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Computer fundamentals",
+      "subtopic": "Hardware software and data",
+      "learningObjective": "Explain computer components and data representation.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 8
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 8,
+      "validDrafts": 8,
+      "difficulty": {
+        "easy": 2,
+        "standard": 6
+      },
+      "tiers": {
+        "not_specified": 8
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-computing-applications-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Application packages",
+      "subtopic": "Documents spreadsheets and databases",
+      "learningObjective": "Apply application concepts to defined tasks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-computing-networks-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Networks and communication",
+      "subtopic": "Services and protocols",
+      "learningObjective": "Distinguish communication functions and diagnose simple faults.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-computing-algorithms-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Problem solving",
+      "subtopic": "Logic algorithms and testing",
+      "learningObjective": "Trace and test explicitly stated algorithms.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-computing-files-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Files and maintenance",
+      "subtopic": "Storage recovery and care",
+      "learningObjective": "Evaluate storage recovery and maintenance methods.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-computing-ethics-v1",
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "topic": "Security and ethics",
+      "subtopic": "Permissions privacy and information quality",
+      "learningObjective": "Apply responsible computing and information checks.",
+      "specificationId": "jamb-computing-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -38546,6 +40402,8 @@
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
-    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved."
+    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved.",
+    "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
+    "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred."
   ]
 }

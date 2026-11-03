@@ -142,6 +142,26 @@ class ValidationTests(unittest.TestCase):
     def test_igcse_aos_are_required(self):
         self.igcse_fixture(); self.q.pop('assessmentObjectives')
         self.assertIn('igcse_assessment_objective_missing_or_invalid', self.errors())
+    def logic_fixture(self):
+        return {'kind': 'truth-table', 'operator': 'NAND', 'purpose': 'NAND table',
+                'rows': [{'inputs': [0, 0], 'output': 1}, {'inputs': [0, 1], 'output': 1},
+                         {'inputs': [1, 0], 'output': 1}, {'inputs': [1, 1], 'output': 0}]}
+    def test_complete_nand_table(self):
+        self.q['verification'] = [self.logic_fixture()]
+        self.assertEqual(self.errors(), [])
+    def test_incorrect_logic_result(self):
+        claim = self.logic_fixture(); claim['rows'][3]['output'] = 1
+        self.q['verification'] = [claim]
+        self.assertIn('logic_table_incorrect', self.errors())
+    def test_duplicate_logic_inputs_rejected(self):
+        claim = self.logic_fixture(); claim['rows'][3] = claim['rows'][0]
+        with self.assertRaises(ValueError): audit.verify_logic_table(claim)
+    def test_missing_logic_rows_rejected(self):
+        claim = self.logic_fixture(); claim['rows'].pop()
+        with self.assertRaises(ValueError): audit.verify_logic_table(claim)
+    def test_unknown_verification_kind_rejected(self):
+        self.q['verification'][0]['kind'] = 'execute-script'
+        self.assertIn('unsupported_verification_kind', self.errors())
 
 
 if __name__ == '__main__': unittest.main()
