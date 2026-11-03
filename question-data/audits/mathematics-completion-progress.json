@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 284,
-      "remainingToNumericTarget": 716,
+      "stagedQuestionCount": 334,
+      "remainingToNumericTarget": 666,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 268,
-      "remainingToNumericTarget": 732,
+      "stagedQuestionCount": 318,
+      "remainingToNumericTarget": 682,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -46,7 +46,11 @@
     "question-data/original-mathematics-batch-014a.json",
     "question-data/original-mathematics-batch-014b.json",
     "question-data/original-mathematics-batch-014c.json",
-    "question-data/original-mathematics-batch-014d.json"
+    "question-data/original-mathematics-batch-014d.json",
+    "question-data/original-mathematics-batch-015a.json",
+    "question-data/original-mathematics-batch-015b.json",
+    "question-data/original-mathematics-batch-015c.json",
+    "question-data/original-mathematics-batch-015d.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -69,14 +73,17 @@
     "batch014QuestionCount": 100,
     "batch014AnswerOptionReferencesValidated": true,
     "batch014MatrixAndDerivativeArithmeticValidated": true,
-    "batch014IndependentAcademicReview": false
+    "batch014IndependentAcademicReview": false,
+    "batch015QuestionCount": 100,
+    "batch015StructuralChecksPassed": true,
+    "batch015MatrixIntegralArithmeticChecksPassed": true,
+    "batch015IndependentAcademicReview": false
   },
   "nextPriorities": [
-    "Reduce concept-level repetition across generated batches",
-    "Verify all answers and syllabus objectives independently",
-    "Increase multi-step difficult WAEC/JAMB questions",
-    "Expand WAEC theory questions with marking guides",
-    "Do not import drafts to production"
+    "Address conceptual duplication in parameter-generated questions",
+    "Expand to underrepresented advanced objectives and WAEC theory",
+    "Review syllabus alignment and all mathematical solutions",
+    "Keep draft data out of production until academic validation"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
