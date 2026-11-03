@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2773,
-    "validDrafts": 1094,
+    "raw": 2791,
+    "validDrafts": 1112,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -356,6 +356,12 @@
       "sha256": "6df37a1a2812c0f92eae175d53218f48eadcd9d1807790dc9bb2fba03643acb3",
       "declared": 24,
       "actual": 24
+    },
+    {
+      "path": "original-multisubject-batch-038.json",
+      "sha256": "7393e6a04daa6b98e2acec3a0b0045867ec3292c4146ba95d509dc92285282c4",
+      "declared": 18,
+      "actual": 18
     },
     {
       "path": "original-practice-batch-001.json",
@@ -974,23 +980,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "academic_format_verified_general_training_mapping_pending",
-      "raw": 30,
-      "validDrafts": 24,
+      "raw": 48,
+      "validDrafts": 42,
       "reviewed": 0,
       "questionTypes": {
-        "shortanswer": 18,
+        "shortanswer": 36,
         "mcq": 12
       },
       "difficulty": {
-        "standard": 18,
+        "standard": 36,
         "easy": 6,
         "missing": 3,
         "difficult": 1,
         "very difficult": 2
       },
-      "remaining": 976,
-      "mappedObjectives": 4,
-      "representedObjectives": 4,
+      "remaining": 958,
+      "mappedObjectives": 7,
+      "representedObjectives": 7,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -3980,8 +3986,8 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 141,
@@ -25128,6 +25134,114 @@
       "errors": []
     },
     {
+      "id": "ndv-038-001",
+      "file": "original-multisubject-batch-038.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-002",
+      "file": "original-multisubject-batch-038.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-003",
+      "file": "original-multisubject-batch-038.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-004",
+      "file": "original-multisubject-batch-038.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-005",
+      "file": "original-multisubject-batch-038.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-006",
+      "file": "original-multisubject-batch-038.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-007",
+      "file": "original-multisubject-batch-038.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-008",
+      "file": "original-multisubject-batch-038.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-009",
+      "file": "original-multisubject-batch-038.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-010",
+      "file": "original-multisubject-batch-038.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-011",
+      "file": "original-multisubject-batch-038.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-012",
+      "file": "original-multisubject-batch-038.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-013",
+      "file": "original-multisubject-batch-038.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-014",
+      "file": "original-multisubject-batch-038.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-015",
+      "file": "original-multisubject-batch-038.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-016",
+      "file": "original-multisubject-batch-038.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-017",
+      "file": "original-multisubject-batch-038.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-038-018",
+      "file": "original-multisubject-batch-038.json",
+      "index": 17,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -44582,6 +44696,93 @@
       },
       "sourceSections": [
         "Single-answer multiple choice"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-reading-headings-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Matching headings",
+      "learningObjective": "Identify each paragraph’s main idea and distinguish it from supporting details.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 6
+      },
+      "sourceSections": [
+        "Matching headings"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-reading-information-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Matching information",
+      "learningObjective": "Locate a specific detail, example or comparison in a labelled paragraph.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 6
+      },
+      "sourceSections": [
+        "Matching information"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-reading-features-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Matching features",
+      "learningObjective": "Attribute a proposal or reasoning to the contributor who expressed it.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 6
+      },
+      "sourceSections": [
+        "Matching features"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,

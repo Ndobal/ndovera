@@ -167,3 +167,9 @@ and completion items have a two-word limit. The batch uses one mark per item.
 The official Academic Reading format is registered separately from General
 Training, which still needs mapping. Full paper length, timing and band
 conversion are outside the excerpt drills.
+
+Batch 038 adds three Academic Reading matching groups using original fictional
+passages. The groups cover headings, information and features. Each item carries
+the shared passage, instructions and labelled choice bank, plus its group ID
+and position. Score one mark per item. The heading group uses each selected
+heading once and includes two unused choices. These are standalone draft sets.

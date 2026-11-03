@@ -6124,6 +6124,57 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-academic-reading-headings-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Matching headings",
+      "learningObjective": "Identify each paragraph’s main idea and distinguish it from supporting details.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Matching headings"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-academic-reading-information-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Matching information",
+      "learningObjective": "Locate a specific detail, example or comparison in a labelled paragraph.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Matching information"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-academic-reading-features-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Matching features",
+      "learningObjective": "Attribute a proposal or reasoning to the contributor who expressed it.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Matching features"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
