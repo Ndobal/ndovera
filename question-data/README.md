@@ -180,3 +180,11 @@ instruction excerpt and a general-interest article. Matching labels,
 sentence completion and factual judgements use one mark per answer.
 Both Reading variants now have separate official format sources and
 author-proposed objective mappings. Coverage remains partial.
+
+Batch 040 opens the current TOEFL iBT Reading bank with 21 draft items.
+It contains a ten-gap Complete the Words paragraph, two daily-life texts
+with three questions each, and one short academic passage with five
+questions. The registered ETS sources establish the task families and
+sample conventions for the January 2026 redesign. These standalone groups
+use one practice mark per item. Adaptive assembly and scaled scoring remain
+outside this batch.

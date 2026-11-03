@@ -676,6 +676,17 @@
         "Section 3 general interest text"
       ],
       "note": "Official public format. Drafts are section-style practice. No full-paper timing or band conversion."
+    },
+    {
+      "id": "toefl-ibt-reading-2026",
+      "exam": "TOEFL",
+      "subject": "Reading",
+      "kind": "official_format",
+      "source": "https://www.ets.org/toefl/test-takers/ibt/about/content/reading/.html",
+      "formatGuide": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-at-a-glance.pdf",
+      "retrievedOn": "2026-11-03",
+      "effectiveFrom": "2026-01-21",
+      "note": "Official current task families and ETS overview sample task conventions. Standalone practice only; adaptive assembly and scaled scores are outside this batch."
     }
   ],
   "banks": [
@@ -1261,7 +1272,7 @@
       "subject": "Reading",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+      "scopeStatus": "post_january_2026_ibt_task_families_verified_partial_coverage"
     },
     {
       "exam": "TOEFL",
@@ -6241,6 +6252,57 @@
       "sourceSections": [
         "Section 3",
         "identifying-information"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-ibt-reading-words-v1",
+      "exam": "TOEFL",
+      "subject": "Reading",
+      "topic": "TOEFL iBT Reading",
+      "subtopic": "Complete the Words",
+      "learningObjective": "Use word form, spelling and context to reconstruct missing letters.",
+      "specificationId": "toefl-ibt-reading-2026",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Complete the Words"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-ibt-reading-daily-v1",
+      "exam": "TOEFL",
+      "subject": "Reading",
+      "topic": "TOEFL iBT Reading",
+      "subtopic": "Read in Daily Life",
+      "learningObjective": "Infer purpose and identify actions or conditions in everyday communications.",
+      "specificationId": "toefl-ibt-reading-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Read in Daily Life"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-ibt-reading-academic-v1",
+      "exam": "TOEFL",
+      "subject": "Reading",
+      "topic": "TOEFL iBT Reading",
+      "subtopic": "Read an Academic Passage",
+      "learningObjective": "Interpret details, vocabulary and relationships in a short expository passage.",
+      "specificationId": "toefl-ibt-reading-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Read an Academic Passage"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null

@@ -126,7 +126,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | SAT | Mathematics | 1000 | 31 | 25 | 0 | 975 | partial_objective_register |
 | SAT | Reading and Writing | 1000 | 28 | 25 | 0 | 975 | partial_objective_register |
 | TOEFL | Listening | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| TOEFL | Reading | 1000 | 6 | 0 | 0 | 1000 | specification_unresolved |
+| TOEFL | Reading | 1000 | 27 | 21 | 0 | 979 | partial_objective_register |
 | TOEFL | Speaking | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | TOEFL | Writing | 1000 | 13 | 10 | 0 | 990 | partial_objective_register |
 | WAEC | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
@@ -186,10 +186,10 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
-| TOEFL | 19 | 10 | 0 | 4000 | 3990 |
+| TOEFL | 40 | 31 | 0 | 4000 | 3969 |
 | WAEC | 1224 | 425 | 0 | 42000 | 41575 |
 
-Overall: {"raw": 2811, "validDrafts": 1132, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2832, "validDrafts": 1153, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
