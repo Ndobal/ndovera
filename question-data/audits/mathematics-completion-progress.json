@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 84,
-      "remainingToNumericTarget": 916,
+      "stagedQuestionCount": 144,
+      "remainingToNumericTarget": 856,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 86,
-      "remainingToNumericTarget": 914,
+      "stagedQuestionCount": 146,
+      "remainingToNumericTarget": 854,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -33,7 +33,8 @@
   ],
   "newFiles": [
     "question-data/original-mathematics-batch-008.json",
-    "question-data/original-mathematics-batch-009.json"
+    "question-data/original-mathematics-batch-009.json",
+    "question-data/original-mathematics-batch-010.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -41,7 +42,9 @@
     "distinctOptions": true,
     "numberBaseValidation": true,
     "independentAcademicReview": false,
-    "conceptLevelDuplicateAudit": false
+    "conceptLevelDuplicateAudit": false,
+    "batch008To010Count": 240,
+    "batch010DefiniteIntegralCorrections": 24
   },
   "nextPriorities": [
     "Build topic/objective index from each Mathematics syllabus",
