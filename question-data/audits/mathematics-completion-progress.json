@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 704,
-      "remainingToNumericTarget": 296,
+      "stagedQuestionCount": 724,
+      "remainingToNumericTarget": 276,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 608,
-      "remainingToNumericTarget": 392,
+      "stagedQuestionCount": 628,
+      "remainingToNumericTarget": 372,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -78,7 +78,9 @@
     "question-data/original-jamb-mathematics-depth-batch-021a.json",
     "question-data/original-waec-mathematics-theory-batch-021b.json",
     "question-data/original-waec-mathematics-theory-batch-021c.json",
-    "question-data/original-jamb-mathematics-depth-batch-021d.json"
+    "question-data/original-jamb-mathematics-depth-batch-021d.json",
+    "question-data/original-waec-mathematics-batch-022a.json",
+    "question-data/original-jamb-mathematics-batch-022a.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -137,12 +139,16 @@
     "batch021cIndependentAcademicReview": false,
     "batch021dQuestionCount": 20,
     "batch021dStructuralChecksPassed": true,
-    "batch021dIndependentAcademicReview": false
+    "batch021dIndependentAcademicReview": false,
+    "batch022aQuestionCount": 40,
+    "batch022aUniquePromptCount": 20,
+    "batch022aCrossExamDuplicatePrompts": true,
+    "batch022aIndependentAcademicReview": false
   },
   "nextPriorities": [
-    "Continue 400 WAEC and 400 JAMB request: 390 WAEC and 380 JAMB not yet added",
-    "Review theory marking schemes, schema compatibility and mathematical correctness",
-    "Avoid numerical padding and duplicate conceptual patterns"
+    "Use a standard 100-question increment per continuation where feasible: 50 WAEC and 50 JAMB",
+    "Do not reuse identical prompts across examinations; remediate batch 022a before publication",
+    "Independently verify answers, topic coverage and production compatibility"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
