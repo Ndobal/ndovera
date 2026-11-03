@@ -13,8 +13,8 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IELTS | Reading | 1000 | 6 | 0 | 0 | 1000 | specification_unresolved |
 | IELTS | Speaking | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | IELTS | Writing | 1000 | 9 | 6 | 0 | 994 | partial_objective_register |
-| IGCSE | Biology | 1000 | 4 | 0 | 0 | 1000 | specification_unresolved |
-| IGCSE | Chemistry | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
+| IGCSE | Biology [0610] | 1000 | 54 | 50 | 0 | 950 | partial_objective_register |
+| IGCSE | Chemistry [0620] | 1000 | 52 | 50 | 0 | 950 | partial_objective_register |
 | IGCSE | Mathematics | 1000 | 14 | 0 | 0 | 1000 | specification_unresolved |
 | IGCSE | Physics | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Agricultural Science | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -163,7 +163,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 |---|---:|---:|---:|---:|---:|
 | BECE | 0 | 0 | 0 | 0 | 0 |
 | IELTS | 19 | 10 | 0 | 4000 | 3990 |
-| IGCSE | 21 | 0 | 0 | 4000 | 4000 |
+| IGCSE | 121 | 100 | 0 | 4000 | 3900 |
 | JAMB | 803 | 100 | 0 | 25000 | 24900 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
@@ -172,7 +172,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 19 | 10 | 0 | 4000 | 3990 |
 | WAEC | 899 | 100 | 0 | 42000 | 41900 |
 
-Overall: {"raw": 1999, "validDrafts": 320, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2099, "validDrafts": 420, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -190,3 +190,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.
 - Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.
 - All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.
+- Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved.

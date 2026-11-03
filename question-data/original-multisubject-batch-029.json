@@ -1,0 +1,5425 @@
+{
+  "schemaVersion": 2,
+  "collection": "Ndovera original IGCSE Biology 0610 and Chemistry 0620 — batch 029",
+  "questionCount": 100,
+  "note": "Original draft practice. Current official 2026–2028 source versions retrieved; author-proposed objective, tier and AO alignment awaits independent academic review. Practical tasks are written planning/data interpretation, not claims of completed practical performance. No full component weighting or syllabus completeness claimed. This batch is assigned to Extended, which includes Core and Supplement content; Core-only mapping remains a separate review task.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Cells and movement",
+      "subtopic": "Selected source sections 2;3",
+      "learningObjective": "Relate cellular organisation to exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-001",
+      "objectiveId": "igcse-0610-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "A micrograph shows a cell with ribosomes and circular DNA but no membrane-bound nucleus. Which identification is supported?",
+      "answer": "A bacterial cell.",
+      "explanation": "Bacterial genetic material is not enclosed in a nucleus; ribosomes are present for protein synthesis.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "A leaf palisade cell.",
+        "A bacterial cell.",
+        "A mature pollen grain with no DNA.",
+        "A typical animal liver cell."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Cells and movement",
+      "subtopic": "Selected source sections 2;3",
+      "learningObjective": "Relate cellular organisation to exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-002",
+      "objectiveId": "igcse-0610-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "A printed image of a cell is 45 mm long. The actual cell length is 150 μm. What is the magnification?",
+      "answer": "×300",
+      "explanation": "Convert 45 mm to 45,000 μm, then divide image length by actual length: 45,000/150 = 300.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "×300",
+        "×0.3",
+        "×3",
+        "×3,000"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "45*1000/150",
+          "expected": "300",
+          "answerValue": "300",
+          "purpose": "Image magnification"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Cells and movement",
+      "subtopic": "Selected source sections 2;3",
+      "learningObjective": "Relate cellular organisation to exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-003",
+      "objectiveId": "igcse-0610-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "How does ventilation help maintain oxygen diffusion into blood at the lungs?",
+      "answer": "It replaces alveolar air so its oxygen concentration remains higher than that of incoming blood.",
+      "explanation": "Refreshing alveolar air supports the concentration gradient needed for net oxygen diffusion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "It makes alveolar walls thicker.",
+        "It converts oxygen into haemoglobin before diffusion.",
+        "It prevents blood reaching the lungs.",
+        "It replaces alveolar air so its oxygen concentration remains higher than that of incoming blood."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biological molecules and enzymes",
+      "subtopic": "Selected source sections 4;5",
+      "learningObjective": "Interpret molecular tests and enzyme evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-004",
+      "objectiveId": "igcse-0610-molecules-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which small molecules join together to form proteins?",
+      "answer": "Amino acids.",
+      "explanation": "Proteins are polymers formed from amino acid units.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Glucose molecules only.",
+        "Glycerol molecules only.",
+        "Amino acids.",
+        "Fatty acids only."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biological molecules and enzymes",
+      "subtopic": "Selected source sections 4;5",
+      "learningObjective": "Interpret molecular tests and enzyme evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-005",
+      "objectiveId": "igcse-0610-molecules-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "A mammalian muscle cell contains a carbohydrate store that can be broken down to supply glucose. The store is",
+      "answer": "glycogen.",
+      "explanation": "Glycogen is a storage polysaccharide in animals; cellulose is a structural plant material.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "haemoglobin.",
+        "glycogen.",
+        "cellulose.",
+        "chlorophyll."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biological molecules and enzymes",
+      "subtopic": "Selected source sections 4;5",
+      "learningObjective": "Interpret molecular tests and enzyme evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-006",
+      "objectiveId": "igcse-0610-molecules-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "Lipase acts on fat in a slightly alkaline mixture. Which change may indicate its activity when a suitable pH indicator is present?",
+      "answer": "A fall in pH as fatty acids are produced.",
+      "explanation": "Lipase hydrolyses fats to fatty acids and glycerol; acid production can lower pH.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "A fall in pH as fatty acids are produced.",
+        "A rise in pH because oxygen is released.",
+        "No possible chemical change because enzymes are living cells.",
+        "Formation of starch from amino acids."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Selected source sections 6;7",
+      "learningObjective": "Explain plant and human nutrition.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-007",
+      "objectiveId": "igcse-0610-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Why are palisade mesophyll cells near the upper surface of many leaves well suited to photosynthesis?",
+      "answer": "They contain many chloroplasts where light is readily available.",
+      "explanation": "Their position and chloroplast content support absorption of light for photosynthesis.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "They contain no chlorophyll.",
+        "Their walls completely prevent carbon dioxide movement.",
+        "They replace the need for xylem in the plant.",
+        "They contain many chloroplasts where light is readily available."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Selected source sections 6;7",
+      "learningObjective": "Explain plant and human nutrition.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-008",
+      "objectiveId": "igcse-0610-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "A stomatal pore opens as its guard cells become turgid. What change in the guard cells directly causes this turgor?",
+      "answer": "Water enters them by osmosis.",
+      "explanation": "Water entry increases pressure against the cell walls, changing guard-cell shape.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Their cell walls disappear.",
+        "Their nuclei become stomatal pores.",
+        "Water enters them by osmosis.",
+        "All water leaves them by evaporation."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Selected source sections 6;7",
+      "learningObjective": "Explain plant and human nutrition.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-009",
+      "objectiveId": "igcse-0610-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which deficiency is associated with a lack of vitamin C in the diet?",
+      "answer": "Scurvy.",
+      "explanation": "Vitamin C supports normal connective tissue; its deficiency can cause scurvy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "An inability to digest all carbohydrates from birth.",
+        "Scurvy.",
+        "Rickets caused by vitamin D deficiency.",
+        "A loss of every inherited blood-group allele."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Selected source sections 6;7",
+      "learningObjective": "Explain plant and human nutrition.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-010",
+      "objectiveId": "igcse-0610-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "Why can frequent exposure of teeth to sugary food increase tooth decay?",
+      "answer": "Bacteria metabolise sugars and produce acids that attack enamel.",
+      "explanation": "The acids formed by bacteria can dissolve mineral material in enamel.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Bacteria metabolise sugars and produce acids that attack enamel.",
+        "Sugar directly changes every tooth into bone marrow.",
+        "All bacteria stop producing acids when sugar is available.",
+        "Enamel is a living muscle that contracts after eating."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Selected source sections 8;9;11",
+      "learningObjective": "Analyse transport and gas exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-011",
+      "objectiveId": "igcse-0610-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which feature helps an artery withstand blood leaving the heart at high pressure?",
+      "answer": "A thick wall containing muscle and elastic tissue.",
+      "explanation": "Arterial walls resist and accommodate pressure changes during heartbeats.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "A wall made only of a single loose layer with no support.",
+        "Large valves at intervals throughout every artery.",
+        "An open connection allowing blood to drain into body cavities.",
+        "A thick wall containing muscle and elastic tissue."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-012",
+      "objectiveId": "igcse-0610-health-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which defence helps destroy many microorganisms swallowed with food?",
+      "answer": "Acid in the stomach.",
+      "explanation": "Stomach acid provides a chemical barrier against many ingested microorganisms.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Cellulose in red blood cells.",
+        "A lack of mucus in all airways.",
+        "Acid in the stomach.",
+        "Glucose in urine."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Selected source sections 8;9;11",
+      "learningObjective": "Analyse transport and gas exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-013",
+      "objectiveId": "igcse-0610-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "During inhalation, the diaphragm contracts and moves downwards. What is the resulting pressure change that draws air in?",
+      "answer": "Pressure inside the lungs becomes lower than atmospheric pressure.",
+      "explanation": "Increasing thoracic volume lowers lung pressure, allowing air to flow in.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "The lungs actively pull oxygen but exclude nitrogen.",
+        "Pressure inside the lungs becomes lower than atmospheric pressure.",
+        "Pressure inside the lungs becomes higher than atmospheric pressure throughout inhalation.",
+        "Atmospheric pressure becomes zero."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Respiration",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Compare energy-releasing processes.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-014",
+      "objectiveId": "igcse-0610-respiration-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which products are formed when yeast respires anaerobically in a glucose solution?",
+      "answer": "Ethanol and carbon dioxide.",
+      "explanation": "Yeast fermentation produces ethanol and carbon dioxide while releasing some usable energy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Ethanol and carbon dioxide.",
+        "Lactic acid and oxygen.",
+        "Starch and nitrogen.",
+        "Protein and chlorophyll."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-015",
+      "objectiveId": "igcse-0610-health-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "In humans, urea is formed mainly in the",
+      "answer": "liver during breakdown of excess amino acids.",
+      "explanation": "The liver converts nitrogen-containing waste from amino acid metabolism into urea, which is later excreted by the kidneys.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "kidneys by converting glucose directly into DNA.",
+        "lungs by combining oxygen with haemoglobin.",
+        "pancreas from undigested cellulose.",
+        "liver during breakdown of excess amino acids."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-016",
+      "objectiveId": "igcse-0610-health-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "In a withdrawal reflex, which structure acts as the effector that moves the hand?",
+      "answer": "A contracting muscle.",
+      "explanation": "An effector produces the response; a skeletal muscle can contract to move the hand.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "A sensory neurone carrying an impulse towards the spinal cord.",
+        "The light entering the eye.",
+        "A contracting muscle.",
+        "The receptor detecting the stimulus."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-017",
+      "objectiveId": "igcse-0610-health-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "When bright light enters an eye, which iris action reduces the pupil diameter?",
+      "answer": "Circular muscles contract while radial muscles relax.",
+      "explanation": "This makes the pupil smaller and reduces the light entering the eye.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "The pupil produces a new lens.",
+        "Circular muscles contract while radial muscles relax.",
+        "Radial muscles contract while circular muscles relax.",
+        "Both sets disappear permanently."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-018",
+      "objectiveId": "igcse-0610-health-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "A seedling root grows downwards even in darkness. This response is described as",
+      "answer": "positive gravitropism.",
+      "explanation": "The growth is towards gravity, so it is positive gravitropism and need not depend on light direction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "positive gravitropism.",
+        "negative gravitropism.",
+        "positive phototropism caused by the absence of light.",
+        "a reflex carried by motor neurones."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-019",
+      "objectiveId": "igcse-0610-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Where does a human embryo normally implant after the early stages of development?",
+      "answer": "In the lining of the uterus.",
+      "explanation": "The uterine lining supports implantation and subsequent development.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "In the ovary’s egg cells.",
+        "Inside the urinary bladder.",
+        "In the lumen of the windpipe.",
+        "In the lining of the uterus."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-020",
+      "objectiveId": "igcse-0610-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which statement correctly describes exchange at the placenta?",
+      "answer": "Substances pass between maternal and fetal blood across a barrier, without the two blood supplies normally mixing directly.",
+      "explanation": "The placenta permits exchange while keeping the circulations distinct under normal conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "All large proteins and microorganisms are guaranteed to be blocked.",
+        "The placenta makes fetal respiration unnecessary at cell level.",
+        "Substances pass between maternal and fetal blood across a barrier, without the two blood supplies normally mixing directly.",
+        "The mother and fetus normally share one continuous blood vessel."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-021",
+      "objectiveId": "igcse-0610-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "After compatible pollen reaches a stigma, which structure grows through the style towards an ovule?",
+      "answer": "A pollen tube.",
+      "explanation": "The pollen tube provides a route for the male nucleus to reach the ovule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "A sepal.",
+        "A pollen tube.",
+        "A root hair.",
+        "A cotyledon."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-022",
+      "objectiveId": "igcse-0610-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "Why do most germinating seeds require oxygen even before green leaves appear?",
+      "answer": "They use aerobic respiration to release energy from stored food.",
+      "explanation": "Stored reserves fuel growth; oxygen supports aerobic respiration before photosynthesis can supply new food.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "They use aerobic respiration to release energy from stored food.",
+        "Oxygen is the only source of all mineral ions.",
+        "Seeds cannot contain stored food.",
+        "Oxygen supplies all the carbon in starch."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-023",
+      "objectiveId": "igcse-0610-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which statement describes the role of messenger RNA during protein synthesis?",
+      "answer": "It carries a copy of a gene’s coding information to ribosomes.",
+      "explanation": "The mRNA sequence is used at ribosomes to determine the amino acid sequence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "It turns every amino acid into a chromosome.",
+        "It is the cellulose wall of a bacterium.",
+        "It permanently replaces all DNA after one cell division.",
+        "It carries a copy of a gene’s coding information to ribosomes."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-024",
+      "objectiveId": "igcse-0610-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "A person with blood group AB expresses both A and B antigens. This is an example of",
+      "answer": "codominance.",
+      "explanation": "Both alleles contribute to the heterozygous phenotype rather than one masking the other.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "an acquired change caused by food.",
+        "a phenotype containing no inherited information.",
+        "codominance.",
+        "complete dominance of O over A."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-025",
+      "objectiveId": "igcse-0610-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "A diploid body cell divides by mitosis during growth. Under normal conditions, the daughter cells",
+      "answer": "retain the same chromosome number as the parent cell.",
+      "explanation": "Mitosis preserves chromosome number and usually produces genetically identical daughter nuclei.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "have no genetic material.",
+        "retain the same chromosome number as the parent cell.",
+        "always have half the parental chromosome number.",
+        "are gametes produced by fertilisation."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Ecology and human influences",
+      "subtopic": "Selected source sections 19;20",
+      "learningObjective": "Evaluate population and environmental evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-026",
+      "objectiveId": "igcse-0610-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "A plant species is present in 6 of 10 equal-area quadrats. What is its percentage frequency in this sample?",
+      "answer": "60%",
+      "explanation": "Frequency records the proportion of quadrats containing the species: 6/10 × 100 = 60%. It is not the number of individual plants per area.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "60%",
+        "6%",
+        "16%",
+        "600%"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "6/10*100",
+          "expected": "60",
+          "answerValue": "60",
+          "purpose": "Quadrat percentage frequency"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Ecology and human influences",
+      "subtopic": "Selected source sections 19;20",
+      "learningObjective": "Evaluate population and environmental evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-027",
+      "objectiveId": "igcse-0610-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "Why is energy described as flowing through an ecosystem rather than being recycled in the same way as mineral nutrients?",
+      "answer": "Energy is transferred and eventually dissipated to the surroundings as heat.",
+      "explanation": "Heat is not returned to producers as the same usable chemical energy; new energy input is needed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Decomposers convert all heat back into sunlight.",
+        "No organism releases heat.",
+        "Energy cannot pass from one organism to another.",
+        "Energy is transferred and eventually dissipated to the surroundings as heat."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Ecology and human influences",
+      "subtopic": "Selected source sections 19;20",
+      "learningObjective": "Evaluate population and environmental evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-028",
+      "objectiveId": "igcse-0610-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which process converts ammonium compounds into nitrates in the nitrogen cycle?",
+      "answer": "Nitrification by bacteria.",
+      "explanation": "Nitrifying bacteria oxidise ammonium compounds through nitrite to nitrate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Denitrification from nitrate to nitrogen gas.",
+        "Pollination of root hairs.",
+        "Nitrification by bacteria.",
+        "Photosynthesis by all animals."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Ecology and human influences",
+      "subtopic": "Selected source sections 19;20",
+      "learningObjective": "Evaluate population and environmental evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-029",
+      "objectiveId": "igcse-0610-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Burning fossil fuels changes the carbon cycle most directly by",
+      "answer": "releasing stored carbon as carbon dioxide into the atmosphere.",
+      "explanation": "Combustion transfers carbon from a long-term fossil store into atmospheric carbon dioxide.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "turning nitrogen into carbon atoms.",
+        "releasing stored carbon as carbon dioxide into the atmosphere.",
+        "converting all atmospheric carbon dioxide into coal immediately.",
+        "preventing any carbon dioxide from reaching the air."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biotechnology",
+      "subtopic": "Selected source sections 21",
+      "learningObjective": "Explain biological production methods.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-030",
+      "objectiveId": "igcse-0610-biotechnology-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Why can a plasmid be useful when introducing a human gene into bacteria?",
+      "answer": "It can act as a DNA vector carrying the inserted gene.",
+      "explanation": "A modified plasmid can transfer and maintain genetic information in a bacterial host.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "It can act as a DNA vector carrying the inserted gene.",
+        "It is a complete human organ placed inside a bacterium.",
+        "It makes bacterial DNA unnecessary for every function.",
+        "It digests all proteins before they can be made."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Classification",
+      "subtopic": "Selected source sections 1",
+      "learningObjective": "Classify using observable evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-031",
+      "objectiveId": "igcse-0610-classification-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A simplified key separates four animals. A has six jointed legs and antennae; B has eight jointed legs and no antennae; C has a soft unsegmented body and a muscular foot; D has a segmented body without jointed legs. Identify the group of A, B and C, then give a feature that separates D from A.",
+      "answer": "A is an insect, B an arachnid and C a mollusc. D lacks jointed legs whereas A has them; D’s segmented body alone does not make it an arthropod.",
+      "explanation": "Classification must use the stated combination of features, rather than treating segmentation as sufficient for all groups.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify A as insect.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify B as arachnid.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Identify C as mollusc.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Contrast the presence of jointed legs in A with their absence in D.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Cells and movement",
+      "subtopic": "Selected source sections 2;3",
+      "learningObjective": "Relate cellular organisation to exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-032",
+      "objectiveId": "igcse-0610-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A cube of tissue has side length 2 cm. It is cut into eight cubes, each of side 1 cm. Calculate total surface area before and after cutting, then explain why the smaller pieces may exchange dissolved substances more rapidly per unit volume.",
+      "answer": "Before cutting, surface area = 6×2² = 24 cm². Afterwards, total area = 8×6×1² = 48 cm². Total volume is unchanged at 8 cm³, so the surface-area-to-volume ratio doubles; smaller pieces also have shorter internal diffusion distances.",
+      "explanation": "The task concerns geometry and exchange efficiency, not an assertion that every real tissue behaves as an ideal cube.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate original area 24 cm².",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate total new area 48 cm².",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Recognise unchanged total volume and increased surface-area-to-volume ratio.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Link greater exchange area or shorter diffusion path to exchange rate.",
+          "marks": 1
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "6*2**2",
+          "expected": "24",
+          "answerValue": "24",
+          "purpose": "Original cube surface area"
+        },
+        {
+          "expression": "8*6*1**2",
+          "expected": "48",
+          "purpose": "Total area of smaller cubes"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biological molecules and enzymes",
+      "subtopic": "Selected source sections 4;5",
+      "learningObjective": "Interpret molecular tests and enzyme evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-033",
+      "objectiveId": "igcse-0610-molecules-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Equal volumes of the same DCPIP solution are decolourised by 2 cm³ of juice P or 5 cm³ of juice Q. Infer which juice has more vitamin C per cm³, state two controls, and explain why the readings alone cannot give concentration in mg cm⁻³.",
+      "answer": "Juice P has more vitamin C per cm³ because less juice reduces the same quantity of DCPIP. Keep the DCPIP volume and concentration the same and apply a consistent endpoint procedure. A known vitamin C standard is required to convert readings into an absolute mass concentration.",
+      "explanation": "This is comparative food-test evidence; an absolute concentration needs calibration rather than assuming DCPIP and vitamin C have equal mass.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify P with a valid volume-based reason.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "State two suitable controls.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain need for a known standard.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biological molecules and enzymes",
+      "subtopic": "Selected source sections 4;5",
+      "learningObjective": "Interpret molecular tests and enzyme evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-034",
+      "objectiveId": "igcse-0610-molecules-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Plan an investigation of the effect of pH on amylase activity using starch and iodine. Identify what to change, what to measure, two controls and a repeat procedure.",
+      "answer": "Use suitable buffers to set several pH values. Mix equal quantities of starch and amylase, test samples with iodine at fixed intervals and record the time until no blue-black colour appears. Keep temperature and enzyme/substrate concentrations controlled. Repeat at each pH and compare mean times or rates.",
+      "explanation": "The endpoint tracks disappearance of starch. A fair plan changes pH while controlling other important reaction conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Specify a pH range set using buffers.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Describe timed iodine tests and the no-starch endpoint.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State two appropriate controls.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Repeat each condition and compare a mean or rate.",
+          "marks": 1
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Selected source sections 6;7",
+      "learningObjective": "Explain plant and human nutrition.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-035",
+      "objectiveId": "igcse-0610-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A cross-section description gives layer A as transparent cells above the mesophyll, layer B as closely packed chloroplast-rich cells and layer C as loosely arranged cells with air spaces. Identify A, B and C and explain one function of each relevant to photosynthesis.",
+      "answer": "A is upper epidermis, which lets light reach internal tissue. B is palisade mesophyll, which absorbs light using many chloroplasts. C is spongy mesophyll, whose air spaces allow gases to move within the leaf.",
+      "explanation": "The question provides all structural evidence in words and does not depend on a missing diagram.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify upper epidermis and light transmission.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Identify palisade mesophyll and light absorption.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Identify spongy mesophyll and internal gas movement.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Selected source sections 6;7",
+      "learningObjective": "Explain plant and human nutrition.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-036",
+      "objectiveId": "igcse-0610-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "structured",
+      "prompt": "Explain why salivary amylase can begin starch digestion in the mouth but does not normally remain active for long in the stomach. State the product it forms from starch and distinguish digestion from absorption.",
+      "answer": "Salivary amylase breaks starch into maltose under suitable conditions in the mouth. The strongly acidic stomach conditions inhibit it and can alter its active site. Digestion breaks large insoluble food molecules into smaller soluble molecules; absorption moves digested molecules across the intestine into blood or lymph.",
+      "explanation": "Do not confuse the enzyme’s chemical action with the transport of products into the body.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State starch is converted to maltose by amylase.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain unsuitable acidic stomach conditions.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Distinguish digestion from absorption.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Selected source sections 8;9;11",
+      "learningObjective": "Analyse transport and gas exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-037",
+      "objectiveId": "igcse-0610-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A potometer bubble moves 24 mm in 8 minutes. The capillary’s cross-sectional area is 0.5 mm². Calculate water uptake per minute and explain why uptake is an estimate, rather than an exact measurement, of transpiration. Give one check against apparatus error.",
+      "answer": "Bubble speed = 24/8 = 3 mm min⁻¹. Water uptake = 3×0.5 = 1.5 mm³ min⁻¹. Some absorbed water is retained or used by the plant instead of being transpired. Check for leaks and ensure airtight connections; cut and assemble the shoot appropriately under water.",
+      "explanation": "A potometer measures uptake, not direct water-vapour loss. The capillary area is required to convert distance to volume.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find speed 3 mm min⁻¹.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate uptake 1.5 mm³ min⁻¹ with units.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain a reason uptake differs from water loss.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Give a valid leak/assembly check.",
+          "marks": 1
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "24/8*0.5",
+          "expected": "1.5",
+          "answerValue": "1.5",
+          "purpose": "Water uptake volume per minute"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Selected source sections 8;9;11",
+      "learningObjective": "Analyse transport and gas exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-038",
+      "objectiveId": "igcse-0610-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "structured",
+      "prompt": "Trace the route of a red blood cell from the right atrium to the aorta, naming the main heart chambers and vessels. Explain where its oxygen content increases.",
+      "answer": "Right atrium → right ventricle → pulmonary artery → lung capillaries → pulmonary vein → left atrium → left ventricle → aorta. Oxygen enters blood by diffusion at lung capillaries next to alveoli.",
+      "explanation": "Use the pulmonary circuit to connect the two sides of the heart; oxygenation occurs in the lungs rather than inside a heart chamber.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct route from right atrium through right ventricle and pulmonary artery.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Correct return through pulmonary vein, left atrium and left ventricle to aorta.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Identify lung capillaries as the site of increased oxygen content.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-039",
+      "objectiveId": "igcse-0610-health-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "After a first exposure to an antigen, antibody concentration rises slowly. A later exposure produces a faster, larger response. Explain the role of memory cells and why this response is specific to the antigen.",
+      "answer": "The first exposure activates matching lymphocytes and leads to memory cells. On later exposure, memory cells with receptors specific to that antigen respond rapidly and support production of more antibodies. Specific recognition means memory against one antigen does not automatically protect against every unrelated pathogen.",
+      "explanation": "This is an explanation of immune response patterns, not a recommendation about an individual’s treatment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link first exposure to production of memory cells.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain faster or greater subsequent antibody response.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain specificity of recognition.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Selected source sections 8;9;11",
+      "learningObjective": "Analyse transport and gas exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-040",
+      "objectiveId": "igcse-0610-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Before exercise a person breathes 12 times per minute with 0.5 dm³ per breath. During exercise the values are 24 times per minute and 1.5 dm³. Calculate minute ventilation in both states and explain why exercise can increase both breathing rate and depth.",
+      "answer": "Resting minute ventilation = 12×0.5 = 6 dm³ min⁻¹. During exercise it is 24×1.5 = 36 dm³ min⁻¹. Increased respiration in muscles raises oxygen demand and carbon dioxide production, so more air is moved to support gas exchange.",
+      "explanation": "Minute ventilation depends on frequency and volume per breath, not frequency alone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 6 dm³ min⁻¹ at rest.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 36 dm³ min⁻¹ during exercise.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Link increased muscle respiration to oxygen demand and carbon dioxide removal.",
+          "marks": 3
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "12*0.5",
+          "expected": "6",
+          "answerValue": "6",
+          "purpose": "Resting minute ventilation"
+        },
+        {
+          "expression": "24*1.5",
+          "expected": "36",
+          "purpose": "Exercise minute ventilation"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Respiration",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Compare energy-releasing processes.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-041",
+      "objectiveId": "igcse-0610-respiration-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Design a comparison to test whether germinating seeds take up oxygen using a simple respirometer. State a suitable control, why carbon dioxide is absorbed in the apparatus, and two conditions to control.",
+      "answer": "Compare equal masses of germinating seeds with boiled non-respiring seeds in otherwise similar sealed apparatus. A suitable carbon dioxide absorbent removes produced CO₂ so a fall in gas volume indicates oxygen uptake. Keep temperature and measurement time equal, allow equilibration and repeat. Keep the absorbent separated from seeds and handle it with appropriate protection.",
+      "explanation": "Gas-volume change is interpretable only when carbon dioxide production and temperature effects are addressed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State a suitable non-respiring comparison with matched material amount.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain removal of CO₂ to isolate oxygen uptake in the gas-volume change.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State two valid controlled conditions.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Include an appropriate absorbent separation or handling precaution.",
+          "marks": 1
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-042",
+      "objectiveId": "igcse-0610-health-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "structured",
+      "prompt": "Describe how filtration and selective reabsorption in a kidney nephron differ. Explain why glucose can enter the filtrate but is normally absent from urine in a healthy person.",
+      "answer": "Filtration transfers water and small dissolved substances from blood into the nephron while retaining blood cells and most large proteins. Selective reabsorption returns useful substances to blood. Glucose is small enough to be filtered and is normally reabsorbed rather than excreted.",
+      "explanation": "The presence of a small molecule in filtrate does not mean it must remain in the final urine.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Describe filtration with correct retained and filtered materials.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Describe return of useful substances by selective reabsorption.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Apply both processes to glucose.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-043",
+      "objectiveId": "igcse-0610-health-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "structured",
+      "prompt": "Explain the changes in ciliary muscles, suspensory ligaments and lens shape when an eye focuses from a distant object to a nearby one.",
+      "answer": "Ciliary muscles contract, reducing tension in the suspensory ligaments. The elastic lens becomes thicker and more curved, increasing its refractive power so the nearby object can be focused on the retina.",
+      "explanation": "Accommodation changes lens curvature; it is different from changing pupil size in the light reflex.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State ciliary muscle contraction.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State reduced ligament tension.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State thicker/more curved lens.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain increased refraction for a nearby object.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-044",
+      "objectiveId": "igcse-0610-health-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "structured",
+      "prompt": "A young shoot receives light from one side and bends towards it. Explain the roles of auxin distribution and unequal elongation in this response.",
+      "answer": "Auxin becomes more concentrated on the shaded side of the shoot. In shoots it promotes elongation there, so the shaded side grows faster and the shoot bends towards the light.",
+      "explanation": "The explanation concerns differential growth, not the entire shoot being pulled mechanically by light.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify greater auxin concentration on the shaded side.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Link auxin to greater cell elongation on that side.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain the resulting curvature towards light.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-045",
+      "objectiveId": "igcse-0610-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A grower propagates strawberries using runners from one parent. Explain one commercial advantage and one disease-related disadvantage compared with producing genetically varied seedlings.",
+      "answer": "Runners can rapidly produce plants with the parent’s desired characteristics and more uniform crop performance. Low genetic variation can make many plants susceptible to the same disease, so a pathogen may affect much of the crop.",
+      "explanation": "A reasoned comparison recognises both uniformity and shared vulnerability; it does not claim that all clones will inevitably become diseased.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link asexual propagation to retention of desired characteristics or predictable uniformity.",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Link limited variation to shared susceptibility and possible widespread crop loss.",
+          "marks": 3
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-046",
+      "objectiveId": "igcse-0610-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "One parent has genotype IᴬIᴼ and the other IᴮIᴼ for ABO blood group. List their gametes and the possible offspring blood-group phenotypes with expected probabilities.",
+      "answer": "The gametes are Iᴬ or Iᴼ from the first parent and Iᴮ or Iᴼ from the second. Equally likely offspring are IᴬIᴮ (AB), IᴬIᴼ (A), IᴮIᴼ (B) and IᴼIᴼ (O), each with probability 1/4.",
+      "explanation": "A and B are codominant and each is dominant to O. Probabilities describe expectations, not a required sequence of births.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct gametes from both parents.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Correct four genotypes with phenotype assignments.",
+          "marks": 4
+        },
+        {
+          "step": 3,
+          "description": "State equal 1/4 probabilities.",
+          "marks": 1
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "1/2*1/2",
+          "expected": "1/4",
+          "answerValue": "1/4",
+          "purpose": "Probability of each ABO combination"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Ecology and human influences",
+      "subtopic": "Selected source sections 19;20",
+      "learningObjective": "Evaluate population and environmental evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-047",
+      "objectiveId": "igcse-0610-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A population introduced to a closed habitat grows rapidly at first, then its growth slows and the population fluctuates around a similar level. Explain this pattern using resources, competition and carrying capacity.",
+      "answer": "At first resources may be plentiful and reproduction can exceed deaths. As density rises, competition for limited food, space or other resources increases and can reduce birth rate or increase death rate. The habitat’s carrying capacity limits the population that can be sustained; changing conditions can cause fluctuations around it.",
+      "explanation": "Carrying capacity is not a guaranteed fixed head count under all environmental conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain initial growth with abundant resources.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain density-dependent resource competition and its effects.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Relate stabilisation and fluctuations to carrying capacity.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Ecology and human influences",
+      "subtopic": "Selected source sections 19;20",
+      "learningObjective": "Evaluate population and environmental evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-048",
+      "objectiveId": "igcse-0610-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Researchers mark 50 woodlice and release them. After mixing, they recapture 60 woodlice, including 10 marked ones. Estimate population size and explain how loss of marks before recapture could bias that estimate.",
+      "answer": "Estimated population = 50×60/10 = 300. If marks are lost, too few recaptured animals are identified as marked, reducing the denominator and tending to overestimate population size, assuming the other conditions are unchanged.",
+      "explanation": "The estimate relies on a representative marked fraction, retention of marks and other standard closed-population assumptions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use marked-first × recapture-total / marked-recapture.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate 300.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain fewer recognised marked animals after mark loss.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain resulting overestimate.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "50*60/10",
+          "expected": "300",
+          "answerValue": "300",
+          "purpose": "Mark-release-recapture population estimate"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Ecology and human influences",
+      "subtopic": "Selected source sections 19;20",
+      "learningObjective": "Evaluate population and environmental evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-049",
+      "objectiveId": "igcse-0610-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A persistent pesticide is detected at low concentration in lake water but at much higher concentration in fish-eating birds. Explain how persistence, accumulation and feeding relationships can produce this pattern.",
+      "answer": "A persistent pesticide is not broken down or excreted rapidly, so it can accumulate in organisms. Consumers eat many contaminated prey and retain some of their pesticide load. Repeated transfer through the food chain can produce higher concentrations in top predators.",
+      "explanation": "The explanation requires persistence and retention; not every substance necessarily becomes more concentrated up a food chain.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain persistence or slow removal.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain accumulation through consumption of contaminated prey.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain higher concentration at higher trophic levels.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biotechnology",
+      "subtopic": "Selected source sections 21",
+      "learningObjective": "Explain biological production methods.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-029-050",
+      "objectiveId": "igcse-0610-biotechnology-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "An industrial fermenter grows microorganisms to produce a useful enzyme. Explain why temperature, pH and oxygen supply may need controlling, and why sterile equipment is useful. Assume the organism respires aerobically.",
+      "answer": "Temperature and pH affect microbial growth and enzyme function, so conditions are maintained near suitable values. Oxygen supports aerobic respiration and energy supply. Sterile equipment reduces contamination by organisms that could compete, spoil the product or introduce unwanted substances.",
+      "explanation": "Different organisms have different suitable conditions; no universal numerical temperature or pH is assumed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain temperature control.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain pH control.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Relate oxygen to aerobic respiration.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain a reason for aseptic operation.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Particles and bonding",
+      "subtopic": "Selected source sections 1;2",
+      "learningObjective": "Explain properties using particle structure.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-051",
+      "objectiveId": "igcse-0620-particles-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "An element has two isotopes: mass number 10 at 20% abundance and mass number 11 at 80%. What is its relative atomic mass?",
+      "answer": "10.8",
+      "explanation": "The weighted mean is (10×20 + 11×80)/100 = 10.8.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "10.2",
+        "10.5",
+        "21",
+        "10.8"
+      ],
+      "correctOption": "D",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "(10*20+11*80)/100",
+          "expected": "10.8",
+          "answerValue": "10.8",
+          "purpose": "Abundance-weighted atomic mass"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Particles and bonding",
+      "subtopic": "Selected source sections 1;2",
+      "learningObjective": "Explain properties using particle structure.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-052",
+      "objectiveId": "igcse-0620-particles-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "A chloride ion has proton number 17, mass number 37 and charge −1. How many protons, neutrons and electrons does it contain?",
+      "answer": "17 protons, 20 neutrons and 18 electrons.",
+      "explanation": "Neutrons = 37−17 = 20; the negative ion has gained one electron relative to the neutral atom.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "18 protons, 19 neutrons and 17 electrons.",
+        "17 protons, 20 neutrons and 16 electrons.",
+        "17 protons, 20 neutrons and 18 electrons.",
+        "17 protons, 37 neutrons and 16 electrons."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Particles and bonding",
+      "subtopic": "Selected source sections 1;2",
+      "learningObjective": "Explain properties using particle structure.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-053",
+      "objectiveId": "igcse-0620-particles-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Magnesium forms Mg²⁺ and chlorine forms Cl⁻. What formula gives a neutral compound?",
+      "answer": "MgCl₂",
+      "explanation": "Two chloride ions balance the +2 charge of one magnesium ion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Mg₂Cl₂",
+        "MgCl₂",
+        "MgCl",
+        "Mg₂Cl"
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Particles and bonding",
+      "subtopic": "Selected source sections 1;2",
+      "learningObjective": "Explain properties using particle structure.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-054",
+      "objectiveId": "igcse-0620-particles-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Why does silicon(IV) oxide have a high melting point compared with many simple molecular substances?",
+      "answer": "Many strong covalent bonds in a giant structure must be broken.",
+      "explanation": "Its extended covalent network requires much energy to break down; this is not merely separation of small molecules.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Many strong covalent bonds in a giant structure must be broken.",
+        "Its individual molecules contain no bonds.",
+        "It is held together only by very weak forces between small SiO₂ molecules.",
+        "Its atoms disappear when heated."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Particles and bonding",
+      "subtopic": "Selected source sections 1;2",
+      "learningObjective": "Explain properties using particle structure.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-055",
+      "objectiveId": "igcse-0620-particles-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which model explains why a metal can conduct electricity while remaining solid?",
+      "answer": "Delocalised electrons move through a lattice of positive metal ions.",
+      "explanation": "The mobile electrons carry charge without requiring the metal ions to flow as a liquid.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Positive ions must all leave the lattice before current can flow.",
+        "Every atom is electrically isolated with no mobile charge carriers.",
+        "Only neutral neutrons move from end to end.",
+        "Delocalised electrons move through a lattice of positive metal ions."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Particles and bonding",
+      "subtopic": "Selected source sections 1;2",
+      "learningObjective": "Explain properties using particle structure.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-056",
+      "objectiveId": "igcse-0620-particles-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "Ammonia and hydrogen chloride gases diffuse from opposite ends of a long tube. A white ring forms nearer the hydrogen chloride end. What explains the position?",
+      "answer": "Ammonia molecules diffuse faster because their relative molecular mass is lower.",
+      "explanation": "Under comparable conditions the lighter ammonia molecules travel farther in the same time before reacting.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Both gases can react only at the tube’s exact midpoint.",
+        "Gravity pulls only hydrogen chloride towards the centre.",
+        "Ammonia molecules diffuse faster because their relative molecular mass is lower.",
+        "Hydrogen chloride molecules must be lighter than ammonia molecules."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Particles and bonding",
+      "subtopic": "Selected source sections 1;2",
+      "learningObjective": "Explain properties using particle structure.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-057",
+      "objectiveId": "igcse-0620-particles-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "A pure solid is heated steadily. Its temperature stays constant while it melts. What happens to the energy supplied during that interval?",
+      "answer": "It helps overcome attractions during the change of state.",
+      "explanation": "The supplied energy changes the arrangement and separation of particles rather than increasing temperature during melting.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "It must increase temperature at the same time despite the stated observation.",
+        "It helps overcome attractions during the change of state.",
+        "It is destroyed and has no effect.",
+        "It changes every atom into a different element."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical quantities",
+      "subtopic": "Selected source sections 3",
+      "learningObjective": "Derive chemical amounts from evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-058",
+      "objectiveId": "igcse-0620-quantities-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "A reaction has a theoretical product mass of 12.0 g, but only 9.0 g is recovered. What is the percentage yield?",
+      "answer": "75%",
+      "explanation": "Percentage yield = actual/theoretical × 100 = 9/12×100 = 75%.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "75%",
+        "25%",
+        "90%",
+        "133%"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "9/12*100",
+          "expected": "75",
+          "answerValue": "75",
+          "purpose": "Percentage product yield"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical quantities",
+      "subtopic": "Selected source sections 3",
+      "learningObjective": "Derive chemical amounts from evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-059",
+      "objectiveId": "igcse-0620-quantities-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "A compound has empirical formula CH₂ and relative molecular mass 56. Use C = 12 and H = 1. What is its molecular formula?",
+      "answer": "C₄H₈",
+      "explanation": "The empirical formula mass is 14; 56/14 = 4, so multiply both subscripts by four.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "CH₂",
+        "C₂H₄",
+        "C₄H₄",
+        "C₄H₈"
+      ],
+      "correctOption": "D",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "56/(12+2)",
+          "expected": "4",
+          "answerValue": "4",
+          "purpose": "Molecular-to-empirical formula multiplier"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical quantities",
+      "subtopic": "Selected source sections 3",
+      "learningObjective": "Derive chemical amounts from evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-060",
+      "objectiveId": "igcse-0620-quantities-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "A 5.0 g impure sample contains 4.0 g of the desired substance. What is its percentage purity by mass?",
+      "answer": "80%",
+      "explanation": "Purity = mass of desired substance/total sample mass × 100 = 4/5×100.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "40%",
+        "125%",
+        "80%",
+        "20%"
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "4/5*100",
+          "expected": "80",
+          "answerValue": "80",
+          "purpose": "Percentage purity"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Electrochemistry",
+      "subtopic": "Selected source sections 4",
+      "learningObjective": "Explain electrode processes and chemical cells.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-061",
+      "objectiveId": "igcse-0620-electrochemistry-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "During electrolysis of dilute aqueous copper(II) sulfate using inert electrodes, which gas forms at the anode?",
+      "answer": "Oxygen.",
+      "explanation": "At an inert anode, oxygen is evolved from the aqueous system; sulfate ions are not discharged as sulfur metal.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Nitrogen.",
+        "Oxygen.",
+        "Hydrogen.",
+        "Copper vapour."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Electrochemistry",
+      "subtopic": "Selected source sections 4",
+      "learningObjective": "Explain electrode processes and chemical cells.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-062",
+      "objectiveId": "igcse-0620-electrochemistry-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "An iron key is to be electroplated with copper using a suitable electrolyte. The key should be connected as the",
+      "answer": "cathode, where copper ions gain electrons.",
+      "explanation": "Reduction deposits copper onto the object at the negative cathode.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "cathode, where copper ions gain electrons.",
+        "anode, where iron must turn into copper atoms.",
+        "separator, with no electrical connection.",
+        "positive terminal, where copper ions lose electrons to become more positive."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Electrochemistry",
+      "subtopic": "Selected source sections 4",
+      "learningObjective": "Explain electrode processes and chemical cells.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-063",
+      "objectiveId": "igcse-0620-electrochemistry-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "What is the principal chemical product in a hydrogen–oxygen fuel cell?",
+      "answer": "Water.",
+      "explanation": "Hydrogen reacts with oxygen to form water while chemical energy is transferred electrically.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Carbon dioxide.",
+        "Sodium chloride.",
+        "Sulfur dioxide.",
+        "Water."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Electrochemistry",
+      "subtopic": "Selected source sections 4",
+      "learningObjective": "Explain electrode processes and chemical cells.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-064",
+      "objectiveId": "igcse-0620-electrochemistry-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "A simple chemical cell uses two metals and an electrolyte. Which change is likely to produce a different cell voltage?",
+      "answer": "Replacing one metal with a metal of different reactivity.",
+      "explanation": "The metal pair affects the potential difference; the prediction is about changing the reacting electrodes.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Relabelling the same electrodes without changing connections.",
+        "Writing a different symbol beside the same unchanged apparatus.",
+        "Replacing one metal with a metal of different reactivity.",
+        "Changing only the colour of the voltmeter casing."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Energetics and reactions",
+      "subtopic": "Selected source sections 5;6",
+      "learningObjective": "Analyse energy rate and equilibrium evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-065",
+      "objectiveId": "igcse-0620-reactions-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "At dynamic equilibrium in a closed reacting system,",
+      "answer": "the forward and reverse reactions continue at equal rates.",
+      "explanation": "Equal rates maintain constant macroscopic composition; they do not require equal reactant and product concentrations.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "the forward reaction continues but the reverse reaction is impossible.",
+        "the forward and reverse reactions continue at equal rates.",
+        "all particles stop reacting.",
+        "the reactant and product concentrations must always be numerically equal."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Energetics and reactions",
+      "subtopic": "Selected source sections 5;6",
+      "learningObjective": "Analyse energy rate and equilibrium evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-066",
+      "objectiveId": "igcse-0620-reactions-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "White anhydrous copper(II) sulfate turns blue when water is added. Which observation supports reversing this change?",
+      "answer": "Gentle heating removes water and restores the white solid.",
+      "explanation": "Hydration and dehydration can be reversed under suitable conditions; the blue colour indicates hydrated copper(II) sulfate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Gentle heating removes water and restores the white solid.",
+        "The solid becomes a new element called water.",
+        "The blue solid can never lose water under any conditions.",
+        "A magnet removes all oxygen atoms."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Energetics and reactions",
+      "subtopic": "Selected source sections 5;6",
+      "learningObjective": "Analyse energy rate and equilibrium evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-067",
+      "objectiveId": "igcse-0620-reactions-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "For a reaction between gases at constant temperature, increasing pressure by compression can increase rate because",
+      "answer": "there are more reacting particles per unit volume, so collisions occur more often.",
+      "explanation": "Compression raises concentration of gas particles; it does not itself increase their average kinetic energy when temperature is fixed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "all particles lose their mass.",
+        "the activation energy automatically becomes zero.",
+        "particles can no longer collide.",
+        "there are more reacting particles per unit volume, so collisions occur more often."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Selected source sections 7",
+      "learningObjective": "Choose suitable salt preparation methods.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-068",
+      "objectiveId": "igcse-0620-salts-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "Which method is suitable for preparing pure copper(II) sulfate crystals from dilute sulfuric acid and insoluble copper(II) oxide?",
+      "answer": "Add excess oxide, filter off unreacted solid, then concentrate the solution and cool.",
+      "explanation": "Excess oxide uses up the acid; filtration removes remaining oxide before crystallisation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Evaporate the acid to dryness before adding oxide.",
+        "Add excess sodium chloride and collect copper metal.",
+        "Add excess oxide, filter off unreacted solid, then concentrate the solution and cool.",
+        "Mix the dry oxide with dry sand and filter without liquid."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Selected source sections 7",
+      "learningObjective": "Choose suitable salt preparation methods.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-069",
+      "objectiveId": "igcse-0620-salts-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "Which pair of aqueous solutions can prepare insoluble barium sulfate by precipitation?",
+      "answer": "Barium nitrate and sodium sulfate.",
+      "explanation": "Their ions combine to form BaSO₄(s), while the remaining ions stay in solution.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Barium nitrate and sodium nitrate.",
+        "Barium nitrate and sodium sulfate.",
+        "Sodium nitrate and potassium chloride.",
+        "Sodium sulfate and potassium nitrate."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical analysis",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Plan and interpret analytical procedures.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-070",
+      "objectiveId": "igcse-0620-analysis-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Warming an unknown substance with aqueous sodium hydroxide releases a gas that turns damp red litmus blue. Which ion is indicated?",
+      "answer": "Ammonium, NH₄⁺.",
+      "explanation": "Ammonium ions release ammonia with warm alkali; ammonia is alkaline and changes damp red litmus to blue.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Ammonium, NH₄⁺.",
+        "Chloride, Cl⁻.",
+        "Sulfate, SO₄²⁻.",
+        "Nitrate as a gas with no further reaction."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-071",
+      "objectiveId": "igcse-0620-periodic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "Chlorine is added to aqueous potassium bromide. Why does bromine form?",
+      "answer": "Chlorine is more reactive than bromine and displaces it from bromide ions.",
+      "explanation": "The more reactive halogen oxidises bromide ions to bromine.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Bromine is more reactive and displaces potassium from chlorine.",
+        "Chlorine and bromine have identical reactivity in every reaction.",
+        "Potassium bromide contains no bromine atoms.",
+        "Chlorine is more reactive than bromine and displaces it from bromide ions."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-072",
+      "objectiveId": "igcse-0620-periodic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Why does reactivity generally increase down Group I?",
+      "answer": "The outer electron is farther from the nucleus and more shielded, so it is lost more readily.",
+      "explanation": "Greater distance and shielding reduce the attraction holding the outer electron, despite increased nuclear charge.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "The outer electron becomes a proton.",
+        "All lower Group I elements have full outer electron shells.",
+        "The outer electron is farther from the nucleus and more shielded, so it is lost more readily.",
+        "Every atom has fewer occupied shells down the group."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-073",
+      "objectiveId": "igcse-0620-periodic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which property is commonly associated with transition elements?",
+      "answer": "Formation of coloured compounds.",
+      "explanation": "Many transition-element compounds are coloured; this is a characteristic trend rather than a rule that every compound is coloured.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "All react with cold water exactly like Group I metals.",
+        "Formation of coloured compounds.",
+        "All are gases at room temperature.",
+        "All form only colourless compounds with one fixed oxidation state."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-074",
+      "objectiveId": "igcse-0620-periodic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Why can an alloy be harder than its pure constituent metal?",
+      "answer": "Different-sized atoms disrupt the regular layers and hinder their sliding.",
+      "explanation": "Distortion of the lattice makes movement of layers more difficult than in many pure metals.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Different-sized atoms disrupt the regular layers and hinder their sliding.",
+        "The alloy contains no metal atoms.",
+        "All electrons are removed so atoms cannot interact.",
+        "Alloying always changes every atom into a larger isotope."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-075",
+      "objectiveId": "igcse-0620-periodic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "mcq",
+      "prompt": "Zinc attached to an iron structure can protect exposed iron even if part of the coating is scratched. Why?",
+      "answer": "Zinc is more reactive and oxidises preferentially.",
+      "explanation": "Sacrificial protection can continue at exposed iron while zinc is electrically connected and available.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Zinc supplies paint that fills every scratch instantly.",
+        "Zinc is less reactive and forces iron to oxidise faster.",
+        "Iron becomes a non-metal while zinc is attached.",
+        "Zinc is more reactive and oxidises preferentially."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-076",
+      "objectiveId": "igcse-0620-periodic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Why is aluminium extracted by electrolysis rather than by heating its oxide with carbon in the usual school-level extraction model?",
+      "answer": "Aluminium is more reactive than carbon, so carbon does not readily reduce its oxide.",
+      "explanation": "Extraction method depends on the stability of the metal compound and the metal’s position relative to carbon.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Carbon is always more reactive than every metal.",
+        "Electrolysis requires no electrical energy.",
+        "Aluminium is more reactive than carbon, so carbon does not readily reduce its oxide.",
+        "Aluminium oxide contains no oxygen."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Environmental chemistry",
+      "subtopic": "Selected source sections 10",
+      "learningObjective": "Assess chemical uses and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-077",
+      "objectiveId": "igcse-0620-environment-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Which pollutant produced by burning sulfur-containing fuels contributes directly to acid rain?",
+      "answer": "Sulfur dioxide.",
+      "explanation": "Sulfur dioxide can form acidic substances in atmospheric water.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Pure nitrogen as the only product.",
+        "Sulfur dioxide.",
+        "Helium.",
+        "Argon."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Environmental chemistry",
+      "subtopic": "Selected source sections 10",
+      "learningObjective": "Assess chemical uses and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-078",
+      "objectiveId": "igcse-0620-environment-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "Why can methane emissions contribute to global warming?",
+      "answer": "Methane absorbs outgoing infrared radiation and affects energy loss from Earth.",
+      "explanation": "Greenhouse gases interact with infrared radiation; the effect is not the same mechanism as acid rain.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Methane absorbs outgoing infrared radiation and affects energy loss from Earth.",
+        "Methane blocks all incoming visible light completely.",
+        "Methane converts sunlight directly into sulfuric acid.",
+        "Methane removes every greenhouse gas from the atmosphere."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Selected source sections 11",
+      "learningObjective": "Relate structures to reactions and materials.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-079",
+      "objectiveId": "igcse-0620-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "What is the molecular formula of an alkane containing six carbon atoms?",
+      "answer": "C₆H₁₄",
+      "explanation": "For an acyclic alkane, the general formula is CnH₂n+₂; n=6 gives H=14.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "C₆H₆",
+        "C₆H₁₂",
+        "C₆H₁₀",
+        "C₆H₁₄"
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Selected source sections 11",
+      "learningObjective": "Relate structures to reactions and materials.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-080",
+      "objectiveId": "igcse-0620-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "mcq",
+      "prompt": "An alcohol reacts with a carboxylic acid under suitable conditions to form an ester. What other product forms?",
+      "answer": "Water.",
+      "explanation": "Esterification combines the reactants with elimination of water.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "multiple-choice",
+      "options": [
+        "Sodium metal.",
+        "Ammonia in every case.",
+        "Water.",
+        "Chlorine gas."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical analysis",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Plan and interpret analytical procedures.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-081",
+      "objectiveId": "igcse-0620-analysis-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "In a chromatography experiment, a spot travels 3.2 cm and the solvent front travels 8.0 cm. Calculate its Rf value. Explain why the baseline is drawn in pencil and why the solvent must initially lie below the sample spots.",
+      "answer": "Rf = 3.2/8.0 = 0.40. Pencil graphite does not normally dissolve and travel with the solvent as many inks do. Keeping spots above the initial solvent level prevents the samples dissolving straight into the solvent reservoir.",
+      "explanation": "Measure both distances from the same origin. Rf has no unit and applies to the stated solvent and conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use spot distance divided by solvent-front distance.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 0.40 with no unit.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain pencil avoids an interfering soluble ink.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Explain keeping the sample above the initial solvent level.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "3.2/8",
+          "expected": "0.4",
+          "answerValue": "0.4",
+          "purpose": "Chromatographic Rf value"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical analysis",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Plan and interpret analytical procedures.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-082",
+      "objectiveId": "igcse-0620-analysis-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A salt’s solubility is 60 g per 100 g water at 80°C and 20 g per 100 g water at 20°C. A saturated solution contains 100 g water at 80°C. Estimate the mass crystallising on cooling to 20°C without water loss, then explain how to collect and dry the crystals.",
+      "answer": "Initially 60 g salt is dissolved. At 20°C, 20 g remains dissolved, so 40 g can crystallise. Filter off the crystals, wash briefly with a small amount of cold suitable solvent if appropriate, then dry between filter papers or by a suitable gentle method.",
+      "explanation": "The estimate assumes the quoted solubilities and no evaporation or material loss. It is not obtained by evaporating all water to dryness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use the 60 g initial and 20 g final dissolved amounts.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate 40 g crystals.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Describe filtration and suitable drying.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "60-20",
+          "expected": "40",
+          "answerValue": "40",
+          "purpose": "Crystallised salt mass"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical quantities",
+      "subtopic": "Selected source sections 3",
+      "learningObjective": "Derive chemical amounts from evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-083",
+      "objectiveId": "igcse-0620-quantities-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A clean crucible has mass 18.40 g. With magnesium it has mass 20.80 g; after complete oxidation the final mass is 22.40 g. Determine the empirical formula of the oxide using Mg=24 and O=16.",
+      "answer": "Magnesium mass = 20.80−18.40 = 2.40 g. Oxygen gained = 22.40−20.80 = 1.60 g. Amounts are 2.40/24 = 0.100 mol Mg and 1.60/16 = 0.100 mol O, giving ratio 1:1 and empirical formula MgO.",
+      "explanation": "The oxygen mass is the mass gained, not the entire product mass. Constant-mass heating and appropriate handling are needed in a real experiment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate magnesium mass 2.40 g.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate oxygen mass 1.60 g.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Convert each to 0.100 mol.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Obtain 1:1 and MgO.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(20.80-18.40)/24",
+          "expected": "0.1",
+          "answerValue": "0.1",
+          "purpose": "Amount of magnesium"
+        },
+        {
+          "expression": "(22.40-20.80)/16",
+          "expected": "0.1",
+          "purpose": "Amount of oxygen atoms"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical analysis",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Plan and interpret analytical procedures.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-084",
+      "objectiveId": "igcse-0620-analysis-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Three titres are 24.10, 24.15 and 25.80 cm³. The protocol requires concordant results within 0.10 cm³. Select the results to average, calculate the mean and explain why the remaining titre should be investigated rather than silently altered.",
+      "answer": "24.10 and 24.15 cm³ differ by 0.05 cm³ and are concordant. Their mean is 24.125 cm³, reported as 24.13 cm³ to two decimal places. The 25.80 cm³ result is not concordant; retain the record, investigate endpoint or reading error and repeat rather than change measured data.",
+      "explanation": "A justified exclusion preserves the original observation and an audit trail. It does not permit inventing a more convenient reading.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Select the two concordant results with the difference justified.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate 24.125 cm³ and report appropriately.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain retaining, investigating and repeating the anomalous result.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(24.10+24.15)/2",
+          "expected": "24.125",
+          "answerValue": "24.125",
+          "purpose": "Mean concordant titre"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical quantities",
+      "subtopic": "Selected source sections 3",
+      "learningObjective": "Derive chemical amounts from evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-085",
+      "objectiveId": "igcse-0620-quantities-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "At the same temperature and pressure, 40 cm³ carbon monoxide reacts with 30 cm³ oxygen: 2CO + O₂ → 2CO₂. Determine the volume of carbon dioxide formed and the oxygen remaining, assuming complete reaction of the limiting gas.",
+      "answer": "40 cm³ CO requires 20 cm³ O₂, so CO is limiting. It forms 40 cm³ CO₂ and leaves 30−20 = 10 cm³ O₂.",
+      "explanation": "Gas-volume ratios follow the balanced equation only under common temperature and pressure conditions; the excess reactant remains after completion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Apply the 2:1 reacting-volume ratio and identify CO as limiting.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Obtain 40 cm³ CO₂.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Obtain 10 cm³ remaining O₂.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "40/2",
+          "expected": "20",
+          "answerValue": "20",
+          "purpose": "Required oxygen volume"
+        },
+        {
+          "expression": "30-40/2",
+          "expected": "10",
+          "purpose": "Remaining oxygen volume"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Electrochemistry",
+      "subtopic": "Selected source sections 4",
+      "learningObjective": "Explain electrode processes and chemical cells.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-086",
+      "objectiveId": "igcse-0620-electrochemistry-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "structured",
+      "prompt": "For electrolysis of molten aluminium oxide, write a half-equation for aluminium formation and one for oxygen formation. Explain why carbon anodes need replacement in industrial operation.",
+      "answer": "Cathode: Al³⁺ + 3e⁻ → Al. Anode: 2O²⁻ → O₂ + 4e⁻. Oxygen produced reacts with the hot carbon anodes, forming carbon oxides, so carbon is consumed.",
+      "explanation": "Balance both charge and atoms. Molten oxide is specified, so water-derived hydrogen is not the cathode product.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct aluminium half-equation.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Correct oxide half-equation.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain carbon oxidation and consumption.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Energetics and reactions",
+      "subtopic": "Selected source sections 5;6",
+      "learningObjective": "Analyse energy rate and equilibrium evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-087",
+      "objectiveId": "igcse-0620-reactions-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Use these average bond energies in kJ mol⁻¹: H–H 436, Cl–Cl 243, H–Cl 432. Estimate the enthalpy change for H₂ + Cl₂ → 2HCl and state whether the reaction is exothermic or endothermic.",
+      "answer": "Energy to break bonds = 436+243 = 679 kJ mol⁻¹ of reaction. Energy released on forming bonds = 2×432 = 864 kJ mol⁻¹. ΔH = 679−864 = −185 kJ mol⁻¹, so the reaction is exothermic.",
+      "explanation": "Bond breaking requires energy; bond formation releases it. The sign follows energy in minus energy out using the supplied average values.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 679 for broken bonds.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 864 for formed bonds.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Use correct subtraction and obtain −185 kJ mol⁻¹.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Classify as exothermic.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "436+243-2*432",
+          "expected": "-185",
+          "answerValue": "-185",
+          "purpose": "Estimated reaction enthalpy"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Energetics and reactions",
+      "subtopic": "Selected source sections 5;6",
+      "learningObjective": "Analyse energy rate and equilibrium evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-088",
+      "objectiveId": "igcse-0620-reactions-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "In a closed reversible system A ⇌ B, heating shifts equilibrium towards B. A catalyst is then added at the new constant temperature. Infer which direction is endothermic and explain how the catalyst affects approach to equilibrium and equilibrium composition.",
+      "answer": "The A-to-B direction is endothermic because increasing temperature favours it. A catalyst increases the rates of both directions and allows equilibrium to be reached faster, but does not change the equilibrium composition at that temperature.",
+      "explanation": "Separate the temperature effect on equilibrium from the catalyst’s effect on reaction rates.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify the forward direction as endothermic with a heating-based reason.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain increased rates in both directions.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State faster approach but unchanged equilibrium composition at fixed temperature.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-089",
+      "objectiveId": "igcse-0620-periodic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Metal A displaces B from B ions and C from C ions. Metal B displaces C from C ions. Metal C displaces neither A nor B. Rank the metals by reactivity and explain the prediction for adding B to a solution of A ions.",
+      "answer": "Reactivity order is A > B > C. Since B is less reactive than A, B will not displace A from A ions under the stated displacement model.",
+      "explanation": "A positive displacement result indicates the solid metal is more reactive than the metal represented by dissolved ions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use displacement evidence to place A above B and C.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Place B above C and state full order.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Predict no displacement by B from A ions with a valid reason.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-090",
+      "objectiveId": "igcse-0620-periodic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A halogen X displaces bromine and iodine from their halide solutions. Halogen Y displaces iodine but not bromine. Which is more reactive, X or Y? Explain how the evidence fits a reactivity trend in Group VII.",
+      "answer": "X is more reactive than Y: X is above bromine in reactivity, while Y cannot displace bromine but is above iodine. This is consistent with decreasing halogen reactivity down Group VII.",
+      "explanation": "Use the stated observations rather than simply assign an unprovided identity to Y; it could be bromine in this model.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Conclude X is more reactive.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Relate each halogen to bromine/iodine using the observations.",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "State decreasing reactivity down the group.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical analysis",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Plan and interpret analytical procedures.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-091",
+      "objectiveId": "igcse-0620-analysis-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "An aqueous salt gives a green precipitate with sodium hydroxide that turns brown on standing. A fresh portion, acidified with dilute nitric acid, gives a white precipitate with barium nitrate. Identify the cation and anion and suggest the salt.",
+      "answer": "The green precipitate turning brown indicates Fe²⁺, with oxidation of iron(II) hydroxide on standing. The acidified barium test indicates sulfate. The salt is iron(II) sulfate.",
+      "explanation": "Use separate fresh portions for the tests. The two observations provide evidence for different ions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify Fe²⁺ from the precipitate behaviour.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Identify sulfate from the acidified barium test.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Name iron(II) sulfate.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical analysis",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Plan and interpret analytical procedures.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-092",
+      "objectiveId": "igcse-0620-analysis-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A dry mixture contains iron filings, iodine crystals and sodium chloride. Propose an ordered separation to obtain each component, explaining the property used at each stage. Treat this as a supervised laboratory planning task.",
+      "answer": "Use a magnet to remove iron filings. Use a suitable controlled sublimation setup to separate iodine from sodium chloride, collecting iodine on a cool surface while salt remains. Use appropriate ventilation and avoid exposure to iodine vapour.",
+      "explanation": "Magnetism distinguishes iron and sublimation distinguishes iodine. A safe plan must address vapour exposure; no unsupervised heating is implied.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Remove iron with a magnet and state magnetism.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Separate and recollect iodine using sublimation and condensation on cooling.",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Recognise salt remains and include an appropriate iodine-vapour precaution.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Energetics and reactions",
+      "subtopic": "Selected source sections 5;6",
+      "learningObjective": "Analyse energy rate and equilibrium evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-093",
+      "objectiveId": "igcse-0620-reactions-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A flask’s total mass falls from 153.2 g to 152.6 g during the first 30 s of a carbonate–acid reaction with escaping gas. Calculate average mass-loss rate. Explain why a loose cotton-wool plug can be used and why the vessel must not be tightly sealed for this method.",
+      "answer": "Mass loss = 0.6 g and average rate = 0.6/30 = 0.020 g s⁻¹. A loose plug limits spray loss while allowing gas to escape. A sealed vessel prevents the required gas loss and may allow unsafe pressure buildup.",
+      "explanation": "The method infers gas production from mass loss; spray, evaporation and leaks of liquid would complicate the inference.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate mass loss 0.6 g.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 0.020 g s⁻¹.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain spray control while gas escapes.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Explain why sealing invalidates the method or creates pressure risk.",
+          "marks": 1
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(153.2-152.6)/30",
+          "expected": "0.02",
+          "answerValue": "0.02",
+          "purpose": "Average mass-loss rate"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical analysis",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Plan and interpret analytical procedures.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-094",
+      "objectiveId": "igcse-0620-analysis-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A flame test on an unknown solution gives a strong yellow colour. A second solution gives a blue-green colour. Identify the likely metal ions and explain why the wire should be cleaned before testing the second solution.",
+      "answer": "The yellow flame suggests sodium ions; the blue-green flame suggests copper ions. Cleaning the wire reduces contamination from the first sample, whose emission could mask or confuse the second test.",
+      "explanation": "Use characteristic flame evidence and recognise cross-contamination as a source of error.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify sodium ions.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify copper ions.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain carry-over contamination and possible masking.",
+          "marks": 2
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Selected source sections 11",
+      "learningObjective": "Relate structures to reactions and materials.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-095",
+      "objectiveId": "igcse-0620-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "structured",
+      "prompt": "A polymer has repeating unit –CH₂–CH₂–. Identify its monomer, state the type of polymerisation and explain the change in bonding that links the units.",
+      "answer": "The monomer is ethene, CH₂=CH₂. Addition polymerisation opens the carbon-carbon double bond so monomers link into a chain with carbon-carbon single bonds; no small molecule is eliminated in this process.",
+      "explanation": "Do not confuse an addition polymer with a condensation polymer that releases a small molecule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify ethene with a correct formula.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Name addition polymerisation.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain opening the double bond and linking into a chain.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Selected source sections 11",
+      "learningObjective": "Relate structures to reactions and materials.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-096",
+      "objectiveId": "igcse-0620-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Compare two routes to ethanol: fermentation of a sugar solution and hydration of ethene. Give a raw material and one suitable condition for each, then discuss one practical trade-off between the routes.",
+      "answer": "Fermentation uses a sugar solution and yeast under suitable warm anaerobic conditions. Hydration uses ethene and steam with an appropriate acid catalyst at elevated temperature and pressure. Fermentation can use renewable plant feedstocks but is slower and produces a dilute solution; hydration is suited to continuous production but often depends on petrochemical ethene and more demanding conditions.",
+      "explanation": "Credit a balanced, chemically correct trade-off rather than an unqualified claim that one route is always better.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Give fermentation materials and a valid condition.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Give hydration materials and a valid condition/catalyst.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Discuss a relevant advantage with a corresponding limitation.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Selected source sections 11",
+      "learningObjective": "Relate structures to reactions and materials.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-097",
+      "objectiveId": "igcse-0620-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "type": "structured",
+      "prompt": "Ethanol exposed to air in the presence of suitable bacteria becomes acidic. Name the acid formed, explain the role of oxygen and give a balanced equation. Name a laboratory oxidising reagent that can bring about the same organic conversion.",
+      "answer": "Ethanoic acid forms by oxidation of ethanol. Oxygen from air supports the bacterial oxidation. C₂H₅OH + O₂ → CH₃COOH + H₂O. Acidified aqueous potassium manganate(VII) can oxidise ethanol to ethanoic acid under suitable laboratory conditions.",
+      "explanation": "This uses the specified oxidation route to vinegar and a laboratory oxidation route. The source does not explicitly list acid-catalysed ester hydrolysis, so that earlier authoring candidate was replaced.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Name ethanoic acid.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain oxidation using oxygen from air.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Give the balanced equation.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Name acidified aqueous potassium manganate(VII).",
+          "marks": 1
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Selected source sections 11",
+      "learningObjective": "Relate structures to reactions and materials.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-098",
+      "objectiveId": "igcse-0620-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A packaging material is made from a non-biodegradable polymer. Explain two environmental difficulties its persistence can create, and compare one benefit and one limitation of mechanical recycling.",
+      "answer": "Persistent waste can accumulate in habitats and harm organisms through entanglement or ingestion, and small fragments may remain widely dispersed. Mechanical recycling can reduce demand for new material and divert suitable waste from disposal, but collection, sorting, contamination and loss of material quality can limit it.",
+      "explanation": "Evaluate the specified non-biodegradable material; not every polymer has identical disposal behaviour.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain two distinct environmental difficulties.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Explain one valid recycling benefit.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain one relevant limitation.",
+          "marks": 2
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Selected source sections 11",
+      "learningObjective": "Relate structures to reactions and materials.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-099",
+      "objectiveId": "igcse-0620-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Crude oil fractions P and Q have these properties: P has shorter molecules, lower boiling range and lower viscosity; Q has longer molecules, higher boiling range and higher viscosity. Explain the separation principle and why P flows more readily.",
+      "answer": "Fractional distillation separates fractions by differences in boiling ranges and condensation temperatures. Shorter molecules generally have weaker intermolecular attractions and slide past each other more easily, so P is less viscous.",
+      "explanation": "Fractions are mixtures with ranges, not necessarily pure compounds with one exact boiling point.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain separation by boiling/condensation differences.",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Link shorter molecules with weaker intermolecular attractions.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Connect this with easier flow/lower viscosity.",
+          "marks": 1
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical quantities",
+      "subtopic": "Selected source sections 3",
+      "learningObjective": "Derive chemical amounts from evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-029-100",
+      "objectiveId": "igcse-0620-quantities-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Calculate the percentage by mass of nitrogen in ammonium nitrate, NH₄NO₃, using N=14, H=1 and O=16. Then calculate the mass of nitrogen in 500 kg of pure ammonium nitrate.",
+      "answer": "Relative formula mass = 2×14+4×1+3×16 = 80. Nitrogen contributes 28, so nitrogen percentage = 28/80×100 = 35%. Nitrogen mass in 500 kg = 0.35×500 = 175 kg.",
+      "explanation": "Count both nitrogen atoms. A percentage composition can be applied to a bulk mass without changing its units.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate formula mass 80 and nitrogen contribution 28.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate 35%.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Calculate nitrogen mass 175 kg.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "28/(2*14+4+3*16)*100",
+          "expected": "35",
+          "answerValue": "35",
+          "purpose": "Nitrogen percentage"
+        },
+        {
+          "expression": "28/80*500",
+          "expected": "175",
+          "purpose": "Nitrogen mass in kilograms"
+        }
+      ]
+    }
+  ]
+}

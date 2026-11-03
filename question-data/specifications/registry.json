@@ -141,6 +141,58 @@
       "id": "toefl-writing-2026",
       "source": "https://www.ets.org/toefl/test-takers/ibt/about/content/writing/.html",
       "status": "official_current_task_descriptions_seen"
+    },
+    {
+      "id": "igcse-0610-2026-2028-v3",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "kind": "official_syllabus_pdf_retrieved",
+      "source": "https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf",
+      "checkedOn": "2026-11-03",
+      "status": "official_document_version_verified_question_alignment_pending_academic_review",
+      "assessmentObjectives": {
+        "AO1": "Knowledge and understanding",
+        "AO2": "Information and problem solving",
+        "AO3": "Experimental investigation"
+      },
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "coverageComplete": false
+    },
+    {
+      "id": "igcse-0620-2026-2028-v2",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "kind": "official_syllabus_pdf_retrieved",
+      "source": "https://www.cambridgeinternational.org/Images/697205-2026-2028-syllabus.pdf",
+      "checkedOn": "2026-11-03",
+      "status": "official_document_version_verified_question_alignment_pending_academic_review",
+      "assessmentObjectives": {
+        "AO1": "Knowledge and understanding",
+        "AO2": "Information and problem solving",
+        "AO3": "Experimental investigation"
+      },
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "coverageComplete": false
     }
   ],
   "banks": [
@@ -857,6 +909,34 @@
       "level": "",
       "target": null,
       "scopeStatus": "application_catalogue_supported_specification_missing"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "selected_qualification_code_current_source_retrieved",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "note": "Only code-specific questions may count; legacy unassigned entries remain held. Other Cambridge codes are separate unresolved scope."
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "selected_qualification_code_current_source_retrieved",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "note": "Only code-specific questions may count; legacy unassigned entries remain held. Other Cambridge codes are separate unresolved scope."
     }
   ],
   "objectives": [
@@ -2403,6 +2483,569 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-cells-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Cells and movement",
+      "subtopic": "Selected source sections 2;3",
+      "learningObjective": "Relate cellular organisation to exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "2",
+        "3"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-molecules-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biological molecules and enzymes",
+      "subtopic": "Selected source sections 4;5",
+      "learningObjective": "Interpret molecular tests and enzyme evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "4",
+        "5"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-nutrition-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Selected source sections 6;7",
+      "learningObjective": "Explain plant and human nutrition.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "6",
+        "7"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-transport-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Selected source sections 8;9;11",
+      "learningObjective": "Analyse transport and gas exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "8",
+        "9",
+        "11"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-health-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "10",
+        "13",
+        "14"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-respiration-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Respiration",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Compare energy-releasing processes.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "12"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-reproduction-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "16",
+        "17"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-ecology-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Ecology and human influences",
+      "subtopic": "Selected source sections 19;20",
+      "learningObjective": "Evaluate population and environmental evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "19",
+        "20"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-biotechnology-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biotechnology",
+      "subtopic": "Selected source sections 21",
+      "learningObjective": "Explain biological production methods.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "21"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-classification-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Classification",
+      "subtopic": "Selected source sections 1",
+      "learningObjective": "Classify using observable evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "1"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-particles-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Particles and bonding",
+      "subtopic": "Selected source sections 1;2",
+      "learningObjective": "Explain properties using particle structure.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "1",
+        "2"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-quantities-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical quantities",
+      "subtopic": "Selected source sections 3",
+      "learningObjective": "Derive chemical amounts from evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "3"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-electrochemistry-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Electrochemistry",
+      "subtopic": "Selected source sections 4",
+      "learningObjective": "Explain electrode processes and chemical cells.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "4"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-reactions-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Energetics and reactions",
+      "subtopic": "Selected source sections 5;6",
+      "learningObjective": "Analyse energy rate and equilibrium evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "5",
+        "6"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-salts-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Selected source sections 7",
+      "learningObjective": "Choose suitable salt preparation methods.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "7"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-periodic-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "8",
+        "9"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-environment-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Environmental chemistry",
+      "subtopic": "Selected source sections 10",
+      "learningObjective": "Assess chemical uses and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "10"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-organic-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Selected source sections 11",
+      "learningObjective": "Relate structures to reactions and materials.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "11"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-analysis-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical analysis",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Plan and interpret analytical procedures.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "12"
+      ],
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -2417,6 +3060,7 @@
     "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
-    "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off."
+    "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
+    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved."
   ]
 }

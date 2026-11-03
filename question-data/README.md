@@ -81,3 +81,13 @@ ports are separate representations, not additional original-question counts.
 Do not create automatic deployments, production imports, or academic sign-offs.
 Execution is bounded by each run; this checkpoint is resumable, not a claim that
 a background worker is running after the session ends.
+
+## IGCSE qualification evidence
+
+Batch 029 selects Biology **0610 v3** and Chemistry **0620 v2**, both for
+2026–2028. Its 100 drafts use Extended, which includes Core and Supplement.
+Core-only suitability and exact content-objective codes remain unreviewed.
+Paper-style labels distinguish theory from written practical-planning/data tasks;
+these do not claim that a learner has performed a laboratory experiment.
+The validator checks code/year/version/tier links and rejects MCQ practical
+items for these science qualifications. Source retrieval is not academic approval.

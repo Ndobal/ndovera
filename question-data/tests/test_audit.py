@@ -119,6 +119,29 @@ class ValidationTests(unittest.TestCase):
     def test_sat_numeric_answer_is_checked(self):
         self.q.update(exam='SAT', subject='Mathematics', type='shortanswer', answer='9')
         self.assertIn('numerical_response_mismatch', self.errors())
+    def igcse_fixture(self):
+        self.obj.update(exam='IGCSE', qualificationCode='0620', syllabusVersion='2',
+                        examinationYears=[2026, 2027, 2028], tiers=['Core', 'Extended'])
+        self.q.update(exam='IGCSE', qualificationCode='0620', syllabusVersion='2',
+                      examinationYear=2026, tier='Extended', assessmentObjectives=['AO2'],
+                      practiceComponent='multiple-choice')
+    def test_igcse_qualified_item(self):
+        self.igcse_fixture(); self.assertEqual(self.errors(), [])
+    def test_igcse_wrong_qualification(self):
+        self.igcse_fixture(); self.q['qualificationCode'] = '0971'
+        self.assertIn('igcse_mapping_mismatch:qualificationCode', self.errors())
+    def test_igcse_expired_year(self):
+        self.igcse_fixture(); self.q['examinationYear'] = 2029
+        self.assertIn('igcse_examination_year_unmapped', self.errors())
+    def test_igcse_unknown_tier(self):
+        self.igcse_fixture(); self.q['tier'] = 'Foundation'
+        self.assertIn('igcse_tier_unmapped', self.errors())
+    def test_igcse_practical_cannot_be_mcq(self):
+        self.igcse_fixture(); self.q['assessmentObjectives'] = ['AO3']
+        self.assertIn('igcse_practical_component_mismatch', self.errors())
+    def test_igcse_aos_are_required(self):
+        self.igcse_fixture(); self.q.pop('assessmentObjectives')
+        self.assertIn('igcse_assessment_objective_missing_or_invalid', self.errors())
 
 
 if __name__ == '__main__': unittest.main()

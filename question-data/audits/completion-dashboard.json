@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 1999,
-    "validDrafts": 320,
+    "raw": 2099,
+    "validDrafts": 420,
     "reviewed": 0,
     "registeredBanks": 148,
     "target": 129000,
@@ -304,6 +304,12 @@
       "actual": 100
     },
     {
+      "path": "original-multisubject-batch-029.json",
+      "sha256": "e0da3159a1bde413abb497fa6ce6370f0ea8ed6d587de15c8c636b18e69fb5c7",
+      "declared": 100,
+      "actual": 100
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -508,43 +514,62 @@
       "subject": "Biology",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
-      "raw": 4,
-      "validDrafts": 0,
+      "scopeStatus": "selected_qualification_code_current_source_retrieved",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "note": "Only code-specific questions may count; legacy unassigned entries remain held. Other Cambridge codes are separate unresolved scope.",
+      "raw": 54,
+      "validDrafts": 50,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 4
+        "mcq": 34,
+        "structured": 20
       },
       "difficulty": {
+        "standard": 49,
+        "easy": 1,
         "missing": 3,
         "difficult": 1
       },
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "remaining": 950,
+      "mappedObjectives": 10,
+      "representedObjectives": 10,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "IGCSE",
       "subject": "Chemistry",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
-      "raw": 2,
-      "validDrafts": 0,
+      "scopeStatus": "selected_qualification_code_current_source_retrieved",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "note": "Only code-specific questions may count; legacy unassigned entries remain held. Other Cambridge codes are separate unresolved scope.",
+      "raw": 52,
+      "validDrafts": 50,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 2
+        "mcq": 32,
+        "structured": 20
       },
       "difficulty": {
+        "standard": 50,
         "missing": 2
       },
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "remaining": 950,
+      "mappedObjectives": 9,
+      "representedObjectives": 9,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "IGCSE",
@@ -3280,21 +3305,21 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 54,
+    "explicitArithmeticClaims": 78,
     "scope": "Exact arithmetic claims plus parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems or solutions can be machine verified.",
     "failureCount": 0
   },
@@ -19793,6 +19818,606 @@
       "errors": []
     },
     {
+      "id": "ndv-029-001",
+      "file": "original-multisubject-batch-029.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-002",
+      "file": "original-multisubject-batch-029.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-003",
+      "file": "original-multisubject-batch-029.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-004",
+      "file": "original-multisubject-batch-029.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-005",
+      "file": "original-multisubject-batch-029.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-006",
+      "file": "original-multisubject-batch-029.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-007",
+      "file": "original-multisubject-batch-029.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-008",
+      "file": "original-multisubject-batch-029.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-009",
+      "file": "original-multisubject-batch-029.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-010",
+      "file": "original-multisubject-batch-029.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-011",
+      "file": "original-multisubject-batch-029.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-012",
+      "file": "original-multisubject-batch-029.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-013",
+      "file": "original-multisubject-batch-029.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-014",
+      "file": "original-multisubject-batch-029.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-015",
+      "file": "original-multisubject-batch-029.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-016",
+      "file": "original-multisubject-batch-029.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-017",
+      "file": "original-multisubject-batch-029.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-018",
+      "file": "original-multisubject-batch-029.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-019",
+      "file": "original-multisubject-batch-029.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-020",
+      "file": "original-multisubject-batch-029.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-021",
+      "file": "original-multisubject-batch-029.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-022",
+      "file": "original-multisubject-batch-029.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-023",
+      "file": "original-multisubject-batch-029.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-024",
+      "file": "original-multisubject-batch-029.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-025",
+      "file": "original-multisubject-batch-029.json",
+      "index": 24,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-026",
+      "file": "original-multisubject-batch-029.json",
+      "index": 25,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-027",
+      "file": "original-multisubject-batch-029.json",
+      "index": 26,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-028",
+      "file": "original-multisubject-batch-029.json",
+      "index": 27,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-029",
+      "file": "original-multisubject-batch-029.json",
+      "index": 28,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-030",
+      "file": "original-multisubject-batch-029.json",
+      "index": 29,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-031",
+      "file": "original-multisubject-batch-029.json",
+      "index": 30,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-032",
+      "file": "original-multisubject-batch-029.json",
+      "index": 31,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-033",
+      "file": "original-multisubject-batch-029.json",
+      "index": 32,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-034",
+      "file": "original-multisubject-batch-029.json",
+      "index": 33,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-035",
+      "file": "original-multisubject-batch-029.json",
+      "index": 34,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-036",
+      "file": "original-multisubject-batch-029.json",
+      "index": 35,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-037",
+      "file": "original-multisubject-batch-029.json",
+      "index": 36,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-038",
+      "file": "original-multisubject-batch-029.json",
+      "index": 37,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-039",
+      "file": "original-multisubject-batch-029.json",
+      "index": 38,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-040",
+      "file": "original-multisubject-batch-029.json",
+      "index": 39,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-041",
+      "file": "original-multisubject-batch-029.json",
+      "index": 40,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-042",
+      "file": "original-multisubject-batch-029.json",
+      "index": 41,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-043",
+      "file": "original-multisubject-batch-029.json",
+      "index": 42,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-044",
+      "file": "original-multisubject-batch-029.json",
+      "index": 43,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-045",
+      "file": "original-multisubject-batch-029.json",
+      "index": 44,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-046",
+      "file": "original-multisubject-batch-029.json",
+      "index": 45,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-047",
+      "file": "original-multisubject-batch-029.json",
+      "index": 46,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-048",
+      "file": "original-multisubject-batch-029.json",
+      "index": 47,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-049",
+      "file": "original-multisubject-batch-029.json",
+      "index": 48,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-050",
+      "file": "original-multisubject-batch-029.json",
+      "index": 49,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-051",
+      "file": "original-multisubject-batch-029.json",
+      "index": 50,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-052",
+      "file": "original-multisubject-batch-029.json",
+      "index": 51,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-053",
+      "file": "original-multisubject-batch-029.json",
+      "index": 52,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-054",
+      "file": "original-multisubject-batch-029.json",
+      "index": 53,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-055",
+      "file": "original-multisubject-batch-029.json",
+      "index": 54,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-056",
+      "file": "original-multisubject-batch-029.json",
+      "index": 55,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-057",
+      "file": "original-multisubject-batch-029.json",
+      "index": 56,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-058",
+      "file": "original-multisubject-batch-029.json",
+      "index": 57,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-059",
+      "file": "original-multisubject-batch-029.json",
+      "index": 58,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-060",
+      "file": "original-multisubject-batch-029.json",
+      "index": 59,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-061",
+      "file": "original-multisubject-batch-029.json",
+      "index": 60,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-062",
+      "file": "original-multisubject-batch-029.json",
+      "index": 61,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-063",
+      "file": "original-multisubject-batch-029.json",
+      "index": 62,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-064",
+      "file": "original-multisubject-batch-029.json",
+      "index": 63,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-065",
+      "file": "original-multisubject-batch-029.json",
+      "index": 64,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-066",
+      "file": "original-multisubject-batch-029.json",
+      "index": 65,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-067",
+      "file": "original-multisubject-batch-029.json",
+      "index": 66,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-068",
+      "file": "original-multisubject-batch-029.json",
+      "index": 67,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-069",
+      "file": "original-multisubject-batch-029.json",
+      "index": 68,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-070",
+      "file": "original-multisubject-batch-029.json",
+      "index": 69,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-071",
+      "file": "original-multisubject-batch-029.json",
+      "index": 70,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-072",
+      "file": "original-multisubject-batch-029.json",
+      "index": 71,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-073",
+      "file": "original-multisubject-batch-029.json",
+      "index": 72,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-074",
+      "file": "original-multisubject-batch-029.json",
+      "index": 73,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-075",
+      "file": "original-multisubject-batch-029.json",
+      "index": 74,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-076",
+      "file": "original-multisubject-batch-029.json",
+      "index": 75,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-077",
+      "file": "original-multisubject-batch-029.json",
+      "index": 76,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-078",
+      "file": "original-multisubject-batch-029.json",
+      "index": 77,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-079",
+      "file": "original-multisubject-batch-029.json",
+      "index": 78,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-080",
+      "file": "original-multisubject-batch-029.json",
+      "index": 79,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-081",
+      "file": "original-multisubject-batch-029.json",
+      "index": 80,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-082",
+      "file": "original-multisubject-batch-029.json",
+      "index": 81,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-083",
+      "file": "original-multisubject-batch-029.json",
+      "index": 82,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-084",
+      "file": "original-multisubject-batch-029.json",
+      "index": 83,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-085",
+      "file": "original-multisubject-batch-029.json",
+      "index": 84,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-086",
+      "file": "original-multisubject-batch-029.json",
+      "index": 85,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-087",
+      "file": "original-multisubject-batch-029.json",
+      "index": 86,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-088",
+      "file": "original-multisubject-batch-029.json",
+      "index": 87,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-089",
+      "file": "original-multisubject-batch-029.json",
+      "index": 88,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-090",
+      "file": "original-multisubject-batch-029.json",
+      "index": 89,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-091",
+      "file": "original-multisubject-batch-029.json",
+      "index": 90,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-092",
+      "file": "original-multisubject-batch-029.json",
+      "index": 91,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-093",
+      "file": "original-multisubject-batch-029.json",
+      "index": 92,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-094",
+      "file": "original-multisubject-batch-029.json",
+      "index": 93,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-095",
+      "file": "original-multisubject-batch-029.json",
+      "index": 94,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-096",
+      "file": "original-multisubject-batch-029.json",
+      "index": 95,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-097",
+      "file": "original-multisubject-batch-029.json",
+      "index": 96,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-098",
+      "file": "original-multisubject-batch-029.json",
+      "index": 97,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-099",
+      "file": "original-multisubject-batch-029.json",
+      "index": 98,
+      "errors": []
+    },
+    {
+      "id": "ndv-029-100",
+      "file": "original-multisubject-batch-029.json",
+      "index": 99,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -31491,6 +32116,10 @@
         "standard": 7,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 8
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31514,6 +32143,10 @@
         "standard": 3,
         "easy": 1
       },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31537,6 +32170,10 @@
         "easy": 1,
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31559,6 +32196,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31581,6 +32222,10 @@
       "difficulty": {
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31604,6 +32249,10 @@
         "standard": 2,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31626,6 +32275,10 @@
       "difficulty": {
         "standard": 4
       },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31649,6 +32302,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31672,6 +32329,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31695,6 +32356,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31718,6 +32383,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31741,6 +32410,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31764,6 +32437,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31789,6 +32466,10 @@
         "standard": 1,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31812,6 +32493,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31836,6 +32521,10 @@
         "easy": 1,
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31860,6 +32549,10 @@
         "standard": 1,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31882,6 +32575,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31905,6 +32602,10 @@
         "standard": 7,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 8
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31927,6 +32628,10 @@
       "difficulty": {
         "standard": 6
       },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31950,6 +32655,10 @@
         "standard": 2,
         "easy": 1
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31973,6 +32682,10 @@
         "standard": 3,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -31996,6 +32709,10 @@
         "standard": 3,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32014,6 +32731,8 @@
       "questionCount": 0,
       "validDrafts": 0,
       "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
       "coverageStatus": "missing",
       "validationStatus": "no_valid_drafts",
       "academicReviewStatus": "pending"
@@ -32036,6 +32755,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32058,6 +32781,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32080,6 +32807,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32102,6 +32833,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32124,6 +32859,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32146,6 +32885,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32168,6 +32911,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32190,6 +32937,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32212,6 +32963,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32234,6 +32989,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32257,6 +33016,10 @@
         "standard": 2,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32280,6 +33043,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32303,6 +33070,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32326,6 +33097,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32349,6 +33124,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32372,6 +33151,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32395,6 +33178,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32418,6 +33205,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32442,6 +33233,10 @@
         "standard": 1,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32464,6 +33259,10 @@
       "difficulty": {
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32486,6 +33285,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32508,6 +33311,10 @@
       "difficulty": {
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32531,6 +33338,10 @@
         "easy": 1,
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32554,6 +33365,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32577,6 +33392,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32600,6 +33419,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32623,6 +33446,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32645,6 +33472,10 @@
       "difficulty": {
         "easy": 1
       },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32669,6 +33500,10 @@
         "difficult": 1,
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32692,6 +33527,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32715,6 +33554,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32738,6 +33581,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32762,6 +33609,10 @@
         "standard": 1,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32785,6 +33636,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32807,6 +33662,10 @@
       "difficulty": {
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32830,6 +33689,10 @@
         "standard": 2,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32853,6 +33716,10 @@
         "standard": 2,
         "easy": 1
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32875,6 +33742,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32897,6 +33768,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32920,6 +33795,10 @@
         "easy": 1,
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32942,6 +33821,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32965,6 +33848,10 @@
         "standard": 2,
         "easy": 1
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -32987,6 +33874,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33009,6 +33900,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33031,6 +33926,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33053,6 +33952,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33075,6 +33978,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33097,6 +34004,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33119,6 +34030,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33141,6 +34056,10 @@
       "difficulty": {
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33163,6 +34082,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33186,6 +34109,10 @@
         "easy": 1,
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33208,6 +34135,10 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33230,6 +34161,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33252,6 +34187,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33274,6 +34213,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33296,6 +34239,10 @@
       "difficulty": {
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33318,6 +34265,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33340,6 +34291,10 @@
       "difficulty": {
         "standard": 1
       },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33363,6 +34318,10 @@
         "standard": 6,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 7
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33386,6 +34345,10 @@
         "standard": 5,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33408,6 +34371,10 @@
       "difficulty": {
         "standard": 6
       },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33431,6 +34398,10 @@
         "standard": 5,
         "difficult": 1
       },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33454,6 +34425,10 @@
       "difficulty": {
         "standard": 8
       },
+      "tiers": {
+        "not_specified": 8
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33477,6 +34452,10 @@
       "difficulty": {
         "standard": 7
       },
+      "tiers": {
+        "not_specified": 7
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33500,6 +34479,10 @@
       "difficulty": {
         "standard": 5
       },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33523,6 +34506,10 @@
       "difficulty": {
         "standard": 5
       },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33547,6 +34534,10 @@
         "easy": 4,
         "standard": 11
       },
+      "tiers": {
+        "not_specified": 15
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33571,6 +34562,10 @@
         "easy": 2,
         "standard": 8
       },
+      "tiers": {
+        "not_specified": 10
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33595,6 +34590,10 @@
         "standard": 6,
         "easy": 1
       },
+      "tiers": {
+        "not_specified": 7
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33618,6 +34617,10 @@
       "difficulty": {
         "standard": 6
       },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33641,6 +34644,10 @@
       "difficulty": {
         "standard": 6
       },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33665,6 +34672,10 @@
         "standard": 5,
         "easy": 1
       },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33687,6 +34698,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33709,6 +34724,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33731,6 +34750,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33753,6 +34776,10 @@
       "difficulty": {
         "standard": 4
       },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33775,6 +34802,10 @@
       "difficulty": {
         "standard": 5
       },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33797,6 +34828,10 @@
       "difficulty": {
         "standard": 2
       },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33819,6 +34854,780 @@
       "difficulty": {
         "standard": 3
       },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-cells-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Cells and movement",
+      "subtopic": "Selected source sections 2;3",
+      "learningObjective": "Relate cellular organisation to exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "2",
+        "3"
+      ],
+      "questionTypes": {
+        "mcq": 3,
+        "structured": 1
+      },
+      "tiers": {
+        "Extended": 4
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "assessmentObjectives": {
+        "AO1": 1,
+        "AO2": 3
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-molecules-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biological molecules and enzymes",
+      "subtopic": "Selected source sections 4;5",
+      "learningObjective": "Interpret molecular tests and enzyme evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "4",
+        "5"
+      ],
+      "questionTypes": {
+        "mcq": 3,
+        "structured": 2
+      },
+      "tiers": {
+        "Extended": 5
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "easy": 1,
+        "standard": 4
+      },
+      "assessmentObjectives": {
+        "AO1": 2,
+        "AO2": 1,
+        "AO3": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-nutrition-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Selected source sections 6;7",
+      "learningObjective": "Explain plant and human nutrition.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "6",
+        "7"
+      ],
+      "questionTypes": {
+        "mcq": 4,
+        "structured": 2
+      },
+      "tiers": {
+        "Extended": 6
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "assessmentObjectives": {
+        "AO1": 3,
+        "AO2": 3
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-transport-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Selected source sections 8;9;11",
+      "learningObjective": "Analyse transport and gas exchange.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "8",
+        "9",
+        "11"
+      ],
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 3
+      },
+      "tiers": {
+        "Extended": 5
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "assessmentObjectives": {
+        "AO1": 2,
+        "AO2": 2,
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-health-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Disease and regulation",
+      "subtopic": "Selected source sections 10;13;14",
+      "learningObjective": "Explain defence and coordinated regulation.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "10",
+        "13",
+        "14"
+      ],
+      "questionTypes": {
+        "mcq": 5,
+        "structured": 4
+      },
+      "tiers": {
+        "Extended": 9
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 9,
+      "validDrafts": 9,
+      "difficulty": {
+        "standard": 9
+      },
+      "assessmentObjectives": {
+        "AO1": 8,
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-respiration-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Respiration",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Compare energy-releasing processes.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "12"
+      ],
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "tiers": {
+        "Extended": 2
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO1": 1,
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-reproduction-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Reproduction and inheritance",
+      "subtopic": "Selected source sections 16;17",
+      "learningObjective": "Apply reproductive and inheritance models.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "16",
+        "17"
+      ],
+      "questionTypes": {
+        "mcq": 7,
+        "structured": 2
+      },
+      "tiers": {
+        "Extended": 9
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 9,
+      "validDrafts": 9,
+      "difficulty": {
+        "standard": 9
+      },
+      "assessmentObjectives": {
+        "AO1": 6,
+        "AO2": 3
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-ecology-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Ecology and human influences",
+      "subtopic": "Selected source sections 19;20",
+      "learningObjective": "Evaluate population and environmental evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "19",
+        "20"
+      ],
+      "questionTypes": {
+        "mcq": 4,
+        "structured": 3
+      },
+      "tiers": {
+        "Extended": 7
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 7,
+      "validDrafts": 7,
+      "difficulty": {
+        "standard": 7
+      },
+      "assessmentObjectives": {
+        "AO2": 4,
+        "AO1": 2,
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-biotechnology-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biotechnology",
+      "subtopic": "Selected source sections 21",
+      "learningObjective": "Explain biological production methods.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "21"
+      ],
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "tiers": {
+        "Extended": 2
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO1": 1,
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0610-classification-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Classification",
+      "subtopic": "Selected source sections 1",
+      "learningObjective": "Classify using observable evidence.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "1"
+      ],
+      "questionTypes": {
+        "structured": 1
+      },
+      "tiers": {
+        "Extended": 1
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-particles-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Particles and bonding",
+      "subtopic": "Selected source sections 1;2",
+      "learningObjective": "Explain properties using particle structure.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "1",
+        "2"
+      ],
+      "questionTypes": {
+        "mcq": 7
+      },
+      "tiers": {
+        "Extended": 7
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 7,
+      "validDrafts": 7,
+      "difficulty": {
+        "standard": 7
+      },
+      "assessmentObjectives": {
+        "AO2": 3,
+        "AO1": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-quantities-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical quantities",
+      "subtopic": "Selected source sections 3",
+      "learningObjective": "Derive chemical amounts from evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "3"
+      ],
+      "questionTypes": {
+        "mcq": 3,
+        "structured": 3
+      },
+      "tiers": {
+        "Extended": 6
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "assessmentObjectives": {
+        "AO2": 5,
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-electrochemistry-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Electrochemistry",
+      "subtopic": "Selected source sections 4",
+      "learningObjective": "Explain electrode processes and chemical cells.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "4"
+      ],
+      "questionTypes": {
+        "mcq": 4,
+        "structured": 1
+      },
+      "tiers": {
+        "Extended": 5
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "assessmentObjectives": {
+        "AO1": 4,
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-reactions-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Energetics and reactions",
+      "subtopic": "Selected source sections 5;6",
+      "learningObjective": "Analyse energy rate and equilibrium evidence.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "5",
+        "6"
+      ],
+      "questionTypes": {
+        "mcq": 3,
+        "structured": 3
+      },
+      "tiers": {
+        "Extended": 6
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "assessmentObjectives": {
+        "AO1": 2,
+        "AO2": 3,
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-salts-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Selected source sections 7",
+      "learningObjective": "Choose suitable salt preparation methods.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "7"
+      ],
+      "questionTypes": {
+        "mcq": 2
+      },
+      "tiers": {
+        "Extended": 2
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO2": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-periodic-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Periodicity and metals",
+      "subtopic": "Selected source sections 8;9",
+      "learningObjective": "Infer patterns and metal behaviour.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "8",
+        "9"
+      ],
+      "questionTypes": {
+        "mcq": 6,
+        "structured": 2
+      },
+      "tiers": {
+        "Extended": 8
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 8,
+      "validDrafts": 8,
+      "difficulty": {
+        "standard": 8
+      },
+      "assessmentObjectives": {
+        "AO2": 4,
+        "AO1": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-environment-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Environmental chemistry",
+      "subtopic": "Selected source sections 10",
+      "learningObjective": "Assess chemical uses and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "10"
+      ],
+      "questionTypes": {
+        "mcq": 2
+      },
+      "tiers": {
+        "Extended": 2
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO1": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-organic-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Selected source sections 11",
+      "learningObjective": "Relate structures to reactions and materials.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "11"
+      ],
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 5
+      },
+      "tiers": {
+        "Extended": 7
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 7,
+      "validDrafts": 7,
+      "difficulty": {
+        "standard": 7
+      },
+      "assessmentObjectives": {
+        "AO1": 4,
+        "AO2": 3
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-analysis-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Chemical analysis",
+      "subtopic": "Selected source sections 12",
+      "learningObjective": "Plan and interpret analytical procedures.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "12"
+      ],
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 6
+      },
+      "tiers": {
+        "Extended": 7
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 7,
+      "validDrafts": 7,
+      "difficulty": {
+        "standard": 7
+      },
+      "assessmentObjectives": {
+        "AO1": 1,
+        "AO3": 6
+      },
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
@@ -33836,6 +35645,7 @@
     "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
-    "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off."
+    "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
+    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved."
   ]
 }

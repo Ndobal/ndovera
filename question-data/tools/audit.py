@@ -122,6 +122,25 @@ def check_question(q, objectives):
             if q.get(field) != obj.get(field): errors.append('mapping_mismatch:' + field)
         if q.get('type') not in obj.get('questionTypes', []): errors.append('objective_format_mismatch')
         if obj.get('level') and q.get('level') != obj['level']: errors.append('objective_class_mismatch')
+        if q.get('exam') == 'IGCSE':
+            for field in ('qualificationCode', 'syllabusVersion'):
+                if not obj.get(field) or q.get(field) != obj[field]:
+                    errors.append('igcse_mapping_mismatch:' + field)
+            if type(q.get('examinationYear')) is not int or q['examinationYear'] not in obj.get('examinationYears', []):
+                errors.append('igcse_examination_year_unmapped')
+            if q.get('tier') not in obj.get('tiers', []): errors.append('igcse_tier_unmapped')
+            aos = q.get('assessmentObjectives')
+            if not isinstance(aos, list) or not aos or any(a not in ('AO1', 'AO2', 'AO3') for a in aos):
+                errors.append('igcse_assessment_objective_missing_or_invalid')
+            elif q.get('qualificationCode') in ('0610', '0620'):
+                practical = 'AO3' in aos
+                if practical and (q.get('type') == 'mcq' or q.get('practiceComponent') != 'alternative-to-practical'):
+                    errors.append('igcse_practical_component_mismatch')
+                if practical and any(a != 'AO3' for a in aos):
+                    errors.append('igcse_practical_ao_mix')
+                expected = 'multiple-choice' if q.get('type') == 'mcq' else 'theory'
+                if not practical and q.get('practiceComponent') != expected:
+                    errors.append('igcse_theory_component_mismatch')
     if q.get('academicReview') != {'status': 'pending', 'reviewer': None}:
         errors.append('independent_review_evidence_missing_or_invalid')
     minimum_words = q.get('minimumResponseWords')
@@ -239,6 +258,15 @@ def audit(root=ROOT):
     specs = json.loads((root/'specifications/registry.json').read_text())
     objectives = {o['id']: o for o in specs['objectives']}
     if len(objectives) != len(specs['objectives']): raise ValueError('duplicate objective IDs')
+    if 'sources' in specs:
+        sources = {s['id']: s for s in specs['sources']}
+        if len(sources) != len(specs['sources']): raise ValueError('duplicate source IDs')
+        for obj in objectives.values():
+            if obj['specificationId'] not in sources: raise ValueError('unknown objective source: ' + obj['id'])
+            if obj.get('qualificationCode'):
+                source = sources[obj['specificationId']]
+                for field in ('qualificationCode', 'syllabusVersion', 'examinationYears'):
+                    if obj.get(field) != source.get(field): raise ValueError('objective/source mismatch: ' + obj['id'] + '/' + field)
     records, files, file_issues = load_questions(root)
     errors = [check_question(r['q'], objectives) for r in records]
     ids = collections.defaultdict(list)
@@ -277,6 +305,8 @@ def audit(root=ROOT):
         coverage.append({**obj, 'questionCount': len(matched), 'validDrafts': len(valid),
                          'questionTypes': dict(collections.Counter(records[i]['q']['type'] for i in matched)),
                          'difficulty': dict(collections.Counter(records[i]['q'].get('difficulty', 'missing') for i in matched)),
+                         'tiers': dict(collections.Counter(records[i]['q'].get('tier', 'not_specified') for i in matched)),
+                         'assessmentObjectives': dict(collections.Counter(ao for i in matched for ao in records[i]['q'].get('assessmentObjectives', []))),
                          'coverageStatus': 'represented_not_complete' if valid else 'missing',
                          'validationStatus': 'automated_checks_pass' if valid else 'no_valid_drafts',
                          'academicReviewStatus': 'pending'})
@@ -318,15 +348,15 @@ def audit(root=ROOT):
 def write_reports(report, root=ROOT):
     out = root/'audits'; out.mkdir(exist_ok=True)
     (out/'completion-dashboard.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n')
-    columns = ['exam', 'subject', 'level', 'target', 'raw', 'validDrafts', 'reviewed', 'remaining',
+    columns = ['exam', 'subject', 'level', 'qualificationCode', 'target', 'raw', 'validDrafts', 'reviewed', 'remaining',
                'mappedObjectives', 'representedObjectives', 'coverage', 'scopeStatus']
     with (out/'completion-dashboard.csv').open('w') as f:
         writer = csv.DictWriter(f, fieldnames=columns, extrasaction='ignore', lineterminator='\n'); writer.writeheader()
         writer.writerows(report['banks'])
     with (out/'syllabus-coverage.csv').open('w') as f:
-        columns = ['id', 'exam', 'subject', 'topic', 'subtopic', 'learningObjective', 'specificationId',
+        columns = ['id', 'exam', 'subject', 'qualificationCode', 'syllabusVersion', 'examinationYears', 'sourceSections', 'topic', 'subtopic', 'learningObjective', 'specificationId',
                    'questionCount', 'validDrafts', 'questionTypes', 'difficulty', 'coverageStatus',
-                   'validationStatus', 'academicReviewStatus']
+                   'validationStatus', 'academicReviewStatus', 'tiers', 'assessmentObjectives']
         writer = csv.DictWriter(f, fieldnames=columns, extrasaction='ignore', lineterminator='\n'); writer.writeheader()
         writer.writerows(report['coverage'])
     lines = ['# Ndovera complete question-bank dashboard', '',
@@ -337,6 +367,7 @@ def write_reports(report, root=ROOT):
              '|---|---|---:|---:|---:|---:|---:|---|']
     for r in report['banks']:
         subject = r['subject'] + (' / '+r['level'] if r.get('level') else '')
+        if r.get('qualificationCode'): subject += ' ['+r['qualificationCode']+']'
         lines.append(f"| {r['exam']} | {subject} | {r.get('target') or 'TBD'} | {r['raw']} | {r['validDrafts']} | {r['reviewed']} | {r['remaining'] if r['remaining'] is not None else 'TBD'} | {r['coverage']} |")
     lines += ['', '## Totals by examination', '', '| Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |', '|---|---:|---:|---:|---:|---:|']
     for exam in sorted({r['exam'] for r in report['banks']}):

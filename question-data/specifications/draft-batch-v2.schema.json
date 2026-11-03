@@ -242,6 +242,43 @@
                 }
               }
             }
+          },
+          "qualificationCode": {
+            "type": "string",
+            "pattern": "^[0-9]{4}$"
+          },
+          "syllabusVersion": {
+            "type": "string",
+            "minLength": 1
+          },
+          "examinationYear": {
+            "type": "integer"
+          },
+          "tier": {
+            "enum": [
+              "Core",
+              "Extended",
+              "Untiered"
+            ]
+          },
+          "assessmentObjectives": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "AO1",
+                "AO2",
+                "AO3"
+              ]
+            }
+          },
+          "practiceComponent": {
+            "enum": [
+              "multiple-choice",
+              "theory",
+              "alternative-to-practical"
+            ]
           }
         },
         "allOf": [
@@ -277,6 +314,25 @@
               "required": [
                 "markingGuide",
                 "maxMarks"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "exam": {
+                  "const": "IGCSE"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "qualificationCode",
+                "syllabusVersion",
+                "examinationYear",
+                "tier",
+                "assessmentObjectives",
+                "practiceComponent"
               ]
             }
           }

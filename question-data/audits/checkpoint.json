@@ -2,22 +2,22 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_028_automated_validation_passed",
+  "phase": "batch_029_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-029.json",
+  "nextBatch": "original-multisubject-batch-030.json",
   "nextPriorities": [
-    "Acquire exact NECO SSCE, BECE and NERDC class-subject specifications; reconcile IGCSE qualification codes and exam years.",
-    "Use coverage CSV to expand missing objectives and formats; JAMB English oral forms, language listening tasks and full-source mapping remain missing.",
-    "Remediate legacy repeated numerical templates, incomplete fields and unassigned objectives before target counting."
+    "Expand underrepresented Commerce and Financial Accounting in WAEC/JAMB using supplied compilations and official crosschecks.",
+    "Retrieve NECO, BECE and NERDC class-subject specifications.",
+    "Complete IGCSE objective-level and Core-only alignment; Physics/Economics PDF retrieval remains blocked by timeouts."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-language-skills-batch-028.json",
-  "lastRemoteVerifiedCommit": "6e13cb031a9c2d2d2cfcbf85cb490e9449749bcf",
+  "lastValidatedBatch": "original-multisubject-batch-029.json",
+  "lastRemoteVerifiedCommit": "3f4c24558c78c862a4e28edd51dbdf0e7d7734d4",
   "verifiedTotals": {
-    "raw": 1999,
-    "validDrafts": 320,
+    "raw": 2099,
+    "validDrafts": 420,
     "reviewed": 0
   },
-  "lastRunTestCount": 29
+  "lastRunTestCount": 35
 }
