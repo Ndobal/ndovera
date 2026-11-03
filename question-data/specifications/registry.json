@@ -237,6 +237,50 @@
       "officialCrossCheck": "https://ibass.jamb.gov.ng/cbt",
       "status": "provisional_full_current_official_specification_and_country_alignment_pending",
       "note": "No current tax rates or changing statutory thresholds assumed. JAMB accounts full official PDF was not retrieved. WAEC country-specific starred sections are not silently generalised."
+    },
+    {
+      "id": "waec-government-compilation-2026",
+      "exam": "WAEC",
+      "subject": "Government",
+      "kind": "supplied_syllabus_compilation_with_partial_primary_crosscheck",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/waec-syllabus/government",
+      "officialCrossCheck": "https://waeconline.org.ng/e-learning/Government/Govtmain.html",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "No current officeholders, changing international memberships or current statutory thresholds assumed. Invented geographical data are explicitly hypothetical."
+    },
+    {
+      "id": "waec-geography-compilation-2026",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "kind": "supplied_syllabus_compilation_with_partial_primary_crosscheck",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/waec-syllabus/geography",
+      "officialCrossCheck": "https://www.waeconline.org.ng/e-learning/Geography/Geomain.html",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "No current officeholders, changing international memberships or current statutory thresholds assumed. Invented geographical data are explicitly hypothetical."
+    },
+    {
+      "id": "jamb-government-compilation-2026",
+      "exam": "JAMB",
+      "subject": "Government",
+      "kind": "supplied_syllabus_compilation_with_partial_primary_crosscheck",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/government",
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Government.pdf",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "No current officeholders, changing international memberships or current statutory thresholds assumed. Invented geographical data are explicitly hypothetical."
+    },
+    {
+      "id": "jamb-geography-compilation-2026",
+      "exam": "JAMB",
+      "subject": "Geography",
+      "kind": "supplied_syllabus_compilation_with_partial_primary_crosscheck",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/geography",
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Geography.pdf",
+      "status": "provisional_full_current_official_alignment_pending",
+      "note": "No current officeholders, changing international memberships or current statutory thresholds assumed. Invented geographical data are explicitly hypothetical."
     }
   ],
   "banks": [
@@ -3549,6 +3593,412 @@
       "subtopic": "Ratios finance and safeguards",
       "learningObjective": "Interpret accounting information and system controls.",
       "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-government-foundations-v1",
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Political foundations",
+      "subtopic": "State power and legitimacy",
+      "learningObjective": "Distinguish political concepts using evidence.",
+      "specificationId": "waec-government-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-government-constitution-v1",
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Constitutions and principles",
+      "subtopic": "Limits and rights",
+      "learningObjective": "Analyse constitutional limits on power.",
+      "specificationId": "waec-government-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-government-institutions-v1",
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "waec-government-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-government-systems-v1",
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "waec-government-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-government-participation-v1",
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "waec-government-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-government-history-v1",
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Political development",
+      "subtopic": "Colonial rule and nationalism",
+      "learningObjective": "Explain historical institutions and political change.",
+      "specificationId": "waec-government-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-government-international-v1",
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "International relations",
+      "subtopic": "Foreign policy and cooperation",
+      "learningObjective": "Evaluate foreign-policy choices and cooperation.",
+      "specificationId": "waec-government-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-geography-maps-v1",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "waec-geography-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-geography-earth-v1",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Physical geography",
+      "subtopic": "Earth processes and landforms",
+      "learningObjective": "Explain Earth processes and resulting landforms.",
+      "specificationId": "waec-geography-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-geography-climate-v1",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "waec-geography-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-geography-water-v1",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "waec-geography-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-geography-population-v1",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Population and settlement",
+      "learningObjective": "Interpret population and settlement evidence.",
+      "specificationId": "waec-geography-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-geography-economic-v1",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Economic geography",
+      "subtopic": "Industry transport and tourism",
+      "learningObjective": "Evaluate location and development choices.",
+      "specificationId": "waec-geography-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-geography-environment-v1",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Environment and regions",
+      "subtopic": "Resources and sustainability",
+      "learningObjective": "Explain regional interactions and environmental management.",
+      "specificationId": "waec-geography-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-government-foundations-v1",
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political foundations",
+      "subtopic": "State power and legitimacy",
+      "learningObjective": "Distinguish political concepts using evidence.",
+      "specificationId": "jamb-government-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-government-constitution-v1",
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Constitutions and principles",
+      "subtopic": "Limits and rights",
+      "learningObjective": "Analyse constitutional limits on power.",
+      "specificationId": "jamb-government-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-government-institutions-v1",
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "jamb-government-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-government-systems-v1",
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "jamb-government-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-government-participation-v1",
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "jamb-government-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-government-history-v1",
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political development",
+      "subtopic": "Colonial rule and nationalism",
+      "learningObjective": "Explain historical institutions and political change.",
+      "specificationId": "jamb-government-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-government-international-v1",
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "International relations",
+      "subtopic": "Foreign policy and cooperation",
+      "learningObjective": "Evaluate foreign-policy choices and cooperation.",
+      "specificationId": "jamb-government-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-geography-maps-v1",
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-geography-earth-v1",
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Physical geography",
+      "subtopic": "Earth processes and landforms",
+      "learningObjective": "Explain Earth processes and resulting landforms.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-geography-climate-v1",
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-geography-water-v1",
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-geography-population-v1",
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Population and settlement",
+      "learningObjective": "Interpret population and settlement evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-geography-economic-v1",
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Economic geography",
+      "subtopic": "Industry transport and tourism",
+      "learningObjective": "Evaluate location and development choices.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-geography-environment-v1",
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Environment and regions",
+      "subtopic": "Resources and sustainability",
+      "learningObjective": "Explain regional interactions and environmental management.",
+      "specificationId": "jamb-geography-compilation-2026",
       "questionTypes": [
         "mcq"
       ],

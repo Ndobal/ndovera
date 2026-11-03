@@ -2,22 +2,22 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_030_automated_validation_passed",
+  "phase": "batch_031_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-031.json",
+  "nextBatch": "original-multisubject-batch-032.json",
   "nextPriorities": [
-    "Build missing Government and Geography WAEC/JAMB objectives from supplied sources, avoiding reuse of current prompts.",
-    "Retrieve NECO SSCE, BECE and NERDC versioned class-subject sources; do not manufacture class-subject assignments.",
-    "Resolve remaining IGCSE Core-only alignment and exact content objective codes; full Physics/Economics source downloads remain pending.",
-    "Continue legacy remediation and independent academic-review preparation."
+    "Expand Agricultural Science and Computer Studies for WAEC/JAMB using available syllabus evidence.",
+    "NERDC official new class pages /pry_1 and /jss_1 return 403; current class-subject objectives remain unresolved.",
+    "Retrieve NECO SSCE and BECE specifications rather than infer them from WAEC.",
+    "Continue source-code reconciliation, legacy remediation and academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-030.json",
-  "lastRemoteVerifiedCommit": "6f3655df2289883adaa33e202744cbceeaa7678e",
+  "lastValidatedBatch": "original-multisubject-batch-031.json",
+  "lastRemoteVerifiedCommit": "98d433721ba55eb606714aecb902f810b7e6e0ac",
   "verifiedTotals": {
-    "raw": 2199,
-    "validDrafts": 520,
+    "raw": 2299,
+    "validDrafts": 620,
     "reviewed": 0
   },
   "lastRunTestCount": 35

@@ -28,8 +28,8 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Financial Accounting | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Fine Arts | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | French | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Geography | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Government | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Geography | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
+| JAMB | Government | 1000 | 26 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Hausa | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | History | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Home Economics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -135,8 +135,8 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Food and Nutrition | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | French | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Further Mathematics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Geography | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Government | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Geography | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
+| WAEC | Government | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Hausa | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Health Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | History | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -164,15 +164,15 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | 0 | 0 | 0 | 0 | 0 |
 | IELTS | 19 | 10 | 0 | 4000 | 3990 |
 | IGCSE | 121 | 100 | 0 | 4000 | 3900 |
-| JAMB | 853 | 150 | 0 | 25000 | 24850 |
+| JAMB | 903 | 200 | 0 | 25000 | 24800 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 19 | 10 | 0 | 4000 | 3990 |
-| WAEC | 949 | 150 | 0 | 42000 | 41850 |
+| WAEC | 999 | 200 | 0 | 42000 | 41800 |
 
-Overall: {"raw": 2199, "validDrafts": 520, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2299, "validDrafts": 620, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
