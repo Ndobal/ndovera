@@ -605,7 +605,10 @@ self.addEventListener('fetch', function (event) {
 
   var requestUrl = new URL(event.request.url);
   var isNavigationRequest = event.request.mode === 'navigate';
+  // Lite has its own shell. Never put it into the standard application's offline cache.
+  if (requestUrl.pathname === '/compat' || requestUrl.pathname.indexOf('/compat/') === 0) return;
   if (requestUrl.origin !== self.location.origin) return;
+  if (requestUrl.searchParams.get('ndoveraClient') === 'lite') return;
 
   if (requestUrl.pathname.indexOf('/api/') === 0) {
     if (API_NEVER_CACHE.test(requestUrl.pathname) || requestUrl.pathname.indexOf('/stream') !== -1) return;

@@ -25,15 +25,18 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
+    "acorn": "8.16.0",
     "autoprefixer": "^10.4.17",
+    "jsdom": "16.7.0",
     "postcss": "^8.4.35",
     "tailwindcss": "3.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "node scripts/build.cjs && node scripts/writeSpaFallback.cjs",
+    "build": "node scripts/build.cjs && node scripts/writeCompatConfig.cjs && node scripts/writeSpaFallback.cjs",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:compat": "node --test test/compat.test.cjs test/compat-browser.test.cjs"
   },
   "eslintConfig": {
     "extends": [

@@ -111,7 +111,7 @@ const ROUTE_META = {
 };
 
 // Signed-in application surfaces and one-time links. These should never be indexed.
-const NOINDEX_PREFIXES = ['/roles/', '/login', '/change-password', '/reset-password', '/settings', '/classroom', '/assignments', '/exams', '/ai-tutor', '/attendance', '/rewards', '/news'];
+const NOINDEX_PREFIXES = ['/compat', '/roles/', '/login', '/change-password', '/reset-password', '/settings', '/classroom', '/assignments', '/exams', '/ai-tutor', '/attendance', '/rewards', '/news'];
 
 function normalizePath(pathname) {
   if (pathname.length > 1 && pathname.endsWith('/')) return pathname.slice(0, -1);
@@ -171,6 +171,22 @@ export default {
       if (blocked) return blocked;
     }
     const url = new URL(request.url);
+    if (url.pathname === '/compat' || url.pathname === '/compat/') {
+      const target = new URL('/compat/index.html', url);
+      return Response.redirect(target.toString(), 302);
+    }
+    if (url.pathname.startsWith('/compat/')) {
+      const asset = await env.ASSETS.fetch(request);
+      const headers = new Headers(asset.headers);
+      headers.set('Cache-Control', 'no-store');
+      headers.set('X-Robots-Tag', 'noindex, nofollow');
+      headers.set('Referrer-Policy', 'no-referrer');
+      headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https:; img-src 'self' https: data:; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'");
+      if (/\.(js|css)$/.test(url.pathname) && /text\/html/i.test(headers.get('Content-Type') || '')) {
+        return new Response('Not found', {status: 404, headers: {'Content-Type':'text/plain', 'Cache-Control':'no-store'}});
+      }
+      return new Response(request.method === 'HEAD' ? null : asset.body, {status:asset.status, headers});
+    }
     const isDocumentRequest = request.method === 'GET' || request.method === 'HEAD';
     const looksLikeStaticAsset = /\.[^/]+$/.test(url.pathname);
     const isRoot = url.pathname === '/' || url.pathname === '/index.html';
