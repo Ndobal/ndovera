@@ -196,3 +196,9 @@ higher-order tasks where the specification and response format support them.
 Choose the demand by what the learner must do, rather than the wording alone.
 Listen and Repeat still needs audio. The checkpoint separates unaudited
 additions from the last verified dashboard totals.
+
+Batch 042 adds eight TOEFL Speaking interview items on campus exhibitions
+and rehearsal spaces. It also reconciles the eight earlier interview drafts
+from batch 041 with the automated dashboard. The interview groups use
+examiner-read prompts, illustrative answers, and original practice rubrics.
+Listen and Repeat remains open pending audio.

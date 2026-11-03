@@ -2,30 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_041_populated_quality_audit_deferred",
+  "phase": "batch_042_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-042.json",
+  "nextBatch": "original-multisubject-batch-043.json",
   "nextPriorities": [
-    "Expand source-mapped draft coverage using Bloom’s taxonomy. TOEFL Speaking has two unaudited interview sets. Listen and Repeat needs audio assets.",
+    "Verify a current Cambridge IGCSE Mathematics qualification and syllabus before authoring drafts for that bank, which has zero valid drafts. Continue TOEFL Speaking when Listen and Repeat audio is available.",
     "Continue WAEC prescribed Literature beyond Shakespeare: verify editions, permissions and primary-text evidence for poetry/prose/drama theory. Antony and Cleopatra now has 25 WAEC context drafts and 25 provisional JAMB practice drafts; each act represented is not whole-play coverage. Verify current official JAMB set-text adoption independently.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-040.json",
-  "lastRemoteVerifiedCommit": "4fc9e82e92ab8efdf4c9df901555774e8f5401b0",
+  "lastValidatedBatch": "original-multisubject-batch-042.json",
+  "lastRemoteVerifiedCommit": "764d94f4588ab9c83d636912cedde7a1db80d01b",
   "verifiedTotals": {
-    "raw": 2832,
-    "validDrafts": 1153,
+    "raw": 2848,
+    "validDrafts": 1169,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-041.json",
-  "unauditedDraftAdditions": {
-    "original-multisubject-batch-041.json": {
-      "TOEFL/Speaking": 8
-    }
-  },
-  "inventoryRaw": 2840
+  "lastPopulatedBatch": "original-multisubject-batch-042.json",
+  "unauditedDraftAdditions": {},
+  "inventoryRaw": 2848
 }

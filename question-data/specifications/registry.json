@@ -1303,7 +1303,7 @@
       "subject": "Speaking",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+      "scopeStatus": "post_january_2026_interview_mapped_listen_and_repeat_audio_pending"
     },
     {
       "exam": "NERDC",
@@ -6339,6 +6339,40 @@
       "exam": "TOEFL",
       "subject": "Speaking",
       "topic": "Student group meetings",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "Take an Interview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-interview-3-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus exhibition",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "Take an Interview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-interview-4-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Student rehearsal spaces",
       "subtopic": "Take an Interview",
       "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
       "specificationId": "toefl-ibt-speaking-2026",
