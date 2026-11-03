@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "branch": "question-bank/complete-bank-development",
+  "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
+  "phase": "audit_framework_ready",
+  "projectComplete": false,
+  "academicReviewComplete": false,
+  "nextBatch": "original-multisubject-batch-025.json",
+  "nextPriorities": [
+    "Author distinct WAEC/JAMB English and Economics items with objective mappings and detailed solutions.",
+    "Acquire versioned NECO/BECE/NERDC/IGCSE specifications and resolve all scope gaps.",
+    "Remediate legacy duplication, numerical templates, class ambiguity and missing objective mappings."
+  ],
+  "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new"
+}

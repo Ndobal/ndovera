@@ -1,3 +1,5 @@
+> Superseded: see `completion-dashboard.md` and `../README.md` for the complete multi-examination project. Historic counts and Mathematics-only ordering below are not current instructions.
+
 # Ndovera WAEC and JAMB subject-by-subject progress tracker
 
 Source: uploaded third-party syllabus compilations (collected 21 October 2026). Not official examination-body publications.

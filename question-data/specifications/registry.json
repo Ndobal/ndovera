@@ -1,0 +1,1358 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
+  "sources": [
+    {
+      "id": "waec-english-compilation-2026",
+      "exam": "WAEC",
+      "subject": "English Language",
+      "kind": "user_supplied_third_party_compilation",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "sha256": "4147239a890bd32bb2efa612d6975e94f9017f9528684b41fb47f48732ad0abb",
+      "source": "https://myschool.ng/classroom/waec-syllabus/english-language",
+      "officialCrossCheck": "https://www.waeconline.org.ng/e-learning/english/Englmain.html",
+      "status": "provisional_alignment_not_officially_verified"
+    },
+    {
+      "id": "waec-economics-compilation-2026",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "kind": "user_supplied_third_party_compilation",
+      "source": "https://myschool.ng/classroom/waec-syllabus/economics",
+      "officialCrossCheck": "https://www.waeconline.org.ng/e-learning/Economics/econsmain.html",
+      "status": "provisional_alignment_not_officially_verified"
+    },
+    {
+      "id": "jamb-english-ibass-2026",
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "kind": "official_search_extract_and_supplied_compilation",
+      "source": "https://ibass.jamb.gov.ng/assets/uploads/Use-of-English.pdf",
+      "status": "sections_verified_full_current_specification_pending"
+    },
+    {
+      "id": "jamb-economics-ibass-2026",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "kind": "official_search_extract_and_supplied_compilation",
+      "source": "https://ibass.jamb.gov.ng/assets/uploads/Economics.pdf",
+      "status": "partial_official_crosscheck_full_version_pending"
+    },
+    {
+      "id": "waec-catalogue-2026",
+      "source": "https://www.waecnigeria.org/index.php/node/9",
+      "status": "official_catalogue_seen_2028_transition_recorded"
+    },
+    {
+      "id": "ncee-2026",
+      "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
+      "status": "official_paper_components_seen"
+    },
+    {
+      "id": "neco-ssce-2026",
+      "source": "https://neco.gov.ng/exams/ssce-internal",
+      "status": "official_index_seen_full_subjects_and_syllabuses_pending"
+    },
+    {
+      "id": "nerdc-current",
+      "source": "https://www.nerdc.gov.ng/content_manager/new_curriculum_home.html",
+      "status": "official_index_seen_class_subject_objectives_not_retrieved"
+    },
+    {
+      "id": "igcse-current",
+      "source": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-upper-secondary/cambridge-igcse/subjects/",
+      "status": "official_index_seen_over_70_subjects_not_all_application_selected"
+    },
+    {
+      "id": "sat-current",
+      "source": "https://satsuite.collegeboard.org/higher-ed-professionals/sat-validity/content-domains",
+      "status": "official_domains_seen"
+    },
+    {
+      "id": "ielts-current",
+      "source": "https://ielts.org/take-a-test/test-types",
+      "status": "academic_general_reading_writing_differ_shared_listening_speaking"
+    },
+    {
+      "id": "toefl-2026",
+      "source": "https://www.ets.org/toefl/test-takers/ibt/about/content.html?version=after-jan-2026",
+      "status": "post_2026_01_21_task_structure_required"
+    }
+  ],
+  "banks": [
+    {
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "English Language",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Economics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Agricultural Science",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "History",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Music",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "French",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Animal Husbandry",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Insurance",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Civic Education",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Further Mathematics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Book Keeping",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Data Processing",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Catering Craft Practice",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Studies",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Marketing",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Office Practice",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Technical Drawing",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Food and Nutrition",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Home Management",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Mathematics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Economics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Christian Religious Knowledge (CRK)",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Agricultural Science",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Islamic Religious Knowledge (IRK)",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "History",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Fine Arts",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Music",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "French",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Yoruba",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Igbo",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Arabic",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Home Economics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Hausa",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Computer Studies",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physical Education",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "candidate_from_supplied_compilation"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Health Education",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Visual Art",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Fashion Design and Garment Making",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Livestock Farming",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Beauty and Cosmetology",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Computer Hardware and GSM Repairs",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Solar Photovoltaic Installation and Maintenance",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Horticulture and Crop Production",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Citizenship and Heritage Studies",
+      "level": "",
+      "target": null,
+      "scopeStatus": "future_2028_not_current_exam_target"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Digital Technologies",
+      "level": "",
+      "target": null,
+      "scopeStatus": "future_2028_not_current_exam_target"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Verbal Aptitude",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+    },
+    {
+      "exam": "SAT",
+      "subject": "Mathematics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_current_section_domains_seen"
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_current_section_domains_seen"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Reading",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Reading",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Pre-Nursery",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Nursery 1",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Nursery 2",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Nursery 3",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Primary 1",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Primary 2",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Primary 3",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Primary 4",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Primary 5",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "Primary 6",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "JSS 1",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "JSS 2",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "JSS 3",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "SS 1",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "SS 2",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "[subject list unresolved]",
+      "level": "SS 3",
+      "target": null,
+      "scopeStatus": "application_class_supported_curriculum_not_in_repository"
+    },
+    {
+      "exam": "BECE",
+      "subject": "[subject list unresolved]",
+      "level": "",
+      "target": null,
+      "scopeStatus": "application_catalogue_supported_specification_missing"
+    }
+  ],
+  "objectives": [
+    {
+      "id": "waec-english-structure-v1",
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "waec-english-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-english-meaning-v1",
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "waec-english-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-english-register-v1",
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Lexis and structure",
+      "subtopic": "Register and cohesion",
+      "learningObjective": "Select vocabulary and links suited to a communicative situation.",
+      "specificationId": "waec-english-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-english-inference-v1",
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference and evidence",
+      "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
+      "specificationId": "waec-english-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-english-purpose-v1",
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Purpose and organisation",
+      "learningObjective": "Identify a writer's purpose, central point or organisation.",
+      "specificationId": "waec-english-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-english-summary-v1",
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Summary",
+      "subtopic": "Selecting key information",
+      "learningObjective": "Express requested main ideas concisely without adding unsupported details.",
+      "specificationId": "waec-english-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-english-composition-v1",
+      "exam": "WAEC",
+      "subject": "English Language",
+      "topic": "Composition",
+      "subtopic": "Audience and organisation",
+      "learningObjective": "Develop a coherent written response appropriate to a stated audience and purpose.",
+      "specificationId": "waec-english-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-choice-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Basic economic concepts",
+      "subtopic": "Opportunity cost and allocation",
+      "learningObjective": "Analyse choices and resource allocation under scarcity.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-tools-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Tools of economic analysis",
+      "subtopic": "Tables and statistics",
+      "learningObjective": "Interpret economic data using appropriate quantitative tools.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-demand-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Demand and supply",
+      "subtopic": "Market changes",
+      "learningObjective": "Distinguish curve shifts from movements and analyse price determination.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-elasticity-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Elasticity",
+      "subtopic": "Responsiveness",
+      "learningObjective": "Apply elasticity measures to expenditure and revenue decisions.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-production-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Production and costs",
+      "subtopic": "Efficiency and costs",
+      "learningObjective": "Explain production relationships and evaluate cost information.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-market-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Market structures",
+      "subtopic": "Competition and power",
+      "learningObjective": "Compare firm behaviour under different market conditions.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-money-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Money and banking",
+      "subtopic": "Credit and price level",
+      "learningObjective": "Explain monetary institutions and changes in purchasing power.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-national-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "National income",
+      "subtopic": "Output and welfare",
+      "learningObjective": "Interpret income measures and their limits as welfare indicators.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-public-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Public finance",
+      "subtopic": "Taxation and spending",
+      "learningObjective": "Evaluate fiscal choices and their distributional effects.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-trade-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "International trade",
+      "subtopic": "Specialisation and exchange",
+      "learningObjective": "Analyse trade choices and external transactions.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-economics-development-v1",
+      "exam": "WAEC",
+      "subject": "Economics",
+      "topic": "Development and labour",
+      "subtopic": "Population and structural change",
+      "learningObjective": "Explain development constraints and labour market outcomes.",
+      "specificationId": "waec-economics-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured",
+        "essay",
+        "comprehension"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-english-structure-v1",
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Grammar in context",
+      "learningObjective": "Choose grammatically accurate forms in context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-english-meaning-v1",
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Meaning in context",
+      "learningObjective": "Infer the intended sense of a word or expression from its context.",
+      "specificationId": "jamb-english-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-english-register-v1",
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Lexis and structure",
+      "subtopic": "Register and cohesion",
+      "learningObjective": "Select vocabulary and links suited to a communicative situation.",
+      "specificationId": "jamb-english-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-english-inference-v1",
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Inference and evidence",
+      "learningObjective": "Draw a conclusion warranted by a passage and distinguish it from an unsupported claim.",
+      "specificationId": "jamb-english-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-english-purpose-v1",
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Comprehension",
+      "subtopic": "Purpose and organisation",
+      "learningObjective": "Identify a writer's purpose, central point or organisation.",
+      "specificationId": "jamb-english-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-english-summary-v1",
+      "exam": "JAMB",
+      "subject": "Use of English",
+      "topic": "Summary",
+      "subtopic": "Selecting key information",
+      "learningObjective": "Express requested main ideas concisely without adding unsupported details.",
+      "specificationId": "jamb-english-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-choice-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Basic economic concepts",
+      "subtopic": "Opportunity cost and allocation",
+      "learningObjective": "Analyse choices and resource allocation under scarcity.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-tools-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Tools of economic analysis",
+      "subtopic": "Tables and statistics",
+      "learningObjective": "Interpret economic data using appropriate quantitative tools.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-demand-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Demand and supply",
+      "subtopic": "Market changes",
+      "learningObjective": "Distinguish curve shifts from movements and analyse price determination.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-elasticity-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Elasticity",
+      "subtopic": "Responsiveness",
+      "learningObjective": "Apply elasticity measures to expenditure and revenue decisions.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-production-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Production and costs",
+      "subtopic": "Efficiency and costs",
+      "learningObjective": "Explain production relationships and evaluate cost information.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-market-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Market structures",
+      "subtopic": "Competition and power",
+      "learningObjective": "Compare firm behaviour under different market conditions.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-money-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Money and banking",
+      "subtopic": "Credit and price level",
+      "learningObjective": "Explain monetary institutions and changes in purchasing power.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-national-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "National income",
+      "subtopic": "Output and welfare",
+      "learningObjective": "Interpret income measures and their limits as welfare indicators.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-public-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Public finance",
+      "subtopic": "Taxation and spending",
+      "learningObjective": "Evaluate fiscal choices and their distributional effects.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-trade-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "International trade",
+      "subtopic": "Specialisation and exchange",
+      "learningObjective": "Analyse trade choices and external transactions.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-economics-development-v1",
+      "exam": "JAMB",
+      "subject": "Economics",
+      "topic": "Development and labour",
+      "subtopic": "Population and structural change",
+      "learningObjective": "Explain development constraints and labour market outcomes.",
+      "specificationId": "jamb-economics-ibass-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    }
+  ],
+  "scopeGaps": [
+    "No versioned NERDC, NECO, BECE or full IGCSE subject syllabuses exist in this checkout. Database-held or tenant-defined specifications were not accessed. Do not invent class-subject cross-products.",
+    "JAMB appears in question data but is absent from EXAM_CATALOG; BECE is in the app catalogue but has no stored question batch. Application behaviour has not been changed.",
+    "WAEC/JAMB supplied compilations list 37 subject labels, with only 33/25 collected respectively. These indexes are candidate scope, not definitive examination subject catalogues.",
+    "WAEC official catalogue distinguishes new 2028 core subjects. Historical labels and trade subjects require examination-year reconciliation before targets become final.",
+    "NERDC supports 16 application class labels; many existing drafts say only Nursery, Primary, JSS or SS. Exact class, adopted curriculum version, term and objectives require source evidence.",
+    "NCEE official 2026 components include National Values Education and vocational aptitude. Existing Basic Science, Quantitative Reasoning and Verbal Reasoning labels need component mapping.",
+    "IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.",
+    "IELTS Reading/Writing require Academic versus General Training variants. Listening/Speaking need original audio assets and performance rubrics; MCQ writing advice is not a writing task.",
+    "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
+    "Objective register covers selected English/Economics objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
+    "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
+    "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off."
+  ]
+}

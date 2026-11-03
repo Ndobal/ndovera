@@ -1,0 +1,149 @@
+exam,subject,level,target,raw,validDrafts,reviewed,remaining,mappedObjectives,representedObjectives,coverage,scopeStatus
+BECE,[subject list unresolved],,,0,0,0,,0,0,specification_unresolved,application_catalogue_supported_specification_missing
+IELTS,Listening,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+IELTS,Reading,,1000,6,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+IELTS,Speaking,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+IELTS,Writing,,1000,3,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+IGCSE,Biology,,1000,4,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+IGCSE,Chemistry,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+IGCSE,Mathematics,,1000,14,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+IGCSE,Physics,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+JAMB,Agricultural Science,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Arabic,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Biology,,1000,18,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Chemistry,,1000,3,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Christian Religious Knowledge (CRK),,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Commerce,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Computer Studies,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Economics,,1000,2,0,0,1000,11,0,partial_objective_register,candidate_from_supplied_compilation
+JAMB,Financial Accounting,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Fine Arts,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,French,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Geography,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Government,,1000,1,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Hausa,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,History,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Home Economics,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Igbo,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Islamic Religious Knowledge (IRK),,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Literature in English,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Mathematics,,1000,673,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Music,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Physical Education,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Physics,,1000,3,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+JAMB,Use of English,,1000,3,0,0,1000,6,0,partial_objective_register,candidate_from_supplied_compilation
+JAMB,Yoruba,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+NCEE,Basic Science,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NCEE,Basic Science and Technology,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
+NCEE,English Studies,,1000,3,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
+NCEE,Mathematics,,1000,15,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
+NCEE,National Values Education,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
+NCEE,Quantitative Reasoning,,1000,5,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NCEE,Quantitative and Vocational Aptitude,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
+NCEE,Verbal Aptitude,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_paper_components_topic_specification_pending
+NCEE,Verbal Reasoning,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Agricultural Science,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Biology,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Chemistry,,1000,4,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Civic Education,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Commerce,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Economics,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,English Language,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Financial Accounting,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Geography,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Government,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Mathematics,,1000,14,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Physics,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Basic Science,JSS 2,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Basic Science,Nursery,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Basic Science,Primary,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Basic Science,Primary 2,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Basic Science,Primary 5,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Basic Technology,JSS 2,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Chemistry,SS 2,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Computer Studies,JSS,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Economics,SS 1,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,English,Primary,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,English Studies,JSS 1,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,English Studies,Primary 3,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,English Studies,Primary 4,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Financial Accounting,SS,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Literacy,Nursery,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,JSS,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,JSS 1,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,JSS 2,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,JSS 3,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,Primary,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,Primary 1,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,Primary 2,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,Primary 3,1000,20,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,Primary 4,1000,11,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,Primary 6,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Numeracy,Nursery,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Physics,SS 3,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,[subject list unresolved],JSS 1,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],JSS 2,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],JSS 3,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Nursery 1,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Nursery 2,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Nursery 3,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Pre-Nursery,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Primary 1,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Primary 2,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Primary 3,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Primary 4,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Primary 5,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],Primary 6,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],SS 1,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],SS 2,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+NERDC,[subject list unresolved],SS 3,,0,0,0,,0,0,specification_unresolved,application_class_supported_curriculum_not_in_repository
+SAT,Mathematics,,1000,6,0,0,1000,0,0,specification_unresolved,official_current_section_domains_seen
+SAT,Reading and Writing,,1000,3,0,0,1000,0,0,specification_unresolved,official_current_section_domains_seen
+TOEFL,Listening,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+TOEFL,Reading,,1000,6,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+TOEFL,Speaking,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+TOEFL,Writing,,1000,3,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+WAEC,Agricultural Science,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Animal Husbandry,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Arabic,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,Beauty and Cosmetology,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,Biology,,1000,3,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Book Keeping,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Catering Craft Practice,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Chemistry,,1000,6,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Christian Religious Knowledge (CRK),,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Citizenship and Heritage Studies,,,0,0,0,,0,0,specification_unresolved,future_2028_not_current_exam_target
+WAEC,Civic Education,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Commerce,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Computer Hardware and GSM Repairs,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,Computer Studies,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Data Processing,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Digital Technologies,,,0,0,0,,0,0,specification_unresolved,future_2028_not_current_exam_target
+WAEC,Economics,,1000,4,0,0,1000,11,0,partial_objective_register,candidate_from_supplied_compilation
+WAEC,English Language,,1000,3,0,0,1000,7,0,partial_objective_register,candidate_from_supplied_compilation
+WAEC,Fashion Design and Garment Making,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,Financial Accounting,,1000,4,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Food and Nutrition,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,French,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Further Mathematics,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Geography,,1000,2,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Government,,1000,2,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Hausa,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Health Education,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,History,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Home Management,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Horticulture and Crop Production,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,Igbo,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Insurance,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Islamic Religious Knowledge (IRK),,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Literature in English,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Livestock Farming,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,Marketing,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Mathematics,,1000,769,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Music,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Office Practice,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Physics,,1000,6,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Solar Photovoltaic Installation and Maintenance,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,Technical Drawing,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Visual Art,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,Yoruba,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
