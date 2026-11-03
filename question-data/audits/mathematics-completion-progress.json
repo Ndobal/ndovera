@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 334,
-      "remainingToNumericTarget": 666,
+      "stagedQuestionCount": 384,
+      "remainingToNumericTarget": 616,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 318,
-      "remainingToNumericTarget": 682,
+      "stagedQuestionCount": 368,
+      "remainingToNumericTarget": 632,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -50,7 +50,11 @@
     "question-data/original-mathematics-batch-015a.json",
     "question-data/original-mathematics-batch-015b.json",
     "question-data/original-mathematics-batch-015c.json",
-    "question-data/original-mathematics-batch-015d.json"
+    "question-data/original-mathematics-batch-015d.json",
+    "question-data/original-mathematics-batch-016a.json",
+    "question-data/original-mathematics-batch-016b.json",
+    "question-data/original-mathematics-batch-016c.json",
+    "question-data/original-mathematics-batch-016d.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -77,13 +81,17 @@
     "batch015QuestionCount": 100,
     "batch015StructuralChecksPassed": true,
     "batch015MatrixIntegralArithmeticChecksPassed": true,
-    "batch015IndependentAcademicReview": false
+    "batch015IndependentAcademicReview": false,
+    "batch016QuestionCount": 100,
+    "batch016UniqueOptionAndAnswerReferenceChecksPassed": true,
+    "batch016CalculusArithmeticChecksPassed": true,
+    "batch016IndependentAcademicReview": false
   },
   "nextPriorities": [
-    "Address conceptual duplication in parameter-generated questions",
-    "Expand to underrepresented advanced objectives and WAEC theory",
-    "Review syllabus alignment and all mathematical solutions",
-    "Keep draft data out of production until academic validation"
+    "Map question bank against syllabus objectives",
+    "Stop overproducing similar parameterized patterns and prioritise new question concepts",
+    "Develop higher-difficulty multistep Mathematics questions",
+    "Complete independent academic review before production import"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
