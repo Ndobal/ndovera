@@ -1,0 +1,713 @@
+{
+  "schemaVersion": 1,
+  "collection": "WAEC Mathematics theory batch 023a",
+  "questionCount": 20,
+  "note": "Original draft theory questions with marking guides; pending independent academic verification.",
+  "questions": [
+    {
+      "id": "waec-maths-theory-0037",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Arithmetic progression",
+      "type": "structured",
+      "prompt": "A sequence has first term 7 and tenth term 43. Determine the common difference and sum of its first ten terms.",
+      "answer": "d=(43−7)/9=4. S₁₀=10(7+43)/2=250.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use nth-term formula",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find d=4",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Use sum formula",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Find 250",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0038",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Quadratic equations",
+      "type": "structured",
+      "prompt": "The sum of two positive integers is 19 and their product is 84. Find the integers.",
+      "answer": "Let x+y=19 and xy=84. Solve t²−19t+84=(t−7)(t−12)=0. Integers are 7 and 12.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Form quadratic",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Factor correctly",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State integers",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0039",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Simple interest",
+      "type": "structured",
+      "prompt": "A loan of ₦150,000 attracts simple interest at 8% yearly. How much is repaid after 18 months?",
+      "answer": "18 months=1.5 years. I=150000×0.08×1.5=₦18,000. Total=₦168,000.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Convert time",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate interest",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Calculate repayment",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0040",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Circle mensuration",
+      "type": "structured",
+      "prompt": "A wheel has diameter 70 cm. Calculate how far it travels in 200 complete revolutions. Use π=22/7 and express the result in metres.",
+      "answer": "Circumference=(22/7)×70=220 cm. Distance=220×200=44,000 cm=440 m.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find circumference",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Multiply by revolutions",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Convert to metres",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0041",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Coordinate geometry",
+      "type": "structured",
+      "prompt": "A(−3,2), B(5,2) and C(5,8) are vertices of a triangle. Find its area and perimeter.",
+      "answer": "AB=8, BC=6, AC=√(8²+6²)=10. Area=½×8×6=24 square units. Perimeter=8+6+10=24 units.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find side lengths",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Find area",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Find perimeter",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0042",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Probability",
+      "type": "structured",
+      "prompt": "A bag contains 3 red and 5 blue beads. Two beads are drawn without replacement. Find the probability of getting one of each colour.",
+      "answer": "P(R then B)+P(B then R)=(3/8)(5/7)+(5/8)(3/7)=30/56=15/28.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify both orders",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate probabilities",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Add and simplify",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0043",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Statistics",
+      "type": "structured",
+      "prompt": "The scores 2, 3, 4, 5 have frequencies 1, 2, 4, 3 respectively. Find the mean and mode.",
+      "answer": "N=1+2+4+3=10. Weighted sum=2+6+16+15=39. Mean=3.9. Mode=4.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Total frequency",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Weighted sum",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Mean",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Mode",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0044",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Simultaneous equations",
+      "type": "structured",
+      "prompt": "A farmer bought 5 bags of maize and 3 bags of rice for ₦87,000. Another farmer bought 2 bags of maize and 4 bags of rice for ₦74,000. Find the price of each bag.",
+      "answer": "Let m,r be prices. 5m+3r=87000, 2m+4r=74000. From second m=37000−2r. Substitute:185000−10r+3r=87000, r=14000 and m=9000.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Set up equations",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Eliminate variable",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Find rice price",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Find maize price",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0045",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Indices",
+      "type": "structured",
+      "prompt": "Solve 2^(2x+1)=32 and verify the answer.",
+      "answer": "32=2⁵, so 2x+1=5 and x=2. Check 2^(2×2+1)=2⁵=32.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Express 32 as power of 2",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Solve x=2",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Verify",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 6,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0046",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Trigonometry",
+      "type": "structured",
+      "prompt": "A ladder 10 m long rests against a wall and makes an angle of 60° with the ground. Find the height reached and distance of its foot from the wall.",
+      "answer": "Height=10sin60°=5√3 m. Horizontal distance=10cos60°=5 m.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify ratios",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find height",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Find distance",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0047",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Variation",
+      "type": "structured",
+      "prompt": "The cost C of printing leaflets varies directly as their number n, with a fixed setup fee of ₦2,000. If 100 leaflets cost ₦7,000, find the cost of 250 leaflets.",
+      "answer": "C=kn+2000. 7000=100k+2000 gives k=50. For 250, C=50×250+2000=₦14,500.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Form model",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find k",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Calculate cost",
+          "marks": 3
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0048",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Linear inequalities",
+      "type": "structured",
+      "prompt": "A taxi charges ₦1,200 plus ₦350 per kilometre. A passenger has ₦5,400. Form and solve an inequality for the maximum whole number of kilometres affordable.",
+      "answer": "1200+350d≤5400, so 350d≤4200 and d≤12. Maximum whole kilometres=12.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Form inequality",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Solve",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Interpret maximum",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0049",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Logarithms",
+      "type": "structured",
+      "prompt": "Given log₁₀2≈0.3010 and log₁₀3≈0.4771, calculate log₁₀72 correct to four decimal places.",
+      "answer": "72=2³×3². log72=3(0.3010)+2(0.4771)=0.9030+0.9542=1.8572.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Factorise 72",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Apply log laws",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Calculate result",
+          "marks": 3
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0050",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Surface area",
+      "type": "structured",
+      "prompt": "A cuboid has dimensions 8 cm, 5 cm and 3 cm. Find its total surface area and volume.",
+      "answer": "TSA=2(8×5+8×3+5×3)=2(40+24+15)=158 cm². Volume=8×5×3=120 cm³.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Surface area formula",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate area",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Volume formula",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Calculate volume",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0051",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Geometric progression",
+      "type": "structured",
+      "prompt": "The first three terms of a geometric progression are x, 12 and 18. Find x and the common ratio.",
+      "answer": "For GP, 12²=18x, so x=144/18=8. Ratio=12/8=3/2.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use GP relationship",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find x",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Find ratio",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 6,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0052",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Functions",
+      "type": "structured",
+      "prompt": "Let f(x)=x²−4x+1. Express f(x) in completed-square form and state its minimum value.",
+      "answer": "f(x)=(x−2)²−3, hence minimum value −3 at x=2.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Complete square",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Find minimum",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State location",
+          "marks": 1
+        }
+      ],
+      "maxMarks": 6,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0053",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Percentages",
+      "type": "structured",
+      "prompt": "A shopkeeper marks a bag at ₦45,000 and gives a 12% discount. Find the discount and selling price.",
+      "answer": "Discount=0.12×45000=₦5,400. Selling price=₦45,000−₦5,400=₦39,600.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate discount",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Find selling price",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 5,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0054",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Bearings",
+      "type": "structured",
+      "prompt": "A traveller walks 6 km due east then 8 km due north. Find the straight-line distance from the starting point and the bearing of the final position to the nearest degree.",
+      "answer": "Distance=√(6²+8²)=10 km. Bearing clockwise from north: arctan(6/8)≈36.87°, or 037°.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use Pythagoras",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find 10 km",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Compute angle from north",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Give 037°",
+          "marks": 1
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0055",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Sets",
+      "type": "structured",
+      "prompt": "In a class of 50, 28 take Art, 30 take Music and 12 take neither. How many take both, only Art and only Music?",
+      "answer": "At least one=38. Both=28+30−38=20. Only Art=8, only Music=10.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find union",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find intersection",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Find only Art",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Find only Music",
+          "marks": 1
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0056",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Arithmetic reasoning",
+      "type": "structured",
+      "prompt": "Three consecutive even integers have sum 90. Find them.",
+      "answer": "Let integers be x−2,x,x+2. Then 3x=90, x=30. Integers are 28,30,32.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Set up expression",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Solve middle integer",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "List all three",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 6,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    }
+  ]
+}
