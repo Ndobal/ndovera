@@ -687,6 +687,16 @@
       "retrievedOn": "2026-11-03",
       "effectiveFrom": "2026-01-21",
       "note": "Official current task families and ETS overview sample task conventions. Standalone practice only; adaptive assembly and scaled scores are outside this batch."
+    },
+    {
+      "id": "toefl-ibt-speaking-2026",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "kind": "official_format",
+      "source": "https://www.ets.org/toefl/test-takers/ibt/about/content/speaking.html",
+      "formatGuide": "https://www.in.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-specifications-2026.pdf",
+      "retrievedOn": "2026-11-04",
+      "note": "Take an Interview prompts are original examiner scripts. Listen and Repeat awaits audio assets."
     }
   ],
   "banks": [
@@ -6303,6 +6313,40 @@
       ],
       "sourceSections": [
         "Read an Academic Passage"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-interview-1-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus orientation",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "Take an Interview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-interview-2-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Student group meetings",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "Take an Interview"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null

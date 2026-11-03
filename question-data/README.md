@@ -188,3 +188,11 @@ questions. The registered ETS sources establish the task families and
 sample conventions for the January 2026 redesign. These standalone groups
 use one practice mark per item. Adaptive assembly and scaled scoring remain
 outside this batch.
+
+Batch 041 starts draft population with two original TOEFL Speaking interview
+sets. Use Bloom's taxonomy to plan the cognitive demand of each question
+against the source-mapped topic. Across a topic, include foundational and
+higher-order tasks where the specification and response format support them.
+Choose the demand by what the learner must do, rather than the wording alone.
+Listen and Repeat still needs audio. The checkpoint separates unaudited
+additions from the last verified dashboard totals.

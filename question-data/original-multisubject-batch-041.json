@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 2,
+  "collection": "Ndovera TOEFL iBT Speaking interview drafts",
+  "questionCount": 8,
+  "note": "Examiner reads the original prompts aloud. Four-mark practice rubrics do not convert to ETS scores. Batch has not been through the quality audit.",
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus orientation",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-041-001",
+      "objectiveId": "toefl-interview-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Think about your first day at a new school or training centre. What place did you need to find, and what helped you find it?",
+      "answer": "I needed to find the registration desk. A student volunteer at the entrance pointed me towards the courtyard, where I saw a sign for new students.",
+      "explanation": "This is one illustrative response. Award credit for other relevant, coherent spoken answers. Recount a concrete need and a relevant source of help.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recount a concrete need and a relevant source of help."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the response with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Organise ideas coherently and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly with a pace that lets the listener follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "taskGroupId": "ndv-041-interview-1",
+      "groupItem": 1,
+      "groupSize": 4
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus orientation",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-041-002",
+      "objectiveId": "toefl-interview-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "A new student has fifteen minutes before class and cannot find the room. What would you advise the student to do first, and why?",
+      "answer": "I would ask the nearest staff member to check the room number on my timetable. That is quicker than walking around, and the staff member may know if the class has moved.",
+      "explanation": "This is one illustrative response. Award credit for other relevant, coherent spoken answers. Apply a feasible wayfinding strategy under a time constraint.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Apply a feasible wayfinding strategy under a time constraint."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the response with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Organise ideas coherently and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly with a pace that lets the listener follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "taskGroupId": "ndv-041-interview-1",
+      "groupItem": 2,
+      "groupSize": 4
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus orientation",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-041-003",
+      "objectiveId": "toefl-interview-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "How might a printed campus map and a student guide help newcomers in different ways?",
+      "answer": "A map shows how the buildings fit together and can be used any time. A guide can explain temporary changes, such as a closed entrance. The map is better for planning, while the guide can respond to a problem as it comes up.",
+      "explanation": "This is one illustrative response. Award credit for other relevant, coherent spoken answers. Compare the tools by explaining different functions.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Compare the tools by explaining different functions."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the response with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Organise ideas coherently and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly with a pace that lets the listener follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "taskGroupId": "ndv-041-interview-1",
+      "groupItem": 3,
+      "groupSize": 4
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus orientation",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-041-004",
+      "objectiveId": "toefl-interview-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "If a campus could fund either clearer signs or an extra welcome desk, which should it choose and what might it lose by choosing that option?",
+      "answer": "I would choose clearer signs if most problems involve finding buildings. Signs work throughout the day and reach people who arrive late. The drawback is that they cannot help someone who has a question about a room change.",
+      "explanation": "This is one illustrative response. Award credit for other relevant, coherent spoken answers. Choose a solution using a criterion and acknowledge a trade-off.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Choose a solution using a criterion and acknowledge a trade-off."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the response with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Organise ideas coherently and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly with a pace that lets the listener follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "taskGroupId": "ndv-041-interview-1",
+      "groupItem": 4,
+      "groupSize": 4
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Student group meetings",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-041-005",
+      "objectiveId": "toefl-interview-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "What makes a useful reminder for a student group meeting? Explain one feature using an example.",
+      "answer": "A useful reminder tells people what they need to bring. For example, asking everyone to bring one photo for a poster lets them prepare something specific before they arrive.",
+      "explanation": "This is one illustrative response. Award credit for other relevant, coherent spoken answers. Explain a useful feature and illustrate its effect.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain a useful feature and illustrate its effect."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the response with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Organise ideas coherently and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly with a pace that lets the listener follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "taskGroupId": "ndv-041-interview-2",
+      "groupItem": 1,
+      "groupSize": 4
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Student group meetings",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-041-006",
+      "objectiveId": "toefl-interview-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Two members miss the meeting but need to act on one decision that evening. How would you pass on the decision?",
+      "answer": "I would send a short message saying what was decided, who needs to act, and the deadline. I would ask both members to confirm that they had seen it so we could follow up promptly if needed.",
+      "explanation": "This is one illustrative response. Award credit for other relevant, coherent spoken answers. Apply a communication method to a specific constraint.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Apply a communication method to a specific constraint."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the response with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Organise ideas coherently and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly with a pace that lets the listener follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "taskGroupId": "ndv-041-interview-2",
+      "groupItem": 2,
+      "groupSize": 4
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Student group meetings",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-041-007",
+      "objectiveId": "toefl-interview-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Some members speak more easily online, while others speak more easily in person. Why might changing the meeting format affect whose ideas the group hears?",
+      "answer": "Online meetings can let people use a chat box if they hesitate to interrupt. In person, it may be easier to notice when someone is waiting to speak. The format changes how people enter the conversation, so it can change whose ideas get discussed.",
+      "explanation": "This is one illustrative response. Award credit for other relevant, coherent spoken answers. Connect two participation mechanisms to their effects.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connect two participation mechanisms to their effects."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the response with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Organise ideas coherently and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly with a pace that lets the listener follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "taskGroupId": "ndv-041-interview-2",
+      "groupItem": 3,
+      "groupSize": 4
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Student group meetings",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-041-008",
+      "objectiveId": "toefl-interview-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Design a short meeting routine that gives everyone a chance to contribute and ends with a clear decision. Explain how it would work.",
+      "answer": "I would give everyone a minute to think, then ask each person for one idea before anyone responds. After that, we would compare the ideas and vote. At the end, one person would read back the decision and the next action.",
+      "explanation": "This is one illustrative response. Award credit for other relevant, coherent spoken answers. Propose a coherent routine addressing both participation and closure.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Propose a coherent routine addressing both participation and closure."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the response with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Organise ideas coherently and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly with a pace that lets the listener follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "taskGroupId": "ndv-041-interview-2",
+      "groupItem": 4,
+      "groupSize": 4
+    }
+  ]
+}
