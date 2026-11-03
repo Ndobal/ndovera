@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 144,
-      "remainingToNumericTarget": 856,
+      "stagedQuestionCount": 166,
+      "remainingToNumericTarget": 834,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 146,
-      "remainingToNumericTarget": 854,
+      "stagedQuestionCount": 156,
+      "remainingToNumericTarget": 844,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -34,7 +34,9 @@
   "newFiles": [
     "question-data/original-mathematics-batch-008.json",
     "question-data/original-mathematics-batch-009.json",
-    "question-data/original-mathematics-batch-010.json"
+    "question-data/original-mathematics-batch-010.json",
+    "question-data/original-mathematics-batch-011.json",
+    "question-data/original-waec-mathematics-theory-batch-001.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -44,14 +46,18 @@
     "independentAcademicReview": false,
     "conceptLevelDuplicateAudit": false,
     "batch008To010Count": 240,
-    "batch010DefiniteIntegralCorrections": 24
+    "batch010DefiniteIntegralCorrections": 24,
+    "batch011MCQCount": 22,
+    "waecTheoryDraftCount": 10,
+    "theoryFormatSupportedByApp": false,
+    "batch011CorrectedAmbiguousDistractor": true
   },
   "nextPriorities": [
-    "Build topic/objective index from each Mathematics syllabus",
-    "Fill uncovered topics such as JAMB integration, loci, matrices, statistics and WAEC theory",
-    "Use more multistep reasoning and fewer parameter-only variations",
-    "Verify every worked solution and tag difficulty honestly",
-    "Publish measurable objective coverage, not just raw counts"
+    "Map all mathematics questions to source syllabus objectives",
+    "Review and verify answers including structured marking guides",
+    "Add advanced multistep questions across underrepresented objectives",
+    "Build full WAEC theory and JAMB objective coverage",
+    "Check conceptual duplication and validate against D1 before any import"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
