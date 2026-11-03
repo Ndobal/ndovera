@@ -28,6 +28,11 @@ def normalize(text):
         str.maketrans({'−': '-', '–': '-', '’': "'"}))).strip()
 
 
+def option_key(text):
+    # Case is meaningful in genotype notation, chemical symbols and SI units.
+    return re.sub(r'\s+', ' ', text).strip()
+
+
 def signature(q, numeric=False):
     text = normalize(str(q.get('prompt', '')) + '\n' + str(q.get('passage', '')))
     text = re.sub(r'^(?:for )?(?:waec|jamb)(?: mathematics)?[:,]?\s*', '', text)
@@ -92,7 +97,7 @@ def check_question(q, objectives):
                 not isinstance(v, str) or not v.strip() for v in options):
             errors.append('mcq_requires_four_text_options')
         else:
-            if len(set(map(normalize, options))) != 4: errors.append('duplicate_options')
+            if len(set(map(option_key, options))) != 4: errors.append('duplicate_options')
             letter = q.get('correctOption')
             if letter not in ('A', 'B', 'C', 'D') or options[ord(letter)-65] != q.get('answer'):
                 errors.append('answer_option_mismatch')
@@ -104,8 +109,8 @@ def check_question(q, objectives):
         elif any(not isinstance(g, dict) or type(g.get('marks')) not in (int, float)
                  or g['marks'] <= 0 or not g.get('description') for g in guide):
             errors.append('marking_guide_requires_positive_marks_and_criteria')
-        elif sum(g['marks'] for g in guide) != score: errors.append('marking_total_mismatch')
-        if q.get('maxMarks') != score: errors.append('max_marks_mismatch')
+        elif sum(g['marks'] for g in guide) != q.get('maxMarks'): errors.append('marking_total_mismatch')
+        if score is not None and q.get('maxMarks') != score: errors.append('max_marks_mismatch')
     if q.get('exam') == 'JAMB' and q.get('type') != 'mcq': errors.append('jamb_format_mismatch')
     if q.get('exam') == 'NERDC' and not re.fullmatch(
             r'(?:Nursery [1-3]|Primary [1-6]|JSS [1-3]|SS [1-3]|Pre-Nursery)', q.get('level', '')):
@@ -119,6 +124,16 @@ def check_question(q, objectives):
         if obj.get('level') and q.get('level') != obj['level']: errors.append('objective_class_mismatch')
     if q.get('academicReview') != {'status': 'pending', 'reviewer': None}:
         errors.append('independent_review_evidence_missing_or_invalid')
+    minimum_words = q.get('minimumResponseWords')
+    if minimum_words is not None:
+        if type(minimum_words) is not int or minimum_words < 1:
+            errors.append('invalid_minimum_response_words')
+        elif len(str(q.get('answer', '')).split()) < minimum_words:
+            errors.append('model_answer_below_required_word_count')
+        if q.get('modelAnswerWordCount') != len(str(q.get('answer', '')).split()):
+            errors.append('model_answer_word_count_mismatch')
+    if q.get('responseMode') == 'spoken' and not q.get('requiresRecordingOrLiveExaminer'):
+        errors.append('spoken_response_requires_performance_evidence')
     claims = q.get('verification', [])
     if not isinstance(claims, list):
         errors.append('verification_must_be_array'); claims = []
@@ -131,6 +146,13 @@ def check_question(q, objectives):
             if not claim.get('purpose'): errors.append('arithmetic_claim_purpose_missing')
         except (ValueError, KeyError, TypeError, SyntaxError, ZeroDivisionError, OverflowError):
             errors.append('invalid_arithmetic_claim')
+    if (q.get('exam') == 'SAT' and q.get('subject') == 'Mathematics'
+            and q.get('type') == 'shortanswer' and claims):
+        try:
+            if Fraction(q['answer']) != arithmetic(claims[0]['expression']):
+                errors.append('numerical_response_mismatch')
+        except (ValueError, KeyError, TypeError, SyntaxError, ZeroDivisionError):
+            errors.append('numerical_response_unparseable')
     # Legacy determinant prompts have a fully parseable mathematical meaning.
     match = re.search(r'det\(\[\[(-?\d+),\s*(-?\d+)\],\[(-?\d+),\s*(-?\d+)\]\]\)', str(q.get('prompt', '')))
     if match:
@@ -162,6 +184,8 @@ def load_questions(root=ROOT):
             data = json.loads(path.read_text())
             questions = data['questions']
             if not isinstance(questions, list): raise ValueError('questions must be an array')
+            if type(data.get('schemaVersion')) is not int or data['schemaVersion'] not in (1, 2):
+                raise ValueError('unsupported schemaVersion')
         except (ValueError, KeyError, TypeError) as exc:
             issues.append({'file': path.name, 'error': str(exc)})
             continue
@@ -192,6 +216,8 @@ def near_pairs(records):
         sets.append(tokens)
         if len(tokens) < 8: continue
         subject = canonical_subject(q.get('exam'), q.get('subject', ''))
+        if subject in {'English Language', 'Use of English', 'English Studies', 'Reading and Writing', 'Reading'}:
+            subject = 'English language skills'
         candidates = set().union(*(index[(subject, t)] for t in tokens))
         for j in sorted(candidates):
             # Shared passage wording is evidence, not a repeated assessed skill.

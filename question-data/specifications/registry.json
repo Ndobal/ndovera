@@ -131,6 +131,16 @@
       "source": "https://myschool.ng/classroom/jamb-syllabus/physics",
       "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Physics.pdf",
       "status": "provisional_alignment_full_current_version_and_objective_codes_pending"
+    },
+    {
+      "id": "ielts-writing-criteria",
+      "source": "https://ielts.org/take-a-test/preparation-resources/writing-test-resources",
+      "status": "official_dimensions_seen_original_practice_rubrics_not_band_predictions"
+    },
+    {
+      "id": "toefl-writing-2026",
+      "source": "https://www.ets.org/toefl/test-takers/ibt/about/content/writing/.html",
+      "status": "official_current_task_descriptions_seen"
     }
   ],
   "banks": [
@@ -2295,6 +2305,104 @@
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
       "level": "Primary 6"
+    },
+    {
+      "id": "ielts-academic-report-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Data description",
+      "learningObjective": "Select and compare key features in supplied data without inventing causes.",
+      "specificationId": "ielts-current",
+      "questionTypes": [
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-argument-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Writing Task 2",
+      "subtopic": "Reasoned essay",
+      "learningObjective": "Develop a supported position addressing every part of an essay task.",
+      "specificationId": "ielts-current",
+      "questionTypes": [
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-letter-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Purpose and tone",
+      "learningObjective": "Write a purposeful letter with appropriate detail and register.",
+      "specificationId": "ielts-current",
+      "questionTypes": [
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-interview-v1",
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking",
+      "subtopic": "Personal response and discussion",
+      "learningObjective": "Develop relevant spoken responses with clear organisation and comprehensible delivery.",
+      "specificationId": "ielts-current",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-sentence-v1",
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-email-v1",
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-discussion-v1",
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -2307,7 +2415,7 @@
     "IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.",
     "IELTS Reading/Writing require Academic versus General Training variants. Listening/Speaking need original audio assets and performance rubrics; MCQ writing advice is not a writing task.",
     "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
-    "Objective register covers selected English, Economics, science, NCEE and SAT objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
+    "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off."
   ]

@@ -1,0 +1,984 @@
+{
+  "schemaVersion": 2,
+  "collection": "Ndovera original IELTS and current TOEFL language-production tasks — batch 028",
+  "questionCount": 20,
+  "note": "Smaller quality-focused batch because full model responses and rubrics require greater authoring depth. All draft and uncalibrated. No official score predictions. Speaking needs live or recorded performance; sample transcripts cannot establish pronunciation. TOEFL tasks follow post-January-2026 categories, not legacy independent/integrated essay assumptions.",
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Data description",
+      "learningObjective": "Select and compare key features in supplied data without inventing causes.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-001",
+      "objectiveId": "ielts-academic-report-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "The table gives the percentage of journeys to a college made by four modes of transport in 2010 and 2025. Summarise the main features and make relevant comparisons. Write at least 150 words.",
+      "answer": "The table compares how students travelled to a college in 2010 and 2025, showing the share of journeys made by car, bus, bicycle and on foot.\n\nOverall, cars accounted for the largest proportion in both years, although their share declined substantially. Cycling and walking both became more common, while the proportion of bus journeys remained unchanged. The figures describe changes in travel patterns but do not identify their causes.\n\nIn 2010, half of all journeys were made by car. This fell to 35% in 2025, a reduction of 15 percentage points. Bus travel represented 30% in each year, so its relative position strengthened even without an increase in its share: by 2025 it was only five percentage points behind cars.\n\nCycling doubled from 10% to 20%, while walking increased from 10% to 15%. Taken together, these two active modes rose from one fifth to more than one third of all journeys. Their combined share in 2025 matched the share accounted for by cars.",
+      "explanation": "The response needs an overview and accurate comparisons, not explanations such as fuel prices that are absent from the data. Original practice points do not predict an IELTS band.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Academic Writing Task 1",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Task achievement: fulfil the specific requirements accurately; fully developed relevant response earns 5, partial fulfilment 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Coherence and cohesion: clear progression and effective linking earn 5; uneven organisation 2–4; isolated or confusing ideas 1; no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Lexical resource: appropriate varied vocabulary with precise meaning earns 5; limited or uneven control 2–4; severely restricted meaning 1; no assessable vocabulary 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Grammatical range and accuracy: varied well-controlled forms earn 5; mixed control 2–4; errors frequently obscure meaning 1; no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "passage": "Mode | 2010 | 2025\nCar | 50% | 35%\nBus | 30% | 30%\nBicycle | 10% | 20%\nWalking | 10% | 15%\nEach column totals 100%.",
+      "variant": "Academic",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 163,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Data description",
+      "learningObjective": "Select and compare key features in supplied data without inventing causes.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-002",
+      "objectiveId": "ielts-academic-report-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "The table shows annual membership of two community facilities, in people. Summarise the main trends and relevant comparisons without inventing reasons. Write at least 150 words.",
+      "answer": "The table presents annual membership figures for a public library and a sports centre in 2015, 2020 and 2025. The numbers refer to members, rather than visits or the size of the local population.\n\nOverall, membership increased at both facilities over the period. The library began with more members, but the sports centre grew more rapidly and finished with the larger membership. The two facilities had the same number of members in the middle year.\n\nLibrary membership rose from 800 in 2015 to 1,000 in 2020, an increase of 200. It then added a further 200 members by 2025, reaching 1,200. Its growth was therefore equal in absolute terms across the two five-year intervals.\n\nThe sports centre started with 600 members, which was 200 fewer than the library. It reached 1,000 in 2020 and 1,600 in 2025. This represented increases of 400 and 600 respectively. Across the full decade, the centre gained 1,000 members, compared with the library’s gain of 400, and ended 400 members ahead.",
+      "explanation": "Compare counts rather than claim changes in population participation rates, because no population totals are supplied.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Academic Writing Task 1",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Task achievement: fulfil the specific requirements accurately; fully developed relevant response earns 5, partial fulfilment 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Coherence and cohesion: clear progression and effective linking earn 5; uneven organisation 2–4; isolated or confusing ideas 1; no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Lexical resource: appropriate varied vocabulary with precise meaning earns 5; limited or uneven control 2–4; severely restricted meaning 1; no assessable vocabulary 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Grammatical range and accuracy: varied well-controlled forms earn 5; mixed control 2–4; errors frequently obscure meaning 1; no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "passage": "Facility | 2015 | 2020 | 2025\nLibrary | 800 | 1,000 | 1,200\nSports centre | 600 | 1,000 | 1,600",
+      "variant": "Academic",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 166,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Writing Task 2",
+      "subtopic": "Reasoned essay",
+      "learningObjective": "Develop a supported position addressing every part of an essay task.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-003",
+      "objectiveId": "ielts-argument-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic/General Training",
+      "type": "essay",
+      "prompt": "Some people believe that secondary schools should require every learner to complete community service. Others think that service should be voluntary. Discuss both views and give your own opinion. Write at least 250 words.",
+      "answer": "Community service can connect education with the needs of people outside school. However, there is disagreement about whether participation should be compulsory. Although a requirement can widen access to useful experiences, I believe schools should offer structured opportunities while allowing students a meaningful choice about participation.\n\nSupporters of compulsory service argue that voluntary programmes often attract students who already have confidence, free time and supportive families. A requirement may reach learners who would otherwise never discover an interest in community work. For example, helping to organise a local reading club could improve communication skills and reveal problems that classroom discussion alone cannot show. If service occurs during school hours and transport is provided, it can become an experience shared across different income groups.\n\nThe opposing view is that genuine service depends on willingness. Students who are forced to attend may focus on completing a required number of hours rather than understanding the people they are helping. A compulsory programme may also disadvantage learners who already care for relatives or work after school. Counting their absence as a moral failure would ignore responsibilities that are themselves valuable forms of contribution.\n\nIn my view, schools should provide several supervised options and explain their benefits, but they should avoid a single rigid graduation condition. Community work could be recognised through reports, certificates or opportunities to share what was learned. Students with existing caring commitments should be able to discuss suitable alternatives. This approach would preserve the educational value of service without treating every learner’s circumstances as identical.\n\nSchools should therefore encourage participation strongly while designing programmes around choice, accessibility and reflection rather than a compulsory total of hours.",
+      "explanation": "Both positions are explained before a sustained opinion is given. Other well-supported positions can earn full practice credit; the model is not an exclusive correct opinion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Writing Task 2",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Task response: fulfil the specific requirements accurately; fully developed relevant response earns 5, partial fulfilment 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Coherence and cohesion: clear progression and effective linking earn 5; uneven organisation 2–4; isolated or confusing ideas 1; no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Lexical resource: appropriate varied vocabulary with precise meaning earns 5; limited or uneven control 2–4; severely restricted meaning 1; no assessable vocabulary 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Grammatical range and accuracy: varied well-controlled forms earn 5; mixed control 2–4; errors frequently obscure meaning 1; no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "variant": "Academic/General Training",
+      "minimumResponseWords": 250,
+      "modelAnswerWordCount": 275,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Writing Task 2",
+      "subtopic": "Reasoned essay",
+      "learningObjective": "Develop a supported position addressing every part of an essay task.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-004",
+      "objectiveId": "ielts-argument-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic/General Training",
+      "type": "essay",
+      "prompt": "Many towns spend money on new public buildings while existing facilities lack maintenance. To what extent should maintenance take priority over new construction? Give reasons and relevant examples. Write at least 250 words.",
+      "answer": "Public buildings are visible signs of investment, and new construction can attract considerable attention. Nevertheless, an impressive opening ceremony has little value if the town cannot keep its facilities useful. I therefore believe maintenance should normally receive priority, although new buildings are justified when existing ones cannot meet a genuine need.\n\nMaintaining current facilities often protects services at a lower overall cost than replacing them after serious deterioration. A library with a leaking roof may lose books and become unsafe long before its structure requires complete replacement. Timely repairs can preserve both the building and the resources inside it. The same reasoning applies to water systems, classrooms and community halls: small problems become expensive when they are ignored.\n\nMaintenance also matters for fairness. Residents depend on services between election campaigns and major development projects. If a town repeatedly builds new facilities in prominent areas while neglecting older ones elsewhere, it may increase inequality in access. A published maintenance schedule can help residents understand what should be repaired and when, making public spending easier to scrutinise.\n\nHowever, priority does not mean an absolute ban on construction. Population growth may leave a clinic too small, and some buildings cannot be adapted safely or economically. In such cases, a new facility can be necessary. The decision should compare repair, expansion and replacement costs, as well as the benefits to users. Any construction budget should include a credible plan for future operation and upkeep.\n\nOverall, maintaining useful existing facilities should be the starting point for municipal investment. New buildings deserve support when clear evidence shows that they meet needs that repair alone cannot address. This balance values reliable public services more than the visibility of construction itself.",
+      "explanation": "A strong response defines a position, develops reasons and handles exceptions. It need not claim that maintenance always wins regardless of safety, capacity or cost.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Writing Task 2",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Task response: fulfil the specific requirements accurately; fully developed relevant response earns 5, partial fulfilment 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Coherence and cohesion: clear progression and effective linking earn 5; uneven organisation 2–4; isolated or confusing ideas 1; no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Lexical resource: appropriate varied vocabulary with precise meaning earns 5; limited or uneven control 2–4; severely restricted meaning 1; no assessable vocabulary 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Grammatical range and accuracy: varied well-controlled forms earn 5; mixed control 2–4; errors frequently obscure meaning 1; no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "variant": "Academic/General Training",
+      "minimumResponseWords": 250,
+      "modelAnswerWordCount": 283,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Purpose and tone",
+      "learningObjective": "Write a purposeful letter with appropriate detail and register.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-005",
+      "objectiveId": "ielts-letter-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "General Training",
+      "type": "essay",
+      "prompt": "You borrowed a camera from a friend and accidentally damaged it. Write a letter explaining what happened, apologising and proposing how to resolve the problem. Write at least 150 words. Use an appropriate personal tone.",
+      "answer": "Dear Femi,\n\nI am writing about the camera you kindly lent me for our school’s cultural day. Unfortunately, I damaged it while packing the equipment after the event, and I want to explain exactly what happened.\n\nThe camera was inside its case on a table when I moved a box of decorations. The box caught the shoulder strap and pulled the case onto the floor. Although the camera still switches on, the lens no longer extends properly. I stopped trying to use it because I did not want to make the problem worse.\n\nI am very sorry. You trusted me with something valuable, and I should have checked that the strap was clear before moving the box. I know you were planning to use the camera next weekend.\n\nWith your permission, I would like to take it to a repair centre you trust and pay the full cost. If it cannot be repaired properly, we can discuss a suitable replacement. I can also help arrange a temporary camera for your weekend event.\n\nPlease call me when convenient so we can agree on the next step.\n\nBest wishes,\nTayo",
+      "explanation": "All three requested functions should be present: explanation, apology and a realistic remedy. Assess register and development rather than require these invented details.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "General Training Writing Task 1",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Task achievement: fulfil the specific requirements accurately; fully developed relevant response earns 5, partial fulfilment 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Coherence and cohesion: clear progression and effective linking earn 5; uneven organisation 2–4; isolated or confusing ideas 1; no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Lexical resource: appropriate varied vocabulary with precise meaning earns 5; limited or uneven control 2–4; severely restricted meaning 1; no assessable vocabulary 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Grammatical range and accuracy: varied well-controlled forms earn 5; mixed control 2–4; errors frequently obscure meaning 1; no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "variant": "General Training",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 188,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Purpose and tone",
+      "learningObjective": "Write a purposeful letter with appropriate detail and register.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-006",
+      "objectiveId": "ielts-letter-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "General Training",
+      "type": "essay",
+      "prompt": "You live near a community centre whose evening classes were recently cancelled. Write to the manager describing the effect on residents, asking for an explanation and suggesting a practical alternative. Write at least 150 words.",
+      "answer": "Dear Centre Manager,\n\nI am writing about the cancellation of the evening classes announced last week. I attended the basic computing course, and several neighbours relied on the literacy and bookkeeping sessions held at the same time.\n\nThe evening timetable allowed residents with daytime jobs to participate. Since the cancellation, some learners have been unable to continue because the replacement morning sessions conflict with their working hours. In my case, I had almost completed a practical project and now have no regular access to a tutor or a computer.\n\nCould you please explain why the classes were cancelled and whether the decision is temporary? The notice mentioned operational difficulties but did not indicate whether the main issue was staffing, cost or building access.\n\nIf a full evening programme is currently impossible, I suggest offering one shared evening each week or a Saturday session. Learners could also be consulted about a modest materials contribution, provided this would not exclude those on low incomes.\n\nI would appreciate an update and would be willing to help collect residents’ views before a revised timetable is agreed.\n\nYours faithfully,\nAmaka Okoro",
+      "explanation": "A suitable formal or semi-formal letter identifies effects, asks a clear question and offers a feasible proposal. Invented personal details are acceptable when consistent with the task.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "General Training Writing Task 1",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Task achievement: fulfil the specific requirements accurately; fully developed relevant response earns 5, partial fulfilment 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Coherence and cohesion: clear progression and effective linking earn 5; uneven organisation 2–4; isolated or confusing ideas 1; no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Lexical resource: appropriate varied vocabulary with precise meaning earns 5; limited or uneven control 2–4; severely restricted meaning 1; no assessable vocabulary 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Grammatical range and accuracy: varied well-controlled forms earn 5; mixed control 2–4; errors frequently obscure meaning 1; no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "variant": "General Training",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 186,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking",
+      "subtopic": "Personal response and discussion",
+      "learningObjective": "Develop relevant spoken responses with clear organisation and comprehensible delivery.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-007",
+      "objectiveId": "ielts-interview-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic/General Training",
+      "type": "longanswer",
+      "prompt": "Part 1 practice: Answer these examiner questions aloud. What kind of place do you live in? What do you like about your neighbourhood? Is there anything you would change?",
+      "answer": "I live in a flat in a fairly busy neighbourhood. What I like most is that several useful places are within walking distance, including a small market and a public library. I often meet people I know on the way, so it feels like a community rather than just a collection of buildings. If I could change one thing, I would improve the footpaths. Some sections are uneven, and walking becomes difficult after heavy rain. I would not want to remove the market, because it is useful, but clearer spaces for pedestrians would make the area more comfortable.",
+      "explanation": "Respond personally and naturally; there is no single factual answer. The transcript illustrates relevance and development but cannot demonstrate fluency or pronunciation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "taskType": "Speaking Part 1 question set",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Fluency and coherence: relevant sustained speech with clear progression earns 5; uneven flow 2–4; frequent breakdown 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Lexical resource: suitable vocabulary used flexibly earns 5; limited or imprecise use 2–4; severely restricted meaning 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Grammatical range and accuracy: varied controlled forms earn 5; uneven control 2–4; frequent obscuring errors 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Pronunciation: intelligible live or recorded delivery with appropriate sound, stress and intonation control earns 5; uneven intelligibility 2–4; frequent breakdown 1; no assessable speech 0. A written transcript cannot establish this score.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "requiresRecordingOrLiveExaminer": true,
+      "modelAnswerIsTranscriptOnly": true,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking",
+      "subtopic": "Personal response and discussion",
+      "learningObjective": "Develop relevant spoken responses with clear organisation and comprehensible delivery.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-008",
+      "objectiveId": "ielts-interview-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic/General Training",
+      "type": "longanswer",
+      "prompt": "Part 2 practice: You have one minute to prepare. Speak for one to two minutes about a skill you learned from another person. Say who taught you, how you practised, what was difficult and why the skill matters to you.",
+      "answer": "A useful skill I learned from another person was basic sewing. My aunt taught me during a school holiday after I complained about losing buttons from my shirts. She began by showing me how to thread a needle and secure the thread. At first, I pulled too tightly, so the material gathered around the stitches. She gave me scraps of cloth to practise on before I touched an actual shirt. After several attempts, my stitches became more even. What helped most was that she explained why each step mattered rather than simply correcting me. The skill is useful because a small repair no longer means putting a garment aside for weeks. It also changed how I think about learning: progress often comes from repeating a simple task carefully and noticing what went wrong. I am still not able to make clothes, but I can handle several everyday repairs independently.",
+      "explanation": "Cover the cue-card points and develop a connected account. Do not award timing or pronunciation points from this sample transcript.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "taskType": "Speaking Part 2 cue card",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Fluency and coherence: relevant sustained speech with clear progression earns 5; uneven flow 2–4; frequent breakdown 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Lexical resource: suitable vocabulary used flexibly earns 5; limited or imprecise use 2–4; severely restricted meaning 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Grammatical range and accuracy: varied controlled forms earn 5; uneven control 2–4; frequent obscuring errors 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Pronunciation: intelligible live or recorded delivery with appropriate sound, stress and intonation control earns 5; uneven intelligibility 2–4; frequent breakdown 1; no assessable speech 0. A written transcript cannot establish this score.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "requiresRecordingOrLiveExaminer": true,
+      "modelAnswerIsTranscriptOnly": true,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking",
+      "subtopic": "Personal response and discussion",
+      "learningObjective": "Develop relevant spoken responses with clear organisation and comprehensible delivery.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-009",
+      "objectiveId": "ielts-interview-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic/General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 practice: Discuss these questions aloud with an examiner. Why do some adults find it difficult to learn new skills? How can employers support learning without excluding workers who have family responsibilities?",
+      "answer": "Adults may find learning difficult because their time is divided between work, travel and family responsibilities. They may also feel uncomfortable being beginners after becoming competent in another part of life. I do not think the main problem is always age or ability. The way training is organised can make a large difference. Employers could offer shorter sessions during paid working hours rather than require everyone to attend long evening classes. Recorded demonstrations might help, but they should be combined with opportunities to ask questions. Workers with family commitments should not have to choose between learning and essential care. Flexible scheduling, clear materials and recognition of small stages of progress would make training more accessible while still expecting participants to practise.",
+      "explanation": "A developed discussion considers causes and practical responses. Accept different reasoned views; the practice rubric requires assessment of actual speech.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "taskType": "Speaking Part 3 discussion set",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Fluency and coherence: relevant sustained speech with clear progression earns 5; uneven flow 2–4; frequent breakdown 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Lexical resource: suitable vocabulary used flexibly earns 5; limited or imprecise use 2–4; severely restricted meaning 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Grammatical range and accuracy: varied controlled forms earn 5; uneven control 2–4; frequent obscuring errors 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Pronunciation: intelligible live or recorded delivery with appropriate sound, stress and intonation control earns 5; uneven intelligibility 2–4; frequent breakdown 1; no assessable speech 0. A written transcript cannot establish this score.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "requiresRecordingOrLiveExaminer": true,
+      "modelAnswerIsTranscriptOnly": true,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking",
+      "subtopic": "Personal response and discussion",
+      "learningObjective": "Develop relevant spoken responses with clear organisation and comprehensible delivery.",
+      "specificationId": "ielts-current",
+      "id": "ndv-028-010",
+      "objectiveId": "ielts-interview-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic/General Training",
+      "type": "longanswer",
+      "prompt": "Part 2 practice: Prepare for one minute, then speak for one to two minutes about a public place you find useful. Describe where it is, what people do there, when you use it and one improvement you would suggest.",
+      "answer": "A public place I find particularly useful is the library near the central market. It is not a large building, but it has quiet tables, newspapers and a small computer area. Students use it for revision, while other residents come to read or search for information. I usually go on Saturday mornings when I need to concentrate on something for more than a few minutes. At home, there are always small tasks competing for my attention, so the library helps me focus. One improvement I would suggest is clearer information about opening hours, especially during public holidays. Last month, several people arrived when the building was closed because an old notice was still displayed. Updating the noticeboard and providing a simple telephone message would make access more predictable without requiring a major building project.",
+      "explanation": "The answer should describe a specific place and develop the requested details. The model offers one possible account; genuine personal experiences may differ.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "taskType": "Speaking Part 2 cue card",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Fluency and coherence: relevant sustained speech with clear progression earns 5; uneven flow 2–4; frequent breakdown 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Lexical resource: suitable vocabulary used flexibly earns 5; limited or imprecise use 2–4; severely restricted meaning 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Grammatical range and accuracy: varied controlled forms earn 5; uneven control 2–4; frequent obscuring errors 1; no assessable speech 0.",
+          "marks": 5
+        },
+        {
+          "step": 4,
+          "description": "Pronunciation: intelligible live or recorded delivery with appropriate sound, stress and intonation control earns 5; uneven intelligibility 2–4; frequent breakdown 1; no assessable speech 0. A written transcript cannot establish this score.",
+          "marks": 5
+        }
+      ],
+      "score": 20,
+      "maxMarks": 20,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "requiresRecordingOrLiveExaminer": true,
+      "modelAnswerIsTranscriptOnly": true,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-011",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Your classmate asks whether you have finished the report. Reorder all chunks to make a grammatical reply: [submitted it] [I] [this morning].",
+      "answer": "I submitted it this morning.",
+      "explanation": "The subject precedes the verb phrase, and the time phrase follows the completed action.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-012",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "You need to ask about a room reservation. Reorder all chunks to make a direct question: [the study room] [can] [we] [reserve] [for Friday]?",
+      "answer": "Can we reserve the study room for Friday?",
+      "explanation": "In this modal question, can comes before the subject we, followed by the base verb reserve.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-013",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "You are politely requesting information. Reorder all chunks: [you tell me] [could] [where the workshop is]?",
+      "answer": "Could you tell me where the workshop is?",
+      "explanation": "The main request uses modal inversion, but the embedded question keeps statement order: where the workshop is.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-014",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Explain a change in plans. Reorder all chunks: [because the bus was delayed] [we] [arrived late].",
+      "answer": "We arrived late because the bus was delayed.",
+      "explanation": "The main clause states the result and the because-clause gives the reason. Accept the equivalent fronted because-clause with appropriate punctuation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "acceptedAnswers": [
+        "We arrived late because the bus was delayed.",
+        "Because the bus was delayed, we arrived late."
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-015",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Describe a resource for a classmate. Reorder all chunks: [the article] [that you recommended] [was helpful].",
+      "answer": "The article that you recommended was helpful.",
+      "explanation": "The relative clause modifies article; the main clause is the article was helpful. The relative clause does not replace the main verb.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-016",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Write an email to your course coordinator. A required workshop overlaps with a laboratory session that your group cannot miss. Explain the conflict, state why it matters and request a practical alternative. Write a developed email; a 100–150 word response is suitable for this practice task.",
+      "answer": "Dear Dr Mensah,\n\nI am writing about the research workshop scheduled for Thursday afternoon. Our group has a laboratory session at the same time, and the experiment requires all four members to be present because we have assigned different measurement roles.\n\nWe would like to attend the workshop, especially the section on presenting results, but missing the laboratory would prevent us from completing the data collection needed for next week’s report. We have checked with the laboratory instructor, who cannot move the session because the equipment is reserved for another class afterwards.\n\nWould it be possible to attend a second workshop session or receive a recording and complete an equivalent activity? We are available on Friday afternoon if an alternative discussion can be arranged.\n\nThank you for considering our request.\n\nBest regards,\nNora",
+      "explanation": "Assess the three communicative goals and a courteous, specific request. The suggested practice length is not presented as an official test minimum.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Relevant development: satisfy the stated goals with clear supporting detail; complete development 5, partial development 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Organisation and appropriacy: logical connection and suitable tone earn 5, uneven connection 2–4, mostly disconnected ideas 1, no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Language use: clear and appropriately varied vocabulary and grammar earn 5, uneven control 2–4, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 15,
+      "maxMarks": 15,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "requiresManualReview": true
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-017",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Write an email to the organiser of a campus volunteer event. You signed up for outdoor work, but the latest message gives no meeting point or equipment guidance. Ask for both details and explain a useful skill you can offer. Aim for a developed 100–150 word practice response.",
+      "answer": "Dear Volunteer Coordinator,\n\nI have registered for Saturday’s campus garden event and am looking forward to helping. I read the latest message, but I could not find the meeting point. Could you please confirm where volunteers should gather and whether we should arrive before the advertised starting time?\n\nI would also appreciate guidance about equipment. Should we bring our own gloves and small tools, or will these be provided? Knowing this in advance would help me prepare and avoid bringing items that the team already has.\n\nI have experience organising labelled seed trays for a school gardening project. If it would be useful, I could help record what is planted and prepare simple labels for each section. I am happy to assist with other tasks as well.\n\nThank you for clarifying the arrangements.\n\nKind regards,\nDavid",
+      "explanation": "A successful email requests both missing details and explains a relevant contribution. Credit appropriate alternative skills and clear polite communication.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Relevant development: satisfy the stated goals with clear supporting detail; complete development 5, partial development 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Organisation and appropriacy: logical connection and suitable tone earn 5, uneven connection 2–4, mostly disconnected ideas 1, no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Language use: clear and appropriately varied vocabulary and grammar earn 5, uneven control 2–4, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 15,
+      "maxMarks": 15,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "requiresManualReview": true
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-018",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Contribute your own supported opinion to the discussion. Engage with at least one viewpoint and add a reason or example. For practice, write at least 100 words.",
+      "answer": "I would prioritise a flexible mixture, with a protected amount of quiet space rather than allocating nearly everything to one use. Maya is right that students who share crowded accommodation may have no reliable alternative for silent work. However, Leo’s point about collaborative assignments also matters because a group cannot always complete a project by working separately. A useful design could place enclosed discussion rooms near the entrance and quiet desks farther away, with clear booking rules for the group rooms. The university should also examine actual use at different times before deciding the final proportions. This would treat the renovation as a response to different study needs rather than a competition in which one group must lose all access.",
+      "explanation": "The model contributes a position, responds to classmates and adds developed reasoning. Other defensible opinions can earn full credit; do not score agreement with the sample as correctness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Relevant development: satisfy the stated goals with clear supporting detail; complete development 5, partial development 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Organisation and appropriacy: logical connection and suitable tone earn 5, uneven connection 2–4, mostly disconnected ideas 1, no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Language use: clear and appropriately varied vocabulary and grammar earn 5, uneven control 2–4, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 15,
+      "maxMarks": 15,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "passage": "Professor: Should universities prioritise quiet individual study spaces or shared discussion rooms when renovating libraries?\nMaya: Quiet rooms are essential because many students cannot study peacefully at home.\nLeo: Group rooms support collaborative assignments and should receive most of the new space.",
+      "minimumResponseWords": 100,
+      "modelAnswerWordCount": 120,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-019",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Contribute your own supported opinion to the discussion. Engage with at least one viewpoint and add a reason or example. For practice, write at least 100 words.",
+      "answer": "Frequent low-stakes quizzes are valuable if they are brief and followed by useful explanations. I agree with Sara that students need to discover misunderstandings before the final examination. A short quiz can reveal, for example, whether a learner can apply a concept rather than merely recognise its definition. However, Ben is right that constant testing can fragment attention. I would therefore combine a small number of short quizzes with at least one substantial assignment that requires students to connect ideas. The quizzes should guide learning rather than contribute so many marks that every small error feels dangerous. This combination provides early feedback without replacing deeper work with a succession of isolated checks.",
+      "explanation": "The model contributes a position, responds to classmates and adds developed reasoning. Other defensible opinions can earn full credit; do not score agreement with the sample as correctness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Relevant development: satisfy the stated goals with clear supporting detail; complete development 5, partial development 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Organisation and appropriacy: logical connection and suitable tone earn 5, uneven connection 2–4, mostly disconnected ideas 1, no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Language use: clear and appropriately varied vocabulary and grammar earn 5, uneven control 2–4, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 15,
+      "maxMarks": 15,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "passage": "Professor: Should introductory courses include more low-stakes quizzes or fewer, larger assignments?\nSara: Frequent quizzes help students discover misunderstandings early.\nBen: Larger assignments allow deeper thinking and reduce constant testing.",
+      "minimumResponseWords": 100,
+      "modelAnswerWordCount": 112,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-028-020",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Contribute your own supported opinion to the discussion. Engage with at least one viewpoint and add a reason or example. For practice, write at least 100 words.",
+      "answer": "I would first address the most serious reliability problems while protecting discounted fares for passengers on low incomes. Tom’s argument is persuasive because an unpredictable bus can make a worker late even when the ticket is affordable. Missing a shift may cost much more than a small fare saving. At the same time, Aisha correctly identifies a barrier that reliability alone cannot remove: some residents may still be unable to pay. The city should collect information about cancellations, waiting times and affordability rather than assume one problem affects everyone equally. A targeted fare discount combined with improvements on the least reliable routes could make a limited budget useful to more passengers.",
+      "explanation": "The model contributes a position, responds to classmates and adds developed reasoning. Other defensible opinions can earn full credit; do not score agreement with the sample as correctness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Relevant development: satisfy the stated goals with clear supporting detail; complete development 5, partial development 2–4, minimal relevance 1, no relevant response 0.",
+          "marks": 5
+        },
+        {
+          "step": 2,
+          "description": "Organisation and appropriacy: logical connection and suitable tone earn 5, uneven connection 2–4, mostly disconnected ideas 1, no assessable response 0.",
+          "marks": 5
+        },
+        {
+          "step": 3,
+          "description": "Language use: clear and appropriately varied vocabulary and grammar earn 5, uneven control 2–4, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 5
+        }
+      ],
+      "score": 15,
+      "maxMarks": 15,
+      "rubricScale": "Original practice points only; no official band or scaled-score equivalence.",
+      "passage": "Professor: Should a city use a limited transport budget to reduce bus fares or improve reliability?\nAisha: Lower fares help people with limited incomes use public transport.\nTom: A cheap service is not useful if buses arrive unpredictably.",
+      "minimumResponseWords": 100,
+      "modelAnswerWordCount": 111,
+      "requiresManualReview": true
+    }
+  ]
+}

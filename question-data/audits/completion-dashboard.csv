@@ -2,8 +2,8 @@ exam,subject,level,target,raw,validDrafts,reviewed,remaining,mappedObjectives,re
 BECE,[subject list unresolved],,,0,0,0,,0,0,specification_unresolved,application_catalogue_supported_specification_missing
 IELTS,Listening,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
 IELTS,Reading,,1000,6,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
-IELTS,Speaking,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
-IELTS,Writing,,1000,3,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+IELTS,Speaking,,1000,4,4,0,996,1,1,partial_objective_register,official_skill_structure_seen_version_or_variant_mapping_pending
+IELTS,Writing,,1000,9,6,0,994,3,3,partial_objective_register,official_skill_structure_seen_version_or_variant_mapping_pending
 IGCSE,Biology,,1000,4,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 IGCSE,Chemistry,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 IGCSE,Mathematics,,1000,14,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
@@ -102,7 +102,7 @@ SAT,Reading and Writing,,1000,28,25,0,975,4,4,partial_objective_register,officia
 TOEFL,Listening,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
 TOEFL,Reading,,1000,6,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
 TOEFL,Speaking,,1000,0,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
-TOEFL,Writing,,1000,3,0,0,1000,0,0,specification_unresolved,official_skill_structure_seen_version_or_variant_mapping_pending
+TOEFL,Writing,,1000,13,10,0,990,3,3,partial_objective_register,official_skill_structure_seen_version_or_variant_mapping_pending
 WAEC,Agricultural Science,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Animal Husbandry,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Arabic,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending

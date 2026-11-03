@@ -11,8 +11,8 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | [subject list unresolved] | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | IELTS | Listening | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | IELTS | Reading | 1000 | 6 | 0 | 0 | 1000 | specification_unresolved |
-| IELTS | Speaking | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| IELTS | Writing | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
+| IELTS | Speaking | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
+| IELTS | Writing | 1000 | 9 | 6 | 0 | 994 | partial_objective_register |
 | IGCSE | Biology | 1000 | 4 | 0 | 0 | 1000 | specification_unresolved |
 | IGCSE | Chemistry | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | IGCSE | Mathematics | 1000 | 14 | 0 | 0 | 1000 | specification_unresolved |
@@ -111,7 +111,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | Listening | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | TOEFL | Reading | 1000 | 6 | 0 | 0 | 1000 | specification_unresolved |
 | TOEFL | Speaking | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| TOEFL | Writing | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
+| TOEFL | Writing | 1000 | 13 | 10 | 0 | 990 | partial_objective_register |
 | WAEC | Agricultural Science | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Animal Husbandry | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -162,17 +162,17 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
 | BECE | 0 | 0 | 0 | 0 | 0 |
-| IELTS | 9 | 0 | 0 | 4000 | 4000 |
+| IELTS | 19 | 10 | 0 | 4000 | 3990 |
 | IGCSE | 21 | 0 | 0 | 4000 | 4000 |
 | JAMB | 803 | 100 | 0 | 25000 | 24900 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
-| TOEFL | 9 | 0 | 0 | 4000 | 4000 |
+| TOEFL | 19 | 10 | 0 | 4000 | 3990 |
 | WAEC | 899 | 100 | 0 | 42000 | 41900 |
 
-Overall: {"raw": 1979, "validDrafts": 300, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 1999, "validDrafts": 320, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -187,6 +187,6 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.
 - IELTS Reading/Writing require Academic versus General Training variants. Listening/Speaking need original audio assets and performance rubrics; MCQ writing advice is not a writing task.
 - TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.
-- Objective register covers selected English, Economics, science, NCEE and SAT objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.
+- Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.
 - Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.
 - All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.

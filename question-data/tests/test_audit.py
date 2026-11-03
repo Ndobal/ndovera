@@ -32,6 +32,13 @@ class ValidationTests(unittest.TestCase):
         self.q['correctOption'] = 'A'; self.assertIn('answer_option_mismatch', self.errors())
     def test_duplicate_options(self):
         self.q['options'][0] = '5'; self.assertIn('duplicate_options', self.errors())
+    def test_genotype_case_is_meaningful(self):
+        self.q.update(options=['TTT', 'Tt', 'TT', 'tt'], answer='Tt', correctOption='B')
+        self.assertNotIn('duplicate_options', self.errors())
+    def test_legacy_guide_compared_to_max_marks(self):
+        self.q.pop('score')
+        self.q.update(type='structured', maxMarks=4, markingGuide=[{'description': 'Valid criteria', 'marks': 4}])
+        self.assertNotIn('marking_total_mismatch', self.errors())
     def test_four_options_required(self):
         self.q['options'].pop(); self.assertIn('mcq_requires_four_text_options', self.errors())
     def test_unknown_objective(self):
@@ -94,7 +101,7 @@ class ValidationTests(unittest.TestCase):
     def test_declared_count_mismatch(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
-            (root/'original-test.json').write_text(json.dumps({'questionCount': 1000, 'questions': [self.q]}))
+            (root/'original-test.json').write_text(json.dumps({'schemaVersion': 2, 'questionCount': 1000, 'questions': [self.q]}))
             records, files, issues = audit.load_questions(root)
             self.assertEqual(len(records), 1)
             self.assertEqual(issues[0]['error'], 'declared_count_mismatch')
@@ -103,6 +110,15 @@ class ValidationTests(unittest.TestCase):
         records = [{'q': {'subject': 'English', 'prompt': 'Which claim follows from the data?', 'passage': long_passage}},
                    {'q': {'subject': 'English', 'prompt': 'What does the word provisional mean?', 'passage': long_passage}}]
         self.assertEqual(audit.near_pairs(records), [])
+    def test_short_model_answer_is_held(self):
+        self.q.update(minimumResponseWords=150, modelAnswerWordCount=1)
+        self.assertIn('model_answer_below_required_word_count', self.errors())
+    def test_spoken_task_needs_performance(self):
+        self.q['responseMode'] = 'spoken'
+        self.assertIn('spoken_response_requires_performance_evidence', self.errors())
+    def test_sat_numeric_answer_is_checked(self):
+        self.q.update(exam='SAT', subject='Mathematics', type='shortanswer', answer='9')
+        self.assertIn('numerical_response_mismatch', self.errors())
 
 
 if __name__ == '__main__': unittest.main()

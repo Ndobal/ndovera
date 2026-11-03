@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 1979,
-    "validDrafts": 300,
+    "raw": 1999,
+    "validDrafts": 320,
     "reviewed": 0,
     "registeredBanks": 148,
     "target": 129000,
@@ -56,6 +56,12 @@
       "sha256": "e1208ba33ad9b72bd4a9a28ed7b323a7d00af3fb309faac6bdf35b64cfbfcee2",
       "declared": 25,
       "actual": 25
+    },
+    {
+      "path": "original-language-skills-batch-028.json",
+      "sha256": "1aaa8c30a5e116040a7e053785e740541403fcdffc1ce648bfa4e61812f8f2a1",
+      "declared": 20,
+      "actual": 20
     },
     {
       "path": "original-mathematics-batch-008.json",
@@ -459,16 +465,20 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 4,
+      "validDrafts": 4,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "longanswer": 4
+      },
+      "difficulty": {
+        "standard": 4
+      },
+      "remaining": 996,
+      "mappedObjectives": 1,
+      "representedObjectives": 1,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "IELTS",
@@ -476,20 +486,22 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 3,
-      "validDrafts": 0,
+      "raw": 9,
+      "validDrafts": 6,
       "reviewed": 0,
       "questionTypes": {
+        "essay": 6,
         "mcq": 3
       },
       "difficulty": {
+        "standard": 6,
         "missing": 3
       },
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "remaining": 994,
+      "mappedObjectives": 3,
+      "representedObjectives": 3,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "IGCSE",
@@ -2437,20 +2449,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 3,
-      "validDrafts": 0,
+      "raw": 13,
+      "validDrafts": 10,
       "reviewed": 0,
       "questionTypes": {
+        "shortanswer": 5,
+        "essay": 5,
         "mcq": 3
       },
       "difficulty": {
+        "standard": 10,
         "missing": 3
       },
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "remaining": 990,
+      "mappedObjectives": 3,
+      "representedObjectives": 3,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -3274,12 +3289,9 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "duplicate_options": 1,
-    "explanation_missing": 81,
-    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "max_marks_mismatch": 81,
-    "marking_total_mismatch": 65
+    "explanation_missing": 81,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 54,
@@ -4930,6 +4942,126 @@
         "independent_review_evidence_missing_or_invalid",
         "objective_mapping_missing"
       ]
+    },
+    {
+      "id": "ndv-028-001",
+      "file": "original-language-skills-batch-028.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-002",
+      "file": "original-language-skills-batch-028.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-003",
+      "file": "original-language-skills-batch-028.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-004",
+      "file": "original-language-skills-batch-028.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-005",
+      "file": "original-language-skills-batch-028.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-006",
+      "file": "original-language-skills-batch-028.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-007",
+      "file": "original-language-skills-batch-028.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-008",
+      "file": "original-language-skills-batch-028.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-009",
+      "file": "original-language-skills-batch-028.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-010",
+      "file": "original-language-skills-batch-028.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-011",
+      "file": "original-language-skills-batch-028.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-012",
+      "file": "original-language-skills-batch-028.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-013",
+      "file": "original-language-skills-batch-028.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-014",
+      "file": "original-language-skills-batch-028.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-015",
+      "file": "original-language-skills-batch-028.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-016",
+      "file": "original-language-skills-batch-028.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-017",
+      "file": "original-language-skills-batch-028.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-018",
+      "file": "original-language-skills-batch-028.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-019",
+      "file": "original-language-skills-batch-028.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-028-020",
+      "file": "original-language-skills-batch-028.json",
+      "index": 19,
+      "errors": []
     },
     {
       "id": "original-00288",
@@ -22511,7 +22643,6 @@
       "index": 11,
       "errors": [
         "cognitive_demand_missing_or_invalid",
-        "duplicate_options",
         "independent_review_evidence_missing_or_invalid",
         "objective_mapping_missing"
       ]
@@ -23756,7 +23887,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23770,7 +23900,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23784,7 +23913,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23798,7 +23926,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23812,7 +23939,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23826,7 +23952,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23840,7 +23965,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23854,7 +23978,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23868,7 +23991,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23882,7 +24004,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23896,7 +24017,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23910,7 +24030,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23924,7 +24043,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23938,7 +24056,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23952,7 +24069,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23966,7 +24082,6 @@
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
         "marking_guide_requires_positive_marks_and_criteria",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23979,8 +24094,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -23993,8 +24106,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24007,8 +24118,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24021,8 +24130,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24035,8 +24142,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24049,8 +24154,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24063,8 +24166,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24077,8 +24178,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24091,8 +24190,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24105,8 +24202,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24119,8 +24214,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24133,8 +24226,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24147,8 +24238,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24161,8 +24250,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24175,8 +24262,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24189,8 +24274,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24203,8 +24286,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24217,8 +24298,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24231,8 +24310,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24245,8 +24322,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24259,8 +24334,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24273,8 +24346,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24287,8 +24358,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24301,8 +24370,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24315,8 +24382,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24329,8 +24394,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24343,8 +24406,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24357,8 +24418,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24371,8 +24430,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24385,8 +24442,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24399,8 +24454,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24413,8 +24466,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24427,8 +24478,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24441,8 +24490,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24455,8 +24502,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24469,8 +24514,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24483,8 +24526,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24497,8 +24538,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24511,8 +24550,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24525,8 +24562,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24539,8 +24574,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24553,8 +24586,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24567,8 +24598,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24581,8 +24610,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24595,8 +24622,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24609,8 +24634,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24623,8 +24646,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24637,8 +24658,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24651,8 +24670,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24665,8 +24682,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24679,8 +24694,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24693,8 +24706,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24707,8 +24718,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24721,8 +24730,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24735,8 +24742,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24749,8 +24754,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24763,8 +24766,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24777,8 +24778,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24791,8 +24790,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24805,8 +24802,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24819,8 +24814,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24833,8 +24826,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24847,8 +24838,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24861,8 +24850,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     },
@@ -24875,8 +24862,6 @@
         "explanation_missing",
         "independent_review_evidence_missing_or_invalid",
         "invalid_score",
-        "marking_total_mismatch",
-        "max_marks_mismatch",
         "objective_mapping_missing"
       ]
     }
@@ -33683,6 +33668,160 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-report-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Data description",
+      "learningObjective": "Select and compare key features in supplied data without inventing causes.",
+      "specificationId": "ielts-current",
+      "questionTypes": {
+        "essay": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-argument-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Writing Task 2",
+      "subtopic": "Reasoned essay",
+      "learningObjective": "Develop a supported position addressing every part of an essay task.",
+      "specificationId": "ielts-current",
+      "questionTypes": {
+        "essay": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-letter-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Purpose and tone",
+      "learningObjective": "Write a purposeful letter with appropriate detail and register.",
+      "specificationId": "ielts-current",
+      "questionTypes": {
+        "essay": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-interview-v1",
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking",
+      "subtopic": "Personal response and discussion",
+      "learningObjective": "Develop relevant spoken responses with clear organisation and comprehensible delivery.",
+      "specificationId": "ielts-current",
+      "questionTypes": {
+        "longanswer": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "toefl-sentence-v1",
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "questionTypes": {
+        "shortanswer": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "toefl-email-v1",
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "questionTypes": {
+        "essay": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "toefl-discussion-v1",
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "questionTypes": {
+        "essay": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -33695,7 +33834,7 @@
     "IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.",
     "IELTS Reading/Writing require Academic versus General Training variants. Listening/Speaking need original audio assets and performance rubrics; MCQ writing advice is not a writing task.",
     "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
-    "Objective register covers selected English, Economics, science, NCEE and SAT objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
+    "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off."
   ]
