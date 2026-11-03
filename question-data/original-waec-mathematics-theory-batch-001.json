@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "collection": "Ndovera WAEC Mathematics Structured Practice — Batch 001",
+  "note": "Original structured questions, not official WAEC past papers. This separate data-only format is not confirmed supported by the application; do not import without schema integration and academic review.",
+  "questionCount": 10,
+  "questions": [
+    {
+      "id": "waec-maths-theory-0001",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Number bases",
+      "type": "structured",
+      "prompt": "Convert 132₄ to base ten, then express the result in base two.",
+      "answer": "30₁₀ = 11110₂",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "132₄=1×16+3×4+2=30."
+        },
+        {
+          "step": 2,
+          "description": "30=16+8+4+2, so 30=11110₂."
+        }
+      ],
+      "maxMarks": 5,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0002",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Modular arithmetic",
+      "type": "structured",
+      "prompt": "A shift schedule repeats every 6 days and a maintenance check repeats every 8 days. Both occur today. After how many days will they next coincide? Explain.",
+      "answer": "24 days",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find the least common multiple of 6 and 8."
+        },
+        {
+          "step": 2,
+          "description": "6=2×3 and 8=2³, so LCM=2³×3=24."
+        }
+      ],
+      "maxMarks": 4,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0003",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Quadratic equations",
+      "type": "structured",
+      "prompt": "A rectangular garden has length 5 m greater than its width and area 84 m². Form a quadratic equation and calculate its dimensions.",
+      "answer": "Width 7 m; length 12 m",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Let width=x, length=x+5."
+        },
+        {
+          "step": 2,
+          "description": "x(x+5)=84, so x²+5x−84=0."
+        },
+        {
+          "step": 3,
+          "description": "Factor (x+12)(x−7)=0; width must be positive, so x=7."
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0004",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Statistics",
+      "type": "structured",
+      "prompt": "The test scores are 4, 5, 5, 7, 9. Calculate the mean, median, mode and range.",
+      "answer": "Mean 6; median 5; mode 5; range 5",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Sum=30; mean=30/5=6."
+        },
+        {
+          "step": 2,
+          "description": "Ordered scores: 4,5,5,7,9, so median=5."
+        },
+        {
+          "step": 3,
+          "description": "The most frequent value is 5, so mode=5."
+        },
+        {
+          "step": 4,
+          "description": "Range=9−4=5."
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0005",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Mensuration",
+      "type": "structured",
+      "prompt": "A cylindrical tank has radius 2 m and height 3 m. Find its volume in terms of π and the number of litres it can hold. Use 1 m³=1,000 litres.",
+      "answer": "12π m³; 12,000π litres",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "V=πr²h=π×2²×3=12π m³."
+        },
+        {
+          "step": 2,
+          "description": "Convert cubic metres to litres: 12π×1,000=12,000π litres."
+        }
+      ],
+      "maxMarks": 6,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0006",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Coordinate geometry",
+      "type": "structured",
+      "prompt": "Find the equation of the line passing through (1,2) and (5,10), then calculate its x-intercept.",
+      "answer": "y=2x; x-intercept (0,0)",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Gradient=(10−2)/(5−1)=2."
+        },
+        {
+          "step": 2,
+          "description": "Using point-slope form: y−2=2(x−1), hence y=2x."
+        },
+        {
+          "step": 3,
+          "description": "At the x-intercept y=0, giving x=0."
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0007",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Probability",
+      "type": "structured",
+      "prompt": "A box contains 3 red and 2 blue balls. Two balls are selected without replacement. Calculate the probability that both are red and the probability that one of each colour is selected.",
+      "answer": "Both red: 3/10; one of each: 3/5",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "P(both red)=(3/5)(2/4)=3/10."
+        },
+        {
+          "step": 2,
+          "description": "P(red then blue)=(3/5)(2/4)=3/10."
+        },
+        {
+          "step": 3,
+          "description": "P(blue then red)=(2/5)(3/4)=3/10."
+        },
+        {
+          "step": 4,
+          "description": "P(one of each)=3/10+3/10=3/5."
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0008",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Trigonometry",
+      "type": "structured",
+      "prompt": "A 10 m ladder leans against a vertical wall at 60° to the horizontal. Calculate the vertical height reached and the horizontal distance of its foot from the wall.",
+      "answer": "Height 5√3 m; horizontal distance 5 m",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Height=10 sin60°=5√3 m."
+        },
+        {
+          "step": 2,
+          "description": "Horizontal distance=10 cos60°=5 m."
+        }
+      ],
+      "maxMarks": 6,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0009",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Variation",
+      "type": "structured",
+      "prompt": "The cost C of producing a batch varies directly as the number n of items and inversely as the square root of the production time t. If C=₦600 when n=12 and t=4, calculate C when n=20 and t=25.",
+      "answer": "₦400",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "C=kn/√t."
+        },
+        {
+          "step": 2,
+          "description": "600=k×12/2, so k=100."
+        },
+        {
+          "step": 3,
+          "description": "For n=20 and t=25, C=100×20/5=400."
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0010",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Sequences and series",
+      "type": "structured",
+      "prompt": "An arithmetic progression has its third term equal to 11 and its eighth term equal to 31. Find the first term, common difference and sum of the first 12 terms.",
+      "answer": "First term 3; common difference 4; sum 300",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "a+2d=11 and a+7d=31."
+        },
+        {
+          "step": 2,
+          "description": "Subtract to obtain 5d=20, hence d=4."
+        },
+        {
+          "step": 3,
+          "description": "a=11−8=3."
+        },
+        {
+          "step": 4,
+          "description": "S₁₂=12/2[2(3)+11(4)]=6×50=300."
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    }
+  ]
+}
