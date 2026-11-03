@@ -27,7 +27,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | Yoruba (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Yoruba (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | IELTS | Listening | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| IELTS | Reading | 1000 | 48 | 42 | 0 | 958 | partial_objective_register |
+| IELTS | Reading | 1000 | 68 | 62 | 0 | 938 | partial_objective_register |
 | IELTS | Speaking | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | IELTS | Writing | 1000 | 9 | 6 | 0 | 994 | partial_objective_register |
 | IGCSE | Biology [0610] | 1000 | 54 | 50 | 0 | 950 | partial_objective_register |
@@ -179,7 +179,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
 | BECE | 0 | 0 | 0 | 18000 | 18000 |
-| IELTS | 61 | 52 | 0 | 4000 | 3948 |
+| IELTS | 81 | 72 | 0 | 4000 | 3928 |
 | IGCSE | 121 | 100 | 0 | 4000 | 3900 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
@@ -189,7 +189,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 19 | 10 | 0 | 4000 | 3990 |
 | WAEC | 1224 | 425 | 0 | 42000 | 41575 |
 
-Overall: {"raw": 2791, "validDrafts": 1112, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2811, "validDrafts": 1132, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

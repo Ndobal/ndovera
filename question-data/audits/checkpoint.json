@@ -2,22 +2,22 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_038_automated_validation_passed",
+  "phase": "batch_039_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-039.json",
+  "nextBatch": "original-multisubject-batch-040.json",
   "nextPriorities": [
-    "Verify the official IELTS General Training Reading format and map its distinct section contexts before authoring variant-specific drafts. Academic Reading now has seven represented task families across two batches; matching sentence endings, completion variants and other remaining families are still open.",
+    "Prioritise TOEFL Reading, which has zero valid drafts. Verify the current TOEFL iBT Reading task families and create original items mapped to the post-redesign specification. Return to remaining IELTS Reading task families and full-length coverage later.",
     "Continue WAEC prescribed Literature beyond Shakespeare: verify editions, permissions and primary-text evidence for poetry/prose/drama theory. Antony and Cleopatra now has 25 WAEC context drafts and 25 provisional JAMB practice drafts; each act represented is not whole-play coverage. Verify current official JAMB set-text adoption independently.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-038.json",
-  "lastRemoteVerifiedCommit": "eabeb8bd44f77f5575bbecb50a95f1fbe9c4623e",
+  "lastValidatedBatch": "original-multisubject-batch-039.json",
+  "lastRemoteVerifiedCommit": "eefdf4bad5a354328624a752219e7d4e13685176",
   "verifiedTotals": {
-    "raw": 2791,
-    "validDrafts": 1112,
+    "raw": 2811,
+    "validDrafts": 1132,
     "reviewed": 0
   },
   "lastRunTestCount": 46

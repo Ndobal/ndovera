@@ -173,3 +173,10 @@ passages. The groups cover headings, information and features. Each item carries
 the shared passage, instructions and labelled choice bank, plus its group ID
 and position. Score one mark per item. The heading group uses each selected
 heading once and includes two unused choices. These are standalone draft sets.
+
+Batch 039 introduces 20 General Training Reading drafts across three
+section contexts. The original sets use everyday notices, a workplace
+instruction excerpt and a general-interest article. Matching labels,
+sentence completion and factual judgements use one mark per answer.
+Both Reading variants now have separate official format sources and
+author-proposed objective mappings. Coverage remains partial.

@@ -661,6 +661,21 @@
       "retrievedOn": "2026-11-03",
       "variant": "Academic",
       "note": "Official public format page. Author-created excerpt drills with one mark per item. General Training, full paper timing, band conversion and other task families are outside this batch."
+    },
+    {
+      "id": "ielts-general-training-reading-official-format",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "kind": "official_format",
+      "source": "https://ielts.org/take-a-test/test-types/ielts-general-training-test/ielts-general-training-format-reading",
+      "retrievedOn": "2026-11-03",
+      "variant": "General Training",
+      "sourceSections": [
+        "Section 1 everyday texts",
+        "Section 2 workplace texts",
+        "Section 3 general interest text"
+      ],
+      "note": "Official public format. Drafts are section-style practice. No full-paper timing or band conversion."
     }
   ],
   "banks": [
@@ -1218,7 +1233,7 @@
       "subject": "Reading",
       "level": "",
       "target": 1000,
-      "scopeStatus": "academic_format_verified_general_training_mapping_pending"
+      "scopeStatus": "academic_and_general_training_formats_verified_partial_coverage"
     },
     {
       "exam": "IELTS",
@@ -6172,6 +6187,60 @@
       ],
       "sourceSections": [
         "Matching features"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-gt-reading-section-1-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "General Training Reading",
+      "subtopic": "Community notices",
+      "learningObjective": "Locate a specific service condition in short everyday notices.",
+      "specificationId": "ielts-general-training-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Section 1",
+        "matching-information"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-gt-reading-section-2-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "General Training Reading",
+      "subtopic": "Workplace instructions",
+      "learningObjective": "Use exact words from workplace guidance to complete a paraphrase.",
+      "specificationId": "ielts-general-training-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Section 2",
+        "sentence-completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-gt-reading-section-3-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "General Training Reading",
+      "subtopic": "General interest article",
+      "learningObjective": "Use narrative evidence to distinguish stated facts, contradictions and missing information.",
+      "specificationId": "ielts-general-training-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Section 3",
+        "identifying-information"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
