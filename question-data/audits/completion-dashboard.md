@@ -52,7 +52,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Home Economics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Islamic Religious Knowledge (IRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
-| JAMB | Literature in English | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Literature in English | 1000 | 50 | 50 | 0 | 950 | partial_objective_register |
 | JAMB | Mathematics | 1000 | 673 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Music | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Physical Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -162,7 +162,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Insurance | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Islamic Religious Knowledge (IRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
-| WAEC | Literature in English | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Literature in English | 1000 | 50 | 50 | 0 | 950 | partial_objective_register |
 | WAEC | Livestock Farming | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Marketing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Mathematics | 1000 | 769 | 0 | 0 | 1000 | specification_unresolved |
@@ -181,15 +181,15 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | 0 | 0 | 0 | 18000 | 18000 |
 | IELTS | 19 | 10 | 0 | 4000 | 3990 |
 | IGCSE | 121 | 100 | 0 | 4000 | 3900 |
-| JAMB | 1053 | 350 | 0 | 25000 | 24650 |
+| JAMB | 1103 | 400 | 0 | 25000 | 24600 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 19 | 10 | 0 | 4000 | 3990 |
-| WAEC | 1149 | 350 | 0 | 42000 | 41650 |
+| WAEC | 1199 | 400 | 0 | 42000 | 41600 |
 
-Overall: {"raw": 2599, "validDrafts": 920, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2699, "validDrafts": 1020, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -210,3 +210,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved.
 - NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.
 - New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.
+- Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.

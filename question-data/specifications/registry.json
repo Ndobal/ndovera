@@ -543,6 +543,63 @@
         "https://www.biblegateway.com/passage/?search=Acts+5:1-11&version=KJV",
         "https://www.biblegateway.com/passage/?search=James+5:16-18&version=KJV"
       ]
+    },
+    {
+      "id": "waec-literature-provisional-2026",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "kind": "third_party_compilation_with_limited_official_index_crosscheck",
+      "source": "https://myschool.ng/classroom/waec-syllabus/literature-in-english",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "status": "provisional_general_knowledge_and_unseen_scope_full_current_specification_pending",
+      "sourceSections": [
+        "General literary knowledge/principles",
+        "Unseen prose and poetry"
+      ],
+      "officialCrossCheck": "https://www.waeconline.org.ng/e-learning/Literature/litEmain.html",
+      "retrievalNote": "WAEC scheme read from third-party syllabus page; official index confirms subject and written papers but not current complete scheme. JAMB supplied document section read from current Library file; live third-party page supplied no syllabus body, and official PDF URL returned a JavaScript application. Indexed official excerpt supports unseen Drama/Prose/Poetry but full current version is unverified.",
+      "note": "Batch 035 remains general/unseen-only. Official WAEC 2026–2030 selected-work list was separately retrieved after drafting and registered as waec-literature-prescribed-texts-2026-2030. Full examination scheme, editions and text-specific objectives remain pending. Original passages are not prescribed-author extracts. Year in this provisional source ID denotes retrieval checkpoint, not an adopted full syllabus edition."
+    },
+    {
+      "id": "jamb-literature-provisional-2026",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "kind": "third_party_compilation_with_limited_official_index_crosscheck",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/literature-in-english",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "status": "provisional_general_knowledge_and_unseen_scope_full_current_specification_pending",
+      "sourceSections": [
+        "Drama",
+        "Prose",
+        "Poetry",
+        "General literary principles",
+        "Literary appreciation"
+      ],
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Literature-in-English.pdf",
+      "retrievalNote": "WAEC scheme read from third-party syllabus page; official index confirms subject and written papers but not current complete scheme. JAMB supplied document section read from current Library file; live third-party page supplied no syllabus body, and official PDF URL returned a JavaScript application. Indexed official excerpt supports unseen Drama/Prose/Poetry but full current version is unverified.",
+      "note": "No current prescribed-text list or edition verified. Original standalone passages are for unseen appreciation only, not substitutes for prescribed-text essays or Shakespeare contexts. All objectives are author-proposed and pending academic review. The year in this source ID denotes the retrieval checkpoint, not an adopted examination edition."
+    },
+    {
+      "id": "waec-literature-prescribed-texts-2026-2030",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "kind": "official_prescribed_text_list",
+      "source": "https://waecnigeria.org/sites/default/files/2023-06/LITERATURE-IN-ENG%202026-2030.pdf",
+      "officialLandingPage": "https://waecnigeria.org/article/list-selected-texts-wassce-arabic-edo-efik-hausa-ibibio-igbo-literature-english-and-0",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "status": "official_selected_text_list_retrieved_full_scheme_and_editions_pending",
+      "retrievedOn": "2026-11-03",
+      "pageCount": 14,
+      "sourceSections": [
+        "Page 1: harmonized selected text list"
+      ],
+      "note": "Establishes selected works, not complete content objectives or permitted question formats. Contains printed name/title inconsistencies that require bibliographic checking before authoring text-specific questions. Full poems are not copied into the repository. Does not establish JAMB or NECO adoption."
     }
   ],
   "banks": [
@@ -593,7 +650,8 @@
       "subject": "Literature in English",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "waec-literature-provisional-2026"
     },
     {
       "exam": "WAEC",
@@ -828,7 +886,8 @@
       "subject": "Literature in English",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "candidate_from_supplied_compilation",
+      "specificationId": "jamb-literature-provisional-2026"
     },
     {
       "exam": "JAMB",
@@ -5584,6 +5643,188 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-literature-language-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Literary language",
+      "subtopic": "Figures symbolism and effects",
+      "learningObjective": "Identify a literary device in an original example and explain its effect.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-literature-narrative-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prose techniques",
+      "subtopic": "Voice character plot and setting",
+      "learningObjective": "Distinguish narrative techniques and relate them to character or plot development.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-literature-drama-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Dramatic techniques",
+      "subtopic": "Dialogue stage action and audience knowledge",
+      "learningObjective": "Interpret dramatic conventions and the effects of dialogue or stage action.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-literature-forms-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Literary forms",
+      "subtopic": "Genre conventions and verse forms",
+      "learningObjective": "Distinguish literary genres and poetic forms using their defining features.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-literature-unseen-prose-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Prose evidence and inference",
+      "learningObjective": "Interpret an original prose extract through textual evidence and narrative technique.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-literature-unseen-poetry-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Poetic voice imagery sound and structure",
+      "learningObjective": "Interpret an original poem by relating language and structure to meaning.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-literature-language-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Literary language",
+      "subtopic": "Figures symbolism and effects",
+      "learningObjective": "Identify a literary device in an original example and explain its effect.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-literature-narrative-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prose techniques",
+      "subtopic": "Voice character plot and setting",
+      "learningObjective": "Distinguish narrative techniques and relate them to character or plot development.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-literature-drama-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Dramatic techniques",
+      "subtopic": "Dialogue stage action and audience knowledge",
+      "learningObjective": "Interpret dramatic conventions and the effects of dialogue or stage action.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-literature-forms-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Literary forms",
+      "subtopic": "Genre conventions and verse forms",
+      "learningObjective": "Distinguish literary genres and poetic forms using their defining features.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-literature-unseen-prose-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Prose evidence and inference",
+      "learningObjective": "Interpret an original prose extract through textual evidence and narrative technique.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-literature-unseen-poetry-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Poetic voice imagery sound and structure",
+      "learningObjective": "Interpret an original poem by relating language and structure to meaning.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-literature-unseen-drama-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Drama conflict subtext and performance",
+      "learningObjective": "Interpret an original dramatic extract using dialogue stage directions and audience knowledge.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -5601,6 +5842,7 @@
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
     "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved.",
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
-    "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred."
+    "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
+    "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors."
   ]
 }

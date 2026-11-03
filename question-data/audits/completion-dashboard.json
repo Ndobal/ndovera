@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2599,
-    "validDrafts": 920,
+    "raw": 2699,
+    "validDrafts": 1020,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -336,6 +336,12 @@
     {
       "path": "original-multisubject-batch-034.json",
       "sha256": "c344d9f01dd153fd9eff17a4115183ea8b32aaf778acd0fa7aa3aa82db5aca94",
+      "declared": 100,
+      "actual": 100
+    },
+    {
+      "path": "original-multisubject-batch-035.json",
+      "sha256": "1bb1579ab337408780d5bd510580d8367b36a8b848c97b347d7f9d7ca840d48d",
       "declared": 100,
       "actual": 100
     },
@@ -1514,16 +1520,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "specificationId": "jamb-literature-provisional-2026",
+      "raw": 50,
+      "validDrafts": 50,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 50
+      },
+      "difficulty": {
+        "easy": 9,
+        "standard": 30,
+        "difficult": 11
+      },
+      "remaining": 950,
+      "mappedObjectives": 7,
+      "representedObjectives": 5,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "JAMB",
@@ -3735,16 +3748,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "specificationId": "waec-literature-provisional-2026",
+      "raw": 50,
+      "validDrafts": 50,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 50
+      },
+      "difficulty": {
+        "standard": 35,
+        "easy": 10,
+        "difficult": 5
+      },
+      "remaining": 950,
+      "mappedObjectives": 6,
+      "representedObjectives": 5,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -3935,18 +3955,18 @@
     }
   ],
   "errorCounts": {
+    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 141,
@@ -24049,6 +24069,606 @@
       "errors": []
     },
     {
+      "id": "ndv-035-001",
+      "file": "original-multisubject-batch-035.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-002",
+      "file": "original-multisubject-batch-035.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-003",
+      "file": "original-multisubject-batch-035.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-004",
+      "file": "original-multisubject-batch-035.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-005",
+      "file": "original-multisubject-batch-035.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-006",
+      "file": "original-multisubject-batch-035.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-007",
+      "file": "original-multisubject-batch-035.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-008",
+      "file": "original-multisubject-batch-035.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-009",
+      "file": "original-multisubject-batch-035.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-010",
+      "file": "original-multisubject-batch-035.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-011",
+      "file": "original-multisubject-batch-035.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-012",
+      "file": "original-multisubject-batch-035.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-013",
+      "file": "original-multisubject-batch-035.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-014",
+      "file": "original-multisubject-batch-035.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-015",
+      "file": "original-multisubject-batch-035.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-016",
+      "file": "original-multisubject-batch-035.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-017",
+      "file": "original-multisubject-batch-035.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-018",
+      "file": "original-multisubject-batch-035.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-019",
+      "file": "original-multisubject-batch-035.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-020",
+      "file": "original-multisubject-batch-035.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-021",
+      "file": "original-multisubject-batch-035.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-022",
+      "file": "original-multisubject-batch-035.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-023",
+      "file": "original-multisubject-batch-035.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-024",
+      "file": "original-multisubject-batch-035.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-025",
+      "file": "original-multisubject-batch-035.json",
+      "index": 24,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-026",
+      "file": "original-multisubject-batch-035.json",
+      "index": 25,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-027",
+      "file": "original-multisubject-batch-035.json",
+      "index": 26,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-028",
+      "file": "original-multisubject-batch-035.json",
+      "index": 27,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-029",
+      "file": "original-multisubject-batch-035.json",
+      "index": 28,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-030",
+      "file": "original-multisubject-batch-035.json",
+      "index": 29,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-031",
+      "file": "original-multisubject-batch-035.json",
+      "index": 30,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-032",
+      "file": "original-multisubject-batch-035.json",
+      "index": 31,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-033",
+      "file": "original-multisubject-batch-035.json",
+      "index": 32,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-034",
+      "file": "original-multisubject-batch-035.json",
+      "index": 33,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-035",
+      "file": "original-multisubject-batch-035.json",
+      "index": 34,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-036",
+      "file": "original-multisubject-batch-035.json",
+      "index": 35,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-037",
+      "file": "original-multisubject-batch-035.json",
+      "index": 36,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-038",
+      "file": "original-multisubject-batch-035.json",
+      "index": 37,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-039",
+      "file": "original-multisubject-batch-035.json",
+      "index": 38,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-040",
+      "file": "original-multisubject-batch-035.json",
+      "index": 39,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-041",
+      "file": "original-multisubject-batch-035.json",
+      "index": 40,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-042",
+      "file": "original-multisubject-batch-035.json",
+      "index": 41,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-043",
+      "file": "original-multisubject-batch-035.json",
+      "index": 42,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-044",
+      "file": "original-multisubject-batch-035.json",
+      "index": 43,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-045",
+      "file": "original-multisubject-batch-035.json",
+      "index": 44,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-046",
+      "file": "original-multisubject-batch-035.json",
+      "index": 45,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-047",
+      "file": "original-multisubject-batch-035.json",
+      "index": 46,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-048",
+      "file": "original-multisubject-batch-035.json",
+      "index": 47,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-049",
+      "file": "original-multisubject-batch-035.json",
+      "index": 48,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-050",
+      "file": "original-multisubject-batch-035.json",
+      "index": 49,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-051",
+      "file": "original-multisubject-batch-035.json",
+      "index": 50,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-052",
+      "file": "original-multisubject-batch-035.json",
+      "index": 51,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-053",
+      "file": "original-multisubject-batch-035.json",
+      "index": 52,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-054",
+      "file": "original-multisubject-batch-035.json",
+      "index": 53,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-055",
+      "file": "original-multisubject-batch-035.json",
+      "index": 54,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-056",
+      "file": "original-multisubject-batch-035.json",
+      "index": 55,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-057",
+      "file": "original-multisubject-batch-035.json",
+      "index": 56,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-058",
+      "file": "original-multisubject-batch-035.json",
+      "index": 57,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-059",
+      "file": "original-multisubject-batch-035.json",
+      "index": 58,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-060",
+      "file": "original-multisubject-batch-035.json",
+      "index": 59,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-061",
+      "file": "original-multisubject-batch-035.json",
+      "index": 60,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-062",
+      "file": "original-multisubject-batch-035.json",
+      "index": 61,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-063",
+      "file": "original-multisubject-batch-035.json",
+      "index": 62,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-064",
+      "file": "original-multisubject-batch-035.json",
+      "index": 63,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-065",
+      "file": "original-multisubject-batch-035.json",
+      "index": 64,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-066",
+      "file": "original-multisubject-batch-035.json",
+      "index": 65,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-067",
+      "file": "original-multisubject-batch-035.json",
+      "index": 66,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-068",
+      "file": "original-multisubject-batch-035.json",
+      "index": 67,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-069",
+      "file": "original-multisubject-batch-035.json",
+      "index": 68,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-070",
+      "file": "original-multisubject-batch-035.json",
+      "index": 69,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-071",
+      "file": "original-multisubject-batch-035.json",
+      "index": 70,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-072",
+      "file": "original-multisubject-batch-035.json",
+      "index": 71,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-073",
+      "file": "original-multisubject-batch-035.json",
+      "index": 72,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-074",
+      "file": "original-multisubject-batch-035.json",
+      "index": 73,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-075",
+      "file": "original-multisubject-batch-035.json",
+      "index": 74,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-076",
+      "file": "original-multisubject-batch-035.json",
+      "index": 75,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-077",
+      "file": "original-multisubject-batch-035.json",
+      "index": 76,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-078",
+      "file": "original-multisubject-batch-035.json",
+      "index": 77,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-079",
+      "file": "original-multisubject-batch-035.json",
+      "index": 78,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-080",
+      "file": "original-multisubject-batch-035.json",
+      "index": 79,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-081",
+      "file": "original-multisubject-batch-035.json",
+      "index": 80,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-082",
+      "file": "original-multisubject-batch-035.json",
+      "index": 81,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-083",
+      "file": "original-multisubject-batch-035.json",
+      "index": 82,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-084",
+      "file": "original-multisubject-batch-035.json",
+      "index": 83,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-085",
+      "file": "original-multisubject-batch-035.json",
+      "index": 84,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-086",
+      "file": "original-multisubject-batch-035.json",
+      "index": 85,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-087",
+      "file": "original-multisubject-batch-035.json",
+      "index": 86,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-088",
+      "file": "original-multisubject-batch-035.json",
+      "index": 87,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-089",
+      "file": "original-multisubject-batch-035.json",
+      "index": 88,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-090",
+      "file": "original-multisubject-batch-035.json",
+      "index": 89,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-091",
+      "file": "original-multisubject-batch-035.json",
+      "index": 90,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-092",
+      "file": "original-multisubject-batch-035.json",
+      "index": 91,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-093",
+      "file": "original-multisubject-batch-035.json",
+      "index": 92,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-094",
+      "file": "original-multisubject-batch-035.json",
+      "index": 93,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-095",
+      "file": "original-multisubject-batch-035.json",
+      "index": 94,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-096",
+      "file": "original-multisubject-batch-035.json",
+      "index": 95,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-097",
+      "file": "original-multisubject-batch-035.json",
+      "index": 96,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-098",
+      "file": "original-multisubject-batch-035.json",
+      "index": 97,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-099",
+      "file": "original-multisubject-batch-035.json",
+      "index": 98,
+      "errors": []
+    },
+    {
+      "id": "ndv-035-100",
+      "file": "original-multisubject-batch-035.json",
+      "index": 99,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -42769,6 +43389,342 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-language-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Literary language",
+      "subtopic": "Figures symbolism and effects",
+      "learningObjective": "Identify a literary device in an original example and explain its effect.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 8
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 8,
+      "validDrafts": 8,
+      "difficulty": {
+        "standard": 6,
+        "easy": 2
+      },
+      "tiers": {
+        "not_specified": 8
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-narrative-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prose techniques",
+      "subtopic": "Voice character plot and setting",
+      "learningObjective": "Distinguish narrative techniques and relate them to character or plot development.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 18
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 18,
+      "validDrafts": 18,
+      "difficulty": {
+        "standard": 14,
+        "easy": 4
+      },
+      "tiers": {
+        "not_specified": 18
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-drama-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Dramatic techniques",
+      "subtopic": "Dialogue stage action and audience knowledge",
+      "learningObjective": "Interpret dramatic conventions and the effects of dialogue or stage action.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 2,
+        "easy": 2
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-forms-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Literary forms",
+      "subtopic": "Genre conventions and verse forms",
+      "learningObjective": "Distinguish literary genres and poetic forms using their defining features.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": {},
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-unseen-prose-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Prose evidence and inference",
+      "learningObjective": "Interpret an original prose extract through textual evidence and narrative technique.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 10
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 10,
+      "validDrafts": 10,
+      "difficulty": {
+        "standard": 7,
+        "difficult": 2,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 10
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-literature-unseen-poetry-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Poetic voice imagery sound and structure",
+      "learningObjective": "Interpret an original poem by relating language and structure to meaning.",
+      "specificationId": "waec-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 10
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 10,
+      "validDrafts": 10,
+      "difficulty": {
+        "standard": 6,
+        "difficult": 3,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 10
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-language-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Literary language",
+      "subtopic": "Figures symbolism and effects",
+      "learningObjective": "Identify a literary device in an original example and explain its effect.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 8
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 8,
+      "validDrafts": 8,
+      "difficulty": {
+        "easy": 2,
+        "standard": 5,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 8
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-narrative-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prose techniques",
+      "subtopic": "Voice character plot and setting",
+      "learningObjective": "Distinguish narrative techniques and relate them to character or plot development.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": {},
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-drama-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Dramatic techniques",
+      "subtopic": "Dialogue stage action and audience knowledge",
+      "learningObjective": "Interpret dramatic conventions and the effects of dialogue or stage action.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": {},
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-forms-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Literary forms",
+      "subtopic": "Genre conventions and verse forms",
+      "learningObjective": "Distinguish literary genres and poetic forms using their defining features.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 12
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 12,
+      "validDrafts": 12,
+      "difficulty": {
+        "easy": 4,
+        "standard": 8
+      },
+      "tiers": {
+        "not_specified": 12
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-unseen-prose-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Prose evidence and inference",
+      "learningObjective": "Interpret an original prose extract through textual evidence and narrative technique.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 10
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 10,
+      "validDrafts": 10,
+      "difficulty": {
+        "standard": 5,
+        "difficult": 4,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 10
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-unseen-poetry-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Poetic voice imagery sound and structure",
+      "learningObjective": "Interpret an original poem by relating language and structure to meaning.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 10
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 10,
+      "validDrafts": 10,
+      "difficulty": {
+        "standard": 6,
+        "difficult": 3,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 10
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-literature-unseen-drama-v1",
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Unseen literary appreciation",
+      "subtopic": "Drama conflict subtext and performance",
+      "learningObjective": "Interpret an original dramatic extract using dialogue stage directions and audience knowledge.",
+      "specificationId": "jamb-literature-provisional-2026",
+      "questionTypes": {
+        "mcq": 10
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 10,
+      "validDrafts": 10,
+      "difficulty": {
+        "standard": 6,
+        "difficult": 3,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 10
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -42786,6 +43742,7 @@
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
     "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved.",
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
-    "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred."
+    "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
+    "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors."
   ]
 }

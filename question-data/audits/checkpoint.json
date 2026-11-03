@@ -2,22 +2,22 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_034_automated_validation_passed",
+  "phase": "batch_035_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-035.json",
+  "nextBatch": "original-multisubject-batch-036.json",
   "nextPriorities": [
-    "Retrieve current specifications for remaining largely empty banks, including Literature in English and named language qualifications, and prioritise missing objectives. CRK/IRK now each have 25 drafts per WAEC/JAMB bank; recitation, tajwid, many historical themes and full religious-studies coverage remain outstanding.",
+    "Use the official WAEC 2026–2030 Literature selected-work inventory to resolve editions and bibliographic inconsistencies, map text-specific objectives and add appropriate theory/context questions. WAEC/JAMB Literature now have 50 original general/unseen drafts each; no prescribed-text coverage is implied. Verify current JAMB set-text adoption separately.",
     "Retrieve full NECO BECE content objectives after the official 2026 timetable established subject and paper-format scope.",
     "Verify current NERDC class-objective adoption: new class pages return 403; older public PDFs are reference evidence only.",
     "Continue NECO SSCE source retrieval, legacy remediation and independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-034.json",
-  "lastRemoteVerifiedCommit": "45c943d4cf1a6aabb75fa0c01e5f081e24e730bc",
+  "lastValidatedBatch": "original-multisubject-batch-035.json",
+  "lastRemoteVerifiedCommit": "3cad7f1871de97be9bf6b2b33844297953502825",
   "verifiedTotals": {
-    "raw": 2599,
-    "validDrafts": 920,
+    "raw": 2699,
+    "validDrafts": 1020,
     "reviewed": 0
   },
   "lastRunTestCount": 40

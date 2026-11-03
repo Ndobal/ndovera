@@ -125,3 +125,18 @@ with indicative eight-mark practice guides. Each item has a text reference.
 The guides do not reproduce official examination mark scaling. Full current
 specifications and independent specialist review remain outstanding. No Arabic
 recitation or tajwid performance is assessed by these written questions.
+
+## Literature checkpoint
+
+Batch 035 contains 50 WAEC and 50 JAMB original Literature MCQs, covering general
+literary knowledge and unseen appreciation. Its ten stimuli are entirely
+original: four prose passages, four poems and two dramatic scenes. The WAEC
+prose passages each have 133 whitespace-separated words. These are practice
+items, not complete papers or substitutes for prescribed-text essays.
+
+The official WAEC 2026–2030 selected-work list is now registered separately.
+`specifications/waec-literature-text-inventory-2026-2030.json` records 21 works
+as unstarted, with no linked questions. It retains printed labels and flags
+bibliographic inconsistencies. It is not a question batch or a full objective
+matrix. Verify editions and map objectives before adding text-specific items.
+Current JAMB/NECO adoption must be verified separately.
