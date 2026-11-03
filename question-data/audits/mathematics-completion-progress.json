@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 724,
-      "remainingToNumericTarget": 276,
+      "stagedQuestionCount": 744,
+      "remainingToNumericTarget": 256,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 628,
-      "remainingToNumericTarget": 372,
+      "stagedQuestionCount": 648,
+      "remainingToNumericTarget": 352,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -80,7 +80,9 @@
     "question-data/original-waec-mathematics-theory-batch-021c.json",
     "question-data/original-jamb-mathematics-depth-batch-021d.json",
     "question-data/original-waec-mathematics-batch-022a.json",
-    "question-data/original-jamb-mathematics-batch-022a.json"
+    "question-data/original-jamb-mathematics-batch-022a.json",
+    "question-data/original-waec-mathematics-theory-batch-023a.json",
+    "question-data/original-jamb-mathematics-depth-batch-023b.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -143,7 +145,11 @@
     "batch022aQuestionCount": 40,
     "batch022aUniquePromptCount": 20,
     "batch022aCrossExamDuplicatePrompts": true,
-    "batch022aIndependentAcademicReview": false
+    "batch022aIndependentAcademicReview": false,
+    "batch023NewQuestions": 40,
+    "batch023WaecTheory": 20,
+    "batch023JambMcq": 20,
+    "batch023IndependentAcademicReview": false
   },
   "nextPriorities": [
     "Use a standard 100-question increment per continuation where feasible: 50 WAEC and 50 JAMB",
