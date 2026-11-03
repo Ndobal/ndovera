@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 184,
-      "remainingToNumericTarget": 816,
+      "stagedQuestionCount": 234,
+      "remainingToNumericTarget": 766,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 168,
-      "remainingToNumericTarget": 832,
+      "stagedQuestionCount": 218,
+      "remainingToNumericTarget": 782,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -38,7 +38,11 @@
     "question-data/original-mathematics-batch-011.json",
     "question-data/original-waec-mathematics-theory-batch-001.json",
     "question-data/original-mathematics-batch-012.json",
-    "question-data/original-waec-mathematics-theory-batch-002.json"
+    "question-data/original-waec-mathematics-theory-batch-002.json",
+    "question-data/original-waec-mathematics-batch-013a.json",
+    "question-data/original-waec-mathematics-batch-013b.json",
+    "question-data/original-jamb-mathematics-batch-013c.json",
+    "question-data/original-jamb-mathematics-batch-013d.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -53,14 +57,17 @@
     "waecTheoryDraftCount": 16,
     "theoryFormatSupportedByApp": false,
     "batch011CorrectedAmbiguousDistractor": true,
-    "batch012MCQCount": 24
+    "batch012MCQCount": 24,
+    "batch013QuestionCount": 100,
+    "batch013StructuralAnswerReferenceChecksPassed": true,
+    "batch013IndependentAcademicReview": false,
+    "batch013ConceptualDuplicatesReviewed": false
   },
   "nextPriorities": [
-    "Create objective-by-objective WAEC/JAMB Mathematics coverage map",
-    "Prioritise missing syllabus objectives over numeric volume",
-    "Independently verify answer keys and theory marking guides",
-    "Build difficult multistep questions with varied reasoning, not only numerical parameter changes",
-    "Validate D1 duplicates and application theory schema before production import"
+    "Prioritize genuinely new objective coverage rather than further parameter-only variations",
+    "Build and validate more WAEC theory questions",
+    "Review difficulty and independent correctness",
+    "Complete objective-by-objective WAEC/JAMB syllabus mapping"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
