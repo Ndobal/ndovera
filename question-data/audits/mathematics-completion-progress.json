@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 166,
-      "remainingToNumericTarget": 834,
+      "stagedQuestionCount": 184,
+      "remainingToNumericTarget": 816,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 156,
-      "remainingToNumericTarget": 844,
+      "stagedQuestionCount": 168,
+      "remainingToNumericTarget": 832,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -36,7 +36,9 @@
     "question-data/original-mathematics-batch-009.json",
     "question-data/original-mathematics-batch-010.json",
     "question-data/original-mathematics-batch-011.json",
-    "question-data/original-waec-mathematics-theory-batch-001.json"
+    "question-data/original-waec-mathematics-theory-batch-001.json",
+    "question-data/original-mathematics-batch-012.json",
+    "question-data/original-waec-mathematics-theory-batch-002.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -48,16 +50,17 @@
     "batch008To010Count": 240,
     "batch010DefiniteIntegralCorrections": 24,
     "batch011MCQCount": 22,
-    "waecTheoryDraftCount": 10,
+    "waecTheoryDraftCount": 16,
     "theoryFormatSupportedByApp": false,
-    "batch011CorrectedAmbiguousDistractor": true
+    "batch011CorrectedAmbiguousDistractor": true,
+    "batch012MCQCount": 24
   },
   "nextPriorities": [
-    "Map all mathematics questions to source syllabus objectives",
-    "Review and verify answers including structured marking guides",
-    "Add advanced multistep questions across underrepresented objectives",
-    "Build full WAEC theory and JAMB objective coverage",
-    "Check conceptual duplication and validate against D1 before any import"
+    "Create objective-by-objective WAEC/JAMB Mathematics coverage map",
+    "Prioritise missing syllabus objectives over numeric volume",
+    "Independently verify answer keys and theory marking guides",
+    "Build difficult multistep questions with varied reasoning, not only numerical parameter changes",
+    "Validate D1 duplicates and application theory schema before production import"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
