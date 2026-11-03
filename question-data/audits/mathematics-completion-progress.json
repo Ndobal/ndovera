@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 588,
-      "remainingToNumericTarget": 412,
+      "stagedQuestionCount": 608,
+      "remainingToNumericTarget": 392,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -77,7 +77,8 @@
     "question-data/original-mathematics-batch-020d.json",
     "question-data/original-jamb-mathematics-depth-batch-021a.json",
     "question-data/original-waec-mathematics-theory-batch-021b.json",
-    "question-data/original-waec-mathematics-theory-batch-021c.json"
+    "question-data/original-waec-mathematics-theory-batch-021c.json",
+    "question-data/original-jamb-mathematics-depth-batch-021d.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -133,7 +134,10 @@
     "batch021bMarkingGuidesIncluded": true,
     "batch021bIndependentAcademicReview": false,
     "batch021cTheoryCount": 10,
-    "batch021cIndependentAcademicReview": false
+    "batch021cIndependentAcademicReview": false,
+    "batch021dQuestionCount": 20,
+    "batch021dStructuralChecksPassed": true,
+    "batch021dIndependentAcademicReview": false
   },
   "nextPriorities": [
     "Continue 400 WAEC and 400 JAMB request: 390 WAEC and 380 JAMB not yet added",
