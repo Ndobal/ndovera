@@ -1,7 +1,7 @@
 /* Old WebKit has flexbox but no CSS Grid. Keep forms and cards in document order.
    Feature classes are set before the application or stylesheet loads. */
-.ndv-no-grid .grid,
-.ndv-no-grid .inline-grid {
+.ndv-no-grid .grid:not(.hidden),
+.ndv-no-grid .inline-grid:not(.hidden) {
   display: block;
 }
 .ndv-no-grid .grid > * + * {
