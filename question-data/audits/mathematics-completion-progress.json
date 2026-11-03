@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 434,
-      "remainingToNumericTarget": 566,
+      "stagedQuestionCount": 484,
+      "remainingToNumericTarget": 516,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 418,
-      "remainingToNumericTarget": 582,
+      "stagedQuestionCount": 468,
+      "remainingToNumericTarget": 532,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -58,7 +58,11 @@
     "question-data/original-mathematics-batch-017a.json",
     "question-data/original-mathematics-batch-017b.json",
     "question-data/original-mathematics-batch-017c.json",
-    "question-data/original-mathematics-batch-017d.json"
+    "question-data/original-mathematics-batch-017d.json",
+    "question-data/original-mathematics-batch-018a.json",
+    "question-data/original-mathematics-batch-018b.json",
+    "question-data/original-mathematics-batch-018c.json",
+    "question-data/original-mathematics-batch-018d.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -93,14 +97,16 @@
     "batch017QuestionCount": 100,
     "batch017UniqueIdsAndOptionReferencesPassed": true,
     "batch017TopicFamilies": 20,
-    "batch017IndependentAcademicReview": false
+    "batch017IndependentAcademicReview": false,
+    "batch018QuestionCount": 100,
+    "batch018OptionChecksPassed": true,
+    "batch018ConceptualVarietyInsufficient": true,
+    "batch018IndependentAcademicReview": false
   },
   "nextPriorities": [
-    "Independently validate every mathematical answer and distractor",
-    "Build detailed objective-level syllabus mapping",
-    "Develop more genuinely challenging multi-step and WAEC theory problems",
-    "Review concept-level duplication and difficulty labels",
-    "Do not import drafts into production"
+    "Do not consider batch 018 publication-ready: only five recurring concept templates",
+    "Prioritize conceptual diversity, rigorous explanations, and higher-order problem solving",
+    "Map syllabus objectives and conduct independent review before production"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
