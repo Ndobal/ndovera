@@ -193,6 +193,50 @@
         "Extended"
       ],
       "coverageComplete": false
+    },
+    {
+      "id": "waec-commerce-compilation-2026",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "kind": "user_supplied_third_party_compilation_with_limited_official_crosscheck",
+      "source": "https://myschool.ng/classroom/waec-syllabus/commerce",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "officialCrossCheck": "https://waeconline.org.ng/e-learning/Commerce/Commmain.html",
+      "status": "provisional_full_current_official_specification_and_country_alignment_pending",
+      "note": "No current tax rates or changing statutory thresholds assumed. JAMB accounts full official PDF was not retrieved. WAEC country-specific starred sections are not silently generalised."
+    },
+    {
+      "id": "waec-accounts-compilation-2026",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "kind": "user_supplied_third_party_compilation_with_limited_official_crosscheck",
+      "source": "https://myschool.ng/classroom/waec-syllabus/accounts-principles-of-accounts",
+      "file": "WAEC_All_Subjects_Syllabus.docx",
+      "officialCrossCheck": "https://waeconline.org.ng/e-learning/Financial/FAmain.html",
+      "status": "provisional_full_current_official_specification_and_country_alignment_pending",
+      "note": "No current tax rates or changing statutory thresholds assumed. JAMB accounts full official PDF was not retrieved. WAEC country-specific starred sections are not silently generalised."
+    },
+    {
+      "id": "jamb-commerce-compilation-2026",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "kind": "user_supplied_third_party_compilation_with_limited_official_crosscheck",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/commerce",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/assets/uploads/Commerce.pdf",
+      "status": "provisional_full_current_official_specification_and_country_alignment_pending",
+      "note": "No current tax rates or changing statutory thresholds assumed. JAMB accounts full official PDF was not retrieved. WAEC country-specific starred sections are not silently generalised."
+    },
+    {
+      "id": "jamb-accounts-compilation-2026",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "kind": "user_supplied_third_party_compilation_with_limited_official_crosscheck",
+      "source": "https://myschool.ng/classroom/jamb-syllabus/accounts-principles-of-accounts",
+      "file": "JAMB_All_Subjects_Syllabus.docx",
+      "officialCrossCheck": "https://ibass.jamb.gov.ng/cbt",
+      "status": "provisional_full_current_official_specification_and_country_alignment_pending",
+      "note": "No current tax rates or changing statutory thresholds assumed. JAMB accounts full official PDF was not retrieved. WAEC country-specific starred sections are not silently generalised."
     }
   ],
   "banks": [
@@ -3045,6 +3089,470 @@
         "Extended"
       ],
       "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-commerce-scope-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Commercial activity",
+      "subtopic": "Trade and aids to trade",
+      "learningObjective": "Distinguish commercial functions and production roles.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-commerce-business-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-commerce-trade-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-commerce-finance-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-commerce-risk-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Risk transfer principles",
+      "learningObjective": "Apply insurance concepts to stated business circumstances.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-commerce-logistics-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-commerce-marketing-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-commerce-management-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-accounts-concepts-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-accounts-entry-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Double entry and documents",
+      "subtopic": "Transaction recording",
+      "learningObjective": "Record transactions using appropriate accounts and evidence.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-accounts-cash-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-accounts-errors-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Errors and control accounts",
+      "subtopic": "Accuracy and correction",
+      "learningObjective": "Identify and correct errors using reconciled records.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-accounts-final-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-accounts-assets-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Assets and depreciation",
+      "subtopic": "Measurement and cost allocation",
+      "learningObjective": "Apply stated asset and inventory policies.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-accounts-organisations-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-accounts-interpretation-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-commerce-scope-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Commercial activity",
+      "subtopic": "Trade and aids to trade",
+      "learningObjective": "Distinguish commercial functions and production roles.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-commerce-business-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-commerce-trade-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-commerce-finance-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-commerce-risk-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Risk transfer principles",
+      "learningObjective": "Apply insurance concepts to stated business circumstances.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-commerce-logistics-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-commerce-marketing-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-commerce-management-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-accounts-concepts-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-accounts-entry-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Double entry and documents",
+      "subtopic": "Transaction recording",
+      "learningObjective": "Record transactions using appropriate accounts and evidence.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-accounts-cash-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-accounts-errors-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Errors and control accounts",
+      "subtopic": "Accuracy and correction",
+      "learningObjective": "Identify and correct errors using reconciled records.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-accounts-final-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-accounts-assets-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Assets and depreciation",
+      "subtopic": "Measurement and cost allocation",
+      "learningObjective": "Apply stated asset and inventory policies.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-accounts-organisations-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "jamb-accounts-interpretation-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
     }
   ],

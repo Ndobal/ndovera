@@ -2,21 +2,22 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_029_automated_validation_passed",
+  "phase": "batch_030_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-030.json",
+  "nextBatch": "original-multisubject-batch-031.json",
   "nextPriorities": [
-    "Expand underrepresented Commerce and Financial Accounting in WAEC/JAMB using supplied compilations and official crosschecks.",
-    "Retrieve NECO, BECE and NERDC class-subject specifications.",
-    "Complete IGCSE objective-level and Core-only alignment; Physics/Economics PDF retrieval remains blocked by timeouts."
+    "Build missing Government and Geography WAEC/JAMB objectives from supplied sources, avoiding reuse of current prompts.",
+    "Retrieve NECO SSCE, BECE and NERDC versioned class-subject sources; do not manufacture class-subject assignments.",
+    "Resolve remaining IGCSE Core-only alignment and exact content objective codes; full Physics/Economics source downloads remain pending.",
+    "Continue legacy remediation and independent academic-review preparation."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-029.json",
-  "lastRemoteVerifiedCommit": "3f4c24558c78c862a4e28edd51dbdf0e7d7734d4",
+  "lastValidatedBatch": "original-multisubject-batch-030.json",
+  "lastRemoteVerifiedCommit": "6f3655df2289883adaa33e202744cbceeaa7678e",
   "verifiedTotals": {
-    "raw": 2099,
-    "validDrafts": 420,
+    "raw": 2199,
+    "validDrafts": 520,
     "reviewed": 0
   },
   "lastRunTestCount": 35

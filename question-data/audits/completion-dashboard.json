@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2099,
-    "validDrafts": 420,
+    "raw": 2199,
+    "validDrafts": 520,
     "reviewed": 0,
     "registeredBanks": 148,
     "target": 129000,
@@ -305,7 +305,13 @@
     },
     {
       "path": "original-multisubject-batch-029.json",
-      "sha256": "e0da3159a1bde413abb497fa6ce6370f0ea8ed6d587de15c8c636b18e69fb5c7",
+      "sha256": "a39766795c0027556e8bb94662c004412c03f3ed7663e2d38a26470c13688dd2",
+      "declared": 100,
+      "actual": 100
+    },
+    {
+      "path": "original-multisubject-batch-030.json",
+      "sha256": "7ee121c80425f0594a86effbc4e708786062554022b68344b96f7f44db6ab6ed",
       "declared": 100,
       "actual": 100
     },
@@ -530,10 +536,10 @@
         "structured": 20
       },
       "difficulty": {
-        "standard": 49,
-        "easy": 1,
-        "missing": 3,
-        "difficult": 1
+        "easy": 21,
+        "standard": 22,
+        "difficult": 8,
+        "missing": 3
       },
       "remaining": 950,
       "mappedObjectives": 10,
@@ -562,7 +568,9 @@
         "structured": 20
       },
       "difficulty": {
-        "standard": 50,
+        "standard": 29,
+        "easy": 17,
+        "difficult": 4,
         "missing": 2
       },
       "remaining": 950,
@@ -718,16 +726,21 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 25
+      },
+      "difficulty": {
+        "standard": 16,
+        "easy": 9
+      },
+      "remaining": 975,
+      "mappedObjectives": 8,
+      "representedObjectives": 8,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "JAMB",
@@ -775,16 +788,21 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 25
+      },
+      "difficulty": {
+        "easy": 7,
+        "standard": 18
+      },
+      "remaining": 975,
+      "mappedObjectives": 8,
+      "representedObjectives": 8,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "JAMB",
@@ -2701,16 +2719,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 25,
+      "validDrafts": 25,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 15,
+        "structured": 10
+      },
+      "difficulty": {
+        "easy": 8,
+        "standard": 13,
+        "difficult": 4
+      },
+      "remaining": 975,
+      "mappedObjectives": 8,
+      "representedObjectives": 8,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -2854,21 +2879,25 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 4,
-      "validDrafts": 0,
+      "raw": 29,
+      "validDrafts": 25,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 4
+        "mcq": 19,
+        "structured": 10
       },
       "difficulty": {
+        "standard": 12,
+        "easy": 6,
+        "difficult": 7,
         "missing": 2,
         "very difficult": 2
       },
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "remaining": 975,
+      "mappedObjectives": 8,
+      "representedObjectives": 7,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -3305,21 +3334,21 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 78,
+    "explicitArithmeticClaims": 104,
     "scope": "Exact arithmetic claims plus parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems or solutions can be machine verified.",
     "failureCount": 0
   },
@@ -20418,6 +20447,606 @@
       "errors": []
     },
     {
+      "id": "ndv-030-001",
+      "file": "original-multisubject-batch-030.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-002",
+      "file": "original-multisubject-batch-030.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-003",
+      "file": "original-multisubject-batch-030.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-004",
+      "file": "original-multisubject-batch-030.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-005",
+      "file": "original-multisubject-batch-030.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-006",
+      "file": "original-multisubject-batch-030.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-007",
+      "file": "original-multisubject-batch-030.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-008",
+      "file": "original-multisubject-batch-030.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-009",
+      "file": "original-multisubject-batch-030.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-010",
+      "file": "original-multisubject-batch-030.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-011",
+      "file": "original-multisubject-batch-030.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-012",
+      "file": "original-multisubject-batch-030.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-013",
+      "file": "original-multisubject-batch-030.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-014",
+      "file": "original-multisubject-batch-030.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-015",
+      "file": "original-multisubject-batch-030.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-016",
+      "file": "original-multisubject-batch-030.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-017",
+      "file": "original-multisubject-batch-030.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-018",
+      "file": "original-multisubject-batch-030.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-019",
+      "file": "original-multisubject-batch-030.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-020",
+      "file": "original-multisubject-batch-030.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-021",
+      "file": "original-multisubject-batch-030.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-022",
+      "file": "original-multisubject-batch-030.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-023",
+      "file": "original-multisubject-batch-030.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-024",
+      "file": "original-multisubject-batch-030.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-025",
+      "file": "original-multisubject-batch-030.json",
+      "index": 24,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-026",
+      "file": "original-multisubject-batch-030.json",
+      "index": 25,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-027",
+      "file": "original-multisubject-batch-030.json",
+      "index": 26,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-028",
+      "file": "original-multisubject-batch-030.json",
+      "index": 27,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-029",
+      "file": "original-multisubject-batch-030.json",
+      "index": 28,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-030",
+      "file": "original-multisubject-batch-030.json",
+      "index": 29,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-031",
+      "file": "original-multisubject-batch-030.json",
+      "index": 30,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-032",
+      "file": "original-multisubject-batch-030.json",
+      "index": 31,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-033",
+      "file": "original-multisubject-batch-030.json",
+      "index": 32,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-034",
+      "file": "original-multisubject-batch-030.json",
+      "index": 33,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-035",
+      "file": "original-multisubject-batch-030.json",
+      "index": 34,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-036",
+      "file": "original-multisubject-batch-030.json",
+      "index": 35,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-037",
+      "file": "original-multisubject-batch-030.json",
+      "index": 36,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-038",
+      "file": "original-multisubject-batch-030.json",
+      "index": 37,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-039",
+      "file": "original-multisubject-batch-030.json",
+      "index": 38,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-040",
+      "file": "original-multisubject-batch-030.json",
+      "index": 39,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-041",
+      "file": "original-multisubject-batch-030.json",
+      "index": 40,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-042",
+      "file": "original-multisubject-batch-030.json",
+      "index": 41,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-043",
+      "file": "original-multisubject-batch-030.json",
+      "index": 42,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-044",
+      "file": "original-multisubject-batch-030.json",
+      "index": 43,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-045",
+      "file": "original-multisubject-batch-030.json",
+      "index": 44,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-046",
+      "file": "original-multisubject-batch-030.json",
+      "index": 45,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-047",
+      "file": "original-multisubject-batch-030.json",
+      "index": 46,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-048",
+      "file": "original-multisubject-batch-030.json",
+      "index": 47,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-049",
+      "file": "original-multisubject-batch-030.json",
+      "index": 48,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-050",
+      "file": "original-multisubject-batch-030.json",
+      "index": 49,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-051",
+      "file": "original-multisubject-batch-030.json",
+      "index": 50,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-052",
+      "file": "original-multisubject-batch-030.json",
+      "index": 51,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-053",
+      "file": "original-multisubject-batch-030.json",
+      "index": 52,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-054",
+      "file": "original-multisubject-batch-030.json",
+      "index": 53,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-055",
+      "file": "original-multisubject-batch-030.json",
+      "index": 54,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-056",
+      "file": "original-multisubject-batch-030.json",
+      "index": 55,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-057",
+      "file": "original-multisubject-batch-030.json",
+      "index": 56,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-058",
+      "file": "original-multisubject-batch-030.json",
+      "index": 57,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-059",
+      "file": "original-multisubject-batch-030.json",
+      "index": 58,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-060",
+      "file": "original-multisubject-batch-030.json",
+      "index": 59,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-061",
+      "file": "original-multisubject-batch-030.json",
+      "index": 60,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-062",
+      "file": "original-multisubject-batch-030.json",
+      "index": 61,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-063",
+      "file": "original-multisubject-batch-030.json",
+      "index": 62,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-064",
+      "file": "original-multisubject-batch-030.json",
+      "index": 63,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-065",
+      "file": "original-multisubject-batch-030.json",
+      "index": 64,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-066",
+      "file": "original-multisubject-batch-030.json",
+      "index": 65,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-067",
+      "file": "original-multisubject-batch-030.json",
+      "index": 66,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-068",
+      "file": "original-multisubject-batch-030.json",
+      "index": 67,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-069",
+      "file": "original-multisubject-batch-030.json",
+      "index": 68,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-070",
+      "file": "original-multisubject-batch-030.json",
+      "index": 69,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-071",
+      "file": "original-multisubject-batch-030.json",
+      "index": 70,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-072",
+      "file": "original-multisubject-batch-030.json",
+      "index": 71,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-073",
+      "file": "original-multisubject-batch-030.json",
+      "index": 72,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-074",
+      "file": "original-multisubject-batch-030.json",
+      "index": 73,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-075",
+      "file": "original-multisubject-batch-030.json",
+      "index": 74,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-076",
+      "file": "original-multisubject-batch-030.json",
+      "index": 75,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-077",
+      "file": "original-multisubject-batch-030.json",
+      "index": 76,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-078",
+      "file": "original-multisubject-batch-030.json",
+      "index": 77,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-079",
+      "file": "original-multisubject-batch-030.json",
+      "index": 78,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-080",
+      "file": "original-multisubject-batch-030.json",
+      "index": 79,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-081",
+      "file": "original-multisubject-batch-030.json",
+      "index": 80,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-082",
+      "file": "original-multisubject-batch-030.json",
+      "index": 81,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-083",
+      "file": "original-multisubject-batch-030.json",
+      "index": 82,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-084",
+      "file": "original-multisubject-batch-030.json",
+      "index": 83,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-085",
+      "file": "original-multisubject-batch-030.json",
+      "index": 84,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-086",
+      "file": "original-multisubject-batch-030.json",
+      "index": 85,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-087",
+      "file": "original-multisubject-batch-030.json",
+      "index": 86,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-088",
+      "file": "original-multisubject-batch-030.json",
+      "index": 87,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-089",
+      "file": "original-multisubject-batch-030.json",
+      "index": 88,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-090",
+      "file": "original-multisubject-batch-030.json",
+      "index": 89,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-091",
+      "file": "original-multisubject-batch-030.json",
+      "index": 90,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-092",
+      "file": "original-multisubject-batch-030.json",
+      "index": 91,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-093",
+      "file": "original-multisubject-batch-030.json",
+      "index": 92,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-094",
+      "file": "original-multisubject-batch-030.json",
+      "index": 93,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-095",
+      "file": "original-multisubject-batch-030.json",
+      "index": 94,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-096",
+      "file": "original-multisubject-batch-030.json",
+      "index": 95,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-097",
+      "file": "original-multisubject-batch-030.json",
+      "index": 96,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-098",
+      "file": "original-multisubject-batch-030.json",
+      "index": 97,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-099",
+      "file": "original-multisubject-batch-030.json",
+      "index": 98,
+      "errors": []
+    },
+    {
+      "id": "ndv-030-100",
+      "file": "original-multisubject-batch-030.json",
+      "index": 99,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -34893,7 +35522,9 @@
       "questionCount": 4,
       "validDrafts": 4,
       "difficulty": {
-        "standard": 4
+        "easy": 1,
+        "standard": 2,
+        "difficult": 1
       },
       "assessmentObjectives": {
         "AO1": 1,
@@ -34934,8 +35565,9 @@
       "questionCount": 5,
       "validDrafts": 5,
       "difficulty": {
-        "easy": 1,
-        "standard": 4
+        "easy": 2,
+        "standard": 2,
+        "difficult": 1
       },
       "assessmentObjectives": {
         "AO1": 2,
@@ -34977,7 +35609,8 @@
       "questionCount": 6,
       "validDrafts": 6,
       "difficulty": {
-        "standard": 6
+        "easy": 2,
+        "standard": 4
       },
       "assessmentObjectives": {
         "AO1": 3,
@@ -35019,7 +35652,8 @@
       "questionCount": 5,
       "validDrafts": 5,
       "difficulty": {
-        "standard": 5
+        "easy": 1,
+        "standard": 4
       },
       "assessmentObjectives": {
         "AO1": 2,
@@ -35062,7 +35696,9 @@
       "questionCount": 9,
       "validDrafts": 9,
       "difficulty": {
-        "standard": 9
+        "easy": 5,
+        "difficult": 1,
+        "standard": 3
       },
       "assessmentObjectives": {
         "AO1": 8,
@@ -35102,7 +35738,8 @@
       "questionCount": 2,
       "validDrafts": 2,
       "difficulty": {
-        "standard": 2
+        "easy": 1,
+        "difficult": 1
       },
       "assessmentObjectives": {
         "AO1": 1,
@@ -35143,7 +35780,9 @@
       "questionCount": 9,
       "validDrafts": 9,
       "difficulty": {
-        "standard": 9
+        "easy": 6,
+        "standard": 2,
+        "difficult": 1
       },
       "assessmentObjectives": {
         "AO1": 6,
@@ -35184,7 +35823,9 @@
       "questionCount": 7,
       "validDrafts": 7,
       "difficulty": {
-        "standard": 7
+        "standard": 3,
+        "easy": 2,
+        "difficult": 2
       },
       "assessmentObjectives": {
         "AO2": 4,
@@ -35225,7 +35866,8 @@
       "questionCount": 2,
       "validDrafts": 2,
       "difficulty": {
-        "standard": 2
+        "easy": 1,
+        "standard": 1
       },
       "assessmentObjectives": {
         "AO1": 1,
@@ -35303,7 +35945,8 @@
       "questionCount": 7,
       "validDrafts": 7,
       "difficulty": {
-        "standard": 7
+        "standard": 3,
+        "easy": 4
       },
       "assessmentObjectives": {
         "AO2": 3,
@@ -35343,7 +35986,8 @@
       "questionCount": 6,
       "validDrafts": 6,
       "difficulty": {
-        "standard": 6
+        "standard": 5,
+        "difficult": 1
       },
       "assessmentObjectives": {
         "AO2": 5,
@@ -35383,7 +36027,8 @@
       "questionCount": 5,
       "validDrafts": 5,
       "difficulty": {
-        "standard": 5
+        "easy": 3,
+        "standard": 2
       },
       "assessmentObjectives": {
         "AO1": 4,
@@ -35424,7 +36069,9 @@
       "questionCount": 6,
       "validDrafts": 6,
       "difficulty": {
-        "standard": 6
+        "easy": 2,
+        "standard": 3,
+        "difficult": 1
       },
       "assessmentObjectives": {
         "AO1": 2,
@@ -35504,7 +36151,8 @@
       "questionCount": 8,
       "validDrafts": 8,
       "difficulty": {
-        "standard": 8
+        "standard": 4,
+        "easy": 4
       },
       "assessmentObjectives": {
         "AO2": 4,
@@ -35543,7 +36191,7 @@
       "questionCount": 2,
       "validDrafts": 2,
       "difficulty": {
-        "standard": 2
+        "easy": 2
       },
       "assessmentObjectives": {
         "AO1": 2
@@ -35582,7 +36230,9 @@
       "questionCount": 7,
       "validDrafts": 7,
       "difficulty": {
-        "standard": 7
+        "standard": 5,
+        "easy": 1,
+        "difficult": 1
       },
       "assessmentObjectives": {
         "AO1": 4,
@@ -35622,12 +36272,881 @@
       "questionCount": 7,
       "validDrafts": 7,
       "difficulty": {
-        "standard": 7
+        "easy": 1,
+        "standard": 5,
+        "difficult": 1
       },
       "assessmentObjectives": {
         "AO1": 1,
         "AO3": 6
       },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-commerce-scope-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Commercial activity",
+      "subtopic": "Trade and aids to trade",
+      "learningObjective": "Distinguish commercial functions and production roles.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-commerce-business-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-commerce-trade-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 3,
+        "structured": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "easy": 1,
+        "standard": 3,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-commerce-finance-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-commerce-risk-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Risk transfer principles",
+      "learningObjective": "Apply insurance concepts to stated business circumstances.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-commerce-logistics-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-commerce-marketing-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-commerce-management-v1",
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-accounts-concepts-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 1,
+        "easy": 2
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-accounts-entry-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Double entry and documents",
+      "subtopic": "Transaction recording",
+      "learningObjective": "Record transactions using appropriate accounts and evidence.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": {},
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-accounts-cash-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": {
+        "structured": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-accounts-errors-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Errors and control accounts",
+      "subtopic": "Accuracy and correction",
+      "learningObjective": "Identify and correct errors using reconciled records.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-accounts-final-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 3,
+        "structured": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 2,
+        "easy": 1,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-accounts-assets-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Assets and depreciation",
+      "subtopic": "Measurement and cost allocation",
+      "learningObjective": "Apply stated asset and inventory policies.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 1,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-accounts-organisations-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 6,
+        "structured": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 9,
+      "validDrafts": 9,
+      "difficulty": {
+        "easy": 2,
+        "standard": 6,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 9
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-accounts-interpretation-v1",
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-commerce-scope-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Commercial activity",
+      "subtopic": "Trade and aids to trade",
+      "learningObjective": "Distinguish commercial functions and production roles.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-commerce-business-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-commerce-trade-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 2,
+        "easy": 2
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-commerce-finance-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-commerce-risk-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Risk transfer principles",
+      "learningObjective": "Apply insurance concepts to stated business circumstances.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-commerce-logistics-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 2,
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-commerce-marketing-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 2,
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-commerce-management-v1",
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-accounts-concepts-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "easy": 2,
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-accounts-entry-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Double entry and documents",
+      "subtopic": "Transaction recording",
+      "learningObjective": "Record transactions using appropriate accounts and evidence.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-accounts-cash-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 4,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-accounts-errors-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Errors and control accounts",
+      "subtopic": "Accuracy and correction",
+      "learningObjective": "Identify and correct errors using reconciled records.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-accounts-final-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-accounts-assets-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Assets and depreciation",
+      "subtopic": "Measurement and cost allocation",
+      "learningObjective": "Apply stated asset and inventory policies.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-accounts-organisations-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 1,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "jamb-accounts-interpretation-v1",
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "questionTypes": {
+        "mcq": 5
+      },
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "easy": 1,
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"

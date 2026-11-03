@@ -22,10 +22,10 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Biology | 1000 | 38 | 20 | 0 | 980 | partial_objective_register |
 | JAMB | Chemistry | 1000 | 18 | 15 | 0 | 985 | partial_objective_register |
 | JAMB | Christian Religious Knowledge (CRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| JAMB | Commerce | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Commerce | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Computer Studies | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Economics | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
-| JAMB | Financial Accounting | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| JAMB | Financial Accounting | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Fine Arts | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | French | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Geography | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -123,7 +123,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Christian Religious Knowledge (CRK) | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Citizenship and Heritage Studies | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | WAEC | Civic Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Commerce | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Commerce | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Computer Hardware and GSM Repairs | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Computer Studies | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Data Processing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -131,7 +131,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Economics | 1000 | 29 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | English Language | 1000 | 28 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Fashion Design and Garment Making | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Financial Accounting | 1000 | 4 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Financial Accounting | 1000 | 29 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Food and Nutrition | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | French | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Further Mathematics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -164,15 +164,15 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | 0 | 0 | 0 | 0 | 0 |
 | IELTS | 19 | 10 | 0 | 4000 | 3990 |
 | IGCSE | 121 | 100 | 0 | 4000 | 3900 |
-| JAMB | 803 | 100 | 0 | 25000 | 24900 |
+| JAMB | 853 | 150 | 0 | 25000 | 24850 |
 | NCEE | 79 | 50 | 0 | 9000 | 8950 |
 | NECO | 35 | 0 | 0 | 12000 | 12000 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 19 | 10 | 0 | 4000 | 3990 |
-| WAEC | 899 | 100 | 0 | 42000 | 41900 |
+| WAEC | 949 | 150 | 0 | 42000 | 41850 |
 
-Overall: {"raw": 2099, "validDrafts": 420, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 2199, "validDrafts": 520, "reviewed": 0, "registeredBanks": 148, "target": 129000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
