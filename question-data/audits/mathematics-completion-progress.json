@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 384,
-      "remainingToNumericTarget": 616,
+      "stagedQuestionCount": 434,
+      "remainingToNumericTarget": 566,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 368,
-      "remainingToNumericTarget": 632,
+      "stagedQuestionCount": 418,
+      "remainingToNumericTarget": 582,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -54,7 +54,11 @@
     "question-data/original-mathematics-batch-016a.json",
     "question-data/original-mathematics-batch-016b.json",
     "question-data/original-mathematics-batch-016c.json",
-    "question-data/original-mathematics-batch-016d.json"
+    "question-data/original-mathematics-batch-016d.json",
+    "question-data/original-mathematics-batch-017a.json",
+    "question-data/original-mathematics-batch-017b.json",
+    "question-data/original-mathematics-batch-017c.json",
+    "question-data/original-mathematics-batch-017d.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -85,13 +89,18 @@
     "batch016QuestionCount": 100,
     "batch016UniqueOptionAndAnswerReferenceChecksPassed": true,
     "batch016CalculusArithmeticChecksPassed": true,
-    "batch016IndependentAcademicReview": false
+    "batch016IndependentAcademicReview": false,
+    "batch017QuestionCount": 100,
+    "batch017UniqueIdsAndOptionReferencesPassed": true,
+    "batch017TopicFamilies": 20,
+    "batch017IndependentAcademicReview": false
   },
   "nextPriorities": [
-    "Map question bank against syllabus objectives",
-    "Stop overproducing similar parameterized patterns and prioritise new question concepts",
-    "Develop higher-difficulty multistep Mathematics questions",
-    "Complete independent academic review before production import"
+    "Independently validate every mathematical answer and distractor",
+    "Build detailed objective-level syllabus mapping",
+    "Develop more genuinely challenging multi-step and WAEC theory problems",
+    "Review concept-level duplication and difficulty labels",
+    "Do not import drafts into production"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
