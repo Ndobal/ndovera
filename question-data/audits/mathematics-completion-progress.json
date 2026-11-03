@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "collection": "Ndovera Mathematics Completion Tracker",
+  "updatedOn": "2026-11-03",
+  "targetPerExam": 1000,
+  "source": "User-uploaded third-party WAEC and JAMB syllabus compilations; official verification pending",
+  "exams": [
+    {
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "stagedQuestionCount": 84,
+      "remainingToNumericTarget": 916,
+      "objectiveCoverageVerified": false,
+      "academicReviewComplete": false,
+      "requiredFormats": [
+        "multiple-choice",
+        "structured/theory"
+      ],
+      "knownIssue": "Theory questions and full objective mapping missing"
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Mathematics",
+      "stagedQuestionCount": 86,
+      "remainingToNumericTarget": 914,
+      "objectiveCoverageVerified": false,
+      "academicReviewComplete": false,
+      "requiredFormats": [
+        "multiple-choice"
+      ],
+      "knownIssue": "Complete five-section syllabus objective mapping missing"
+    }
+  ],
+  "newFiles": [
+    "question-data/original-mathematics-batch-008.json",
+    "question-data/original-mathematics-batch-009.json"
+  ],
+  "qualityChecks": {
+    "batch008And009Count": 120,
+    "correctOptionMatchesAnswer": true,
+    "distinctOptions": true,
+    "numberBaseValidation": true,
+    "independentAcademicReview": false,
+    "conceptLevelDuplicateAudit": false
+  },
+  "nextPriorities": [
+    "Build topic/objective index from each Mathematics syllabus",
+    "Fill uncovered topics such as JAMB integration, loci, matrices, statistics and WAEC theory",
+    "Use more multistep reasoning and fewer parameter-only variations",
+    "Verify every worked solution and tag difficulty honestly",
+    "Publish measurable objective coverage, not just raw counts"
+  ],
+  "restriction": "Data files only; no application code or production database changes."
+}
