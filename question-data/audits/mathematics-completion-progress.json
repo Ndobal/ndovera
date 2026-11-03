@@ -8,8 +8,8 @@
     {
       "exam": "WAEC",
       "subject": "Mathematics",
-      "stagedQuestionCount": 234,
-      "remainingToNumericTarget": 766,
+      "stagedQuestionCount": 284,
+      "remainingToNumericTarget": 716,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -21,8 +21,8 @@
     {
       "exam": "JAMB",
       "subject": "Mathematics",
-      "stagedQuestionCount": 218,
-      "remainingToNumericTarget": 782,
+      "stagedQuestionCount": 268,
+      "remainingToNumericTarget": 732,
       "objectiveCoverageVerified": false,
       "academicReviewComplete": false,
       "requiredFormats": [
@@ -42,7 +42,11 @@
     "question-data/original-waec-mathematics-batch-013a.json",
     "question-data/original-waec-mathematics-batch-013b.json",
     "question-data/original-jamb-mathematics-batch-013c.json",
-    "question-data/original-jamb-mathematics-batch-013d.json"
+    "question-data/original-jamb-mathematics-batch-013d.json",
+    "question-data/original-mathematics-batch-014a.json",
+    "question-data/original-mathematics-batch-014b.json",
+    "question-data/original-mathematics-batch-014c.json",
+    "question-data/original-mathematics-batch-014d.json"
   ],
   "qualityChecks": {
     "batch008And009Count": 120,
@@ -61,13 +65,18 @@
     "batch013QuestionCount": 100,
     "batch013StructuralAnswerReferenceChecksPassed": true,
     "batch013IndependentAcademicReview": false,
-    "batch013ConceptualDuplicatesReviewed": false
+    "batch013ConceptualDuplicatesReviewed": false,
+    "batch014QuestionCount": 100,
+    "batch014AnswerOptionReferencesValidated": true,
+    "batch014MatrixAndDerivativeArithmeticValidated": true,
+    "batch014IndependentAcademicReview": false
   },
   "nextPriorities": [
-    "Prioritize genuinely new objective coverage rather than further parameter-only variations",
-    "Build and validate more WAEC theory questions",
-    "Review difficulty and independent correctness",
-    "Complete objective-by-objective WAEC/JAMB syllabus mapping"
+    "Reduce concept-level repetition across generated batches",
+    "Verify all answers and syllabus objectives independently",
+    "Increase multi-step difficult WAEC/JAMB questions",
+    "Expand WAEC theory questions with marking guides",
+    "Do not import drafts to production"
   ],
   "restriction": "Data files only; no application code or production database changes."
 }
