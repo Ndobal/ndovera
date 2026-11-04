@@ -1,3 +1,54 @@
-/* Block layout and fixed colours work without grid, flexbox, variables or web fonts. */
-html{font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#191970;background:#edf5f8}body{margin:0}header{background:#191970;color:#fff;padding:20px}header a{color:#fff;font-weight:bold;font-size:24px;text-decoration:none}header span{font-size:16px;color:#ffe1a6}header p{margin-bottom:0}main,footer{max-width:760px;margin:20px auto;padding:0 16px}footer{font-size:14px;line-height:1.5}a{color:#173d96;text-decoration:underline;word-wrap:break-word}h1{font-size:24px}h2{font-size:20px}h3{font-size:18px}label{display:block;margin:14px 0 6px;font-weight:bold}input,select,textarea{box-sizing:border-box;width:100%;max-width:100%;padding:12px;font:inherit;border:1px solid #7d8492;border-radius:4px;background:#fff;color:#191970}button,.button{display:inline-block;margin:10px 8px 0 0;padding:12px 16px;background:#245a36;color:#fff;border:0;border-radius:4px;font:inherit;text-decoration:none;cursor:pointer}button:disabled{background:#657468;cursor:wait}a:focus,button:focus,input:focus,select:focus{outline:3px solid #b36b00;outline-offset:2px}.card{padding:18px;margin:14px 0;background:#fff;border:1px solid #c1cad4;border-radius:5px}.message{padding:12px;background:#fff3d6;border:1px solid #b36b00;line-height:1.5}.error{color:#7a1414}.body{white-space:pre-wrap;word-wrap:break-word;line-height:1.6}.muted{color:#50586a}nav{margin:12px 0}nav button{background:#191970}.list{list-style:none;padding:0}.list li{margin-bottom:10px}small{display:block;line-height:1.5}fieldset{border:0;margin:0;padding:0}
-input[type=radio],input[type=checkbox]{width:auto;margin:0 8px 0 0;padding:0}.option{font-weight:normal;margin:10px 0}legend{font-weight:bold;padding:0}fieldset.card{padding:18px;border:1px solid #c1cad4}.timer{position:-webkit-sticky;position:sticky;top:0;padding:12px;background:#191970;color:#fff;font-weight:bold;text-align:center}
+/* The main app's colours and shapes, in CSS old browsers read: no grid, gap, variables or web fonts.
+   Every text colour is paired with its background: navy #191970, sky #ade1f4, burgundy #800020, gold #c9a96e. */
+html{font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#191970;background:#eef6fa}
+body{margin:0;padding-bottom:76px}
+*{box-sizing:border-box;-webkit-box-sizing:border-box}
+.top{position:relative;z-index:30;background:#191970;color:#fff;padding:10px 14px;border-bottom:3px solid #c9a96e}
+.top a{color:#fff;font-weight:bold;font-size:20px;text-decoration:none;letter-spacing:1px}
+.top span{font-size:13px;color:#c9a96e;letter-spacing:0}
+.top button{display:inline-block;margin:0 10px 0 0;padding:4px 10px;background:#191970;color:#fff;border:1px solid #c9a96e;border-radius:8px;font-size:18px}
+main{display:block;max-width:760px;margin:0 auto;padding:6px 14px 16px}
+a{color:#173d96;word-wrap:break-word}
+h1{font-size:22px;color:#800020;margin:14px 0 10px}
+h2{font-size:18px;color:#191970;margin:0 0 8px}
+h3{font-size:16px;margin:12px 0 6px}
+p{margin:6px 0}
+small{display:block;line-height:1.5;color:#3f4a63;margin-top:4px}
+label{display:block;margin:12px 0 5px;font-weight:bold;color:#191970}
+input,select,textarea{width:100%;max-width:100%;padding:11px;font:inherit;border:1px solid #6f7f9c;border-radius:10px;background:#fff;color:#191970}
+button,.button{display:inline-block;margin:8px 8px 0 0;padding:11px 15px;background:#191970;color:#fff;border:0;border-radius:12px;font:inherit;font-weight:bold;text-decoration:none;cursor:pointer}
+button[type=submit],button.go{background:#1a5c38;color:#fff}
+button:disabled{background:#5f6b73;color:#fff;cursor:wait}
+button.plain{background:#fff;color:#191970;border:1px solid #191970}
+button.row{display:block;width:100%;margin:0 0 8px;background:#fff;color:#191970;border:1px solid #7cc4e8;text-align:left}
+button.choice{display:block;width:100%;margin:8px 0 0;background:#fff;color:#191970;border:1px solid #191970;font-weight:normal;text-align:left}
+button.choice:disabled{background:#e8edf2;color:#191970}
+a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid #b36b00;outline-offset:1px}
+.card{display:block;padding:14px;margin:12px 0;background:#fff;border:1px solid #bcd9e8;border-radius:16px}
+.sky{background:#ade1f4;color:#191970;border-color:#7cc4e8}
+.navy{background:#191970;color:#fff;border-color:#191970}
+.navy h2,.navy p,.navy label{color:#fff}
+.message{padding:11px 12px;margin:10px 0;background:#fff3d6;color:#3d2a00;border:1px solid #b36b00;border-radius:12px;line-height:1.5}
+.error{background:#fdecec;color:#7a1414;border-color:#7a1414}
+.body{white-space:pre-wrap;word-wrap:break-word;line-height:1.6}
+.strong,.unread{font-weight:bold}
+.tiles{display:block;overflow:hidden;margin:0 -4px}
+.tile{float:left;width:46%;margin:4px 2%;min-height:64px;padding:12px;background:#ade1f4;color:#191970;border:1px solid #7cc4e8;border-radius:16px;text-align:left}
+nav{margin:10px 0}
+nav button{padding:9px 12px;font-size:14px}
+.tools{margin:6px 0 10px}
+.tools button{background:#1a5c38;color:#fff}
+.list{list-style:none;padding:0;margin:8px 0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+input[type=radio],input[type=checkbox]{width:auto;margin:0 8px 0 0;padding:0}
+.option{font-weight:normal;margin:10px 0}
+.inline{display:inline-block;margin:6px 14px 6px 0}
+legend{font-weight:bold;padding:0;color:#191970}
+fieldset.card{padding:14px;border:1px solid #bcd9e8}
+.timer{position:-webkit-sticky;position:sticky;top:0;padding:12px;background:#191970;color:#fff;font-weight:bold;text-align:center;border-radius:12px}
+.drawer{display:none;position:fixed;z-index:20;top:0;left:0;bottom:0;width:82%;max-width:320px;margin:0;padding:60px 12px 80px;background:#0b1f3a;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.drawer.open{display:block}
+.drawer .who{color:#c9a96e;font-weight:bold;margin:4px 6px 10px}
+.drawer button{display:block;width:100%;margin:0 0 4px;padding:11px 12px;background:#0b1f3a;color:#fff;border:0;border-radius:10px;font-size:15px;font-weight:bold;text-align:left}
+.bottom{position:fixed;z-index:25;left:0;right:0;bottom:0;margin:0;padding:6px 4px;background:#fff;border-top:2px solid #191970;text-align:center;white-space:nowrap;overflow:hidden}
+.bottom button{display:inline-block;width:19%;margin:0 .5%;padding:10px 0;background:#fff;color:#191970;border:0;border-radius:10px;font-size:13px;font-weight:bold;text-align:center}

@@ -1,23 +1,26 @@
 # Older-browser compatibility
 
-Ndovera Lite is a separate web entry at `/compat/index.html` (`/compat` redirects
-there). Android below 5, iOS below 12, and browsers lacking essential modern APIs
-are redirected to it before the standard bundle runs. The public Lite link allows
-manual selection, and `?ndovera-view=standard` overrides. Detection is a routing
-aid, not proof of support. Do not lower Flutter minimum versions to advertise
-native Android 4.4 or iOS 9 support.
+Ndovera Lite is a separate build for old phones, at `/compat/index.html`. It looks like the main app (same colours, menu and
+bottom buttons) but uses ES5, XMLHttpRequest and plain CSS. The main app cannot start on these engines: tested in a real Chromium 32, it
+stops at once because the engine refuses a regular expression with the u flag.
 
-Lite uses ES5 syntax, XMLHttpRequest and simple block CSS.
+Who goes to Lite: Android below 5, iOS below 10, and any browser missing the u flag, Promise, fetch, Map, Set or URLSearchParams.
+Android 5 to 7 and iOS 10 to 12 try the main app first, and go to Lite if it fails to start or nothing has appeared after 45 seconds.
+`?ndovera-view=standard` and `?ndovera-view=lite` override this.
+
+Lite and the main app share one sign-in (`token`, `authUser` and `selectedRole` in localStorage), so moving between them never logs anyone out.
+Do not lower Flutter minimum versions to advertise native Android 4.4 or iOS 9 support.
 
 ## Available in Lite
 
-- Sign-in by account ID, email or phone; password changes and resets; role selection.
-- Assigned classes: materials, topics, class updates and assignments.
-- Students: answering assignments (objective, written and matching questions),
-  timed work, and handing in. Marks and teacher remarks show when released.
-- Students and parents: buying practice passes, and using one-time pass codes.
-- Parents: fees owed, the school's bank details, and telling the school about a payment.
-- Anyone with an invoice link: viewing and paying that invoice, without signing in.
+- Everyone: overview, classes, notifications, timetable, settings, password change and reset, feedback.
+- Teachers: upload a material as a file, post class updates, give written assignments, read and mark answers, take the class register, see payslips.
+- Students: answer assignments (objective, written, matching, timed), practise with the question bank, buy passes, see results, attendance, the school bus.
+- Parents: children, correcting a child's name once, results, attendance, timetable, fees and payment notices, passes, the school bus.
+- School office: search people and see their details, payslip, classes, notifications.
+- Anyone with a link: invoices, parent invitations, payment links and bank transfer.
+
+Menu items Lite does not have stay in the menu and say they need a newer phone or a computer, so the menu reads like the main app.
 
 Payments go to Flutterwave's page. Lite shows the payment link as well as the button,
 so it can be opened on another phone if Flutterwave's page does not load on this one.
@@ -45,8 +48,7 @@ private data.
 
 ## Not in Lite
 
-Live lessons and video, attendance capture, results editing, teacher work submission,
-school administration, exam sittings, and file uploads.
+C.A. score entry and class reports, live lessons and video, staff attendance, exams and multiple-choice assignment writing, AI, messaging, adding or editing people, and school administration such as fees set-up, payroll and the website.
 
 ## Device acceptance (pending)
 
@@ -57,7 +59,7 @@ the live site with test accounts.
 
 | Check | Android 4.4 browser | Android 4.4 Chrome-based | iOS 9.3.5 Safari | iOS 10–11 Safari |
 | --- | --- | --- | --- | --- |
-| `https://ndovera.com` opens with no certificate warning, and redirects to Lite | Pending | Pending | Pending | Pending |
+|`https://ndovera.com` opens with no certificate warning, and redirects to Lite | Pending | Pending | Pending | Pending |
 | Sign in; stays signed in after closing the browser | Pending | Pending | Pending | Pending |
 | Open a class, save it, airplane mode, close, reopen from bookmark: it still opens | Pending | Pending | Pending | Pending |
 | Answer an assignment in airplane mode, hand in, reconnect: teacher sees one submission | Pending | Pending | Pending | Pending |

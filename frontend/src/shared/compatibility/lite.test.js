@@ -23,7 +23,7 @@ class FakeXhr {
   setRequestHeader(name, value) { this.headers[name] = value; }
   getResponseHeader() { return null; }
   send(body) {
-    const call = { method: this.method, path: this.path, body: body ? JSON.parse(body) : null };
+    const call = { method: this.method, path: this.path, body: body instanceof FormData ? body : body ? JSON.parse(body) : null };
     net.calls.push(call);
     const answer = net.offline ? null : net.reply(call);
     if (answer === null || answer === undefined) { this.onerror(); return; }
@@ -44,7 +44,7 @@ function start(role = 'student', { search = '', hash = '' } = {}) {
 const app = () => document.getElementById('app');
 const text = () => app().textContent;
 const press = name => {
-  const found = Array.from(app().querySelectorAll('button,a')).find(item => item.textContent === name);
+  const found = Array.from(document.body.querySelectorAll('button,a')).find(item => item.textContent === name);
   if (!found) throw new Error(`no button "${name}" in: ${text()}`);
   found.click();
 };
@@ -297,4 +297,131 @@ test('nothing is sent on the timer when nothing is waiting', () => {
   const before = net.calls.length;
   flush();
   expect(net.calls.length).toBe(before);
+});
+
+test('someone signed in on the main app opens Lite already signed in', () => {
+  localStorage.setItem('token', 'main-token');
+  localStorage.setItem('authUser', JSON.stringify({ id: 's1', name: 'Ada', role: 'student' }));
+  localStorage.setItem('selectedRole', 'student');
+  start(null);
+  expect(app().querySelector('input[type=password]')).toBeNull();
+  expect(text()).toContain('Welcome, Ada');
+  expect(net.calls[0].path).toBe('/api/classrooms/assigned');
+});
+
+test('signing in on Lite also signs in the main app on that phone', () => {
+  start(null);
+  net.reply = () => ({ body: { success: true, token: 'new-token', user: { id: 's1', name: 'Ada', role: 'student' } } });
+  app().querySelector('#lite-id').value = 'ada';
+  app().querySelector('#lite-password').value = 'password1';
+  app().querySelector('form').onsubmit({ preventDefault() {} });
+  expect(localStorage.getItem('token')).toBe('new-token');
+  expect(JSON.parse(localStorage.getItem('authUser')).name).toBe('Ada');
+});
+
+test('every role has the main app menu, and what Lite cannot do says so', () => {
+  start('teacher');
+  ['Overview', 'My classes', 'Assignments', 'Attendance', 'Timetable', 'My payslip', 'Notifications', 'Settings', 'Sign out'].forEach(name => expect(Array.from(document.querySelectorAll('#lite-drawer button')).map(item => item.textContent)).toContain(name));
+  press('Live');
+  expect(text()).toContain('Live needs a newer phone');
+});
+
+test('a teacher uploads a material as a file', () => {
+  net.reply = classroom({
+    '/api/classrooms/c1/subjects': () => ({ body: { subjects: [{ id: 'm1', name: 'Mathematics' }] } }),
+    '/api/classrooms/c1/materials/upload-multipart': () => ({ status: 201, body: { success: true } }),
+  });
+  start('teacher');
+  press('SS 2');
+  press('Upload material');
+  app().querySelector('#lite-mat-title').value = 'Fractions notes';
+  app().querySelector('#lite-subject').value = 'm1';
+  const form = app().querySelector('form');
+  form.onsubmit({ preventDefault() {} });
+  expect(text()).toContain('Choose a file first');
+  expect(posts('/api/classrooms/c1/materials/upload-multipart')).toHaveLength(0);
+  const file = new File(['notes'], 'notes.pdf', { type: 'application/pdf' });
+  Object.defineProperty(app().querySelector('#lite-mat-file'), 'files', { value: [file] });
+  form.onsubmit({ preventDefault() {} });
+  const [sent] = posts('/api/classrooms/c1/materials/upload-multipart');
+  expect(sent.body.get('title')).toBe('Fractions notes');
+  expect(sent.body.get('subjectId')).toBe('m1');
+  expect(sent.body.get('file').name).toBe('notes.pdf');
+});
+
+test('a teacher gives written work and marks what comes back', () => {
+  net.reply = classroom({
+    '/api/classrooms/c1/subjects': () => ({ body: { subjects: [{ id: 'm1', name: 'Mathematics' }] } }),
+    '/api/assignments/a1/submissions': () => ({ body: { submissions: [{ id: 'sub1', studentName: 'Tola', content: { answers: { q2: 'Half of a whole' } }, grade: null }] } }),
+    '/api/submissions/sub1/grade': () => ({ body: { success: true } }),
+  });
+  net.reply = (reply => call => (call.method === 'POST' && call.path === '/api/classrooms/c1/assignments' ? { status: 201, body: { success: true } } : reply(call)))(net.reply);
+  start('teacher');
+  press('SS 2');
+  press('Assignments');
+  press('New assignment');
+  app().querySelector('#lite-asg-title').value = 'Homework';
+  app().querySelector('#lite-subject').value = 'm1';
+  app().querySelector('#lite-asg-q').value = 'What is a half?\n\nWhat is a quarter?';
+  app().querySelector('form').onsubmit({ preventDefault() {} });
+  const [given] = posts('/api/classrooms/c1/assignments');
+  expect(given.body.questions.map(item => item.prompt)).toEqual(['What is a half?', 'What is a quarter?']);
+  expect(given.body.subjectId).toBe('m1');
+
+  press('See answers and mark');
+  expect(text()).toContain('Half of a whole');
+  app().querySelector('#lite-grade-sub1').value = '8';
+  app().querySelector('form').onsubmit({ preventDefault() {} });
+  expect(posts('/api/submissions/sub1/grade')[0].body.grade).toBe(8);
+});
+
+test('a register taken with no network waits and sends itself, one student at a time', () => {
+  net.reply = classroom({ '/api/classrooms/c1/students': () => ({ body: { students: [{ id: 'k1', name: 'Tola' }, { id: 'k2', name: 'Chi' }] } }), '/api/school/student-attendance': () => ({ body: { success: true } }) });
+  start('teacher');
+  press('Attendance');
+  press('SS 2');
+  const absent = Array.from(app().querySelectorAll('input[type=radio]')).filter(item => item.value === 'absent')[1];
+  absent.checked = true;
+  absent.onchange();
+  net.offline = true;
+  app().querySelector('form').onsubmit({ preventDefault() {} });
+  expect(JSON.parse(localStorage.getItem(USER_OUTBOX))).toHaveLength(2);
+  net.offline = false;
+  window.dispatchEvent(new Event('online'));
+  const sent = posts('/api/school/student-attendance').map(call => call.body).filter(body => body.status);
+  expect(sent.slice(-2).map(body => [body.studentId, body.status])).toEqual([['k1', 'present'], ['k2', 'absent']]);
+  expect(JSON.parse(localStorage.getItem(USER_OUTBOX))).toHaveLength(0);
+});
+
+test('a student practises and the score is saved', () => {
+  net.reply = classroom({
+    '/api/practice-arena/home': () => ({ body: { subjects: [{ key: 'mathematics', name: 'Mathematics' }], levels: [{ key: 'simple', difficulty: 'simple', label: 'Simple' }], passes: { freeLeftToday: 10 } } }),
+    '/api/practice-arena/pack?subject=mathematics&size=10&difficulty=simple': () => ({ body: { pack: { questions: [{ id: 'x1', type: 'mcq', prompt: '1 + 1?', options: ['2', '3'], correctIndex: 0 }, { id: 'x2', type: 'crossmatching', prompt: 'Skip me' }] } } }),
+    '/api/practice-arena/attempts': () => ({ body: { success: true, attempt: { correct: 1, total: 1, xp: 5 } } }),
+  });
+  start('student');
+  press('Practice');
+  app().querySelector('form').onsubmit({ preventDefault() {} });
+  expect(text()).toContain('Question 1 of 1');
+  press('3');
+  expect(text()).toContain('The answer is: 2');
+  press('See my score');
+  expect(posts('/api/practice-arena/attempts')[0].body.answers).toEqual([{ questionId: 'x1', response: '3' }]);
+  expect(text()).toContain('1 of 1 correct');
+});
+
+test('a parent corrects a child\'s name once, and the email is not part of it', () => {
+  net.reply = classroom({
+    '/api/learning/students': () => ({ body: { students: [{ id: 'k1', name: 'Tola Ade', className: 'JSS 2' }] } }),
+    '/api/people/k1/name-change': () => ({ body: { success: true, change: null } }),
+    '/api/people/k1': () => ({ body: { success: true } }),
+  });
+  start('parent');
+  press('Children');
+  press('Correct this name');
+  expect(text()).toContain('only once');
+  app().querySelector('#lite-name-k1').value = 'Tolani Ade';
+  app().querySelector('form').onsubmit({ preventDefault() {} });
+  const sent = net.calls.filter(call => call.method === 'PUT' && call.path === '/api/people/k1');
+  expect(sent[0].body).toEqual({ name: 'Tolani Ade' });
 });

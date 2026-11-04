@@ -27,7 +27,18 @@
     var input = node('input', null, form); input.id = id; input.name = name; input.type = type || 'text'; input.required = true;
     return input;
   }
-  function save() { try { w.localStorage.setItem(key, JSON.stringify({auth:auth,role:role})); } catch (ignored) {} }
+  function save() { try { w.localStorage.setItem(key, JSON.stringify({auth:auth,role:role})); w.localStorage.setItem('token', auth.token); w.localStorage.setItem('authUser', JSON.stringify(auth.user)); w.localStorage.setItem('selectedRole', role); } catch (ignored) {} }
+  /* One sign-in with the main app: someone already signed in there is signed in here. */
+  function mainSession() {
+    var token = '', user = null;
+    try { token = w.localStorage.getItem('token') || ''; user = JSON.parse(w.localStorage.getItem('authUser') || 'null'); } catch (ignored) {}
+    if (!token) { var cookie = /(?:^|;\s*)ndovera_token=([^;]+)/.exec(d.cookie || ''); token = cookie ? cookie[1] : ''; }
+    if (!token) return false;
+    if (!user || !user.role) { try { user = JSON.parse(w.atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))); } catch (ignored2) { return false; } }
+    if (!user || !user.role) return false;
+    auth = {token: token, user: user}; try { role = w.localStorage.getItem('selectedRole') || user.role; } catch (ignored3) { role = user.role; }
+    return true;
+  }
   function userKey(suffix) { return 'ndovera:lite:' + ((auth && auth.user && (auth.user.id || auth.user.email)) || 'guest') + ':' + suffix; }
   function kept(suffix) { try { return JSON.parse(w.localStorage.getItem(userKey(suffix)) || 'null'); } catch (ignored) { return null; } }
   function keep(suffix, value) { try { w.localStorage.setItem(userKey(suffix), JSON.stringify(value)); return true; } catch (ignored) { return false; } }
@@ -37,9 +48,10 @@
   function apiUrl(path) { return apiBase ? apiBase + (apiBase.slice(-4) === '/api' ? path.slice(4) : path) : path; }
   function request(method, path, data, done, background) {
     var current = generation, xhr = new w.XMLHttpRequest();
-    xhr.open(method, apiUrl(path) + (path.indexOf('?') === -1 ? '?' : '&') + 'ndoveraClient=lite', true); xhr.timeout = 30000; xhr.withCredentials = true;
+    var isForm = !!(w.FormData && data instanceof w.FormData);
+    xhr.open(method, apiUrl(path) + (path.indexOf('?') === -1 ? '?' : '&') + 'ndoveraClient=lite', true); xhr.timeout = isForm ? 300000 : 30000; xhr.withCredentials = true;
     xhr.setRequestHeader('Accept', 'application/json');
-    if (data !== null) xhr.setRequestHeader('Content-Type', 'application/json');
+    if (data !== null && !isForm) xhr.setRequestHeader('Content-Type', 'application/json');
     if (auth && auth.token) xhr.setRequestHeader('Authorization', 'Bearer ' + auth.token);
     if (auth && role) xhr.setRequestHeader('X-Selected-Role', role);
     function fail(text, offline, details, status) { if (background || current === generation) { var error = new Error(text); error.offline = !!offline; error.details = details || null; error.status = status || 0; done(error); } }
@@ -56,7 +68,7 @@
       if (refreshed && auth) { auth.token = refreshed; save(); }
       done(null, body);
     };
-    try { xhr.send(data === null ? null : JSON.stringify(data)); } catch (ignored) { fail(NETWORK_TEXT, true); }
+    try { xhr.send(data === null ? null : isForm ? data : JSON.stringify(data)); } catch (ignored) { fail(NETWORK_TEXT, true); }
   }
   function session(payload) {
     var user = payload && (payload.user || {id:payload.id, name:payload.name, role:payload.role});
@@ -81,7 +93,7 @@
     login();
   }
   function login() {
-    busy = false; clear(); node('h1','Sign in',app); var form = node('form',null,app); form.className='card';
+    busy = false; clear(); clearNode(shell); closeMenu(); node('h1','Sign in',app); var form = node('form',null,app); form.className='card';
     var id=field(form,'Email, phone number or account ID','id'); id.autocomplete='username';
     var password=field(form,'Password','password','password'); password.autocomplete='current-password';
     var submit=node('button','Sign in',form); submit.type='submit';
@@ -93,7 +105,7 @@
       });
     };
     button('Forgot password?',forgot,app);
-    message('Lite stays signed in on this phone so your work is here without internet. Sign out on a shared phone. Bookmark this page to open it offline.');
+    message('You stay signed in on this phone, so your work is here without internet. Sign out on a shared phone.');
   }
   function forgot(){
     clear();node('h1','Reset your password',app);var f=node('form',null,app),email=field(f,'Email address','email','email');var b=node('button','Send reset link',f);b.type='submit';
@@ -112,21 +124,10 @@
     var f=node('form',null,app),p=field(f,'New password (at least 8 characters)','reset-password','password'),c=field(f,'Confirm password','reset-confirm','password');var b=node('button','Reset password',f);b.type='submit';
     f.onsubmit=function(e){e.preventDefault();if(p.value.length<8||p.value!==c.value){message('Enter matching passwords of at least 8 characters.',true,f);return;}b.disabled=true;request('POST','/api/auth/reset-password',{token:token,newPassword:p.value},function(err){b.disabled=false;p.value=c.value='';if(err){message(err.message,true,f);return;}w.location.replace('/compat/index.html');});};
   }
-  function header(title){clear();node('h1',title,app);node('p','Signed in as '+(auth.user.name||auth.user.id||'your account'),app);button('My classes',home);if(isRole('student')||isRole('parent'))button('Practice passes',passesPage);if(isRole('parent'))button('School fees',feesPage);if(isRole('parent')||isRole('student'))button('School bus',busPage);button('Give feedback',reviewPage);var waiting=outbox().length;if(waiting)button('Waiting to send ('+waiting+')',outboxPage);button('Sign out',logout);}
   function isRole(name){return String(role||'').toLowerCase()===name;}
   /* A saved copy when the network fails: what is on the phone is better than an error. */
   function load(path,suffix,done){request('GET',path,null,function(err,data){if(!err){keep(suffix,{at:new Date().getTime(),data:data});done(null,data,false);return;}var copy=err.offline?kept(suffix):null;if(copy){done(null,copy.data,new Date(copy.at));return;}done(err);});}
   function savedNote(at){if(at)message(NETWORK_TEXT+' Showing what was saved on this phone on '+at.toLocaleString()+'.');}
-  function home(){
-    if(!auth){login();return;} if(auth.user.mustChangePassword){changePassword();return;}
-    header('My classes');var roles=auth.user.switchableRoles||auth.user.roles||[auth.user.role];if(typeof roles==='string')roles=roles.split(',');
-    if(roles.length>1){var label=node('label','View as',app),select=node('select',null,app);select.id='lite-role';label.htmlFor=select.id;for(var i=0;i<roles.length;i++){var option=node('option',roles[i],select);option.value=roles[i];option.selected=roles[i]===role;}select.onchange=function(){role=select.value;save();home();};}
-    var status=message('Loading your classes…');
-    load('/api/classrooms/assigned','classes',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var classes=data.classes||[];
-      if(!classes.length){message('No classes were returned for this account and role. Ask your school to check your class assignment.');return;}
-      var list=node('ul',null,app);list.className='list';for(var j=0;j<classes.length;j++)(function(item){var li=node('li',null,list);button((item.name||'Class')+(item.arm?' '+item.arm:''),function(){classPage(item,'materials');},li);}(classes[j]));
-    });
-  }
   function plain(value){return typeof value==='string'?value.replace(/<\s*br\s*\/?\s*>/gi,'\n').replace(/<\/(p|div|li|h[1-6])\s*>/gi,'\n').replace(/<[^>]*>/g,'').replace(/&(nbsp|amp|lt|gt|quot|#39);/g,function(s,n){return {nbsp:' ',amp:'&',lt:'<',gt:'>',quot:'"','#39':"'"}[n];}):'';}
   function link(parent,url,title){
     if(typeof url!=='string'||!url||/^\s*\/\//.test(url))return;
@@ -138,6 +139,7 @@
     header(item.name||'Class');var nav=node('nav',null,app);nav.setAttribute('aria-label','Class sections');var sections=['materials','topics','assignments','stream'];
     for(var i=0;i<sections.length;i++)(function(name){button(name==='stream'?'Class updates':name.charAt(0).toUpperCase()+name.slice(1),function(){classPage(item,name);},nav);}(sections[i]));
     button('Save this class for offline',function(){saveClass(item);},nav);
+    if(isTeaching()){var tools=node('div',null,app);tools.className='tools';if(section==='materials')button('Upload material',function(){uploadPage(item);},tools);if(section==='stream')button('Post an update',function(){postPage(item);},tools);if(section==='assignments')button('New assignment',function(){newAssignmentPage(item);},tools);button('Take attendance',function(){markRegister(item);},tools);}
     var status=message('Loading…');load('/api/classrooms/'+encodeURIComponent(item.id)+'/'+section,'class:'+item.id+':'+section,function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);
       var items=data[section==='stream'?'posts':section]||[];
       if(data.academicContext){var context=data.academicContext;node('p',[context.sessionName,context.termName].filter(function(x){return !!x;}).join(' · '),app);}
@@ -146,6 +148,7 @@
         var text=plain(entry.content||entry.body||entry.description||entry.instructions||'');if(text){var body=node('p',text,card);body.className='body';}
         if(entry.dueDate||entry.dueAt)node('p','Due: '+(entry.dueDate||entry.dueAt),card);
         if(entry.studentStatus)node('p','Status: '+entry.studentStatus,card);
+        if(section==='assignments'&&isTeaching())(function(work){button('See answers and mark',function(){markingPage(item,work);},card);}(entry));
         if(section==='assignments'&&isRole('student'))(function(work){var mine=queuedFor(work.id);if(mine)node('p','Saved on this phone. It will be sent when the connection is back.',card);button(work.mySubmission||mine?'Open again':'Open and answer',function(){assignmentPage(item,work);},card);}(entry));
         link(card,entry.fileUrl||entry.url,'Open file');var files=entry.attachments||[];if(Object.prototype.toString.call(files)==='[object Array]')for(var k=0;k<files.length;k++){var file=files[k];node('p',null,card);link(card,typeof file==='string'?file:file.url||file.fileUrl,typeof file==='object'?file.name:'Open attachment');}
       }
@@ -342,9 +345,239 @@
   function verifyPass(txRef){
     request('POST','/api/practice-arena/passes/verify',{txRef:txRef},function(err,data){message(err?err.message+' If you paid, your pass will still open once Flutterwave confirms it.':data.message,!!err);},true);
   }
+  /* ─── The frame: the same top bar, menu and bottom buttons as the main app ─── */
+  var ADMIN_ROLES=['owner','hos','admin','ict','ict_manager','principal','head_teacher','bursar','accountant','secretary','vp'];
+  function isAdmin(){return ADMIN_ROLES.indexOf(String(role||'').toLowerCase())!==-1;}
+  function isLearner(){return isRole('student')||isRole('parent');}
+  function isTeaching(){return !isLearner();}
+  /* Each menu item opens its Lite page. Items with no page explain that they need a newer phone. */
+  function menuFor(){
+    var later=function(name){return [name,function(){needsNewerPhone(name);}];};
+    if(isRole('student'))return [['Overview',home],['My classes',classesPage],['Assignments',allAssignments],['Practice',practicePage],['Practice passes',passesPage],['Results',resultsPage],['Timetable',timetablePage],['Attendance',attendancePage],['School bus',busPage],['Notifications',inboxPage],later('Exams'),later('Championships'),later('Clubs'),later('Ndovera AI'),later('Messaging'),['Give feedback',reviewPage],['Settings',settingsPage]];
+    if(isRole('parent'))return [['Overview',home],['Children',childrenPage],['My classes',classesPage],['Results',resultsPage],['Assignments',allAssignments],['Attendance',attendancePage],['Timetable',timetablePage],['School fees',feesPage],['Practice passes',passesPage],['School bus',busPage],['Notifications',inboxPage],later('Live'),later('Exams'),later('PTA Attendance'),later('Tuck Shop'),later('Ndovera AI'),later('Messaging'),['Give feedback',reviewPage],['Settings',settingsPage]];
+    if(isAdmin())return [['Overview',home],['People',peoplePage],['My classes',classesPage],['Timetable',timetablePage],['Notifications',inboxPage],['My payslip',payslipPage],later('Fees and billing'),later('Results'),later('Attendance reports'),later('Payroll'),later('Website'),later('Admissions'),later('Ndovera AI'),['Give feedback',reviewPage],['Settings',settingsPage]];
+    return [['Overview',home],['My classes',classesPage],['Assignments',allAssignments],['Attendance',teacherAttendance],['Timetable',timetablePage],['My payslip',payslipPage],['Notifications',inboxPage],later('Subject Scores'),later('Class Report'),later('Staff attendance'),later('Live'),later('Exams'),later('Ndovera AI'),later('Messaging'),['Give feedback',reviewPage],['Settings',settingsPage]];
+  }
+  function bottomFor(){
+    if(isRole('student'))return [['Overview',home],['Classes',classesPage],['Practice',practicePage],['Results',resultsPage]];
+    if(isRole('parent'))return [['Overview',home],['Children',childrenPage],['Fees',feesPage],['Results',resultsPage]];
+    return [['Overview',home],['Classes',classesPage],['Timetable',timetablePage],['Alerts',inboxPage]];
+  }
+  function clearNode(el){while(el.firstChild)el.removeChild(el.firstChild);}
+  var shell=d.getElementById('shell')||node('div',null,d.body);
+  function closeMenu(){var drawer=d.getElementById('lite-drawer');if(drawer)drawer.className='drawer';}
+  function drawShell(){
+    clearNode(shell);if(!auth)return;
+    var drawer=node('nav',null,shell);drawer.id='lite-drawer';drawer.className='drawer';drawer.setAttribute('aria-label','Menu');
+    var who=node('p',auth.user.name||auth.user.id||'Your account',drawer);who.className='who';
+    var items=menuFor();for(var i=0;i<items.length;i++)(function(item){var el=node('button',item[0],drawer);el.type='button';el.onclick=function(){closeMenu();item[1]();};}(items[i]));
+    var waiting=outbox().length;if(waiting){var w8=node('button','Waiting to send ('+waiting+')',drawer);w8.type='button';w8.onclick=function(){closeMenu();outboxPage();};}
+    var out=node('button','Sign out',drawer);out.type='button';out.onclick=logout;
+    var bar=node('nav',null,shell);bar.className='bottom';bar.setAttribute('aria-label','Main');var tabs=bottomFor();
+    for(var j=0;j<tabs.length;j++)(function(tab){var el=node('button',tab[0],bar);el.type='button';el.onclick=tab[1];}(tabs[j]));
+    var more=node('button','More',bar);more.type='button';more.onclick=toggleMenu;
+  }
+  function toggleMenu(){var drawer=d.getElementById('lite-drawer');if(drawer)drawer.className=drawer.className==='drawer'?'drawer open':'drawer';}
+  var menuButton=d.getElementById('lite-menu');if(menuButton)menuButton.onclick=toggleMenu;
+  function header(title){clear();closeMenu();drawShell();if(w.scrollTo)try{w.scrollTo(0,0);}catch(ignored){}node('h1',title,app);}
+  function card(title,parent){var el=node('article',null,parent||app);el.className='card';if(title)node('h2',title,el);return el;}
+  function backTo(label,action){var el=button(label,action);el.className='plain';return el;}
+  function asList(value){return Object.prototype.toString.call(value)==='[object Array]'?value:[];}
+  function needsNewerPhone(name){header(name);var c=card('');c.className='card sky';node('p',name+' needs a newer phone or a computer. Sign in there with the same account, and everything you do here will be there too.',c);}
+
+  /* ─── Overview ─── */
+  function home(){
+    if(!auth){login();return;} if(auth.user.mustChangePassword){changePassword();return;}
+    header('Overview');
+    var hello=card('');hello.className='card navy';node('h2','Welcome, '+(auth.user.name||'there'),hello);
+    var roles=auth.user.switchableRoles||auth.user.roles||[auth.user.role];if(typeof roles==='string')roles=roles.split(',');
+    if(roles.length>1){var label=node('label','View as',hello),select=node('select',null,hello);select.id='lite-role';label.htmlFor=select.id;for(var i=0;i<roles.length;i++){var option=node('option',roles[i],select);option.value=roles[i];option.selected=roles[i]===role;}select.onchange=function(){role=select.value;save();home();};}
+    var tiles=node('div',null,app);tiles.className='tiles';var quick=menuFor();
+    for(var t=1;t<quick.length&&t<7;t++)(function(item){var el=node('button',item[0],tiles);el.type='button';el.className='tile';el.onclick=item[1];}(quick[t]));
+    node('h2','My classes',app);
+    var status=message('Loading your classes…');
+    load('/api/classrooms/assigned','classes',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);classList(data.classes||[]);recentNotices();});
+  }
+  function classList(classes){
+    if(!classes.length){message('No classes were returned for this account and role. Ask your school to check your class assignment.');return;}
+    var list=node('ul',null,app);list.className='list';for(var j=0;j<classes.length;j++)(function(item){var li=node('li',null,list);var el=button((item.name||'Class')+(item.arm?' '+item.arm:''),function(){classPage(item,'materials');},li);el.className='row';}(classes[j]));
+  }
+  function classesPage(){header('My classes');var status=message('Loading your classes…');load('/api/classrooms/assigned','classes',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);classList(data.classes||[]);});}
+  function recentNotices(){
+    request('GET','/api/communications/inbox',null,function(err,data){if(err)return;var items=asList(data.items);if(!items.length)return;var box=card('Latest notices');for(var i=0;i<items.length&&i<3;i++){var p=node('p',items[i].title||'Notice',box);if(!items[i].readAt)p.className='unread';}button('See all notifications',inboxPage,box);});
+  }
+  function inboxPage(){
+    header('Notifications');var status=message('Loading…');
+    load('/api/communications/inbox','inbox',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var items=asList(data.items),unread=[];
+      if(!items.length){message('You have no notifications.');return;}
+      for(var i=0;i<items.length;i++){var it=items[i],c=card(it.title||'Notice');if(!it.readAt){c.className='card sky';unread.push(it.id);}if(it.body){var b=node('p',plain(it.body),c);b.className='body';}if(it.createdAt)node('small',new Date(it.createdAt).toLocaleString(),c);}
+      if(unread.length&&!at)request('POST','/api/communications/inbox/read',{ids:unread},function(){},true);});
+  }
+  function settingsPage(){
+    header('Settings');var c=card('My account');node('p',auth.user.name||'',c);if(auth.user.email)node('p',auth.user.email,c);node('p','Role: '+role,c);
+    button('Change my password',changePassword,c);button('Sign out',logout,c);
+    var std=node('a','Try the main app on this phone',card('Other'));std.href='/?ndovera-view=standard';std.rel='noreferrer';
+  }
+
+  /* ─── Timetable, attendance, payslip ─── */
+  var DAYS=['','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  function childPicker(done){
+    load('/api/learning/students','learners',function(err,data,at){if(err){message(err.message,true);return;}savedNote(at);var children=asList(data.students);
+      if(!children.length){message('No children are linked to your account yet. Ask the school to link them.');return;}
+      if(children.length===1){done(children[0]);return;}
+      var label=node('label','Choose a child',app),select=node('select',null,app);select.id='lite-child';label.htmlFor=select.id;var area=node('div',null,app);
+      for(var i=0;i<children.length;i++){var o=node('option',children[i].name,select);o.value=i;}
+      select.onchange=function(){clearNode(area);done(children[Number(select.value)],area);};done(children[0],area);});
+  }
+  function timetablePage(){
+    header('Timetable');
+    function show(query,parent){var where=parent||app,status=message('Loading…',false,where);load('/api/school/timetable'+query,'timetable'+query,function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true,where);return;}savedNote(at);var rows=asList(data.entries);
+      if(!rows.length){message('No timetable has been published yet.',false,where);return;}
+      for(var day=1;day<=7;day++){var today=[];for(var i=0;i<rows.length;i++)if(Number(rows[i].dayOfWeek)===day)today.push(rows[i]);if(!today.length)continue;var c=card(DAYS[day],where);for(var j=0;j<today.length;j++){var r=today[j];node('p',(r.startTime?r.startTime+(r.endTime?'–'+r.endTime:'')+' · ':'')+(r.subjectName||'Period')+(r.className?' · '+r.className:''),c);}}});}
+    if(isRole('parent'))childPicker(function(child,area){show('?classId='+encodeURIComponent(child.classId||''),area);});else show(isTeaching()?'?mine=true':'');
+  }
+  function attendancePage(){
+    header('Attendance');
+    function show(studentId,parent){var where=parent||app,status=message('Loading…',false,where),query='?limit=30'+(studentId?'&studentId='+encodeURIComponent(studentId):'');load('/api/school/student-attendance'+query,'attendance'+query,function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true,where);return;}savedNote(at);var rows=asList(data.records);
+      if(!rows.length){message('No attendance has been recorded yet.',false,where);return;}var c=card('Recent days',where);for(var i=0;i<rows.length;i++)node('p',(rows[i].date||'')+': '+(rows[i].status||''),c);});}
+    if(isRole('parent'))childPicker(function(child,area){show(child.id,area);});else show(auth.user.id||'');
+  }
+  function teacherAttendance(){
+    header('Attendance');var status=message('Loading your classes…');load('/api/classrooms/assigned','classes',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var classes=data.classes||[];if(!classes.length){message('You have no classes.');return;}
+      node('p','Choose the class to mark.',app);for(var i=0;i<classes.length;i++)(function(item){var el=button((item.name||'Class')+(item.arm?' '+item.arm:''),function(){markRegister(item);});el.className='row';}(classes[i]));});
+  }
+  function markRegister(item){
+    header('Attendance: '+(item.name||'Class'));var day=new Date().toISOString().slice(0,10),status=message('Loading the class…');
+    load('/api/classrooms/'+encodeURIComponent(item.id)+'/students','roster:'+item.id,function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var students=asList(data.students);if(!students.length){message('There are no students in this class yet.');return;}
+      var form=node('form',null,app);node('p','Date: '+day,form);var groups=[];
+      for(var i=0;i<students.length;i++)(function(student,index){var box=node('fieldset',null,form);box.className='card';var title=node('legend',student.name||student.id,box);title.className='body';var name='lite-att-'+index;var pick={student:student,value:'present'};groups.push(pick);
+        var marks=['present','absent','late'];for(var m=0;m<marks.length;m++)(function(mark){var row=node('label',null,box);row.className='option inline';var input=node('input',null,row);input.type='radio';input.name=name;input.value=mark;input.checked=mark==='present';input.onchange=function(){pick.value=mark;};row.appendChild(d.createTextNode(mark.charAt(0).toUpperCase()+mark.slice(1)));}(marks[m]));}(students[i],i));
+      var save=node('button','Save the register',form);save.type='submit';
+      form.onsubmit=function(e){e.preventDefault();save.disabled=true;var path='/api/school/student-attendance';
+        for(var g=0;g<groups.length;g++)enqueue({kind:'attendance',path:path,body:{studentId:groups[g].student.id,date:day,status:groups[g].value,classId:item.id},label:'Attendance: '+(groups[g].student.name||'student')+', '+day});
+        flush();header('Attendance: '+(item.name||'Class'));message('Saved. It is being sent now. If the connection is off, it goes by itself when the connection is back.');backTo('Back to classes',teacherAttendance);};});
+  }
+  function payslipPage(period){
+    header('My payslip');var query=typeof period==='string'&&period?'?period='+encodeURIComponent(period):'',status=message('Loading…');
+    load('/api/school/payroll/my-payslip'+query,'payslip'+query,function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var months=asList(data.available),slip=data.payslip;
+      if(months.length>1){var label=node('label','Month',app),select=node('select',null,app);select.id='lite-month';label.htmlFor=select.id;for(var i=0;i<months.length;i++){var o=node('option',months[i].period,select);o.value=months[i].period;o.selected=months[i].period===(data.period||'');}select.onchange=function(){payslipPage(select.value);};}
+      if(!slip){message(data.message||'Your school has not released a payslip yet.');return;}
+      var c=card('Payslip '+(slip.period||data.period||''));node('p','Gross: ₦'+(Number(slip.gross)||0).toLocaleString(),c);node('p','Deductions: ₦'+(Number(slip.deductions)||0).toLocaleString(),c);var net=node('p','Net pay: ₦'+(Number(slip.net)||0).toLocaleString(),c);net.className='strong';
+      node('small','To print or download it, use a newer phone or a computer.',c);});
+  }
+
+  /* ─── Results and children ─── */
+  function resultsPage(){
+    header('Results');
+    function show(id,parent){var where=parent||app,status=message('Loading…',false,where),query=id?'?studentId='+encodeURIComponent(id):'';load('/api/results/records'+query,'results'+query,function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true,where);return;}savedNote(at);
+      if(data.lockedByFees){message('This result is held until the fees are settled. Please speak to the school.',false,where);return;}
+      var published=asList(data.publications);if(!published.length){message('No results have been published yet.',false,where);return;}
+      for(var i=0;i<published.length;i++){var payload=published[i].payload||{},c=card((payload.termName||published[i].termName||'Term')+' '+(payload.sessionName||published[i].sessionName||''),where),rows=asList(payload.subjects),summary=payload.summary||{};
+        for(var j=0;j<rows.length;j++){var r=rows[j];node('p',(r.subjectName||r.subject||r.name||'Subject')+': '+(r.total!==undefined&&r.total!==null?r.total:'-')+(r.grade?' ('+r.grade+')':''),c);}
+        if(summary.average!==undefined&&summary.average!==null)node('p','Average: '+summary.average,c).className='strong';if(summary.position)node('p','Position: '+summary.position,c);}
+      });}
+    if(isRole('parent'))childPicker(function(child,area){show(child.id,area);});else show('');
+  }
+  function childrenPage(){
+    header('Children');var status=message('Loading…');load('/api/learning/students','learners',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var children=asList(data.students);
+      if(!children.length){message('No children are linked to your account yet. Ask the school to link them.');return;}
+      for(var i=0;i<children.length;i++)(function(child){var c=card(child.name||'Child');node('p',(child.className||'Class pending')+(child.displayId?' · '+child.displayId:''),c);var fix=button('Correct this name',function(){fix.disabled=true;
+        request('GET','/api/people/'+encodeURIComponent(child.id)+'/name-change',null,function(err2,state){fix.disabled=false;if(err2){message(err2.message,true,c);return;}if(state.change){message('This name has already been changed from a parent account, and that can be done only once. Please ask the school if it needs to change again.',false,c);return;}
+          fix.parentNode.removeChild(fix);var f=node('form',null,c),name=field(f,'Correct name','name-'+child.id);name.value=child.name||'';node('small','You can do this only once for each child, so check the spelling. The sign-in email stays the same unless the school changes it.',f);var save=node('button','Save the name',f);save.type='submit';
+          f.onsubmit=function(e){e.preventDefault();save.disabled=true;request('PUT','/api/people/'+encodeURIComponent(child.id),{name:name.value},function(err3){save.disabled=false;if(err3){message(err3.message,true,f);return;}message('Saved. The sign-in email stays the same.',false,f);save.parentNode.removeChild(save);});};});},c);}(children[i]));});
+  }
+
+  /* ─── People, for the school office ─── */
+  function peoplePage(){
+    header('People');var form=node('form',null,app),box=field(form,'Search by name, email or phone','people-search');box.required=false;var go=node('button','Search',form);go.type='submit';var area=node('div',null,app);
+    function show(){clearNode(area);var status=message('Loading…',false,area);load('/api/people?limit=30&search='+encodeURIComponent(box.value),'people',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true,area);return;}savedNote(at);var rows=asList(data.people);if(!rows.length){message('Nobody was found.',false,area);return;}
+      for(var i=0;i<rows.length;i++){var c=card(rows[i].name||rows[i].email||'Person',area);node('p',String(rows[i].role||'')+(rows[i].className?' · '+rows[i].className:''),c);if(rows[i].email)node('small',rows[i].email,c);if(rows[i].phone)node('small',rows[i].phone,c);}
+      node('small','Adding and editing people needs a newer phone or a computer.',area);});}
+    form.onsubmit=function(e){e.preventDefault();show();};show();
+  }
+
+  /* ─── Teaching: upload, class updates, assignments, marking ─── */
+  function subjectSelect(item,form,done){
+    var label=node('label','Subject',form),select=node('select',null,form);select.id='lite-subject';label.htmlFor=select.id;select.required=true;node('option','Loading…',select).value='';
+    load('/api/classrooms/'+encodeURIComponent(item.id)+'/subjects','subjects:'+item.id,function(err,data){clearNode(select);node('option','Choose the subject…',select).value='';var subjects=asList(data&&data.subjects);for(var i=0;i<subjects.length;i++){var o=node('option',subjects[i].name,select);o.value=subjects[i].id;}if(err)message(err.message,true,form);if(done)done(subjects);});
+    return select;
+  }
+  function uploadPage(item){
+    header('Upload material');backTo('Back to '+(item.name||'class'),function(){classPage(item,'materials');});
+    var form=node('form',null,app);form.className='card',form.setAttribute('aria-label','Upload material');var title=field(form,'Title','mat-title'),subject=subjectSelect(item,form),topic=field(form,'Topic (optional)','mat-topic');topic.required=false;
+    var nl=node('label','Note to students (optional)',form),note=node('textarea',null,form);note.id='lite-mat-note';nl.htmlFor=note.id;note.rows=3;
+    var fl=node('label','File (PDF, Word, picture or similar)',form),file=node('input',null,form);file.id='lite-mat-file';fl.htmlFor=file.id;file.type='file';file.required=true;
+    var send=node('button','Upload',form);send.type='submit';
+    if(!w.FormData){send.disabled=true;message('This browser cannot send files. Please use Chrome or another browser on this phone.',true,form);}
+    form.onsubmit=function(e){e.preventDefault();var chosen=file.files&&file.files[0];if(!chosen){message('Choose a file first. If no file can be chosen here, open this page in Chrome on this phone.',true,form);return;}
+      if(chosen.size>20*1024*1024){message('That file is over 20 MB. Send a smaller copy.',true,form);return;}if(!subject.value){message('Choose the subject.',true,form);return;}
+      var body=new w.FormData();body.append('file',chosen);body.append('title',title.value);body.append('subjectId',subject.value);if(topic.value)body.append('topic',topic.value);if(note.value)body.append('description',note.value);body.append('status','published');
+      send.disabled=true;send.textContent='Uploading…';
+      request('POST','/api/classrooms/'+encodeURIComponent(item.id)+'/materials/upload-multipart',body,function(err){send.disabled=false;send.textContent='Upload';if(err){message(err.offline?err.message+' A file cannot wait on this phone: try again when the connection is back.':err.message,true,form);return;}classPage(item,'materials');});};
+  }
+  function postPage(item){
+    header('Post an update');backTo('Back to '+(item.name||'class'),function(){classPage(item,'stream');});
+    var form=node('form',null,app);form.className='card';var l=node('label','Your message to the class',form),text=node('textarea',null,form);text.id='lite-post';l.htmlFor=text.id;text.rows=5;text.required=true;var send=node('button','Post',form);send.type='submit';
+    form.onsubmit=function(e){e.preventDefault();send.disabled=true;var path='/api/classrooms/'+encodeURIComponent(item.id)+'/posts',body={content:text.value};
+      request('POST',path,body,function(err){send.disabled=false;if(err&&!err.offline){message(err.message,true,form);return;}if(err){enqueue({kind:'post',path:path,body:body,label:'Class update for '+(item.name||'class')});}classPage(item,'stream');});};
+  }
+  function newAssignmentPage(item){
+    header('New assignment');backTo('Back to '+(item.name||'class'),function(){classPage(item,'assignments');});
+    var form=node('form',null,app);form.className='card';var title=field(form,'Title','asg-title'),subject=subjectSelect(item,form);
+    var il=node('label','Instructions',form),about=node('textarea',null,form);about.id='lite-asg-about';il.htmlFor=about.id;about.rows=3;
+    var ql=node('label','Questions, one on each line. Students write their answers and you mark them.',form),lines=node('textarea',null,form);lines.id='lite-asg-q';ql.htmlFor=lines.id;lines.rows=6;lines.required=true;
+    var due=field(form,'Due date (year-month-day, optional)','asg-due');due.required=false;
+    node('small','Multiple choice and timed work need a newer phone or a computer.',form);var send=node('button','Give the assignment',form);send.type='submit';
+    form.onsubmit=function(e){e.preventDefault();if(!subject.value){message('Choose the subject.',true,form);return;}var prompts=lines.value.split('\n'),questions=[];for(var i=0;i<prompts.length;i++){var text=prompts[i].replace(/^\s+|\s+$/g,'');if(text)questions.push({id:'q'+(questions.length+1),type:'essay',prompt:text,points:10});}
+      if(!questions.length){message('Type at least one question.',true,form);return;}send.disabled=true;
+      request('POST','/api/classrooms/'+encodeURIComponent(item.id)+'/assignments',{title:title.value,description:about.value,dueAt:due.value||null,subjectId:subject.value,format:questions.length>1?'mixed':'essay',questions:questions},function(err){send.disabled=false;if(err){message(err.message,true,form);return;}classPage(item,'assignments');});};
+  }
+  function markingPage(item,work){
+    header('Answers: '+(work.title||'Assignment'));backTo('Back to assignments',function(){classPage(item,'assignments');});var status=message('Loading…'),questions=asList(work.questions);
+    request('GET','/api/assignments/'+encodeURIComponent(work.id)+'/submissions',null,function(err,data){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}var rows=asList(data.submissions);if(!rows.length){message('Nobody has handed this in yet.');return;}
+      for(var i=0;i<rows.length;i++)(function(sub){var c=card(sub.studentName||sub.studentId||'Student'),content=sub.content;if(typeof content==='string'){try{content=JSON.parse(content);}catch(ignored){}}var answers=(content&&content.answers)||{};
+        for(var q=0;q<questions.length;q++){var value=answers[questions[q].id];node('p',(q+1)+'. '+plain(questions[q].prompt||''),c).className='strong';var said=node('p',typeof value==='string'?value:value===undefined||value===null?'No answer':JSON.stringify(value),c);said.className='body';}
+        if(!questions.length&&typeof content==='string')node('p',content,c).className='body';
+        var f=node('form',null,c),grade=field(f,'Score','grade-'+sub.id,'number'),fbl=node('label','Remark (optional)',f),remark=node('textarea',null,f);remark.id='lite-fb-'+sub.id;fbl.htmlFor=remark.id;remark.rows=2;if(sub.grade!==null&&sub.grade!==undefined)grade.value=sub.grade;if(sub.feedback)remark.value=sub.feedback;var save=node('button','Save the mark',f);save.type='submit';
+        f.onsubmit=function(e){e.preventDefault();save.disabled=true;request('POST','/api/submissions/'+encodeURIComponent(sub.id)+'/grade',{grade:Number(grade.value),feedback:remark.value},function(saveErr){save.disabled=false;message(saveErr?saveErr.message:'Saved.',!!saveErr,f);});};}(rows[i]));});
+  }
+  /* Every assignment in one list, class by class. */
+  function allAssignments(){
+    header('Assignments');var status=message('Loading your classes…');load('/api/classrooms/assigned','classes',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var classes=data.classes||[];if(!classes.length){message('You have no classes yet.');return;}node('p','Choose a class.',app);
+      for(var i=0;i<classes.length;i++)(function(item){var el=button((item.name||'Class')+(item.arm?' '+item.arm:''),function(){classPage(item,'assignments');});el.className='row';}(classes[i]));});
+  }
+
+  /* ─── Practice: the same questions and passes as the main app ─── */
+  function practicePage(){
+    header('Practice');var status=message('Loading…');load('/api/practice-arena/home','practice',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var subjects=asList(data.subjects),levels=asList(data.levels);
+      var left=data.passes&&data.passes.freeLeftToday;if(left!==undefined&&left!==null){var note=card('');note.className='card sky';node('p','Free questions left today: '+left+'. A pass gives as many as you like.',note);}
+      if(!subjects.length){message('Your class has no subjects yet.');return;}var form=node('form',null,app);form.className='card';
+      var sl=node('label','Subject',form),subject=node('select',null,form);subject.id='lite-pr-subject';sl.htmlFor=subject.id;for(var i=0;i<subjects.length;i++){var o=node('option',subjects[i].name,subject);o.value=i;}
+      var ll=node('label','Level',form),level=node('select',null,form);level.id='lite-pr-level';ll.htmlFor=level.id;for(var j=0;j<levels.length;j++){var p=node('option',levels[j].label,level);p.value=j;}
+      var go=node('button','Start practising',form);go.type='submit';button('Practice passes',passesPage);
+      form.onsubmit=function(e){e.preventDefault();go.disabled=true;var chosen=subjects[Number(subject.value)],lv=levels[Number(level.value)]||{};
+        request('GET','/api/practice-arena/pack?subject='+encodeURIComponent(chosen.key)+'&size=10'+(lv.difficulty?'&difficulty='+encodeURIComponent(lv.difficulty):'')+(lv.exam?'&exam='+encodeURIComponent(lv.exam):''),null,function(packErr,got){go.disabled=false;if(packErr){message(packErr.message,true,form);return;}
+          var pack=got.pack||{},ready=[],all=asList(pack.questions);for(var k=0;k<all.length;k++){var type=all[k].type;if(type==='mcq'||type==='truefalse'||type==='shortanswer'||type==='fillgaps')ready.push(all[k]);}
+          if(!ready.length){message('There are no questions here yet. More are written every week.',true,form);return;}playQuiz(chosen,ready,0,[],new Date());});};});
+  }
+  function playQuiz(subject,questions,index,answers,startedAt){
+    header('Practice: '+subject.name);var q=questions[index];node('p','Question '+(index+1)+' of '+questions.length,app);if(q.passage){var pass=node('p',plain(q.passage),app);pass.className='body';}var box=card('');var prompt=node('p',plain(q.prompt),box);prompt.className='strong body';if(q.imageUrl)link(box,q.imageUrl,'Open the picture');
+    function next(response){answers.push({questionId:q.id,response:response});
+      var nextBtn=button(index+1<questions.length?'Next question':'See my score',function(){if(index+1<questions.length)playQuiz(subject,questions,index+1,answers,startedAt);else finishQuiz(subject,answers,startedAt);},box);nextBtn.className='go';}
+    if(q.options){var opts=q.options;for(var i=0;i<opts.length;i++)(function(option,position){var el=button(plain(String(option)),function(){var picks=box.querySelectorAll('button');for(var b=0;b<picks.length;b++)picks[b].disabled=true;
+        if(q.correctIndex!==undefined){var right=position===q.correctIndex;var said=message(right?'Correct.':'Not quite. The answer is: '+plain(String(opts[q.correctIndex])),!right,box);said.className=said.className;}if(q.explanation){var ex=node('p',plain(q.explanation),box);ex.className='body';}next(option);},box);el.className='choice';}(opts[i],i));return;}
+    var f=node('form',null,box),input=field(f,'Your answer','pr-answer'),send=node('button','Answer',f);send.type='submit';f.onsubmit=function(e){e.preventDefault();send.disabled=true;input.disabled=true;if(q.explanation){var ex=node('p',plain(q.explanation),box);ex.className='body';}next(input.value);};
+  }
+  function finishQuiz(subject,answers,startedAt){
+    header('Your score');var ended=new Date(),path='/api/practice-arena/attempts',body={id:newId('lite'),subjectKey:subject.key,subjectName:subject.name,mode:'quick',startedAt:startedAt.toISOString(),finishedAt:ended.toISOString(),durationSec:Math.round((ended.getTime()-startedAt.getTime())/1000),answers:answers},status=message('Saving…');
+    request('POST',path,body,function(err,data){status.parentNode.removeChild(status);if(err&&!err.offline){message(err.message,true);}else if(err){enqueue({kind:'practice',path:path,body:body,label:'Practice: '+subject.name});message(err.message+' Your score is saved on this phone and will be sent when the connection is back.');}
+      else{var attempt=(data&&data.attempt)||{},c=card('');c.className='card navy';var total=attempt.total||attempt.totalQuestions||answers.length;node('h2',(attempt.correct!==undefined?attempt.correct+' of '+total+' correct':'Saved'),c);if(attempt.xp!==undefined)node('p',attempt.xp+' XP',c);}
+      button('Practise again',practicePage);});
+  }
   function param(name){var match=new RegExp('(?:^|[?&])'+name+'=([^&#]*)').exec(w.location.search);try{return match?decodeURIComponent(match[1]):'';}catch(ignored){return '';}}
 
   try {var saved=JSON.parse(w.localStorage.getItem(key)||'null');if(saved&&saved.auth&&saved.auth.token){auth=saved.auth;role=saved.role||auth.user.role;}}catch(ignored){}
+  if(!auth)mainSession();
   if(w.addEventListener)w.addEventListener('online',flush);
   /* Only sends when something is waiting, so an idle phone makes no requests. */
   w.setInterval(flush,60000);
