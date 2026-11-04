@@ -1,0 +1,464 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Agricultural Science soil management and cropping systems practice",
+  "questionCount": 12,
+  "note": "Original theory and four-option practice with provisional topic mapping. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Soil management",
+      "subtopic": "Erosion, infiltration and soil water",
+      "learningObjective": "Interpret evidence of soil loss and choose soil protection measures for stated conditions.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-001",
+      "objectiveId": "neco-agricultural-soil-cropping-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "After a storm, a maize field has small channels running downslope, with sediment at the lower boundary. Explain what the channels and sediment reveal about how the soil moved.",
+      "answer": "Runoff concentrated into small channels and carried soil downhill. Sediment accumulated where the water slowed and deposited its load.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify concentrated runoff in the channels."
+        },
+        {
+          "marks": 1,
+          "description": "Explain downslope transport of detached soil."
+        },
+        {
+          "marks": 1,
+          "description": "Link the deposit to slowing water or reduced carrying capacity."
+        }
+      ],
+      "explanation": "Runoff concentrated into small channels and carried soil downhill. Sediment accumulated where the water slowed and deposited its load."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Soil management",
+      "subtopic": "Erosion, infiltration and soil water",
+      "learningObjective": "Interpret evidence of soil loss and choose soil protection measures for stated conditions.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-002",
+      "objectiveId": "neco-agricultural-soil-cropping-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A farmer can keep maize residues on a bare sloping plot or burn them before the rains. Which approach better limits soil erosion, and what is one condition that could affect its usefulness?",
+      "answer": "Keep the residues as surface cover. They intercept raindrops and slow runoff. Their effectiveness falls if cover is sparse or the residues wash away.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Choose retained surface cover."
+        },
+        {
+          "marks": 1,
+          "description": "Explain one protective mechanism."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a condition that could reduce effectiveness."
+        }
+      ],
+      "explanation": "Keep the residues as surface cover. They intercept raindrops and slow runoff. Their effectiveness falls if cover is sparse or the residues wash away."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Soil management",
+      "subtopic": "Erosion, infiltration and soil water",
+      "learningObjective": "Interpret evidence of soil loss and choose soil protection measures for stated conditions.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-003",
+      "objectiveId": "neco-agricultural-soil-cropping-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two adjacent beds receive the same rain. A footpath across one bed was trampled daily, and water now ponds on the path. Explain one likely soil change and name one observation that would help test your explanation.",
+      "answer": "Trampling may compact the soil, reducing connected pore space and slowing infiltration. Compare the time taken for equal volumes of water to infiltrate over equal areas on the path and on similar untrampled soil.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify likely compaction."
+        },
+        {
+          "marks": 1,
+          "description": "Link compaction to reduced infiltration."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a meaningful comparison with similar untrampled soil."
+        }
+      ],
+      "explanation": "Trampling may compact the soil, reducing connected pore space and slowing infiltration. Compare the time taken for equal volumes of water to infiltrate over equal areas on the path and on similar untrampled soil."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Soil management",
+      "subtopic": "Erosion, infiltration and soil water",
+      "learningObjective": "Interpret evidence of soil loss and choose soil protection measures for stated conditions.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-004",
+      "objectiveId": "neco-agricultural-soil-cropping-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which change best reduces the distance runoff can travel straight downhill between cultivated ridges?",
+      "answer": "Lay the ridges across the slope along the contours.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Align the ridges with the steepest downhill direction.",
+        "Lay the ridges across the slope along the contours.",
+        "Remove all ridges and leave the slope bare.",
+        "Lengthen the furrows in the downhill direction."
+      ],
+      "correctOption": "B",
+      "explanation": "Contour ridges interrupt the downslope flow path and slow surface runoff."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Soil management",
+      "subtopic": "Erosion, infiltration and soil water",
+      "learningObjective": "Interpret evidence of soil loss and choose soil protection measures for stated conditions.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-005",
+      "objectiveId": "neco-agricultural-soil-cropping-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Two samples contain equal masses of dry soil. After both are saturated and allowed to drain under the same conditions, sample A retains more water. What does the result directly show?",
+      "answer": "A held more water after drainage in this comparison.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A held more water after drainage in this comparison.",
+        "A necessarily supplied more water to crop roots.",
+        "A contained no air before saturation.",
+        "A must drain faster than B in the field."
+      ],
+      "correctOption": "A",
+      "explanation": "The test compares retained water. It does not determine how much of that water is available to roots."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Soil management",
+      "subtopic": "Erosion, infiltration and soil water",
+      "learningObjective": "Interpret evidence of soil loss and choose soil protection measures for stated conditions.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-006",
+      "objectiveId": "neco-agricultural-soil-cropping-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Why can prolonged waterlogging damage the roots of a crop that is not adapted to it?",
+      "answer": "Water fills air spaces, reducing the oxygen available for root respiration.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Waterlogging makes roots carry out photosynthesis instead of respiration.",
+        "The roots receive more oxygen because all pores fill with water.",
+        "The soil immediately loses every mineral nutrient.",
+        "Water fills air spaces, reducing the oxygen available for root respiration."
+      ],
+      "correctOption": "D",
+      "explanation": "Water-filled pores restrict the supply of oxygen needed by most crop roots."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Cropping systems",
+      "subtopic": "Rotation, mixtures and crop decisions",
+      "learningObjective": "Distinguish cropping systems and choose crop sequences using stated evidence.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-007",
+      "objectiveId": "neco-agricultural-soil-cropping-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "One farmer grows cowpea and maize together on the same plot. Another grows cowpea this season and maize on the same plot the next season. Classify both arrangements and explain the difference.",
+      "answer": "The first is intercropping. The second is crop rotation. The difference is whether the crops share the plot at the same time or follow one another across seasons.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify intercropping for the first farmer."
+        },
+        {
+          "marks": 1,
+          "description": "Identify rotation for the second farmer."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the distinction in timing."
+        }
+      ],
+      "explanation": "The first is intercropping. The second is crop rotation. The difference is whether the crops share the plot at the same time or follow one another across seasons."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Cropping systems",
+      "subtopic": "Rotation, mixtures and crop decisions",
+      "learningObjective": "Distinguish cropping systems and choose crop sequences using stated evidence.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-008",
+      "objectiveId": "neco-agricultural-soil-cropping-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A farmer wants to interrupt a pest that can feed on maize and sorghum but cannot feed on cowpea. The pest normally survives only a short time without a host. Recommend which crop should follow maize and explain why the other crop is less suitable.",
+      "answer": "Use cowpea. It removes the food host from the plot for the rotation interval, while sorghum can support continued feeding. The rotation is more effective if volunteer host plants are controlled.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Select cowpea as the non-host."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how the host break can interrupt the pest."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why sorghum may maintain the pest."
+        }
+      ],
+      "explanation": "Use cowpea. It removes the food host from the plot for the rotation interval, while sorghum can support continued feeding. The rotation is more effective if volunteer host plants are controlled."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Cropping systems",
+      "subtopic": "Rotation, mixtures and crop decisions",
+      "learningObjective": "Distinguish cropping systems and choose crop sequences using stated evidence.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-009",
+      "objectiveId": "neco-agricultural-soil-cropping-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A farmer finds that the legume in one field has many active root nodules. In another field the same crop has no nodules. Explain why the first field may gain more biologically fixed nitrogen, and why removing all crop residues can limit the benefit to the next crop.",
+      "answer": "Compatible bacteria in active nodules convert atmospheric nitrogen into forms used by the plant. Removing residues exports some of the nitrogen held in plant tissue and reduces its return to the soil.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify nitrogen fixation by bacteria in active nodules."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that plant tissues contain some of the fixed nitrogen."
+        },
+        {
+          "marks": 1,
+          "description": "Connect residue removal with reduced nitrogen return."
+        }
+      ],
+      "explanation": "Compatible bacteria in active nodules convert atmospheric nitrogen into forms used by the plant. Removing residues exports some of the nitrogen held in plant tissue and reduces its return to the soil."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Cropping systems",
+      "subtopic": "Rotation, mixtures and crop decisions",
+      "learningObjective": "Distinguish cropping systems and choose crop sequences using stated evidence.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-010",
+      "objectiveId": "neco-agricultural-soil-cropping-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A household keeps goats and grows cassava on the same farm. Which description best fits the whole farm system?",
+      "answer": "Mixed farming",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Mixed farming",
+        "Intercropping",
+        "Crop rotation",
+        "Monocropping"
+      ],
+      "correctOption": "A",
+      "explanation": "Mixed farming combines crop production and livestock rearing on one farm."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Cropping systems",
+      "subtopic": "Rotation, mixtures and crop decisions",
+      "learningObjective": "Distinguish cropping systems and choose crop sequences using stated evidence.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-011",
+      "objectiveId": "neco-agricultural-soil-cropping-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A farmer notices that a climbing crop uses maize stems for support, but densely planted climbers reduce maize yield by shading the leaves. Which change best addresses the stated cause while keeping both crops?",
+      "answer": "Reduce the density of the climbers so more light reaches the maize leaves.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Add more climbing plants beside each maize stem.",
+        "Increase the amount of shade over the whole plot.",
+        "Switch the order in which the harvested crops are sold.",
+        "Reduce the density of the climbers so more light reaches the maize leaves."
+      ],
+      "correctOption": "D",
+      "explanation": "Reducing the density of climbers targets light competition without removing either crop."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Agricultural Science",
+      "topic": "Cropping systems",
+      "subtopic": "Rotation, mixtures and crop decisions",
+      "learningObjective": "Distinguish cropping systems and choose crop sequences using stated evidence.",
+      "specificationId": "neco-agricultural-soil-cropping-reference-2026",
+      "id": "ndv-061-012",
+      "objectiveId": "neco-agricultural-soil-cropping-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which comparison best tests whether rotating maize with a non-host crop reduces damage from a maize pest?",
+      "answer": "Compare rotated and continuously planted plots when both are back in maize, with similar seed, planting dates and other management.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Compare damage on cowpea leaves with damage on maize leaves in different seasons.",
+        "Compare a rotated plot receiving pest control with a continuous plot receiving none.",
+        "Compare rotated and continuously planted plots when both are back in maize, with similar seed, planting dates and other management.",
+        "Compare two continuously planted plots and alter irrigation in one."
+      ],
+      "correctOption": "C",
+      "explanation": "Comparing maize with maize and holding other management similar helps isolate the effect of the prior rotation."
+    }
+  ]
+}

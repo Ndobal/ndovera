@@ -313,3 +313,9 @@ Batch 060 opens NECO Physics with six structured and six objective
 drafts on wave quantities and wave behaviour. The official timetable
 confirms the written paper formats. Historical WAEC examiner materials
 inform provisional topic mapping. Practical performance remains separate.
+
+Batch 061 opens NECO Agricultural Science with six structured and six
+objective drafts on soil management and cropping systems. Historical WAEC
+examiner feedback supports provisional topic selection. The 2026 NECO
+timetable confirms written paper formats. Official NECO topic objectives
+and practical performance tasks remain open.
