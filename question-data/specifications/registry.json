@@ -751,6 +751,16 @@
       "curriculumReference": "https://icpc.gov.ng/wp-content/uploads/2024/10/Teachers-Guide-for-the-teaching-of-National-Values-in-Basic-Education-Primary-1-6.pdf",
       "retrievedOn": "2026-11-04",
       "note": "NECO confirms Paper I Part B. ICPC-hosted older cross-curricular teaching guide supports provisional age and values mapping only. Official topic specification and current curriculum adoption unverified. Four-option format is an author practice choice."
+    },
+    {
+      "id": "ncee-verbal-aptitude-primary-six-reference-2026",
+      "exam": "NCEE",
+      "subject": "Verbal Aptitude",
+      "kind": "official_component_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/primary/pri4-6_english_studies.pdf",
+      "retrievedOn": "2026-11-04",
+      "note": "NECO confirms Paper II Part B. Older Primary 6 English Studies objectives support vocabulary practice and age suitability only. Official Verbal Aptitude task families, option count and current NERDC adoption remain unverified."
     }
   ],
   "banks": [
@@ -1287,7 +1297,7 @@
       "subject": "Verbal Aptitude",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+      "scopeStatus": "official_2026_component_with_provisional_primary_six_reference"
     },
     {
       "exam": "SAT",
@@ -6730,6 +6740,44 @@
       "sourceSections": [
         "NECO 2026 Paper I Part B",
         "Primary Six English Studies: reading passages on good neighbourliness, p. 48"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-verbal-p6-1-v1",
+      "exam": "NCEE",
+      "subject": "Verbal Aptitude",
+      "topic": "Word relationships",
+      "subtopic": "Synonyms",
+      "learningObjective": "Select a word or phrase that preserves the intended sense in context.",
+      "specificationId": "ncee-verbal-aptitude-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part B",
+        "Historical NERDC Primary 6 English Studies: synonyms and antonyms"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-verbal-p6-2-v1",
+      "exam": "NCEE",
+      "subject": "Verbal Aptitude",
+      "topic": "Word relationships",
+      "subtopic": "Antonyms",
+      "learningObjective": "Identify an opposite meaning for the relevant sense of a word.",
+      "specificationId": "ncee-verbal-aptitude-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part B",
+        "Historical NERDC Primary 6 English Studies: synonyms and antonyms"
       ],
       "level": "Primary 6",
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",

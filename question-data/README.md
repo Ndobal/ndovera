@@ -228,3 +228,9 @@ Primary 6 practice questions on cultural diversity, discipline, and good
 neighbourliness. The NECO notice confirms the component. The older
 ICPC-hosted teaching guide supports provisional topic selection.
 Current NCEE topic specifications and official option count remain open.
+
+Batch 047 opens NCEE Verbal Aptitude with twelve original Primary 6
+synonym and antonym practice questions. The NECO notice confirms Paper II
+Part B. The older NERDC English Studies reference supports vocabulary
+selection provisionally. Official task families and option count remain
+unverified. Legacy Verbal Reasoning remains a separate, unmapped label.
