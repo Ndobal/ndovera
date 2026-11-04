@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2954,
-    "validDrafts": 1275,
+    "raw": 2966,
+    "validDrafts": 1287,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -440,6 +440,12 @@
       "sha256": "0a958736bcc169c1bac8e20fc610c75e70da14857ac02254935418fa86c1f05c",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-052.json",
+      "sha256": "c79c89f555d36a13e344e407034e2b0615040a339431ed58167f6de140f5a6e7",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2162,20 +2168,21 @@
         "II": "theory and practice"
       },
       "timetableSubject": "Accounting",
-      "raw": 9,
-      "validDrafts": 8,
+      "raw": 21,
+      "validDrafts": 20,
       "reviewed": 0,
       "questionTypes": {
         "structured": 8,
-        "mcq": 1
+        "mcq": 13
       },
       "difficulty": {
-        "standard": 8,
+        "standard": 18,
+        "easy": 2,
         "missing": 1
       },
-      "remaining": 992,
-      "mappedObjectives": 2,
-      "representedObjectives": 2,
+      "remaining": 980,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -4151,21 +4158,21 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 180,
+    "explicitArithmeticClaims": 184,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -26395,6 +26402,78 @@
       "errors": []
     },
     {
+      "id": "ndv-052-001",
+      "file": "original-multisubject-batch-052.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-002",
+      "file": "original-multisubject-batch-052.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-003",
+      "file": "original-multisubject-batch-052.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-004",
+      "file": "original-multisubject-batch-052.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-005",
+      "file": "original-multisubject-batch-052.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-006",
+      "file": "original-multisubject-batch-052.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-007",
+      "file": "original-multisubject-batch-052.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-008",
+      "file": "original-multisubject-batch-052.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-009",
+      "file": "original-multisubject-batch-052.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-010",
+      "file": "original-multisubject-batch-052.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-011",
+      "file": "original-multisubject-batch-052.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-052-012",
+      "file": "original-multisubject-batch-052.json",
+      "index": 11,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -46998,6 +47077,68 @@
       },
       "tiers": {
         "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-accounting-objective-1-v1",
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Overdrafts, errors and timing",
+      "learningObjective": "Classify bank differences and reconcile balances with correct signs.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "questionTypes": {
+        "mcq": 6
+      },
+      "sourceSections": [
+        "NECO 2026 Internal Accounting Paper III",
+        "Historical WAEC Financial Accounting examiner reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "easy": 1,
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-accounting-objective-2-v1",
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Returns, offsets and balance interpretation",
+      "learningObjective": "Identify control-account effects and use control totals to diagnose errors.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "questionTypes": {
+        "mcq": 6
+      },
+      "sourceSections": [
+        "NECO 2026 Internal Accounting Paper III",
+        "Historical WAEC Financial Accounting examiner reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "easy": 1,
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 6
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

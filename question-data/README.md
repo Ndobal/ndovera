@@ -263,3 +263,8 @@ practice drafts on bank reconciliation and control accounts. The NECO
 timetable supports the theory and practice format. Historical WAEC
 examiner materials support provisional topic selection. Marking guides
 are for practice and official NECO topic objectives remain open.
+
+Batch 052 adds twelve NECO Financial Accounting objective drafts on
+bank reconciliation and control accounts. The timetable confirms Paper III
+objective. Topic mapping uses historical WAEC references provisionally,
+and the four-option format is for practice.

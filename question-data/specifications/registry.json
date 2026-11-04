@@ -825,7 +825,7 @@
         "https://www.waeconline.org.ng/e-learning/Financial/FA224mq1.html"
       ],
       "retrievedOn": "2026-11-04",
-      "note": "The NECO timetable lists Accounting Paper II theory and practice. Historical WAEC material supports provisional topic selection only. Official NECO topic objectives remain unverified."
+      "note": "NECO lists Accounting Paper II theory and practice and Paper III objective. Historical WAEC material supports provisional topic selection only. Four options are a practice choice. Official NECO objectives and option counts remain unverified."
     }
   ],
   "banks": [
@@ -7141,6 +7141,42 @@
       ],
       "sourceSections": [
         "NECO 2026 Internal Accounting Paper II",
+        "Historical WAEC Financial Accounting examiner reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-accounting-objective-1-v1",
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Overdrafts, errors and timing",
+      "learningObjective": "Classify bank differences and reconcile balances with correct signs.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Internal Accounting Paper III",
+        "Historical WAEC Financial Accounting examiner reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-accounting-objective-2-v1",
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Returns, offsets and balance interpretation",
+      "learningObjective": "Identify control-account effects and use control totals to diagnose errors.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Internal Accounting Paper III",
         "Historical WAEC Financial Accounting examiner reference"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
