@@ -52,12 +52,13 @@ function NightBuilder({ surface, label, body, input, primary }) {
         <p className={label}>Night builder · {data.window}</p>
         <button type="button" className="text-xs font-bold underline" onClick={async () => { try { const result = await call('/api/ami/practice/builder/step', { method: 'POST' }); setMessage(`One step run: ${result.result.added || 0} written, ${result.result.reviewed || 0} checked.`); load(); } catch (error) { setMessage(error.message); } }}>Run one step now</button>
       </div>
-      <p className={`${body} mt-1`}>Writes questions from every published examination syllabus (WAEC, NECO, JAMB, BECE, Common Entrance), curriculum topic and teacher's material, continuing each night where it stopped, and checks every objective question against its standard — upgrading weak ones and withdrawing the rest. Examination passes go on sale once an examination has {data.minStock} checked questions.</p>
+      <p className={`${body} mt-1`}>On Sunday and Wednesday it writes questions from every published examination syllabus (WAEC, NECO, JAMB, BECE, Common Entrance), curriculum topic and teacher's material, taking turns between them. Every night it checks objective questions against their standard, upgrading weak ones and withdrawing the rest. An examination pass goes on sale once it has {data.minStock} checked questions and its core subjects are ready.</p>
       <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-5">
         {Object.entries(EXAM_LABELS).map(([key, name]) => (
           <div key={key} className="rounded-2xl bg-white/70 p-3 text-center dark:bg-black/20">
             <p className={`text-xl font-black ${Number(data.stock[key] || 0) >= data.minStock ? 'text-[#1a5c38]' : 'text-[#800000]'} dark:text-white`}>{Number(data.stock[key] || 0).toLocaleString()}</p>
             <p className="text-[11px] font-semibold text-[#191970] dark:text-slate-300">{name} checked{Number(data.stock[key] || 0) >= data.minStock ? ' · on sale' : ''}</p>
+            {data.coreShort?.[key]?.length ? <p className="mt-1 text-[11px] text-[#191970] dark:text-slate-300">Still needs: {data.coreShort[key].map(item => `${item.subject} ${item.ready}/${item.needed}`).join(', ')}</p> : null}
           </div>
         ))}
       </div>
@@ -72,7 +73,7 @@ function NightBuilder({ surface, label, body, input, primary }) {
           <input type="number" min="0" max="5000" className={`${input} mt-1 block w-32`} value={budget} onChange={event => setBudget(event.target.value)} />
         </label>
         <button type="button" className={primary} onClick={async () => { try { await call('/api/ami/practice/builder', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ batchesPerNight: Number(budget) }) }); setMessage('Saved.'); load(); } catch (error) { setMessage(error.message); } }}>Save</button>
-        <span className={`${body} text-xs`}>On Cloudflare's free plan keep this near 12 (about 100 questions a night). On the paid plan, 600 steps write about 5,000 questions a night.</span>
+        <span className={`${body} text-xs`}>The night's work stops at 12 steps however high this is set, to protect the daily AI allowance. To change that limit, change AI_NIGHT_STEP_LIMIT.</span>
       </div>
       {message ? <p role="status" className={`${body} mt-2 text-sm font-semibold`}>{message}</p> : null}
     </section>

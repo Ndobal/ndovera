@@ -261,6 +261,32 @@ export async function deleteMockPaper(db: D1Database, id: string) {
   ])
 }
 
+// ─── Importing checked batches of objectives ─────────────────────────────────
+
+export const IMPORT_BATCH = 20
+
+/** One batch from the question bundle. The night's check still has to pass each before students see it. */
+export async function importMockObjectives(db: D1Database, items: unknown) {
+  if (!Array.isArray(items) || !items.length || items.length > IMPORT_BATCH) throw new PassError(`Send 1 to ${IMPORT_BATCH} questions at a time.`)
+  let refused = 0
+  const inputs = items.flatMap((item: any) => {
+    const exam = normalizeExam(item?.exam)
+    const options = readOptions(item?.options)
+    const answer = Number(item?.answerIndex)
+    const prompt = text(item?.prompt)
+    if (!exam || !prompt || !text(item?.subject) || options.length < 2 || !Number.isInteger(answer) || answer < 0 || answer >= options.length) { refused += 1; return [] }
+    const section = EXAMS[exam].section
+    return [{
+      tenantId: GLOBAL_TENANT, type: 'mcq', prompt, options, answer, explanation: text(item.explanation, 4000), passage: text(item.passage, 8000) || undefined,
+      subject: text(item.subject, 120), subjectKey: subjectKeyOf(item.subject), section, rank: EXAM_RANK[section], topic: text(item.topic, 200), difficulty: 'external', exam,
+      originType: 'question_data', originId: text(item.id, 120), answerSource: 'ai', createdBy: 'Ndovera question bank', status: 'approved',
+    }]
+  })
+  await ensurePracticeTables(db)
+  const saved = inputs.length ? await upsertBankQuestions(db, inputs) : { added: 0, updated: 0 }
+  return { added: saved.added, updated: saved.updated, refused }
+}
+
 // ─── Sitting a paper ─────────────────────────────────────────────────────────
 
 export function readMockPaperPart(value: unknown): MockPaperPart {

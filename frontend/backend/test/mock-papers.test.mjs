@@ -1,5 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import { sign } from '@tsndr/cloudflare-worker-jwt'
 import { D1Shim, createLegacySchema } from './d1-shim.mjs'
 
@@ -192,6 +193,40 @@ test('a paper with diagrams cannot be published until each is attached, and diag
   await call('ami', 'POST', `/api/ami/mock-papers/${id}/status`, { status: 'draft' })
   assert.equal((await send('ami', 'DELETE', path(theory.id))).status, 200)
   assert.equal((await call('ami', 'POST', `/api/ami/mock-papers/${id}/status`, { status: 'published' })).status, 409)
+})
+
+test('the question bundle goes in a few at a time, waits for the check, and can be sent again', async () => {
+  const { db, call } = await setup()
+  const item = (id, extra = {}) => ({ id, exam: 'waec', subject: 'Biology', topic: 'Cells', prompt: `Question ${id}?`, options: ['a', 'b', 'c', 'd'], answerIndex: 1, explanation: 'b.', ...extra })
+  const send = questions => call('ami', 'POST', '/api/ami/question-bank/import-objectives', { questions })
+  assert.equal((await call('owner', 'POST', '/api/ami/question-bank/import-objectives', { questions: [item('a')] })).status, 403)
+  assert.equal((await send(Array.from({ length: 21 }, (_, index) => item(`q${index}`)))).status, 400, 'batches stay small')
+  const first = await send([item('q1'), item('q2', { passage: 'Read this.' }), item('bad', { answerIndex: 9 }), item('bad2', { exam: 'ielts' })])
+  assert.equal(first.status, 200, JSON.stringify(first.body))
+  assert.deepEqual([first.body.added, first.body.refused], [2, 2])
+  assert.equal((await send([item('q1')])).body.added, 0, 'sent again, nothing is doubled')
+  const rows = db.db.prepare(`SELECT exam, difficulty, section, subject_key, quality, playable, answer_source, origin_id FROM question_bank WHERE origin_type = 'question_data' ORDER BY origin_id`).all()
+  assert.equal(rows.length, 2)
+  assert.ok(rows.every(row => row.exam === 'waec' && row.difficulty === 'external' && row.section === 'senior' && row.subject_key === 'biology' && row.quality === null && row.answer_source === 'ai'))
+})
+
+test('every paper and objective in the question bundle passes the checks it will meet on import', async () => {
+  const { call } = await setup()
+  const bundle = JSON.parse(readFileSync(new URL('../../../question-data/build/ndovera-live-bundle.json', import.meta.url), 'utf8'))
+  assert.ok(bundle.papers.length > 0 && bundle.objectives.length > 0)
+  for (const paper of bundle.papers) {
+    const checked = await call('ami', 'POST', '/api/ami/mock-papers/check', { text: JSON.stringify(paper) })
+    assert.deepEqual(checked.body.problems, [], `${paper.exam} ${paper.subject} ${paper.setLabel}`)
+    assert.ok(paper.theory.every(item => item.markingPoints.every(point => typeof point === 'string' && point.trim())), 'marking points read as text')
+  }
+  const wording = new Set()
+  for (const item of bundle.objectives) {
+    assert.ok(['waec', 'neco', 'jamb', 'common_entrance', 'bece'].includes(item.exam), item.id)
+    assert.ok(item.answerIndex >= 0 && item.answerIndex < item.options.length, item.id)
+    assert.ok(!wording.has(item.prompt), `${item.id} repeats a question`)
+    assert.doesNotMatch(item.prompt, /^(WAEC|NECO|JAMB|UTME)\b.*:|^For (the )?(WAEC|NECO|JAMB|UTME)\b/, `${item.id} still carries an exam label`)
+    wording.add(item.prompt)
+  }
 })
 
 test('a paper needs its pass, and a device', async () => {

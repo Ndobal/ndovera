@@ -555,6 +555,11 @@ test('mock papers are readable for Ami: the prompt, problems, warnings and a pap
     fireEvent.click(screen.getByRole('button', { name: 'Check paper' }));
     await screen.findByText('Objective 1: the question is missing.');
     expectReadable(container, 'Ami mock papers');
+    const bundle = new File(['x'], 'bundle.json');
+    bundle.text = async () => 'not json';
+    fireEvent.change(screen.getByLabelText('Bundle file'), { target: { files: [bundle] } });
+    await screen.findByText(/^Stopped:/);
+    expectReadable(container, 'Ami bundle import error');
   } finally { global.fetch = realFetch; }
 });
 

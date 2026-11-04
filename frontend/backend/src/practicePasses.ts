@@ -62,6 +62,12 @@ export const BUNDLES = {
 export type BundleKey = keyof typeof BUNDLES
 export const SCHOOL_DISCOUNT = 0.3
 export const EXAM_MIN_STOCK = 300
+/** Checked questions each core subject needs too, so a pass is never sold with a main subject empty. */
+const SENIOR_CORE = { english: 50, mathematics: 50, biology: 50, chemistry: 50, physics: 50, government: 50 }
+export const EXAM_CORE: Record<ExamKey, Record<string, number>> = {
+  waec: SENIOR_CORE, neco: SENIOR_CORE, jamb: { ...SENIOR_CORE, english: 60 },
+  bece: { english: 50, mathematics: 50 }, common_entrance: { english: 50, mathematics: 50 },
+}
 export const PACKS_PER_DAY = 30
 export const FREE_QUESTIONS_PER_DAY = 10
 export const MAX_DEVICES = 2
@@ -200,11 +206,24 @@ export function packValidUntil(held: Entitlements, difficulty: string, exam: Exa
 
 // ─── Stock: an exam is sold once it has enough checked questions ─────────────
 
+/** What each examination's core subjects still lack before it can go on sale. */
+export async function examCoreShort(db: D1Database) {
+  await ensurePassTables(db)
+  const rows = await db.prepare(`SELECT exam, subject_key, ready FROM practice_exam_stock`).all()
+  const ready = new Map(((rows.results || []) as Record<string, any>[]).map(row => [`${row.exam}|${row.subject_key}`, Number(row.ready || 0)]))
+  return Object.fromEntries(EXAM_KEYS.map(exam => [exam, Object.entries(EXAM_CORE[exam])
+    .map(([subject, needed]) => ({ subject, ready: ready.get(`${exam}|${subject}`) || 0, needed }))
+    .filter(item => item.ready < item.needed)])) as Record<ExamKey, Array<{ subject: string, ready: number, needed: number }>>
+}
+
+/** Checked questions per examination. Until its core subjects are ready, an examination reads as just short of going on sale. */
 export async function examStock(db: D1Database) {
   await ensurePassTables(db)
   const rows = await db.prepare(`SELECT exam, SUM(ready) AS ready FROM practice_exam_stock GROUP BY exam`).all()
   const stock: Record<string, number> = Object.fromEntries(EXAM_KEYS.map(key => [key, 0]))
   for (const row of (rows.results || []) as Record<string, any>[]) stock[String(row.exam)] = Number(row.ready || 0)
+  const short = await examCoreShort(db)
+  for (const exam of EXAM_KEYS) if (short[exam].length) stock[exam] = Math.min(stock[exam], EXAM_MIN_STOCK - 1)
   return stock
 }
 

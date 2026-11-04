@@ -105,6 +105,11 @@ function stockExam(db, exam, subjectKey, count, section = 'senior') {
   for (let i = 0; i < count; i += 1) insert.run(`${exam}-${subjectKey}-${i}`, subjectKey, `${exam} ${subjectKey} question ${i}`, `${exam} ${subjectKey} question ${i}`, `${exam}-${subjectKey}-${i}`, JSON.stringify(exam === 'neco' ? ['a', 'b', 'c', 'd', 'e'] : ['a', 'b', 'c', 'd']), stamp, stamp, section, subjectKey, exam)
 }
 
+/** The core subjects an examination needs before it can go on sale. */
+function stockCore(db, exam, except = []) {
+  for (const key of ['english', 'mathematics', 'biology', 'chemistry', 'physics', 'government']) if (!except.includes(key)) stockExam(db, exam, key, 60)
+}
+
 const dev = id => ({ 'X-Practice-Device': `device-${id}-0001` })
 
 test('every subject free at school level, 10 questions a day across subjects; passes lift the limit; other subjects and examinations are paid; payments are checked and granted once', async () => {
@@ -172,6 +177,12 @@ test('every subject free at school level, 10 questions a day across subjects; pa
     stockExam(db, 'waec', 'mathematics', 300)
     stockExam(db, 'neco', 'mathematics', 300)
     assert.equal((await call(db, 'ami', 'POST', '/api/ami/practice/recount', {})).status, 200)
+    // 300 in one subject is not enough: the core subjects must be ready too.
+    assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/passes/quote', { bundle: 'ssce' })).status, 409, 'no English yet')
+    assert.deepEqual((await call(db, 'ami', 'GET', '/api/ami/practice/builder')).body.coreShort.waec.map(item => item.subject), ['english', 'biology', 'chemistry', 'physics', 'government'])
+    stockCore(db, 'waec', ['mathematics'])
+    stockCore(db, 'neco', ['mathematics'])
+    assert.equal((await call(db, 'ami', 'POST', '/api/ami/practice/recount', {})).status, 200)
     const ssce = await call(db, 'ss2', 'POST', '/api/practice-arena/passes/checkout', { bundle: 'ssce' })
     assert.equal(ssce.body.amountNaira, 3000)
     // Settled by Flutterwave's webhook (checked with Flutterwave, not trusted from the payload).
@@ -193,6 +204,8 @@ test('every subject free at school level, 10 questions a day across subjects; pa
     // JAMB: Use of English + 3 chosen subjects; the full 180-question, 2-hour mock.
     assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/passes/quote', { bundle: 'jamb', jambSubjects: ['mathematics', 'physics', 'chemistry'] })).status, 409, 'not ready yet')
     for (const key of ['english', 'mathematics', 'physics', 'chemistry']) stockExam(db, 'jamb', key, key === 'english' ? 120 : 80)
+    stockExam(db, 'jamb', 'biology', 60)
+    stockExam(db, 'jamb', 'government', 60)
     await call(db, 'ami', 'POST', '/api/ami/practice/recount', {})
     assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/passes/quote', { bundle: 'jamb', jambSubjects: ['mathematics'] })).status, 400, 'three subjects')
     const jamb = await call(db, 'ss2', 'POST', '/api/practice-arena/passes/checkout', { bundle: 'jamb', jambSubjects: ['mathematics', 'physics', 'chemistry'] })
@@ -260,6 +273,7 @@ test('a school buys a Subject or JAMB pass for a whole senior class; each studen
     const chosen = ['mathematics', 'physics', 'chemistry']
     assert.equal((await call(db, 'owner', 'POST', '/api/practice-arena/passes/quote', { bundle: 'jamb', jambSubjects: chosen, classId: 'ss2a' })).status, 409, 'not ready yet')
     stockExam(db, 'jamb', 'mathematics', 300)
+    stockCore(db, 'jamb', ['mathematics'])
     assert.equal((await call(db, 'ami', 'POST', '/api/ami/practice/recount', {})).status, 200)
     const jamb = await call(db, 'owner', 'POST', '/api/practice-arena/passes/checkout', { bundle: 'jamb', jambSubjects: chosen, classId: 'ss2a' })
     assert.equal(jamb.status, 200, JSON.stringify(jamb.body))
@@ -343,7 +357,7 @@ test('the night builder writes questions from syllabus topics and materials, con
   assert.match(calls.lastUser, /Solve by factorisation and formula|Motion/)
   let overview = (await call(db, 'ami', 'GET', '/api/ami/practice/builder', null, env)).body
   assert.equal(overview.queue.reduce((sum, row) => sum + row.items, 0), 3, 'draft syllabuses are not used')
-  // Each step goes to the least-served examination topic: every topic gets its first batch before any gets a second.
+  // Examinations take turns, and within one the least-served topic goes first.
   await step()
   const third = await step() // every third step is a quality check
   assert.equal(third.body.result.reviewed, 10)
@@ -351,11 +365,11 @@ test('the night builder writes questions from syllabus topics and materials, con
   const made = db.db.prepare(`SELECT made FROM practice_build_queue`).all().map(row => row.made).sort()
   assert.deepEqual(made, [0, 8, 8])
   await step()
-  assert.deepEqual(db.db.prepare(`SELECT source_id, made FROM practice_build_queue ORDER BY source_id`).all().map(row => row.made), [8, 8, 8])
+  assert.deepEqual(db.db.prepare(`SELECT source_id, made FROM practice_build_queue ORDER BY source_id`).all().map(row => row.made), [8, 0, 16])
   // Stored for its examination, in Ndovera's bank; the checked ones count as stock.
   const rows = db.db.prepare(`SELECT exam, quality, playable, prompt FROM question_bank WHERE origin_type LIKE 'ndovera_builder:%'`).all()
   assert.equal(rows.length, 24)
-  assert.ok(rows.filter(row => row.exam === 'waec').length === 16 && rows.filter(row => row.exam === 'jamb').length === 8)
+  assert.ok(rows.filter(row => row.exam === 'waec').length === 8 && rows.filter(row => row.exam === 'jamb').length === 16)
   assert.equal(rows.filter(row => row.quality === 'upgraded').length, 1)
   assert.ok(rows.some(row => row.quality === 'upgraded' && /Improved question/.test(row.prompt)))
   assert.equal(rows.filter(row => row.quality === 'rejected' && row.playable === 0).length, 1)

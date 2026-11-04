@@ -68,6 +68,38 @@ test('a paper needing a diagram cannot be published until it is attached', async
   await waitFor(() => expect(screen.getByRole('button', { name: 'Publish' })).toBeEnabled());
 });
 
+test('the question bundle goes in a few at a time, and papers already there are skipped', async () => {
+  const objectives = Array.from({ length: 45 }, (_, index) => ({ id: `q${index}` }));
+  const bundle = { objectives, papers: [{ setLabel: 'Theory set 1' }, { setLabel: 'Theory set 2' }] };
+  let saved = 0;
+  global.fetch = jest.fn(async (url, options = {}) => {
+    const path = String(url);
+    if (path.endsWith('/import-objectives')) return { ok: true, status: 200, json: async () => ({ success: true, added: JSON.parse(options.body).questions.length }) };
+    if (options.method === 'POST') { saved += 1; return saved === 1 ? { ok: true, status: 200, json: async () => ({ success: true, paper: {} }) } : { ok: false, status: 409, json: async () => ({ success: false, message: 'WAEC Economics already has a paper called "Theory set 2".' }) }; }
+    return { ok: true, status: 200, json: async () => ({ success: true, papers: [] }) };
+  });
+  render(<AmiMockPapers />);
+  await screen.findByText('No mock papers yet.');
+  const file = new File([JSON.stringify(bundle)], 'bundle.json', { type: 'application/json' });
+  file.text = async () => JSON.stringify(bundle);
+  fireEvent.change(screen.getByLabelText('Bundle file'), { target: { files: [file] } });
+  expect(await screen.findByText(/Done: 45 new objective questions.*1 new draft theory papers/)).toBeInTheDocument();
+  const batches = global.fetch.mock.calls.filter(([url]) => String(url).endsWith('/import-objectives')).map(([, options]) => JSON.parse(options.body).questions.length);
+  expect(batches).toEqual([20, 20, 5]);
+});
+
+test('a stopped import says so and can be run again', async () => {
+  global.fetch = jest.fn(async (url) => (String(url).endsWith('/import-objectives')
+    ? { ok: false, status: 503, json: async () => ({ success: false, message: 'Busy.' }) }
+    : { ok: true, status: 200, json: async () => ({ success: true, papers: [] }) }));
+  render(<AmiMockPapers />);
+  await screen.findByText('No mock papers yet.');
+  const file = new File(['x'], 'bundle.json');
+  file.text = async () => JSON.stringify({ objectives: [{ id: 'a' }], papers: [] });
+  fireEvent.change(screen.getByLabelText('Bundle file'), { target: { files: [file] } });
+  expect(await screen.findByRole('alert')).toHaveTextContent(/Stopped: Busy\. Nothing is lost/);
+});
+
 test('a good paper is saved as a draft, read through, then published', async () => {
   respond({
     'GET /api/ami/mock-papers': { success: true, papers: [] },

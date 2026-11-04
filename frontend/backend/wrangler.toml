@@ -25,6 +25,8 @@ database_id = "77d6f37d-7fc8-4f5d-927c-42f3c6f24538"
 database_name = "ndovera-db"
 
 [vars]
+# Night AI: steps a night. Raise it on a paid plan, or to fill the bank faster.
+AI_NIGHT_STEP_LIMIT = "12"
 CORS_ORIGIN = "https://ndovera.com,https://www.ndovera.com"
 HYPERDRIVE_CONNECTION_STRING = ""
 SESSION_COOKIE_NAME = "ndovera_session"

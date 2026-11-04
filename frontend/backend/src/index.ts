@@ -423,11 +423,11 @@ import { PROGRESS_TEMPLATES, defaultTemplateFor, loadEarlierTermTotals, normaliz
 import type { ClubActor } from './clubs'
 import {
   EXAMS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, freeQuestionsLeft, useFreeQuestions, FREE_LIMIT_REACHED, FREE_QUESTIONS_PER_DAY,
-  entitlements, examStock, examsForSection, getCheckout, normalizeExam, packValidUntil, priceFor, rebuildExamStock, recordCheckout, settleCheckout,
+  entitlements, examCoreShort, examStock, examsForSection, getCheckout, normalizeExam, packValidUntil, priceFor, rebuildExamStock, recordCheckout, settleCheckout,
 } from './practicePasses'
 import type { ExamKey } from './practicePasses'
 import { builderOverview, inBuildWindow, runBuilderTick, saveBuildSettings } from './practiceBuilder'
-import { deleteMockPaper, getMockPaper, listMockPapers, markMockPaper, mockPaperForStudent, parseMockPaper, readMockPaperPart, saveMockPaper, setMockPaperDiagram, setMockPaperStatus } from './mockPapers'
+import { deleteMockPaper, getMockPaper, importMockObjectives, listMockPapers, markMockPaper, mockPaperForStudent, parseMockPaper, readMockPaperPart, saveMockPaper, setMockPaperDiagram, setMockPaperStatus } from './mockPapers'
 import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts, subjectCanonicalizer } from './practiceBank'
 import { checkQuestionSubjects, reportQuestionSubject, takeNightBatch } from './subjectCheck'
 import { HarvestError, MAX_DOC_BYTES, ensureHarvestTables, getNote, listDocuments, listNotes, queueDocument, runDocumentStep, runHarvestTick, setDocumentStatus } from './harvester'
@@ -17150,6 +17150,15 @@ app.get('/api/ami/mock-papers/:id', authenticate, async (c) => {
   } catch (error) { return practiceFailure(c, error, 'Could not open the paper.') }
 })
 
+/** One batch of objectives from the question bundle (Ami's import sends them a few at a time). */
+app.post('/api/ami/question-bank/import-objectives', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, ...(await importMockObjectives(c.env.APP_DB, body.questions)) })
+  } catch (error) { return practiceFailure(c, error, 'Could not import those questions.') }
+})
+
 app.post('/api/ami/mock-papers/:id/status', authenticate, async (c) => {
   try {
     requireAmi(c)
@@ -17352,7 +17361,7 @@ app.post('/api/practice-arena/devices/clear', authenticate, async (c) => {
 app.get('/api/ami/practice/builder', authenticate, async (c) => {
   try {
     requireAmi(c)
-    return c.json({ success: true, ...(await builderOverview(c.env.APP_DB)), stock: await examStock(c.env.APP_DB), minStock: EXAM_MIN_STOCK })
+    return c.json({ success: true, ...(await builderOverview(c.env.APP_DB)), stock: await examStock(c.env.APP_DB), coreShort: await examCoreShort(c.env.APP_DB), minStock: EXAM_MIN_STOCK })
   } catch (error) { return practiceFailure(c, error, 'Could not load the builder.') }
 })
 
@@ -39679,7 +39688,7 @@ export default {
     // Class pins: every student keeps their class unless it was changed on record (02:30 Lagos).
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 30) ctx.waitUntil(monitorClassPins(env.APP_DB).then(result => { if (result.restored) console.warn('Class monitor restored placements', result) }).catch(error => console.error('Class monitor failed', error)))
     // The night builder: new questions and quality checks, 00:00–04:00 Lagos, within Ami's nightly budget.
-    if (inBuildWindow(at)) ctx.waitUntil(runBuilderTick(env.APP_DB, assessmentAiRunner(env), { at }).catch(error => console.error('Practice builder failed', error)))
+    if (inBuildWindow(at)) ctx.waitUntil(runBuilderTick(env.APP_DB, assessmentAiRunner(env), { at, stepLimit: Number((env as any).AI_NIGHT_STEP_LIMIT) || undefined }).catch(error => console.error('Practice builder failed', error)))
     else if (at.getUTCMinutes() === 40) {
       ctx.waitUntil(env.APP_DB.prepare(`SELECT 1 FROM practice_bank_counts LIMIT 1`).first()
         .then(row => (row ? null : rebuildBankCounts(env.APP_DB))).catch(() => rebuildBankCounts(env.APP_DB).catch(() => null)))

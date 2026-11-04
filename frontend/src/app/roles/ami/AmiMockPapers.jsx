@@ -110,6 +110,48 @@ function ReadThrough({ paper, busy, onAttach, onRemove }) {
   );
 }
 
+/** Imports the question bundle a few at a time. Safe to run again: questions already in are left alone. */
+function BundleImport({ onDone }) {
+  const [progress, setProgress] = useState('');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  async function run(file) {
+    setBusy(true); setError(''); setProgress('');
+    try {
+      const bundle = JSON.parse(await file.text());
+      const objectives = bundle.objectives || [];
+      const papers = bundle.papers || [];
+      let added = 0;
+      for (let at = 0; at < objectives.length; at += 20) {
+        const result = await call('/api/ami/question-bank/import-objectives', { method: 'POST', body: JSON.stringify({ questions: objectives.slice(at, at + 20) }) });
+        added += result.added;
+        setProgress(`Objectives: ${Math.min(at + 20, objectives.length)} of ${objectives.length}`);
+      }
+      let saved = 0;
+      for (const [index, paper] of papers.entries()) {
+        const result = await call('/api/ami/mock-papers', { method: 'POST', body: JSON.stringify({ text: JSON.stringify(paper) }) }).catch(failure => { if (/already has a paper/.test(failure.message)) return null; throw failure; });
+        if (result) saved += 1;
+        setProgress(`Draft papers: ${index + 1} of ${papers.length}`);
+      }
+      setProgress(`Done: ${added} new objective questions, waiting for the nightly check, and ${saved} new draft theory papers to read and publish.`);
+      onDone();
+    } catch (failure) {
+      setError(`Stopped: ${failure.message} Nothing is lost. Choose the file again to carry on.`);
+    } finally { setBusy(false); }
+  }
+  return (
+    <div className="space-y-2 rounded-2xl border border-slate-200 p-4 dark:border-white/10">
+      <h3 className={HEADING}>Import the question bundle</h3>
+      <p className={BODY}>Choose question-data/build/ndovera-live-bundle.json. Keep this page open until it finishes.</p>
+      <label className={FIELD_LABEL}>Bundle file
+        <input type="file" accept="application/json,.json" disabled={busy} className={`${BODY} mt-1 block`} onChange={event => { const file = event.target.files?.[0]; event.target.value = ''; if (file) run(file); }} />
+      </label>
+      {progress ? <p role="status" className="rounded-2xl bg-indigo-100 px-4 py-3 text-sm font-semibold text-indigo-950 dark:bg-indigo-950 dark:text-indigo-100">{progress}</p> : null}
+      {error ? <p role="alert" className="rounded-2xl bg-red-100 px-4 py-3 text-sm font-semibold text-red-900 dark:bg-red-950 dark:text-red-100">{error}</p> : null}
+    </div>
+  );
+}
+
 export default function AmiMockPapers() {
   const [form, setForm] = useState({ exam: 'waec', subject: '', setLabel: 'Mock 1', objectives: 50, theory: 6, objectiveMinutes: 60, theoryMinutes: 120 });
   const [text, setText] = useState('');
@@ -169,6 +211,8 @@ export default function AmiMockPapers() {
         <h2 className={`text-lg ${HEADING}`}>Mock papers</h2>
         <p className={BODY}>Whole papers with objectives and theory. Students choose objectives only, theory only, or both. Write them with ChatGPT in three steps. Use original questions, not real past papers. ChatGPT describes any diagrams it needs, and you attach the images before publishing.</p>
       </div>
+
+      <BundleImport onDone={load} />
 
       <div className="space-y-3">
         <h3 className={HEADING}>1. Choose the paper and copy the prompt</h3>

@@ -34,6 +34,11 @@ export const CURRICULUM_TARGET = 16
 export const CURRICULUM_EXAM_TARGET = 8
 export const NOTE_TARGET = 8
 export const DEFAULT_BUILD_SETTINGS = { batchesPerNight: 12, reviewEvery: 3 }
+/** Lagos days new questions are written: Sunday and Wednesday (0 is Sunday). Checking runs every night. */
+export const WRITE_DAYS = [0, 3]
+/** Steps a night whatever Ami has saved, unless AI_NIGHT_STEP_LIMIT says otherwise. */
+export const NIGHT_STEP_LIMIT = 12
+const BUILD_GROUPS = ['jamb', 'waec', 'neco', 'bece', 'common_entrance', 'class']
 const PAGE = 100
 const REVIEW_BATCH = 10
 
@@ -41,9 +46,12 @@ const now = () => new Date().toISOString()
 const parse = <T,>(value: unknown, fallback: T): T => { try { return value ? JSON.parse(String(value)) as T : fallback } catch { return fallback } }
 const lagos = (at: Date) => new Date(at.getTime() + 3600_000)
 
-/** 00:00–03:59 in Lagos. */
+/**
+ * 00:00–00:59 in Lagos, the last hour before Cloudflare's daily AI allowance resets at 00:00 UTC.
+ * Night work uses what the day left over and never touches the next day's allowance for schools.
+ */
 export function inBuildWindow(at = new Date()) {
-  return lagos(at).getUTCHours() < 4
+  return lagos(at).getUTCHours() === 0
 }
 
 const readyDbs = new WeakSet<object>()
@@ -59,6 +67,7 @@ export async function ensureBuilderTables(db: D1Database) {
     // The whole ORDER BY of the next-item pick, so it reads one row instead of sorting every
     // pending item (~25,000 rows a pick before; the top D1 read cost in Oct 2026).
     `CREATE INDEX IF NOT EXISTS idx_practice_build_pick ON practice_build_queue(status, priority, made, updated_at)`,
+    `CREATE INDEX IF NOT EXISTS idx_practice_build_exam_pick ON practice_build_queue(status, exam, priority, made, updated_at)`,
     `DROP INDEX IF EXISTS idx_practice_build_next`,
     `CREATE TABLE IF NOT EXISTS practice_build_state (key TEXT PRIMARY KEY, value TEXT, updated_at TEXT)`,
     `CREATE TABLE IF NOT EXISTS practice_build_nights (day TEXT PRIMARY KEY, steps INTEGER NOT NULL DEFAULT 0, added INTEGER NOT NULL DEFAULT 0, reviewed INTEGER NOT NULL DEFAULT 0,
@@ -191,9 +200,25 @@ async function contextFor(db: D1Database, ref: string) {
 
 // ─── Building: one batch for the least-served source ─────────────────────────
 
+/** Examinations and class practice take turns, so one long queue cannot keep the others waiting. */
+async function nextQueueItem(db: D1Database) {
+  const start = Math.max(0, BUILD_GROUPS.indexOf(await getState(db, 'next_group')))
+  for (let turn = 0; turn < BUILD_GROUPS.length; turn += 1) {
+    const group = BUILD_GROUPS[(start + turn) % BUILD_GROUPS.length]
+    const item = await (group === 'class'
+      ? db.prepare(`SELECT * FROM practice_build_queue WHERE status = 'pending' AND exam IS NULL ORDER BY priority, made, updated_at LIMIT 1`)
+      : db.prepare(`SELECT * FROM practice_build_queue WHERE status = 'pending' AND exam = ? ORDER BY priority, made, updated_at LIMIT 1`).bind(group)).first() as Record<string, any> | null
+    if (item) {
+      await setState(db, 'next_group', BUILD_GROUPS[(start + turn + 1) % BUILD_GROUPS.length])
+      return item
+    }
+  }
+  return null
+}
+
 export async function buildOne(db: D1Database, runAi: AiRunner) {
   await ensureBuilderTables(db)
-  const item = await db.prepare(`SELECT * FROM practice_build_queue WHERE status = 'pending' ORDER BY priority, made, updated_at LIMIT 1`).first() as Record<string, any> | null
+  const item = await nextQueueItem(db)
   if (!item) return null
   const remaining = Number(item.target) - Number(item.made)
   let added = 0
@@ -210,7 +235,8 @@ export async function buildOne(db: D1Database, runAi: AiRunner) {
     console.error('Practice builder step failed', error)
   }
   const made = Number(item.made) + added
-  const attempts = Number(item.attempts) + 1
+  // A failed call says nothing about the topic (the day's AI allowance may be spent).
+  const attempts = Number(item.attempts) + (failed ? 0 : 1)
   // Done when it has enough; given up when the model keeps producing nothing usable.
   const status = made >= Number(item.target) ? 'done' : attempts >= Math.ceil(Number(item.target) / 4) + 6 && made < attempts ? 'stuck' : 'pending'
   await db.prepare(`UPDATE practice_build_queue SET made = ?, attempts = ?, status = ?, updated_at = ? WHERE id = ?`).bind(made, attempts, status, now(), item.id).run()
@@ -316,26 +342,28 @@ export async function nightStats(db: D1Database, day: string) {
  * a batch of new questions, or (every reviewEvery-th step) a quality check — while the
  * night's budget lasts. `force` runs outside the window (Ami's "run a step now").
  */
-export async function runBuilderTick(db: D1Database, runAi: AiRunner, options: { at?: Date, force?: boolean } = {}) {
+export async function runBuilderTick(db: D1Database, runAi: AiRunner, options: { at?: Date, force?: boolean, stepLimit?: number } = {}) {
   const at = options.at || new Date()
   if (!options.force && !inBuildWindow(at)) return { skipped: 'outside the night window' }
   await ensureBuilderTables(db)
   const day = lagos(at).toISOString().slice(0, 10)
+  if (!options.force && (await getState(db, 'paused_day')) === day) return { skipped: 'the AI allowance is spent for tonight' }
   if ((await getState(db, 'planned')) !== day || options.force) {
     const plan = await planSources(db)
     if (plan.caughtUp) await setState(db, 'planned', day)
   }
   const settings = await getBuildSettings(db)
   const stats = await nightStats(db, day)
-  if (!options.force && stats.steps >= settings.batchesPerNight) return { skipped: 'tonight\'s budget is used', stats }
-  const review = (stats.steps + 1) % settings.reviewEvery === 0
+  if (!options.force && stats.steps >= Math.min(settings.batchesPerNight, options.stepLimit ?? NIGHT_STEP_LIMIT)) return { skipped: 'tonight\'s budget is used', stats }
+  const writing = Boolean(options.force) || WRITE_DAYS.includes(lagos(at).getUTCDay())
+  const review = !writing || (stats.steps + 1) % settings.reviewEvery === 0
   let added = 0
   let reviewed = { reviewed: 0, upgraded: 0, rejected: 0 }
   let failed = 0
   if (review) {
     try { reviewed = await reviewSome(db, runAi) } catch (error) { failed = 1; console.error('Practice review failed', error) }
   }
-  if (!review || (!reviewed.reviewed && !failed)) {
+  if (writing && (!review || (!reviewed.reviewed && !failed))) {
     const built = await buildOne(db, runAi)
     added = built?.added || 0
     if (built?.failed) failed = 1
@@ -349,6 +377,8 @@ export async function runBuilderTick(db: D1Database, runAi: AiRunner, options: {
       rejected = rejected + excluded.rejected, failures = failures + excluded.failures, updated_at = excluded.updated_at`)
     .bind(day, added, reviewed.reviewed, reviewed.upgraded, reviewed.rejected, failed, now()).run()
   if (options.force) await setState(db, QUEUE_SUMMARY_KEY, '')
+  // Stop for the night rather than spend the hour on calls that fail.
+  else if (failed) await setState(db, 'paused_day', day)
   return { day, added, ...reviewed, failed: Boolean(failed) }
 }
 
@@ -377,7 +407,7 @@ export async function builderOverview(db: D1Database) {
   ])
   return {
     settings: await getBuildSettings(db), queue, nights: nights.results || [], unchecked: Number((unchecked as any)?.n || 0),
-    window: 'Every night, 00:00–04:00 (Lagos)',
+    window: 'Writes questions on Sunday and Wednesday, checks them every night, 00:00–00:59 (Lagos)',
   }
 }
 
