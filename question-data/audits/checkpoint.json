@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "neco_2026_internal_formats_mapped_objectives_pending",
+  "phase": "batch_049_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-049.json",
+  "nextBatch": "original-multisubject-batch-050.json",
   "nextPriorities": [
-    "Find an official NECO SSCE subject syllabus or a separately verified senior-secondary topic reference. Use the mapped 2026 Internal paper formats and record any provisional topic alignment. If suitable evidence is unavailable, continue the next source-supported bank.",
+    "Seek the official NECO Economics objectives. Expand into objective practice and other senior-secondary Economics topics where source evidence supports them.",
     "Continue WAEC prescribed Literature beyond Shakespeare: verify editions, permissions and primary-text evidence for poetry/prose/drama theory. Antony and Cleopatra now has 25 WAEC context drafts and 25 provisional JAMB practice drafts; each act represented is not whole-play coverage. Verify current official JAMB set-text adoption independently.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-048.json",
-  "lastRemoteVerifiedCommit": "8166ee2a0c62744bb4107b40125b5d8922c93dc0",
+  "lastValidatedBatch": "original-multisubject-batch-049.json",
+  "lastRemoteVerifiedCommit": "2034691e1fadc9a732d1b466173da6a6912cad2e",
   "verifiedTotals": {
-    "raw": 2926,
-    "validDrafts": 1247,
+    "raw": 2934,
+    "validDrafts": 1255,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-048.json",
+  "lastPopulatedBatch": "original-multisubject-batch-049.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 2926
+  "inventoryRaw": 2934
 }

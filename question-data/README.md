@@ -246,3 +246,9 @@ twelve existing NECO subject banks. The registry distinguishes objective,
 essay, practical and oral components where applicable. Section 7 of the
 registration guidelines lists the separate syllabus. Topic objectives and
 option counts remain open, and this evidence is specific to Internal.
+
+Batch 049 opens NECO Economics with eight original structured theory
+drafts on market changes and price controls. NECO's 2026 Internal
+timetable confirms the essay paper. Historical WAEC examiner materials
+provide provisional topic references, and the official NECO objectives
+remain open. Marking guides are for practice.
