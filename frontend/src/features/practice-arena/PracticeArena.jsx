@@ -9,6 +9,7 @@ import { isOnline, requestPersistentStorage } from '../../shared/offline/offline
 import QuizPlayer from './QuizPlayer';
 import ExamPlayer from './ExamPlayer';
 import QuizResults from './QuizResults';
+import MockPapersPanel from './MockPapersPanel';
 import { askConfirm } from '../../shared/components/AppDialog';
 
 // Practice Arena: quizzes on the subjects the student's class offers, from questions
@@ -416,8 +417,8 @@ export default function PracticeArena() {
       ) : null}
 
       {home ? (
-        <div className="flex gap-2 rounded-2xl bg-slate-100 p-1 dark:bg-white/5" role="tablist">
-          {[['subjects', '📚 Subjects'], ['passes', '💳 Passes & exams'], ['badges', '🏅 Badges'], ['leaderboard', '🏆 Leaderboard']].map(([key, label]) => (
+        <div className="flex flex-wrap gap-2 rounded-2xl bg-slate-100 p-1 dark:bg-white/5" role="tablist">
+          {[['subjects', '📚 Subjects'], ['papers', '📝 Mock papers'], ['passes', '💳 Passes & exams'], ['badges', '🏅 Badges'], ['leaderboard', '🏆 Leaderboard']].map(([key, label]) => (
             <button key={key} type="button" role="tab" aria-selected={tab === key} onClick={() => setTab(key)} className={`flex-1 rounded-xl px-3 py-2 text-sm font-black ${tab === key ? 'bg-white text-indigo-700 shadow dark:bg-slate-800 dark:text-cyan-300' : 'text-slate-600 dark:text-slate-300'}`}>{label}</button>
           ))}
         </div>
@@ -466,6 +467,8 @@ export default function PracticeArena() {
           </div>
         )
       ) : null}
+
+      {home && tab === 'papers' ? <MockPapersPanel onNeedPass={exam => { setPassPreset({ exam }); setTab('passes'); }} /> : null}
 
       {home && tab === 'passes' ? <PassesPanel home={home} preset={passPreset} busy={busy} onMock={startMock} onNotice={setNotice} onChanged={refresh} /> : null}
 

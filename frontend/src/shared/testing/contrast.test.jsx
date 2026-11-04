@@ -38,7 +38,9 @@ import SetupCentrePage from '../../features/setup/SetupCentrePage';
 import TermsCalendarPage from '../../features/calendar/TermsCalendarPage';
 import GrowthCentrePage from '../../features/growth/GrowthCentrePage';
 import PracticePassesPage from '../../features/practice-arena/PracticePassesPage';
-import { getSchoolPassSubjects, getSchoolPasses } from '../../features/practice-arena/practiceApi';
+import { getMockPapers, getSchoolPassSubjects, getSchoolPasses, openMockPaper, submitMockPaper } from '../../features/practice-arena/practiceApi';
+import MockPapersPanel from '../../features/practice-arena/MockPapersPanel';
+import AmiMockPapers from '../../app/roles/ami/AmiMockPapers';
 import { getGrowthCentre, getGrowthConversation } from '../../features/school/services/schoolApi';
 import { getTermsCalendar } from '../../features/school/services/schoolApi';
 import { getSchoolSetup } from '../../features/school/services/schoolApi';
@@ -63,7 +65,7 @@ jest.mock('../../features/classroom/studentTasks', () => ({
 }));
 jest.mock('../hooks/useFeatureFlags', () => () => ({ featureFlags: { aurasEnabled: true, farmingModeEnabled: true } }));
 jest.mock('../../features/communications/communicationsApi', () => ({ ...jest.requireActual('../../features/communications/communicationsApi'), getInbox: jest.fn(() => Promise.resolve({ items: [] })), getMyChoices: jest.fn(), saveMyChoices: jest.fn(() => Promise.resolve({})), markInboxRead: jest.fn(() => Promise.resolve({})) }));
-jest.mock('../../features/practice-arena/practiceApi', () => ({ ...jest.requireActual('../../features/practice-arena/practiceApi'), getSchoolPasses: jest.fn(), getSchoolPassSubjects: jest.fn() }));
+jest.mock('../../features/practice-arena/practiceApi', () => ({ ...jest.requireActual('../../features/practice-arena/practiceApi'), getSchoolPasses: jest.fn(), getSchoolPassSubjects: jest.fn(), getMockPapers: jest.fn(), openMockPaper: jest.fn(), submitMockPaper: jest.fn() }));
 jest.mock('jspdf', () => ({ jsPDF: jest.fn() }));
 jest.mock('html2canvas', () => jest.fn());
 jest.mock('../hooks/useTenantPwaManifest', () => ({ getTenantPwaInfo: () => null }));
@@ -513,6 +515,47 @@ test('practice passes are readable: a senior class buying JAMB, its subjects and
   fireEvent.change(screen.getByLabelText('Pass'), { target: { value: 'jamb' } });
   fireEvent.click(await screen.findByLabelText('Physics'));
   expectReadable(container, 'Practice passes');
+});
+
+test('mock papers are readable for students: the list, a locked paper, the sitting and the answers', async () => {
+  const listed = { id: 'p1', exam: 'waec', examLabel: 'WAEC', subjectName: 'Mathematics', setLabel: 'Mock 1', objectiveCount: 1, objectiveMinutes: 60, theoryCount: 1, theoryMinutes: 120, locked: false, lockedReason: '' };
+  getMockPapers.mockResolvedValue({ papers: [listed, { ...listed, id: 'p2', subjectName: 'Biology', locked: true, lockedReason: 'WAEC practice needs its pass.' }] });
+  openMockPaper.mockResolvedValue({ paper: { id: 'p1', examLabel: 'WAEC', subjectName: 'Mathematics', setLabel: 'Mock 1', part: 'both', minutes: 180, instructions: 'Answer all.',
+    objectives: [{ id: 'q1', position: 1, prompt: 'What is 2 + 2?', options: ['3', '4'] }], theory: [{ id: 't1', position: 1, prompt: 'Solve x + 2 = 5.', marks: 10 }] } });
+  submitMockPaper.mockResolvedValue({ result: { score: 0, total: 2,
+    objectives: [{ id: 'q1', position: 1, prompt: 'What is 2 + 2?', options: ['3', '4'], picked: 0, answerIndex: 1, correct: false, explanation: 'Add them.' }, { id: 'q2', position: 2, prompt: 'What is 3 + 3?', options: ['5', '6'], picked: 1, answerIndex: 1, correct: true, explanation: '' }],
+    theory: [{ id: 't1', position: 1, prompt: 'Solve x + 2 = 5.', marks: 10, modelAnswer: 'x = 3', markingPoints: ['Subtract 2'] }] } });
+  const { container } = render(<MockPapersPanel />);
+  fireEvent.click(await screen.findByRole('button', { name: 'Both' }));
+  expectReadable(container, 'Mock papers list');
+  await screen.findByRole('timer');
+  expectReadable(container, 'Mock paper sitting');
+  fireEvent.click(screen.getByRole('button', { name: 'Hand in' }));
+  await screen.findByText('0 / 2');
+  expectReadable(container, 'Mock paper answers');
+});
+
+test('mock papers are readable for Ami: the prompt, problems, warnings and a paper being read through', async () => {
+  const paper = { id: 'p1', examLabel: 'WAEC', subjectName: 'Mathematics', setLabel: 'Mock 1', objectiveCount: 1, objectiveMinutes: 60, theoryCount: 1, theoryMinutes: 120, status: 'draft',
+    objectives: [{ id: 'q1', position: 1, prompt: 'What is 2 + 2?', options: ['3', '4'], answerIndex: 1, explanation: 'Add them.', diagram: 'Two blocks and two blocks.', imageUrl: '' }],
+    theory: [{ id: 't1', position: 1, prompt: 'Solve x + 2 = 5.', marks: 10, modelAnswer: 'x = 3', markingPoints: ['Subtract 2'], diagram: 'A number line.', imageUrl: '/files/mock-papers/p1/d.png' }] };
+  const realFetch = global.fetch;
+  global.fetch = jest.fn(async (url, options = {}) => {
+    const path = String(url);
+    let body = { success: true, papers: [paper] };
+    if (path.endsWith('/check')) body = { success: true, problems: ['Objective 1: the question is missing.'], warnings: ['Objective 2 mentions a diagram.'], summary: { subjectName: 'Mathematics', setLabel: 'Mock 1', objectives: 1, theory: 1 } };
+    if (path.endsWith('/p1')) body = { success: true, paper };
+    return { ok: true, status: 200, json: async () => ({ ...body, method: options.method }) };
+  });
+  try {
+    const { container } = render(<AmiMockPapers />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Read' }));
+    await screen.findByText('1. What is 2 + 2?');
+    fireEvent.change(screen.getByLabelText(/ChatGPT's reply/), { target: { value: '{}' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Check paper' }));
+    await screen.findByText('Objective 1: the question is missing.');
+    expectReadable(container, 'Ami mock papers');
+  } finally { global.fetch = realFetch; }
 });
 
 test('the Terms Calendar is readable: a version waiting for approval, problems, the session at a glance and history', async () => {

@@ -96,6 +96,11 @@ export const generateQuestions = (subjectKey, difficulty, exam = '') => request(
 /** A timed mock examination (JAMB: Use of English + 3 subjects; others: one subject). Online only. */
 export const loadMock = (exam, subject = '') => request(`/api/practice-arena/mock?exam=${exam}${subject ? `&subject=${encodeURIComponent(subject)}` : ''}`);
 
+/** Mock papers for the student's section. Online only: the answers stay on the server until hand-in. */
+export const getMockPapers = () => request('/api/practice-arena/papers');
+export const openMockPaper = (id, part) => request(`/api/practice-arena/papers/${encodeURIComponent(id)}?part=${part}`);
+export const submitMockPaper = (id, body) => request(`/api/practice-arena/papers/${encodeURIComponent(id)}/submit`, { method: 'POST', body });
+
 export const quotePass = payload => request('/api/practice-arena/passes/quote', { method: 'POST', body: payload });
 export const checkoutPass = payload => request('/api/practice-arena/passes/checkout', { method: 'POST', body: payload });
 export const verifyPass = txRef => request('/api/practice-arena/passes/verify', { method: 'POST', body: { txRef } });

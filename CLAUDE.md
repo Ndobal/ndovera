@@ -1,5 +1,22 @@
 # Ndovera — rules for code in this repo
 
+## Cost rule: every new feature is built to save cost
+
+Ndovera runs on Cloudflare's Workers Free plan. Past the daily limits, features stop working until
+00:00 UTC: 5M D1 rows read, 100k rows written, 100k requests, 10k AI neurons. A request gets 10 ms of
+CPU and 50 D1 queries. Build every feature to stay well inside them, and to stay cheap on a paid plan.
+
+- **Database:** every everyday query uses an index and reads only the rows it needs. Check the plan
+  with `EXPLAIN QUERY PLAN` (a query plan is the proof; an index existing is not). Never count or list
+  a whole table on a page load or a poll: keep a summary or cache it. Lists are bounded with `LIMIT`.
+- **Background work:** cron and night jobs have a daily cap, stop when the work is done, and leave the
+  day's limits for people using the app. No new polling without a shared change signal.
+- **AI:** use the smallest model that does the job well, and only where plain code cannot. Every AI job
+  has a limit on calls and tokens. Say what a new AI job costs before adding it.
+- **Before finishing:** state the feature's cost in reads, writes, requests and AI calls, and add a test
+  for any heavy query (`frontend/backend/test/read-costs.test.mjs`). After deploying, check the real
+  numbers with `npx wrangler d1 insights ndovera-db --timePeriod 1d --sort-type sum --sort-by reads`.
+
 ## Colour rule: text never clashes with its background
 
 Text that clashes with what is behind it (white on white, navy on navy, pale grey on a light

@@ -362,6 +362,15 @@ test('the night builder writes questions from syllabus topics and materials, con
   overview = (await call(db, 'ami', 'GET', '/api/ami/practice/builder', null, env)).body
   assert.equal(Object.values(overview.stock).reduce((sum, value) => sum + value, 0), 9, 'ok + upgraded')
   assert.equal(overview.nights[0].steps, 4)
+  // Counting the queue reads every row, so the page keeps the count until Ami runs a step.
+  db.db.exec(`UPDATE practice_build_queue SET made = made + 1000`)
+  const before = overview.queue.reduce((sum, row) => sum + row.made, 0)
+  overview = (await call(db, 'ami', 'GET', '/api/ami/practice/builder', null, env)).body
+  assert.equal(overview.queue.reduce((sum, row) => sum + row.made, 0), before, 'kept, not counted again')
+  db.db.exec(`UPDATE practice_build_queue SET made = made - 1000`)
+  await step()
+  overview = (await call(db, 'ami', 'GET', '/api/ami/practice/builder', null, env)).body
+  assert.ok(overview.queue.reduce((sum, row) => sum + row.made, 0) >= before, 'a step clears it')
   // Ami sets the nightly budget; outside the night window the cron does nothing.
   assert.deepEqual((await call(db, 'ami', 'PUT', '/api/ami/practice/builder', { batchesPerNight: 40 }, env)).body.settings.batchesPerNight, 40)
   assert.equal((await call(db, 'ss2', 'PUT', '/api/ami/practice/builder', { batchesPerNight: 4000 }, env)).status, 403)

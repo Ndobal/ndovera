@@ -3,6 +3,7 @@ import RichContent from '../../../shared/rich/RichContent';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getApiBase } from '../../../config/apiBase';
 import AmiQuestionUploads, { SECTIONS } from './AmiQuestionUploads';
+import AmiMockPapers from './AmiMockPapers';
 import XpResetCard from './XpResetCard';
 import { askConfirm } from '../../../shared/components/AppDialog';
 
@@ -192,6 +193,8 @@ export default function AmiQuestionBank() {
       )}
 
       <AmiQuestionUploads surface={SURFACE} label={LABEL} input={INPUT} primary={PRIMARY_BUTTON} body={BODY} onImported={() => reload().catch(() => null)} />
+
+      <AmiMockPapers />
 
       {/* Filters */}
       <div className={SUB_SURFACE + ' flex flex-wrap gap-3 items-end'}>

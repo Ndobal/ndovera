@@ -106,7 +106,7 @@ export function examKeyOf(value: unknown): ExamKey | '' {
 }
 
 /** The rank external questions sit at: the top of their section (packs for an examination ignore level). */
-const EXAM_RANK: Record<string, number> = { primary: 6, junior: 9, senior: 12 }
+export const EXAM_RANK: Record<string, number> = { primary: 6, junior: 9, senior: 12 }
 
 // ─── Planning: new sources into the queue ────────────────────────────────────
 
@@ -348,19 +348,35 @@ export async function runBuilderTick(db: D1Database, runAi: AiRunner, options: {
     ON CONFLICT(day) DO UPDATE SET steps = steps + 1, added = added + excluded.added, reviewed = reviewed + excluded.reviewed, upgraded = upgraded + excluded.upgraded,
       rejected = rejected + excluded.rejected, failures = failures + excluded.failures, updated_at = excluded.updated_at`)
     .bind(day, added, reviewed.reviewed, reviewed.upgraded, reviewed.rejected, failed, now()).run()
+  if (options.force) await setState(db, QUEUE_SUMMARY_KEY, '')
   return { day, added, ...reviewed, failed: Boolean(failed) }
+}
+
+/**
+ * The queue by source and status reads every row (20,000+), so it is kept for a few hours rather
+ * than counted each time Ami opens the page. Ami's "run a step now" clears it.
+ */
+const QUEUE_SUMMARY_KEY = 'queue_summary'
+const QUEUE_SUMMARY_HOURS = 6
+
+async function queueSummary(db: D1Database) {
+  const kept = parse<{ at: number, rows: unknown[] } | null>(await getState(db, QUEUE_SUMMARY_KEY), null)
+  if (kept && Date.now() - kept.at < QUEUE_SUMMARY_HOURS * 3600_000) return kept.rows
+  const rows = (await db.prepare(`SELECT source_type, status, COUNT(*) AS items, SUM(target) AS target, SUM(made) AS made FROM practice_build_queue GROUP BY source_type, status`).all()).results || []
+  await setState(db, QUEUE_SUMMARY_KEY, JSON.stringify({ at: Date.now(), rows }))
+  return rows
 }
 
 /** For Ami: the queue by source and status, tonight and the last nights. */
 export async function builderOverview(db: D1Database) {
   await ensureBuilderTables(db)
   const [queue, nights, unchecked] = await Promise.all([
-    db.prepare(`SELECT source_type, status, COUNT(*) AS items, SUM(target) AS target, SUM(made) AS made FROM practice_build_queue GROUP BY source_type, status`).all(),
+    queueSummary(db),
     db.prepare(`SELECT * FROM practice_build_nights ORDER BY day DESC LIMIT 14`).all(),
     db.prepare(`SELECT COUNT(*) AS n FROM question_bank WHERE quality IS NULL AND playable = 1 AND type IN ('mcq', 'truefalse')`).first(),
   ])
   return {
-    settings: await getBuildSettings(db), queue: queue.results || [], nights: nights.results || [], unchecked: Number((unchecked as any)?.n || 0),
+    settings: await getBuildSettings(db), queue, nights: nights.results || [], unchecked: Number((unchecked as any)?.n || 0),
     window: 'Every night, 00:00–04:00 (Lagos)',
   }
 }

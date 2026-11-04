@@ -427,6 +427,7 @@ import {
 } from './practicePasses'
 import type { ExamKey } from './practicePasses'
 import { builderOverview, inBuildWindow, runBuilderTick, saveBuildSettings } from './practiceBuilder'
+import { deleteMockPaper, getMockPaper, listMockPapers, markMockPaper, mockPaperForStudent, parseMockPaper, readMockPaperPart, saveMockPaper, setMockPaperDiagram, setMockPaperStatus } from './mockPapers'
 import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts, subjectCanonicalizer } from './practiceBank'
 import { checkQuestionSubjects, reportQuestionSubject, takeNightBatch } from './subjectCheck'
 import { HarvestError, MAX_DOC_BYTES, ensureHarvestTables, getNote, listDocuments, listNotes, queueDocument, runDocumentStep, runHarvestTick, setDocumentStatus } from './harvester'
@@ -9989,6 +9990,13 @@ const READ_INDEXES = [
   // The harvester's every-minute "what changed" scans, by the exact expressions they order by.
   `CREATE INDEX IF NOT EXISTS idx_materials_harvest_stamp ON materials(COALESCE(uploadedAt, ''), id)`,
   `CREATE INDEX IF NOT EXISTS idx_assignments_harvest_stamp ON assignments(COALESCE(updatedAt, createdAt, ''), id)`,
+  // A class's subject teachers: without this the planner reads the whole school's subjects.
+  `CREATE INDEX IF NOT EXISTS idx_subjects_tenant_class_teacher ON subjects(tenantId, classId, teacherId)`,
+  `CREATE INDEX IF NOT EXISTS idx_attendance_school_class_date ON student_attendance_school(tenant_id, class_id, date)`,
+  // A class's students start from here (listStudentsForClass), not from every student in the school.
+  `CREATE INDEX IF NOT EXISTS idx_settings_class ON settings(json_extract(payload, '$.classId'))`,
+  // The night builder's curriculum planning walks topics in this order (15,000 rows a page before).
+  `CREATE INDEX IF NOT EXISTS idx_curriculum_topics_stamp ON curriculum_topics(updated_at, id)`,
 ]
 let readIndexesReady = false
 async function ensureReadIndexes(db: D1Database) {
@@ -16182,9 +16190,10 @@ async function resolveStudentAttendanceTarget(db: D1Database, tenantId: string, 
 async function listStudentsForClass(db: D1Database, tenantId: string, classroomId: string) {
   await ensureUsersTable(db)
   const rows = await db.prepare(
+    // CROSS JOIN keeps this order: the class's settings first, then only those students.
     `SELECT u.id, u.name, u.email, u.role, u.status, u.createdAt, s.payload
-     FROM users u
-     LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
+     FROM settings s
+     CROSS JOIN users u ON (u.email = s.studentId OR u.id = s.studentId)
      WHERE u.tenantId = ?
        AND lower(u.role) = 'student'
        AND ${currentStudentSql('u')}
@@ -17060,6 +17069,134 @@ app.get('/api/practice-arena/mock', authenticate, async (c) => {
       pack: { id: `mock_${exam}_${Date.now()}`, subjectKey: exam === 'jamb' ? 'jamb-utme' : sections[0].subjectKey, subjectName: exam === 'jamb' ? 'JAMB UTME mock' : `${sections[0].subjectName} — ${EXAMS[exam].label} mock`, difficulty: 'external', exam, questions, validUntil: packValidUntil(held, 'external', exam) },
     })
   } catch (error) { return practiceFailure(c, error, 'Could not prepare the mock examination.') }
+})
+
+// ─── Mock papers (mockPapers.ts): objectives, theory or both ───
+
+/** What a pass opens: the paper must be for the student's section, and their pass must cover it. */
+async function openMockPaper(c: any, student: Awaited<ReturnType<typeof resolvePracticeStudent>>, id: string) {
+  const paper = await getMockPaper(c.env.APP_DB, id)
+  if (paper.status !== 'published' || paper.section !== student.section) throw new PassError('That paper was not found.', 404)
+  const held = await entitlements(c.env.APP_DB, student)
+  const access = canOpen(held, paper.subjectKey, 'external', paper.exam)
+  if (!access.ok) throw new PassError(access.reason, 402, { needs: paper.exam })
+  await checkDevice(c.env.APP_DB, student.studentId, String(c.req.header('X-Practice-Device') || ''))
+  return paper
+}
+
+app.get('/api/practice-arena/papers', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    const held = await entitlements(c.env.APP_DB, student)
+    const papers = await listMockPapers(c.env.APP_DB, { section: student.section, published: true })
+    return c.json({ success: true, papers: papers.map(paper => {
+      const access = canOpen(held, paper.subjectKey, 'external', paper.exam)
+      return { ...paper, createdBy: undefined, locked: !access.ok, lockedReason: access.ok ? '' : access.reason }
+    }) })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the mock papers.') }
+})
+
+app.get('/api/practice-arena/papers/:id', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    const paper = await openMockPaper(c, student, c.req.param('id'))
+    const part = readMockPaperPart(c.req.query('part'))
+    const sitting = mockPaperForStudent(paper, part)
+    await countPack(c.env.APP_DB, student.studentId)
+    return c.json({ success: true, paper: sitting })
+  } catch (error) { return practiceFailure(c, error, 'Could not open the paper.') }
+})
+
+app.post('/api/practice-arena/papers/:id/submit', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    const paper = await openMockPaper(c, student, c.req.param('id'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, result: await markMockPaper(c.env.APP_DB, paper, student.studentId, readMockPaperPart(body.part), body.answers) })
+  } catch (error) { return practiceFailure(c, error, 'Could not hand in the paper.') }
+})
+
+app.get('/api/ami/mock-papers', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, papers: await listMockPapers(c.env.APP_DB) })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the mock papers.') }
+})
+
+/** Check a pasted paper without saving it. */
+app.post('/api/ami/mock-papers/check', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const { paper, problems, warnings } = parseMockPaper(body.text)
+    return c.json({ success: true, problems, warnings, summary: paper ? { exam: paper.exam, subjectName: paper.subjectName, setLabel: paper.setLabel, objectives: paper.objectives.length, theory: paper.theory.length, objectiveMinutes: paper.objectiveMinutes, theoryMinutes: paper.theoryMinutes, diagrams: [...paper.objectives, ...paper.theory].filter(item => item.diagram).length } : null })
+  } catch (error) { return practiceFailure(c, error, 'Could not check the paper.') }
+})
+
+app.post('/api/ami/mock-papers', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const { paper, problems, warnings } = parseMockPaper(body.text)
+    if (!paper) return c.json({ success: false, message: 'Fix the problems in this paper first.', problems, warnings }, 400)
+    return c.json({ success: true, paper: await saveMockPaper(c.env.APP_DB, paper, String(c.var.user?.name || 'Ami')), warnings })
+  } catch (error) { return practiceFailure(c, error, 'Could not save the paper.') }
+})
+
+app.get('/api/ami/mock-papers/:id', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, paper: await getMockPaper(c.env.APP_DB, c.req.param('id')) })
+  } catch (error) { return practiceFailure(c, error, 'Could not open the paper.') }
+})
+
+app.post('/api/ami/mock-papers/:id/status', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, paper: await setMockPaperStatus(c.env.APP_DB, c.req.param('id'), body.status) })
+  } catch (error) { return practiceFailure(c, error, 'Could not change the paper.') }
+})
+
+/** A question's diagram: JPG, PNG or WebP, kept small because students open papers on mobile data. */
+app.post('/api/ami/mock-papers/:id/questions/:questionId/diagram', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const form = await c.req.formData().catch(() => null)
+    const file = form?.get('file') as File | null
+    if (!file || typeof file === 'string') throw new PassError('Choose an image.')
+    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) throw new PassError('Use a JPG, PNG or WebP image.')
+    if (file.size > 2 * 1024 * 1024) throw new PassError('The image is larger than 2 MB. Make it smaller so students can open it on mobile data.')
+    await getMockPaper(c.env.APP_DB, c.req.param('id'))
+    const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg'
+    const key = `mock-papers/${c.req.param('id')}/${crypto.randomUUID()}.${ext}`
+    await c.env.UPLOADS.put(key, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } })
+    try {
+      const saved = await setMockPaperDiagram(c.env.APP_DB, c.req.param('id'), c.req.param('questionId'), `/files/${key}`)
+      if (saved.previous.startsWith('/files/')) await c.env.UPLOADS.delete(saved.previous.slice('/files/'.length)).catch(() => null)
+      return c.json({ success: true, paper: saved.paper })
+    } catch (error) {
+      await c.env.UPLOADS.delete(key).catch(() => null)
+      throw error
+    }
+  } catch (error) { return practiceFailure(c, error, 'Could not attach the diagram.') }
+})
+
+app.delete('/api/ami/mock-papers/:id/questions/:questionId/diagram', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const saved = await setMockPaperDiagram(c.env.APP_DB, c.req.param('id'), c.req.param('questionId'), null)
+    if (saved.previous.startsWith('/files/')) await c.env.UPLOADS.delete(saved.previous.slice('/files/'.length)).catch(() => null)
+    return c.json({ success: true, paper: saved.paper })
+  } catch (error) { return practiceFailure(c, error, 'Could not remove the diagram.') }
+})
+
+app.delete('/api/ami/mock-papers/:id', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    await deleteMockPaper(c.env.APP_DB, c.req.param('id'))
+    return c.json({ success: true })
+  } catch (error) { return practiceFailure(c, error, 'Could not delete the paper.') }
 })
 
 // ─── Buying practice passes (practicePasses.ts) ───

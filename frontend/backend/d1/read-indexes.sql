@@ -12,3 +12,9 @@ CREATE INDEX IF NOT EXISTS idx_settings_lower_key ON settings(lower(studentId));
 -- The harvester's every-minute "what changed" scans (Oct 2026).
 CREATE INDEX IF NOT EXISTS idx_materials_harvest_stamp ON materials(COALESCE(uploadedAt, ''), id);
 CREATE INDEX IF NOT EXISTS idx_assignments_harvest_stamp ON assignments(COALESCE(updatedAt, createdAt, ''), id);
+
+-- Reads to stay within the Workers Free plan's 5M rows a day (Nov 2026).
+CREATE INDEX IF NOT EXISTS idx_subjects_tenant_class_teacher ON subjects(tenantId, classId, teacherId);
+CREATE INDEX IF NOT EXISTS idx_attendance_school_class_date ON student_attendance_school(tenant_id, class_id, date);
+CREATE INDEX IF NOT EXISTS idx_settings_class ON settings(json_extract(payload, '$.classId'));
+CREATE INDEX IF NOT EXISTS idx_curriculum_topics_stamp ON curriculum_topics(updated_at, id);
