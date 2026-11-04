@@ -268,3 +268,9 @@ Batch 052 adds twelve NECO Financial Accounting objective drafts on
 bank reconciliation and control accounts. The timetable confirms Paper III
 objective. Topic mapping uses historical WAEC references provisionally,
 and the four-option format is for practice.
+
+Batch 053 opens NECO Commerce with six structured and four objective
+drafts on warehousing and retail outlets. The official timetable
+confirms paper formats. Historical WAEC examiner materials inform
+provisional topics. Official NECO topic objectives and option count
+remain unverified.

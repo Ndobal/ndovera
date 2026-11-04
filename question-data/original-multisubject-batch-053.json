@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Commerce distribution practice",
+  "questionCount": 10,
+  "note": "Original structured and four-option practice with provisional topic mapping. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-001",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A grain cooperative in Benue wants to sell throughout the dry season instead of releasing its entire harvest in one week. Explain how storage helps and state one control needed to keep grain marketable.",
+      "answer": "Storage lets the cooperative hold stock after harvest and release it when buyers need it. Keeping grain dry and checking for pests helps preserve quality.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain the separation of harvest time from selling time."
+        },
+        {
+          "marks": 1,
+          "description": "Identify how staged release supports continued availability."
+        },
+        {
+          "marks": 1,
+          "description": "Give a suitable grain quality control."
+        }
+      ],
+      "explanation": "Storage lets the cooperative hold stock after harvest and release it when buyers need it. Keeping grain dry and checking for pests helps preserve quality."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-002",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A frozen-food distributor compares a nearby shed with no refrigeration and a more distant warehouse with monitored cold rooms. Explain which is suitable if the goods must stay frozen, and give one question the distributor should ask about the longer journey.",
+      "answer": "Choose the cold-room site, subject to confirming that the vehicle maintains the required temperature throughout the trip.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the monitored cold-room option."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why ordinary storage cannot meet the temperature requirement."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a relevant transport or temperature continuity check."
+        }
+      ],
+      "explanation": "Choose the cold-room site, subject to confirming that the vehicle maintains the required temperature throughout the trip."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-003",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A wholesaler’s system reports 60 cartons on hand. A count finds 53. The dispatch log shows seven cartons collected yesterday with no matching stock issue. Explain what this evidence suggests and what to verify before adjusting the balance.",
+      "answer": "The dispatch may account for the difference. Check the signed collection record and item code, confirm the issue has not already been posted under another reference, and then record the missing issue if confirmed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connect the seven-carton gap to the unposted dispatch."
+        },
+        {
+          "marks": 1,
+          "description": "Verify documentary evidence of the correct goods leaving."
+        },
+        {
+          "marks": 1,
+          "description": "Check for duplicate posting before recording the issue."
+        }
+      ],
+      "explanation": "The dispatch may account for the difference. Check the signed collection record and item code, confirm the issue has not already been posted under another reference, and then record the missing issue if confirmed."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-004",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A distributor receives produce in bulk and has to send smaller labelled units to shops. Which warehouse service directly meets that need?",
+      "answer": "Breaking bulk and repackaging",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Stocktaking without moving goods",
+        "Breaking bulk and repackaging",
+        "Buying on credit",
+        "Advertising the warehouse location"
+      ],
+      "correctOption": "B",
+      "explanation": "The warehouse separates a large shipment into smaller units and labels them for distribution."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-005",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Why might an importer place dutiable goods in a bonded warehouse?",
+      "answer": "To hold goods under customs control before duty is paid on release",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "To hold goods under customs control before duty is paid on release",
+        "To cancel all customs duties permanently",
+        "To move goods straight into retail without customs controls",
+        "To make all goods eligible for refrigerated transport"
+      ],
+      "correctOption": "A",
+      "explanation": "Bonded storage allows duty to be deferred under customs control until release into the domestic market."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-006",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A stationery seller is choosing between a mobile shop that visits three villages weekly and a permanent shop in one village. Customers in all three villages struggle to reach town. Recommend a format and explain one drawback for customers.",
+      "answer": "Use a scheduled mobile shop to reach all three villages. Customers who miss their weekly stop may have to wait for the next visit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recommend a format consistent with the access problem."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how it reaches customers in several locations."
+        },
+        {
+          "marks": 1,
+          "description": "Give a drawback tied to availability or limited stock."
+        }
+      ],
+      "explanation": "Use a scheduled mobile shop to reach all three villages. Customers who miss their weekly stop may have to wait for the next visit."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-007",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A retail chain buys exercise books centrally for all branches. One branch repeatedly sells out while another has excess stock. Explain why central buying alone does not solve this and propose a stock allocation change.",
+      "answer": "Central buying groups purchases but does not match quantities to local demand. Use branch sales and stock levels to allocate deliveries or transfer surplus stock.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguish purchasing from branch allocation."
+        },
+        {
+          "marks": 1,
+          "description": "Link the imbalance to differences in local demand or stock turnover."
+        },
+        {
+          "marks": 1,
+          "description": "Suggest an allocation or transfer decision based on branch data."
+        }
+      ],
+      "explanation": "Central buying groups purchases but does not match quantities to local demand. Use branch sales and stock levels to allocate deliveries or transfer surplus stock."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-008",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A catalogue retailer keeps receiving returns because buyers choose bags that do not fit their laptops. Propose two changes to the catalogue and explain how each would reduce mistaken orders.",
+      "answer": "List the usable internal dimensions so buyers can compare them with a laptop. Add a clear diagram showing how the dimensions were measured so customers do not confuse inside and outside sizes.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Give one specific improvement and explain its effect."
+        },
+        {
+          "marks": 1,
+          "description": "Give a distinct second improvement and explain its effect."
+        }
+      ],
+      "explanation": "List the usable internal dimensions so buyers can compare them with a laptop. Add a clear diagram showing how the dimensions were measured so customers do not confuse inside and outside sizes."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-009",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A business has six shops under one management, with a common name and the same product range. Which feature most clearly distinguishes this from a market of six independent retailers?",
+      "answer": "The outlets are managed as branches of one business.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "They all accept payment from customers.",
+        "The outlets are managed as branches of one business.",
+        "They each display their own goods.",
+        "They sell goods from more than one supplier."
+      ],
+      "correctOption": "B",
+      "explanation": "Central ownership or management across branches is the distinguishing feature of a chain store."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-053-010",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A catalogue seller wants to reach distant buyers who cannot inspect products before ordering. Which practice best reduces uncertainty about the purchase and what happens if it is unsuitable?",
+      "answer": "Publish accurate specifications and clear return terms.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Publish accurate specifications and clear return terms.",
+        "Offer a wider range but omit product measurements.",
+        "Use faster delivery but describe every item with the same photograph.",
+        "Lower delivery charges but give return conditions only after payment."
+      ],
+      "correctOption": "A",
+      "explanation": "Customers need usable product information before buying and clear terms for resolving a mismatch."
+    }
+  ]
+}
