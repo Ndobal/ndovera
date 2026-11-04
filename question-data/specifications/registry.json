@@ -988,6 +988,24 @@
         2030
       ],
       "note": "Official PDF includes the prescribed poem versions. Historical Paper 3 examiner feedback supports text-based extended responses. Marks and objectives are for practice; full current assessment scheme remains unverified. No verse is reproduced."
+    },
+    {
+      "id": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "kind": "official_prescription_with_published_primary_excerpt",
+      "source": "https://waecnigeria.org/sites/default/files/2023-06/LITERATURE-IN-ENG%202026-2030.pdf",
+      "contentReference": "https://brittlepaper.com/2024/03/excerpt-so-the-path-does-not-die-by-pede-hollist/",
+      "edition": "Narrative Landscape Press edition credited in the 28 March 2024 excerpt",
+      "retrievedOn": "2026-11-04",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "note": "Official WAEC list p. 1 confirms prescription. Primary evidence begins with Baramusu’s arrival and ends when she introduces the story of Musudugu, before that story is told. Pagination, examination edition equivalence, whole-novel coverage and current assessment details remain unverified. No source prose is reproduced."
     }
   ],
   "banks": [
@@ -8098,6 +8116,87 @@
       ],
       "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
       "prescribedTextId": "waec-lit-2026-15"
+    },
+    {
+      "id": "waec-lit-hollist-narration-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Characterisation through action and viewpoint",
+      "learningObjective": "Explain how narrative access, gesture and setting shape readers’ understanding of Finaba and her family.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text list, p. 1",
+        "Brittle Paper excerpt credited to Narrative Landscape Press, 28 March 2024"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02"
+    },
+    {
+      "id": "waec-lit-hollist-argument-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Rival forms of authority and evidence",
+      "learningObjective": "Analyse how memories, examples and figurative language support competing claims about education and initiation.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text list, p. 1",
+        "Brittle Paper excerpt credited to Narrative Landscape Press, 28 March 2024"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02"
+    },
+    {
+      "id": "waec-lit-hollist-belonging-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Belonging and storytelling",
+      "learningObjective": "Evaluate how Finaba’s fears and the shift to oral storytelling complicate the adults’ disagreement.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text list, p. 1",
+        "Brittle Paper excerpt credited to Narrative Landscape Press, 28 March 2024"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02"
     }
   ],
   "scopeGaps": [

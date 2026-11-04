@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Literature in English African prose excerpt theory practice",
+  "questionCount": 8,
+  "note": "Use the linked Narrative Landscape Press excerpt. All prompts and marking guides are original. Credit alternate well-supported readings. Academic review pending.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Characterisation through action and viewpoint",
+      "learningObjective": "Explain how narrative access, gesture and setting shape readers’ understanding of Finaba and her family.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02",
+      "id": "ndv-067-001",
+      "objectiveId": "waec-lit-hollist-narration-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In the published excerpt, how does the description of Baramusu’s arrival hold affection and apprehension together? Use Finaba’s observations and actions.",
+      "answer": "Finaba reads seriousness in her grandmother’s gait and bearing, and the lack of a reply reinforces the tension. Yet Finaba eagerly takes her hand, and the narration recalls the care Baramusu gave her as a younger child. The unease matters precisely because the visitor is someone Finaba trusts and loves.",
+      "explanation": "The opening lets readers infer a mood from behaviour while showing an existing bond through action and memory.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify both feelings or aspects of the relationship."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret a detail of the grandmother’s arrival."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how touch or remembered care conveys affection."
+        },
+        {
+          "marks": 2,
+          "description": "Link the two strands in a coherent reading."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "So the Path Does Not Die",
+        "author": "Pede Hollist"
+      },
+      "textReference": "Brittle Paper, 28 March 2024, Narrative Landscape Press excerpt: Baramusu’s arrival"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Characterisation through action and viewpoint",
+      "learningObjective": "Explain how narrative access, gesture and setting shape readers’ understanding of Finaba and her family.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02",
+      "id": "ndv-067-002",
+      "objectiveId": "waec-lit-hollist-narration-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "What does Finaba gain and what does she still lack by listening outside the window after Nabou sends her away? Discuss how the setting helps the novelist show the difference.",
+      "answer": "The open window lets her learn how the adults argue about her future. Her place outside leaves her unable to influence the exchange directly. When she reacts physically to the refusal, readers see a private response the debating adults do not address.",
+      "explanation": "The window divides hearing from participation. Use that spatial relationship to explain how the narrative keeps the person most affected at the edge of the decision.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the consequence of being sent outside."
+        },
+        {
+          "marks": 3,
+          "description": "Explain what the window allows her to learn."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret her reaction as evidence of the limits of her participation."
+        },
+        {
+          "marks": 2,
+          "description": "Relate spatial arrangement to her position in the dispute."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "So the Path Does Not Die",
+        "author": "Pede Hollist"
+      },
+      "textReference": "Brittle Paper, 28 March 2024, Narrative Landscape Press excerpt: Finaba listening below the window"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Characterisation through action and viewpoint",
+      "learningObjective": "Explain how narrative access, gesture and setting shape readers’ understanding of Finaba and her family.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02",
+      "id": "ndv-067-003",
+      "objectiveId": "waec-lit-hollist-narration-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "How do Nabou and Baramusu use different signs to decide whether Finaba should be treated as a child? Explain how their disagreement shapes the pace of the exchange.",
+      "answer": "Nabou names Finaba’s childhood as a reason to refuse the rite. Baramusu invokes bodily change, community attention and the possibility of being shunned as evidence of readiness. Baramusu presses while Nabou hesitates, and Nabou’s return to Dimusu abruptly redirects the argument.",
+      "explanation": "Both speakers use age and readiness as arguments, but the criteria differ. Track the quick shifts in who controls the exchange.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify Nabou’s position."
+        },
+        {
+          "marks": 3,
+          "description": "Explain two of Baramusu’s signs of readiness."
+        },
+        {
+          "marks": 3,
+          "description": "Describe how the speakers’ interventions change the pace or direction of the exchange."
+        },
+        {
+          "marks": 2,
+          "description": "Connect that movement to the disagreement about childhood."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "So the Path Does Not Die",
+        "author": "Pede Hollist"
+      },
+      "textReference": "Brittle Paper, 28 March 2024, Narrative Landscape Press excerpt: the dispute over whether Finaba is ready"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Rival forms of authority and evidence",
+      "learningObjective": "Analyse how memories, examples and figurative language support competing claims about education and initiation.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02",
+      "id": "ndv-067-004",
+      "objectiveId": "waec-lit-hollist-argument-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Why does Baramusu bring up Mama Fatou’s sons during the argument over Finaba’s schooling? Explain what their example can establish and where its force is limited.",
+      "answer": "The sons send money but are absent from their mother’s daily care. Baramusu uses their example to challenge the assumption that opportunities away from home automatically help the family. The example makes the cost of absence concrete, but it cannot establish that schooling will make Finaba behave in the same way.",
+      "explanation": "Distinguish the persuasive force of a concrete example from the broader prediction Baramusu draws from it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the sons’ financial help and absence."
+        },
+        {
+          "marks": 3,
+          "description": "Connect the example to Baramusu’s response to schooling."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the contrast between money and daily care."
+        },
+        {
+          "marks": 2,
+          "description": "Identify a limitation of applying the example to Finaba."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "So the Path Does Not Die",
+        "author": "Pede Hollist"
+      },
+      "textReference": "Brittle Paper, 28 March 2024, Narrative Landscape Press excerpt: the debate about schooling and absent sons"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Rival forms of authority and evidence",
+      "learningObjective": "Analyse how memories, examples and figurative language support competing claims about education and initiation.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02",
+      "id": "ndv-067-005",
+      "objectiveId": "waec-lit-hollist-argument-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Explain how the same family loss becomes evidence for two different positions. Use Nabou’s references to Dimusu and Baramusu’s response.",
+      "answer": "For Nabou, Dimusu’s loss makes repeating the practice unacceptable, and she interprets the healer’s reference to a path as a call to change. Baramusu attributes the loss to the ancestors and invokes the healer while defending continuity. The disagreement is over the meaning of a shared past and who has authority to interpret it.",
+      "explanation": "Treat the speakers’ claims as competing interpretations. The excerpt supplies their words and reactions rather than a neutral account of the death.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the shared event."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how Nabou uses the event and interprets the healer."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how Baramusu frames the loss and invokes the healer."
+        },
+        {
+          "marks": 2,
+          "description": "Connect their different readings to their current positions."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "So the Path Does Not Die",
+        "author": "Pede Hollist"
+      },
+      "textReference": "Brittle Paper, 28 March 2024, Narrative Landscape Press excerpt: the women’s references to Dimusu and the healer"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Rival forms of authority and evidence",
+      "learningObjective": "Analyse how memories, examples and figurative language support competing claims about education and initiation.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02",
+      "id": "ndv-067-006",
+      "objectiveId": "waec-lit-hollist-argument-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Assess whether the path imagery settles the disagreement or makes the two speakers’ positions clearer. Discuss how Baramusu and Nabou each use an image of following.",
+      "answer": "Baramusu’s elephant track offers a tested route through difficult terrain. The image of unstable footprints casts doubt on the route she sees Nabou proposing. Nabou answers within the same figurative vocabulary and issues a direct refusal. Their exchange clarifies the stakes and Nabou’s decision, while leaving their understanding of which route is trustworthy unresolved.",
+      "explanation": "A decisive statement can end an exchange without persuading the other speaker. Explain what the images do before judging how far the conflict is settled.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "State a defensible judgement."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the elephant-track image."
+        },
+        {
+          "marks": 3,
+          "description": "Explain Nabou’s response to the footprint imagery."
+        },
+        {
+          "marks": 2,
+          "description": "Distinguish the immediate refusal from agreement about values."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "So the Path Does Not Die",
+        "author": "Pede Hollist"
+      },
+      "textReference": "Brittle Paper, 28 March 2024, Narrative Landscape Press excerpt: the proverbs and closing refusal in the house"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Belonging and storytelling",
+      "learningObjective": "Evaluate how Finaba’s fears and the shift to oral storytelling complicate the adults’ disagreement.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02",
+      "id": "ndv-067-007",
+      "objectiveId": "waec-lit-hollist-belonging-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Explain why Nabou’s refusal feels like a social loss to Finaba. Compare what Finaba imagines immediately with what she later tells Baramusu.",
+      "answer": "Her private response imagines missing a shared celebration and recognition from the village. On the path she gives voice to fears about friendship, trust and marriage. Moving from imagined celebration to spoken fears expands the consequences from one event to her sense of a place in the community.",
+      "explanation": "The details express Finaba’s expectations under pressure. Keep her fears distinct from outcomes established by the narration.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify a loss imagined near the window."
+        },
+        {
+          "marks": 3,
+          "description": "Explain a fear voiced on the path."
+        },
+        {
+          "marks": 3,
+          "description": "Compare the scope of the private and spoken reactions."
+        },
+        {
+          "marks": 2,
+          "description": "Connect both to her desire to belong."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "So the Path Does Not Die",
+        "author": "Pede Hollist"
+      },
+      "textReference": "Brittle Paper, 28 March 2024, Narrative Landscape Press excerpt: Finaba’s private reaction and her words on the path"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed African prose: So the Path Does Not Die",
+      "subtopic": "Belonging and storytelling",
+      "learningObjective": "Evaluate how Finaba’s fears and the shift to oral storytelling complicate the adults’ disagreement.",
+      "specificationId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-02",
+      "id": "ndv-067-008",
+      "objectiveId": "waec-lit-hollist-belonging-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Consider why Baramusu turns to storytelling instead of immediately answering Finaba’s complaint. What can a reader infer before the excerpt ends?",
+      "answer": "Baramusu initially leaves the complaint unanswered and then asks about a story unfamiliar to Finaba. She presents local stories as a source of identity and sets them beside the stories Finaba learns at school. The turn suggests an attempt to teach and influence how Finaba understands her situation. The excerpt ends before the story’s content can confirm how it might do so.",
+      "explanation": "The change in conversational method is visible, while the content and effect of the story are beyond the evidence here.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the change from complaint to an invitation to listen."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how Baramusu frames local storytelling in relation to schooling."
+        },
+        {
+          "marks": 3,
+          "description": "Support an inference about her purpose."
+        },
+        {
+          "marks": 2,
+          "description": "Recognise the limit imposed by the excerpt ending."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "So the Path Does Not Die",
+        "author": "Pede Hollist"
+      },
+      "textReference": "Brittle Paper, 28 March 2024, Narrative Landscape Press excerpt: the path-side turn to the story of Musudugu"
+    }
+  ]
+}

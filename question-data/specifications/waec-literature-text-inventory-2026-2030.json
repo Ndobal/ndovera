@@ -59,10 +59,21 @@
       "authorAsPrinted": "Pede Hollist",
       "titleAsPrinted": "So the Path Does not Die",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": []
+      "developmentStatus": "partial_excerpt_theory_draft",
+      "linkedQuestionIds": [
+        "ndv-067-001",
+        "ndv-067-002",
+        "ndv-067-003",
+        "ndv-067-004",
+        "ndv-067-005",
+        "ndv-067-006",
+        "ndv-067-007",
+        "ndv-067-008"
+      ],
+      "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
+      "editionStatus": "Narrative Landscape Press edition credited in published excerpt. Whole novel and examination edition equivalence unverified."
     },
     {
       "textId": "waec-lit-2026-03",

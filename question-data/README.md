@@ -349,3 +349,9 @@ Batch 066 adds three theory drafts each for New Tongue, Night, Hearty
 Garlands and The Breast of the Sea. All twelve 2026–2030 prescribed
 poetry selections now have initial theory drafts. The practice objectives
 and rubrics remain pending academic review and current scheme verification.
+
+Batch 067 opens prescribed African prose theory with eight questions on
+the published Narrative Landscape Press excerpt of So the Path Does Not
+Die. The excerpt ends as Baramusu introduces the story of Musudugu.
+Whole-novel coverage, examination edition equivalence and current
+assessment details remain open.
