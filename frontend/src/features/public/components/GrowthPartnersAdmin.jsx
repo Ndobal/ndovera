@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import AmiPartnerUpdates from '../../../app/roles/ami/AmiPartnerUpdates';
 import {
   getGrowthPartnerApplications,
   getGrowthPartners,
@@ -239,6 +240,8 @@ export default function GrowthPartnersAdmin() {
           </div>
         ) : null}
       </div>
+
+      <AmiPartnerUpdates />
 
       <div className="mt-6">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#800020]">Active partners</p>

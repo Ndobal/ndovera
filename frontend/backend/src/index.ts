@@ -434,6 +434,7 @@ import { cleanDomain, freeStudentEmail, moveRecordsToEmail, saveSchoolDomain, sc
 import { checkInviteForm, claimInvite, countFailedTry, createInvite, InviteError, INVITE_DAYS, MAX_CHILDREN, readInvite, releaseInvite } from './parentInvites'
 import { aiLimits, AiLimitsError, saveAiLimits } from './aiLimits'
 import { newQuestionsReport } from './newQuestionsReport'
+import { deletePartnerUpdate, listAllPartnerUpdates, PartnerUpdateError, partnerUpdatesFor, partnerUpdatesUnread, savePartnerUpdate, saveToolkitMessages, setPartnerUpdatePublished, toolkitMessages } from './partnerUpdates'
 import { CHILD_NAME_USED, childNameChange, takeChildNameChange } from './childNameChanges'
 import { addExamTopics, CustomExamError, createCustomExam, linkRequestToExam, listCustomExams, loadCustomExams, promoteReadyExams, updateCustomExam } from './customExams'
 import { answerExamRequest, checkCurriculumFile, createExamRequest, examRequestFile, ExamRequestError, listExamRequests, listMyExamRequests, PRIVATE_PREFIX } from './examRequests'
@@ -26658,6 +26659,7 @@ app.get('/api/growth-partner/me', authenticate, async (c) => {
     partner: mapPartner(partner),
     referralLink: `${base}/register-school?ref=${partner.referral_code}&discount=${encodeURIComponent(discountCode)}`,
     pricingLink: `${base}/pricing?ref=${partner.referral_code}`,
+    updatesUnread: await partnerUpdatesUnread(c.env.APP_DB, String(partner.id)).catch(() => 0),
     // What the partner's own code currently charges, and the floors they must stay above.
     offer: {
       code: discountCode,
@@ -26670,6 +26672,77 @@ app.get('/api/growth-partner/me', authenticate, async (c) => {
     },
     ...summary,
   })
+})
+
+// ─── What's new for partners, and their Toolkit messages (partnerUpdates.ts) ───
+
+function partnerUpdateFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof PartnerUpdateError) return c.json({ success: false, message: error.message }, error.status as any)
+  return practiceFailure(c, error, fallback)
+}
+
+app.get('/api/growth-partner/updates', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
+  const partner = await getPartnerByEmail(c.env.APP_DB, resolveActorEmail(c.var.user))
+  if (!partner) return c.json({ error: 'No growth partner profile found for this account.' }, 404)
+  return c.json({ success: true, updates: await partnerUpdatesFor(c.env.APP_DB, String(partner.id)) })
+})
+
+app.get('/api/growth-partner/toolkit-messages', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner', 'ami'])) return c.json({ error: 'forbidden' }, 403)
+  return c.json({ success: true, messages: await toolkitMessages(c.env.APP_DB) })
+})
+
+app.get('/api/ami/partner-updates', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, updates: await listAllPartnerUpdates(c.env.APP_DB) })
+  } catch (error) { return partnerUpdateFailure(c, error, 'Could not load the updates.') }
+})
+
+app.post('/api/ami/partner-updates', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    return c.json({ success: true, id: await savePartnerUpdate(c.env.APP_DB, await c.req.json().catch(() => ({})), ami.id) }, 201)
+  } catch (error) { return partnerUpdateFailure(c, error, 'Could not save the update.') }
+})
+
+app.put('/api/ami/partner-updates/:id', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    await savePartnerUpdate(c.env.APP_DB, await c.req.json().catch(() => ({})), ami.id, c.req.param('id'))
+    return c.json({ success: true })
+  } catch (error) { return partnerUpdateFailure(c, error, 'Could not save the update.') }
+})
+
+app.post('/api/ami/partner-updates/:id/publish', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    await setPartnerUpdatePublished(c.env.APP_DB, c.req.param('id'), (await c.req.json().catch(() => ({})) as Record<string, any>).published === true)
+    return c.json({ success: true })
+  } catch (error) { return partnerUpdateFailure(c, error, 'Could not publish the update.') }
+})
+
+app.delete('/api/ami/partner-updates/:id', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    await deletePartnerUpdate(c.env.APP_DB, c.req.param('id'))
+    return c.json({ success: true })
+  } catch (error) { return partnerUpdateFailure(c, error, 'Could not delete the update.') }
+})
+
+app.get('/api/ami/partner-toolkit', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, messages: await toolkitMessages(c.env.APP_DB) })
+  } catch (error) { return partnerUpdateFailure(c, error, 'Could not load the messages.') }
+})
+
+app.put('/api/ami/partner-toolkit', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    return c.json({ success: true, messages: await saveToolkitMessages(c.env.APP_DB, (await c.req.json().catch(() => ({})) as Record<string, any>).messages, ami.id) })
+  } catch (error) { return partnerUpdateFailure(c, error, 'Could not save the messages.') }
 })
 
 // A partner may discount their own registration code down to the Ami-set floor. Their signup

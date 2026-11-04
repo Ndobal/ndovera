@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   saveGrowthPartnerBank,
   saveGrowthPartnerVerification,
@@ -11,6 +12,7 @@ import {
   sendConversationMessage,
 } from '../../../features/public/services/publicSiteApi';
 import { changePassword, getStoredAuth, persistAuth } from '../../../features/auth/services/authApi';
+import { ToolkitMessages } from './PartnerUpdatesPages';
 import { CARD, INPUT, LABEL, BODY, MUTED, BTN_PRIMARY, BTN_SECONDARY, PageHeader, Stat, Notice, EmptyState, TaxNotice, naira } from './partnerUi';
 
 function copy(text, setNotice) {
@@ -20,6 +22,16 @@ function copy(text, setNotice) {
 
 /* ------------------------------------------------------------------ Overview */
 
+function NewUpdatesLink({ count }) {
+  if (!count) return null;
+  return (
+    <section className={CARD} aria-label="New updates">
+      <p className={BODY}>{count === 1 ? 'There is 1 new update' : `There are ${count} new updates`} about Ndovera to tell schools about.</p>
+      <Link to="/roles/growthpartner/updates" className={`mt-3 inline-block ${BTN_PRIMARY}`}>See what's new</Link>
+    </section>
+  );
+}
+
 export function OverviewPage({ data, reload }) {
   const [notice, setNotice] = useState('');
   const partner = data.partner || {};
@@ -28,6 +40,7 @@ export function OverviewPage({ data, reload }) {
 
   return (
     <>
+      <NewUpdatesLink count={data.updatesUnread} />
       <PageHeader
         title={`Welcome, ${partner.name || 'Partner'}`}
         subtitle="Share your referral link. When a school registers and pays through it, you earn commission on the onboarding fee plus a share of every term payment."
@@ -338,7 +351,6 @@ export function PricingPage({ data, reload }) {
 /* ------------------------------------------------------------------- Toolkit */
 
 export function ToolkitPage({ data }) {
-  const [notice, setNotice] = useState('');
   const [students, setStudents] = useState(250);
   const offer = data.offer || {};
   const tier = data.tier || {};
@@ -348,12 +360,10 @@ export function ToolkitPage({ data }) {
   const signup = Math.round(setupFee * (tier.currentRate || 0.3));
   const perTerm = Math.round(students * perUser * 0.05);
 
-  const pitch = `Hello! I can help your school get online with NDOVERA — school website, results, fees, attendance and parent access in one place.\n\nOnboarding: ${naira.format(setupFee)}\nThen ${naira.format(perUser)} per active user each term.\n\nRegister here: ${data.referralLink || ''}`;
 
   return (
     <>
       <PageHeader title="Partner toolkit" subtitle="Work out what a school is worth to you, and send a message that is accurate about your pricing." />
-      <Notice notice={notice} />
 
       <section className={CARD}>
         <h2 className="text-lg font-black text-[#191970] dark:text-slate-100">Commission calculator</h2>
@@ -370,15 +380,7 @@ export function ToolkitPage({ data }) {
         </p>
       </section>
 
-      <section className={CARD}>
-        <h2 className="text-lg font-black text-[#191970] dark:text-slate-100">Ready-to-send message</h2>
-        <p className={`mt-1 ${MUTED}`}>Already carries your link and your prices, so nothing is quoted wrongly.</p>
-        <pre className="mt-3 whitespace-pre-wrap rounded-2xl border border-[#c9a96e]/40 bg-white/80 p-4 text-sm text-[#191970] dark:bg-slate-900/60 dark:text-slate-200">{pitch}</pre>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <button type="button" onClick={() => copy(pitch, setNotice)} className={BTN_PRIMARY}>Copy message</button>
-          <a href={`https://wa.me/?text=${encodeURIComponent(pitch)}`} target="_blank" rel="noreferrer" className={BTN_SECONDARY}>Send on WhatsApp</a>
-        </div>
-      </section>
+      <ToolkitMessages link={data.referralLink} setupFee={setupFee} perUser={perUser} code={offer.code} />
     </>
   );
 }

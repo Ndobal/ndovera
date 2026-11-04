@@ -71,6 +71,14 @@ async function uploadAsset(path, file, extraFields = {}) {
 export const getPublicPlatformSite = () => publicRequest('/api/public/platform-site');
 export const getPublicOpportunities = (tenantId) => publicRequest(`/api/public/opportunities${tenantId ? `?tenantId=${encodeURIComponent(tenantId)}` : ''}`);
 export const submitGrowthPartnerApplication = (data) => publicRequest('/api/public/growth-partner-applications', { method: 'POST', body: data });
+export const getPartnerUpdates = () => authedRequest('/api/growth-partner/updates');
+export const getPartnerToolkitMessages = () => authedRequest('/api/growth-partner/toolkit-messages');
+export const getAmiPartnerUpdates = () => authedRequest('/api/ami/partner-updates');
+export const saveAmiPartnerUpdate = ({ id, ...data }) => authedRequest(id ? `/api/ami/partner-updates/${encodeURIComponent(id)}` : '/api/ami/partner-updates', { method: id ? 'PUT' : 'POST', body: data });
+export const publishAmiPartnerUpdate = (id, published) => authedRequest(`/api/ami/partner-updates/${encodeURIComponent(id)}/publish`, { method: 'POST', body: { published } });
+export const deleteAmiPartnerUpdate = id => authedRequest(`/api/ami/partner-updates/${encodeURIComponent(id)}`, { method: 'DELETE' });
+export const getAmiPartnerToolkit = () => authedRequest('/api/ami/partner-toolkit');
+export const saveAmiPartnerToolkit = messages => authedRequest('/api/ami/partner-toolkit', { method: 'PUT', body: { messages } });
 export const getMyGrowthPartner = () => authedRequest('/api/growth-partner/me');
 export const saveGrowthPartnerBank = (data) => authedRequest('/api/growth-partner/bank', { method: 'POST', body: data });
 export const saveGrowthPartnerVerification = (data) => authedRequest('/api/growth-partner/verification', { method: 'POST', body: data });

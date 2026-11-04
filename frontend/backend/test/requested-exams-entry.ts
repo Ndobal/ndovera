@@ -7,3 +7,4 @@ export { BUNDLES, EXAMS, addExamStock, bundleList, examStock, examsForSection, p
 export { createExamRequest, ensureExamRequestTables } from '../src/examRequests'
 export { builderOverview, clearBuildFocus, ensureBuilderTables, examKeyOf, getBuildSettings, nextQueueItem, planSources, reviewSome, runBuilderTick, saveBuildSettings, setBuildFocus } from '../src/practiceBuilder'
 export { newQuestionsReport } from '../src/newQuestionsReport'
+export { DEFAULT_TOOLKIT_MESSAGES, deletePartnerUpdate, listAllPartnerUpdates, partnerUpdatesFor, partnerUpdatesUnread, savePartnerUpdate, saveToolkitMessages, setPartnerUpdatePublished, toolkitMessages } from '../src/partnerUpdates'

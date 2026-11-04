@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { getMyGrowthPartner } from '../../../features/public/services/publicSiteApi';
 import PartnerShell from './PartnerShell';
+import { WhatsNewPage } from './PartnerUpdatesPages';
 import { CARD, BODY } from './partnerUi';
 import {
   OverviewPage,
@@ -50,13 +51,14 @@ export default function GrowthPartnerDashboard() {
   }
 
   return (
-    <PartnerShell partnerName={data.partner?.name} unreadCount={unread}>
+    <PartnerShell partnerName={data.partner?.name} unreadCount={unread} updatesUnread={data.updatesUnread || 0}>
       <Routes>
         <Route index element={<OverviewPage data={data} reload={load} />} />
         <Route path="referrals" element={<ReferralsPage data={data} reload={load} />} />
         <Route path="earnings" element={<EarningsPage data={data} reload={load} />} />
         <Route path="pricing" element={<PricingPage data={data} reload={load} />} />
         <Route path="toolkit" element={<ToolkitPage data={data} />} />
+        <Route path="updates" element={<WhatsNewPage onSeen={() => setData(current => ({ ...current, updatesUnread: 0 }))} />} />
         <Route path="verification" element={<VerificationPage data={data} reload={load} />} />
         <Route path="bank" element={<BankPage data={data} reload={load} />} />
         <Route path="security" element={<SecurityPage />} />

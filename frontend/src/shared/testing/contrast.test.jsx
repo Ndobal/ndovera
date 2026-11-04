@@ -58,6 +58,9 @@ import ExamRequestPage from '../../features/showcase/ExamRequestPage';
 import AmiExamRequests from '../../app/roles/ami/AmiExamRequests';
 import AmiBuilderControls from '../../app/roles/ami/AmiBuilderControls';
 import AmiNewQuestionsReport from '../../app/roles/ami/AmiNewQuestionsReport';
+import AmiPartnerUpdates from '../../app/roles/ami/AmiPartnerUpdates';
+import { ToolkitMessages, WhatsNewPage } from '../../app/roles/growthpartner/PartnerUpdatesPages';
+import * as publicSiteApi from '../../features/public/services/publicSiteApi';
 import ChildNameChange from '../../app/roles/parent/ChildNameChange';
 import * as showcaseApi from '../../features/showcase/showcaseApi';
 import * as transportApi from '../../features/transport/transportApi';
@@ -593,6 +596,17 @@ describe('reviews, home strips, pass codes and country prices', () => {
     const choices = { examChoices: [{ key: 'waec', label: 'WAEC (WASSCE)' }], levelChoices: [{ rank: 8, label: 'JSS 2' }], onChanged: () => null };
     await inBothModes(() => <AmiBuilderControls settings={{ paused: false, focus: null }} {...choices} />, 'Start the focus');
     await inBothModes(() => <AmiBuilderControls settings={{ paused: true, focus: { label: 'WAEC (WASSCE), English' } }} focusProgress={{ items: 3, target: 120, made: 16 }} {...choices} />, /Focused on WAEC/);
+  });
+  test('growth partners reading updates and Toolkit messages, and Ami writing them', async () => {
+    const update = { id: 'u1', title: 'Bank transfer', body: 'Schools can pay by bank transfer.', explain: 'It needs no card.', status: 'published', publishedAt: '2026-11-04T10:00:00Z', isNew: true };
+    const messages = [{ title: 'Introduce Ndovera', body: 'Hello. Onboarding {setupFee}. Register here: {link}' }];
+    jest.spyOn(publicSiteApi, 'getPartnerUpdates').mockResolvedValue({ updates: [update] });
+    jest.spyOn(publicSiteApi, 'getPartnerToolkitMessages').mockResolvedValue({ messages });
+    jest.spyOn(publicSiteApi, 'getAmiPartnerUpdates').mockResolvedValue({ updates: [update, { ...update, id: 'u2', status: 'draft' }] });
+    jest.spyOn(publicSiteApi, 'getAmiPartnerToolkit').mockResolvedValue({ messages });
+    await inBothModes(() => <WhatsNewPage />, 'It needs no card.');
+    await inBothModes(() => <ToolkitMessages link="https://ndovera.com/r/x" setupFee={50000} perUser={500} code="X" />, /Register here: https:\/\/ndovera.com\/r\/x/);
+    await inBothModes(() => <AmiPartnerUpdates />, 'Bank transfer · Published');
   });
   test('Ami reading new questions by subject', async () => {
     jest.spyOn(showcaseApi, 'getNewQuestionsReport').mockResolvedValue({ days: 7, total: 40, capped: true, subjects: [{ key: 'english', name: 'English', total: 40, checked: 12, waiting: 28, forExams: 8 }] });

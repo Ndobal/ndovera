@@ -7,6 +7,7 @@ export const PARTNER_NAV = [
   { key: 'overview', label: 'Overview', icon: '🏠', path: '/roles/growthpartner', end: true, primary: true },
   { key: 'referrals', label: 'Referrals', icon: '🏫', path: '/roles/growthpartner/referrals', primary: true },
   { key: 'messages', label: 'Messages', icon: '💬', path: '/roles/growthpartner/messages', primary: true },
+  { key: 'updates', label: "What's new", icon: '📣', path: '/roles/growthpartner/updates' },
   { key: 'community', label: 'Community', icon: '👥', path: '/roles/growthpartner/community' },
   { key: 'earnings', label: 'Earnings', icon: '💰', path: '/roles/growthpartner/earnings' },
   { key: 'pricing', label: 'Code pricing', icon: '🏷️', path: '/roles/growthpartner/pricing' },
@@ -27,7 +28,7 @@ function linkClass(isActive) {
   }`;
 }
 
-export default function PartnerShell({ partnerName, unreadCount = 0, children }) {
+export default function PartnerShell({ partnerName, unreadCount = 0, updatesUnread = 0, children }) {
   const [trayOpen, setTrayOpen] = useState(false);
   const location = useLocation();
 
@@ -48,6 +49,9 @@ export default function PartnerShell({ partnerName, unreadCount = 0, children })
                   <span className="flex-1">{item.label}</span>
                   {item.key === 'messages' && unreadCount > 0 ? (
                     <span className="rounded-full bg-[#1a5c38] px-2 py-0.5 text-[11px] font-bold text-white">{unreadCount}</span>
+                  ) : null}
+                  {item.key === 'updates' && updatesUnread > 0 ? (
+                    <span className="rounded-full bg-[#1a5c38] px-2 py-0.5 text-[11px] font-bold text-white">{updatesUnread}</span>
                   ) : null}
                 </NavLink>
               ))}
