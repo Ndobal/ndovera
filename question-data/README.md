@@ -202,3 +202,10 @@ and rehearsal spaces. It also reconciles the eight earlier interview drafts
 from batch 041 with the automated dashboard. The interview groups use
 examiner-read prompts, illustrative answers, and original practice rubrics.
 Listen and Repeat remains open pending audio.
+
+Batch 043 opens Cambridge IGCSE Mathematics 0580 using the 2025–2027
+version 3 syllabus and its update. The twelve original non-calculator
+drafts cover selected objectives C1.13, E1.13 and E2.5. Core and Extended
+items have separate tier and paper labels, worked solutions, practice
+marking guides and author-assigned Bloom and Cambridge AO mappings.
+Legacy entries retain their existing holds and item-level mappings.

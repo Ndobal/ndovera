@@ -1,0 +1,672 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Mathematics 0580 non-calculator drafts",
+  "questionCount": 12,
+  "note": "Original Core and Extended practice for selected percentages and equations objectives. Author-assigned AO and Bloom labels. Legacy drafts are not mapped by inference.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-001",
+      "objectiveId": "igcse-0580-c1-13-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 1,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "A club has 240 members. Of these, 35% travel by bus. Calculate how many members travel by bus.",
+      "answer": "84 members",
+      "explanation": "Multiply 240 by 35/100. Obtain 84.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Multiply 240 by 35/100."
+        },
+        {
+          "marks": 1,
+          "description": "Obtain 84."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "240*35/100",
+          "expected": "84",
+          "purpose": "Check the numerical calculation in the solution."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-002",
+      "objectiveId": "igcse-0580-c1-13-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 1,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "A student answered 18 of 24 questions correctly. Express this result as a percentage.",
+      "answer": "75%",
+      "explanation": "Form the fraction 18/24. Multiply by 100 to obtain 75%.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Form the fraction 18/24."
+        },
+        {
+          "marks": 1,
+          "description": "Multiply by 100 to obtain 75%."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "18/24*100",
+          "expected": "75",
+          "purpose": "Check the numerical calculation in the solution."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-003",
+      "objectiveId": "igcse-0580-c1-13-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 1,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "A trader buys a crate for ₦4,800 and sells it for ₦5,400. Calculate the percentage profit on the cost price.",
+      "answer": "12.5%",
+      "explanation": "Subtract the cost from the selling price to obtain ₦600. Divide by ₦4,800 and multiply by 100 to obtain 12.5%.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Subtract the cost from the selling price to obtain ₦600."
+        },
+        {
+          "marks": 1,
+          "description": "Divide by ₦4,800 and multiply by 100 to obtain 12.5%."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(5400-4800)/4800*100",
+          "expected": "25/2",
+          "purpose": "Check the numerical calculation in the solution."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-004",
+      "objectiveId": "igcse-0580-c1-13-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 1,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "An account pays 5% simple interest per year on ₦20,000. A second account pays 5% compound interest per year on the same deposit. Find how much more the second account contains after two years.",
+      "answer": "₦50",
+      "explanation": "Find the simple-interest balance ₦22,000. Find the compound balance ₦22,050. Subtract the balances to obtain ₦50.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Find the simple-interest balance ₦22,000."
+        },
+        {
+          "marks": 1,
+          "description": "Find the compound balance ₦22,050."
+        },
+        {
+          "marks": 1,
+          "description": "Subtract the balances to obtain ₦50."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "20000*(105/100)**2-22000",
+          "expected": "50",
+          "purpose": "Check the numerical calculation in the solution."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-005",
+      "objectiveId": "igcse-0580-e1-13-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "A repair bill after a 15% discount is ₦10,200. Calculate the bill before the discount.",
+      "answer": "₦12,000",
+      "explanation": "Identify the discounted bill as 85% of the original. Divide ₦10,200 by 0.85 to obtain ₦12,000.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the discounted bill as 85% of the original."
+        },
+        {
+          "marks": 1,
+          "description": "Divide ₦10,200 by 0.85 to obtain ₦12,000."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "10200/(85/100)",
+          "expected": "12000",
+          "purpose": "Check the numerical calculation in the solution."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-006",
+      "objectiveId": "igcse-0580-e1-13-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "A shopkeeper says increasing any price by 20% and then reducing the new price by 20% restores the original price. Is the claim correct? Justify your answer with a multiplier and give the overall percentage change.",
+      "answer": "No. The price falls by 4%.",
+      "explanation": "Use multipliers 1.20 and 0.80. Find their product 0.96. Reject the claim and state a 4% decrease.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use multipliers 1.20 and 0.80."
+        },
+        {
+          "marks": 1,
+          "description": "Find their product 0.96."
+        },
+        {
+          "marks": 1,
+          "description": "Reject the claim and state a 4% decrease."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(1-120/100*80/100)*100",
+          "expected": "4",
+          "purpose": "Check the numerical calculation in the solution."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Algebra and graphs",
+      "subtopic": "Equations",
+      "learningObjective": "Form, solve or rearrange equations and interpret solutions.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-007",
+      "objectiveId": "igcse-0580-e2-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "Solve 3/(x − 1) = 2/(x + 2). State the values excluded from the original equation.",
+      "answer": "x = −8. Excluded values: 1 and −2.",
+      "explanation": "Identify the two excluded denominator zeros. Obtain 3(x + 2) = 2(x − 1). Solve to obtain x = −8.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the two excluded denominator zeros."
+        },
+        {
+          "marks": 1,
+          "description": "Obtain 3(x + 2) = 2(x − 1)."
+        },
+        {
+          "marks": 1,
+          "description": "Solve to obtain x = −8."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Algebra and graphs",
+      "subtopic": "Equations",
+      "learningObjective": "Form, solve or rearrange equations and interpret solutions.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-008",
+      "objectiveId": "igcse-0580-e2-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "A rectangular garden has area 96 m². Its length is 4 m greater than its width. Form an equation in the width and find both dimensions.",
+      "answer": "Width 8 m and length 12 m.",
+      "explanation": "Form w(w + 4) = 96. Factor the rearranged equation as (w + 12)(w − 8) = 0. Reject the negative width and give 8 m and 12 m.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Form w(w + 4) = 96."
+        },
+        {
+          "marks": 1,
+          "description": "Factor the rearranged equation as (w + 12)(w − 8) = 0."
+        },
+        {
+          "marks": 1,
+          "description": "Reject the negative width and give 8 m and 12 m."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "8*12",
+          "expected": "96",
+          "purpose": "Check the numerical calculation in the solution."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Algebra and graphs",
+      "subtopic": "Equations",
+      "learningObjective": "Form, solve or rearrange equations and interpret solutions.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-009",
+      "objectiveId": "igcse-0580-e2-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "Find all intersection points of y = x + 4 and y = x² − 2. Show your working.",
+      "answer": "(−2, 2) and (3, 7).",
+      "explanation": "Equate expressions to obtain x² − x − 6 = 0. Factor and find x = −2 or 3. Substitute into the line to obtain both coordinates.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Equate expressions to obtain x² − x − 6 = 0."
+        },
+        {
+          "marks": 1,
+          "description": "Factor and find x = −2 or 3."
+        },
+        {
+          "marks": 1,
+          "description": "Substitute into the line to obtain both coordinates."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Algebra and graphs",
+      "subtopic": "Equations",
+      "learningObjective": "Form, solve or rearrange equations and interpret solutions.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-010",
+      "objectiveId": "igcse-0580-e2-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "Make t the subject of d = kt/(t + 3). Assume d ≠ k and the original equation is defined.",
+      "answer": "t = 3d/(k − d).",
+      "explanation": "Multiply by t + 3 to obtain dt + 3d = kt. Collect t terms to give 3d = (k − d)t. Divide by k − d.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Multiply by t + 3 to obtain dt + 3d = kt."
+        },
+        {
+          "marks": 1,
+          "description": "Collect t terms to give 3d = (k − d)t."
+        },
+        {
+          "marks": 1,
+          "description": "Divide by k − d."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Algebra and graphs",
+      "subtopic": "Equations",
+      "learningObjective": "Form, solve or rearrange equations and interpret solutions.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-011",
+      "objectiveId": "igcse-0580-e2-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "Solve x² + 8x + 7 = 0 by completing the square. Show the completed-square equation.",
+      "answer": "(x + 4)² = 9, so x = −1 or −7.",
+      "explanation": "Write x² + 8x as (x + 4)² − 16. Obtain (x + 4)² = 9. Take both square roots to find x = −1 or −7.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Write x² + 8x as (x + 4)² − 16."
+        },
+        {
+          "marks": 1,
+          "description": "Obtain (x + 4)² = 9."
+        },
+        {
+          "marks": 1,
+          "description": "Take both square roots to find x = −1 or −7."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Algebra and graphs",
+      "subtopic": "Equations",
+      "learningObjective": "Form, solve or rearrange equations and interpret solutions.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "id": "ndv-043-012",
+      "objectiveId": "igcse-0580-e2-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "calculatorAllowed": false,
+      "type": "structured",
+      "prompt": "A drama group sells 35 tickets. Adult tickets cost ₦900 and student tickets cost ₦500. The total collected is ₦23,500. Form simultaneous equations and find how many of each ticket were sold.",
+      "answer": "15 adult tickets and 20 student tickets.",
+      "explanation": "Form a + s = 35 and 900a + 500s = 23500. Eliminate s to obtain 400a = 6000. Find a = 15 and s = 20.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Form a + s = 35 and 900a + 500s = 23500."
+        },
+        {
+          "marks": 1,
+          "description": "Eliminate s to obtain 400a = 6000."
+        },
+        {
+          "marks": 1,
+          "description": "Find a = 15 and s = 20."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "15*900+20*500",
+          "expected": "23500",
+          "purpose": "Check the numerical calculation in the solution."
+        }
+      ]
+    }
+  ]
+}

@@ -697,6 +697,22 @@
       "formatGuide": "https://www.in.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-specifications-2026.pdf",
       "retrievedOn": "2026-11-04",
       "note": "Take an Interview prompts are original examiner scripts. Listen and Repeat awaits audio assets."
+    },
+    {
+      "id": "cambridge-0580-2025-2027-v3",
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "kind": "official_syllabus",
+      "source": "https://www.cambridgeinternational.org/Images/662466-2025-2027-syllabus.pdf",
+      "syllabusUpdate": "https://www.cambridgeinternational.org/Images/709706-2025-2027-syllabus-update.pdf",
+      "retrievedOn": "2026-11-04",
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "examinationYears": [
+        2025,
+        2026,
+        2027
+      ]
     }
   ],
   "banks": [
@@ -6384,6 +6400,87 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0580-c1-13-v1",
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "C1.13"
+      ],
+      "officialObjectiveCode": "C1.13",
+      "mappingStatus": "source_mapped_pending_academic_review",
+      "tiers": [
+        "Core"
+      ],
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "examinationYears": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "id": "igcse-0580-e1-13-v1",
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "E1.13"
+      ],
+      "officialObjectiveCode": "E1.13",
+      "mappingStatus": "source_mapped_pending_academic_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "examinationYears": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "id": "igcse-0580-e2-5-v1",
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Algebra and graphs",
+      "subtopic": "Equations",
+      "learningObjective": "Form, solve or rearrange equations and interpret solutions.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "E2.5"
+      ],
+      "officialObjectiveCode": "E2.5",
+      "mappingStatus": "source_mapped_pending_academic_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "examinationYears": [
+        2025,
+        2026,
+        2027
+      ]
     }
   ],
   "scopeGaps": [

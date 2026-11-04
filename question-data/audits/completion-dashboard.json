@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2848,
-    "validDrafts": 1169,
+    "raw": 2860,
+    "validDrafts": 1181,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -386,6 +386,12 @@
       "sha256": "ad57a817727dc57ea908aef149f7e19b9fd09fe2ac8b5e35cd17cdbadf1825c4",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-043.json",
+      "sha256": "57efcd914479d89f0c024dc1c0e5efee0d7f4ad38f4e1439e00ee33c7f9a8fc0",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -1138,21 +1144,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "observed_only_specification_unresolved",
-      "raw": 14,
-      "validDrafts": 0,
+      "raw": 26,
+      "validDrafts": 12,
       "reviewed": 0,
       "questionTypes": {
+        "structured": 12,
         "mcq": 14
       },
       "difficulty": {
+        "standard": 12,
         "missing": 12,
         "very difficult": 2
       },
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "remaining": 988,
+      "mappedObjectives": 3,
+      "representedObjectives": 3,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "IGCSE",
@@ -4006,21 +4014,21 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 141,
+    "explicitArithmeticClaims": 149,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -25614,6 +25622,78 @@
       "errors": []
     },
     {
+      "id": "ndv-043-001",
+      "file": "original-multisubject-batch-043.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-002",
+      "file": "original-multisubject-batch-043.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-003",
+      "file": "original-multisubject-batch-043.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-004",
+      "file": "original-multisubject-batch-043.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-005",
+      "file": "original-multisubject-batch-043.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-006",
+      "file": "original-multisubject-batch-043.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-007",
+      "file": "original-multisubject-batch-043.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-008",
+      "file": "original-multisubject-batch-043.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-009",
+      "file": "original-multisubject-batch-043.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-010",
+      "file": "original-multisubject-batch-043.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-011",
+      "file": "original-multisubject-batch-043.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-043-012",
+      "file": "original-multisubject-batch-043.json",
+      "index": 11,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -45460,6 +45540,123 @@
         "not_specified": 4
       },
       "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0580-c1-13-v1",
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "C1.13"
+      ],
+      "officialObjectiveCode": "C1.13",
+      "mappingStatus": "source_mapped_pending_academic_review",
+      "tiers": {
+        "Core": 4
+      },
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "examinationYears": [
+        2025,
+        2026,
+        2027
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "assessmentObjectives": {
+        "AO1": 3,
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0580-e1-13-v1",
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Number",
+      "subtopic": "Percentages",
+      "learningObjective": "Use percentages and multipliers to solve or interpret numerical problems.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "E1.13"
+      ],
+      "officialObjectiveCode": "E1.13",
+      "mappingStatus": "source_mapped_pending_academic_review",
+      "tiers": {
+        "Extended": 2
+      },
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "examinationYears": [
+        2025,
+        2026,
+        2027
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO1": 1,
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0580-e2-5-v1",
+      "exam": "IGCSE",
+      "subject": "Mathematics",
+      "topic": "Algebra and graphs",
+      "subtopic": "Equations",
+      "learningObjective": "Form, solve or rearrange equations and interpret solutions.",
+      "specificationId": "cambridge-0580-2025-2027-v3",
+      "questionTypes": {
+        "structured": 6
+      },
+      "sourceSections": [
+        "E2.5"
+      ],
+      "officialObjectiveCode": "E2.5",
+      "mappingStatus": "source_mapped_pending_academic_review",
+      "tiers": {
+        "Extended": 6
+      },
+      "qualificationCode": "0580",
+      "syllabusVersion": "3",
+      "examinationYears": [
+        2025,
+        2026,
+        2027
+      ],
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "assessmentObjectives": {
+        "AO1": 3,
+        "AO2": 3
+      },
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
