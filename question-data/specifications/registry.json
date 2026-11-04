@@ -919,6 +919,19 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "NECO timetable confirms practical, essay and objective papers. Historical WAEC reports support provisional topic selection. Official objectives and option counts remain open. No practical performance is assessed in this batch."
+    },
+    {
+      "id": "neco-physics-wave-reference-2026",
+      "exam": "NECO",
+      "subject": "Physics",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Physics/phys229dq10.html",
+        "https://waeconline.org.ng/e-learning/Physics/Phys218mq13.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "NECO 2026 SSCE Internal confirms Paper II essay and Paper III objective. Historical WAEC references inform provisional wave topics. Official NECO objectives and option counts remain unverified. Practical performance is outside this batch."
     }
   ],
   "banks": [
@@ -2127,7 +2140,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "I": "practical",
         "III": "objective",
@@ -7531,6 +7544,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Chemistry Papers II and III",
         "Historical WAEC Chemistry examiner material"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-physics-waves-1-v1",
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave quantities",
+      "subtopic": "Period, wavelength and propagation",
+      "learningObjective": "Use wave quantities to interpret observations and distinguish changes in speed, frequency and wavelength.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Physics Papers II and III",
+        "Historical WAEC Physics examiner material"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-physics-waves-2-v1",
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave behaviour",
+      "subtopic": "Echoes, diffraction and refraction",
+      "learningObjective": "Explain wave behaviour at boundaries and openings and interpret echo travel times.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Physics Papers II and III",
+        "Historical WAEC Physics examiner material"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

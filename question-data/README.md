@@ -308,3 +308,8 @@ drafts on reaction rates and equilibrium. NECO's 2026 Internal timetable
 confirms paper formats. Historical WAEC examiner materials support
 provisional topic selection. Practical performance and full NECO
 topic mapping remain open.
+
+Batch 060 opens NECO Physics with six structured and six objective
+drafts on wave quantities and wave behaviour. The official timetable
+confirms the written paper formats. Historical WAEC examiner materials
+inform provisional topic mapping. Practical performance remains separate.

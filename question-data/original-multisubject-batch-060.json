@@ -1,0 +1,481 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Physics wave quantities and behaviour practice",
+  "questionCount": 12,
+  "note": "Original written theory and four-option practice. Provisional topic mapping. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave quantities",
+      "subtopic": "Period, wavelength and propagation",
+      "learningObjective": "Use wave quantities to interpret observations and distinguish changes in speed, frequency and wavelength.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-001",
+      "objectiveId": "neco-physics-waves-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A buoy completes 18 oscillations in 12 s. Crests are 2.4 m apart. Calculate the wave frequency and speed.",
+      "answer": "1.5 Hz and 3.6 m/s.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Divide 18 oscillations by 12 s to obtain 1.5 Hz."
+        },
+        {
+          "marks": 1,
+          "description": "Use speed = frequency × wavelength."
+        },
+        {
+          "marks": 1,
+          "description": "Give 3.6 m/s."
+        }
+      ],
+      "explanation": "Divide 18 oscillations by 12 s to obtain 1.5 Hz. Use speed = frequency × wavelength. Give 3.6 m/s.",
+      "verification": [
+        {
+          "expression": "18/12*24/10",
+          "expected": "18/5",
+          "purpose": "Check the worked numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave quantities",
+      "subtopic": "Period, wavelength and propagation",
+      "learningObjective": "Use wave quantities to interpret observations and distinguish changes in speed, frequency and wavelength.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-002",
+      "objectiveId": "neco-physics-waves-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At one instant the first and fifth crests on a rope are 3.2 m apart. A marked point on the rope reaches a crest every 0.4 s. Find the wavelength and period, and explain why five crests do not represent five wavelengths.",
+      "answer": "Wavelength 0.8 m, period 0.4 s. Five successive crests bound four crest-to-crest intervals.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify four intervals."
+        },
+        {
+          "marks": 1,
+          "description": "Divide 3.2 m by four to get 0.8 m."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the period as 0.4 s."
+        }
+      ],
+      "explanation": "Identify four intervals. Divide 3.2 m by four to get 0.8 m. Identify the period as 0.4 s.",
+      "verification": [
+        {
+          "expression": "(32/10)/4",
+          "expected": "4/5",
+          "purpose": "Check the worked numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave quantities",
+      "subtopic": "Period, wavelength and propagation",
+      "learningObjective": "Use wave quantities to interpret observations and distinguish changes in speed, frequency and wavelength.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-003",
+      "objectiveId": "neco-physics-waves-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A ripple travels from deep water into shallow water, where its speed is lower. The same source continues vibrating at a steady rate. Predict the changes in frequency and wavelength, and explain.",
+      "answer": "Frequency stays fixed by the source. Wavelength decreases because speed decreases at the same frequency.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "State that frequency remains unchanged."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that the source still sends the same number of crests per second."
+        },
+        {
+          "marks": 1,
+          "description": "Use wavelength = speed ÷ frequency to infer a shorter wavelength."
+        }
+      ],
+      "explanation": "State that frequency remains unchanged. Explain that the source still sends the same number of crests per second. Use wavelength = speed ÷ frequency to infer a shorter wavelength."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave quantities",
+      "subtopic": "Period, wavelength and propagation",
+      "learningObjective": "Use wave quantities to interpret observations and distinguish changes in speed, frequency and wavelength.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-004",
+      "objectiveId": "neco-physics-waves-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which measurement gives the amplitude of a transverse wave on a rope?",
+      "answer": "The greatest displacement of a point on the rope from its rest position",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The distance between successive crests",
+        "The greatest displacement of a point on the rope from its rest position",
+        "The time between successive crests at a marker",
+        "The distance a crest travels in one second"
+      ],
+      "correctOption": "B",
+      "explanation": "Amplitude measures displacement from equilibrium, not spacing or speed."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave quantities",
+      "subtopic": "Period, wavelength and propagation",
+      "learningObjective": "Use wave quantities to interpret observations and distinguish changes in speed, frequency and wavelength.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-005",
+      "objectiveId": "neco-physics-waves-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A rope wave travels to the right. A coloured knot tied to the rope moves repeatedly up and down. What does the observation illustrate?",
+      "answer": "The medium oscillates perpendicular to the direction of propagation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The medium oscillates perpendicular to the direction of propagation.",
+        "Each knot travels to the right with the crest.",
+        "The rope carries matter steadily to the right.",
+        "The wave is longitudinal because the knot moves."
+      ],
+      "correctOption": "A",
+      "explanation": "Transverse displacement is perpendicular to the direction in which the disturbance travels."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave quantities",
+      "subtopic": "Period, wavelength and propagation",
+      "learningObjective": "Use wave quantities to interpret observations and distinguish changes in speed, frequency and wavelength.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-006",
+      "objectiveId": "neco-physics-waves-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "The rate of vibration of a sound source doubles. The sound still travels in the same air at unchanged conditions. What happens to its wavelength?",
+      "answer": "It halves.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "It doubles.",
+        "It stays unchanged.",
+        "It becomes four times as large.",
+        "It halves."
+      ],
+      "correctOption": "D",
+      "explanation": "With speed fixed, wavelength is inversely proportional to frequency."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave behaviour",
+      "subtopic": "Echoes, diffraction and refraction",
+      "learningObjective": "Explain wave behaviour at boundaries and openings and interpret echo travel times.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-007",
+      "objectiveId": "neco-physics-waves-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A pulse is sent straight towards a cliff. The echo returns 0.70 s later. If the speed of sound is 340 m/s, calculate the distance to the cliff.",
+      "answer": "119 m.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognise that the time covers the outward and return paths."
+        },
+        {
+          "marks": 1,
+          "description": "Calculate 340 × 0.70 ÷ 2."
+        },
+        {
+          "marks": 1,
+          "description": "Give 119 m."
+        }
+      ],
+      "explanation": "Recognise that the time covers the outward and return paths. Calculate 340 × 0.70 ÷ 2. Give 119 m.",
+      "verification": [
+        {
+          "expression": "340*70/100/2",
+          "expected": "119",
+          "purpose": "Check the worked numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave behaviour",
+      "subtopic": "Echoes, diffraction and refraction",
+      "learningObjective": "Explain wave behaviour at boundaries and openings and interpret echo travel times.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-008",
+      "objectiveId": "neco-physics-waves-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A pupil says sound heard around a corner proves that air is flowing around the corner from the speaker to the listener. Evaluate the claim using wave behaviour.",
+      "answer": "The observation can be explained by diffraction as sound spreads around an edge. The disturbance transfers energy without a sustained flow of air from the speaker to the listener.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify diffraction around an edge as a plausible explanation."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish local particle oscillation from bulk air movement."
+        }
+      ],
+      "explanation": "Identify diffraction around an edge as a plausible explanation. Distinguish local particle oscillation from bulk air movement."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave behaviour",
+      "subtopic": "Echoes, diffraction and refraction",
+      "learningObjective": "Explain wave behaviour at boundaries and openings and interpret echo travel times.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-009",
+      "objectiveId": "neco-physics-waves-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A light ray enters glass from air along the normal. Its speed decreases. Explain why its direction stays the same and state what happens to its wavelength.",
+      "answer": "At normal incidence the angle to the normal is zero, so the transmitted ray continues straight. Frequency stays fixed and the lower speed means a shorter wavelength.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify zero incidence and zero refraction angles."
+        },
+        {
+          "marks": 1,
+          "description": "State that frequency remains unchanged."
+        },
+        {
+          "marks": 1,
+          "description": "Link the reduced speed to a reduced wavelength."
+        }
+      ],
+      "explanation": "Identify zero incidence and zero refraction angles. State that frequency remains unchanged. Link the reduced speed to a reduced wavelength."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave behaviour",
+      "subtopic": "Echoes, diffraction and refraction",
+      "learningObjective": "Explain wave behaviour at boundaries and openings and interpret echo travel times.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-010",
+      "objectiveId": "neco-physics-waves-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Two water waves of different wavelengths reach identical openings. One wavelength is close to the opening width and the other is much smaller. Which spreads more noticeably beyond its opening?",
+      "answer": "The wave whose wavelength is close to the opening width",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The wave whose wavelength is close to the opening width",
+        "The wave whose wavelength is much smaller",
+        "Both always spread by the same amount",
+        "Neither wave can spread beyond an opening"
+      ],
+      "correctOption": "A",
+      "explanation": "Diffraction is more pronounced when the opening is comparable with the wavelength."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave behaviour",
+      "subtopic": "Echoes, diffraction and refraction",
+      "learningObjective": "Explain wave behaviour at boundaries and openings and interpret echo travel times.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-011",
+      "objectiveId": "neco-physics-waves-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A ray passes from air into a transparent liquid at an oblique angle. Its speed in the liquid is lower. How does the refracted ray bend?",
+      "answer": "Towards the normal",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Away from the normal",
+        "Through a right angle in all cases",
+        "Back into the air as the transmitted ray",
+        "Towards the normal"
+      ],
+      "correctOption": "D",
+      "explanation": "At oblique incidence, entering a medium of lower wave speed reduces the angle to the normal."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physics",
+      "topic": "Wave behaviour",
+      "subtopic": "Echoes, diffraction and refraction",
+      "learningObjective": "Explain wave behaviour at boundaries and openings and interpret echo travel times.",
+      "specificationId": "neco-physics-wave-reference-2026",
+      "id": "ndv-060-012",
+      "objectiveId": "neco-physics-waves-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A student wants to use an echo to measure the distance to a wall. Which measurement would most directly reduce uncertainty due to background noise?",
+      "answer": "Repeat the pulse several times and compare the delays of the distinct returning echoes.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Time the first unrelated sound heard after each pulse.",
+        "Use the loudness of the outgoing pulse as the elapsed time.",
+        "Repeat the pulse several times and compare the delays of the distinct returning echoes.",
+        "Add the delay from a different wall to the measured delay."
+      ],
+      "correctOption": "C",
+      "explanation": "Repeated measurements of identifiable echoes help distinguish a consistent delay from unrelated noise."
+    }
+  ]
+}
