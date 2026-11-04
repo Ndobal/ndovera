@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2996,
-    "validDrafts": 1317,
+    "raw": 3004,
+    "validDrafts": 1325,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -464,6 +464,12 @@
       "sha256": "f1f75fbf3079e7dedb2adb5a0fbc02f2235941b9d63f2387aa9786a9eaaa826a",
       "declared": 10,
       "actual": 10
+    },
+    {
+      "path": "original-multisubject-batch-056.json",
+      "sha256": "8d92e9a9ff893ace9abf4930280e7e39d0b64903fa18eaf20250bbd681c3ed50",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2155,26 +2161,28 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "III": "objective",
         "II": "essay",
         "IV": "test of orals"
       },
-      "raw": 1,
-      "validDrafts": 0,
+      "raw": 9,
+      "validDrafts": 8,
       "reviewed": 0,
       "questionTypes": {
+        "comprehension": 8,
         "mcq": 1
       },
       "difficulty": {
+        "standard": 8,
         "missing": 1
       },
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "remaining": 992,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "NECO",
@@ -4182,18 +4190,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 187,
@@ -26678,6 +26686,54 @@
       "errors": []
     },
     {
+      "id": "ndv-056-001",
+      "file": "original-multisubject-batch-056.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-056-002",
+      "file": "original-multisubject-batch-056.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-056-003",
+      "file": "original-multisubject-batch-056.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-056-004",
+      "file": "original-multisubject-batch-056.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-056-005",
+      "file": "original-multisubject-batch-056.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-056-006",
+      "file": "original-multisubject-batch-056.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-056-007",
+      "file": "original-multisubject-batch-056.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-056-008",
+      "file": "original-multisubject-batch-056.json",
+      "index": 7,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -47527,6 +47583,66 @@
       },
       "tiers": {
         "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-english-reading-1-v1",
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference, evidence and language",
+      "learningObjective": "Read closely to recover explicit details, infer motives and interpret wording in context.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "questionTypes": {
+        "comprehension": 6
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal English Language Paper II",
+        "Historical WAEC English Language examiner feedback: provisional skill reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-english-reading-2-v1",
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Summary",
+      "subtopic": "Selection and paraphrase",
+      "learningObjective": "Select distinct relevant main points and paraphrase them concisely in complete sentences.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "questionTypes": {
+        "comprehension": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal English Language Paper II",
+        "Historical WAEC English Language examiner feedback: provisional skill reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

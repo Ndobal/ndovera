@@ -285,3 +285,9 @@ human geography drafts. The map items supply original measurements or
 terrain observations. The human items use original settlement and
 migration scenarios. Historical WAEC sources support provisional topics,
 while the NECO timetable establishes the distinct paper formats.
+
+Batch 056 opens NECO English Language with six comprehension items and
+two summary tasks across two original passages. The NECO timetable
+verifies Paper II essay. Historical WAEC examiner feedback provides
+provisional reading skill references. The rubric is for practice.
+Official NECO section specifications and oral tasks remain open.

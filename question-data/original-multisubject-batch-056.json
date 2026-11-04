@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO English Language comprehension and summary practice",
+  "questionCount": 8,
+  "note": "Two original fictional passages. Practice criteria and provisional mapping. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference, evidence and language",
+      "learningObjective": "Read closely to recover explicit details, infer motives and interpret wording in context.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "id": "ndv-056-001",
+      "objectiveId": "neco-english-reading-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "comprehension",
+      "prompt": "Why did Zainab ask the caretaker to leave plants along the wall?",
+      "passage": "The first time Zainab opened the courtyard gate, she could hardly see the rain gauge for the weeds. The gauge was a clear measuring cylinder mounted on a post, left behind by a science club that had graduated the previous year. She asked the caretaker whether the new club could use it. He offered to clear the whole courtyard. Zainab asked him to leave a strip of plants along the wall because younger pupils were using it to observe insects.\n\nFor a fortnight, members read the gauge before assembly. They wrote the readings on loose slips, which they carried back to the classroom. When Zainab copied the slips into a notebook, she found two entries for Tuesday and none for Wednesday. One pupil suggested using the smaller Tuesday figure for Wednesday, since the two readings looked plausible. Zainab shook her head. “A blank has something to tell us,” she said, and marked Wednesday as unrecorded.\n\nShe replaced the loose slips with a single ruled sheet in a waterproof folder at the gate. Each date had room for one reading, the time and the reader’s initials. A pupil arriving after assembly would no longer make an entry for that morning without a note about the delay.\n\nAt the next meeting, a new member showed the club a chart with a gap. She had resisted the temptation to join the points on either side. The science teacher asked what could be concluded about the missing day. “Only that we did not measure it properly,” a pupil answered. The caretaker, who had come to collect the gate key, stopped beside the chart. “So the gap belongs on the wall too,” he said. Zainab handed him the tape.",
+      "stimulusId": "ndv-056-reading-1",
+      "taskGroupId": "ndv-056-group-1",
+      "groupItem": 1,
+      "groupSize": 6,
+      "answer": "Younger pupils were using the plants to observe insects.",
+      "explanation": "Identify the younger pupils’ use of the plants.",
+      "score": 1,
+      "maxMarks": 1,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the younger pupils’ use of the plants."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference, evidence and language",
+      "learningObjective": "Read closely to recover explicit details, infer motives and interpret wording in context.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "id": "ndv-056-002",
+      "objectiveId": "neco-english-reading-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "comprehension",
+      "prompt": "What was wrong with treating the smaller Tuesday reading as Wednesday’s reading?",
+      "passage": "The first time Zainab opened the courtyard gate, she could hardly see the rain gauge for the weeds. The gauge was a clear measuring cylinder mounted on a post, left behind by a science club that had graduated the previous year. She asked the caretaker whether the new club could use it. He offered to clear the whole courtyard. Zainab asked him to leave a strip of plants along the wall because younger pupils were using it to observe insects.\n\nFor a fortnight, members read the gauge before assembly. They wrote the readings on loose slips, which they carried back to the classroom. When Zainab copied the slips into a notebook, she found two entries for Tuesday and none for Wednesday. One pupil suggested using the smaller Tuesday figure for Wednesday, since the two readings looked plausible. Zainab shook her head. “A blank has something to tell us,” she said, and marked Wednesday as unrecorded.\n\nShe replaced the loose slips with a single ruled sheet in a waterproof folder at the gate. Each date had room for one reading, the time and the reader’s initials. A pupil arriving after assembly would no longer make an entry for that morning without a note about the delay.\n\nAt the next meeting, a new member showed the club a chart with a gap. She had resisted the temptation to join the points on either side. The science teacher asked what could be concluded about the missing day. “Only that we did not measure it properly,” a pupil answered. The caretaker, who had come to collect the gate key, stopped beside the chart. “So the gap belongs on the wall too,” he said. Zainab handed him the tape.",
+      "stimulusId": "ndv-056-reading-1",
+      "taskGroupId": "ndv-056-group-1",
+      "groupItem": 2,
+      "groupSize": 6,
+      "answer": "It would turn a reading dated Tuesday into supposed evidence for a day that had no recorded measurement.",
+      "explanation": "Identify that the entry belonged to Tuesday. Explain why plausibility does not make it a Wednesday measurement.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify that the entry belonged to Tuesday."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why plausibility does not make it a Wednesday measurement."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference, evidence and language",
+      "learningObjective": "Read closely to recover explicit details, infer motives and interpret wording in context.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "id": "ndv-056-003",
+      "objectiveId": "neco-english-reading-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "comprehension",
+      "prompt": "What does Zainab mean by “A blank has something to tell us”?",
+      "passage": "The first time Zainab opened the courtyard gate, she could hardly see the rain gauge for the weeds. The gauge was a clear measuring cylinder mounted on a post, left behind by a science club that had graduated the previous year. She asked the caretaker whether the new club could use it. He offered to clear the whole courtyard. Zainab asked him to leave a strip of plants along the wall because younger pupils were using it to observe insects.\n\nFor a fortnight, members read the gauge before assembly. They wrote the readings on loose slips, which they carried back to the classroom. When Zainab copied the slips into a notebook, she found two entries for Tuesday and none for Wednesday. One pupil suggested using the smaller Tuesday figure for Wednesday, since the two readings looked plausible. Zainab shook her head. “A blank has something to tell us,” she said, and marked Wednesday as unrecorded.\n\nShe replaced the loose slips with a single ruled sheet in a waterproof folder at the gate. Each date had room for one reading, the time and the reader’s initials. A pupil arriving after assembly would no longer make an entry for that morning without a note about the delay.\n\nAt the next meeting, a new member showed the club a chart with a gap. She had resisted the temptation to join the points on either side. The science teacher asked what could be concluded about the missing day. “Only that we did not measure it properly,” a pupil answered. The caretaker, who had come to collect the gate key, stopped beside the chart. “So the gap belongs on the wall too,” he said. Zainab handed him the tape.",
+      "stimulusId": "ndv-056-reading-1",
+      "taskGroupId": "ndv-056-group-1",
+      "groupItem": 3,
+      "groupSize": 6,
+      "answer": "The empty space shows that the club lacks a reliable reading for that day. It does not mean there was no rain.",
+      "explanation": "Explain that the blank communicates missing information. Distinguish a missing measurement from a zero reading.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain that the blank communicates missing information."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish a missing measurement from a zero reading."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference, evidence and language",
+      "learningObjective": "Read closely to recover explicit details, infer motives and interpret wording in context.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "id": "ndv-056-004",
+      "objectiveId": "neco-english-reading-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "comprehension",
+      "prompt": "Give one feature of the replacement sheet that makes the readings easier to check, and explain how it helps.",
+      "passage": "The first time Zainab opened the courtyard gate, she could hardly see the rain gauge for the weeds. The gauge was a clear measuring cylinder mounted on a post, left behind by a science club that had graduated the previous year. She asked the caretaker whether the new club could use it. He offered to clear the whole courtyard. Zainab asked him to leave a strip of plants along the wall because younger pupils were using it to observe insects.\n\nFor a fortnight, members read the gauge before assembly. They wrote the readings on loose slips, which they carried back to the classroom. When Zainab copied the slips into a notebook, she found two entries for Tuesday and none for Wednesday. One pupil suggested using the smaller Tuesday figure for Wednesday, since the two readings looked plausible. Zainab shook her head. “A blank has something to tell us,” she said, and marked Wednesday as unrecorded.\n\nShe replaced the loose slips with a single ruled sheet in a waterproof folder at the gate. Each date had room for one reading, the time and the reader’s initials. A pupil arriving after assembly would no longer make an entry for that morning without a note about the delay.\n\nAt the next meeting, a new member showed the club a chart with a gap. She had resisted the temptation to join the points on either side. The science teacher asked what could be concluded about the missing day. “Only that we did not measure it properly,” a pupil answered. The caretaker, who had come to collect the gate key, stopped beside the chart. “So the gap belongs on the wall too,” he said. Zainab handed him the tape.",
+      "stimulusId": "ndv-056-reading-1",
+      "taskGroupId": "ndv-056-group-1",
+      "groupItem": 4,
+      "groupSize": 6,
+      "answer": "The reader’s initials show who took a reading, so the club knows whom to ask about a doubtful entry.",
+      "explanation": "Identify a feature explicitly stated in the passage. Link that feature to a plausible way to check a reading.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify a feature explicitly stated in the passage."
+        },
+        {
+          "marks": 1,
+          "description": "Link that feature to a plausible way to check a reading."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference, evidence and language",
+      "learningObjective": "Read closely to recover explicit details, infer motives and interpret wording in context.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "id": "ndv-056-005",
+      "objectiveId": "neco-english-reading-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "comprehension",
+      "prompt": "Why did the new member leave a gap instead of joining the points on the chart?",
+      "passage": "The first time Zainab opened the courtyard gate, she could hardly see the rain gauge for the weeds. The gauge was a clear measuring cylinder mounted on a post, left behind by a science club that had graduated the previous year. She asked the caretaker whether the new club could use it. He offered to clear the whole courtyard. Zainab asked him to leave a strip of plants along the wall because younger pupils were using it to observe insects.\n\nFor a fortnight, members read the gauge before assembly. They wrote the readings on loose slips, which they carried back to the classroom. When Zainab copied the slips into a notebook, she found two entries for Tuesday and none for Wednesday. One pupil suggested using the smaller Tuesday figure for Wednesday, since the two readings looked plausible. Zainab shook her head. “A blank has something to tell us,” she said, and marked Wednesday as unrecorded.\n\nShe replaced the loose slips with a single ruled sheet in a waterproof folder at the gate. Each date had room for one reading, the time and the reader’s initials. A pupil arriving after assembly would no longer make an entry for that morning without a note about the delay.\n\nAt the next meeting, a new member showed the club a chart with a gap. She had resisted the temptation to join the points on either side. The science teacher asked what could be concluded about the missing day. “Only that we did not measure it properly,” a pupil answered. The caretaker, who had come to collect the gate key, stopped beside the chart. “So the gap belongs on the wall too,” he said. Zainab handed him the tape.",
+      "stimulusId": "ndv-056-reading-1",
+      "taskGroupId": "ndv-056-group-1",
+      "groupItem": 5,
+      "groupSize": 6,
+      "answer": "A connecting line could suggest the club knew how rainfall changed through an interval for which it lacked a reliable reading.",
+      "explanation": "Recognise that the gap represents a missing measurement. Explain how joining the points could imply an unsupported trend.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognise that the gap represents a missing measurement."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how joining the points could imply an unsupported trend."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Comprehension",
+      "subtopic": "Inference, evidence and language",
+      "learningObjective": "Read closely to recover explicit details, infer motives and interpret wording in context.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "id": "ndv-056-006",
+      "objectiveId": "neco-english-reading-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "comprehension",
+      "prompt": "Which action at the end suggests the caretaker agrees that missing information should be visible? Give one piece of evidence.",
+      "passage": "The first time Zainab opened the courtyard gate, she could hardly see the rain gauge for the weeds. The gauge was a clear measuring cylinder mounted on a post, left behind by a science club that had graduated the previous year. She asked the caretaker whether the new club could use it. He offered to clear the whole courtyard. Zainab asked him to leave a strip of plants along the wall because younger pupils were using it to observe insects.\n\nFor a fortnight, members read the gauge before assembly. They wrote the readings on loose slips, which they carried back to the classroom. When Zainab copied the slips into a notebook, she found two entries for Tuesday and none for Wednesday. One pupil suggested using the smaller Tuesday figure for Wednesday, since the two readings looked plausible. Zainab shook her head. “A blank has something to tell us,” she said, and marked Wednesday as unrecorded.\n\nShe replaced the loose slips with a single ruled sheet in a waterproof folder at the gate. Each date had room for one reading, the time and the reader’s initials. A pupil arriving after assembly would no longer make an entry for that morning without a note about the delay.\n\nAt the next meeting, a new member showed the club a chart with a gap. She had resisted the temptation to join the points on either side. The science teacher asked what could be concluded about the missing day. “Only that we did not measure it properly,” a pupil answered. The caretaker, who had come to collect the gate key, stopped beside the chart. “So the gap belongs on the wall too,” he said. Zainab handed him the tape.",
+      "stimulusId": "ndv-056-reading-1",
+      "taskGroupId": "ndv-056-group-1",
+      "groupItem": 6,
+      "groupSize": 6,
+      "answer": "He says the gap belongs on the wall, supporting display of the chart with its missing reading shown.",
+      "explanation": "Identify his suggestion that the gap be displayed. Link that suggestion to accepting an honest record.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify his suggestion that the gap be displayed."
+        },
+        {
+          "marks": 1,
+          "description": "Link that suggestion to accepting an honest record."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Summary",
+      "subtopic": "Selection and paraphrase",
+      "learningObjective": "Select distinct relevant main points and paraphrase them concisely in complete sentences.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "id": "ndv-056-007",
+      "objectiveId": "neco-english-reading-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "comprehension",
+      "prompt": "In three sentences, one point per sentence, summarise three benefits for residents described in the first two paragraphs.",
+      "passage": "A fictional neighbourhood repair club began by inviting residents to bring broken household objects on Saturday mornings. During its first month, volunteers noticed that some visitors returned repeatedly with the same kind of fault. The club began showing owners how to recognise loose fittings and other simple problems. People could then handle some minor repairs themselves instead of waiting for the next meeting.\n\nThe meetings also made it easier for residents to borrow a tool for a short job. A person who needed a screwdriver once did not have to buy one. Some owners who would otherwise have discarded a damaged object kept using it after a successful repair. The club kept a list of repaired items so it could explain this result without relying on the busiest volunteer’s memory.\n\nAs interest grew, the club faced a difficulty with its venue. The community hall was often booked for other activities, so meetings could not always take place when advertised. Finding someone with the right skill was another problem. Several volunteers knew how to mend torn fabric, for example, but few could inspect a damaged electrical appliance safely. The organisers referred risky cases to trained repairers.\n\nFinally, replacement parts were sometimes more expensive than visitors expected. Some people left with a diagnosis but postponed the repair because they could not pay for the part. The committee began to separate a completed repair from advice or a referral in its monthly figures.",
+      "stimulusId": "ndv-056-reading-2",
+      "taskGroupId": "ndv-056-group-2",
+      "groupItem": 1,
+      "groupSize": 2,
+      "answer": "Residents learned to fix some small faults themselves. They saved money by borrowing tools for occasional jobs. They continued using items they might otherwise have thrown away.",
+      "explanation": "Award one mark for learning to handle minor repairs. Award one mark for avoiding purchases through tool borrowing. Award one mark for keeping usable items out of the waste stream after repair. Award one mark for three concise complete sentences with distinct points and substantially original wording.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Award one mark for learning to handle minor repairs."
+        },
+        {
+          "marks": 1,
+          "description": "Award one mark for avoiding purchases through tool borrowing."
+        },
+        {
+          "marks": 1,
+          "description": "Award one mark for keeping usable items out of the waste stream after repair."
+        },
+        {
+          "marks": 1,
+          "description": "Award one mark for three concise complete sentences with distinct points and substantially original wording."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "English Language",
+      "topic": "Summary",
+      "subtopic": "Selection and paraphrase",
+      "learningObjective": "Select distinct relevant main points and paraphrase them concisely in complete sentences.",
+      "specificationId": "neco-english-reading-reference-2026",
+      "id": "ndv-056-008",
+      "objectiveId": "neco-english-reading-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "comprehension",
+      "prompt": "In three sentences, one point per sentence, summarise the three problems that made it harder for the club to provide repairs.",
+      "passage": "A fictional neighbourhood repair club began by inviting residents to bring broken household objects on Saturday mornings. During its first month, volunteers noticed that some visitors returned repeatedly with the same kind of fault. The club began showing owners how to recognise loose fittings and other simple problems. People could then handle some minor repairs themselves instead of waiting for the next meeting.\n\nThe meetings also made it easier for residents to borrow a tool for a short job. A person who needed a screwdriver once did not have to buy one. Some owners who would otherwise have discarded a damaged object kept using it after a successful repair. The club kept a list of repaired items so it could explain this result without relying on the busiest volunteer’s memory.\n\nAs interest grew, the club faced a difficulty with its venue. The community hall was often booked for other activities, so meetings could not always take place when advertised. Finding someone with the right skill was another problem. Several volunteers knew how to mend torn fabric, for example, but few could inspect a damaged electrical appliance safely. The organisers referred risky cases to trained repairers.\n\nFinally, replacement parts were sometimes more expensive than visitors expected. Some people left with a diagnosis but postponed the repair because they could not pay for the part. The committee began to separate a completed repair from advice or a referral in its monthly figures.",
+      "stimulusId": "ndv-056-reading-2",
+      "taskGroupId": "ndv-056-group-2",
+      "groupItem": 2,
+      "groupSize": 2,
+      "answer": "Other hall bookings disrupted meeting dates. The club lacked volunteers with some specialist skills. Some residents could not afford the replacement parts.",
+      "explanation": "Award one mark for venue clashes. Award one mark for shortages of suitable skills. Award one mark for unaffordable replacement parts. Award one mark for three concise complete sentences with distinct points and substantially original wording.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Award one mark for venue clashes."
+        },
+        {
+          "marks": 1,
+          "description": "Award one mark for shortages of suitable skills."
+        },
+        {
+          "marks": 1,
+          "description": "Award one mark for unaffordable replacement parts."
+        },
+        {
+          "marks": 1,
+          "description": "Award one mark for three concise complete sentences with distinct points and substantially original wording."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}
