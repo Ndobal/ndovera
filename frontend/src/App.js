@@ -41,6 +41,7 @@ import AppErrorBoundary from './shared/components/AppErrorBoundary';
 import Classroom from './app/Classroom';
 import Assignments from './app/Assignments';
 import Exams from './app/Exams';
+import { canBuildExams, examHomeFor } from './app/examAccess';
 import ExamCreator from './features/exams/ExamCreator';
 import AITutor from './app/AITutor';
 import Attendance from './app/Attendance';
@@ -350,8 +351,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/change-password" element={<ChangePasswordPage onLogin={onLogin} />} />
         <Route path="/classroom" element={<RequireAuth auth={auth}><RouteTransition><Classroom /></RouteTransition></RequireAuth>} />
         <Route path="/assignments" element={<RequireAuth auth={auth}><RouteTransition><Assignments /></RouteTransition></RequireAuth>} />
-        <Route path="/exams" element={<RequireAuth auth={auth}><RouteTransition><Exams /></RouteTransition></RequireAuth>} />
-        <Route path="/exams/create" element={<RequireAuth auth={auth}><RouteTransition><ExamCreator /></RouteTransition></RequireAuth>} />
+        <Route path="/exams" element={<RequireAuth auth={auth}>{examHomeFor(getAuthenticatedRole(auth)) === '/exams' ? <RouteTransition><Exams canCreate={canBuildExams(getAuthenticatedRole(auth))} /></RouteTransition> : <Navigate to={examHomeFor(getAuthenticatedRole(auth))} replace />}</RequireAuth>} />
+        <Route path="/exams/create" element={<RequireAuth auth={auth}>{canBuildExams(getAuthenticatedRole(auth)) ? <RouteTransition><ExamCreator /></RouteTransition> : <Navigate to={examHomeFor(getAuthenticatedRole(auth))} replace />}</RequireAuth>} />
         <Route path="/ai-tutor" element={<RequireAuth auth={auth}><RouteTransition><AITutor /></RouteTransition></RequireAuth>} />
         <Route path="/attendance" element={<RequireAuth auth={auth}><RouteTransition><Attendance /></RouteTransition></RequireAuth>} />
         <Route path="/rewards" element={<RequireAuth auth={auth}><RouteTransition><Rewards /></RouteTransition></RequireAuth>} />
