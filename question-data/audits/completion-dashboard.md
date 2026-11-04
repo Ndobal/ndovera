@@ -74,7 +74,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Civic Education | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Commerce | 1000 | 12 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Economics | 1000 | 21 | 20 | 0 | 980 | partial_objective_register |
-| NECO | English Language | 1000 | 9 | 8 | 0 | 992 | partial_objective_register |
+| NECO | English Language | 1000 | 25 | 24 | 0 | 976 | partial_objective_register |
 | NECO | Financial Accounting | 1000 | 21 | 20 | 0 | 980 | partial_objective_register |
 | NECO | Geography | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Government | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
@@ -183,13 +183,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 113 | 78 | 0 | 12000 | 11922 |
+| NECO | 129 | 94 | 0 | 12000 | 11906 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1224 | 425 | 0 | 42000 | 41575 |
 
-Overall: {"raw": 3004, "validDrafts": 1325, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3020, "validDrafts": 1341, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

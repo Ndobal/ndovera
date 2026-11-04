@@ -291,3 +291,8 @@ two summary tasks across two original passages. The NECO timetable
 verifies Paper II essay. Historical WAEC examiner feedback provides
 provisional reading skill references. The rubric is for practice.
 Official NECO section specifications and oral tasks remain open.
+
+Batch 057 adds sixteen NECO English Language objective drafts covering
+grammatical structure and vocabulary in context. The NECO timetable
+verifies Paper III objective. Historical WAEC feedback informs provisional
+skill mapping. Four options are an author practice choice.

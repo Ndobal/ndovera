@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_056_automated_validation_passed",
+  "phase": "batch_057_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-057.json",
+  "nextBatch": "original-multisubject-batch-058.json",
   "nextPriorities": [
-    "Verify appropriate topic references for NECO English Language composition or objective practice. Oral practice requiring audio remains open.",
+    "Verify senior-secondary topic evidence to open NECO Biology. Keep objective and essay practice distinct from practical tasks. NECO English Language composition and oral practice remain open.",
     "Continue WAEC prescribed Literature beyond Shakespeare: verify editions, permissions and primary-text evidence for poetry/prose/drama theory. Antony and Cleopatra now has 25 WAEC context drafts and 25 provisional JAMB practice drafts; each act represented is not whole-play coverage. Verify current official JAMB set-text adoption independently.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-056.json",
-  "lastRemoteVerifiedCommit": "2197c42bb7618b7e12b900fe3e628c59c287326b",
+  "lastValidatedBatch": "original-multisubject-batch-057.json",
+  "lastRemoteVerifiedCommit": "0e0b6148a2e6b3f407e78fbbd7204ff8f91fc588",
   "verifiedTotals": {
-    "raw": 3004,
-    "validDrafts": 1325,
+    "raw": 3020,
+    "validDrafts": 1341,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-056.json",
+  "lastPopulatedBatch": "original-multisubject-batch-057.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3004
+  "inventoryRaw": 3020
 }
