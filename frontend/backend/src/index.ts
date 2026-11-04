@@ -433,6 +433,7 @@ import { createPayLink, PAY_LINK_DAYS, PayLinkError, readPayLink, rememberPayLin
 import { cleanDomain, freeStudentEmail, moveRecordsToEmail, saveSchoolDomain, schoolDomainSetting, studentEmailDomain } from './studentEmails'
 import { checkInviteForm, claimInvite, countFailedTry, createInvite, InviteError, INVITE_DAYS, MAX_CHILDREN, readInvite, releaseInvite } from './parentInvites'
 import { aiLimits, AiLimitsError, saveAiLimits } from './aiLimits'
+import { newQuestionsReport } from './newQuestionsReport'
 import { CHILD_NAME_USED, childNameChange, takeChildNameChange } from './childNameChanges'
 import { addExamTopics, CustomExamError, createCustomExam, linkRequestToExam, listCustomExams, loadCustomExams, promoteReadyExams, updateCustomExam } from './customExams'
 import { answerExamRequest, checkCurriculumFile, createExamRequest, examRequestFile, ExamRequestError, listExamRequests, listMyExamRequests, PRIVATE_PREFIX } from './examRequests'
@@ -440,7 +441,7 @@ import { COUNTRY_PRESETS, chargeFor, countryForTenant, DEFAULT_COUNTRY, DEFAULT_
 import { cancelCodeBatch, createCodeBatch, listCodeBatches, readCodeBatch, redeemCode } from './passCodes'
 import { listReviews, listShowcaseSchools, myReview, publicShowcase, saveMyReview, setReviewStatus, setSchoolHidden, ShowcaseError } from './homeShowcase'
 import type { ExamKey } from './practicePasses'
-import { builderOverview, inBuildWindow, runBuilderTick, saveBuildSettings } from './practiceBuilder'
+import { builderOverview, inBuildWindow, runBuilderTick, clearBuildFocus, saveBuildSettings, setBuildFocus } from './practiceBuilder'
 import { deleteMockPaper, getMockPaper, importMockObjectives, listMockPapers, markMockPaper, mockPaperForStudent, parseMockPaper, readMockPaperPart, saveMockPaper, setMockPaperDiagram, setMockPaperStatus } from './mockPapers'
 import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts, subjectCanonicalizer } from './practiceBank'
 import { checkQuestionSubjects, reportQuestionSubject, takeNightBatch } from './subjectCheck'
@@ -18028,11 +18029,31 @@ app.get('/api/ami/practice/builder', authenticate, async (c) => {
   } catch (error) { return practiceFailure(c, error, 'Could not load the builder.') }
 })
 
+app.get('/api/ami/practice/new-questions', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, ...(await newQuestionsReport(c.env.APP_DB, Number(c.req.query('days')))) })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the report.') }
+})
+
 app.put('/api/ami/practice/builder', authenticate, async (c) => {
   try {
     requireAmi(c)
     return c.json({ success: true, settings: await saveBuildSettings(c.env.APP_DB, await c.req.json().catch(() => ({}))) })
   } catch (error) { return practiceFailure(c, error, 'Could not save the builder settings.') }
+})
+
+/** Ami: write for one exam or class first, or stop doing that. */
+app.post('/api/ami/practice/builder/focus', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    if (body.clear) {
+      await clearBuildFocus(c.env.APP_DB)
+      return c.json({ success: true })
+    }
+    return c.json({ success: true, ...(await setBuildFocus(c.env.APP_DB, body)) })
+  } catch (error) { return practiceFailure(c, error, 'Could not set the focus.') }
 })
 
 /** Ami: run one builder step now (outside the night window), e.g. to check it works. */

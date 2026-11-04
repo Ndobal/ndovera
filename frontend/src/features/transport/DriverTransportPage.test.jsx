@@ -48,7 +48,8 @@ test('the driver navigates to a home, or to the next children still to collect',
   ];
   openDriverRun.mockResolvedValue({ run: { id: 'run1', direction: 'morning', tripNo: 1 }, boarded: [], riders: withHomes });
   render(<DriverTransportPage />);
-  fireEvent.click(await screen.findByRole('button', { name: /Start morning run/ }));
+  fireEvent.click(await screen.findByRole('button', { name: /Morning/ }));
+  fireEvent.click(screen.getByRole('button', { name: /Start morning run/ }));
   const links = await screen.findAllByRole('link', { name: /Navigate/ });
   expect(links).toHaveLength(2);
   expect(links[0].getAttribute('href')).toContain('destination=8.98%2C7.38');

@@ -56,6 +56,8 @@ import ParentInvitePanel, { StudentEmailDomain } from '../../features/school/com
 import { getParentInvite, getStudentEmailDomain } from '../../features/school/services/schoolApi';
 import ExamRequestPage from '../../features/showcase/ExamRequestPage';
 import AmiExamRequests from '../../app/roles/ami/AmiExamRequests';
+import AmiBuilderControls from '../../app/roles/ami/AmiBuilderControls';
+import AmiNewQuestionsReport from '../../app/roles/ami/AmiNewQuestionsReport';
 import ChildNameChange from '../../app/roles/parent/ChildNameChange';
 import * as showcaseApi from '../../features/showcase/showcaseApi';
 import * as transportApi from '../../features/transport/transportApi';
@@ -587,6 +589,20 @@ describe('reviews, home strips, pass codes and country prices', () => {
     jest.spyOn(showcaseApi, 'getCustomExams').mockResolvedValue({ exams: [{ key: 'x_kcse', label: 'KCSE', country: 'KE', status: 'building', priceNaira: 3000, minStock: 150, ready: 40, stillNeeds: [{ subject: 'english', ready: 3, needed: 30 }], subjects: [{ subject: 'English', topics: 12, status: 'published' }] }] });
     await inBothModes(() => <AmiExamRequests />, 'Algebra and geometry topics');
   });
+  test('Ami pausing and focusing the night job', async () => {
+    const choices = { examChoices: [{ key: 'waec', label: 'WAEC (WASSCE)' }], levelChoices: [{ rank: 8, label: 'JSS 2' }], onChanged: () => null };
+    await inBothModes(() => <AmiBuilderControls settings={{ paused: false, focus: null }} {...choices} />, 'Start the focus');
+    await inBothModes(() => <AmiBuilderControls settings={{ paused: true, focus: { label: 'WAEC (WASSCE), English' } }} focusProgress={{ items: 3, target: 120, made: 16 }} {...choices} />, /Focused on WAEC/);
+  });
+  test('Ami reading new questions by subject', async () => {
+    jest.spyOn(showcaseApi, 'getNewQuestionsReport').mockResolvedValue({ days: 7, total: 40, capped: true, subjects: [{ key: 'english', name: 'English', total: 40, checked: 12, waiting: 28, forExams: 8 }] });
+    const { container, unmount } = render(<AmiNewQuestionsReport />);
+    expectReadable(container, 'The report before it is asked for');
+    fireEvent.click(screen.getByRole('button', { name: 'Show report' }));
+    await screen.findByRole('rowheader', { name: 'English' });
+    expectReadable(container, 'New questions by subject');
+    unmount();
+  });
   test('a parent correcting a child name once', async () => {
     const schoolApi = require('../../features/school/services/schoolApi');
     schoolApi.getChildNameChange.mockResolvedValue({ change: null });
@@ -606,7 +622,7 @@ describe('reviews, home strips, pass codes and country prices', () => {
     for (const dark of [false, true]) {
       document.documentElement.classList.toggle('dark', dark);
       const { container, unmount } = render(<DriverTransportPage />);
-      fireEvent.click(await screen.findByRole('button', { name: /Start morning run/ }));
+      fireEvent.click(await screen.findByRole('button', { name: /Start (morning|afternoon) run/ }));
       await screen.findByRole('link', { name: /Navigate/ });
       expect(describeProblems(findContrastProblems(container))).toEqual('');
       unmount();

@@ -23,11 +23,11 @@
 
 import { ensureCurriculumTables } from './curriculumLibrary'
 import { buildingExamKeys, loadCustomExams } from './customExams'
-import { LEVEL_NAME_SQL, levelOf, subjectKeyOf } from './levels'
+import { LEVEL_NAME_SQL, labelOfRank, levelOf, subjectKeyOf } from './levels'
 import { bankType, ensurePracticeTables, normalizeText } from './practiceArena'
 import { writeQuestions } from './practiceBank'
 import type { AiRunner } from './practiceBank'
-import { EXAMS, addExamStock, normalizeExam } from './practicePasses'
+import { EXAMS, EXAM_KEYS, PassError, addExamStock, normalizeExam } from './practicePasses'
 import type { ExamKey } from './practicePasses'
 
 export const EXAM_TOPIC_TARGET = 40
@@ -85,10 +85,14 @@ async function setState(db: D1Database, key: string, value: string) {
   await db.prepare(`INSERT INTO practice_build_state (key, value, updated_at) VALUES (?, ?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`).bind(key, value, now()).run()
 }
 
+export type BuildFocus = { exam: string, rank: number | null, subjectKey: string, label: string }
+
 export async function getBuildSettings(db: D1Database) {
   await ensureBuilderTables(db)
   const saved = parse<Record<string, any>>(await getState(db, 'settings'), {})
   return {
+    paused: saved.paused === true,
+    focus: (saved.focus || null) as BuildFocus | null,
     batchesPerNight: Math.max(0, Math.min(5000, Number(saved.batchesPerNight ?? DEFAULT_BUILD_SETTINGS.batchesPerNight) || 0)),
     reviewEvery: Math.max(2, Math.min(10, Number(saved.reviewEvery ?? DEFAULT_BUILD_SETTINGS.reviewEvery) || DEFAULT_BUILD_SETTINGS.reviewEvery)),
   }
@@ -97,6 +101,8 @@ export async function getBuildSettings(db: D1Database) {
 export async function saveBuildSettings(db: D1Database, input: Record<string, any>) {
   const current = await getBuildSettings(db)
   const next = {
+    paused: typeof input.paused === 'boolean' ? input.paused : current.paused,
+    focus: current.focus,
     batchesPerNight: Math.max(0, Math.min(5000, Math.floor(Number(input.batchesPerNight ?? current.batchesPerNight)) || 0)),
     reviewEvery: Math.max(2, Math.min(10, Math.floor(Number(input.reviewEvery ?? current.reviewEvery)) || current.reviewEvery)),
   }
@@ -203,8 +209,52 @@ async function contextFor(db: D1Database, ref: string) {
 
 // ─── Building: one batch for the least-served source ─────────────────────────
 
-/** Examinations and class practice take turns, so one long queue cannot keep the others waiting. */
-async function nextQueueItem(db: D1Database) {
+// A focus moves matching topics to the front by making their priority negative (-1 - priority, which also undoes itself).
+// The queue's index then finds the next one in a single row, with no new index, and at most FOCUS_BATCH topics are moved at a time.
+const FOCUS_BATCH = 2000
+const FOCUS_NEXT = `SELECT * FROM practice_build_queue WHERE status = 'pending' AND priority < 0 ORDER BY priority, made, updated_at LIMIT 1`
+
+async function markFocus(db: D1Database, focus: BuildFocus) {
+  const match = focus.exam ? 'exam = ?' : 'exam IS NULL AND level_rank = ?'
+  const done = await db.prepare(`UPDATE practice_build_queue SET priority = -1 - priority WHERE id IN (SELECT id FROM practice_build_queue WHERE status = 'pending' AND priority >= 0 AND ${match}${focus.subjectKey ? ' AND subject_key = ?' : ''} LIMIT ${FOCUS_BATCH})`)
+    .bind(...[focus.exam || focus.rank, ...(focus.subjectKey ? [focus.subjectKey] : [])]).run()
+  return Number((done as any)?.meta?.changes || 0)
+}
+
+export async function clearBuildFocus(db: D1Database) {
+  const current = await getBuildSettings(db)
+  await db.prepare(`UPDATE practice_build_queue SET priority = -1 - priority WHERE status = 'pending' AND priority < 0`).run()
+  await setState(db, 'settings', JSON.stringify({ ...current, focus: null }))
+}
+
+export async function setBuildFocus(db: D1Database, input: Record<string, any>) {
+  await ensureBuilderTables(db)
+  await loadCustomExams(db)
+  const exam = input.exam ? normalizeExam(input.exam) : ''
+  const rank = !exam && input.rank !== undefined && input.rank !== null && input.rank !== '' ? Number(input.rank) : null
+  if (input.exam && !exam) throw new PassError('That exam was not found.')
+  if (!exam && (rank === null || !Number.isInteger(rank) || rank < 1 || rank > 12)) throw new PassError('Choose an exam or a class.')
+  const subjectKey = subjectKeyOf(input.subject)
+  const name = exam ? EXAMS[exam].label : labelOfRank(rank as number)
+  const focus: BuildFocus = { exam, rank, subjectKey, label: subjectKey ? `${name}, ${String(input.subject).trim()}` : name }
+  await clearBuildFocus(db)
+  // Anything published today is in the queue before looking for it.
+  await planSources(db)
+  const marked = await markFocus(db, focus)
+  if (!marked) throw new PassError(`Nothing is waiting to be written for ${focus.label}. Publish its syllabus or curriculum first, or choose something else.`)
+  const current = await getBuildSettings(db)
+  await setState(db, 'settings', JSON.stringify({ ...current, focus }))
+  return { focus, marked }
+}
+
+/** Examinations and class practice take turns, so one long queue cannot keep the others waiting. A focus goes first. */
+export async function nextQueueItem(db: D1Database, focus: BuildFocus | null = null) {
+  if (focus) {
+    const item = await db.prepare(FOCUS_NEXT).first() as Record<string, any> | null
+    if (item) return item
+    if (await markFocus(db, focus)) return await db.prepare(FOCUS_NEXT).first() as Record<string, any> | null
+    await clearBuildFocus(db)
+  }
   await loadCustomExams(db)
   const groups = buildGroups()
   const start = Math.max(0, groups.indexOf(await getState(db, 'next_group')))
@@ -221,9 +271,9 @@ async function nextQueueItem(db: D1Database) {
   return null
 }
 
-export async function buildOne(db: D1Database, runAi: AiRunner) {
+export async function buildOne(db: D1Database, runAi: AiRunner, focus: BuildFocus | null = null) {
   await ensureBuilderTables(db)
-  const item = await nextQueueItem(db)
+  const item = await nextQueueItem(db, focus)
   if (!item) return null
   const remaining = Number(item.target) - Number(item.made)
   let added = 0
@@ -271,11 +321,17 @@ async function hashOf(type: string, prompt: string, options: string[]) {
   return Array.from(new Uint8Array(digest)).map(value => value.toString(16).padStart(2, '0')).join('')
 }
 
-export async function reviewSome(db: D1Database, runAi: AiRunner, limit = REVIEW_BATCH) {
+export async function reviewSome(db: D1Database, runAi: AiRunner, limit = REVIEW_BATCH, focus: { exam: string, subjectKey: string, only: boolean } | null = null) {
   await ensureBuilderTables(db)
+  let rows: Record<string, any>[] = []
+  if (focus?.exam) {
+    rows = ((await db.prepare(`SELECT * FROM question_bank WHERE quality IS NULL AND exam = ? AND playable = 1${focus.subjectKey ? ' AND subject_key = ?' : ''} LIMIT ?`).bind(...[focus.exam, ...(focus.subjectKey ? [focus.subjectKey] : []), limit]).all()).results || []) as Record<string, any>[]
+    // On a writing night, a step with nothing of the focus to check goes to writing for it.
+    if (!rows.length && focus.only) return { reviewed: 0, upgraded: 0, rejected: 0 }
+  }
   // Examination questions first (they are sold), then everything objective.
-  let rows = ((await db.prepare(`SELECT * FROM question_bank WHERE quality IS NULL AND exam IS NOT NULL AND exam != '' AND playable = 1 LIMIT ?`).bind(limit).all()).results || []) as Record<string, any>[]
-  if (rows.length < limit) {
+  if (!rows.length) rows = ((await db.prepare(`SELECT * FROM question_bank WHERE quality IS NULL AND exam IS NOT NULL AND exam != '' AND playable = 1 LIMIT ?`).bind(limit).all()).results || []) as Record<string, any>[]
+  if (rows.length < limit && !focus?.exam) {
     const more = ((await db.prepare(`SELECT * FROM question_bank WHERE quality IS NULL AND playable = 1 AND type IN ('mcq', 'truefalse') AND (exam IS NULL OR exam = '') LIMIT ?`).bind(limit - rows.length).all()).results || []) as Record<string, any>[]
     rows = [...rows, ...more]
   }
@@ -352,12 +408,13 @@ export async function runBuilderTick(db: D1Database, runAi: AiRunner, options: {
   if (!options.force && !inBuildWindow(at)) return { skipped: 'outside the night window' }
   await ensureBuilderTables(db)
   const day = lagos(at).toISOString().slice(0, 10)
+  const settings = await getBuildSettings(db)
+  if (!options.force && settings.paused) return { skipped: 'Ami has paused the night job' }
   if (!options.force && (await getState(db, 'paused_day')) === day) return { skipped: 'the AI allowance is spent for tonight' }
   if ((await getState(db, 'planned')) !== day || options.force) {
     const plan = await planSources(db)
     if (plan.caughtUp) await setState(db, 'planned', day)
   }
-  const settings = await getBuildSettings(db)
   const stats = await nightStats(db, day)
   if (!options.force && stats.steps >= Math.min(settings.batchesPerNight, options.stepLimit ?? NIGHT_STEP_LIMIT)) return { skipped: 'tonight\'s budget is used', stats }
   const writing = Boolean(options.force) || WRITE_DAYS.includes(lagos(at).getUTCDay())
@@ -366,10 +423,11 @@ export async function runBuilderTick(db: D1Database, runAi: AiRunner, options: {
   let reviewed = { reviewed: 0, upgraded: 0, rejected: 0 }
   let failed = 0
   if (review) {
-    try { reviewed = await reviewSome(db, runAi) } catch (error) { failed = 1; console.error('Practice review failed', error) }
+    const checkFocus = settings.focus?.exam ? { exam: settings.focus.exam, subjectKey: settings.focus.subjectKey, only: writing } : null
+    try { reviewed = await reviewSome(db, runAi, undefined, checkFocus) } catch (error) { failed = 1; console.error('Practice review failed', error) }
   }
   if (writing && (!review || (!reviewed.reviewed && !failed))) {
-    const built = await buildOne(db, runAi)
+    const built = await buildOne(db, runAi, settings.focus)
     added = built?.added || 0
     if (built?.failed) failed = 1
     if (!built && !review) {
@@ -405,13 +463,19 @@ async function queueSummary(db: D1Database) {
 /** For Ami: the queue by source and status, tonight and the last nights. */
 export async function builderOverview(db: D1Database) {
   await ensureBuilderTables(db)
+  await loadCustomExams(db)
+  const settings = await getBuildSettings(db)
+  const focusProgress = settings.focus ? await db.prepare(`SELECT COUNT(*) AS items, COALESCE(SUM(target), 0) AS target, COALESCE(SUM(made), 0) AS made FROM practice_build_queue WHERE status = 'pending' AND priority < 0`).first() as Record<string, any> | null : null
   const [queue, nights, unchecked] = await Promise.all([
     queueSummary(db),
     db.prepare(`SELECT * FROM practice_build_nights ORDER BY day DESC LIMIT 14`).all(),
     db.prepare(`SELECT COUNT(*) AS n FROM question_bank WHERE quality IS NULL AND playable = 1 AND type IN ('mcq', 'truefalse')`).first(),
   ])
   return {
-    settings: await getBuildSettings(db), queue, nights: nights.results || [], unchecked: Number((unchecked as any)?.n || 0),
+    settings, focusProgress: focusProgress ? { items: Number(focusProgress.items), target: Number(focusProgress.target), made: Number(focusProgress.made) } : null,
+    examChoices: EXAM_KEYS.filter(key => !EXAMS[key].paused).map(key => ({ key, label: EXAMS[key].label })),
+    levelChoices: Array.from({ length: 12 }, (_, index) => ({ rank: index + 1, label: labelOfRank(index + 1) })),
+    queue, nights: nights.results || [], unchecked: Number((unchecked as any)?.n || 0),
     window: 'Writes questions on Sunday and Wednesday, checks them every night, 00:00–00:59 (Lagos)',
   }
 }

@@ -15,6 +15,9 @@ async function request(path, { method = 'GET', body } = {}) {
   return data;
 }
 
+export const saveBuilderSettings = body => request('/api/ami/practice/builder', { method: 'PUT', body });
+export const saveBuilderFocus = body => request('/api/ami/practice/builder/focus', { method: 'POST', body });
+export const getNewQuestionsReport = days => request(`/api/ami/practice/new-questions?days=${encodeURIComponent(days)}`);
 export const getAiLimits = () => request('/api/ami/ai-limits');
 export const saveAiLimits = body => request('/api/ami/ai-limits', { method: 'PUT', body });
 export const getCustomExams = () => request('/api/ami/custom-exams');

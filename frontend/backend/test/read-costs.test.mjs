@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { D1Shim } from './d1-shim.mjs'
+import { newQuestionsReport } from './build/requestedExams.mjs'
 
 // The Workers Free plan stops all database queries at 5M rows read a day. These are the heaviest
 // everyday reads found on production (Nov 2026): each must use its index, not walk a table.
@@ -68,4 +69,29 @@ test('a class\'s attendance comes from an index, already in date order', () => {
 test('the night builder pages through curriculum topics without sorting them all', () => {
   const steps = plan(database(), `SELECT ct.id FROM curriculum_topics ct JOIN curricula c ON c.id = ct.curriculum_id WHERE c.status = 'published' AND (ct.updated_at > '' OR (ct.updated_at = '' AND ct.id > '')) ORDER BY ct.updated_at, ct.id LIMIT 100`)
   assert.doesNotMatch(steps, /TEMP B-TREE/)
+})
+
+test('new questions by subject reads only the new rows, with no index or summary to keep', async () => {
+  const db = new D1Shim()
+  const at = new Date('2026-11-04T12:00:00Z')
+  await newQuestionsReport(db, 7, at)
+  const add = (id, subject, createdAt, quality, exam) => db.db.prepare(`INSERT INTO question_bank (id, tenant_id, subject, subject_key, type, prompt, normalized_prompt, question_hash, quality, playable, exam, created_at, updated_at) VALUES (?, 't', ?, ?, 'mcq', 'p', 'p', ?, ?, 1, ?, ?, ?)`).run(id, subject, subject.toLowerCase(), id, quality, exam, createdAt, createdAt)
+  for (let index = 0; index < 500; index += 1) add(`old${index}`, 'Physics', '2026-01-01T00:00:00.000Z', 'ok', null)
+  add('n1', 'English', '2026-11-01T00:00:00.000Z', 'ok', 'waec')
+  add('n2', 'English', '2026-11-02T00:00:00.000Z', null, null)
+  add('n3', 'Biology', '2026-11-03T00:00:00.000Z', 'upgraded', null)
+
+  const seen = []
+  const prepare = db.prepare.bind(db)
+  db.prepare = sql => { seen.push(sql); return prepare(sql) }
+  const report = await newQuestionsReport(db, 7, at)
+  assert.equal(report.total, 3)
+  assert.deepEqual(report.subjects[0], { key: 'english', name: 'English', total: 2, checked: 1, waiting: 1, forExams: 1 })
+  assert.equal(report.subjects[1].name, 'Biology')
+  assert.ok(!report.subjects.some(item => item.name === 'Physics'), 'old questions are not counted')
+  assert.ok(seen.filter(sql => /WHERE rowid >= \? ORDER BY rowid LIMIT 1/.test(sql)).length <= 12, 'the search takes a few one-row reads')
+
+  const plan = db.db.prepare(`EXPLAIN QUERY PLAN SELECT subject_key FROM question_bank WHERE rowid >= 1 AND created_at >= 'x' ORDER BY rowid LIMIT 50000`).all().map(row => row.detail).join(' ')
+  assert.match(plan, /SEARCH question_bank USING INTEGER PRIMARY KEY \(rowid>\?\)/, plan)
+  assert.equal((await newQuestionsReport(db, 1, at)).total, 0)
 })

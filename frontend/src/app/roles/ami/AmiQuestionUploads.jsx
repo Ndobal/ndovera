@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
+import AmiBuilderControls from './AmiBuilderControls';
+import AmiNewQuestionsReport from './AmiNewQuestionsReport';
 import { getApiBase } from '../../../config/apiBase';
 
 // Ndovera's question bank from documents: Ami uploads a PDF, Word or text file of
@@ -75,6 +77,7 @@ function NightBuilder({ surface, label, body, input, primary }) {
         <button type="button" className={primary} onClick={async () => { try { await call('/api/ami/practice/builder', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ batchesPerNight: Number(budget) }) }); setMessage('Saved.'); load(); } catch (error) { setMessage(error.message); } }}>Save</button>
         <span className={`${body} text-xs`}>The night's work stops at 12 steps however high this is set, to protect the daily AI allowance. To change that limit, change AI_NIGHT_STEP_LIMIT.</span>
       </div>
+      <AmiBuilderControls settings={data.settings} focusProgress={data.focusProgress} examChoices={data.examChoices} levelChoices={data.levelChoices} onChanged={load} />
       {message ? <p role="status" className={`${body} mt-2 text-sm font-semibold`}>{message}</p> : null}
     </section>
   );
@@ -207,6 +210,7 @@ export default function AmiQuestionUploads({ surface, label, input, primary, bod
       ) : null}
 
       <NightBuilder surface={surface} label={label} body={body} input={input} primary={primary} />
+      <AmiNewQuestionsReport />
     </div>
   );
 }
