@@ -178,6 +178,7 @@ test('the harvester fills the bank from teachers\' work; practice follows the cl
   const maths2 = home2.body.subjects.find(subject => subject.key === 'mathematics')
   // JSS 2 sees JSS 1 work (3), not JSS 3's, not the open homework, not the exam, not Primary.
   assert.equal(maths2.questions, 3)
+  await call(db, 'jss2', 'POST', '/api/practice-arena/free-subject', { subject: 'mathematics' }, noAi)
   const pack2 = await call(db, 'jss2', 'GET', '/api/practice-arena/pack?subject=mathematics', null, noAi)
   assert.equal(pack2.status, 200, JSON.stringify(pack2.body))
   const prompts2 = pack2.body.pack.questions.map(question => question.prompt)
@@ -260,6 +261,7 @@ test('a quiz is marked again on the server, counted once, and earns XP, streaks 
   await seedTeachersWork(db)
   const env = { AI: fakeModel({ keys: 0, generate: 0, other: 0 }) }
   for (let i = 0; i < 3; i += 1) await cronTick(db, env)
+  await call(db, 'jss3', 'POST', '/api/practice-arena/free-subject', { subject: 'mathematics' })
   const pack = (await call(db, 'jss3', 'GET', '/api/practice-arena/pack?subject=mathematics')).body.pack
   const answers = pack.questions.map(question => ({
     questionId: question.id,

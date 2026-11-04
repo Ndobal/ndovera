@@ -140,6 +140,7 @@
     for(var i=0;i<sections.length;i++)(function(name){button(name==='stream'?'Class updates':name.charAt(0).toUpperCase()+name.slice(1),function(){classPage(item,name);},nav);}(sections[i]));
     button('Save this class for offline',function(){saveClass(item);},nav);
     if(isTeaching()){var tools=node('div',null,app);tools.className='tools';if(section==='materials')button('Upload material',function(){uploadPage(item);},tools);if(section==='stream')button('Post an update',function(){postPage(item);},tools);if(section==='assignments')button('New assignment',function(){newAssignmentPage(item);},tools);button('Take attendance',function(){markRegister(item);},tools);}
+    if(isRole('student')&&section==='stream'){var mine=node('div',null,app);mine.className='tools';button('Post an update',function(){postPage(item);},mine);}
     var status=message('Loading…');load('/api/classrooms/'+encodeURIComponent(item.id)+'/'+section,'class:'+item.id+':'+section,function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);
       var items=data[section==='stream'?'posts':section]||[];
       if(data.academicContext){var context=data.academicContext;node('p',[context.sessionName,context.termName].filter(function(x){return !!x;}).join(' · '),app);}
@@ -549,9 +550,9 @@
 
   /* ─── Practice: the same questions and passes as the main app ─── */
   function practicePage(){
-    header('Practice');var status=message('Loading…');load('/api/practice-arena/home','practice',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var subjects=asList(data.subjects),levels=asList(data.levels);
-      var left=data.passes&&data.passes.freeLeftToday;if(left!==undefined&&left!==null){var note=card('');note.className='card sky';node('p','Free questions left today: '+left+'. A pass gives as many as you like.',note);}
-      if(!subjects.length){message('Your class has no subjects yet.');return;}var form=node('form',null,app);form.className='card';
+    header('Practice');var status=message('Loading…');load('/api/practice-arena/home','practice',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var all=asList(data.subjects),levels=asList(data.levels),subjects=[],choosable=[],free=data.passes&&data.passes.freeSubject;for(var a=0;a<all.length;a++){if(all[a].questions===0)continue;if(all[a].access==='locked')choosable.push(all[a]);else subjects.push(all[a]);}
+      if(choosable.length&&!free){var pick=card('Choose your free subject');pick.className='card sky';node('p','You get one subject free this term, in full. You cannot change it until next term. Every other subject needs a pass.',pick);var fl=node('label','Subject',pick),fs=node('select',null,pick);fs.id='lite-free-subject';fl.htmlFor=fs.id;for(var c=0;c<choosable.length;c++){var co=node('option',choosable[c].name,fs);co.value=choosable[c].key;}var fb=button('Make this my free subject',function(){fb.disabled=true;request('POST','/api/practice-arena/free-subject',{subject:fs.value},function(fe){fb.disabled=false;if(fe){message(fe.message,true,pick);return;}practicePage();});},pick);}
+      if(!subjects.length){if(!choosable.length)message('Your class has no subjects with questions yet.');button('Practice passes',passesPage);return;}var form=node('form',null,app);form.className='card';
       var sl=node('label','Subject',form),subject=node('select',null,form);subject.id='lite-pr-subject';sl.htmlFor=subject.id;for(var i=0;i<subjects.length;i++){var o=node('option',subjects[i].name,subject);o.value=i;}
       var ll=node('label','Level',form),level=node('select',null,form);level.id='lite-pr-level';ll.htmlFor=level.id;for(var j=0;j<levels.length;j++){var p=node('option',levels[j].label,level);p.value=j;}
       var go=node('button','Start practising',form);go.type='submit';button('Practice passes',passesPage);

@@ -95,3 +95,14 @@ test('new questions by subject reads only the new rows, with no index or summary
   assert.match(plan, /SEARCH question_bank USING INTEGER PRIMARY KEY \(rowid>\?\)/, plan)
   assert.equal((await newQuestionsReport(db, 1, at)).total, 0)
 })
+
+test('a question that lost its numbers is never served; a complete one is', async () => {
+  const { questionIsIncomplete, toPlayable } = await import('./build/requestedExams.mjs')
+  for (const prompt of ['Find the missing number.', 'Find the missing number.\n\n****', 'Study the table below and answer.', 'What is shown in the diagram?', 'Complete the pattern shown below.']) assert.equal(questionIsIncomplete(prompt), true, prompt)
+  for (const prompt of ['Find the missing number.\n\n**5 + **?** = 9**', 'Complete the number pattern.\n\n| 3 | **?** | 7 |\n| --- | --- | --- |', 'Which of the following is a noun?', 'Find the missing numerator. $$\\frac{a}{b}$$', 'The mean of five values is 8. Find the missing value.']) assert.equal(questionIsIncomplete(prompt), false, prompt)
+  assert.equal(questionIsIncomplete('Study the diagram below.', { imageUrl: 'https://x/y.png' }), false)
+  assert.equal(questionIsIncomplete('Study the table below.', { passage: 'A table' }), false)
+  const row = { id: 'q', type: 'mcq', options_json: '["1","2"]', answer_json: '"1"', tenant_id: 't' }
+  assert.equal(toPlayable({ ...row, prompt: 'Find the missing number.' }), null)
+  assert.ok(toPlayable({ ...row, prompt: 'Find the missing number: 1 + ? = 2' }))
+})

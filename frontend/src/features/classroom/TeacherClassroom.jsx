@@ -564,7 +564,7 @@ export default function TeacherClassroom({
       return {
         ...matchedMember,
         name: matchedMember.name || matchedMember.email || matchedMember.id || 'Class User',
-        role: formatRoleLabel(matchedMember.role || (post?.isStudentPost ? 'student' : 'teacher')),
+        role: post?.postedByLabel || formatRoleLabel(post?.authorRole || matchedMember.role || (post?.isStudentPost ? 'student' : '')),
         className: matchedMember.className || classroomLabel,
         status: matchedMember.status || 'Active',
         isSelf: false,
@@ -572,7 +572,7 @@ export default function TeacherClassroom({
     }
 
     const fallbackName = [post?.authorName, post?.author]
-      .find(value => value && !looksLikeEmail(value)) || (post?.isStudentPost ? 'Student' : 'Teacher');
+      .find(value => value && !looksLikeEmail(value)) || (post?.isStudentPost ? 'Student' : 'Class User');
     const fallbackEmail = [post?.author, post?.authorId].find(looksLikeEmail) || '';
 
     return {
@@ -580,7 +580,7 @@ export default function TeacherClassroom({
       name: String(fallbackName || 'Class User'),
       email: String(fallbackEmail),
       displayId: String(post?.displayId || ''),
-      role: post?.postedByLabel || formatRoleLabel(post?.authorRole || (post?.isStudentPost ? 'student' : 'teacher')),
+      role: post?.postedByLabel || formatRoleLabel(post?.authorRole || (post?.isStudentPost ? 'student' : '')),
       className: classroomLabel,
       status: 'Active',
       isSelf: false,

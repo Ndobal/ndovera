@@ -186,7 +186,7 @@ function AITutor() {
         description="Live AI quota, wallet, and payment control for individual billing or school-sponsored access."
         live
         chips={[
-          { label: '10 Free Daily (students) · 3 (staff)', accent: 'accent-emerald' },
+          { label: 'Free Daily Allowance', accent: 'accent-emerald' },
           { label: 'Credits', accent: 'accent-amber' },
           { label: 'School Or Individual', accent: 'accent-indigo' },
         ]}
@@ -229,7 +229,7 @@ function AITutor() {
             <div className="rounded-3xl border border-[#800000]/10 bg-white/55 p-5 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Individual Billing</p>
               <p className="mt-3 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                The learner uses the free daily requests first (10 for students, 3 for staff and parents), then personal credits are used.
+                The learner uses the free daily requests first, then personal credits are used.
               </p>
             </div>
             <div className="rounded-3xl border border-[#800000]/10 bg-white/55 p-5 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">

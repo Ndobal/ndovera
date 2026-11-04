@@ -425,3 +425,26 @@ test('a parent corrects a child\'s name once, and the email is not part of it', 
   const sent = net.calls.filter(call => call.method === 'PUT' && call.path === '/api/people/k1');
   expect(sent[0].body).toEqual({ name: 'Tolani Ade' });
 });
+
+test('a student can start the conversation in an empty class stream', () => {
+  net.reply = classroom({ '/api/classrooms/c1/stream': () => ({ body: { posts: [] } }), '/api/classrooms/c1/posts': () => ({ status: 201, body: { success: true } }) });
+  start('student');
+  press('SS 2');
+  press('Class updates');
+  press('Post an update');
+  app().querySelector('#lite-post').value = 'Hello class';
+  app().querySelector('form').onsubmit({ preventDefault() {} });
+  expect(posts('/api/classrooms/c1/posts')[0].body).toEqual({ content: 'Hello class' });
+});
+
+test('Lite offers one free subject, and hides locked and empty subjects from practice', () => {
+  net.reply = classroom({
+    '/api/practice-arena/home': () => ({ body: { subjects: [{ key: 'maths', name: 'Maths', access: 'locked', questions: 5 }, { key: 'music', name: 'Music', access: 'locked', questions: 0 }], levels: [], passes: { freeSubject: '' } } }),
+    '/api/practice-arena/free-subject': () => ({ body: { success: true, freeSubject: 'maths' } }),
+  });
+  start('student');
+  press('Practice');
+  expect(Array.from(app().querySelector('#lite-free-subject').options).map(item => item.textContent)).toEqual(['Maths']);
+  press('Make this my free subject');
+  expect(posts('/api/practice-arena/free-subject')[0].body).toEqual({ subject: 'maths' });
+});

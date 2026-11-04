@@ -124,6 +124,7 @@ export const redeemPassCode = payload => request('/api/practice-arena/passes/red
 // Prices follow the rule the worker sends for this school's country (Nigeria stays in naira).
 let priceRule = null;
 const withRule = data => { if (data?.pricing) priceRule = data.pricing; return data; };
+export const chooseFreeSubject = subject => request('/api/practice-arena/free-subject', { method: 'POST', body: { subject } });
 export const money = value => localMoney(value, priceRule);
 
 export async function packSavedAt(subjectKey) {

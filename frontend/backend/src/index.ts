@@ -421,7 +421,7 @@ import { FORTNIGHT_DAYS, buildStandings, ensureFinanceReportTables, standingsEma
 import { PROGRESS_TEMPLATES, defaultTemplateFor, loadEarlierTermTotals, normalizePage2, normalizeProfileExtra, normalizeTermTemplates, page2For, progressTemplate, templateForTerm } from './resultTemplates'
 import type { ClubActor } from './clubs'
 import {
-  EXAMS, EXAM_KEYS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, freeQuestionsLeft, useFreeQuestions, FREE_LIMIT_REACHED, FREE_QUESTIONS_PER_DAY,
+  EXAMS, EXAM_KEYS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, chooseFreeSubject, freeSubjectFor,
   entitlements, examCoreShort, examStock, examsForSection, getCheckout, normalizeExam, packValidUntil, priceFor, rebuildExamStock, recordCheckout, settleCheckout,
 } from './practicePasses'
 import { BUNDLES, ensurePassTables } from './practicePasses'
@@ -17095,9 +17095,9 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
     // Subjects are what the class offers (questions from every school, however they name it).
     // A class with no subjects set up falls back to its own school's question bank.
     const offered = await offeredSubjects(c.env.APP_DB, student)
-    const [profile, recent, board, held, stock, freeLeft] = await Promise.all([
+    const [profile, recent, board, held, stock, freeSubject] = await Promise.all([
       getProfile(c.env.APP_DB, student.studentId), recentAttempts(c.env.APP_DB, student.studentId, 8), leaderboard(c.env.APP_DB, student, 'class'),
-      entitlements(c.env.APP_DB, student), examStock(c.env.APP_DB), freeQuestionsLeft(c.env.APP_DB, student.studentId),
+      entitlements(c.env.APP_DB, student), examStock(c.env.APP_DB), freeSubjectFor(c.env.APP_DB, student.studentId, student.termId),
     ])
     const subjects = offered.length
       ? offered.map(subject => ({ key: subject.key, name: subject.name, questions: subject.questions, byDifficulty: subject.byDifficulty, types: {}, levels: subject.levels, mastery: null, quizzes: 0 }))
@@ -17112,16 +17112,16 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
     for (const subject of subjects as any[]) {
       const row = bySubject.get(subject.key)
       if (row && Number(row.total)) { subject.mastery = Math.round((Number(row.correct) / Number(row.total)) * 100); subject.quizzes = Number(row.quizzes) }
-      const access = canOpen(held, subject.key, 'intermediate', '')
+      const access = canOpen(held, subject.key, 'intermediate', '', freeSubject)
       subject.access = access.ok ? access.via : 'locked'
     }
     const country = await examCountry(c.env.APP_DB, student.tenantId)
     return c.json({
       success: true, student: { name: student.studentName, className: student.className, level: student.rank !== null ? labelOfRank(student.rank) : '', section: student.section },
       profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES, levels: practiceLevels(student.section, country),
-      passes: { freePerDay: FREE_QUESTIONS_PER_DAY, freeLeftToday: freeLeft, allSubjects: held.allSubjects, allInGrace: held.allInGrace, subjects: [...held.subjects], exams: Object.fromEntries(held.exams), jambSubjects: held.jambSubjects, list: held.passes },
+      passes: { freeSubject, allSubjects: held.allSubjects, allInGrace: held.allInGrace, subjects: [...held.subjects], exams: Object.fromEntries(held.exams), jambSubjects: held.jambSubjects, list: held.passes },
       bundles: bundleList(student.section, stock, country), jambMock: JAMB_MOCK, exams: Object.fromEntries([...new Set([...examsForSection(student.section, country), ...held.exams.keys()])].filter(exam => EXAMS[exam]).map(exam => [exam, { label: EXAMS[exam].label, mockQuestions: EXAMS[exam].mockQuestions, mockMinutes: EXAMS[exam].mockMinutes }])),
-      canGenerate: Boolean(student.section && student.rank !== null), enoughQuestions: GENERATION_LIMITS.enoughQuestions,
+      canGenerate: false,
     })
   } catch (error) { return practiceFailure(c, error, 'Could not load practice.') }
 })
@@ -17132,34 +17132,30 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
  */
 async function practiceGate(c: any, student: Awaited<ReturnType<typeof resolvePracticeStudent>>, subjectKey: string, difficulty: string, exam: ExamKey | '') {
   const held = await entitlements(c.env.APP_DB, student)
-  const access = canOpen(held, subjectKey, difficulty, exam)
+  // The free subject is only looked up when no pass already opens this one.
+  const needsFree = difficulty !== 'external' && !held.allSubjects && !held.subjects.has(subjectKey)
+  const access = canOpen(held, subjectKey, difficulty, exam, needsFree ? await freeSubjectFor(c.env.APP_DB, student.studentId, student.termId) : '')
   if (!access.ok) throw new PassError(access.reason, 402, { needs: (access as any).needs || '' })
   if (access.paid) await checkDevice(c.env.APP_DB, student.studentId, String(c.req.header('X-Practice-Device') || ''))
   return { held, paid: access.paid }
 }
 
-/** Ndovera AI writes questions at once for a paid subject that is short (free subjects fill up at night). */
+/** Starting practice never calls AI, to protect the daily allowance. New questions come from the night job. */
 app.post('/api/practice-arena/generate', authenticate, async (c) => {
+  return c.json({ success: true, added: 0, message: 'New questions are added every week.' })
+})
+
+/** A student chooses their one free subject for the term. */
+app.post('/api/practice-arena/free-subject', authenticate, async (c) => {
   try {
     const student = await resolvePracticeStudent(c)
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
     const subject = await practiceSubjectFor(c, student, String(body.subject || '').trim())
-    const difficulty = normalizeDifficulty(body.difficulty) || 'intermediate'
-    const exam = difficulty === 'external' ? normalizeExam(body.exam) : ''
-    const { paid } = await practiceGate(c, student, subject.key, difficulty, exam)
-    if (!paid) return c.json({ success: true, pricing: await localRuleForUser(c), added: 0, freeTier: true, message: `More ${subject.name} questions are added every night. With a Subject Pass (₦300), Ndovera AI also prepares more the moment you run short.` })
-    const result = await generatePracticeQuestions(c.env.APP_DB, { student, subject, difficulty, exam, runAi: assessmentAiRunner(c.env) })
-    const message = result.needsTopics
-      ? `${subject.name} has no topics yet, so Ndovera AI cannot prepare questions for it. Ask your ${subject.name} teacher to add this term's topics to your class (Classroom → Topics); questions follow as soon as they do.`
-      : result.busy ? 'Ndovera AI is already preparing questions for this subject. Try again in a minute.'
-        : result.limited === 'student' ? `You have asked Ndovera AI for new questions ${GENERATION_LIMITS.perStudentPerDay} times today. Practise what is here; more can be prepared tomorrow.`
-          : result.limited === 'platform' ? 'Ndovera AI has prepared as many practice questions as it can today. More are added tonight.'
-            : result.added ? `Ndovera AI prepared ${result.added} new question${result.added === 1 ? '' : 's'} on ${result.topic}.` : 'Ndovera AI could not prepare usable questions this time. Try again.'
-    return c.json({ success: true, ...result, message })
-  } catch (error) { return practiceFailure(c, error, 'Could not prepare questions.') }
+    return c.json({ success: true, freeSubject: await chooseFreeSubject(c.env.APP_DB, student.studentId, student.termId, subject.key) })
+  } catch (error) { return practiceFailure(c, error, 'Could not save your free subject.') }
 })
 
-/** A subject's pack, answers included, so quizzes can be played and marked offline (until `validUntil`). */
+/** One subject's questions, for a student whose pass or free subject opens it. */
 app.get('/api/practice-arena/pack', authenticate, async (c) => {
   try {
     const student = await resolvePracticeStudent(c)
@@ -17168,17 +17164,10 @@ app.get('/api/practice-arena/pack', authenticate, async (c) => {
     const difficulty = normalizeDifficulty(c.req.query('difficulty')) || 'intermediate'
     const exam = difficulty === 'external' ? normalizeExam(c.req.query('exam')) : ''
     if (difficulty === 'external' && (!exam || EXAMS[exam].section !== student.section)) throw new PassError('Choose one of your section\'s examinations.')
-    const { held, paid } = await practiceGate(c, student, subject.key, difficulty, exam)
-    // Free: FREE_QUESTIONS_PER_DAY questions a day across every subject, counted as they are served.
-    const freeLeft = paid ? Infinity : await freeQuestionsLeft(c.env.APP_DB, student.studentId)
-    if (!freeLeft) throw new PassError(FREE_LIMIT_REACHED, 429, { freeLimit: true, needs: 'subject' })
+    const { held } = await practiceGate(c, student, subject.key, difficulty, exam)
     await countPack(c.env.APP_DB, student.studentId)
-    const built = await buildPack(c.env.APP_DB, student, subject.key, Math.min(size, freeLeft), { keys: subject.keys, difficulty, subjectName: subject.name, exam })
-    const pack = paid ? built : { ...built, questions: built.questions.slice(0, freeLeft), free: { perDay: FREE_QUESTIONS_PER_DAY, leftToday: freeLeft - Math.min(freeLeft, built.questions.length) } }
-    if (!paid) await useFreeQuestions(c.env.APP_DB, student.studentId, pack.questions.length)
-    // Too few questions: a paid subject asks Ndovera AI for more at once; a free one fills up at night.
-    const canGenerate = paid && Boolean(student.section && student.rank !== null)
-    return c.json({ success: true, pack: { ...pack, validUntil: packValidUntil(held, difficulty, exam) }, needsMore: canGenerate && pack.questions.length < GENERATION_LIMITS.enoughQuestions })
+    const pack = await buildPack(c.env.APP_DB, student, subject.key, size, { keys: subject.keys, difficulty, subjectName: subject.name, exam })
+    return c.json({ success: true, pack: { ...pack, validUntil: packValidUntil(held, difficulty, exam) }, needsMore: false })
   } catch (error) { return practiceFailure(c, error, 'Could not prepare questions.') }
 })
 

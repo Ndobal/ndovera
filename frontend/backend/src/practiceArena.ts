@@ -435,9 +435,19 @@ export async function practiceSubjects(db: D1Database, student: PracticeStudent)
   })
 }
 
+const POINTS_AT_SOMETHING = /\bmissing (number|value|term|numerator|denominator|digit)\b|\b(figure|diagram|table|graph|chart|picture|image|grid|pattern|sequence)\s+(below|above|shown)\b|\b(in|from|on|study|use|using|look at)\s+the\s+(figure|diagram|table|graph|chart|picture|image|grid|pattern|sequence)\b/i
+
+/** "Find the missing number." with no numbers: the question points at something it does not contain. */
+export function questionIsIncomplete(prompt: unknown, extras: { imageUrl?: unknown, passage?: unknown } = {}) {
+  const text = String(prompt || '')
+  if (!POINTS_AT_SOMETHING.test(text) || extras.imageUrl || extras.passage) return false
+  return !/\d|\|.*\||\$\$|\\frac|```figure/.test(text)
+}
+
 /** What a question looks like to the player: everything needed to mark it on the device. */
 export function toPlayable(row: Record<string, any>) {
   const type = bankType(row.type)
+  if (questionIsIncomplete(row.prompt, { imageUrl: row.image_url, passage: parse<Record<string, any>>(row.metadata_json, {}).passage })) return null
   const options = parse<string[]>(row.options_json, [])
   const answer = parse<any>(row.answer_json, row.answer_json || '')
   const metadata = parse<Record<string, any>>(row.metadata_json, {})

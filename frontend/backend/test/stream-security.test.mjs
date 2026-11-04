@@ -115,3 +115,18 @@ test('comments follow the same rules and must belong to a post in that class', a
   const stored = await db.prepare('SELECT comments FROM posts WHERE id = ?').bind(postId).first()
   assert.equal(JSON.parse(stored.comments).length, 1)
 })
+
+test('a post with no saved role shows its author\'s real role, and keeps it', async () => {
+  const db = await setup()
+  await db.prepare("INSERT INTO posts (id, classId, authorId, authorName, content, createdAt) VALUES ('old1', 'jss2a', 's-in', 'Old student', 'Hello', '2026-01-01'), ('old2', 'jss2a', 't-class', 'Old teacher', 'Hi', '2026-01-02'), ('old3', 'jss2a', 'gone', 'Left the school', 'Bye', '2026-01-03')").run().catch(async () => {
+    await call(db, 't-class', 'GET', '/api/classrooms/jss2a/stream')
+    await db.prepare("INSERT INTO posts (id, classId, authorId, authorName, content, createdAt) VALUES ('old1', 'jss2a', 's-in', 'Old student', 'Hello', '2026-01-01'), ('old2', 'jss2a', 't-class', 'Old teacher', 'Hi', '2026-01-02'), ('old3', 'jss2a', 'gone', 'Left the school', 'Bye', '2026-01-03')").run()
+  })
+  const { body } = await call(db, 't-class', 'GET', '/api/classrooms/jss2a/stream')
+  const roleOf = id => body.posts.find(item => item.id === id).authorRole
+  assert.equal(roleOf('old1'), 'student')
+  assert.equal(roleOf('old2'), 'teacher')
+  assert.equal(roleOf('old3'), null, 'someone unknown is not called a teacher')
+  const kept = await db.prepare("SELECT authorRole FROM posts WHERE id = 'old1'").first()
+  assert.equal(kept.authorRole, 'student')
+})

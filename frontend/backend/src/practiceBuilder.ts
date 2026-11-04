@@ -24,7 +24,7 @@
 import { ensureCurriculumTables } from './curriculumLibrary'
 import { buildingExamKeys, loadCustomExams } from './customExams'
 import { LEVEL_NAME_SQL, labelOfRank, levelOf, subjectKeyOf } from './levels'
-import { bankType, ensurePracticeTables, normalizeText } from './practiceArena'
+import { bankType, ensurePracticeTables, normalizeText, questionIsIncomplete } from './practiceArena'
 import { writeQuestions } from './practiceBank'
 import type { AiRunner } from './practiceBank'
 import { EXAMS, EXAM_KEYS, PassError, addExamStock, normalizeExam } from './practicePasses'
@@ -367,7 +367,9 @@ export async function reviewSome(db: D1Database, runAi: AiRunner, limit = REVIEW
     if (verdict.verdict === 'fix') {
       const type = bankType(row.type)
       const options = type === 'truefalse' ? ['True', 'False'] : (Array.isArray(verdict.options) ? verdict.options : []).map((option: unknown) => String(option || '').replace(/^\(?[A-Ha-h][).:]\s+/, '').trim()).filter(Boolean).slice(0, 6)
-      const prompt = String(verdict.prompt || row.prompt).trim().slice(0, 6000)
+      // A rewrite must not lose the numbers or table the question depends on.
+      const rewritten = String(verdict.prompt || row.prompt).trim().slice(0, 6000)
+      const prompt = questionIsIncomplete(rewritten, { imageUrl: row.image_url }) ? String(row.prompt) : rewritten
       const answerIndex = Number(verdict.answerIndex)
       const needed = exam ? EXAMS[exam].mcqOptions : 0
       const valid = prompt.length >= 6 && options.length >= 2 && (!needed || type !== 'mcq' || options.length === needed) && Number.isInteger(answerIndex) && answerIndex >= 0 && answerIndex < options.length && new Set(options.map(normalizeText)).size === options.length

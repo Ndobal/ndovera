@@ -6,7 +6,7 @@ import BankTransferPay from './BankTransferPay';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MODES, TYPE_LABELS, buildQuiz, estimateXp, levelForXp, newAttemptId } from './engine';
 import {
-  checkoutPass, checkoutPassByBank, generateQuestions, getLeaderboard, loadHome, loadMock, loadPack, money, packSavedAt, pendingAttempts, saveAttempt, verifyPass,
+  checkoutPass, checkoutPassByBank, chooseFreeSubject, getLeaderboard, loadHome, loadMock, loadPack, money, packSavedAt, pendingAttempts, saveAttempt, verifyPass,
 } from './practiceApi';
 import { subscribe } from '../../shared/offline/outbox';
 import { isOnline, requestPersistentStorage } from '../../shared/offline/offlineStore';
@@ -42,7 +42,7 @@ function GoalRing({ value, goal }) {
   );
 }
 
-function Hero({ profile, student, offline, waiting }) {
+function Hero({ profile, offline, waiting }) {
   const level = levelForXp(profile?.xp || 0);
   return (
     <section className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-indigo-700 via-violet-700 to-fuchsia-700 p-4 text-white shadow-2xl sm:p-5 md:p-7">
@@ -52,7 +52,7 @@ function Hero({ profile, student, offline, waiting }) {
           <div><p className="text-[10px] font-bold uppercase tracking-widest text-white">Level</p><p className="text-2xl font-black leading-none sm:text-3xl">{profile?.level || 1}</p></div>
         </div>
         <div className="min-w-[12rem] flex-1">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/90">{student?.className || 'Practice Arena'}{student?.level ? ` · practising up to ${student.level}` : ''}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/90">Practice Arena</p>
           <h2 className="text-2xl font-black md:text-3xl">{profile?.title || 'Rookie'} · {(profile?.xp || 0).toLocaleString()} XP</h2>
           <div className="mt-2 h-3 overflow-hidden rounded-full bg-white/20" role="progressbar" aria-label="Progress to next level" aria-valuenow={level.progress} aria-valuemin={0} aria-valuemax={100}>
             <motion.div className="h-full rounded-full bg-gradient-to-r from-amber-300 to-yellow-200" initial={{ width: 0 }} animate={{ width: `${level.progress}%` }} transition={{ duration: 1 }} />
@@ -208,8 +208,7 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
     <div className="space-y-4">
       <section className={CARD} aria-label="Free practice">
         <h3 className="font-black text-slate-900 dark:text-white">Free practice</h3>
-        <p className="text-sm text-slate-600 dark:text-slate-300">Every subject is free at your class level (Simple and Intermediate): {passes.freePerDay || 10} new questions a day across all your subjects. Questions you have already downloaded can be replayed. A pass removes the daily limit.</p>
-        {passes.allSubjects ? null : <p className="mt-1 text-sm font-bold text-emerald-700 dark:text-emerald-300">{passes.freeLeftToday ?? passes.freePerDay ?? 10} free question{(passes.freeLeftToday ?? 10) === 1 ? '' : 's'} left today.</p>}
+        <p className="text-sm text-slate-600 dark:text-slate-300">{passes.freeSubject ? 'You have one free subject this term. Every other subject needs a pass.' : 'Choose one subject to practise free this term, in full. Every other subject needs a pass.'}</p>
       </section>
 
       {(passes.list || []).length > 0 && (
@@ -294,6 +293,13 @@ export default function PracticeArena() {
   const [home, setHome] = useState(null);
   const [error, setError] = useState('');
   // A notification's button opens straight on the passes.
+  const chooseFree = async subject => {
+    if (!await askConfirm(`Make ${subject.name} your free subject for this term? You can't change it until next term.`)) return;
+    try {
+      await chooseFreeSubject(subject.key);
+      await refresh();
+    } catch (chooseError) { setNotice(chooseError.message); }
+  };
   const [tab, setTab] = useState(() => { try { return new URLSearchParams(window.location.search).get('tab') === 'passes' ? 'passes' : 'subjects'; } catch { return 'subjects'; } });
   const [picker, setPicker] = useState(null);
   const [busy, setBusy] = useState(false);
@@ -356,23 +362,12 @@ export default function PracticeArena() {
     setBusy(true);
     try {
       let pack = await loadPack(picker.key, { difficulty, exam });
-      // Too few questions at this level: Ndovera AI prepares more, then the pack is fetched again.
-      if (pack.needsMore && isOnline() && home?.canGenerate) {
-        setBusy('Ndovera AI is preparing your questions…');
-        try {
-          const made = await generateQuestions(picker.key, difficulty, exam);
-          if (made.added) pack = await loadPack(picker.key, { difficulty, exam });
-          else if (!pack.questions.length) { setNotice(made.message); return; }
-        } catch (makeError) {
-          if (!pack.questions.length) { setNotice(makeError.message); return; }
-        }
-      }
+      if (!pack.questions.length) { setNotice('There are no questions here yet. More are added every week.'); return; }
       const quiz = buildQuiz(pack, modeKey, custom);
       if (!quiz.questions.length) {
         setNotice(modeKey === 'mistakes' ? 'No missed questions yet — try another mode.' : 'No questions of that kind for this subject yet. Try another mode or level.');
         return;
       }
-      if (pack.replay) setNotice(`Today's ${home?.passes?.freePerDay || 10} free questions are used up, so these are questions you already downloaded. New ones tomorrow — or a pass removes the limit.`);
       setSaved(current => ({ ...current, [picker.key]: pack.savedAt || Date.now() }));
       setGame({ quiz, subject: picker, custom, attemptId: newAttemptId() });
       setPicker(null);
@@ -380,7 +375,6 @@ export default function PracticeArena() {
     } catch (startError) {
       setNotice(startError.message);
       // Not covered by a pass: show what would open it.
-      if (startError.data?.freeLimit) refresh();
       if (startError.status === 402) { setPassPreset({ subjectKey: picker.key, exam }); setPicker(null); setTab('passes'); }
     } finally {
       setBusy(false);
@@ -454,7 +448,7 @@ export default function PracticeArena() {
       {error && !home ? (
         <div className="rounded-3xl border border-amber-300 bg-amber-50 p-5 text-amber-900 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-100" role="alert">{error}</div>
       ) : null}
-      {home ? <Hero profile={profile} student={home.student} offline={home.offline || !isOnline()} waiting={waiting} /> : !error ? <div className="h-44 animate-pulse rounded-[2rem] bg-slate-200 dark:bg-white/10" /> : null}
+      {home ? <Hero profile={profile} offline={home.offline || !isOnline()} waiting={waiting} /> : !error ? <div className="h-44 animate-pulse rounded-[2rem] bg-slate-200 dark:bg-white/10" /> : null}
       {notice ? (
         <div className="flex items-start justify-between gap-3 rounded-2xl bg-indigo-50 px-4 py-3 text-sm font-semibold text-indigo-900 dark:bg-indigo-500/15 dark:text-indigo-100" role="status">
           <span>{notice}</span><button type="button" onClick={() => setNotice('')} aria-label="Dismiss">✕</button>
@@ -479,9 +473,9 @@ export default function PracticeArena() {
                 <div className={`bg-gradient-to-br ${CARD_GRADIENTS[index % CARD_GRADIENTS.length]} p-4 text-white`}>
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="text-lg font-black">{subject.name}</h3>
-                    {subject.access ? <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-black">{subject.access === 'free' ? 'Free · 10 a day' : subject.access === 'pass' ? 'Pass ✓' : '🔒 ₦300'}</span> : null}
+                    {subject.access ? <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-black">{subject.access === 'free' ? 'Your free subject' : subject.access === 'pass' ? 'Pass ✓' : '🔒 Locked'}</span> : null}
                   </div>
-                  <p className="text-xs text-white/85">{subject.questions ? `${subject.questions} questions${subject.levels ? ` · ${subject.levels}` : ''}` : home.canGenerate ? 'New — Ndovera AI prepares questions when you start' : 'No questions yet'}</p>
+                  <p className="text-xs text-white/85">{subject.questions ? `${subject.questions} questions` : 'Not available yet'}</p>
                 </div>
                 <div className="space-y-3 p-4">
                   <div>
@@ -495,6 +489,12 @@ export default function PracticeArena() {
                     {subject.types?.written ? <span className="rounded-full bg-slate-100 px-2 py-0.5 dark:bg-white/10">{subject.types.written} short</span> : null}
                     {subject.types?.openEnded ? <span className="rounded-full bg-slate-100 px-2 py-0.5 dark:bg-white/10">{subject.types.openEnded} theory</span> : null}
                   </div>
+                  {!subject.questions ? <p className="rounded-2xl bg-slate-100 py-2.5 text-center text-sm font-bold text-slate-700 dark:bg-white/10 dark:text-slate-200">Not available yet</p> : subject.access === 'locked' && !Object.keys(home.passes?.exams || {}).length ? (
+                    <div className="flex flex-wrap gap-2">
+                      {!home.passes?.freeSubject ? <button type="button" disabled={Boolean(busy)} onClick={() => chooseFree(subject)} className="flex-1 rounded-2xl bg-emerald-700 px-3 py-2.5 text-sm font-black text-white disabled:opacity-60">Make this my free subject</button> : null}
+                      <button type="button" onClick={() => { setPassPreset({ subjectKey: subject.key }); setTab('passes'); }} className="flex-1 rounded-2xl border border-slate-400 px-3 py-2.5 text-sm font-black text-slate-800 dark:border-white/30 dark:text-white">Buy a pass</button>
+                    </div>
+                  ) : (
                   <div className="flex gap-2">
                     <button type="button" onClick={() => setPicker(subject)} className="flex-1 rounded-2xl bg-slate-900 py-2.5 text-sm font-black text-white hover:bg-indigo-700 dark:bg-cyan-400 dark:text-black">Play ▶</button>
                     <button type="button" onClick={() => download(subject)} disabled={!isOnline()} title={saved[subject.key] ? 'Saved on this device — tap to refresh' : 'Save these questions for offline practice'}
@@ -502,6 +502,7 @@ export default function PracticeArena() {
                       {saved[subject.key] ? '📥 Offline ✓' : '📥 Save offline'}
                     </button>
                   </div>
+                  )}
                 </div>
               </motion.article>
             ))}
@@ -556,7 +557,7 @@ export default function PracticeArena() {
         </section>
       ) : null}
 
-      <AnimatePresence>{picker ? <ModePicker subject={picker} levels={home?.levels} heldExams={home?.passes?.exams || {}} initialLevel={examFocus} busy={busy} onClose={() => setPicker(null)} onStart={start} /> : null}</AnimatePresence>
+      <AnimatePresence>{picker ? <ModePicker subject={picker} levels={picker.access === 'locked' ? (home?.levels || []).filter(item => item.exam) : home?.levels} heldExams={home?.passes?.exams || {}} initialLevel={examFocus} busy={busy} onClose={() => setPicker(null)} onStart={start} /> : null}</AnimatePresence>
     </div>
   );
 }

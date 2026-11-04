@@ -122,7 +122,7 @@ function resolveCurrentClassroom(authUser) {
 function normalizeStreamPost(post) {
   return {
     ...post,
-    author: post?.authorName || post?.author || post?.authorId || 'Teacher',
+    author: post?.authorName || post?.author || post?.authorId || 'Class User',
     isStudentPost: Boolean(post?.isStudentPost || post?.authorRole === 'student'),
     text: htmlToDisplayText(post?.text || post?.content || ''),
     comments: Array.isArray(post?.comments)
@@ -143,6 +143,7 @@ export default function StudentClassroom() {
   const storedClassName = storedUser?.className || null;
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [activeTab, setActiveTab] = useState('stream');
+  const [streamNotice, setStreamNotice] = useState('');
   const [groupMode, setGroupMode] = useState('subject');
   const [subjectDetailName, setSubjectDetailName] = useState('');
   const [subjectDetailTab, setSubjectDetailTab] = useState('assignments');
@@ -329,6 +330,7 @@ export default function StudentClassroom() {
       isStudentPost: true,
       createdAt: new Date().toISOString(),
     };
+    setStreamNotice('');
     setStreamPosts(prev => [optimistic, ...prev]);
     setStreamInput('');
     if (classroomId) {
@@ -338,7 +340,14 @@ export default function StudentClassroom() {
           headers,
           body: JSON.stringify({ text: optimistic.text }),
         });
-        const json = res.ok ? await res.json() : null;
+        if (!res.ok) {
+          const refusal = await res.json().catch(() => ({}));
+          setStreamPosts(prev => prev.filter(p => p.id !== optimistic.id));
+          setStreamInput(optimistic.text);
+          setStreamNotice(refusal.message || refusal.error || 'Your post could not be sent. Please try again.');
+          return;
+        }
+        const json = await res.json();
         if (json && (json.post || json.id)) {
           const saved = normalizeStreamPost(json.post || json);
           setStreamPosts(prev => prev.map(p => p.id === optimistic.id ? { ...optimistic, ...saved } : p));
@@ -419,7 +428,7 @@ export default function StudentClassroom() {
       return {
         ...matchedMember,
         name: matchedMember.name || matchedMember.email || matchedMember.id || 'Class User',
-        role: formatRoleLabel(matchedMember.role || (post?.isStudentPost ? 'student' : 'teacher')),
+        role: post?.postedByLabel || formatRoleLabel(post?.authorRole || matchedMember.role || (post?.isStudentPost ? 'student' : '')),
         className: matchedMember.className || classroomLabel,
         status: matchedMember.status || 'Active',
         isSelf: false,
@@ -427,7 +436,7 @@ export default function StudentClassroom() {
     }
 
     const fallbackName = [post?.authorName, post?.author]
-      .find(value => value && !looksLikeEmail(value)) || (post?.isStudentPost ? 'Student' : 'Teacher');
+      .find(value => value && !looksLikeEmail(value)) || (post?.isStudentPost ? 'Student' : 'Class User');
     const fallbackEmail = [post?.author, post?.authorId].find(looksLikeEmail) || '';
 
     return {
@@ -435,7 +444,7 @@ export default function StudentClassroom() {
       name: String(fallbackName || 'Class User'),
       email: String(fallbackEmail),
       displayId: String(post?.displayId || ''),
-      role: post?.postedByLabel || formatRoleLabel(post?.authorRole || (post?.isStudentPost ? 'student' : 'teacher')),
+      role: post?.postedByLabel || formatRoleLabel(post?.authorRole || (post?.isStudentPost ? 'student' : '')),
       className: classroomLabel,
       status: 'Active',
       isSelf: false,
@@ -999,7 +1008,17 @@ export default function StudentClassroom() {
             {sortedStreamPosts.length === 0 && (
               <section className="rounded-[1.75rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_14px_30px_rgba(128,0,0,0.08)]">
                 <p className="micro-label text-[#800020]">No stream updates yet</p>
-                <p className="mt-2 text-sm text-[#191970]">Posts from teachers and classmates will appear here, with the newest updates settling at the bottom.</p>
+                <p className="mt-2 text-sm text-[#191970]">Be the first. Type your message in the box at the bottom of this page and press Post. Your teachers and classmates will see it here.</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const box = document.querySelector('[aria-label="Post to the class stream"]');
+                    if (box) { box.scrollIntoView({ block: 'center' }); box.focus(); }
+                  }}
+                  className="mt-3 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-semibold text-white"
+                >
+                  Write the first post
+                </button>
               </section>
             )}
 
@@ -1122,6 +1141,7 @@ export default function StudentClassroom() {
                 </button>
               </div>
 
+              {streamNotice ? <p role="status" className="rounded-2xl border border-[#800000]/40 bg-white px-4 py-2 text-sm font-semibold text-[#800000]">{streamNotice}</p> : null}
               {streamEmojiOpen && (
                 <div className="flex flex-wrap gap-2 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3">
                   {STREAM_EMOJIS.map(emoji => (

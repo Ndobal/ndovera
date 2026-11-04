@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CommandPageShell from '../shared/components/CommandPageShell';
 
-export default function Exams() {
+export default function Exams({ canCreate = false }) {
   return (
     <>
       <CommandPageShell
@@ -16,11 +16,11 @@ export default function Exams() {
         ]}
       />
 
-      <div className="p-6">
+      {canCreate ? <div className="p-6">
         <Link to="/exams/create" className="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700">
           Create New Exam
         </Link>
-      </div>
+      </div> : null}
     </>
   );
 }

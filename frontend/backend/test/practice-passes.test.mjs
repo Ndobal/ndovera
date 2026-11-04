@@ -126,22 +126,30 @@ test('every subject free at school level, 10 questions a day across subjects; pa
     assert.equal(home.status, 200, JSON.stringify(home.body))
     assert.deepEqual(home.body.levels.map(level => level.key), ['simple', 'intermediate', 'external:waec', 'external:neco', 'external:jamb'])
     assert.deepEqual(home.body.bundles.map(bundle => bundle.key), ['subject', 'all', 'ssce', 'jamb', 'super'])
-    assert.ok(home.body.subjects.every(subject => subject.access === 'free'))
-    assert.deepEqual([home.body.passes.freePerDay, home.body.passes.freeLeftToday], [10, 10])
+    assert.ok(home.body.subjects.every(subject => subject.access === 'locked'), 'everything is locked until a choice or a pass')
+    assert.equal(home.body.passes.freeSubject, '')
+    assert.equal(home.body.canGenerate, false)
 
-    // Every subject is free, 10 questions a day across all of them, counted as they are served.
-    const free = await call(db, 'ss2', 'GET', '/api/practice-arena/pack?subject=mathematics&difficulty=intermediate')
-    assert.equal(free.status, 200, JSON.stringify(free.body))
-    assert.ok(free.body.pack.validUntil)
-    assert.deepEqual([free.body.pack.questions.length, free.body.pack.free.leftToday], [7, 3])
-    const physics = await call(db, 'ss2', 'GET', '/api/practice-arena/pack?subject=physics&difficulty=simple')
-    assert.equal(physics.status, 200, JSON.stringify(physics.body))
-    assert.deepEqual([physics.body.pack.questions.length, physics.body.pack.free.leftToday], [3, 0])
-    const spent = await call(db, 'ss2', 'GET', '/api/practice-arena/pack?subject=mathematics&difficulty=intermediate')
-    assert.deepEqual([spent.status, spent.body.freeLimit], [429, true], 'asking again does not refill the day')
-    assert.equal((await call(db, 'ss2', 'GET', '/api/practice-arena/home')).body.passes.freeLeftToday, 0)
-    // Free practice never triggers paid AI generation.
-    assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/generate', { subject: 'mathematics', difficulty: 'intermediate' })).body.freeTier, true)
+    // One free subject for the term, in full. Everything else waits for a pass.
+    const refused = await call(db, 'ss2', 'GET', '/api/practice-arena/pack?subject=physics&difficulty=simple')
+    assert.equal(refused.status, 402, 'nothing opens before a choice')
+    assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/free-subject', { subject: 'physics' })).body.freeSubject, 'physics')
+    assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/free-subject', { subject: 'physics' })).status, 200, 'choosing the same again is harmless')
+    assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/free-subject', { subject: 'mathematics' })).status, 409, 'it cannot be changed this term')
+    const chosen = (await call(db, 'ss2', 'GET', '/api/practice-arena/home')).body
+    assert.equal(chosen.passes.freeSubject, 'physics')
+    assert.equal(chosen.subjects.find(subject => subject.key === 'physics').access, 'free')
+    assert.equal(chosen.subjects.find(subject => subject.key === 'mathematics').access, 'locked')
+    for (let round = 0; round < 3; round += 1) {
+      const free = await call(db, 'ss2', 'GET', '/api/practice-arena/pack?subject=physics&difficulty=simple')
+      assert.equal(free.status, 200, JSON.stringify(free.body))
+      assert.ok(free.body.pack.questions.length > 0)
+      assert.equal(free.body.needsMore, false, 'no AI is asked for')
+      assert.equal(free.body.pack.free, undefined, 'no daily limit')
+    }
+    assert.equal((await call(db, 'ss2', 'GET', '/api/practice-arena/pack?subject=mathematics&difficulty=intermediate')).status, 402, 'another subject stays locked')
+    // Starting practice never calls AI, whoever asks.
+    assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/generate', { subject: 'physics', difficulty: 'simple' })).body.added, 0)
 
     // A Subject Pass: priced here, paid, checked with Flutterwave, granted once.
     assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/passes/quote', { bundle: 'subject', subjectKey: 'mathematics' })).body.quote.amountNaira, 300)
@@ -167,7 +175,7 @@ test('every subject free at school level, 10 questions a day across subjects; pa
     const all = await call(db, 'ss2', 'POST', '/api/practice-arena/passes/checkout', { bundle: 'all' })
     flutterwave.verify[all.body.txRef] = { status: 'successful', amount: 150 }
     assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/passes/verify', { txRef: all.body.txRef })).body.paid, false)
-    assert.equal((await call(db, 'ss2', 'GET', '/api/practice-arena/pack?subject=chemistry&difficulty=simple', null, {}, dev(3))).status, 429, 'still on the free daily limit')
+    assert.equal((await call(db, 'ss2', 'GET', '/api/practice-arena/pack?subject=chemistry&difficulty=simple', null, {}, dev(3))).status, 402, 'still locked')
 
     // Examinations: not for sale until the bank holds enough checked questions.
     assert.equal((await call(db, 'ss2', 'GET', '/api/practice-arena/pack?subject=mathematics&difficulty=external&exam=waec', null, {}, dev(3))).status, 402)

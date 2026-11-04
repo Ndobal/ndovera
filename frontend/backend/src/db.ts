@@ -419,11 +419,35 @@ export async function getClassById(db: D1Database, id: string) {
 export async function getPostsForClass(db: D1Database, classId: string, limit = 100) {
   await ensurePostsTable(db)
   const result = await db.prepare('SELECT id, classId, authorId, authorName, authorRole, postedByLabel, content, attachments, comments, createdAt FROM posts WHERE classId = ? ORDER BY createdAt DESC LIMIT ?').bind(classId, limit).all()
+  const roles = await fillMissingAuthorRoles(db, result.results as Record<string, any>[])
   return result.results.map(r => ({
     ...r,
+    authorRole: (r as any).authorRole || roles.get(String((r as any).authorId || '').toLowerCase()) || null,
     attachments: parseJsonField(r.attachments, [] as any[]),
     comments: parseJsonField(r.comments, [] as any[]),
   }))
+}
+
+/**
+ * Posts written before roles were saved have none. Their authors' roles are looked up by id or email and saved,
+ * so each post costs this only once. D1 takes 100 values a query, so 45 authors at a time; the rest follow next load.
+ */
+async function fillMissingAuthorRoles(db: D1Database, posts: Record<string, any>[]) {
+  const roles = new Map<string, string>()
+  const missing = posts.filter(post => !post.authorRole && post.authorId)
+  const authors = Array.from(new Set(missing.map(post => String(post.authorId)))).slice(0, 45)
+  if (!authors.length) return roles
+  const marks = authors.map(() => '?').join(', ')
+  const rows = await db.prepare(`SELECT id, email, role FROM users WHERE id IN (${marks}) OR email IN (${marks})`).bind(...authors, ...authors).all().catch(() => ({ results: [] }))
+  for (const row of (rows.results || []) as Record<string, any>[]) {
+    const role = String(row.role || '').trim().toLowerCase()
+    if (!role) continue
+    for (const key of [row.id, row.email]) if (key) roles.set(String(key).toLowerCase(), role)
+  }
+  const updates = missing.filter(post => roles.has(String(post.authorId).toLowerCase()))
+    .map(post => db.prepare('UPDATE posts SET authorRole = ? WHERE id = ? AND authorRole IS NULL').bind(roles.get(String(post.authorId).toLowerCase()), post.id))
+  if (updates.length) await db.batch(updates).catch(() => null)
+  return roles
 }
 
 export async function createPost(db: D1Database, post: any) {

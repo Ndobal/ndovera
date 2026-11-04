@@ -4,6 +4,7 @@ import PracticeArena from './PracticeArena';
 import * as api from './practiceApi';
 
 jest.mock('./practiceApi');
+jest.mock('../../shared/components/AppDialog', () => ({ askConfirm: jest.fn() }));
 jest.mock('../../shared/rich/RichContent', () => ({ text }) => <span>{text}</span>);
 jest.mock('framer-motion', () => {
   const React = require('react');
@@ -18,7 +19,7 @@ const HOME = {
   success: true,
   student: { name: 'Ada', className: 'JSS 2 A', level: 'JSS 2', section: 'junior' },
   profile: { xp: 150, level: 2, title: 'Rookie', streak: 3, todayXp: 20, dailyGoal: 50, accuracy: 80, correct: 40, quizzes: 6, badges: [{ key: 'first_quiz', label: 'First Steps', icon: '🎯', description: 'x', earned: true }, { key: 'perfect', label: 'Flawless', icon: '💎', description: 'y', earned: false }] },
-  subjects: [{ key: 'mathematics', name: 'Mathematics', questions: 42, levels: 'JSS 1 – JSS 2', mastery: 70, types: { objective: 30, written: 10, openEnded: 2 } }],
+  subjects: [{ key: 'mathematics', name: 'Mathematics', questions: 42, access: 'free', mastery: 70, types: { objective: 30, written: 10, openEnded: 2 } }],
   leaderboard: { entries: [{ rank: 1, name: 'Ada', xp: 120, you: true }, { rank: 2, name: 'Bola', xp: 80 }] },
   recent: [],
 };
@@ -121,4 +122,21 @@ test('a locked subject sends the student to Passes, where examinations show what
   fireEvent.click(screen.getByRole('button', { name: /Start mock/ }));
   expect(api.loadMock).toHaveBeenCalledWith('bece', 'mathematics');
   expect(await screen.findByText('Two plus two is four.')).toBeTruthy();
+});
+
+test('one free subject is open, the others are locked until a pass, and an empty one is not available', async () => {
+  api.chooseFreeSubject.mockResolvedValue({ freeSubject: 'mathematics' });
+  const subjects = [
+    { ...HOME.subjects[0], access: 'locked' },
+    { ...HOME.subjects[0], key: 'physics', name: 'Physics', access: 'locked' },
+    { ...HOME.subjects[0], key: 'music', name: 'Music', access: 'locked', questions: 0 },
+  ];
+  api.loadHome.mockResolvedValue({ ...HOME, offline: false, subjects, passes: { ...HOME.passes, freeSubject: '', exams: {} } });
+  render(<PracticeArena />);
+  expect(await screen.findAllByRole('button', { name: 'Make this my free subject' })).toHaveLength(2);
+  expect(screen.getAllByRole('button', { name: 'Buy a pass' })).toHaveLength(2);
+  expect(screen.getAllByText('Not available yet').length).toBeGreaterThan(0);
+  expect(screen.queryByRole('button', { name: /Play/ })).toBeNull();
+  expect(screen.queryByText(/Ndovera AI prepares/)).toBeNull();
+  expect(screen.queryByText(/JSS 2 A/)).toBeNull();
 });

@@ -1,9 +1,9 @@
 // Practice passes: what a student may practise, and what it costs.
 //
-//   Free             Every subject the class offers, at the student's own class level (Simple and
-//                    Intermediate), FREE_QUESTIONS_PER_DAY questions a day across all subjects.
-//   Subject Pass     ₦300  — 1 subject without the daily limit, this term.
-//   All Subjects     ₦1,500 — every subject the class offers without the daily limit, this term.
+//   Free             One subject the student chooses each term, in full, at their own class level
+//                    (Simple and Intermediate). Every other subject is locked until a pass is bought.
+//   Subject Pass     ₦300  — 1 more subject, this term.
+//   All Subjects     ₦1,500 — every subject the class offers, this term.
 //   Common Entrance  ₦2,000 — Primary: every subject at Common Entrance standard, 12 months.
 //   BECE             ₦3,000 — JSS: every subject at BECE standard, 12 months.
 //   WAEC / NECO      ₦3,000 — SS: every subject at WAEC and NECO standard, 12 months.
@@ -18,8 +18,6 @@
 //     Flutterwave (status, amount, currency, reference) and grants its passes exactly once;
 //   - an exam pass is sold only for the student's own section, and only once its exam has
 //     enough checked questions in the bank (EXAM_MIN_STOCK) — nobody pays for an empty bank;
-//   - free questions are counted when they are served (a pack holds no more than are left
-//     today), not when they are answered, so asking again does not refill the day;
 //   - a student downloads at most PACKS_PER_DAY packs a day, and a kept pack stops working
 //     offline when the pass ends (or after 7 days, whichever is sooner);
 //   - term passes end with the term they were bought in; exam passes 12 months after purchase.
@@ -74,7 +72,6 @@ export const EXAM_CORE: Record<ExamKey, Record<string, number>> = {
   bece: { english: 50, mathematics: 50 }, common_entrance: { english: 50, mathematics: 50 },
 }
 export const PACKS_PER_DAY = 30
-export const FREE_QUESTIONS_PER_DAY = 10
 export const MAX_DEVICES = 2
 export const OFFLINE_DAYS = 7
 
@@ -149,10 +146,10 @@ export async function entitlements(db: D1Database, student: PassStudent): Promis
 
 /**
  * May this student open this subject at this level? Returns how (free / pass) or a reason.
- * School levels are free in every subject (FREE_QUESTIONS_PER_DAY a day); a pass lifts the limit.
+ * One subject chosen for the term is free at school levels; any other needs a pass.
  * JAMB packs are only the student's English and their three chosen subjects.
  */
-export function canOpen(held: Entitlements, subjectKey: string, difficulty: string, exam: ExamKey | '') {
+export function canOpen(held: Entitlements, subjectKey: string, difficulty: string, exam: ExamKey | '', freeSubject = '') {
   if (difficulty === 'external') {
     if (!exam) return { ok: false as const, reason: 'Choose the examination.' }
     if (!held.exams.has(exam)) return { ok: false as const, reason: `${EXAMS[exam].label} practice needs the ${exam === 'jamb' ? 'JAMB UTME Prep' : exam === 'waec' || exam === 'neco' ? 'WAEC / NECO Prep' : EXAMS[exam].label + ' Prep'} pass.`, needs: exam }
@@ -160,25 +157,27 @@ export function canOpen(held: Entitlements, subjectKey: string, difficulty: stri
     return { ok: true as const, via: 'exam', paid: true }
   }
   if (held.allSubjects || held.subjects.has(subjectKey)) return { ok: true as const, via: 'pass', paid: true }
-  return { ok: true as const, via: 'free', paid: false }
+  if (freeSubject === subjectKey) return { ok: true as const, via: 'free', paid: false }
+  return { ok: false as const, needs: 'subject', reason: freeSubject ? 'This subject needs a pass. You have already chosen your free subject for this term.' : 'Choose your one free subject for this term, or buy a pass for this subject.' }
 }
 
-/** Free questions this student has left today (Lagos day). */
-export async function freeQuestionsLeft(db: D1Database, studentId: string) {
+const freeTerm = (termId: string) => String(termId || 'no-term')
+
+/** The subject this student chose as free this term. One row, by its key. */
+export async function freeSubjectFor(db: D1Database, studentId: string, termId: string) {
   await ensurePassTables(db)
-  const row = await db.prepare(`SELECT questions FROM practice_free_daily WHERE student_id = ? AND day = ?`).bind(studentId, lagosDay()).first() as Record<string, any> | null
-  return Math.max(0, FREE_QUESTIONS_PER_DAY - Number(row?.questions || 0))
+  const row = await db.prepare(`SELECT subject_key FROM practice_free_choice WHERE student_id = ? AND term_id = ?`).bind(studentId, freeTerm(termId)).first() as Record<string, any> | null
+  return String(row?.subject_key || '')
 }
 
-/** Count free questions served today. */
-export async function useFreeQuestions(db: D1Database, studentId: string, served: number) {
-  if (served <= 0) return
+/** A student chooses once a term. Only the first choice counts, however many requests arrive. */
+export async function chooseFreeSubject(db: D1Database, studentId: string, termId: string, subjectKey: string) {
   await ensurePassTables(db)
-  await db.prepare(`INSERT INTO practice_free_daily (student_id, day, questions) VALUES (?, ?, ?) ON CONFLICT(student_id, day) DO UPDATE SET questions = questions + excluded.questions`)
-    .bind(studentId, lagosDay(), served).run()
+  await db.prepare(`INSERT INTO practice_free_choice (student_id, term_id, subject_key, changes, chosen_at) VALUES (?, ?, ?, 0, ?) ON CONFLICT(student_id, term_id) DO NOTHING`).bind(studentId, freeTerm(termId), subjectKey, now()).run()
+  const chosen = await freeSubjectFor(db, studentId, termId)
+  if (chosen !== subjectKey) throw new PassError('You have already chosen your free subject for this term.', 409)
+  return chosen
 }
-
-export const FREE_LIMIT_REACHED = `You have practised your ${FREE_QUESTIONS_PER_DAY} free questions for today. Come back tomorrow for ${FREE_QUESTIONS_PER_DAY} more, or get a Subject Pass (₦300) or the All Subjects Pass (₦1,500) to practise as much as you like.`
 
 // ─── Devices and downloads ───────────────────────────────────────────────────
 
