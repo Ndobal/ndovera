@@ -171,12 +171,15 @@ export default {
       if (blocked) return blocked;
     }
     const url = new URL(request.url);
-    if (url.pathname === '/compat' || url.pathname === '/compat/') {
+    if (url.pathname === '/compat') {
       const target = new URL('/compat/index.html', url);
       return Response.redirect(target.toString(), 302);
     }
     if (url.pathname.startsWith('/compat/')) {
-      const asset = await env.ASSETS.fetch(request);
+      // Cloudflare's assets redirect /compat/index.html to /compat/. Answering that here, with the page itself,
+      // keeps one address for the page: a redirect back to index.html would loop for ever and lock old phones out.
+      const isPage = url.pathname === '/compat/' || url.pathname === '/compat/index.html';
+      const asset = await env.ASSETS.fetch(isPage ? new Request(new URL('/compat/', url), request) : request);
       const headers = new Headers(asset.headers);
       // These files hold no private data. Old phones must be allowed to keep them for offline use (lite.appcache), checking for new ones when online.
       headers.set('Cache-Control', 'no-cache');

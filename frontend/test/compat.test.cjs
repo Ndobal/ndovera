@@ -58,7 +58,11 @@ test('links sent to parents and helpers open their own page in Lite',()=>{
 });
 test('Lite assets bypass the React shell, keep no private data, and may be stored for offline use',async()=>{
  let fetched;const response=await worker().fetch(new Request('https://ndovera.com/compat/index.html'),{ASSETS:{fetch:async r=>{fetched=r.url;return new Response('lite',{headers:{'Content-Type':'text/html'}})}}});
- assert.equal(fetched,'https://ndovera.com/compat/index.html');assert.equal(await response.text(),'lite');assert.equal(response.headers.get('Cache-Control'),'no-cache');assert.match(response.headers.get('X-Robots-Tag'),/noindex/);assert.match(response.headers.get('Content-Security-Policy'),/script-src 'self'/);
+ assert.equal(fetched,'https://ndovera.com/compat/');assert.equal(await response.text(),'lite');assert.equal(response.headers.get('Cache-Control'),'no-cache');assert.match(response.headers.get('X-Robots-Tag'),/noindex/);assert.match(response.headers.get('Content-Security-Policy'),/script-src 'self'/);
+});
+test('the Lite page opens under Cloudflare, whose assets redirect index.html to the folder',async()=>{
+ const ASSETS={fetch:async r=>{const path=new URL(r.url).pathname;return path==='/compat/index.html'?new Response(null,{status:308,headers:{Location:'/compat/'}}):new Response('lite',{status:200,headers:{'Content-Type':'text/html'}})}};
+ for(const path of ['/compat/index.html','/compat/','/compat/index.html?token=abc']){const response=await worker().fetch(new Request('https://ndovera.com'+path),{ASSETS});assert.equal(response.status,200,path);assert.equal(await response.text(),'lite');}
 });
 test('Lite directory canonicalises and missing scripts are not HTML',async()=>{
  const w=worker();assert.equal((await w.fetch(new Request('https://ndovera.com/compat'),{})).headers.get('Location'),'https://ndovera.com/compat/index.html');
