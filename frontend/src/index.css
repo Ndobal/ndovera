@@ -118,3 +118,7 @@ code {
 .ami-legacy .neon-title { color: #0b1f3a; text-shadow: none; }
 .dark .ami-legacy .neon-title { color: #ffffff; }
 .ami-legacy .micro-label.neon-subtle { color: #64748b; }
+
+/* The height a phone really shows, with its browser bars. Old browsers keep the first line. */
+.ndv-app-height { height: 100vh; height: 100dvh; }
+.ndv-sheet { max-height: 92vh; max-height: 92dvh; }

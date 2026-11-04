@@ -65,7 +65,7 @@ export default function FinanceReconciliationBoard() {
         <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Recorded Collected</p><p className="text-xl font-bold text-emerald-700 mt-1">{formatNaira(stats.ledgerCollected)}</p><p className="text-xs text-[#191970] mt-0.5">From fee ledger</p></div>
         <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Receipts Issued</p><p className="text-xl font-bold text-[#800000] mt-1">{formatNaira(stats.receiptsTotal)}</p><p className="text-xs text-[#191970] mt-0.5">{receipts.length} receipt{receipts.length === 1 ? '' : 's'}</p></div>
         <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Variance</p><p className={`text-xl font-bold mt-1 ${Math.abs(stats.variance) < 1 ? 'text-emerald-700' : 'text-red-700'}`}>{formatNaira(stats.variance)}</p><p className="text-xs text-[#191970] mt-0.5">{Math.abs(stats.variance) < 1 ? 'Reconciled' : 'Needs review'}</p></div>
-        <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Pending Claims</p><p className="text-xl font-bold text-amber-600 mt-1">{formatNaira(stats.pendingTotal)}</p><p className="text-xs text-[#191970] mt-0.5">{stats.pendingClaims.length} awaiting verification</p></div>
+        <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Pending Claims</p><p className="text-xl font-bold text-amber-800 dark:text-amber-300 mt-1">{formatNaira(stats.pendingTotal)}</p><p className="text-xs text-[#191970] mt-0.5">{stats.pendingClaims.length} awaiting verification</p></div>
       </div>
 
       <div className={CARD}>

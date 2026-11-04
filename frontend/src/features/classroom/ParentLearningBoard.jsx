@@ -241,7 +241,7 @@ export default function ParentLearningBoard({ mode = 'assignments' }) {
             </select>
           </div>
 
-          {!loading && !students.length ? <p className="text-sm text-amber-200">No linked child was found for this parent view yet.</p> : null}
+          {!loading && !students.length ? <p className="text-sm text-amber-800 dark:text-amber-200">No linked child was found for this parent view yet.</p> : null}
           {error ? <p className="text-sm text-rose-200">{error}</p> : null}
         </section>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  getPeople, addPerson, deactivatePerson, setPersonRoles, getPastStudents, restorePerson,
+  getPeople, addPerson, deactivatePerson, setPersonRoles, changePersonEmail, getSchoolEmailFor, getPastStudents, restorePerson,
   getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
   resetPassword, uploadBulkPeople, getBulkPeopleJobs, retryBulkPeopleJob, deletePastStudents, removePastStudents, getPastParents,
   getQuestionBankAccess, setQuestionBankAccess,
@@ -41,6 +41,35 @@ function buildAvatarSrc(user) {
   return user?.avatarUrl || user?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
 }
 
+
+/** Owner and Head of School correct a student's or parent's sign-in address here. */
+function EmailEditor({ profile, onChanged }) {
+  const [email, setEmail] = useState(profile.email || '');
+  const [message, setMessage] = useState('');
+  const [busy, setBusy] = useState(false);
+  const isStudent = profile.role === 'student';
+  const run = async body => {
+    setBusy(true); setMessage('');
+    try {
+      const result = await changePersonEmail(profile.id, body);
+      setEmail(result.email);
+      setMessage(result.unchanged ? 'That is already the address.' : `Changed to ${result.email}. They sign in with this from now on.`);
+      onChanged();
+    } catch (err) { setMessage(err.message); } finally { setBusy(false); }
+  };
+  return (
+    <div>
+      <label className="text-xs font-semibold uppercase text-[#800020]">Email
+        <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-3 py-2 text-sm outline-none" />
+      </label>
+      <div className="mt-2 flex flex-wrap gap-2">
+        <button type="button" disabled={busy || !email.trim()} onClick={() => run({ email })} className="rounded-xl bg-[#191970] px-3 py-1.5 text-xs font-bold text-white disabled:opacity-60">Change email</button>
+        {isStudent ? <button type="button" disabled={busy} onClick={() => run({ useSchoolEmail: true })} className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-white disabled:opacity-60">Use school email</button> : null}
+      </div>
+      {message ? <p role="status" className="mt-1 text-xs font-semibold text-[#191970]">{message}</p> : null}
+    </div>
+  );
+}
 
 function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
   const [profile, setProfile] = useState(null);
@@ -99,6 +128,14 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
       setSaveMsg('Saved!');
       setEditing(false);
       load();
+      // A student's new name may mean a new address: always asked, never done silently.
+      if (canChangeEmail && profile.role === 'student' && editForm.name !== profile.name) {
+        const { email } = await getSchoolEmailFor(userId);
+        if (email !== profile.email && await askConfirm(`The name has changed. Change the email from ${profile.email} to ${email} as well?`)) {
+          await changePersonEmail(userId, { email });
+          load();
+        }
+      }
     } catch (err) { setSaveMsg(err.message); }
     finally { setSaving(false); }
   }
@@ -125,6 +162,8 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
   );
 
   const canEdit = isAdmin || currentUserId === userId;
+  const viewerRole = String(localStorage.getItem('selectedRole') || '').toLowerCase();
+  const canChangeEmail = isAdmin && ['owner', 'hos'].includes(viewerRole) && ['student', 'parent'].includes(profile?.role);
   const linkedParentsCount = profile?.linkedParents?.length || 0;
 
   return (
@@ -211,10 +250,10 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                   />
                 </div>
-                <div>
+                {canChangeEmail ? <EmailEditor profile={profile} onChanged={load} /> : <div>
                   <label className="text-xs font-semibold uppercase text-[#800020]">Email (cannot change)</label>
                   <input value={profile.email} disabled className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#e8c878]/60 text-[#191970]/60 px-3 py-2 text-sm cursor-not-allowed" />
-                </div>
+                </div>}
                 {isAdmin && profile.role === 'student' && (
                   <div>
                     <label className="text-xs font-semibold uppercase text-[#800020]">Class</label>
@@ -422,12 +461,12 @@ function AddPersonModal({ onClose, onAdd }) {
       if (form.role === 'student' && !classId) {
         throw new Error('Select a class for the student before creating the account.');
       }
-      const payload = { name: form.name, email: form.email, role: form.role, password: form.password || undefined };
+      const payload = { name: form.name, email: form.email || undefined, role: form.role, password: form.password || undefined };
       if (form.role === 'student') {
         payload.classId = classId || undefined;
         if (form.parentOption === 'existing' && form.existingParentId) {
           payload.parentData = { existingParentId: form.existingParentId };
-        } else if (form.parentOption === 'new' && (form.parentName || form.parentEmail)) {
+        } else if (form.parentOption === 'new' && (form.parentName || form.parentEmail || form.parentPhone)) {
           payload.parentData = {
             name: form.parentName || undefined,
             email: form.parentEmail || undefined,
@@ -451,12 +490,12 @@ function AddPersonModal({ onClose, onAdd }) {
         <form onSubmit={handleSubmit} className="space-y-3">
           {[['Name', 'name', 'text'], ['Email', 'email', 'email'], ['Password', 'password', 'password']].map(([label, key, type]) => (
             <div key={key}>
-              <label className="text-xs text-[#800020] dark:text-slate-400 font-semibold uppercase">{label}{key === 'password' && ' (optional)'}</label>
+              <label className="text-xs text-[#800020] dark:text-slate-400 font-semibold uppercase">{label}{key === 'password' && ' (optional)'}{key === 'email' && form.role === 'student' && ' (optional: made from the name)'}</label>
               <input
                 type={type}
                 value={form[key]}
                 onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-                required={key !== 'password'}
+                required={key !== 'password' && !(key === 'email' && form.role === 'student')}
                 className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
               />
               {key === 'password' && (
@@ -541,7 +580,7 @@ function AddPersonModal({ onClose, onAdd }) {
 
                 {form.parentOption === 'new' && (
                   <div className="space-y-2">
-                    {[['Parent Name', 'parentName', 'text'], ['Parent Email', 'parentEmail', 'email'], ['Parent Phone', 'parentPhone', 'tel']].map(([label, key, type]) => (
+                    {[['Parent Phone', 'parentPhone', 'tel'], ['Parent Name', 'parentName', 'text'], ['Parent Email', 'parentEmail', 'email']].map(([label, key, type]) => (
                       <div key={key}>
                         <label className="text-xs text-[#800020] dark:text-slate-400 font-semibold uppercase">{label} (optional)</label>
                         <input

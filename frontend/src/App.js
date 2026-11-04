@@ -79,6 +79,13 @@ import StudentSettings from './app/roles/student/StudentSettings';
 import TimetableViewer from './features/school/components/TimetableViewer';
 import RoleLibrary from './app/RoleLibrary';
 import AmiInbox from './app/roles/ami/AmiInbox';
+import AmiHomeShowcase from './app/roles/ami/AmiHomeShowcase';
+import AmiPassCodes from './app/roles/ami/AmiPassCodes';
+import AmiCountryPrices from './app/roles/ami/AmiCountryPrices';
+import MyReviewPage from './features/showcase/MyReviewPage';
+import ExamRequestPage from './features/showcase/ExamRequestPage';
+import ParentInvitePage from './features/auth/pages/ParentInvitePage';
+import AmiExamRequests from './app/roles/ami/AmiExamRequests';
 import LoginPage from './features/auth/pages/LoginPage';
 import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
 import ResetPasswordPage from './features/auth/pages/ResetPasswordPage';
@@ -276,6 +283,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/growth-partners" element={<PublicSitePage pageKey="partners" />} />
         <Route path="/partners" element={<PublicSitePage pageKey="partners" />} />
         <Route path="/tutor" element={<PublicSitePage pageKey="tutor" />} />
+        <Route path="/features" element={<PublicSitePage pageKey="features" />} />
         <Route path="/pricing" element={<PublicSitePage pageKey="pricing" />} />
         <Route path="/opportunities" element={<PublicSitePage pageKey="opportunities" />} />
         <Route path="/events" element={<PublicSitePage pageKey="events" />} />
@@ -293,6 +301,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         {/* A competition shared by link: only people holding the link reach it (not listed, not indexed). */}
         <Route path="/c/:token" element={<CompetitionByLinkPage />} />
         <Route path="/invoice/:token" element={<InvoicePayPage />} />
+        <Route path="/invite/:token" element={<ParentInvitePage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
         <Route path="/roles/chiefsecurityofficer/*" element={<RoleGuard auth={auth} expectedRole="chiefsecurityofficer"><RouteTransition><PremisesSecurityDashboard role="chiefsecurityofficer" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/securityofficer/*" element={<RoleGuard auth={auth} expectedRole="securityofficer"><RouteTransition><PremisesSecurityDashboard role="securityofficer" /></RouteTransition></RoleGuard>} />
@@ -435,6 +444,12 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/nurseryhead/*" element={<RoleGuard auth={auth} expectedRole="nurseryhead"><RouteTransition><OperationalRoleDashboard roleKey="nurseryhead" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/examofficer/*" element={<RoleGuard auth={auth} expectedRole="examofficer"><RouteTransition><OperationalRoleDashboard roleKey="examofficer" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/sportsmaster/*" element={<RoleGuard auth={auth} expectedRole="sportsmaster"><RouteTransition><OperationalRoleDashboard roleKey="sportsmaster" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/home-showcase" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Reviews & Home Schools']}><AmiHomeShowcase /></AmiPage></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/pass-codes" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Pass Codes']}><AmiPassCodes /></AmiPage></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/country-prices" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Country Prices']}><AmiCountryPrices /></AmiPage></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/exam-requests" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Exam Requests']}><AmiExamRequests /></AmiPage></RouteTransition></RoleGuard>} />
+        <Route path="/roles/:role/exam-requests" element={<RequireAuth auth={auth}><RouteTransition><ExamRequestPage /></RouteTransition></RequireAuth>} />
+        <Route path="/roles/:role/feedback" element={<RequireAuth auth={auth}><RouteTransition><MyReviewPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/ami/messaging" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Inbox']}><AmiInbox /></AmiPage></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/communications" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Communications']}><AmiCommunications /></AmiPage></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/curriculum" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Curriculum Library']}><CurriculumLibraryPage scope="ami" /></AmiPage></RouteTransition></RoleGuard>} />
@@ -505,7 +520,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden text-slate-900 dark:text-slate-100 transition-colors duration-500 dashboard-bg dark:bg-slate-950">
+    <div className="flex ndv-app-height overflow-hidden text-slate-900 dark:text-slate-100 transition-colors duration-500 dashboard-bg dark:bg-slate-950">
       {!mobileClassroomMode && !partnerWorkspace && <Sidebar mobileOpen={isSidebarOpen} onClose={handleCloseSidebar} />}
       <main ref={mainRef} className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto overflow-x-hidden'} ${inDashboardMode && !inStudentClassroom ? 'pb-[calc(8rem+var(--safe-bottom))] scroll-pb-[calc(8rem+var(--safe-bottom))] md:pb-0 md:scroll-pb-0' : ''}`}>
         {inDashboardMode && !mobileClassroomMode && (

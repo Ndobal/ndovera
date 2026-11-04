@@ -10,6 +10,7 @@ export default function StudentSectionShell({
   dashboardLabel = 'Student Dashboard',
   watermarkText = '',
   diagonalWatermark = false,
+  hideSubtitleOnPhone = false,
 }) {
   return (
     <div className={`${compact ? 'p-4 md:p-5' : 'p-8'} max-w-7xl mx-auto relative ${viewportLocked ? 'h-[calc(100vh-4.5rem-var(--safe-top)-var(--mobile-nav-clearance))] md:h-[calc(100vh-4.5rem-var(--safe-top))] overflow-hidden flex flex-col' : ''}`}>
@@ -23,11 +24,11 @@ export default function StudentSectionShell({
         <section className={compact ? 'glass-surface rounded-3xl p-4 mb-3' : 'glass-surface rounded-3xl p-6 mb-6'}>
           <p className={compact ? 'micro-label neon-subtle mb-1 text-[9px]' : 'micro-label neon-subtle mb-2'}>{dashboardLabel}</p>
           <h1 className={compact ? 'text-xl md:text-2xl command-title neon-title mb-1' : 'text-3xl command-title neon-title mb-2'}>{title}</h1>
-          <p className="text-slate-700 dark:text-slate-300 neon-subtle">{subtitle}</p>
+          <p className={`${hideSubtitleOnPhone ? 'hidden sm:block ' : ''}text-slate-700 dark:text-slate-300 neon-subtle`}>{subtitle}</p>
         </section>
       )}
 
-      <div className={`${viewportLocked ? 'flex-1 min-h-0 overflow-hidden' : ''} relative z-10`}>
+      <div className={`${viewportLocked ? 'flex-1 min-h-0 overflow-hidden' : ''} relative`}>
         {children}
       </div>
     </div>

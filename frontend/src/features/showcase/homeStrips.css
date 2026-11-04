@@ -1,0 +1,29 @@
+/* Moves to the right: the track starts a full list to the left and slides back, with a second copy filling the gap. */
+.ndv-strip { overflow: hidden; }
+.ndv-strip-track {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: -webkit-max-content;
+  width: max-content;
+  -webkit-animation: ndvStripRight 40s linear infinite;
+  animation: ndvStripRight 40s linear infinite;
+}
+.ndv-strip-item { -webkit-flex: none; flex: none; margin-right: 1rem; }
+.ndv-strip:hover .ndv-strip-track,
+.ndv-strip:focus-within .ndv-strip-track { -webkit-animation-play-state: paused; animation-play-state: paused; }
+
+@-webkit-keyframes ndvStripRight {
+  from { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+  to { -webkit-transform: translateX(0); transform: translateX(0); }
+}
+@keyframes ndvStripRight {
+  from { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+  to { -webkit-transform: translateX(0); transform: translateX(0); }
+}
+
+/* No movement for people who ask for none: the strip scrolls by hand instead. */
+@media (prefers-reduced-motion: reduce) {
+  .ndv-strip { overflow-x: auto; }
+  .ndv-strip-track { -webkit-animation: none; animation: none; }
+}

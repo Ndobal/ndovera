@@ -112,7 +112,7 @@ export default function PublicLegalPage({ docKey = 'privacy' }) {
           <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#800020]">{doc.eyebrow}</p>
           <h1 className="mt-3 font-serif text-3xl font-black tracking-tight text-[#191970] sm:text-4xl">{doc.title}</h1>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-[#31416f] sm:text-base">{doc.summary}</p>
-          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#c9a96e]">
+          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#7a5c1e]">
             Effective {doc.effective}
           </p>
         </header>

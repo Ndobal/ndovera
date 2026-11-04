@@ -425,6 +425,13 @@ import {
   EXAMS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, freeQuestionsLeft, useFreeQuestions, FREE_LIMIT_REACHED, FREE_QUESTIONS_PER_DAY,
   entitlements, examCoreShort, examStock, examsForSection, getCheckout, normalizeExam, packValidUntil, priceFor, rebuildExamStock, recordCheckout, settleCheckout,
 } from './practicePasses'
+import { BUNDLES } from './practicePasses'
+import { cleanDomain, freeStudentEmail, moveRecordsToEmail, saveSchoolDomain, schoolDomainSetting, studentEmailDomain } from './studentEmails'
+import { checkInviteForm, claimInvite, countFailedTry, createInvite, InviteError, INVITE_DAYS, MAX_CHILDREN, readInvite, releaseInvite } from './parentInvites'
+import { answerExamRequest, checkCurriculumFile, createExamRequest, examRequestFile, ExamRequestError, listExamRequests, listMyExamRequests, PRIVATE_PREFIX } from './examRequests'
+import { COUNTRY_PRESETS, chargeFor, countryForTenant, DEFAULT_COUNTRY, DEFAULT_DOLLAR_RATE, STARTER_COUNTRIES, deleteRate, FOREIGN_SURCHARGE, listRates, normaliseVerification, recordCharge, ruleFor, saveRate, visitorCountry } from './countryPricing'
+import { cancelCodeBatch, createCodeBatch, listCodeBatches, readCodeBatch, redeemCode } from './passCodes'
+import { listReviews, listShowcaseSchools, myReview, publicShowcase, saveMyReview, setReviewStatus, setSchoolHidden, ShowcaseError } from './homeShowcase'
 import type { ExamKey } from './practicePasses'
 import { builderOverview, inBuildWindow, runBuilderTick, saveBuildSettings } from './practiceBuilder'
 import { deleteMockPaper, getMockPaper, importMockObjectives, listMockPapers, markMockPaper, mockPaperForStudent, parseMockPaper, readMockPaperPart, saveMockPaper, setMockPaperDiagram, setMockPaperStatus } from './mockPapers'
@@ -445,7 +452,9 @@ import {
   admitBatch, applyWhatsAppStatuses, commTick, deliveryHistory, overview as commOverview, previewEvent, readmitWaiting, recordEvent, resolveUnknown,
   scheduleAssignmentDigest, scheduleDeadlineReminders, scheduleFeeReminders, ensureEngineTables, resolveRecipients, type CommDeps, type CommEvent, type Scope,
 } from './commEngine'
-import { feeReminderSubject, feeReminderText, schoolEmailHtml, whatsappLinkFor } from './feeReminders'
+import { feeReminderSubject, feeReminderText, schoolEmailFrame, schoolEmailHtml, whatsappLinkFor } from './feeReminders'
+import type { LetterSchool } from './feeReminders'
+import { fillTemplate, listTemplatesFor, resetTemplate, saveTemplate, TemplateError, templateFor } from './emailTemplates'
 import { LEDGER_CATEGORIES, buildFinanceReport, buildProfitAndLoss, ensurePlatformFinanceTables, monthsBetween, platformReminderText } from './platformFinance'
 import { DEFAULT_RETENTION_PCT, PAYOUT_FREQUENCIES, buildShareRegister, ensureShareTables, planDistribution, shareholderDues } from './platformShares'
 import { parseMetaStatuses, verifyMetaSignature } from './commAdapters'
@@ -461,7 +470,7 @@ import { INVOICE_PAY_DAYS, billLines, documentNumber, invoiceEmail, paymentSettl
 import type { BillLine, BillView } from './platformBills'
 import {
   TransportError, archiveRoute, assignStudents, board, boardingsFor, driverTrips, expectedForRun, getRun, lagosClock, lagosDate, listAssignments, listRoutes,
-  markRun, normalizeDirection, openRun, passQrText, runsOn, saveRoute, setDriverTrips, unassignStudent,
+  markRun, normalizeDirection, openRun, passQrText, pickupsFor, runsOn, savePickup, saveRoute, setDriverTrips, unassignStudent,
 } from './transport'
 import {
   HealthError, addPhoto, createIncident, ensureHealthTables, getIncidentRow, getProfile as getHealthProfile, listIncidents, mapIncident, photosFor, saveProfile as saveHealthProfile, setRest, updateIncident,
@@ -912,11 +921,23 @@ async function postZohoMessage(env: Bindings, message: { accountId: string, from
  * Send one transactional email through Zoho Mail to several people (one
  * message each, so addresses are never shared). Returns who it reached.
  */
+/** Student addresses are for signing in, and may look real: nothing is ever sent to one, nor to a placeholder. */
+async function withoutStudents(db: D1Database, addresses: string[]) {
+  const unique = [...new Set(addresses.map(address => String(address || '').trim().toLowerCase()).filter(Boolean))]
+  const kept: string[] = []
+  for (const address of unique) {
+    if (/@ndovera\.local$/.test(address)) continue
+    const row = await db.prepare(`SELECT COALESCE(primary_role, role) AS role FROM users WHERE email = ?`).bind(address).first().catch(() => null) as Record<string, any> | null
+    if (String(row?.role || '').toLowerCase() !== 'student') kept.push(address)
+  }
+  return kept
+}
+
 async function sendZohoEmail(env: Bindings, payload: { to: string[], subject: string, html: string }) {
   const accountId = String(env.ZOHO_MAIL_ACCOUNT_ID || '').trim()
   const fromAddress = String(env.ZOHO_MAIL_FROM_ADDRESS || '').trim()
   if (!accountId || !fromAddress) throw new Error('ZOHO_MAIL_ACCOUNT_ID and ZOHO_MAIL_FROM_ADDRESS must be set.')
-  const recipients = [...new Set(payload.to.map(address => String(address || '').trim().toLowerCase()).filter(address => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)))]
+  const recipients = (await withoutStudents(env.APP_DB, payload.to)).filter(address => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address))
   if (!recipients.length) return { sent: [] as string[], failed: [] as string[] }
   const accessToken = await getZohoAccessToken(env)
   const sent: string[] = []
@@ -948,7 +969,7 @@ function ndoveraEmailHtml(heading: string, paragraphs: string[], footer = '') {
 // R2 file proxy — serves uploaded files at /files/:key
 app.get('/files/*', async (c) => {
   const key = c.req.path.replace(/^\/files\//, '')
-  if (!key) return c.json({ error: 'Not found' }, 404)
+  if (!key || decodeURIComponent(key).startsWith(PRIVATE_PREFIX)) return c.json({ error: 'Not found' }, 404)
   try {
     const obj = await c.env.UPLOADS.get(key)
     if (!obj) return c.json({ error: 'Not found' }, 404)
@@ -4858,18 +4879,46 @@ function buildTenantWebsite(c: any, schoolId: string, tenant?: any) {
   }
 }
 
+/**
+ * A naira checkout, in what this buyer pays: outside Nigeria the school's country (or, for a school
+ * still registering, where the visitor is) sets the currency and the 20%. Nigeria is unchanged.
+ */
+async function priceForBuyer(c: any, payload: Record<string, any>) {
+  if (String(payload.currency || '').toUpperCase() !== 'NGN') return payload
+  const meta = payload.meta || {}
+  const tenant = meta.tenantId ? await getTenantById(c.env.APP_DB, String(meta.tenantId)).catch(() => null) : null
+  const visitor = visitorCountry(c)
+  // Registration (meta.planKey) is the one checkout where a blank country means "not told us yet".
+  const country = !tenant || (meta.planKey && !String(tenant.country || '').trim()) ? visitor : countryForTenant(tenant.country, visitor)
+  const rule = await ruleFor(c.env.APP_DB, country)
+  if (!rule.foreign) return payload
+  const charge = chargeFor(rule, Number(payload.amount), { discounted: Boolean(meta.discountCode || tenant?.discountCode) })
+  await recordCharge(c.env.APP_DB, String(payload.tx_ref), rule.country, charge)
+  return { ...payload, amount: charge.amount, currency: charge.currency, meta: { ...meta, nairaPrice: charge.nairaAmount } }
+}
+
+/** The price rule for a signed-in buyer's school, for showing prices before checkout. */
+async function localRuleForUser(c: any) {
+  const tenantId = String(c.var.user?.tenantId || '')
+  const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId).catch(() => null) : null
+  const rule = await ruleFor(c.env.APP_DB, countryForTenant(tenant?.country, visitorCountry(c)))
+  // A school with a discount code pays no 20%, as at checkout.
+  return tenant?.discountCode ? { ...rule, surcharge: 0 } : rule
+}
+
 async function createFlutterwavePayment(c: any, payload: Record<string, any>) {
   if (!c.env.FLUTTERWAVE_SECRET_KEY) {
     throw new Error('Flutterwave secret is not configured.')
   }
 
+  const body = await priceForBuyer(c, payload)
   const response = await fetch(`${FLUTTERWAVE_BASE_URL}/payments`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${c.env.FLUTTERWAVE_SECRET_KEY}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(body),
   })
 
   const data = await response.json().catch(() => null)
@@ -4897,7 +4946,7 @@ async function verifyFlutterwavePayment(c: any, txRef: string) {
     throw new Error(data?.message || 'Unable to verify Flutterwave payment.')
   }
 
-  return data
+  return normaliseVerification(c.env.APP_DB, txRef, data)
 }
 
 function buildFlutterwaveRedirectUrl(c: any, initiatedRole: string, tenantId: string, txRef: string) {
@@ -6750,6 +6799,7 @@ app.get('/api/tenants/pricing', async (c) => {
     success: true,
     plans: serializeTenantPlans(plans),
     pricingConfig: serializePublicPricingConfig(pricingConfig),
+    localPricing: await ruleFor(c.env.APP_DB, visitorCountry(c)),
     quote,
     quotes,
     discount: {
@@ -9400,7 +9450,9 @@ app.post('/api/transport/driver/runs', authenticate, async (c) => {
     const expected = await expectedForRun(db, actor.tenantId, run)
     const people = await transportPeople(db, actor.tenantId, expected.map(item => item.studentId))
     const boarded = (await boardingsFor(db, actor.tenantId, [run.id])).map(item => item.studentId)
-    return c.json({ success: true, run, boarded, riders: expected.map(item => ({ ...item, name: people.get(item.studentId)?.name || 'Student', className: people.get(item.studentId)?.className || '', routeName: routes.find(route => route.id === item.routeId)?.name || '' })) })
+    // Homes reach a driver only for the children on a trip they have started.
+    const pickups = await pickupsFor(db, actor.tenantId, expected.map(item => item.studentId))
+    return c.json({ success: true, run, boarded, riders: expected.map(item => ({ ...item, home: pickups.get(item.studentId) || null, name: people.get(item.studentId)?.name || 'Student', className: people.get(item.studentId)?.className || '', routeName: routes.find(route => route.id === item.routeId)?.name || '' })) })
   } catch (error) { return transportFailure(c, error, 'Could not start the trip.') }
 })
 
@@ -9471,10 +9523,13 @@ app.get('/api/transport/mine', authenticate, async (c) => {
     const runs = await runsOn(db, actor.tenantId, lagosDate())
     const boardings = (await boardingsFor(db, actor.tenantId, runs.map(run => run.id))).filter(item => childIds.includes(item.studentId))
     const runById = new Map(runs.map(run => [run.id, run]))
+    const pickups = await pickupsFor(db, actor.tenantId, childIds)
     return c.json({
       success: true,
+      canSetHome: actor.role === 'parent',
       children: childIds.map(studentId => ({
         studentId,
+        home: pickups.get(studentId) || null,
         name: people.get(studentId)?.name || 'Student',
         routes: assignments.filter(item => item.studentId === studentId).map(item => {
           const route = routeById.get(item.routeId)
@@ -9488,6 +9543,19 @@ app.get('/api/transport/mine', authenticate, async (c) => {
       })).filter(child => child.routes.length || child.today.length),
     })
   } catch (error) { return transportFailure(c, error, 'Could not load the school bus.') }
+})
+
+/** A parent gives their child's home, for the driver to navigate to. */
+app.put('/api/transport/mine/:studentId/home', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    if (actor.role !== 'parent') throw new TransportError('Parents set the home address.', 403)
+    const studentId = c.req.param('studentId')
+    const childIds = await transportChildIds(c.env.APP_DB, actor.tenantId, actor.actorId, actor.role, actor.settings)
+    if (!childIds.includes(studentId)) throw new TransportError('Choose one of your children.', 403)
+    const home = await savePickup(c.env.APP_DB, actor.tenantId, studentId, await c.req.json().catch(() => ({})), actor.actorId)
+    return c.json({ success: true, home })
+  } catch (error) { return transportFailure(c, error, 'Could not save the address.') }
 })
 
 /** In-app notices for today's buses: parents and students about their child, the school about every bus. */
@@ -9777,7 +9845,8 @@ app.get('/api/public/invoices/:token', async (c) => {
   const bill = await getTermBill(c.env.APP_DB, 'pay_token', String(c.req.param('token') || ''))
   if (!bill || bill.status === 'draft') return c.json({ success: false, message: 'Invoice not found.' }, 404)
   const tenant = await getTenantById(c.env.APP_DB, bill.tenantId)
-  return c.json({ success: true, invoice: billViewOf(bill, tenant) })
+  const pricing = await ruleFor(c.env.APP_DB, countryForTenant(tenant?.country, visitorCountry(c)))
+  return c.json({ success: true, invoice: { ...billViewOf(bill, tenant), pricing: { ...pricing, surcharge: tenant?.discountCode ? 0 : pricing.surcharge } } })
 })
 
 app.post('/api/public/invoices/:token/checkout', async (c) => {
@@ -17004,7 +17073,7 @@ app.post('/api/practice-arena/generate', authenticate, async (c) => {
     const difficulty = normalizeDifficulty(body.difficulty) || 'intermediate'
     const exam = difficulty === 'external' ? normalizeExam(body.exam) : ''
     const { paid } = await practiceGate(c, student, subject.key, difficulty, exam)
-    if (!paid) return c.json({ success: true, added: 0, freeTier: true, message: `More ${subject.name} questions are added every night. With a Subject Pass (₦300), Ndovera AI also prepares more the moment you run short.` })
+    if (!paid) return c.json({ success: true, pricing: await localRuleForUser(c), added: 0, freeTier: true, message: `More ${subject.name} questions are added every night. With a Subject Pass (₦300), Ndovera AI also prepares more the moment you run short.` })
     const result = await generatePracticeQuestions(c.env.APP_DB, { student, subject, difficulty, exam, runAi: assessmentAiRunner(c.env) })
     const message = result.needsTopics
       ? `${subject.name} has no topics yet, so Ndovera AI cannot prepare questions for it. Ask your ${subject.name} teacher to add this term's topics to your class (Classroom → Topics); questions follow as soon as they do.`
@@ -17252,7 +17321,7 @@ app.post('/api/practice-arena/passes/quote', authenticate, async (c) => {
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
     const buyer = await passBuyer(c, body)
     const quote = await priceFor(c.env.APP_DB, body as any, { section: buyer.section, students: buyer.students.length, forSchool: buyer.forSchool, offered: buyer.offered, held: buyer.held })
-    return c.json({ success: true, quote: { ...quote, students: buyer.students.length } })
+    return c.json({ success: true, quote: { ...quote, students: buyer.students.length }, pricing: await localRuleForUser(c) })
   } catch (error) { return practiceFailure(c, error, 'Could not price that pass.') }
 })
 
@@ -17296,6 +17365,223 @@ app.post('/api/practice-arena/passes/verify', authenticate, async (c) => {
   } catch (error) { return practiceFailure(c, error, 'Could not check the payment.') }
 })
 
+/** A free pass from a one-time code. Students and parents use codes; a school buys for a class. */
+app.post('/api/practice-arena/passes/redeem', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const buyer = await passBuyer(c, body)
+    if (buyer.forSchool) throw new PassError('A code gives one pass to one student, so students and parents use them.', 403)
+    const result = await redeemCode(c.env.APP_DB, body.code, buyer.students[0], body, { offered: buyer.offered, held: buyer.held })
+    return c.json({ success: true, ...result, message: `${result.label} is ready to use.` })
+  } catch (error) { return practiceFailure(c, error, 'Could not use that code.') }
+})
+
+app.get('/api/ami/pass-codes', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, batches: await listCodeBatches(c.env.APP_DB), bundles: Object.entries(BUNDLES).map(([key, bundle]) => ({ key, label: bundle.label })) })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the codes.') }
+})
+
+app.post('/api/ami/pass-codes', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    const batch = await createCodeBatch(c.env.APP_DB, await c.req.json().catch(() => ({})), ami.id)
+    return c.json({ success: true, batch }, 201)
+  } catch (error) { return practiceFailure(c, error, 'Could not make the codes.') }
+})
+
+app.get('/api/ami/pass-codes/:id', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, batch: await readCodeBatch(c.env.APP_DB, c.req.param('id')) })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the codes.') }
+})
+
+app.post('/api/ami/pass-codes/:id/cancel', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    await cancelCodeBatch(c.env.APP_DB, c.req.param('id'))
+    return c.json({ success: true })
+  } catch (error) { return practiceFailure(c, error, 'Could not stop the codes.') }
+})
+
+// ─── Prices outside Nigeria (countryPricing.ts) ───
+
+app.get('/api/ami/pricing-countries', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, rates: await listRates(c.env.APP_DB, true), presets: COUNTRY_PRESETS, starters: STARTER_COUNTRIES, surcharge: FOREIGN_SURCHARGE, defaultCountry: DEFAULT_COUNTRY, defaultDollarRate: DEFAULT_DOLLAR_RATE })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the rates.') }
+})
+
+app.post('/api/ami/pricing-countries', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await saveRate(c.env.APP_DB, { country: String(body.country || ''), name: String(body.name || ''), currency: String(body.currency || ''), nairaPerUnit: Number(body.nairaPerUnit) }, ami.id)
+      .catch(error => { throw new PassError(error instanceof Error ? error.message : 'Could not save that rate.') })
+    return c.json({ success: true, rates: await listRates(c.env.APP_DB, true) })
+  } catch (error) { return practiceFailure(c, error, 'Could not save that rate.') }
+})
+
+app.delete('/api/ami/pricing-countries/:country', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    await deleteRate(c.env.APP_DB, String(c.req.param('country')).toUpperCase())
+    return c.json({ success: true, rates: await listRates(c.env.APP_DB, true) })
+  } catch (error) { return practiceFailure(c, error, 'Could not remove that rate.') }
+})
+
+// ─── Requests for new exams (examRequests.ts) ───
+
+function examRequestFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof ExamRequestError) return c.json({ success: false, message: error.message }, error.status as any)
+  return practiceFailure(c, error, fallback)
+}
+
+app.post('/api/exam-requests', authenticate, async (c) => {
+  let savedKey = ''
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const form = await c.req.formData()
+    const fields = Object.fromEntries(['examName', 'scope', 'country', 'section', 'subjects', 'curriculumLink', 'curriculumNote', 'confirmed'].map(name => [name, String(form.get(name) ?? '')]))
+    const upload = form.get('file') as unknown as File | null
+    let file: { key: string, name: string, type: string } | null = null
+    if (upload && typeof upload === 'object' && upload.size > 0) {
+      const type = checkCurriculumFile(upload)
+      file = { key: `${PRIVATE_PREFIX}${crypto.randomUUID()}`, name: upload.name, type }
+    }
+    const tenant = actor.tenantId ? await getTenantById(c.env.APP_DB, actor.tenantId) : null
+    const person = { userId: String(actor.actorId || ''), name: String(actor.actorName || ''), role: String(actor.role || ''), tenantId: String(actor.tenantId || ''), schoolName: String(tenant?.schoolName || '') }
+    // The record is written first, so a refused request never leaves a file behind.
+    await createExamRequest(c.env.APP_DB, person, fields, file)
+    if (file && upload) {
+      savedKey = file.key
+      await c.env.UPLOADS.put(file.key, upload.stream(), { httpMetadata: { contentType: file.type } })
+    }
+    return c.json({ success: true, message: 'Thank you. Ndovera will read your request and answer here.' }, 201)
+  } catch (error) {
+    if (savedKey) await c.env.APP_DB.prepare(`DELETE FROM exam_requests WHERE file_key = ?`).bind(savedKey).run().catch(() => null)
+    return examRequestFailure(c, error, 'Could not send your request.')
+  }
+})
+
+app.get('/api/exam-requests/mine', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    return c.json({ success: true, requests: await listMyExamRequests(c.env.APP_DB, String(actor.actorId || '')) })
+  } catch (error) { return examRequestFailure(c, error, 'Could not load your requests.') }
+})
+
+app.get('/api/ami/exam-requests', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, requests: await listExamRequests(c.env.APP_DB, String(c.req.query('status') || 'new')) })
+  } catch (error) { return examRequestFailure(c, error, 'Could not load the requests.') }
+})
+
+app.post('/api/ami/exam-requests/:id', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    await answerExamRequest(c.env.APP_DB, c.req.param('id'), await c.req.json().catch(() => ({})), ami.id)
+    return c.json({ success: true })
+  } catch (error) { return examRequestFailure(c, error, 'Could not update that request.') }
+})
+
+app.get('/api/ami/exam-requests/:id/file', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const file = await examRequestFile(c.env.APP_DB, c.req.param('id'))
+    const stored = await c.env.UPLOADS.get(file.key)
+    if (!stored) return c.json({ success: false, message: 'That file is no longer stored.' }, 404)
+    // Always a download, never opened on Ndovera's own address: the file came from a user.
+    return new Response(stored.body, { headers: { 'Content-Type': file.type, 'Content-Disposition': `attachment; filename="${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}"`, 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store' } })
+  } catch (error) { return examRequestFailure(c, error, 'Could not open that file.') }
+})
+
+// ─── Home page strips: schools and reviews (homeShowcase.ts) ───
+
+function showcaseFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof ShowcaseError) return c.json({ success: false, message: error.message }, error.status as any)
+  return practiceFailure(c, error, fallback)
+}
+
+const SHOWCASE_CACHE_SECONDS = 3600
+const showcaseCacheKey = (c: any) => new Request(new URL('/api/public/home-showcase', c.req.url).toString())
+
+/** Ami's changes show at once where this cache lives; elsewhere within the hour. */
+async function forgetShowcase(c: any) {
+  await (globalThis as any).caches?.default?.delete(showcaseCacheKey(c)).catch(() => null)
+}
+
+/** Served from Cloudflare's cache, so visitors to the home page don't read the database. */
+app.get('/api/public/home-showcase', async (c) => {
+  const cache = (globalThis as any).caches?.default
+  const hit = cache ? await cache.match(showcaseCacheKey(c)).catch(() => null) : null
+  if (hit) return hit
+  try {
+    const response = new Response(JSON.stringify({ success: true, ...(await publicShowcase(c.env.APP_DB)) }), {
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': `public, max-age=${SHOWCASE_CACHE_SECONDS}` },
+    })
+    if (cache) c.executionCtx.waitUntil(cache.put(showcaseCacheKey(c), response.clone()).catch(() => null))
+    return response
+  } catch (error) {
+    console.error('Could not read the home page strips', error)
+    return c.json({ success: true, schools: [], reviews: [] })
+  }
+})
+
+app.get('/api/reviews/mine', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    return c.json({ success: true, review: await myReview(c.env.APP_DB, String(actor.actorId || '')), role: actor.role })
+  } catch (error) { return showcaseFailure(c, error, 'Could not load your review.') }
+})
+
+app.post('/api/reviews/mine', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenant = actor.tenantId ? await getTenantById(c.env.APP_DB, actor.tenantId) : null
+    const review = await saveMyReview(c.env.APP_DB, { userId: String(actor.actorId || ''), tenantId: String(actor.tenantId || ''), schoolName: String(tenant?.schoolName || ''), role: String(actor.role || ''), name: String(actor.actorName || '') }, await c.req.json().catch(() => ({})))
+    return c.json({ success: true, review, message: 'Thank you. Ndovera reads every review before it can appear on the home page.' })
+  } catch (error) { return showcaseFailure(c, error, 'Could not save your review.') }
+})
+
+app.get('/api/ami/reviews', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, reviews: await listReviews(c.env.APP_DB, String(c.req.query('status') || 'pending')) })
+  } catch (error) { return showcaseFailure(c, error, 'Could not load reviews.') }
+})
+
+app.post('/api/ami/reviews/:id', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await setReviewStatus(c.env.APP_DB, c.req.param('id'), String(body.status || ''), ami.id)
+    await forgetShowcase(c)
+    return c.json({ success: true })
+  } catch (error) { return showcaseFailure(c, error, 'Could not update that review.') }
+})
+
+app.get('/api/ami/showcase/schools', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, schools: await listShowcaseSchools(c.env.APP_DB) })
+  } catch (error) { return showcaseFailure(c, error, 'Could not load the schools.') }
+})
+
+app.post('/api/ami/showcase/schools/:id', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await setSchoolHidden(c.env.APP_DB, c.req.param('id'), body.hidden === true, ami.id)
+    await forgetShowcase(c)
+    return c.json({ success: true })
+  } catch (error) { return showcaseFailure(c, error, 'Could not update that school.') }
+})
+
 /** Parents: their children's passes and what can be bought for each. */
 app.get('/api/practice-arena/family', authenticate, async (c) => {
   try {
@@ -17310,7 +17596,7 @@ app.get('/api/practice-arena/family', authenticate, async (c) => {
       const held = await entitlements(db, student)
       children.push({ studentId: child.id, name: child.name, className: student.className, section: student.section, subjects: (await offeredSubjects(db, student)).map(item => ({ key: item.key, name: item.name })), passes: held.passes, freePerDay: FREE_QUESTIONS_PER_DAY, bundles: bundleList(student.section, stock) })
     }
-    return c.json({ success: true, children })
+    return c.json({ success: true, children, pricing: await localRuleForUser(c) })
   } catch (error) { return practiceFailure(c, error, 'Could not load your children\'s practice.') }
 })
 
@@ -17328,7 +17614,7 @@ app.get('/api/practice-arena/school', authenticate, async (c) => {
       const section = levelOf(row.standard_level || row.name)?.section || ''
       return { id: String(row.id), name, section, bundles: section ? bundleList(section, stock) : [] }
     })
-    return c.json({ success: true, classes, discount: SCHOOL_DISCOUNT })
+    return c.json({ success: true, classes, discount: SCHOOL_DISCOUNT, pricing: await localRuleForUser(c) })
   } catch (error) { return practiceFailure(c, error, 'Could not load practice passes.') }
 })
 
@@ -21020,9 +21306,12 @@ app.post('/api/people', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { name, email, role, password, parentData, classId } = await c.req.json()
-  if (!name || !email || !role) return c.json({ error: 'name, email, and role are required.' }, 400)
+  const { name, email: typedEmail, role, password, parentData, classId } = await c.req.json()
+  if (!name || !role) return c.json({ error: 'name and role are required.' }, 400)
   const normalizedRole = normalizeRole(role)
+  // A student's address is made from their name and the school's email ending, unless one is typed.
+  const email = typedEmail || (normalizedRole === 'student' ? await freeStudentEmail(c.env.APP_DB, name, await studentEmailDomain(c.env.APP_DB, await getTenantById(c.env.APP_DB, tenantId))) : '')
+  if (!email) return c.json({ error: 'email is required.' }, 400)
 
   let selectedClass: Record<string, any> | null = null
   if (normalizedRole === 'student') {
@@ -21107,8 +21396,12 @@ app.post('/api/people', authenticate, async (c) => {
         parentId = parseRoleList(hydratedParent?.primaryRole, hydratedParent?.role, hydratedParent?.roles).includes('parent')
           ? String(hydratedParent?.id || '')
           : null
-      } else if (parentData.name || parentData.email) {
-        const parentEmail = parentData.email || `parent_${Date.now()}@ndovera.local`
+      } else if (parentData.phone && !parentData.email && await settingsKeyForPhone(c.env.APP_DB, parentData.phone)) {
+        // A parent already here by this number (a brother or sister's parent): the same account, not a second one.
+        const holder = await c.env.APP_DB.prepare(`SELECT user_id, tenant_id FROM login_phones WHERE phone = ?`).bind(normalizeLoginPhone(parentData.phone)).first() as Record<string, any> | null
+        if (holder && String(holder.tenant_id) === String(tenantId)) parentId = String(holder.user_id)
+      } else if (parentData.name || parentData.email || parentData.phone) {
+        const parentEmail = parentData.email || placeholderEmail('parent')
         const parentName = parentData.name || 'Parent'
         const parentUserId = createUserId()
         const existingParentSettings = await getSettings(c.env.APP_DB, parentEmail).catch(() => null)
@@ -21135,6 +21428,8 @@ app.post('/api/people', authenticate, async (c) => {
         await upsertSettings(c.env.APP_DB, parentEmail, parentSettings)
         const savedParent = await c.env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(parentEmail).first() as any
         parentId = savedParent?.id || parentUserId
+        // The number on the form signs them in. A number someone else holds is left for the school to sort out.
+        if (parentData.phone && parentId) await registerLoginPhone(c.env.APP_DB, { phone: parentData.phone, userId: parentId, settingsKey: parentEmail, tenantId }).catch(() => null)
         await syncUserRoleRecords(c.env.APP_DB, {
           tenantId,
           userId: parentId,
@@ -21187,7 +21482,9 @@ app.post('/api/people/bulk', authenticate, async (c) => {
   const schoolClasses = ((classRows.results || []) as Record<string, any>[]).map(row => ({ id: String(row.id), name: String(row.name || ''), arm: row.arm || null }))
 
   for (const row of rows) {
-    const { name, email, role, roles, password, className, classId } = row
+    const { name, role, roles, password, className, classId } = row
+    const isStudentRow = normalizeRole(role) === 'student'
+    const email = row.email || (name && isStudentRow ? await freeStudentEmail(c.env.APP_DB, name, await studentEmailDomain(c.env.APP_DB, await getTenantById(c.env.APP_DB, tenantId))) : '')
     if (!name || !email || !role) {
       results.push({ email: email || '?', status: 'error', error: 'name, email, and role are required.' })
       continue
@@ -21932,7 +22229,29 @@ app.put('/api/people/:userId', authenticate, async (c) => {
     profileUpdates.name = normalizedName || profileUpdates.name || settings?.name || existingUser.name || existingUser.email || userId
 
     if (normalizedName !== undefined) updates.name = normalizedName
-    if (payload.phone !== undefined) updates.phone = profileUpdates.phone || null
+    if (payload.phone !== undefined) {
+      updates.phone = profileUpdates.phone || null
+      // A parent signs in with this number, so the sign-in number moves with it: the old one stops working at once.
+      const roles = parseRoleList(settings?.primaryRole, settings?.role, settings?.roles, existingUser.role)
+      if (roles.includes('parent')) {
+        await ensureLoginPhonesTable(c.env.APP_DB)
+        const typed = String(payload.phone || '').trim()
+        if (typed) {
+          if (!normalizeLoginPhone(typed)) return c.json({ error: 'Enter a valid phone number. Outside Nigeria, start with the country code, such as +233.' }, 400)
+          try {
+            await registerLoginPhone(c.env.APP_DB, { phone: typed, userId: String(existingUser.id), settingsKey, tenantId, takenBy: id => familyAccountName(c.env.APP_DB, id) })
+          } catch (error) {
+            if (error instanceof PhoneTakenError) return c.json({ error: error.message }, 409)
+            throw error
+          }
+          updates.phone = normalizeLoginPhone(typed)
+        } else if (/@ndovera.local$/i.test(String(existingUser.email || ''))) {
+          return c.json({ error: 'This parent signs in only with their phone number. Add an email before removing it.' }, 400)
+        } else {
+          await c.env.APP_DB.prepare('DELETE FROM login_phones WHERE user_id = ?').bind(String(existingUser.id)).run()
+        }
+      }
+    }
     if (payload.dateOfBirth !== undefined) updates.dateOfBirth = profileUpdates.dateOfBirth || null
     if (payload.avatar !== undefined) {
       updates.avatar = profileUpdates.avatar || null
@@ -22033,6 +22352,25 @@ app.post('/api/people/:userId/avatar-upload', authenticate, async (c) => {
 // so self-linking is no longer accepted here.
 const PARENT_LINK_ADMIN_ROLES = ['owner', 'hos', 'ict', 'ict_manager']
 
+/**
+ * A member of staff linked to a child also becomes a parent, so they can switch to the parent view of that
+ * child. Their main role and everything they do at work stay as they are. A failure here keeps the link.
+ */
+async function giveParentRole(db: D1Database, tenantId: string, personKey: string, by: string) {
+  try {
+    const person = await db.prepare(`SELECT id, email, role, primary_role FROM users WHERE tenantId = ? AND (id = ? OR email = ?) LIMIT 1`).bind(tenantId, personKey, personKey).first() as Record<string, any> | null
+    if (!person?.email) return
+    const settings = await getSettings(db, person.email).catch(() => null) as Record<string, any> | null
+    const current = parseRoleList(settings?.primaryRole, settings?.role, settings?.roles, person.role, person.primary_role)
+    if (current.includes('parent')) return
+    const primaryRole = getPrimaryRole(settings || person, person.primary_role || person.role)
+    const roles = [...current, 'parent']
+    if (settings) await upsertSettings(db, person.email, { ...settings, roles })
+    await syncUserRoleRecords(db, { tenantId, userId: String(person.id), primaryRole, roles })
+    await addAudit(db, tenantId, { action: 'parentRoleAddedByLink', data: { by, userId: person.id } })
+  } catch (error) { console.error('Could not add the parent role', error) }
+}
+
 app.post('/api/school/parent-student-link', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
@@ -22056,6 +22394,7 @@ app.post('/api/school/parent-student-link', authenticate, async (c) => {
     await c.env.APP_DB.prepare(
       `INSERT OR IGNORE INTO parent_student_links (id, parent_id, student_id, tenant_id, created_at) VALUES (?, ?, ?, ?, ?)`
     ).bind(linkId, parentId, studentId, tenantId, new Date().toISOString()).run()
+    await giveParentRole(c.env.APP_DB, tenantId, String(parentId), String(c.var.user?.id || ''))
     return c.json({ success: true, linkId })
   } catch (err) {
     return c.json({ error: 'Could not create link.' }, 500)
@@ -22120,7 +22459,7 @@ app.get('/api/school/link-overview', authenticate, async (c) => {
   // linked (shown as off), not "not linked". They stay out of the lists below.
   const peopleRows = ((await c.env.APP_DB.prepare(
     `SELECT id, name, email, role, primary_role, status FROM users
-     WHERE tenantId = ? AND lower(COALESCE(primary_role, role)) IN ('student', 'parent')
+     WHERE tenantId = ? AND lower(COALESCE(primary_role, role, '')) NOT IN ('ami', 'shareholder', 'growthpartner')
      ORDER BY name COLLATE NOCASE`
   ).bind(tenantId).all()).results || []) as any[]
 
@@ -22132,6 +22471,11 @@ app.get('/api/school/link-overview', authenticate, async (c) => {
   const isStudent = (person: any) => String(person.primaryRole || person.role || '').toLowerCase() === 'student'
 
   const isOff = (person: any) => PAST_STUDENT_STATUSES.includes(String(person.status || '').trim().toLowerCase())
+  // Staff can be parents too: anyone who is not a student can have a child linked.
+  const staffRoleOf = (person: any) => {
+    const role = String(person.primaryRole || person.role || '').toLowerCase()
+    return role === 'parent' ? '' : role
+  }
 
   // Links are stored under a person's id or, from older linking paths, their email (the
   // nightly parent sweep reads both). Matching by id alone dropped those links here, so
@@ -22175,8 +22519,10 @@ app.get('/api/school/link-overview', authenticate, async (c) => {
     const entry = byId.get(String(person.id))
     if (!entry || entry.off) continue
     if (isStudent(person)) students.push({ ...entry, parents: entry.links, links: undefined })
-    else parents.push({ ...entry, children: entry.links, links: undefined })
+    else parents.push({ ...entry, staffRole: staffRoleOf(person), children: entry.links, links: undefined })
   }
+  // The counts are about parents waiting to be linked; a member of staff with no child is not one.
+  const parentsOnly = parents.filter(parent => !parent.staffRole)
 
   return c.json({
     success: true,
@@ -22185,8 +22531,8 @@ app.get('/api/school/link-overview', authenticate, async (c) => {
     counts: {
       students: students.length,
       unlinkedStudents: students.filter(student => student.parents.length === 0).length,
-      parents: parents.length,
-      parentsWithoutChildren: parents.filter(parent => parent.children.length === 0).length,
+      parents: parentsOnly.length,
+      parentsWithoutChildren: parentsOnly.filter(parent => parent.children.length === 0).length,
     },
     maxParentsPerStudent: 2,
   })
@@ -22237,9 +22583,182 @@ async function moveAccountToEmail(db: D1Database, userId: string, oldKey: string
     statements.push(db.prepare(`DELETE FROM settings WHERE studentId = ?`).bind(oldKey))
   }
   statements.push(db.prepare(`UPDATE parent_student_links SET parent_id = ? WHERE parent_id = ?`).bind(userId, oldKey))
+  statements.push(db.prepare(`UPDATE parent_student_links SET student_id = ? WHERE student_id = ?`).bind(userId, oldKey))
   statements.push(db.prepare(`UPDATE login_phones SET settings_key = ? WHERE user_id = ?`).bind(newEmail, userId))
   await db.batch(statements)
 }
+
+// ─── Sign-in addresses and parent invitations ────────────────────────────────
+
+const EMAIL_EDIT_ROLES = ['owner', 'hos']
+const familyFailure = (c: any, error: unknown, fallback: string) => {
+  if (error instanceof InviteError) return c.json({ success: false, message: error.message, ...error.details }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+app.get('/api/school/student-email-domain', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, [...EMAIL_EDIT_ROLES, 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '')
+  const tenant = await getTenantById(c.env.APP_DB, tenantId)
+  return c.json({ success: true, domain: await schoolDomainSetting(c.env.APP_DB, tenantId), inUse: await studentEmailDomain(c.env.APP_DB, tenant) })
+})
+
+app.put('/api/school/student-email-domain', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, EMAIL_EDIT_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '')
+  const domain = cleanDomain((await c.req.json().catch(() => ({})) as Record<string, any>).domain)
+  if (!domain) return c.json({ success: false, message: 'Enter an email ending, such as @yourschool.com.' }, 400)
+  await saveSchoolDomain(c.env.APP_DB, tenantId, domain, String(c.var.user?.id || ''))
+  return c.json({ success: true, domain, inUse: domain })
+})
+
+/** What a student's address would be from their current name and school. */
+app.get('/api/people/:userId/school-email', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, EMAIL_EDIT_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '')
+  const person = await c.env.APP_DB.prepare(`SELECT id, name, email FROM users WHERE id = ? AND tenantId = ?`).bind(c.req.param('userId'), tenantId).first() as Record<string, any> | null
+  if (!person) return c.json({ success: false, message: 'Person not found.' }, 404)
+  const email = await freeStudentEmail(c.env.APP_DB, person.name, await studentEmailDomain(c.env.APP_DB, await getTenantById(c.env.APP_DB, tenantId)), String(person.id))
+  return c.json({ success: true, email, current: person.email })
+})
+
+/** Correct a student's or parent's address, or give a parent a real one. Their password, records and links stay with them. */
+app.put('/api/people/:userId/email', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, EMAIL_EDIT_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '')
+  const db = c.env.APP_DB
+  try {
+    const person = await db.prepare(`SELECT id, name, email, COALESCE(primary_role, role) AS role FROM users WHERE id = ? AND tenantId = ?`).bind(c.req.param('userId'), tenantId).first() as Record<string, any> | null
+    if (!person) return c.json({ success: false, message: 'Person not found.' }, 404)
+    const role = String(person.role || '').toLowerCase()
+    if (!['student', 'parent'].includes(role)) return c.json({ success: false, message: 'Only students\' and parents\' addresses are changed here.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const next = body.useSchoolEmail === true && role === 'student'
+      ? await freeStudentEmail(db, person.name, await studentEmailDomain(db, await getTenantById(db, tenantId)), String(person.id))
+      : String(body.email || '').trim().toLowerCase()
+    if (!looksLikeEmail(next)) return c.json({ success: false, message: 'Enter a valid email address.' }, 400)
+    const old = String(person.email || '')
+    if (next === old.toLowerCase()) return c.json({ success: true, email: old, unchanged: true })
+    const holder = await db.prepare(`SELECT id FROM users WHERE lower(email) = ?`).bind(next).first() as Record<string, any> | null
+    if (holder) return c.json({ success: false, message: 'Another account already uses that address.' }, 409)
+    await ensureParentStudentLinksTable(db)
+    await ensureLoginPhonesTable(db)
+    await moveAccountToEmail(db, String(person.id), old, next)
+    const settings = await getSettings(db, next).catch(() => null) as Record<string, any> | null
+    if (settings) await upsertSettings(db, next, { ...settings, email: next })
+    const moved = await moveRecordsToEmail(db, old, next)
+    await addAudit(db, tenantId, { action: 'personEmailChanged', data: { by: c.var.user.id, userId: person.id, from: old, to: next, columnsChecked: moved } })
+    return c.json({ success: true, email: next })
+  } catch (error) { return familyFailure(c, error, 'Could not change the address.') }
+})
+
+app.post('/api/school/parent-invites', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '')
+  const db = c.env.APP_DB
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const ids = [...new Set((Array.isArray(body.studentIds) ? body.studentIds : []).map(String).filter(Boolean))] as string[]
+    if (!ids.length || ids.length > MAX_CHILDREN) throw new InviteError(`Choose between 1 and ${MAX_CHILDREN} children.`)
+    const children = await inviteChildren(db, tenantId, ids)
+    if (children.length !== ids.length) throw new InviteError('One of those children was not found in this school.', 404)
+    const token = await createInvite(db, tenantId, ids, String(c.var.user?.id || ''))
+    const letter = await letterSchool(db, tenantId)
+    const base = String(c.env.FLUTTERWAVE_REDIRECT_BASE_URL || new URL(c.req.url).origin).replace(/\/$/, '')
+    const url = `${base}/invite/${token}`
+    const list = children.map(child => `${child.name}${child.code ? ` (student code: ${child.code})` : ''}`).join('\n')
+    const message = `Dear Parent/Guardian,\n\n${letter.schoolName} invites you to follow your child's school life on Ndovera:\n\n${list}\n\nPlease open this private link and fill in your details. You can then sign in with your email or phone number.\n\n${url}\n\nThe link works once, for ${INVITE_DAYS} days. Please do not share it.\n\nThank you,\n${letter.schoolName}`
+    const sendTo = String(body.sendTo || '').trim().toLowerCase()
+    let emailedTo = ''
+    if (sendTo) {
+      if (!looksLikeEmail(sendTo)) throw new InviteError('That email address does not look right.')
+      emailedTo = (await sendZohoEmail(c.env, { to: [sendTo], subject: `${letter.schoolName}: Your invitation to Ndovera`, html: schoolEmailHtml(letter, message) }).catch(() => ({ sent: [] as string[] }))).sent[0] || ''
+    }
+    return c.json({ success: true, url, message, emailedTo, days: INVITE_DAYS }, 201)
+  } catch (error) { return familyFailure(c, error, 'Could not create the invitation.') }
+})
+
+async function inviteChildren(db: D1Database, tenantId: string, ids: string[]) {
+  const rows = await db.prepare(`SELECT u.id, u.name, s.payload FROM users u LEFT JOIN settings s ON s.studentId = u.email WHERE u.tenantId = ? AND lower(COALESCE(u.primary_role, u.role)) = 'student' AND u.id IN (${ids.map(() => '?').join(', ')})`).bind(tenantId, ...ids).all()
+  return ((rows.results || []) as Record<string, any>[]).map(row => {
+    let settings: Record<string, any> = {}
+    try { settings = JSON.parse(String(row.payload || '{}')) || {} } catch { settings = {} }
+    return { id: String(row.id), name: String(row.name || ''), className: [settings.className, settings.classArm].filter(Boolean).join(' '), code: String(getPublicFacingUserId(settings, 'student') || settings.publicStudentId || settings.displayId || '') }
+  })
+}
+
+app.get('/api/public/parent-invites/:token', async (c) => {
+  try {
+    const invite = await readInvite(c.env.APP_DB, c.req.param('token'))
+    const letter = await letterSchool(c.env.APP_DB, invite.tenantId)
+    const children = await inviteChildren(c.env.APP_DB, invite.tenantId, invite.studentIds)
+    return c.json({ success: true, schoolName: letter.schoolName, logoUrl: letter.logoUrl, children: children.map(({ id, ...child }) => child) })
+  } catch (error) { return familyFailure(c, error, 'Could not open the invitation.') }
+})
+
+/** A parent answers: a new account, an existing one proved by its password, or the phone-only account the school made for this child. */
+app.post('/api/public/parent-invites/:token', async (c) => {
+  const db = c.env.APP_DB
+  let claimedHash = ''
+  try {
+    const invite = await readInvite(db, c.req.param('token'))
+    const { tenantId, studentIds } = invite
+    const form = checkInviteForm(await c.req.json().catch(() => ({})), normalizeLoginPhone)
+    await ensureParentStudentLinksTable(db)
+    await ensureLoginPhonesTable(db)
+
+    let parent = await db.prepare(`SELECT id, email, tenantId, COALESCE(primary_role, role) AS role FROM users WHERE lower(email) = ?`).bind(form.email).first() as Record<string, any> | null
+    if (parent && String(parent.tenantId) !== tenantId) throw new InviteError('That email is used for an account elsewhere. Please use another email.', 409)
+    if (parent && String(parent.role || '').toLowerCase() === 'student') throw new InviteError('That email belongs to a student. Please use your own email.', 409)
+
+    const phoneHolder = await db.prepare(`SELECT user_id FROM login_phones WHERE phone = ?`).bind(form.phone).first() as Record<string, any> | null
+    if (parent) {
+      // The email is already an account here: only its password can add children to it.
+      const settings = await getSettings(db, parent.email).catch(() => null) as Record<string, any> | null
+      if (!await verifyPasswordCandidate(form.password, settings)) {
+        await countFailedTry(db, invite.hash)
+        throw new InviteError('You already have an account with this email. Enter your current password in the password box.', 409, { existing: true })
+      }
+      if (phoneHolder && String(phoneHolder.user_id) !== String(parent.id)) throw new InviteError('That phone number signs in to a different account. Please contact the school.', 409)
+    } else if (phoneHolder) {
+      // The school may have made this parent a phone-only account for one of these children: this makes it theirs.
+      const holder = await db.prepare(`SELECT id, email FROM users WHERE id = ? AND tenantId = ?`).bind(String(phoneHolder.user_id), tenantId).first() as Record<string, any> | null
+      const links = holder ? await db.prepare(`SELECT 1 AS ok FROM parent_student_links WHERE tenant_id = ? AND parent_id IN (?, ?) AND student_id IN (${studentIds.map(() => '?').join(', ')}) LIMIT 1`).bind(tenantId, holder.id, holder.email, ...studentIds).first() : null
+      if (!holder || !isPlaceholderEmail(holder.email) || !links) throw new InviteError('That phone number signs in to a different account. Please contact the school.', 409)
+      parent = holder
+    }
+    for (const studentId of studentIds) {
+      const linked = ((await db.prepare(`SELECT parent_id FROM parent_student_links WHERE tenant_id = ? AND student_id = ?`).bind(tenantId, studentId).all()).results || []) as Record<string, any>[]
+      const mine = parent ? linked.some(row => [String(parent!.id), String(parent!.email)].includes(String(row.parent_id))) : false
+      if (!mine && linked.length >= 2) throw new InviteError('This child already has two parents linked. Please contact the school.', 409)
+    }
+
+    await claimInvite(db, invite.hash, form.email)
+    claimedHash = invite.hash
+
+    const placeholder = Boolean(parent) && isPlaceholderEmail(parent!.email)
+    let accountId = String(parent?.id || '')
+    if (!parent) accountId = (await createFamilyAccount(db, { tenantId, name: form.name, email: form.email, role: 'parent', phone: form.phone })).id
+    else if (placeholder) await moveAccountToEmail(db, accountId, String(parent.email), form.email)
+    const key = parent && !placeholder ? String(parent.email) : form.email
+    const current = (await getSettings(db, key).catch(() => null) || {}) as Record<string, any>
+    const { initialPassword, ...kept } = current
+    const details = { ...kept, email: key, name: form.name, phone: form.phone, dateOfBirth: form.dateOfBirth, occupation: form.occupation }
+    // An existing account keeps its password, which was just proved. A new one takes what the parent chose.
+    await upsertSettings(db, key, parent && !placeholder ? details : await withHashedPassword({ ...details, mustChangePassword: false }, form.password))
+    await db.prepare(`UPDATE users SET name = ? WHERE id = ?`).bind(form.name, accountId).run()
+    await registerLoginPhone(db, { phone: form.phone, userId: accountId, settingsKey: key, tenantId })
+    await db.batch(studentIds.map(studentId => db.prepare(`INSERT INTO parent_student_links (id, parent_id, student_id, tenant_id, created_at) SELECT ?, ?, ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM parent_student_links WHERE tenant_id = ? AND parent_id = ? AND student_id = ?)`)
+      .bind(`link_${crypto.randomUUID()}`, accountId, studentId, tenantId, new Date().toISOString(), tenantId, accountId, studentId)))
+    await giveParentRole(db, tenantId, accountId, 'parent-invite')
+    await addAudit(db, tenantId, { action: 'parentInviteAccepted', data: { parentId: accountId, studentIds } })
+    return c.json({ success: true, email: key, phone: form.phone })
+  } catch (error) {
+    if (claimedHash) await releaseInvite(db, claimedHash).catch(() => null)
+    return familyFailure(c, error, 'Could not save your details. Please try again.')
+  }
+})
 
 app.get('/api/school/families', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
@@ -38270,16 +38789,17 @@ async function buildFeeReminders(context: Awaited<ReturnType<typeof simpleFeeCon
   const senderTitle = context.role === 'accountant' ? 'The Accounts Office' : context.role === 'owner' ? 'The Proprietor' : 'The Head of School'
   // A parent who turned email off (WhatsApp only) is never emailed a reminder.
   const consents = await commConsentsFor(context.db, context.tenantId, recipients.map(recipient => recipient.guardianId)).catch(() => new Map<string, Record<string, string>>())
+  const template = await templateFor(context.db, context.tenantId, 'fee_reminder')
   return {
-    schoolName, logoUrl: String(branding?.logoUrl || ''), bank, termLabel,
+    schoolName, letter: letterFrom(tenant, branding), bank, termLabel,
     bankMissing: !bank.bankName || !bank.accountNumber,
     students: summaries.filter(summary => enrollments.some(item => item.studentId === summary.studentId)).map(summary => {
       const enrollment = enrollments.find(item => item.studentId === summary.studentId)!
       const parents = recipients.filter(recipient => recipient.studentIds.includes(summary.studentId)).map(recipient => {
         const facts = { schoolName, parentName: recipient.name, studentName: enrollment.studentName, className: enrollment.className, termLabel, totalPayable: summary.totalPayable, paid: summary.paid, balance: summary.balance, bank, senderTitle }
-        const text = feeReminderText(facts)
+        const text = feeReminderText(facts, template.body)
         const emailOff = consents.get(recipient.guardianId)?.email === 'withdrawn'
-        return { guardianId: recipient.guardianId, name: recipient.name, email: emailOff ? '' : recipient.email, emailOff, phone: recipient.phone, text, subject: feeReminderSubject(facts), whatsappUrl: recipient.phone ? whatsappLinkFor(recipient.phone, text) : '' }
+        return { guardianId: recipient.guardianId, name: recipient.name, email: emailOff ? '' : recipient.email, emailOff, phone: recipient.phone, text, subject: feeReminderSubject(facts, template.subject), whatsappUrl: recipient.phone ? whatsappLinkFor(recipient.phone, text) : '' }
       })
       return { studentId: summary.studentId, studentName: enrollment.studentName, className: enrollment.className, balance: summary.balance, parents }
     }),
@@ -38361,7 +38881,7 @@ async function sendFeeReminderEmails(env: Bindings, context: Awaited<ReturnType<
       let delivered = 0
       for (const parent of withEmail) {
         const text = customText || parent.text
-        const result = await sendZohoEmail(env, { to: [parent.email], subject: parent.subject, html: schoolEmailHtml(built.schoolName, text, built.logoUrl) })
+        const result = await sendZohoEmail(env, { to: [parent.email], subject: parent.subject, html: schoolEmailHtml(built.letter, text) })
           .catch(error => { console.error('Fee reminder email failed', error); return { sent: [] as string[], failed: [parent.email] } })
         delivered += result.sent.length
       }
@@ -38372,6 +38892,215 @@ async function sendFeeReminderEmails(env: Bindings, context: Awaited<ReturnType<
     }
     return { sent: sent.length, sentNames: sent, skipped, bankMissing: built.bankMissing }
 }
+
+// ─── School letterhead, email wording and receipts by email ──────────────────
+
+function letterFrom(tenant: Record<string, any> | null, branding: Record<string, any> | null): LetterSchool {
+  return {
+    schoolName: String(branding?.schoolName || tenant?.schoolName || '').trim(), logoUrl: String(branding?.logoUrl || ''), tagline: String(branding?.tagline || ''),
+    address: [tenant?.addressLine, tenant?.city, tenant?.state, tenant?.country].filter(Boolean).join(', '), email: schoolContactEmail(tenant), website: String(branding?.websiteUrl || branding?.website || ''),
+  }
+}
+
+async function letterSchool(db: D1Database, tenantId: string) {
+  const tenant = await getTenantById(db, tenantId).catch(() => null) as Record<string, any> | null
+  return letterFrom(tenant, await getTenantSchoolBranding(db, tenant).catch(() => null))
+}
+
+function emailFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof TemplateError) return c.json({ success: false, message: error.message }, error.status as any)
+  return financeFailure(c, error, fallback)
+}
+
+const EMAIL_TEMPLATE_ROLES = ['owner', 'hos', 'accountant']
+
+app.get('/api/school/email-templates', authenticate, async (c) => {
+  try {
+    const context = await resolveFinanceActor(c)
+    if (!hasRequiredRole(context.role, EMAIL_TEMPLATE_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    return c.json({ success: true, templates: await listTemplatesFor(c.env.APP_DB, context.tenantId), letterhead: await letterSchool(c.env.APP_DB, context.tenantId) })
+  } catch (error) { return emailFailure(c, error, 'Could not load the email wording.') }
+})
+
+app.put('/api/school/email-templates/:kind', authenticate, async (c) => {
+  try {
+    const context = await resolveFinanceActor(c)
+    if (!hasRequiredRole(context.role, EMAIL_TEMPLATE_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    await saveTemplate(c.env.APP_DB, context.tenantId, c.req.param('kind'), await c.req.json().catch(() => ({})), String(context.actor.id || ''))
+    return c.json({ success: true })
+  } catch (error) { return emailFailure(c, error, 'Could not save the email wording.') }
+})
+
+app.delete('/api/school/email-templates/:kind', authenticate, async (c) => {
+  try {
+    const context = await resolveFinanceActor(c)
+    if (!hasRequiredRole(context.role, EMAIL_TEMPLATE_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    await resetTemplate(c.env.APP_DB, context.tenantId, c.req.param('kind'))
+    return c.json({ success: true })
+  } catch (error) { return emailFailure(c, error, 'Could not reset the email wording.') }
+})
+
+// A receipt goes by email once: finance_receipt_sends remembers it, so the one-button send can be pressed
+// again safely. Both kinds of receipt are covered: Fees & Billing (finance_receipts) and Term Fees (fees_payment_receipts).
+const RECEIPT_BATCH = 8
+const RECEIPT_PENDING_CAP = 200
+const PARENT_RESENDS_PER_DAY = 3
+const RECEIPT_EMAIL_ROLES = ['owner', 'hos', 'accountant', 'admin']
+
+async function ensureReceiptSends(db: D1Database) {
+  await ensureFinanceTables(db)
+  await ensureFeesPaymentReceiptsTable(db)
+  for (const sql of [
+    `CREATE TABLE IF NOT EXISTS finance_receipt_sends (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, receipt_no TEXT NOT NULL, channel TEXT NOT NULL, status TEXT NOT NULL, sent_to TEXT, sent_by TEXT, sent_at TEXT NOT NULL)`,
+    `CREATE INDEX IF NOT EXISTS idx_receipt_sends ON finance_receipt_sends(tenant_id, receipt_no, sent_at)`,
+    `CREATE INDEX IF NOT EXISTS idx_finance_receipts_time ON finance_receipts(tenant_id, created_at)`,
+    `CREATE INDEX IF NOT EXISTS idx_fee_receipts_time ON fees_payment_receipts(tenant_id, recorded_at)`,
+  ]) await db.prepare(sql).run()
+}
+
+type ReceiptLine = { receiptNo: string, studentId: string, studentName: string, className: string, term: string, amount: number, paidToDate: number, balance: number, method: string, reference: string, paidOn: string }
+
+const receiptFromFinance = (row: Record<string, any>): ReceiptLine => {
+  let snap: Record<string, any> = {}
+  try { snap = JSON.parse(String(row.snapshot_json || '{}')) || {} } catch { snap = {} }
+  return {
+    receiptNo: String(row.receipt_no), studentId: String(row.student_id), studentName: String(snap.studentName || ''), className: String(snap.className || ''),
+    term: [snap.termName || snap.period?.termName, snap.sessionName || snap.period?.sessionName].filter(Boolean).join(', '), amount: Number(snap.amountPaid || 0), paidToDate: Number(snap.paidToDate ?? snap.amountPaid ?? 0),
+    balance: Number(snap.remainingBalance || 0), method: String(snap.method || ''), reference: String(snap.reference || ''), paidOn: String(snap.issuedAt || row.created_at || ''),
+  }
+}
+
+const receiptFromTermFees = (row: Record<string, any>): ReceiptLine => {
+  const mapped = mapFeePaymentReceiptRow(row)
+  return {
+    receiptNo: mapped.receiptNo, studentId: mapped.studentId, studentName: mapped.studentName, className: mapped.className, term: [mapped.termName, mapped.sessionName].filter(Boolean).join(', '),
+    amount: mapped.amount, paidToDate: mapped.amountPaidAfter, balance: mapped.balanceAfter, method: mapped.paymentType, reference: mapped.paymentReference, paidOn: mapped.recordedAt,
+  }
+}
+
+async function findReceiptForEmail(db: D1Database, tenantId: string, receiptNo: string) {
+  await ensureReceiptSends(db)
+  const finance = await db.prepare(`SELECT * FROM finance_receipts WHERE tenant_id = ? AND receipt_no = ? AND status = 'valid'`).bind(tenantId, receiptNo).first() as Record<string, any> | null
+  if (finance) return receiptFromFinance(finance)
+  const term = await db.prepare(`SELECT * FROM fees_payment_receipts WHERE tenant_id = ? AND receipt_no = ? LIMIT 1`).bind(tenantId, receiptNo).first() as Record<string, any> | null
+  return term ? receiptFromTermFees(term) : null
+}
+
+/** Receipts of this term not yet emailed, oldest first. */
+async function unsentReceipts(db: D1Database, tenantId: string, since: string, limit: number) {
+  await ensureReceiptSends(db)
+  const unsent = (alias: string) => `NOT EXISTS (SELECT 1 FROM finance_receipt_sends s WHERE s.tenant_id = ${alias}.tenant_id AND s.receipt_no = ${alias}.receipt_no AND s.channel = 'email')`
+  const finance = await db.prepare(`SELECT * FROM finance_receipts r WHERE r.tenant_id = ? AND r.created_at >= ? AND r.status = 'valid' AND ${unsent('r')} ORDER BY r.created_at LIMIT ?`).bind(tenantId, since, limit).all()
+  const term = await db.prepare(`SELECT * FROM fees_payment_receipts r WHERE r.tenant_id = ? AND r.recorded_at >= ? AND COALESCE(r.receipt_kind, 'issued') = 'issued' AND ${unsent('r')} ORDER BY r.recorded_at LIMIT ?`).bind(tenantId, since, limit).all()
+  return [...((finance.results || []) as Record<string, any>[]).map(receiptFromFinance), ...((term.results || []) as Record<string, any>[]).map(receiptFromTermFees)]
+}
+
+function schoolReceiptEmail(receipt: ReceiptLine, parentName: string, letter: LetterSchool, template: { subject: string, body: string }, verifyBase: string, senderTitle: string) {
+  const naira = (value: number) => `₦${(Number(value) || 0).toLocaleString('en-NG', { maximumFractionDigits: 2 })}`
+  const facts: Record<string, string> = {
+    schoolName: letter.schoolName, parentName: parentName || 'Parent/Guardian', studentName: receipt.studentName || 'your child', className: receipt.className || 'their class', term: receipt.term || 'this term',
+    date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }), senderTitle, receiptNo: receipt.receiptNo, amount: naira(receipt.amount), paidToDate: naira(receipt.paidToDate), balance: naira(receipt.balance),
+    method: receipt.method.replace(/-/g, ' '), reference: receipt.reference, paidOn: receipt.paidOn ? new Date(receipt.paidOn).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '',
+    verifyLink: verifyBase ? `${verifyBase}/receipt-verification/${encodeURIComponent(receipt.receiptNo)}` : '',
+  }
+  return { subject: fillTemplate(template.subject, facts), html: schoolEmailHtml(letter, fillTemplate(template.body, facts)) }
+}
+
+async function logReceiptSend(db: D1Database, tenantId: string, receiptNo: string, status: string, sentTo: string, by: string) {
+  await db.prepare(`INSERT INTO finance_receipt_sends (id, tenant_id, receipt_no, channel, status, sent_to, sent_by, sent_at) VALUES (?, ?, ?, 'email', ?, ?, ?, ?)`)
+    .bind(`rsend_${crypto.randomUUID()}`, tenantId, receiptNo, status, sentTo.slice(0, 300), by, new Date().toISOString()).run()
+}
+
+/** Email receipts to the parents of each student. Parents who turned email off are skipped. */
+async function emailReceipts(env: Bindings, tenantId: string, receipts: ReceiptLine[], by: string, senderTitle: string) {
+  const db = env.APP_DB
+  const ids = [...new Set(receipts.map(item => item.studentId))]
+  const { recipients } = ids.length ? await resolveRecipients(db, tenantId, { kind: 'students', studentIds: ids }, { ...DEFAULT_COMM_SETTINGS, tenantId, guardianMode: 'all' } as any) : { recipients: [] as any[] }
+  const consents = await commConsentsFor(db, tenantId, recipients.map((item: any) => item.guardianId)).catch(() => new Map<string, Record<string, string>>())
+  const [letter, template, verifyBase] = await Promise.all([letterSchool(db, tenantId), templateFor(db, tenantId, 'receipt'), schoolReceiptBase(db, tenantId, env.TENANT_BASE_DOMAIN).catch(() => '')])
+  const out = { sent: 0, noEmail: 0, failed: 0, sentTo: [] as string[] }
+  for (const receipt of receipts) {
+    const parents = recipients.filter((item: any) => item.studentIds.includes(receipt.studentId) && item.email && consents.get(item.guardianId)?.email !== 'withdrawn')
+    if (!parents.length) { out.noEmail += 1; await logReceiptSend(db, tenantId, receipt.receiptNo, 'no_email', '', by); continue }
+    const delivered: string[] = []
+    for (const parent of parents) {
+      const email = schoolReceiptEmail(receipt, parent.name, letter, template, verifyBase, senderTitle)
+      const result = await sendZohoEmail(env, { to: [parent.email], ...email }).catch(() => ({ sent: [] as string[], failed: [parent.email] }))
+      delivered.push(...result.sent)
+    }
+    // A failure leaves no mark, so the next press tries it again.
+    if (!delivered.length) { out.failed += 1; continue }
+    await logReceiptSend(db, tenantId, receipt.receiptNo, 'sent', delivered.join(', '), by)
+    out.sent += 1
+    out.sentTo.push(...delivered)
+  }
+  return out
+}
+
+const senderTitleFor = (role: string) => (role === 'accountant' ? 'The Accounts Office' : role === 'owner' ? 'The Proprietor' : 'The Head of School')
+const receiptWindowStart = (context: Awaited<ReturnType<typeof simpleFeeContext>>) => String((context.term as any)?.startDate || new Date(Date.now() - 120 * 86400_000).toISOString().slice(0, 10))
+
+app.get('/api/school/finance/simple/receipts/email-status', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, RECEIPT_EMAIL_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const pending = await unsentReceipts(context.db, context.tenantId, receiptWindowStart(context), RECEIPT_PENDING_CAP)
+    return c.json({ success: true, pending: Math.min(pending.length, RECEIPT_PENDING_CAP), more: pending.length >= RECEIPT_PENDING_CAP })
+  } catch (error) { return emailFailure(c, error, 'Could not count the receipts.') }
+})
+
+/** One press: the page calls this repeatedly, a few receipts each time, until none remain (a request can only do so much). */
+app.post('/api/school/finance/simple/receipts/email-batch', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, RECEIPT_EMAIL_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const since = receiptWindowStart(context)
+    const batch = (await unsentReceipts(context.db, context.tenantId, since, RECEIPT_BATCH)).slice(0, RECEIPT_BATCH)
+    const result = await emailReceipts(c.env, context.tenantId, batch, String(context.actor.id || ''), senderTitleFor(context.role))
+    const remaining = (await unsentReceipts(context.db, context.tenantId, since, RECEIPT_PENDING_CAP)).length
+    // Every one in the batch failing means email itself is down: stop, rather than pressing on.
+    return c.json({ success: true, ...result, remaining, stop: batch.length > 0 && result.failed === batch.length })
+  } catch (error) { return emailFailure(c, error, 'Could not send the receipts.') }
+})
+
+/** One receipt to its parents. A second send must be asked for. */
+app.post('/api/school/finance/simple/receipts/email', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, RECEIPT_EMAIL_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const receipt = await findReceiptForEmail(context.db, context.tenantId, String(body.receiptNo || ''))
+    if (!receipt) return c.json({ success: false, message: 'Receipt not found.' }, 404)
+    const last = await context.db.prepare(`SELECT sent_at, sent_to FROM finance_receipt_sends WHERE tenant_id = ? AND receipt_no = ? AND status = 'sent' ORDER BY sent_at DESC LIMIT 1`).bind(context.tenantId, receipt.receiptNo).first() as Record<string, any> | null
+    if (last && body.again !== true) return c.json({ success: false, alreadySent: true, sentTo: last.sent_to, sentAt: last.sent_at, message: 'This receipt has already been emailed.' }, 409)
+    const result = await emailReceipts(c.env, context.tenantId, [receipt], String(context.actor.id || ''), senderTitleFor(context.role))
+    if (!result.sent) return c.json({ success: false, message: result.noEmail ? 'No parent of this student has an email address on file.' : 'The email could not be sent. Please try again.' }, 400)
+    return c.json({ success: true, sentTo: result.sentTo })
+  } catch (error) { return emailFailure(c, error, 'Could not send the receipt.') }
+})
+
+/** A parent sends one of their own child's receipts to their own email, from the dashboard. */
+app.post('/api/school/finance/my-receipts/email', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    const students = await financeStudentsFor(c.env.APP_DB, ctx)
+    if (!students) return c.json({ success: false, message: 'Receipts are for parents.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const receipt = await findReceiptForEmail(c.env.APP_DB, ctx.tenantId, String(body.receiptNo || ''))
+    if (!receipt || !students.includes(receipt.studentId)) return c.json({ success: false, message: 'Receipt not found.' }, 404)
+    const to = String(ctx.email || '').trim()
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) return c.json({ success: false, message: 'Your account has no email address. Ask the school to add one.' }, 400)
+    const today = new Date(Date.now() - 86400_000).toISOString()
+    const recent = await c.env.APP_DB.prepare(`SELECT COUNT(*) AS n FROM finance_receipt_sends WHERE tenant_id = ? AND receipt_no = ? AND sent_by = ? AND sent_at >= ?`).bind(ctx.tenantId, receipt.receiptNo, String(ctx.actor.id), today).first() as Record<string, any> | null
+    if (Number(recent?.n || 0) >= PARENT_RESENDS_PER_DAY) return c.json({ success: false, message: 'This receipt has been emailed to you several times today. Please check your inbox and spam folder.' }, 429)
+    const [letter, template, verifyBase] = await Promise.all([letterSchool(c.env.APP_DB, ctx.tenantId), templateFor(c.env.APP_DB, ctx.tenantId, 'receipt'), schoolReceiptBase(c.env.APP_DB, ctx.tenantId, c.env.TENANT_BASE_DOMAIN).catch(() => '')])
+    const email = schoolReceiptEmail(receipt, String(ctx.actor.name || ''), letter, template, verifyBase, 'The Accounts Office')
+    const result = await sendZohoEmail(c.env, { to: [to], ...email })
+    if (!result.sent.length) return c.json({ success: false, message: 'The email could not be sent. Please try again.' }, 502)
+    await logReceiptSend(c.env.APP_DB, ctx.tenantId, receipt.receiptNo, 'sent', to, String(ctx.actor.id))
+    return c.json({ success: true, sentTo: result.sent })
+  } catch (error) { return emailFailure(c, error, 'Could not send the receipt.') }
+})
 
 // ─── Financial standings report (financeReport.ts) ───────────────────────────
 
@@ -38890,11 +39619,17 @@ async function commEventStillValid(env: Bindings, event: CommEvent) {
 }
 
 function commDeps(env: Bindings): CommDeps {
+  // One read of a school's letterhead however many parents are emailed in this run.
+  const letters = new Map<string, Promise<LetterSchool>>()
+  const letterOf = (tenantId: string) => {
+    if (!letters.has(tenantId)) letters.set(tenantId, letterSchool(env.APP_DB, tenantId))
+    return letters.get(tenantId)!
+  }
   return {
     db: env.APP_DB,
     whatsapp: { token: String(env.META_WHATSAPP_TOKEN || ''), phoneNumberId: String(env.META_WHATSAPP_PHONE_NUMBER_ID || '') },
     sms: { apiKey: String(env.PAYHOS_API_KEY || ''), senderId: String(env.PAYHOS_SENDER_ID || '') },
-    sendEmail: env.ZOHO_MAIL_ACCOUNT_ID ? async (to, subject, html) => { await sendZohoEmail(env, { to: [to], subject, html }) } : null,
+    sendEmail: env.ZOHO_MAIL_ACCOUNT_ID ? async (to, subject, html, tenantId) => { await sendZohoEmail(env, { to: [to], subject, html: schoolEmailFrame(await letterOf(tenantId), html) }) } : null,
     portalBase: tenantId => commPortalBase(env, tenantId),
     schoolName: async tenantId => String((await getTenantById(env.APP_DB, tenantId))?.schoolName || 'Your school'),
     balanceKobo: (tenantId, studentId) => studentBalanceKobo(env, tenantId, studentId),

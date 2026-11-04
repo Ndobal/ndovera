@@ -25,17 +25,28 @@ import {
 import { getPublicPlatformSite, getPublicOpportunities, submitGrowthPartnerApplication } from '../services/publicSiteApi';
 import { LEGAL_DOCUMENTS } from '../legalDocuments';
 import { getTenantPricing } from '../../tenants/services/tenantApi';
+import HomeStrips from '../../showcase/HomeStrips';
+import { FeaturesPageBody, HomeFeatures } from '../FeaturesSections';
+import { localMoney } from '../../../shared/pricing/localPrice';
 
-const currencyFormatter = new Intl.NumberFormat('en-NG', {
+// The visitor's price rule, from the worker: the page's prices follow it (Nigeria stays in naira).
+let visitorPricing = { rule: null, discounted: false };
+
+const nairaFormatter = new Intl.NumberFormat('en-NG', {
   style: 'currency',
   currency: 'NGN',
   minimumFractionDigits: 0,
   maximumFractionDigits: 0,
 });
 
+const currencyFormatter = {
+  format: amount => (visitorPricing.rule?.foreign ? localMoney(amount, visitorPricing.rule, { discounted: visitorPricing.discounted }) : nairaFormatter.format(amount)),
+};
+
 const NAV_ITEMS = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
+  { label: 'Features', path: '/features' },
   { label: 'Mission', path: '/mission' },
   { label: 'Vision', path: '/vision' },
   { label: 'Growth Partners', path: '/growth-partners' },
@@ -282,6 +293,12 @@ const PAGE_CONTENT = {
 };
 
 const DEFAULT_SECTION_DATA = {
+  features: {
+    eyebrow: 'Features',
+    title: 'Everything on Ndovera',
+    description: 'For schools, teachers, students and parents.',
+    metadata: {},
+  },
   home: {
     ...PAGE_CONTENT.home,
     metadata: {
@@ -754,7 +771,7 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
             </div>
             <div>
               <p className="font-serif text-xl font-black leading-none tracking-tight text-[#191970]">NDOVERA</p>
-              <p className="mt-1 hidden text-[10px] font-semibold uppercase tracking-[0.28em] text-[#c9a96e] sm:block">Learn · Lead · Grow</p>
+              <p className="mt-1 hidden text-[10px] font-semibold uppercase tracking-[0.28em] text-[#7a5c1e] sm:block">Learn · Lead · Grow</p>
             </div>
           </Link>
 
@@ -856,7 +873,7 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
             {heroStats.slice(0, 4).map((metric, index) => (
               <div key={`${metric.label}-${index}`} className="border-b border-slate-200 px-4 py-7 text-center md:border-b-0 md:border-l md:first:border-l-0">
                 <p className="font-serif text-3xl font-black text-[#191970] sm:text-4xl">{metric.value}</p>
-                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c9a96e]">{metric.label}</p>
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7a5c1e]">{metric.label}</p>
               </div>
             ))}
           </div>
@@ -866,7 +883,7 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
           <div className="mx-auto grid max-w-7xl gap-4 px-4 py-8 sm:grid-cols-2 sm:px-6 lg:px-8">
             {heroPreviewCards.map(item => (
               <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c9a96e]">{item.eyebrow || 'NDOVERA'}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7a5c1e]">{item.eyebrow || 'NDOVERA'}</p>
                 <p className="mt-2 font-serif text-lg font-black text-[#191970]">{item.title}</p>
                 <p className="mt-1 text-sm leading-6 text-[#31416f]">{item.description}</p>
               </div>
@@ -966,11 +983,13 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
   );
 }
 
-function HomePageBody({ section }) {
+function HomePageBody({ section, featuresSection }) {
   const strands = section.metadata.cards;
 
   return (
     <div className="space-y-10">
+      <HomeFeatures section={featuresSection} />
+      <HomeStrips />
       <section className="grid gap-4 lg:grid-cols-4">
         {strands.map((item, index) => (
           <PublicCard key={item.title} title={item.title} description={item.description} icon={item.icon} to={item.path} revealDelay={(index % 4) + 1} />
@@ -1411,6 +1430,11 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
       {/* The visual hero is intentionally absent here; this keeps the page from being
           headless for screen readers and search engines. */}
       <h1 className="sr-only">NDOVERA pricing</h1>
+      {visitorPricing.rule?.foreign ? (
+        <p role="note" className="rounded-2xl border border-[#c9a96e] bg-white px-4 py-3 text-sm font-semibold text-[#191970]">
+          Prices for your country{visitorPricing.rule.currency === 'NGN' ? ' are in naira' : `, in ${visitorPricing.rule.currency}`}{visitorPricing.discounted ? ', with your discount code.' : `. They include a ${Math.round(visitorPricing.rule.surcharge * 100)}% charge outside Nigeria, which a discount code removes.`}
+        </p>
+      ) : null}
 
 
       {pricingError ? (
@@ -1678,7 +1702,7 @@ function VacancyCard({ vacancy }) {
         {vacancy.location ? <span className="text-xs font-semibold text-[#31416f]">📍 {vacancy.location}</span> : null}
       </div>
       <h3 className="mt-3 font-serif text-xl font-black leading-tight text-[#191970]">{vacancy.title}</h3>
-      {vacancy.department ? <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-[#c9a96e]">{vacancy.department}</p> : null}
+      {vacancy.department ? <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-[#7a5c1e]">{vacancy.department}</p> : null}
       {vacancy.description ? <p className="mt-3 whitespace-pre-line text-sm leading-7 text-[#31416f] line-clamp-6">{vacancy.description}</p> : null}
       <div className="mt-auto flex items-center justify-between gap-3 pt-5">
         {vacancy.deadline ? <span className="text-xs font-semibold text-[#800020]">Apply by {vacancy.deadline}</span> : <span />}
@@ -1851,6 +1875,7 @@ function PublicSitePageContent({ pageKey = 'home' }) {
     getTenantPricing({ discountCode: appliedDiscountCode, referralCode: linkReferralCode })
       .then(data => {
         if (!cancelled) {
+          visitorPricing = { rule: data?.localPricing || null, discounted: Boolean(data?.discount?.applied) };
           setPricing({
             plans: Array.isArray(data?.plans) ? data.plans : [],
             pricingConfig: data?.pricingConfig || null,
@@ -1924,7 +1949,8 @@ function PublicSitePageContent({ pageKey = 'home' }) {
       : `NDOVERA | ${section.title}`;
   }, [pageKey, section.title]);
 
-  let body = <HomePageBody section={section} />;
+  let body = <HomePageBody section={section} featuresSection={sectionsByKey.features} />;
+  if (pageKey === 'features') body = <FeaturesPageBody section={sectionsByKey.features} />;
 
   if (pageKey === 'about') body = <AboutPageBody section={section} />;
   if (pageKey === 'mission') body = <MissionPageBody section={section} />;

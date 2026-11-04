@@ -103,6 +103,17 @@ const PAYSLIP_ROLES = new Set([...staffAiEligibleRoles, 'driver']);
 
 export function getRoleSidebarItems(roleKey) {
   let items = buildRoleSidebarItems(roleKey);
+  if (['student', 'parent', 'teacher', 'owner', 'hos'].includes(roleKey) && !items.some(item => String(item.path || '').endsWith('/exam-requests'))) {
+    const settingsIndex = items.findIndex(item => String(item.path || '').endsWith('/settings'));
+    const insertAt = settingsIndex >= 0 ? settingsIndex : items.length;
+    items = [...items.slice(0, insertAt), { name: 'Request an Exam', path: `/roles/${roleKey}/exam-requests` }, ...items.slice(insertAt)];
+  }
+  // Anyone at a school can review Ndovera (Ami chooses what reaches the home page).
+  if (!['ami', 'shareholder'].includes(roleKey) && !items.some(item => String(item.path || '').endsWith('/feedback'))) {
+    const settingsIndex = items.findIndex(item => String(item.path || '').endsWith('/settings'));
+    const insertAt = settingsIndex >= 0 ? settingsIndex : items.length;
+    items = [...items.slice(0, insertAt), { name: 'Give Feedback', path: `/roles/${roleKey}/feedback` }, ...items.slice(insertAt)];
+  }
   if (PAYSLIP_ROLES.has(roleKey) && !items.some(item => String(item.path || '').endsWith('/payslip'))) {
     const settingsIndex = items.findIndex(item => String(item.path || '').endsWith('/settings'));
     const insertAt = settingsIndex >= 0 ? settingsIndex : items.length;
@@ -635,13 +646,17 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Profit & Loss', path: '/roles/ami/profit-loss', group: 'Money' },
       { name: 'Shareholders', path: '/roles/ami/shareholders', group: 'Money' },
       { name: 'Growth Partners', path: '/roles/ami/growth-partners', group: 'Money' },
+      { name: 'Country Prices', path: '/roles/ami/country-prices', group: 'Money' },
+      { name: 'Pass Codes', path: '/roles/ami/pass-codes', group: 'Money' },
       { name: 'School Outreach', path: '/roles/ami/outreach', group: 'Schools' },
       { name: 'Growth Centre', path: '/roles/ami/growth', group: 'Schools' },
       { name: 'Championships', path: '/roles/ami/championships', group: 'Content' },
       { name: 'Competitions', path: '/roles/ami/competitions', group: 'Content' },
       { name: 'Question Bank', path: '/roles/ami/question-bank', group: 'Content' },
+      { name: 'Exam Requests', path: '/roles/ami/exam-requests', group: 'Content' },
       { name: 'Curriculum Library', path: '/roles/ami/curriculum', group: 'Content' },
       { name: 'Website', path: '/roles/ami/website', group: 'Content' },
+      { name: 'Reviews & Home Schools', path: '/roles/ami/home-showcase', group: 'Content' },
       { name: 'Communications', path: '/roles/ami/communications', group: 'Content' },
       { name: 'Inbox', path: '/roles/ami/messaging', group: 'Platform' },
       { name: 'Security', path: '/roles/ami/security', group: 'Platform' },

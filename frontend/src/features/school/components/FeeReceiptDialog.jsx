@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import FeeReceiptPrintCard from './FeeReceiptPrintCard';
+import { receiptImage, saveFile, sendReceiptImage } from './receiptImage';
+import { emailMyReceipt, emailReceiptToParents } from '../../communications/schoolEmailApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const ACTION_BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
-const WHATSAPP_BTN = 'rounded-2xl bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#1ebe5b]';
+const WHATSAPP_BTN = 'rounded-2xl bg-[#25D366] px-5 py-2.5 text-sm font-bold text-[#06301a] transition-colors hover:bg-[#1ebe5b]';
 const CLOSE_BTN = 'rounded-2xl border border-[#800020]/30 bg-white/70 px-5 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff] dark:hover:bg-[#1f0022]';
 
 function naira(value) {
@@ -32,12 +35,33 @@ export function buildReceiptShareMessage(receipt) {
   return lines.join('\n');
 }
 
-function shareReceiptOnWhatsApp(receipt) {
-  if (!receipt) return;
+function whatsAppUrl(receipt) {
   const phone = digitsOnlyPhone(receipt.parentPhone || receipt.payerPhone || receipt.phone);
   const text = encodeURIComponent(buildReceiptShareMessage(receipt));
-  const url = phone ? `https://wa.me/${phone}?text=${text}` : `https://wa.me/?text=${text}`;
-  window.open(url, '_blank', 'noopener,noreferrer');
+  return phone ? `https://wa.me/${phone}?text=${text}` : `https://wa.me/?text=${text}`;
+}
+
+function shareReceiptOnWhatsApp(receipt) {
+  if (!receipt) return;
+  window.open(whatsAppUrl(receipt), '_blank', 'noopener,noreferrer');
+}
+
+const currentRole = () => {
+  try {
+    return String(localStorage.getItem('selectedRole') || JSON.parse(localStorage.getItem('authUser') || '{}').role || '').toLowerCase();
+  } catch { return ''; }
+};
+
+/** Email the receipt: a parent to themselves, the school to the child's parents. Sending it twice is asked about. */
+async function emailReceipt(receiptNo, isParent) {
+  if (isParent) return `Sent to ${(await emailMyReceipt(receiptNo)).sentTo.join(', ')}.`;
+  try {
+    return `Sent to ${(await emailReceiptToParents(receiptNo)).sentTo.join(', ')}.`;
+  } catch (error) {
+    if (!error.data?.alreadySent) throw error;
+    if (!await askConfirm(`This receipt was already emailed to ${error.data.sentTo}. Send it again?`)) return '';
+    return `Sent again to ${(await emailReceiptToParents(receiptNo, true)).sentTo.join(', ')}.`;
+  }
 }
 
 export default function FeeReceiptDialog({
@@ -48,6 +72,31 @@ export default function FeeReceiptDialog({
   title = 'Official School Fees Receipt',
   subtitle = 'Verification-ready payment receipt.',
 }) {
+  const [status, setStatus] = useState(null);
+  const [busy, setBusy] = useState('');
+  const role = currentRole();
+  const canEmail = Boolean(receipt?.receiptNo) && receipt?.receiptKind !== 'preview' && ['parent', 'owner', 'hos', 'accountant', 'admin'].includes(role);
+
+  async function sendImage() {
+    setBusy('image'); setStatus(null);
+    try {
+      const how = await sendReceiptImage(printId, receipt.receiptNo, buildReceiptShareMessage(receipt));
+      if (how === 'copied') setStatus({ text: 'Receipt picture copied. Open the chat, paste it (Ctrl+V), then send.', link: whatsAppUrl(receipt) });
+      if (how === 'saved') setStatus({ text: 'Receipt picture saved. Open the chat and attach it.', link: whatsAppUrl(receipt) });
+    } catch (error) { setStatus({ text: error.message }); } finally { setBusy(''); }
+  }
+  async function downloadImage() {
+    setBusy('save'); setStatus(null);
+    try { saveFile(await receiptImage(printId, receipt.receiptNo)); } catch (error) { setStatus({ text: error.message }); } finally { setBusy(''); }
+  }
+  async function sendEmail() {
+    setBusy('email'); setStatus(null);
+    try {
+      const text = await emailReceipt(receipt.receiptNo, role === 'parent');
+      if (text) setStatus({ text });
+    } catch (error) { setStatus({ text: error.message }); } finally { setBusy(''); }
+  }
+
   useEffect(() => {
     if (!isOpen) return undefined;
 
@@ -99,7 +148,15 @@ export default function FeeReceiptDialog({
           </div>
 
           <div className="sticky bottom-0 flex flex-wrap justify-end gap-3 border-t border-[#c9a96e]/35 bg-[#fff4df]/95 px-4 pt-3 pb-[calc(0.75rem+var(--safe-bottom))] backdrop-blur sm:px-5 dark:border-[#bf00ff]/25 dark:bg-[#2a001f]/95">
-            <button type="button" onClick={() => shareReceiptOnWhatsApp(receipt)} className={WHATSAPP_BTN}>Share on WhatsApp</button>
+            {status ? (
+              <p role="status" className="w-full text-sm font-semibold text-[#191970]">
+                {status.text}{status.link ? <> <a href={status.link} target="_blank" rel="noreferrer noopener" className="font-black underline">Open WhatsApp</a></> : null}
+              </p>
+            ) : null}
+            <button type="button" disabled={Boolean(busy)} onClick={sendImage} className={`${WHATSAPP_BTN} disabled:opacity-60`}>{busy === 'image' ? 'Preparing…' : 'WhatsApp picture'}</button>
+            <button type="button" onClick={() => shareReceiptOnWhatsApp(receipt)} className={WHATSAPP_BTN}>WhatsApp text</button>
+            {canEmail ? <button type="button" disabled={Boolean(busy)} onClick={sendEmail} className={`${ACTION_BTN} disabled:opacity-60`}>{busy === 'email' ? 'Sending…' : role === 'parent' ? 'Email it to me' : 'Email to parent'}</button> : null}
+            <button type="button" disabled={Boolean(busy)} onClick={downloadImage} className={`${ACTION_BTN} disabled:opacity-60`}>{busy === 'save' ? 'Saving…' : 'Save picture'}</button>
             <button type="button" onClick={() => window.print()} className={ACTION_BTN}>Print Receipt</button>
             <button type="button" onClick={onClose} className={CLOSE_BTN}>Close Receipt</button>
           </div>

@@ -84,7 +84,7 @@ export default function TermsCalendarPage() {
       <header className="rounded-2xl bg-[#191970] p-6 text-white">
         <p className="text-xs font-bold uppercase tracking-widest text-amber-200">Terms Calendar</p>
         <h1 className="mt-1 text-2xl font-black">{calendar?.session?.name || 'Session calendar'}</h1>
-        <p className="mt-2 text-sm text-slate-100">Breaks, holidays, tests, exams, events, open days, results and fee deadlines for the session. Drafted, then approved by another head before it is published. Every version is kept.</p>
+        <p className="mt-2 text-sm text-slate-100 keep-pale-text">Breaks, holidays, tests, exams, events, open days, results and fee deadlines for the session. Drafted, then approved by another head before it is published. Every version is kept.</p>
       </header>
 
       {data?.sessions?.length ? (

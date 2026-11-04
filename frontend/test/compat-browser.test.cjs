@@ -36,7 +36,7 @@ test('Lite works without fetch or persistent storage and safely reads authorised
   assert.equal(d.querySelectorAll('a[href^="javascript:"]').length,0);assert.equal(w.pwned,undefined);
   assert.match(d.getElementById('app').textContent,/A half is one of two equal parts/);
   findButton('Assignments').click();await waitFor(()=>d.getElementById('app').textContent.includes('Homework'));
-  assert.match(d.getElementById('app').textContent,/standard version to start or submit/);
+  assert.ok(findButton('Open and answer'),'a student can start the assignment in Lite');
   findButton('Sign out').click();assert.ok(d.getElementById('lite-password'));assert.doesNotMatch(d.getElementById('app').textContent,/Homework/);
  } finally {if(dom)dom.window.close();await new Promise(resolve=>server.close(resolve));}
 });

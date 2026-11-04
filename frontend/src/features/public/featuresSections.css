@@ -1,0 +1,5 @@
+/* Each group rises into place, one after another. */
+.ndv-feature-group { -webkit-animation: ndvFeatureIn 500ms ease-out backwards; animation: ndvFeatureIn 500ms ease-out backwards; }
+@-webkit-keyframes ndvFeatureIn { from { opacity: 0; -webkit-transform: translateY(16px); } to { opacity: 1; -webkit-transform: none; } }
+@keyframes ndvFeatureIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .ndv-feature-group { -webkit-animation: none; animation: none; } }

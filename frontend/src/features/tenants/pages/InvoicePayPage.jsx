@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { localMoney } from '../../../shared/pricing/localPrice';
 import { useLocation, useParams } from 'react-router-dom';
 import { confirmInvoicePayment, getPublicInvoice, startInvoiceCheckout } from '../services/tenantApi';
 
@@ -6,6 +7,7 @@ import { confirmInvoicePayment, getPublicInvoice, startInvoiceCheckout } from '.
 const LETTERHEAD = { email: 'support@ndovera.com', phone: '+234 812 888 2800', website: 'ndovera.com' };
 const LOGO = `${process.env.PUBLIC_URL || ''}/apple-touch-icon.png`;
 
+// A school outside Nigeria pays this in its own currency (the worker sets the charge).
 const naira = cents => `₦${(Math.round(Number(cents || 0)) / 100).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const day = value => {
   if (!value) return '—';
@@ -153,7 +155,7 @@ export default function InvoicePayPage() {
         {invoice && invoice.status !== 'paid' ? (
           <div className="rounded-3xl bg-white p-5 text-center shadow">
             <button type="button" onClick={pay} disabled={busy} className="rounded-full bg-[#1a5c38] px-8 py-3 text-lg font-black text-white shadow-lg transition-transform hover:-translate-y-0.5 disabled:opacity-60">
-              {busy ? 'Opening Flutterwave…' : `Pay ${naira(invoice.amountCents)} now`}
+              {busy ? 'Opening Flutterwave…' : `Pay ${invoice.pricing?.foreign ? localMoney(invoice.amountCents / 100, invoice.pricing) : naira(invoice.amountCents)} now`}
             </button>
             <p className="mt-2 text-xs text-slate-600">Card, bank transfer or USSD, through Flutterwave. Your receipt is emailed as soon as Flutterwave confirms the payment.</p>
             <p className="mt-3 rounded-2xl bg-[#fdecee] px-4 py-2 text-sm text-[#800000]">

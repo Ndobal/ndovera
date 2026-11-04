@@ -191,7 +191,7 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
               return (
                 <button key="signin" type="button" onClick={() => setSignInOpen(true)} className={`group ${baseBtn} border-[#2447d8] bg-[#2447d8] text-white`}>
                   <span className="relative inline-flex items-center justify-center"><QrCodeIcon className="h-5 w-5 transition-transform group-active:scale-90" /></span>
-                  <span className="label text-[10px] font-bold text-white">Sign in</span>
+                  <span className="label ndv-label-on-solid text-[10px] font-bold text-white">Sign in</span>
                 </button>
               );
             }

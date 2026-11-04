@@ -2,6 +2,7 @@ import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 import { currentUserKey, getItem, isOnline, setItem } from '../../shared/offline/offlineStore';
 import { enqueue, listOutbox, registerSender } from '../../shared/offline/outbox';
+import { localMoney } from '../../shared/pricing/localPrice';
 
 // Practice Arena (Worker: practiceArena.ts). Everything a student needs to
 // practise is kept on the device: the home screen, a pack per subject (questions
@@ -48,6 +49,7 @@ export async function loadHome() {
     try {
       const data = await request('/api/practice-arena/home');
       await setItem(key('home'), { ...data, savedAt: Date.now() });
+      withRule(data);
       return { ...data, offline: false };
     } catch (error) {
       if (error.status && error.status < 500) throw error;
@@ -55,6 +57,7 @@ export async function loadHome() {
   }
   const kept = await getItem(key('home'));
   if (!kept) throw Object.assign(new Error('You are offline and practice has not been opened on this device yet. Connect once to download your questions.'), { offline: true });
+  withRule(kept);
   return { ...kept, offline: true };
 }
 
@@ -101,14 +104,20 @@ export const getMockPapers = () => request('/api/practice-arena/papers');
 export const openMockPaper = (id, part) => request(`/api/practice-arena/papers/${encodeURIComponent(id)}?part=${part}`);
 export const submitMockPaper = (id, body) => request(`/api/practice-arena/papers/${encodeURIComponent(id)}/submit`, { method: 'POST', body });
 
-export const quotePass = payload => request('/api/practice-arena/passes/quote', { method: 'POST', body: payload });
+export const quotePass = payload => request('/api/practice-arena/passes/quote', { method: 'POST', body: payload }).then(withRule);
 export const checkoutPass = payload => request('/api/practice-arena/passes/checkout', { method: 'POST', body: payload });
 export const verifyPass = txRef => request('/api/practice-arena/passes/verify', { method: 'POST', body: { txRef } });
-export const getFamilyPasses = () => request('/api/practice-arena/family');
-export const getSchoolPasses = () => request('/api/practice-arena/school');
+export const getFamilyPasses = () => request('/api/practice-arena/family').then(withRule);
+export const getSchoolPasses = () => request('/api/practice-arena/school').then(withRule);
 export const getSchoolPassSubjects = classId => request(`/api/practice-arena/school/subjects?classId=${encodeURIComponent(classId)}`);
 export const clearStudentDevices =studentId => request('/api/practice-arena/devices/clear', { method: 'POST', body: { studentId } });
-export const naira = value => `₦${(Number(value) || 0).toLocaleString()}`;
+/** Use a one-time code for a free pass. A pass needing a choice comes back with error.data.needs. */
+export const redeemPassCode = payload => request('/api/practice-arena/passes/redeem', { method: 'POST', body: payload });
+
+// Prices follow the rule the worker sends for this school's country (Nigeria stays in naira).
+let priceRule = null;
+const withRule = data => { if (data?.pricing) priceRule = data.pricing; return data; };
+export const money = value => localMoney(value, priceRule);
 
 export async function packSavedAt(subjectKey) {
   const kept = await getItem(packKey(subjectKey, ''));

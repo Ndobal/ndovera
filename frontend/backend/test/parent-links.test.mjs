@@ -70,6 +70,27 @@ test('links stored under an email still count, once each; a turned-off parent st
   assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM parent_student_links WHERE student_id = 'st-1'`).get().n, 0)
 })
 
+test('staff can be linked to their children, and then have the parent view as well as their job', async () => {
+  const db = await setup()
+  await db.prepare('INSERT INTO users (id, email, name, role, primary_role, tenantId, status) VALUES (?, ?, ?, ?, ?, ?, ?)').bind('t-9', 'tee@a.test', 'Mrs Teacher', 'teacher', 'teacher', 'school-a', 'active').run()
+  await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)').bind('tee@a.test', JSON.stringify({ name: 'Mrs Teacher', email: 'tee@a.test', role: 'teacher', primaryRole: 'teacher', roles: ['teacher'], tenantId: 'school-a' })).run()
+
+  const before = await call(db, 'GET', '/api/school/link-overview')
+  const staff = before.body.parents.find(item => item.id === 't-9')
+  assert.equal(staff.staffRole, 'teacher', 'staff are on the list')
+  assert.equal(before.body.counts.parentsWithoutChildren, 1, 'staff with no child are not counted as parents waiting')
+
+  assert.equal((await call(db, 'POST', '/api/school/parent-student-link', { parentId: 't-9', studentId: 'st-2' })).status, 200)
+  const after = await call(db, 'GET', '/api/school/link-overview')
+  assert.equal(after.body.parents.find(item => item.id === 't-9').children.length, 1)
+  assert.ok(after.body.students.find(item => item.id === 'st-2').parents.some(link => link.id === 't-9'))
+
+  const row = db.db.prepare('SELECT role, primary_role FROM users WHERE id = ?').get('t-9')
+  assert.equal(row.primary_role, 'teacher', 'still a teacher first')
+  const settings = JSON.parse(db.db.prepare('SELECT payload FROM settings WHERE studentId = ?').get('tee@a.test').payload)
+  assert.deepEqual(settings.roles, ['teacher', 'parent'])
+})
+
 test('marked parents are turned off together; one who still has a child needs a reason, which is kept', async () => {
   const db = await setup()
   const refused = await call(db, 'POST', '/api/school/parents/turn-off', { parentIds: ['p-2', 'p-3'] })

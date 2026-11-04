@@ -83,7 +83,7 @@ export default function TuckShopFinanceBoard() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Total Sales</p><p className="text-xl font-bold text-emerald-700 mt-1">{formatNaira(stats.totalSales)}</p><p className="text-xs text-[#191970] mt-0.5">{stats.orderCount} order{stats.orderCount === 1 ? '' : 's'}</p></div>
         <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Today's Sales</p><p className="text-xl font-bold text-[#800000] mt-1">{formatNaira(stats.todaySales)}</p></div>
-        <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Pending Orders</p><p className="text-xl font-bold text-amber-600 mt-1">{stats.pending}</p></div>
+        <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Pending Orders</p><p className="text-xl font-bold text-amber-800 dark:text-amber-300 mt-1">{stats.pending}</p></div>
         <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Completed</p><p className="text-xl font-bold text-emerald-700 mt-1">{stats.completed}</p></div>
       </div>
 

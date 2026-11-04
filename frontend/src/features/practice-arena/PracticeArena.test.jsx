@@ -42,7 +42,7 @@ beforeEach(() => {
 test('the arena shows level, streak, subjects with mastery, badges and the class leaderboard', async () => {
   render(<PracticeArena />);
   expect(await screen.findByText('Mathematics')).toBeTruthy();
-  expect(screen.getByText(/3-day streak/)).toBeTruthy();
+  expect(screen.getAllByText(/3-day streak/)[0]).toBeTruthy();
   expect(screen.getByRole('heading', { name: /Rookie · 150 XP/ })).toBeTruthy();
   expect(screen.getByRole('meter', { name: 'Mathematics mastery' }).getAttribute('aria-valuenow')).toBe('70');
   fireEvent.click(screen.getByRole('tab', { name: /Badges/ }));
@@ -108,7 +108,7 @@ test('a locked subject sends the student to Passes, where examinations show what
     exams: { bece: { label: 'BECE (Junior WAEC)', mockQuestions: 50, mockMinutes: 60 } },
   });
   api.loadPack.mockRejectedValue(error);
-  api.naira.mockImplementation(value => `₦${value}`);
+  api.money.mockImplementation(value => `₦${value}`);
   api.loadMock.mockResolvedValue({ minutes: 60, label: 'BECE (Junior WAEC)', pack: { subjectKey: 'mathematics', subjectName: 'Mathematics — BECE mock', questions: [PACK.questions[0]] } });
   render(<PracticeArena />);
   fireEvent.click(await screen.findByRole('button', { name: /Play/ }));

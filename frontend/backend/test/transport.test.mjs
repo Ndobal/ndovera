@@ -45,6 +45,33 @@ async function setup() {
   return { db, call }
 }
 
+test('a parent saves a home; only the driver of a trip that child rides receives it', async () => {
+  const { call, db } = await setup()
+  const route = await call('owner', 'POST', '/api/transport/routes', { name: 'Lugbe', driverId: 'drv' })
+  await call('hos', 'PUT', `/api/transport/routes/${route.body.id}/students`, { studentIds: ['ada', 'bayo'], pickupTime: '6:45' })
+
+  const home = { address: '12 Airport Road, Lugbe', landmark: 'Blue gate', lat: 8.98, lng: 7.38 }
+  assert.equal((await call('parent', 'PUT', '/api/transport/mine/bayo/home', home)).status, 403, 'not their child')
+  assert.equal((await call('ada', 'PUT', '/api/transport/mine/ada/home', home)).status, 403, 'parents set it')
+  assert.equal((await call('parent', 'PUT', '/api/transport/mine/ada/home', { lat: 500, lng: 7 })).status, 400)
+  assert.equal((await call('parent', 'PUT', '/api/transport/mine/ada/home', {})).status, 400)
+  assert.equal((await call('parent', 'PUT', '/api/transport/mine/ada/home', home)).status, 200)
+
+  const mine = await call('parent', 'GET', '/api/transport/mine')
+  assert.equal(mine.body.canSetHome, true)
+  assert.equal(mine.body.children[0].home.landmark, 'Blue gate')
+
+  const listed = await call('driver', 'GET', '/api/transport/driver')
+  assert.ok(!JSON.stringify(listed.body).includes('Airport Road, Lugbe'), 'not before a trip starts')
+  const trip = await call('driver', 'POST', '/api/transport/driver/runs', { direction: 'morning', tripNo: 1 })
+  const riders = new Map(trip.body.riders.map(item => [item.studentId, item]))
+  assert.equal(riders.get('ada').home.lat, 8.98)
+  assert.equal(riders.get('bayo').home, null)
+
+  const plan = db.db.prepare('EXPLAIN QUERY PLAN SELECT * FROM transport_pickups WHERE tenant_id = ? AND student_id IN (?, ?)').all('a', 'b', 'c').map(row => row.detail).join()
+  assert.match(plan, /USING (COVERING )?INDEX|PRIMARY KEY/)
+})
+
 test('the school sets up a route; the driver carries the children; arrival marks them present and tells parents and the school', async () => {
   const { db, call } = await setup()
   assert.equal((await call('teacher', 'POST', '/api/transport/routes', { name: 'Lugbe' })).status, 403)

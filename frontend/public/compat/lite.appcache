@@ -1,0 +1,15 @@
+CACHE MANIFEST
+# Stamped with a build id by scripts/writeCompatConfig.cjs, so phones fetch new files.
+# dev
+
+CACHE:
+/compat/index.html
+/compat/app.js
+/compat/config.js
+/compat/style.css
+
+NETWORK:
+*
+
+FALLBACK:
+/compat/ /compat/index.html

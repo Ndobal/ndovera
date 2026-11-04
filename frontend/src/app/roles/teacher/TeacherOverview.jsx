@@ -35,7 +35,7 @@ function GradientStatCard({ label, value, sub, icon: Icon, from, to }) {
       </div>
       <p className="relative mt-4 text-3xl font-extrabold tracking-tight">{value}</p>
       <p className="relative mt-1 text-sm font-medium text-white/80">{label}</p>
-      {sub ? <p className="relative mt-3 text-xs text-white/70">{sub}</p> : null}
+      {sub ? <p className="relative mt-3 text-xs text-white/90">{sub}</p> : null}
     </div>
   );
 }

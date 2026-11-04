@@ -136,7 +136,7 @@ export default function ParentMaterialsPage() {
             </select>
           </div>
 
-          {!loading && !students.length && <p className="text-sm text-amber-200">No linked child was found for parent materials yet.</p>}
+          {!loading && !students.length && <p className="text-sm text-amber-800 dark:text-amber-200">No linked child was found for parent materials yet.</p>}
           {error && <p className="text-sm text-rose-200">{error}</p>}
         </section>
 

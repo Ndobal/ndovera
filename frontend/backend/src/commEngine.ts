@@ -39,7 +39,7 @@ export type CommDeps = {
   db: D1Database
   whatsapp: WhatsAppConfig
   sms: PayHosConfig
-  sendEmail: ((to: string, subject: string, html: string) => Promise<void>) | null
+  sendEmail: ((to: string, subject: string, html: string, tenantId: string) => Promise<void>) | null
   /** https://<school>.ndovera.com — links point at the parent portal there. */
   portalBase: (tenantId: string) => Promise<string>
   schoolName: (tenantId: string) => Promise<string>
@@ -478,7 +478,7 @@ async function sendDelivery(deps: CommDeps, row: Record<string, any>) {
   if (row.channel === 'email') {
     if (!deps.sendEmail) { await finish('failed', { error: 'Email is not set up.' }); return }
     try {
-      await deps.sendEmail(row.address, message.emailSubject, message.emailHtml)
+      await deps.sendEmail(row.address, message.emailSubject, message.emailHtml, row.tenant_id)
       await recordAttempt(db, row.id, attempt, { outcome: 'accepted' })
       if (row.financial === 'reserved') await consumeReservation(db, row.tenant_id, row.id)
       await finish('sent', row.financial === 'reserved' ? { financial: 'consumed' } : {})

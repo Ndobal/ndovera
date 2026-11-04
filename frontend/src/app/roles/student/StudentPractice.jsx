@@ -8,6 +8,8 @@ import PracticeArena from '../../../features/practice-arena';
 export default function StudentPractice() {
   return (
     <StudentSectionShell
+      compact
+      hideSubtitleOnPhone
       title="Practice Arena"
       subtitle="Quizzes from your teachers' questions and Ndovera's bank. Earn XP, keep your streak, climb the leaderboard — online or offline."
     >

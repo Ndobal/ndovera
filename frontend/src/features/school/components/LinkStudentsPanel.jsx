@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import ParentInvitePanel, { StudentEmailDomain } from './ParentInvitePanel';
 import { getLinkOverview, linkParentStudent, turnOffParents, unlinkParentStudent } from '../services/schoolApi';
 import { askConfirm, askText } from '../../../shared/components/AppDialog';
 
@@ -67,6 +68,8 @@ export default function LinkStudentsPanel() {
   const activeFilter = filters.find(item => item.key === filter) || filters[0];
 
   const queue = useMemo(() => subjects
+    // Staff wait in the list only once they have a child, or when someone searches for them.
+    .filter(subject => !(byParent && subject.staffRole && !(subject.children || []).length && !search.trim()))
     .filter(subject => activeFilter.count === undefined || (byParent ? (subject.children || []) : (subject.parents || [])).length === activeFilter.count)
     .filter(subject => matches(subject, search)), [subjects, activeFilter, byParent, search]);
 
@@ -169,7 +172,7 @@ export default function LinkStudentsPanel() {
   }
 
   async function turnOffMarked() {
-    const chosen = parents.filter(parent => marked.includes(parent.id));
+    const chosen = parents.filter(parent => marked.includes(parent.id) && !parent.staffRole);
     if (!chosen.length) return;
     const withChild = chosen.filter(parent => (parent.children || []).length > 0);
     let reason = '';
@@ -218,12 +221,13 @@ export default function LinkStudentsPanel() {
 
   return (
     <div className="space-y-4">
+      <div className="mb-4 grid gap-4 md:grid-cols-2"><ParentInvitePanel students={students} /><StudentEmailDomain /></div>
       <div className={CARD}>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h2 className="text-xl font-bold text-[#800000] dark:text-slate-100">Link students and parents</h2>
             <p className="mt-1 text-sm text-[#191970] dark:text-slate-300">
-              Work through one {byParent ? 'parent' : 'child'} at a time. Tick everyone that belongs together, save, then move to the next.
+              Work through one {byParent ? 'parent' : 'child'} at a time. Tick everyone that belongs together, save, then move to the next. To link a member of staff to their child, search for their name.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -314,7 +318,7 @@ export default function LinkStudentsPanel() {
               const links = byParent ? (item.children || []) : (item.parents || []);
               return (
                 <div key={item.id} className="flex items-start gap-2">
-                {byParent ? (
+                {byParent && !item.staffRole ? (
                   <input
                     type="checkbox"
                     className="mt-4 h-4 w-4 shrink-0"
@@ -358,7 +362,7 @@ export default function LinkStudentsPanel() {
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#800020] dark:text-slate-400">
                     {queuePosition > 0 ? `${queuePosition} of ${queue.length}` : 'Reviewing'}
                   </p>
-                  <h3 className="mt-1 text-lg font-bold text-[#191970] dark:text-slate-100">{subject.name}</h3>
+                  <h3 className="mt-1 text-lg font-bold text-[#191970] dark:text-slate-100">{subject.name}{subject.staffRole ? ` (staff: ${subject.staffRole})` : ''}</h3>
                   <p className="text-xs text-[#4a5578] dark:text-slate-400">{subject.displayId || subject.email || ''}</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -426,7 +430,7 @@ export default function LinkStudentsPanel() {
                       >
                         <input type="checkbox" checked={selected.includes(target.id)} onChange={() => toggle(target.id)} />
                         <span className="min-w-0">
-                          <span className="block truncate font-semibold text-[#191970] dark:text-slate-100">{target.name}</span>
+                          <span className="block truncate font-semibold text-[#191970] dark:text-slate-100">{target.name}{target.staffRole ? ` (staff: ${target.staffRole})` : ''}</span>
                           <span className="block truncate text-xs text-[#4a5578] dark:text-slate-400">
                             {target.displayId ? `${target.displayId} • ` : ''}{target.className || target.email}
                             {byParent && (target.parents || []).length ? ` • Parent: ${target.parents.map(link => link.name).join(', ')}` : ''}

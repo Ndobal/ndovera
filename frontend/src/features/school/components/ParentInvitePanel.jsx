@@ -1,0 +1,81 @@
+import React, { useEffect, useState } from 'react';
+import { createParentInvite, getStudentEmailDomain, saveStudentEmailDomain } from '../services/schoolApi';
+
+// Two school-wide settings for families: the email ending for students, and invitation links for parents.
+
+const CARD = 'space-y-3 rounded-3xl border border-[#c9a96e]/40 bg-white p-5 text-[#191970] dark:border-white/10 dark:bg-slate-900 dark:text-slate-100';
+const FIELD = 'mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 dark:border-white/20 dark:bg-slate-800 dark:text-white';
+const PRIMARY = 'rounded-xl bg-[#1a5c38] px-4 py-2 text-sm font-black text-white disabled:opacity-60';
+const LINK = 'rounded-xl border border-[#191970]/40 bg-white px-4 py-2 text-sm font-black text-[#191970] dark:border-white/30 dark:bg-slate-800 dark:text-white';
+const MAX_CHILDREN = 6;
+
+export function StudentEmailDomain() {
+  const [domain, setDomain] = useState('');
+  const [inUse, setInUse] = useState('');
+  const [message, setMessage] = useState('');
+  useEffect(() => {
+    getStudentEmailDomain().then(result => { setDomain(result.domain ? `@${result.domain}` : ''); setInUse(result.inUse); }).catch(err => setMessage(err.message));
+  }, []);
+  const save = event => {
+    event.preventDefault();
+    saveStudentEmailDomain(domain).then(result => { setInUse(result.inUse); setMessage('Saved. New students use this now. Existing students change when you press "Use school email" on their profile.'); }).catch(err => setMessage(err.message));
+  };
+  return (
+    <form onSubmit={save} className={CARD} aria-label="Student email ending">
+      <label className="block text-sm font-bold">Student email ending<input className={FIELD} value={domain} onChange={event => setDomain(event.target.value)} placeholder="@yourschool.com" /></label>
+      <p className="text-sm">New students get {inUse ? `first.surname@${inUse}` : 'an address from their name'}. It is for signing in only: students never receive email.</p>
+      <button type="submit" className={PRIMARY}>Save</button>
+      {message ? <p role="status" className="text-sm font-bold">{message}</p> : null}
+    </form>
+  );
+}
+
+export default function ParentInvitePanel({ students = [] }) {
+  const [search, setSearch] = useState('');
+  const [chosen, setChosen] = useState([]);
+  const [sendTo, setSendTo] = useState('');
+  const [invite, setInvite] = useState(null);
+  const [message, setMessage] = useState('');
+  const [busy, setBusy] = useState(false);
+  const needle = search.trim().toLowerCase();
+  const found = needle ? students.filter(student => [student.name, student.displayId, student.className].some(value => String(value || '').toLowerCase().includes(needle))).slice(0, 8) : [];
+  const toggle = id => setChosen(current => (current.includes(id) ? current.filter(item => item !== id) : current.length < MAX_CHILDREN ? [...current, id] : current));
+  const picked = students.filter(student => chosen.includes(student.id));
+
+  const create = async () => {
+    setBusy(true); setMessage(''); setInvite(null);
+    try {
+      const result = await createParentInvite({ studentIds: chosen, sendTo: sendTo.trim() });
+      setInvite(result);
+      setMessage(result.emailedTo ? `Emailed to ${result.emailedTo}.` : 'Invitation ready. Send it by WhatsApp or copy the link.');
+    } catch (err) { setMessage(err.message); } finally { setBusy(false); }
+  };
+
+  return (
+    <section className={CARD} aria-label="Invite a parent">
+      <h3 className="text-lg font-black text-[#800000] dark:text-white">Invite a parent by link</h3>
+      <label className="block text-sm font-bold">Find their children<input className={FIELD} value={search} onChange={event => setSearch(event.target.value)} placeholder="Name, student code or class" /></label>
+      {found.length ? (
+        <ul className="space-y-1">
+          {found.map(student => (
+            <li key={student.id}><label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={chosen.includes(student.id)} onChange={() => toggle(student.id)} />{student.name}{student.className ? ` · ${student.className}` : ''}{student.displayId ? ` · ${student.displayId}` : ''}</label></li>
+          ))}
+        </ul>
+      ) : null}
+      {picked.length ? <p className="text-sm font-bold">Invitation for: {picked.map(student => student.name).join(', ')}</p> : null}
+      <label className="block text-sm font-bold">Parent's email, if you have it (optional)<input type="email" className={FIELD} value={sendTo} onChange={event => setSendTo(event.target.value)} /></label>
+      <button type="button" className={PRIMARY} disabled={!chosen.length || busy} onClick={create}>{busy ? 'Creating…' : 'Create invitation'}</button>
+      {message ? <p role="status" className="text-sm font-bold">{message}</p> : null}
+      {invite ? (
+        <div className="space-y-2">
+          <input readOnly aria-label="Invitation link" className={FIELD} value={invite.url} />
+          <div className="flex flex-wrap gap-2">
+            <a href={`https://wa.me/?text=${encodeURIComponent(invite.message)}`} target="_blank" rel="noreferrer noopener" className={LINK}>Send on WhatsApp</a>
+            <button type="button" className={LINK} onClick={() => navigator.clipboard?.writeText(invite.url).then(() => setMessage('Link copied.')).catch(() => setMessage('Select the link above and copy it.'))}>Copy link</button>
+          </div>
+          <p className="text-xs">The link works once, for {invite.days} days.</p>
+        </div>
+      ) : null}
+    </section>
+  );
+}

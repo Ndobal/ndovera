@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import SchoolEmailPanel from './SchoolEmailPanel';
 import * as api from './communicationsApi';
 import { askConfirm, showAlert } from '../../shared/components/AppDialog';
 
@@ -296,7 +297,7 @@ export default function NotificationsCenter() {
 
   if (!data) return <p className="p-6 text-sm text-[#191970]">Loading…</p>;
   if (data.error) return <p role="alert" className="p-6 text-sm text-rose-700">{data.error}</p>;
-  const tabs = [['overview', 'Overview'], ['settings', 'Settings'], ['buy', 'Buy units'], ['notice', 'Send a notice'], ['history', 'Delivery history'], ['contacts', 'Contacts & consent'], ['wallet', 'Wallet & purchases']]
+  const tabs = [['overview', 'Overview'], ['settings', 'Settings'], ['buy', 'Buy units'], ['notice', 'Send a notice'], ['history', 'Delivery history'], ['email', 'Emails & receipts'], ['contacts', 'Contacts & consent'], ['wallet', 'Wallet & purchases']]
     .filter(([key]) => (key === 'contacts' || key === 'notice' ? data.canChangeSettings : true));
   return (
     <div className="mx-auto max-w-6xl space-y-4 p-4">
@@ -320,6 +321,7 @@ export default function NotificationsCenter() {
       {tab === 'settings' && <Settings data={data} run={run} onSaved={load} />}
       {tab === 'buy' && <BuyUnits data={data} run={run} />}
       {tab === 'notice' && <SendNotice run={run} onSent={load} />}
+      {tab === 'email' && <SchoolEmailPanel />}
       {tab === 'history' && <History />}
       {tab === 'contacts' && <Contacts run={run} />}
       {tab === 'wallet' && <WalletAndPurchases />}

@@ -38,6 +38,24 @@ import SetupCentrePage from '../../features/setup/SetupCentrePage';
 import TermsCalendarPage from '../../features/calendar/TermsCalendarPage';
 import GrowthCentrePage from '../../features/growth/GrowthCentrePage';
 import PracticePassesPage from '../../features/practice-arena/PracticePassesPage';
+import RedeemCode from '../../features/practice-arena/RedeemCode';
+import HomeStrips from '../../features/showcase/HomeStrips';
+import MyReviewPage from '../../features/showcase/MyReviewPage';
+import AmiHomeShowcase from '../../app/roles/ami/AmiHomeShowcase';
+import AmiPassCodes from '../../app/roles/ami/AmiPassCodes';
+import AmiCountryPrices from '../../app/roles/ami/AmiCountryPrices';
+import { FeaturesPageBody, HomeFeatures } from '../../features/public/FeaturesSections';
+import SchoolEmailPanel from '../../features/communications/SchoolEmailPanel';
+import * as schoolEmailApi from '../../features/communications/schoolEmailApi';
+import ParentInvitePage from '../../features/auth/pages/ParentInvitePage';
+import ParentInvitePanel, { StudentEmailDomain } from '../../features/school/components/ParentInvitePanel';
+import { getParentInvite, getStudentEmailDomain } from '../../features/school/services/schoolApi';
+import ExamRequestPage from '../../features/showcase/ExamRequestPage';
+import AmiExamRequests from '../../app/roles/ami/AmiExamRequests';
+import * as showcaseApi from '../../features/showcase/showcaseApi';
+import * as transportApi from '../../features/transport/transportApi';
+import MyBusPage from '../../features/transport/MyBusPage';
+import DriverTransportPage from '../../features/transport/DriverTransportPage';
 import { getMockPapers, getSchoolPassSubjects, getSchoolPasses, openMockPaper, submitMockPaper } from '../../features/practice-arena/practiceApi';
 import MockPapersPanel from '../../features/practice-arena/MockPapersPanel';
 import AmiMockPapers from '../../app/roles/ami/AmiMockPapers';
@@ -73,7 +91,7 @@ jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
 jest.mock('../../features/tenants/components/SchoolAccessPanel', () => () => <div>School access</div>);
 jest.mock('../components/AppDialog', () => ({ askConfirm: jest.fn(() => Promise.resolve(true)), askText: jest.fn(() => Promise.resolve('')) }));
 jest.mock('../../features/tenants/services/tenantApi', () => new Proxy({}, { get: (target, key) => { if (!target[key]) target[key] = jest.fn(() => Promise.resolve({})); return target[key]; } }));
-jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn(), listLinkCompetitions: jest.fn(), getLinkCompetitionEntries: jest.fn(), getSchoolSetup: jest.fn(), getTermsCalendar: jest.fn(), getGrowthCentre: jest.fn(), getGrowthConversation: jest.fn() }));
+jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getParentInvite: jest.fn(), getStudentEmailDomain: jest.fn(), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn(), listLinkCompetitions: jest.fn(), getLinkCompetitionEntries: jest.fn(), getSchoolSetup: jest.fn(), getTermsCalendar: jest.fn(), getGrowthCentre: jest.fn(), getGrowthConversation: jest.fn() }));
 jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn(), getNewStudentFees: jest.fn(), getExcursions: jest.fn(), getFeeGroups: jest.fn() }));
 
 const month = new Date().toISOString().slice(0, 7);
@@ -249,6 +267,7 @@ test('a student offline, with a hand-in waiting to send, can read the notice and
 });
 
 test('the parent-linking panel is readable, with a parent to turn off and a link to a turned-off parent', async () => {
+  getStudentEmailDomain.mockResolvedValue({ domain: '', inUse: 'genesis.ndovera.com' });
   getLinkOverview.mockResolvedValue({
     success: true, maxParentsPerStudent: 2,
     counts: { students: 2, unlinkedStudents: 1, parents: 1, parentsWithoutChildren: 1 },
@@ -515,6 +534,81 @@ test('practice passes are readable: a senior class buying JAMB, its subjects and
   fireEvent.change(screen.getByLabelText('Pass'), { target: { value: 'jamb' } });
   fireEvent.click(await screen.findByLabelText('Physics'));
   expectReadable(container, 'Practice passes');
+});
+
+describe('reviews, home strips, pass codes and country prices', () => {
+  const REVIEW = { id: 'r1', rating: 5, body: 'Marking is much faster now.', status: 'pending', name: 'Mrs Bello', detail: 'Teacher, Genesis College' };
+  const BATCH = { id: 'b1', label: 'Open day', bundle: 'all', bundleLabel: 'All Subjects', total: 3, used: 1, expiresAt: '2030-01-01T10:00:00Z', passEndsAt: '2030-02-01T10:00:00Z', cancelledAt: '', createdAt: '2029-01-01T10:00:00Z' };
+  afterEach(() => { jest.restoreAllMocks(); document.documentElement.classList.remove('dark'); });
+  const inBothModes = async (build, ready) => {
+    for (const dark of [false, true]) {
+      document.documentElement.classList.toggle('dark', dark);
+      const { container, unmount } = render(build());
+      await screen.findByText(ready);
+      expect(describeProblems(findContrastProblems(container))).toEqual('');
+      unmount();
+    }
+  };
+  test('the home strips', async () => {
+    jest.spyOn(showcaseApi, 'getHomeShowcase').mockResolvedValue({ schools: [{ name: 'Genesis College', logoUrl: '' }], reviews: [{ rating: 5, body: 'Very useful for us.', name: 'Student', detail: 'Genesis College' }] });
+    await inBothModes(() => <HomeStrips />, 'Schools on Ndovera');
+  });
+  test('writing a review', async () => {
+    jest.spyOn(showcaseApi, 'getMyReview').mockResolvedValue({ role: 'teacher', review: { rating: 4, body: 'Good so far for my class.', status: 'approved', showName: true } });
+    await inBothModes(() => <MyReviewPage />, 'Show my name (otherwise only my role and school)');
+  });
+  test('Ami choosing reviews and schools', async () => {
+    jest.spyOn(showcaseApi, 'getReviews').mockResolvedValue({ reviews: [REVIEW] });
+    jest.spyOn(showcaseApi, 'getShowcaseSchools').mockResolvedValue({ schools: [{ id: 's1', name: 'Genesis College', logoUrl: '', hidden: true }] });
+    await inBothModes(() => <AmiHomeShowcase />, REVIEW.body);
+  });
+  test('Ami making pass codes', async () => {
+    jest.spyOn(showcaseApi, 'getCodeBatches').mockResolvedValue({ batches: [BATCH], bundles: [{ key: 'all', label: 'All Subjects' }] });
+    await inBothModes(() => <AmiPassCodes />, 'Codes made');
+  });
+  test('Ami setting country prices, with the warning', async () => {
+    jest.spyOn(showcaseApi, 'getCountryPrices').mockResolvedValue({ surcharge: 0.2, defaultDollarRate: 1500, starters: ['GH', 'KE'], presets: [{ code: 'GH', name: 'Ghana', currency: 'GHS' }, { code: 'KE', name: 'Kenya', currency: 'KES' }], rates: [{ country: 'GH', currency: 'GHS', naira_per_unit: 100 }] });
+    await inBothModes(() => <AmiCountryPrices />, /pays in dollars until you set a KES rate/);
+  });
+  test('requesting an exam, and Ami answering', async () => {
+    jest.spyOn(showcaseApi, 'getMyExamRequests').mockResolvedValue({ requests: [{ id: 'x1', examName: 'KCSE', country: 'Kenya', status: 'building', note: 'Started on Mathematics.' }] });
+    await inBothModes(() => <ExamRequestPage />, 'Started on Mathematics.');
+    jest.spyOn(showcaseApi, 'getExamRequests').mockResolvedValue({ requests: [{ id: 'x1', examName: 'KCSE', scope: 'country', country: 'Kenya', status: 'new', note: '', userName: 'Kofi', userRole: 'teacher', schoolName: 'Accra Academy', section: 'senior', subjects: 'Maths', createdAt: '2029-01-01T00:00:00Z', curriculumNote: 'Algebra and geometry topics', hasFile: true, fileName: 'kcse.pdf', link: 'https://example.com/kcse' }] });
+    await inBothModes(() => <AmiExamRequests />, 'Algebra and geometry topics');
+  });
+  test('a parent saving the home location, and the driver navigating to it', async () => {
+    const home = { address: '12 Airport Road', landmark: 'Blue gate', lat: 8.98, lng: 7.38 };
+    jest.spyOn(transportApi, 'getMyBus').mockResolvedValue({ canSetHome: true, children: [{ studentId: 'a', name: 'Ada', today: [], home, routes: [{ id: 'r1', routeName: 'Lugbe', directions: 'both', tripNo: 1 }] }] });
+    await inBothModes(() => <MyBusPage />, 'Home location for the driver');
+    jest.spyOn(transportApi, 'getDriverTransport').mockResolvedValue({ trips: 1, routes: [{ id: 'r1', name: 'Lugbe', students: [] }], runs: [] });
+    jest.spyOn(transportApi, 'openDriverRun').mockResolvedValue({ run: { id: 'run1', direction: 'morning', tripNo: 1 }, boarded: [], riders: [{ studentId: 'a', name: 'Ada', className: 'SS 2', home }, { studentId: 'b', name: 'Bayo', className: 'SS 2', home: null }] });
+    for (const dark of [false, true]) {
+      document.documentElement.classList.toggle('dark', dark);
+      const { container, unmount } = render(<DriverTransportPage />);
+      fireEvent.click(await screen.findByRole('button', { name: /Start morning run/ }));
+      await screen.findByRole('link', { name: /Navigate/ });
+      expect(describeProblems(findContrastProblems(container))).toEqual('');
+      unmount();
+    }
+  });
+  test('the features sections', async () => {
+    await inBothModes(() => <><HomeFeatures /><FeaturesPageBody /></>, 'What schools get on Ndovera');
+  });
+  test('the school email page: letterhead, one-button receipts and wording', async () => {
+    jest.spyOn(schoolEmailApi, 'getReceiptEmailStatus').mockResolvedValue({ pending: 4 });
+    const template = { kind: 'receipt', subject: 'Receipt {{receiptNo}}', body: 'Dear {{parentName}}, thank you.', custom: true, placeholders: ['receiptNo', 'parentName'], defaults: { subject: 'a', body: 'b' } };
+    jest.spyOn(schoolEmailApi, 'getEmailTemplates').mockResolvedValue({ templates: [template], letterhead: { schoolName: 'Genesis College', tagline: 'Light', address: '1 School Road', email: 'a@b.c', logoUrl: '' } });
+    await inBothModes(() => <SchoolEmailPanel />, 'Your letterhead on every email');
+  });
+  test('a parent invitation, and the school making one', async () => {
+    getParentInvite.mockResolvedValue({ schoolName: 'Genesis College', logoUrl: '', children: [{ name: 'Ada Obi', className: 'JSS 1', code: 'GEN-1' }] });
+    await inBothModes(() => <ParentInvitePage />, 'Ada Obi');
+    getStudentEmailDomain.mockResolvedValue({ domain: 'xyz.com', inUse: 'xyz.com' });
+    await inBothModes(() => <><ParentInvitePanel students={[{ id: 'a', name: 'Ada Obi' }]} /><StudentEmailDomain /></>, 'Invite a parent by link');
+  });
+  test('using a pass code', async () => {
+    await inBothModes(() => <RedeemCode subjects={[{ key: 'maths', name: 'Mathematics' }]} />, 'Use code');
+  });
 });
 
 test('mock papers are readable for students: the list, a locked paper, the sitting and the answers', async () => {

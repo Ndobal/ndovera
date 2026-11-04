@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { boardChild, getDriverTransport, markArrived, markDeparted, openDriverRun, setDriverTrips } from './transportApi';
+import { boardChild, directionsLink, getDriverTransport, hasHome, markArrived, markDeparted, MAX_STOPS_IN_ONE_LINK, openDriverRun, setDriverTrips } from './transportApi';
 import { clock } from './TransportAdminPage';
 import { askConfirm } from '../../shared/components/AppDialog';
 
@@ -75,6 +75,10 @@ export default function DriverTransportPage() {
   }
 
   const done = trip && (trip.run.arrivedAt || trip.run.departedAt);
+  // Morning: the next children still to collect, in pick-up order, as far as one Google Maps link allows.
+  const nextStops = trip && trip.run.direction === 'morning' && !done
+    ? trip.riders.filter(rider => !trip.boarded.has(rider.studentId) && hasHome(rider.home)).sort((a, b) => String(a.pickupTime || '').localeCompare(String(b.pickupTime || ''))).slice(0, MAX_STOPS_IN_ONE_LINK)
+    : [];
   const allStudents = (data?.routes || []).flatMap(route => route.students.map(student => ({ ...student, routeName: route.name })));
 
   return (
@@ -130,7 +134,8 @@ export default function DriverTransportPage() {
             </h2>
             {!done && trip.riders.length && trip.boarded.size < trip.riders.length ? <button type="button" onClick={markAll} disabled={busy} className="rounded-xl bg-[#191970] px-4 py-2 text-sm font-black text-[#c9a96e] disabled:opacity-60">✓ Mark all on board</button> : null}
           </div>
-          {!done ? <p className="text-xs text-slate-600">Tap each child who is on the bus. Tap again to undo.</p> : null}
+          {!done ? <p className="text-xs text-slate-600 dark:text-slate-300">Tap each child who is on the bus. Tap again to undo.</p> : null}
+          {nextStops.length ? <a href={directionsLink(nextStops.map(rider => rider.home))} target="_blank" rel="noreferrer noopener" className="block rounded-2xl bg-[#191970] py-3 text-center text-base font-black text-white">🗺️ Directions to the next {nextStops.length === 1 ? 'child' : `${nextStops.length} children`}</a> : null}
           <ul className="space-y-1.5">
             {trip.riders.map(rider => {
               const on = trip.boarded.has(rider.studentId);
@@ -146,6 +151,12 @@ export default function DriverTransportPage() {
                       </span>
                     </span>
                   </button>
+                  {hasHome(rider.home) ? (
+                    <div className="flex flex-wrap items-center gap-2 px-3 py-1 text-xs text-slate-700 dark:text-slate-200">
+                      <span className="min-w-0 flex-1">{rider.home.address}{rider.home.landmark ? ` · ${rider.home.landmark}` : ''}</span>
+                      <a href={directionsLink([rider.home])} target="_blank" rel="noreferrer noopener" className="rounded-xl bg-[#1a5c38] px-3 py-1.5 font-black text-white">📍 Navigate</a>
+                    </div>
+                  ) : <p className="px-3 py-1 text-xs text-slate-700 dark:text-slate-200">No home location yet: use the pick-up point, or call the school.</p>}
                 </li>
               );
             })}

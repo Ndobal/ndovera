@@ -126,7 +126,7 @@ export default function AdminLibrary() {
             </select>
           </div>
 
-          {audits.length === 0 && <div className="text-gray-500">No audit entries or not authorized to view audits.</div>}
+          {audits.length === 0 && <div className="text-gray-800 dark:text-gray-200">No audit entries or not authorized to view audits.</div>}
 
           {audits.length > 0 && (() => {
             const filtered = audits.filter(a => {

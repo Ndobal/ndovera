@@ -147,7 +147,8 @@ test('a new term reads as not paid until its own bill is paid: onboarding never 
     if (/CREATE TABLE IF NOT EXISTS/i.test(statement)) { try { db.db.exec(statement) } catch {} }
   }
   db.db.exec(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`)
-  db.db.exec(`INSERT INTO school_sessions (id, tenantId, session, term, createdAt) VALUES ('ss1', 'school-a', '2026/2027', 'First Term', '2026-09-01')`)
+  // Started today: a fixed date passes its two months' grace and the bill reads overdue.
+  db.db.exec(`INSERT INTO school_sessions (id, tenantId, session, term, createdAt) VALUES ('ss1', 'school-a', '2026/2027', 'First Term', '${new Date().toISOString()}')`)
   // Only the one-time onboarding fee was paid (and an earlier term).
   await call('ami', 'PUT', '/api/ami/tenants/school-a/contact-email', { contactEmail: 'genesisintersch2013@mail.com' })
   const onboarding = await call('ami', 'POST', '/api/ami/tenants/school-a/invoices', { onboardingFee: 50000, includeTermCharge: false, session: 'Onboarding', term: '2026-08-01' })

@@ -38,9 +38,21 @@ function worker() {
  let code=fs.readFileSync(path.join(base,'public/_worker.js'),'utf8').replace(/import \{ botGate \}[^;]+;/,'const botGate = () => null;').replace('export default {','globalThis.worker = {');
  const context={URL,Headers,Request,Response};vm.createContext(context);vm.runInContext(code,context);return context.worker;
 }
-test('Lite assets bypass the React shell and are private, uncached responses',async()=>{
+test('the offline list is served as a cache manifest, and names only files that exist',async()=>{
+ const manifest=fs.readFileSync(path.join(base,'public/compat/lite.appcache'),'utf8');assert.match(manifest,/^CACHE MANIFEST/);
+ for(const file of ['index.html','app.js','config.js','style.css']){assert.ok(manifest.includes('/compat/'+file));}
+ const html=fs.readFileSync(path.join(base,'public/compat/index.html'),'utf8');assert.match(html,/manifest="\/compat\/lite\.appcache"/);
+ const response=await worker().fetch(new Request('https://ndovera.com/compat/lite.appcache'),{ASSETS:{fetch:async()=>new Response(manifest,{headers:{'Content-Type':'application/octet-stream'}})}});
+ assert.equal(response.headers.get('Content-Type'),'text/cache-manifest');assert.equal(response.headers.get('Cache-Control'),'no-cache');
+});
+test('a payment coming back, and an invoice link, carry on inside Lite',()=>{
+ assert.equal(navigate('Android 4.4','?practice_tx=prac_1&status=successful',false,'/roles/student/practice'),'/compat/index.html?practice_tx=prac_1');
+ assert.equal(navigate('Android 4.4','',false,'/invoice/tok1'),'/compat/index.html#invoice=tok1');
+ assert.equal(navigate('Android 4.4','?payment_ref=nbill_1',false,'/invoice/tok1'),'/compat/index.html?payment_ref=nbill_1#invoice=tok1');
+});
+test('Lite assets bypass the React shell, keep no private data, and may be stored for offline use',async()=>{
  let fetched;const response=await worker().fetch(new Request('https://ndovera.com/compat/index.html'),{ASSETS:{fetch:async r=>{fetched=r.url;return new Response('lite',{headers:{'Content-Type':'text/html'}})}}});
- assert.equal(fetched,'https://ndovera.com/compat/index.html');assert.equal(await response.text(),'lite');assert.equal(response.headers.get('Cache-Control'),'no-store');assert.match(response.headers.get('X-Robots-Tag'),/noindex/);assert.match(response.headers.get('Content-Security-Policy'),/script-src 'self'/);
+ assert.equal(fetched,'https://ndovera.com/compat/index.html');assert.equal(await response.text(),'lite');assert.equal(response.headers.get('Cache-Control'),'no-cache');assert.match(response.headers.get('X-Robots-Tag'),/noindex/);assert.match(response.headers.get('Content-Security-Policy'),/script-src 'self'/);
 });
 test('Lite directory canonicalises and missing scripts are not HTML',async()=>{
  const w=worker();assert.equal((await w.fetch(new Request('https://ndovera.com/compat'),{})).headers.get('Location'),'https://ndovera.com/compat/index.html');

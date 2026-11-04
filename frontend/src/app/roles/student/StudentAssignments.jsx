@@ -647,8 +647,8 @@ export default function StudentAssignments() {
           <section className="grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Summary">
             {[['todo', 'To do', counts.todo + counts.overdue, 'from-amber-500/30'], ['overdue', 'Overdue', counts.overdue, 'from-rose-500/30'], ['submitted', 'Submitted', counts.submitted, 'from-emerald-500/30'], ['marked', 'Marked', counts.marked, 'from-indigo-500/30']].map(([key, label, value, tone]) => (
               <button key={key} type="button" onClick={() => setFilter(key === 'overdue' ? 'todo' : key)} className={`rounded-2xl border border-white/10 bg-gradient-to-br ${tone} to-transparent p-4 text-left`}>
-                <p className="text-[11px] font-bold uppercase tracking-widest text-white/70">{label}</p>
-                <p className="mt-1 text-3xl font-black text-white">{value}</p>
+                <p className="text-[11px] font-bold uppercase tracking-widest text-slate-700 dark:text-white/70">{label}</p>
+                <p className="mt-1 text-3xl font-black text-slate-900 dark:text-white">{value}</p>
               </button>
             ))}
           </section>

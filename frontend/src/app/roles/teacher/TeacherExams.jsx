@@ -171,7 +171,7 @@ export default function TeacherExams({
                 <option value="picture">Picture</option>
                 <option value="essay">Essay</option>
               </select>
-              <button onClick={()=> setQuestions(prev=> prev.filter((_,idx)=> idx!==i)) } className="text-sm text-rose-400">Remove</button>
+              <button onClick={()=> setQuestions(prev=> prev.filter((_,idx)=> idx!==i)) } className="text-sm text-rose-700 dark:text-rose-400">Remove</button>
             </div>
             <QuestionRenderer question={q} onChange={(next)=>{
               setQuestions(prev=>{ const arr=[...prev]; arr[i] = next; return arr;});

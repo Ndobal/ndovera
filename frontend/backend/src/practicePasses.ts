@@ -116,8 +116,8 @@ export async function entitlements(db: D1Database, student: PassStudent): Promis
   for (const row of (rows.results || []) as Record<string, any>[]) {
     const bundle = BUNDLES[row.bundle as BundleKey]
     if (!bundle) continue
-    // A term pass counts only in the term it was bought for.
-    if (bundle.scope === 'term' && row.term_id !== student.termId) continue
+    // A term pass counts only in the term it was bought for (a code's pass with its own end date counts until then).
+    if (bundle.scope === 'term' && !row.expires_at && row.term_id !== student.termId) continue
     if (row.bundle === 'subject' && row.subject_key) out.subjects.add(String(row.subject_key))
     if (row.bundle === 'all') out.allSubjects = true
     for (const exam of bundle.exams) {

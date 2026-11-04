@@ -111,7 +111,7 @@ const ROUTE_META = {
 };
 
 // Signed-in application surfaces and one-time links. These should never be indexed.
-const NOINDEX_PREFIXES = ['/compat', '/roles/', '/login', '/change-password', '/reset-password', '/settings', '/classroom', '/assignments', '/exams', '/ai-tutor', '/attendance', '/rewards', '/news'];
+const NOINDEX_PREFIXES = ['/compat', '/invite/', '/roles/', '/login', '/change-password', '/reset-password', '/settings', '/classroom', '/assignments', '/exams', '/ai-tutor', '/attendance', '/rewards', '/news'];
 
 function normalizePath(pathname) {
   if (pathname.length > 1 && pathname.endsWith('/')) return pathname.slice(0, -1);
@@ -178,11 +178,13 @@ export default {
     if (url.pathname.startsWith('/compat/')) {
       const asset = await env.ASSETS.fetch(request);
       const headers = new Headers(asset.headers);
-      headers.set('Cache-Control', 'no-store');
+      // These files hold no private data. Old phones must be allowed to keep them for offline use (lite.appcache), checking for new ones when online.
+      headers.set('Cache-Control', 'no-cache');
+      if (url.pathname.endsWith('.appcache')) headers.set('Content-Type', 'text/cache-manifest');
       headers.set('X-Robots-Tag', 'noindex, nofollow');
       headers.set('Referrer-Policy', 'no-referrer');
       headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https:; img-src 'self' https: data:; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'");
-      if (/\.(js|css)$/.test(url.pathname) && /text\/html/i.test(headers.get('Content-Type') || '')) {
+      if (/\.(js|css|appcache)$/.test(url.pathname) && /text\/html/i.test(asset.headers.get('Content-Type') || '')) {
         return new Response('Not found', {status: 404, headers: {'Content-Type':'text/plain', 'Cache-Control':'no-store'}});
       }
       return new Response(request.method === 'HEAD' ? null : asset.body, {status:asset.status, headers});

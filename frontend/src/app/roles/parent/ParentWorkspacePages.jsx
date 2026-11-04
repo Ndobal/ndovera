@@ -171,7 +171,7 @@ function ParentLearnerPicker({
       </div>
 
       {loading ? <p className="text-sm text-slate-300">Loading linked learners...</p> : null}
-      {!loading && !students.length ? <p className="text-sm text-amber-200">No linked child record is available yet.</p> : null}
+      {!loading && !students.length ? <p className="text-sm text-amber-800 dark:text-amber-200">No linked child record is available yet.</p> : null}
       {error ? <p className="text-sm text-rose-200">{error}</p> : null}
     </section>
   );
@@ -333,7 +333,7 @@ export function ParentOverviewPage() {
                 </div>
               </div>
             ) : (
-              <p className="mt-4 text-sm text-amber-200">No linked child record is available yet.</p>
+              <p className="mt-4 text-sm text-amber-800 dark:text-amber-200">No linked child record is available yet.</p>
             )}
           </article>
 

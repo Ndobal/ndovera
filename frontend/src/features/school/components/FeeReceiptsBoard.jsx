@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { getFeeReceipts } from '../services/schoolApi';
 import FeeReceiptDialog from './FeeReceiptDialog';
+import { ReceiptBulkEmail } from '../../communications/SchoolEmailPanel';
 
 const PAGE = 'p-8 max-w-7xl mx-auto space-y-6';
 const HEADER = 'rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10';
@@ -46,6 +47,7 @@ export default function FeeReceiptsBoard() {
 
   return (
     <div className={PAGE}>
+      <ReceiptBulkEmail />
       <div className={HEADER}>
         <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">Receipts</h1>
         <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">Every fee receipt issued for this school, generated from confirmed payments. Receipts cannot be deleted.</p>

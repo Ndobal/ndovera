@@ -53,6 +53,9 @@ export async function ensureTransportTables(db: D1Database) {
       boarded_at TEXT NOT NULL, method TEXT, UNIQUE(run_id, student_id)
     )`,
     `CREATE INDEX IF NOT EXISTS idx_transport_boardings_student ON transport_boardings(tenant_id, student_id)`,
+    `CREATE TABLE IF NOT EXISTS transport_pickups (
+      tenant_id TEXT NOT NULL, student_id TEXT NOT NULL, address TEXT, landmark TEXT, lat REAL, lng REAL, updated_by TEXT, updated_at TEXT, PRIMARY KEY (tenant_id, student_id)
+    )`,
   ]
   for (const sql of statements) await db.prepare(sql).run()
   ready.add(db as object)
@@ -293,6 +296,38 @@ export async function expectedForRun(db: D1Database, tenantId: string, run: Retu
     if (!route || (route.directions !== 'both' && route.directions !== run.direction)) return false
     return ridesRun(assignment, run, trips)
   })
+}
+
+// A child's home, set by their parent. Only that parent, the child and the driver of a trip the child
+// rides can read it. Directions open in Google Maps by a plain link, so no key or map charge is involved.
+const PICKUP_CHUNK = 90
+
+export async function pickupsFor(db: D1Database, tenantId: string, studentIds: string[]) {
+  await ensureTransportTables(db)
+  const found = new Map<string, { address: string, landmark: string, lat: number | null, lng: number | null, updatedAt: string }>()
+  for (let start = 0; start < studentIds.length; start += PICKUP_CHUNK) {
+    const part = studentIds.slice(start, start + PICKUP_CHUNK)
+    const rows = await db.prepare(`SELECT * FROM transport_pickups WHERE tenant_id = ? AND student_id IN (${part.map(() => '?').join(', ')})`).bind(tenantId, ...part).all()
+    for (const row of (rows.results || []) as Record<string, any>[]) {
+      found.set(String(row.student_id), { address: String(row.address || ''), landmark: String(row.landmark || ''), lat: row.lat === null ? null : Number(row.lat), lng: row.lng === null ? null : Number(row.lng), updatedAt: String(row.updated_at || '') })
+    }
+  }
+  return found
+}
+
+export async function savePickup(db: D1Database, tenantId: string, studentId: string, input: Record<string, any>, actorId: string) {
+  await ensureTransportTables(db)
+  const address = String(input.address || '').replace(/\s+/g, ' ').trim().slice(0, 300)
+  const landmark = String(input.landmark || '').replace(/\s+/g, ' ').trim().slice(0, 200)
+  const hasPin = input.lat !== null && input.lat !== undefined && input.lat !== '' && input.lng !== null && input.lng !== undefined && input.lng !== ''
+  const lat = hasPin ? Number(input.lat) : null
+  const lng = hasPin ? Number(input.lng) : null
+  if (hasPin && !(Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat as number) <= 90 && Math.abs(lng as number) <= 180)) throw new TransportError('That location could not be read. Please try again.')
+  if (!address && !hasPin) throw new TransportError('Enter the address, or use your current location.')
+  await db.prepare(`INSERT INTO transport_pickups (tenant_id, student_id, address, landmark, lat, lng, updated_by, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(tenant_id, student_id) DO UPDATE SET address = excluded.address, landmark = excluded.landmark, lat = excluded.lat, lng = excluded.lng, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
+    .bind(tenantId, studentId, address, landmark, lat, lng, actorId, new Date().toISOString()).run()
+  return (await pickupsFor(db, tenantId, [studentId])).get(studentId)
 }
 
 /** Mark a child on board (by pass code or id). Only children who ride this run can board it. */

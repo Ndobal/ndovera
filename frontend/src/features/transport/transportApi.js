@@ -37,3 +37,19 @@ export const markDeparted = runId => request(`/api/transport/driver/runs/${id(ru
 
 // Parents and students.
 export const getMyBus = () => request('/api/transport/mine');
+export const saveHome = (studentId, body) => request(`/api/transport/mine/${id(studentId)}/home`, { method: 'PUT', body });
+
+const place = home => (home.lat !== null && home.lat !== undefined ? `${home.lat},${home.lng}` : home.address);
+/** A saved pin is exact, so it wins over the typed address. */
+export const hasHome = home => Boolean(home && (home.address || (home.lat !== null && home.lat !== undefined)));
+
+/** Opens turn-by-turn directions in the Google Maps app or site. A plain link: no key and no charge to Ndovera. */
+export function directionsLink(homes) {
+  const stops = homes.filter(hasHome).map(place);
+  if (!stops.length) return '';
+  const params = new URLSearchParams({ api: '1', destination: stops[stops.length - 1], travelmode: 'driving', dir_action: 'navigate' });
+  if (stops.length > 1) params.set('waypoints', stops.slice(0, -1).join('|'));
+  return `https://www.google.com/maps/dir/?${params.toString()}`;
+}
+/** Google's limit on phones: three stops on the way, then the destination. */
+export const MAX_STOPS_IN_ONE_LINK = 4;

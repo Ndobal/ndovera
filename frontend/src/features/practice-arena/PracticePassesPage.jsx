@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { checkoutPass, clearStudentDevices, getFamilyPasses, getSchoolPassSubjects, getSchoolPasses, naira, quotePass, verifyPass } from './practiceApi';
+import { checkoutPass, clearStudentDevices, getFamilyPasses, getSchoolPassSubjects, getSchoolPasses, money, quotePass, verifyPass } from './practiceApi';
 import { getPeople } from '../school/services/schoolApi';
+import RedeemCode from './RedeemCode';
 import { askConfirm } from '../../shared/components/AppDialog';
 
 // Practice passes bought by parents (for each child) and by the school (for a whole
@@ -22,7 +23,7 @@ function BundlePicker({ bundles, subjects, onBuy, busy, school = false, subjects
       <div className="flex flex-wrap gap-2">
         <select aria-label="Pass" className={FIELD} value={bundle} onChange={event => setBundle(event.target.value)}>
           <option value="">Choose a pass…</option>
-          {bundles.map(item => <option key={item.key} value={item.key} disabled={!item.ready}>{item.label} — {naira(school ? item.schoolPriceNaira : item.priceNaira)}{school ? ' per student' : ''}{item.ready ? '' : ' (being prepared)'}</option>)}
+          {bundles.map(item => <option key={item.key} value={item.key} disabled={!item.ready}>{item.label} — {money(school ? item.schoolPriceNaira : item.priceNaira)}{school ? ' per student' : ''}{item.ready ? '' : ' (being prepared)'}</option>)}
         </select>
         {needsSubject && !subjectsNote && (
           <select aria-label="Subject" className={FIELD} value={subjectKey} onChange={event => setSubjectKey(event.target.value)}>
@@ -83,7 +84,7 @@ export default function PracticePassesPage({ mode }) {
     try {
       if (mode !== 'parent') {
         const priced = await quotePass(payload);
-        if (!await askConfirm(`${priced.quote.label} for ${priced.quote.students} student(s): ${naira(priced.quote.amountNaira)} (${naira(priced.quote.each)} each). Continue to payment?`)) return;
+        if (!await askConfirm(`${priced.quote.label} for ${priced.quote.students} student(s): ${money(priced.quote.amountNaira)} (${money(priced.quote.each)} each). Continue to payment?`)) return;
       }
       const result = await checkoutPass(payload);
       if (result.checkoutUrl) window.location.href = result.checkoutUrl;
@@ -112,6 +113,7 @@ export default function PracticePassesPage({ mode }) {
             <p className="text-sm text-slate-600 dark:text-slate-300">Free: every subject, {child.freePerDay || 10} new questions a day</p>
             {child.passes.length ? <ul className="text-sm text-slate-700 dark:text-slate-200">{child.passes.map(pass => <li key={pass.id}>✅ {pass.label}{pass.expiresAt ? ` · until ${new Date(pass.expiresAt).toLocaleDateString()}` : ' · this term'}</li>)}</ul> : null}
             <BundlePicker bundles={child.bundles} subjects={child.subjects} busy={busy} onBuy={payload => pay({ ...payload, studentId: child.studentId })} />
+            <RedeemCode subjects={child.subjects} studentId={child.studentId} onDone={load} />
           </section>
         )) : <p className={CARD}>No children are linked to your account yet. Ask the school to link them.</p>
       ) : (

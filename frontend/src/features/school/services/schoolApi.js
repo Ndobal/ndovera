@@ -280,6 +280,19 @@ export const deleteSubject = (subjectId) => req(`/api/school/subjects/${subjectI
 export const updateClass = (classId, data) => req(`/api/school/classes/${classId}`, { method: 'PUT', body: data });
 export const getUserProfile = (userId) => req(`/api/people/${userId}`);
 export const updateUserProfile = (userId, data) => req(`/api/people/${userId}`, { method: 'PUT', body: data });
+export const getStudentEmailDomain = () => req('/api/school/student-email-domain');
+export const saveStudentEmailDomain = (domain) => req('/api/school/student-email-domain', { method: 'PUT', body: { domain } });
+export const getSchoolEmailFor = (userId) => req(`/api/people/${userId}/school-email`);
+export const changePersonEmail = (userId, body) => req(`/api/people/${userId}/email`, { method: 'PUT', body });
+export const createParentInvite = (data) => req('/api/school/parent-invites', { method: 'POST', body: data });
+const inviteRequest = async (token, init) => {
+  const response = await fetch(getApiUrl(`/api/public/parent-invites/${encodeURIComponent(token)}`), { headers: { 'Content-Type': 'application/json' }, ...init });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || data.success === false) throw Object.assign(new Error(data.message || 'Something went wrong. Please try again.'), { data });
+  return data;
+};
+export const getParentInvite = (token) => inviteRequest(token);
+export const acceptParentInvite = (token, form) => inviteRequest(token, { method: 'POST', body: JSON.stringify(form) });
 export const linkParentStudent = (data) => req('/api/school/parent-student-link', { method: 'POST', body: data });
 export const unlinkParentStudent = (data) => req('/api/school/parent-student-unlink', { method: 'POST', body: data });
 export const turnOffParents = (data) => req('/api/school/parents/turn-off', { method: 'POST', body: data });

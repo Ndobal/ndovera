@@ -4,6 +4,7 @@ import DriverTransportPage from './DriverTransportPage';
 import { boardChild, getDriverTransport, markArrived, openDriverRun } from './transportApi';
 
 jest.mock('./transportApi', () => ({
+  ...jest.requireActual('./transportApi'),
   getDriverTransport: jest.fn(), setDriverTrips: jest.fn(), openDriverRun: jest.fn(), boardChild: jest.fn(), markArrived: jest.fn(), markDeparted: jest.fn(),
 }));
 
@@ -37,4 +38,25 @@ test('the driver ticks children on board from the list, then records arriving at
   fireEvent.click(await screen.findByRole('button', { name: /Arrived at school/ }));
   await waitFor(() => expect(markArrived).toHaveBeenCalledWith('run1'));
   expect(await screen.findByText(/2 children marked present/)).toBeTruthy();
+});
+
+test('the driver navigates to a home, or to the next children still to collect', async () => {
+  const withHomes = [
+    { ...riders[0], home: { address: '12 Airport Road', landmark: 'Blue gate', lat: 8.98, lng: 7.38 } },
+    { ...riders[1], home: { address: '4 Kuje Road, Abuja', landmark: '', lat: null, lng: null } },
+    { studentId: 'chi', name: 'Chi Eze', className: 'JSS 2A', tripNo: 1, directions: 'both', home: null },
+  ];
+  openDriverRun.mockResolvedValue({ run: { id: 'run1', direction: 'morning', tripNo: 1 }, boarded: [], riders: withHomes });
+  render(<DriverTransportPage />);
+  fireEvent.click(await screen.findByRole('button', { name: /Start morning run/ }));
+  const links = await screen.findAllByRole('link', { name: /Navigate/ });
+  expect(links).toHaveLength(2);
+  expect(links[0].getAttribute('href')).toContain('destination=8.98%2C7.38');
+  expect(links[0].getAttribute('href')).toContain('dir_action=navigate');
+  expect(links[1].getAttribute('href')).toContain('destination=4+Kuje+Road');
+  expect(screen.getByText(/No home location yet/)).toBeTruthy();
+  const next = screen.getByRole('link', { name: /next 2 children/ }).getAttribute('href');
+  expect(next).toContain('waypoints=8.98%2C7.38');
+  fireEvent.click(screen.getByRole('button', { name: /Ada Obi/ }));
+  expect(await screen.findByRole('link', { name: /next child/ })).toBeTruthy();
 });

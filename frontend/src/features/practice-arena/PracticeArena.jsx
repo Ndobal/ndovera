@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import RedeemCode from './RedeemCode';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MODES, TYPE_LABELS, buildQuiz, estimateXp, levelForXp, newAttemptId } from './engine';
 import {
-  checkoutPass, generateQuestions, getLeaderboard, loadHome, loadMock, loadPack, naira, packSavedAt, pendingAttempts, saveAttempt, verifyPass,
+  checkoutPass, generateQuestions, getLeaderboard, loadHome, loadMock, loadPack, money, packSavedAt, pendingAttempts, saveAttempt, verifyPass,
 } from './practiceApi';
 import { subscribe } from '../../shared/offline/outbox';
 import { isOnline, requestPersistentStorage } from '../../shared/offline/offlineStore';
@@ -41,21 +43,21 @@ function GoalRing({ value, goal }) {
 function Hero({ profile, student, offline, waiting }) {
   const level = levelForXp(profile?.xp || 0);
   return (
-    <section className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-indigo-700 via-violet-700 to-fuchsia-700 p-5 text-white shadow-2xl md:p-7">
+    <section className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-indigo-700 via-violet-700 to-fuchsia-700 p-4 text-white shadow-2xl sm:p-5 md:p-7">
       <div className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/10 blur-2xl" />
-      <div className="relative flex flex-wrap items-center gap-5">
-        <div className="grid h-20 w-20 place-items-center rounded-3xl bg-white/15 text-center ring-2 ring-white/30">
-          <div><p className="text-[10px] font-bold uppercase tracking-widest text-white/70">Level</p><p className="text-3xl font-black leading-none">{profile?.level || 1}</p></div>
+      <div className="relative flex flex-wrap items-center gap-3 sm:gap-5">
+        <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white/15 text-center ring-2 ring-white/30 sm:h-20 sm:w-20 sm:rounded-3xl">
+          <div><p className="text-[10px] font-bold uppercase tracking-widest text-white">Level</p><p className="text-2xl font-black leading-none sm:text-3xl">{profile?.level || 1}</p></div>
         </div>
         <div className="min-w-[12rem] flex-1">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">{student?.className || 'Practice Arena'}{student?.level ? ` · practising up to ${student.level}` : ''}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/90">{student?.className || 'Practice Arena'}{student?.level ? ` · practising up to ${student.level}` : ''}</p>
           <h2 className="text-2xl font-black md:text-3xl">{profile?.title || 'Rookie'} · {(profile?.xp || 0).toLocaleString()} XP</h2>
           <div className="mt-2 h-3 overflow-hidden rounded-full bg-white/20" role="progressbar" aria-label="Progress to next level" aria-valuenow={level.progress} aria-valuemin={0} aria-valuemax={100}>
             <motion.div className="h-full rounded-full bg-gradient-to-r from-amber-300 to-yellow-200" initial={{ width: 0 }} animate={{ width: `${level.progress}%` }} transition={{ duration: 1 }} />
           </div>
-          <p className="mt-1 text-xs text-white/75">{Math.max(0, level.next - (profile?.xp || 0))} XP to level {level.level + 1}</p>
+          <p className="mt-1 text-xs text-white/90">{Math.max(0, level.next - (profile?.xp || 0))} XP to level {level.level + 1}</p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="hidden items-center gap-4 sm:flex">
           <div className="text-center">
             <motion.p animate={profile?.streak ? { scale: [1, 1.15, 1] } : {}} transition={{ repeat: Infinity, duration: 1.8 }} className="text-3xl" aria-hidden="true">{profile?.streak ? '🔥' : '🌱'}</motion.p>
             <p className="text-sm font-black">{profile?.streak || 0}-day streak</p>
@@ -66,10 +68,11 @@ function Hero({ profile, student, offline, waiting }) {
           </div>
         </div>
       </div>
-      <div className="relative mt-4 flex flex-wrap gap-2 text-xs font-bold">
-        <span className="rounded-full bg-white/15 px-3 py-1">🎯 {profile?.accuracy || 0}% accuracy</span>
-        <span className="rounded-full bg-white/15 px-3 py-1">✅ {profile?.correct || 0} answered right</span>
-        <span className="rounded-full bg-white/15 px-3 py-1">🏅 {(profile?.badges || []).filter(badge => badge.earned).length} badges</span>
+      <div className="relative mt-3 flex flex-wrap gap-2 text-xs font-bold sm:mt-4">
+        <span className="rounded-full bg-white/15 px-3 py-1 sm:hidden">{profile?.streak ? '🔥' : '🌱'} {profile?.streak || 0}-day streak · {profile?.todayXp || 0}/{profile?.dailyGoal || 50} XP today</span>
+        <span className="hidden rounded-full bg-white/15 px-3 py-1 sm:inline">🎯 {profile?.accuracy || 0}% accuracy</span>
+        <span className="hidden rounded-full bg-white/15 px-3 py-1 sm:inline">✅ {profile?.correct || 0} answered right</span>
+        <span className="hidden rounded-full bg-white/15 px-3 py-1 sm:inline">🏅 {(profile?.badges || []).filter(badge => badge.earned).length} badges</span>
         {offline ? <span className="rounded-full bg-amber-300 px-3 py-1 text-amber-950">📴 Offline — playing from this device</span> : null}
         {waiting ? <span className="rounded-full bg-white px-3 py-1 text-indigo-700">⏳ {waiting} quiz{waiting === 1 ? '' : 'zes'} waiting to sync</span> : null}
       </div>
@@ -79,14 +82,41 @@ function Hero({ profile, student, offline, waiting }) {
 
 const DEFAULT_LEVELS = [{ key: 'simple', difficulty: 'simple', exam: '', label: 'Simple' }, { key: 'intermediate', difficulty: 'intermediate', exam: '', label: 'Intermediate' }];
 
-function ModePicker({ subject, levels = DEFAULT_LEVELS, heldExams = {}, onStart, onClose, busy }) {
+/** Exams on the first screen: choosing one sets the level for whichever subject is played next. */
+function ExamStrip({ levels, heldExams, focus, onFocus, onPasses }) {
+  const exams = (levels || []).filter(item => item.exam);
+  const chosen = exams.find(item => item.key === focus);
+  const chip = active => `shrink-0 rounded-full border-2 px-3 py-1.5 text-sm font-black ${active ? 'border-indigo-600 bg-indigo-700 text-white' : 'border-slate-300 bg-white text-slate-800 dark:border-white/20 dark:bg-slate-900 dark:text-slate-100'}`;
+  return (
+    <section aria-label="Exam practice" className="space-y-2 rounded-2xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-slate-900/70">
+      <p className="text-sm font-black text-slate-900 dark:text-white">What are you practising for?</p>
+      {exams.length ? (
+        <div className="flex flex-wrap gap-2">
+          <button type="button" aria-pressed={!chosen} onClick={() => onFocus('')} className={chip(!chosen)}>School work</button>
+          {exams.map(item => <button key={item.key} type="button" aria-pressed={focus === item.key} onClick={() => onFocus(item.key)} className={chip(focus === item.key)}>{item.label}{heldExams[item.exam] ? '' : ' 🔒'}</button>)}
+        </div>
+      ) : null}
+      {chosen ? (
+        <p className="text-sm text-slate-700 dark:text-slate-200">
+          {heldExams[chosen.exam] ? `Choose a subject below to practise ${chosen.label}.` : `${chosen.label} practice needs its pass.`}
+          {heldExams[chosen.exam] ? null : <> <button type="button" onClick={() => onPasses(chosen.exam)} className="font-black text-indigo-800 underline dark:text-cyan-300">See passes</button></>}
+        </p>
+      ) : null}
+      <a href={`${window.location.pathname.replace(/\/practice.*$/, '')}/exam-requests`} className="block text-sm font-bold text-indigo-800 underline dark:text-cyan-300">Don't see your exam? Request it</a>
+    </section>
+  );
+}
+
+function ModePicker({ subject, levels = DEFAULT_LEVELS, heldExams = {}, initialLevel = '', onStart, onClose, busy }) {
   const [custom, setCustom] = useState({ types: ['mcq', 'truefalse', 'shortanswer'], count: 15, minutes: 0 });
   const [mode, setMode] = useState('quick');
-  const [difficulty, setDifficulty] = useState('intermediate');
+  const [difficulty, setDifficulty] = useState(initialLevel || 'intermediate');
   const level = levels.find(item => item.key === difficulty) || levels[0];
-  return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 grid place-items-end bg-black/50 p-0 sm:place-items-center sm:p-4" role="dialog" aria-modal="true" aria-label={`Practise ${subject.name}`}>
-      <motion.div initial={{ y: 60 }} animate={{ y: 0 }} exit={{ y: 60 }} className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-t-[2rem] bg-white p-5 shadow-2xl sm:rounded-[2rem] dark:bg-slate-900">
+  // On the page body, so no wrapper or app bar can sit over the Start button.
+  return createPortal(
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] grid place-items-end bg-black/50 p-0 sm:place-items-center sm:p-4" role="dialog" aria-modal="true" aria-label={`Practise ${subject.name}`}>
+      <motion.div initial={{ y: 60 }} animate={{ y: 0 }} exit={{ y: 60 }} className="ndv-sheet flex w-full max-w-2xl flex-col overflow-hidden rounded-t-[2rem] bg-white shadow-2xl sm:rounded-[2rem] dark:bg-slate-900">
+        <div className="min-h-0 flex-1 overflow-y-auto p-5">
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
             <p className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-cyan-300">{subject.name}</p>
@@ -105,10 +135,10 @@ function ModePicker({ subject, levels = DEFAULT_LEVELS, heldExams = {}, onStart,
             ))}
           </div>
         </fieldset>
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           {MODES.map(item => (
             <button key={item.key} type="button" onClick={() => setMode(item.key)} aria-pressed={mode === item.key}
-              className={`rounded-2xl border-2 p-4 text-left transition ${mode === item.key ? 'border-indigo-500 bg-indigo-50 dark:border-cyan-400 dark:bg-cyan-400/10' : 'border-slate-200 hover:border-indigo-300 dark:border-white/10'}`}>
+              className={`rounded-2xl border-2 p-3 text-left transition sm:p-4 ${mode === item.key ? 'border-indigo-500 bg-indigo-50 dark:border-cyan-400 dark:bg-cyan-400/10' : 'border-slate-200 hover:border-indigo-300 dark:border-white/10'}`}>
               <p className="text-2xl" aria-hidden="true">{item.icon}</p>
               <p className="font-black text-slate-900 dark:text-white">{item.label}</p>
               <p className="text-xs text-slate-600 dark:text-slate-300">{item.blurb}</p>
@@ -138,12 +168,17 @@ function ModePicker({ subject, levels = DEFAULT_LEVELS, heldExams = {}, onStart,
             </div>
           </div>
         ) : null}
-        {level?.exam && !heldExams[level.exam] ? <p className="mt-3 text-sm font-semibold text-amber-700 dark:text-amber-300">{level.label} practice needs its pass — see Passes.</p> : null}
-        <button type="button" disabled={Boolean(busy)} onClick={() => onStart(mode, custom, level)} className="mt-5 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 py-4 text-lg font-black text-white shadow-lg disabled:opacity-60">
+        {level?.exam && !heldExams[level.exam] ? <p className="mt-3 text-sm font-semibold text-amber-800 dark:text-amber-300">{level.label} practice needs its pass — see Passes.</p> : null}
+        </div>
+        {/* Outside the scrolling part, so it is always on screen. */}
+        <div className="shrink-0 border-t border-slate-200 bg-white p-4 pb-[calc(1rem+var(--safe-bottom))] dark:border-white/10 dark:bg-slate-900">
+        <button type="button" disabled={Boolean(busy)} onClick={() => onStart(mode, custom, level)} className="w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 py-4 text-lg font-black text-white shadow-lg disabled:opacity-60">
           {busy ? (typeof busy === 'string' ? busy : 'Getting your questions…') : 'Start ▶'}
         </button>
+        </div>
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body,
   );
 }
 
@@ -206,6 +241,10 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
         </section>
       )}
 
+      <section className={CARD} aria-label="Use a code">
+        <RedeemCode subjects={subjects} onDone={onChanged} />
+      </section>
+
       <section className="space-y-3" aria-label="Get a pass">
         <h3 className="font-black text-slate-900 dark:text-white">Get a pass</h3>
         <div className="grid gap-3 sm:grid-cols-2">
@@ -213,7 +252,7 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
             const owned = bundle.exams.length ? bundle.exams.every(exam => passes.exams?.[exam]) : bundle.key === 'all' && passes.allSubjects;
             return (
               <article key={bundle.key} className={`${CARD} ${preset?.exam && bundle.exams.includes(preset.exam) ? 'ring-2 ring-indigo-500' : ''}`}>
-                <div className="flex items-start justify-between gap-2"><h4 className="font-black text-slate-900 dark:text-white">{bundle.label}</h4><span className="text-lg font-black text-indigo-700 dark:text-cyan-300">{naira(bundle.priceNaira)}</span></div>
+                <div className="flex items-start justify-between gap-2"><h4 className="font-black text-slate-900 dark:text-white">{bundle.label}</h4><span className="text-lg font-black text-indigo-700 dark:text-cyan-300">{money(bundle.priceNaira)}</span></div>
                 <p className="text-sm text-slate-600 dark:text-slate-300">{bundle.blurb}</p>
                 {bundle.key === 'subject' && (
                   <select aria-label="Subject to buy" className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-white/20 dark:bg-slate-900 dark:text-white" value={subjectKey} onChange={event => setSubjectKey(event.target.value)}>
@@ -235,7 +274,7 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
                 {!bundle.ready && <p className="mt-2 text-xs font-semibold text-amber-700 dark:text-amber-300">Being prepared — {bundle.stock.map(item => `${item.label}: ${item.ready.toLocaleString()} of ${item.needed} checked questions`).join(' · ')}. On sale as soon as it is ready.</p>}
                 <button type="button" disabled={owned || !bundle.ready || Boolean(paying) || (bundle.key === 'subject' && !subjectKey) || (['jamb', 'super'].includes(bundle.key) && jamb.length !== 3)} onClick={() => buy(bundle)}
                   className="mt-3 w-full rounded-2xl bg-slate-900 py-2 text-sm font-black text-white disabled:opacity-50 dark:bg-cyan-400 dark:text-black">
-                  {owned ? 'You have this' : paying === bundle.key ? 'Opening payment…' : `Pay ${naira(bundle.priceNaira)}`}
+                  {owned ? 'You have this' : paying === bundle.key ? 'Opening payment…' : `Pay ${money(bundle.priceNaira)}`}
                 </button>
               </article>
             );
@@ -259,6 +298,7 @@ export default function PracticeArena() {
   const [waiting, setWaiting] = useState(0);
   const [notice, setNotice] = useState('');
   const [passPreset, setPassPreset] = useState(null);
+  const [examFocus, setExamFocus] = useState('');
   // Leaderboards are per subject (or all), for the class or the whole school.
   const [board, setBoard] = useState({ subject: '', scope: 'class', data: null });
 
@@ -416,6 +456,8 @@ export default function PracticeArena() {
         </div>
       ) : null}
 
+      {home && tab === 'subjects' ? <ExamStrip levels={home.levels} heldExams={home.passes?.exams || {}} focus={examFocus} onFocus={setExamFocus} onPasses={exam => { setPassPreset({ exam }); setTab('passes'); }} /> : null}
+
       {home ? (
         <div className="flex flex-wrap gap-2 rounded-2xl bg-slate-100 p-1 dark:bg-white/5" role="tablist">
           {[['subjects', '📚 Subjects'], ['papers', '📝 Mock papers'], ['passes', '💳 Passes & exams'], ['badges', '🏅 Badges'], ['leaderboard', '🏆 Leaderboard']].map(([key, label]) => (
@@ -509,7 +551,7 @@ export default function PracticeArena() {
         </section>
       ) : null}
 
-      <AnimatePresence>{picker ? <ModePicker subject={picker} levels={home?.levels} heldExams={home?.passes?.exams || {}} busy={busy} onClose={() => setPicker(null)} onStart={start} /> : null}</AnimatePresence>
+      <AnimatePresence>{picker ? <ModePicker subject={picker} levels={home?.levels} heldExams={home?.passes?.exams || {}} initialLevel={examFocus} busy={busy} onClose={() => setPicker(null)} onStart={start} /> : null}</AnimatePresence>
     </div>
   );
 }
