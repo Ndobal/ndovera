@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getCountryPrices, removeCountryPrice, saveCountryPrice } from '../../../features/showcase/showcaseApi';
+import { getContactChangePrice, getCountryPrices, removeCountryPrice, saveContactChangePrice, saveCountryPrice } from '../../../features/showcase/showcaseApi';
 import { chargeFor, formatMoney } from '../../../shared/pricing/localPrice';
 
 // What buyers outside Nigeria pay: the Nigerian price plus 20%, in their currency at the rate
@@ -24,13 +24,17 @@ export default function AmiCountryPrices() {
   const [choice, setChoice] = useState('GH');
   const [currency, setCurrency] = useState('GHS');
   const [rate, setRate] = useState('');
+  const [otherCode, setOtherCode] = useState('');
+  const [otherName, setOtherName] = useState('');
+  const [packNaira, setPackNaira] = useState('');
   const [notice, setNotice] = useState('');
+  useEffect(() => { getContactChangePrice().then(result => setPackNaira(String(result.naira))).catch(() => null); }, []);
+  const savePack = event => { event.preventDefault(); saveContactChangePrice(Number(packNaira)).then(result => { setPackNaira(String(result.naira)); setNotice('Saved.'); }).catch(error => setNotice(error.message)); };
   const load = useCallback(() => getCountryPrices().then(setData).catch(error => setNotice(error.message)), []);
   useEffect(() => { load(); }, [load]);
   const presets = data?.presets || [];
   const nameOf = code => (code === '*' ? 'Everywhere else' : presets.find(item => item.code === code)?.name || code);
   const dollarRate = Number((data?.rates || []).find(item => item.country === '*')?.naira_per_unit) || data?.defaultDollarRate || 1500;
-  const isDollar = choice === '*';
   const starters = presets.filter(item => (data?.starters || []).includes(item.code));
   const others = presets.filter(item => !(data?.starters || []).includes(item.code));
   const rateOf = code => (data?.rates || []).find(item => item.country === code);
@@ -38,14 +42,13 @@ export default function AmiCountryPrices() {
   const choose = event => {
     const code = event.target.value;
     setChoice(code);
-    setCurrency(code === '*' ? 'USD' : presets.find(item => item.code === code)?.currency || '');
+    setCurrency(code === '*' ? 'USD' : code === 'other' ? '' : presets.find(item => item.code === code)?.currency || '');
   };
   const save = async event => {
     event.preventDefault();
     setNotice('');
     try {
-      // Local rates are typed against the dollar, the figure people can look up; the worker keeps naira per unit.
-      await saveCountryPrice({ country: choice, name: nameOf(choice), currency, nairaPerUnit: isDollar ? Number(rate) : dollarRate / Number(rate) });
+      await saveCountryPrice({ country: choice === 'other' ? otherCode : choice, name: choice === 'other' ? otherName : nameOf(choice), currency, nairaPerUnit: Number(rate) });
       setRate('');
       await load();
     } catch (error) { setNotice(error.message); }
@@ -56,7 +59,7 @@ export default function AmiCountryPrices() {
       {notice ? <p role="status" className="rounded-2xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-900 dark:bg-rose-500/15 dark:text-rose-100">{notice}</p> : null}
       <section className={`${CARD} space-y-2`}>
         <h2 className={`text-lg ${HEADING}`}>Prices outside Nigeria</h2>
-        <p className={BODY}>Buyers abroad pay the Nigerian price plus {Math.round((data?.surcharge || 0.2) * 100)}%, unless they have a discount code. The dollar is ₦{dollarRate.toLocaleString()}. A country with no rate of its own pays in dollars. Rates do not update by themselves: check them regularly.</p>
+        <p className={BODY}>Buyers abroad pay the Nigerian price plus {Math.round((data?.surcharge || 0.2) * 100)}%, unless they have a discount code. The dollar is ₦{dollarRate.toLocaleString()}. Buyers in a country with a rate see only their own currency. A country with no rate would see dollars, so set a rate for every country you sell in. Rates do not update by themselves: check them regularly.</p>
         <p className={BODY}>Before you add a currency, confirm in your Flutterwave dashboard that your account can collect it. A payment in a currency your account does not accept will fail at checkout.</p>
       </section>
       <section className={`${CARD} space-y-2`} aria-label="Launch countries">
@@ -72,12 +75,20 @@ export default function AmiCountryPrices() {
           <select className={FIELD} value={choice} onChange={choose}>
             <optgroup label="Launch countries">{starters.map(item => <option key={item.code} value={item.code}>{item.name}</option>)}</optgroup>
             <optgroup label="Other countries">{others.map(item => <option key={item.code} value={item.code}>{item.name}</option>)}</optgroup>
-            <option value="*">The dollar (everywhere else)</option>
+            <option value="other">Another country…</option>
+            <option value="*">The dollar (only where a country has no rate)</option>
           </select>
         </label>
         <label className={LABEL}>Currency<input className={FIELD} value={currency} onChange={event => setCurrency(event.target.value.toUpperCase())} maxLength={3} /></label>
-        <label className={LABEL}>{isDollar ? 'Naira for $1' : `${currency || 'Units'} for $1`}<input type="number" min="0" step="any" required className={FIELD} value={rate} onChange={event => setRate(event.target.value)} /></label>
+        {choice === 'other' ? <><label className={LABEL}>Two-letter country code<input className={FIELD} maxLength={2} required value={otherCode} onChange={event => setOtherCode(event.target.value.toUpperCase())} /></label><label className={LABEL}>Country name<input className={FIELD} required value={otherName} onChange={event => setOtherName(event.target.value)} /></label></> : null}
+        <label className={LABEL}>Exact naira for 1 {currency || 'unit'}<input type="number" min="0" step="any" required className={FIELD} value={rate} onChange={event => setRate(event.target.value)} /></label>
         <div className="flex items-end"><button type="submit" className={PRIMARY}>Save rate</button></div>
+      </form>
+      <form onSubmit={savePack} className={`${CARD} space-y-2`} aria-label="Extra email and phone changes">
+        <h3 className={HEADING}>Extra email and phone changes</h3>
+        <p className={BODY}>Schools get 3 free changes a month. This is the naira price of 5 more; schools see it in their own currency.</p>
+        <label className={LABEL}>Price in naira<input type="number" min="1" className={FIELD} value={packNaira} onChange={event => setPackNaira(event.target.value)} /></label>
+        <button type="submit" className={PRIMARY}>Save price</button>
       </form>
       <section className={`${CARD} space-y-2`} aria-label="Rates">
         <h3 className={HEADING}>Rates in use</h3>
@@ -85,7 +96,7 @@ export default function AmiCountryPrices() {
           <ul className="divide-y divide-slate-200 dark:divide-white/10">
             {data.rates.map(item => (
               <li key={item.country} className="flex flex-wrap items-center justify-between gap-2 py-2">
-                <span className="text-sm text-slate-900 dark:text-white"><strong>{nameOf(item.country)}</strong> · ₦{Number(item.naira_per_unit).toLocaleString()} for 1 {item.currency} · a ₦{SAMPLE_NAIRA.toLocaleString()} pass costs {sample(item, data.surcharge, ['RWF', 'UGX', 'XAF', 'XOF', 'TZS', 'MWK', 'SLE'].includes(item.currency) ? 0 : 2)}</span>
+                <span className="text-sm text-slate-900 dark:text-white"><strong>{item.name && item.country !== '*' ? item.name : nameOf(item.country)}</strong> · ₦{Number(item.naira_per_unit).toLocaleString()} for 1 {item.currency} · a ₦{SAMPLE_NAIRA.toLocaleString()} pass costs {sample(item, data.surcharge, ['RWF', 'UGX', 'XAF', 'XOF', 'TZS', 'MWK', 'SLE'].includes(item.currency) ? 0 : 2)}</span>
                 <button type="button" className={SECONDARY} onClick={() => removeCountryPrice(item.country).then(load).catch(error => setNotice(error.message))}>Remove</button>
               </li>
             ))}

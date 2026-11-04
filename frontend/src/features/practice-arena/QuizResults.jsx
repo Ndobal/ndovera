@@ -1,4 +1,5 @@
 import React from 'react';
+import AskToPay from './AskToPay';
 import { motion } from 'framer-motion';
 import RichContent from '../../shared/rich/RichContent';
 
@@ -23,13 +24,13 @@ function answerText(question) {
   return question.modelAnswer;
 }
 
-export default function QuizResults({ outcome, onPlayAgain, onBack }) {
-  const { results, percent, xp, saved, queued, newBadges = [], levelUp, profile } = outcome;
+export default function QuizResults({ outcome, onPlayAgain, onBack, onGetPass, hasAllSubjects = false }) {
+  const { results, percent, xp, saved, queued, newBadges = [], levelUp, profile, needNewQuestions = false } = outcome;
   const right = results.filter(result => result.correct).length;
   const headline = percent === 100 ? 'Perfect score! 💎' : percent >= 80 ? 'Outstanding! 🌟' : percent >= 50 ? 'Good work! 💪' : 'Keep going — every try counts 🌱';
   return (
     <div className="mx-auto max-w-3xl space-y-5">
-      <motion.section initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="rounded-[2rem] bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-6 text-center text-white shadow-2xl">
+      <motion.section initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-indigo-700 rounded-[2rem] bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 p-6 text-center text-white shadow-2xl">
         <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-8">
           <div className="rounded-full bg-white/95 p-2 text-slate-900"><ScoreRing percent={percent} /></div>
           <div>
@@ -41,6 +42,19 @@ export default function QuizResults({ outcome, onPlayAgain, onBack }) {
           </div>
         </div>
       </motion.section>
+
+      {needNewQuestions ? (
+        <section aria-label="New questions" className="space-y-3 rounded-3xl border-2 border-indigo-500 bg-white p-5 dark:bg-slate-900">
+          <h3 className="text-lg font-black text-slate-900 dark:text-white">You have mastered these questions! 🎉</h3>
+          {hasAllSubjects
+            ? <p className="text-sm text-slate-800 dark:text-slate-100">These questions earn no more XP. Try another level or subject to earn more.</p>
+            : <>
+              <p className="text-sm text-slate-800 dark:text-slate-100">These questions earn no more XP. Get a pass for new questions and more XP.</p>
+              <button type="button" onClick={onGetPass} className="w-full rounded-2xl bg-indigo-700 py-3 font-black text-white">Get a pass</button>
+              <AskToPay payload={{ bundle: 'all' }} />
+            </>}
+        </section>
+      ) : null}
 
       {levelUp ? (
         <motion.div initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 200 }} className="rounded-3xl border-2 border-amber-400 bg-amber-50 p-4 text-center dark:bg-amber-400/10">

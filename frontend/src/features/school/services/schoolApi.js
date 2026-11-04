@@ -280,6 +280,9 @@ export const deleteSubject = (subjectId) => req(`/api/school/subjects/${subjectI
 export const updateClass = (classId, data) => req(`/api/school/classes/${classId}`, { method: 'PUT', body: data });
 export const getUserProfile = (userId) => req(`/api/people/${userId}`);
 export const updateUserProfile = (userId, data) => req(`/api/people/${userId}`, { method: 'PUT', body: data });
+export const getContactChanges = () => req('/api/school/contact-changes');
+export const buyContactChanges = () => req('/api/school/contact-changes/buy', { method: 'POST', body: {} });
+export const confirmContactChanges = (txRef) => req('/api/school/contact-changes/confirm', { method: 'POST', body: { txRef } });
 export const getStudentEmailDomain = () => req('/api/school/student-email-domain');
 export const saveStudentEmailDomain = (domain) => req('/api/school/student-email-domain', { method: 'PUT', body: { domain } });
 export const getSchoolEmailFor = (userId) => req(`/api/people/${userId}/school-email`);

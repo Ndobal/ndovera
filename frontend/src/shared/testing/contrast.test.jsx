@@ -47,6 +47,8 @@ import AmiCountryPrices from '../../app/roles/ami/AmiCountryPrices';
 import { FeaturesPageBody, HomeFeatures } from '../../features/public/FeaturesSections';
 import SchoolEmailPanel from '../../features/communications/SchoolEmailPanel';
 import * as schoolEmailApi from '../../features/communications/schoolEmailApi';
+import PassPayPage from '../../features/practice-arena/PassPayPage';
+import QuizResults from '../../features/practice-arena/QuizResults';
 import ParentInvitePage from '../../features/auth/pages/ParentInvitePage';
 import ParentInvitePanel, { StudentEmailDomain } from '../../features/school/components/ParentInvitePanel';
 import { getParentInvite, getStudentEmailDomain } from '../../features/school/services/schoolApi';
@@ -605,6 +607,14 @@ describe('reviews, home strips, pass codes and country prices', () => {
     await inBothModes(() => <ParentInvitePage />, 'Ada Obi');
     getStudentEmailDomain.mockResolvedValue({ domain: 'xyz.com', inUse: 'xyz.com' });
     await inBothModes(() => <><ParentInvitePanel students={[{ id: 'a', name: 'Ada Obi' }]} /><StudentEmailDomain /></>, 'Invite a parent by link');
+  });
+  test('the page someone else pays on, and the prompt after mastering questions', async () => {
+    const realFetch = global.fetch;
+    global.fetch = jest.fn(async () => ({ ok: true, json: async () => ({ success: true, schoolName: 'Genesis College', logoUrl: '', childName: 'Ada', label: 'All Subjects Pass', amountNaira: 1500, paid: false, expired: false }) }));
+    await inBothModes(() => <PassPayPage />, 'Help Ada with practice');
+    global.fetch = realFetch;
+    const result = { questionId: 'q', correct: true, question: { prompt: 'Two plus two' }, credit: 1 };
+    await inBothModes(() => <QuizResults outcome={{ results: [result], percent: 100, xp: 0, saved: true, needNewQuestions: true }} onPlayAgain={() => {}} onBack={() => {}} onGetPass={() => {}} />, 'You have mastered these questions! 🎉');
   });
   test('using a pass code', async () => {
     await inBothModes(() => <RedeemCode subjects={[{ key: 'maths', name: 'Mathematics' }]} />, 'Use code');

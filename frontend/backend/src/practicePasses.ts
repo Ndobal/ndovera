@@ -51,8 +51,8 @@ export const JAMB_MOCK = { english: 60, perSubject: 40, minutes: 120 }
 export const JAMB_ENGLISH_KEY = 'english'
 
 export const BUNDLES = {
-  subject: { label: 'Subject Pass', priceNaira: 300, scope: 'term', levels: ['simple', 'intermediate'], exams: [] as ExamKey[], blurb: 'One subject, as many questions as you like, this term' },
-  all: { label: 'All Subjects Pass', priceNaira: 1500, scope: 'term', levels: ['simple', 'intermediate'], exams: [] as ExamKey[], blurb: 'Every subject your class offers, as many questions as you like, this term' },
+  subject: { label: 'Subject Pass', priceNaira: 300, scope: 'term', levels: ['simple', 'intermediate'], exams: [] as ExamKey[], blurb: 'One subject, as many questions as you like, this term and one month after it' },
+  all: { label: 'All Subjects Pass', priceNaira: 1500, scope: 'term', levels: ['simple', 'intermediate'], exams: [] as ExamKey[], blurb: 'Every subject your class offers, as many questions as you like, this term and one month after it' },
   common_entrance: { label: 'Common Entrance Prep', priceNaira: 2000, scope: 'year', levels: [], exams: ['common_entrance'] as ExamKey[], section: 'primary', blurb: 'All subjects, Common Entrance standard, timed mocks — 12 months' },
   bece: { label: 'BECE Prep', priceNaira: 3000, scope: 'year', levels: [], exams: ['bece'] as ExamKey[], section: 'junior', blurb: 'All subjects, BECE standard, timed mocks — 12 months' },
   ssce: { label: 'WAEC / NECO Prep', priceNaira: 3000, scope: 'year', levels: [], exams: ['waec', 'neco'] as ExamKey[], section: 'senior', blurb: 'All SSCE subjects, WAEC and NECO standard, timed mocks — 12 months' },
@@ -106,20 +106,31 @@ export type Entitlements = {
   subjects: Set<string>, allSubjects: boolean, exams: Map<ExamKey, string>, jambSubjects: string[],
   passes: Array<{ id: string, bundle: string, label: string, subjectKey: string, subjects: string[], expiresAt: string | null, source: string }>,
   paidUntil: string | null,
+  /** Held only because of the month after last term: a new term's pass can be bought for these. */
+  graceSubjects: Set<string>,
+  allInGrace: boolean,
 }
 
 export async function entitlements(db: D1Database, student: PassStudent): Promise<Entitlements> {
   await ensurePassTables(db)
   const stamp = now()
   const rows = await db.prepare(`SELECT * FROM practice_passes WHERE student_id = ? AND (expires_at IS NULL OR expires_at > ?) ORDER BY created_at`).bind(student.studentId, stamp).all()
-  const out: Entitlements = { subjects: new Set(), allSubjects: false, exams: new Map(), jambSubjects: [], passes: [], paidUntil: null }
+  const out: Entitlements = { subjects: new Set(), allSubjects: false, exams: new Map(), jambSubjects: [], passes: [], paidUntil: null, graceSubjects: new Set(), allInGrace: false }
   for (const row of (rows.results || []) as Record<string, any>[]) {
     const bundle = BUNDLES[row.bundle as BundleKey]
     if (!bundle) continue
     // A term pass counts only in the term it was bought for (a code's pass with its own end date counts until then).
     if (bundle.scope === 'term' && !row.expires_at && row.term_id !== student.termId) continue
-    if (row.bundle === 'subject' && row.subject_key) out.subjects.add(String(row.subject_key))
-    if (row.bundle === 'all') out.allSubjects = true
+    const lastTerms = bundle.scope === 'term' && Boolean(row.term_id) && row.term_id !== student.termId
+    if (row.bundle === 'subject' && row.subject_key) {
+      if (lastTerms && !out.subjects.has(String(row.subject_key))) out.graceSubjects.add(String(row.subject_key))
+      if (!lastTerms) out.graceSubjects.delete(String(row.subject_key))
+      out.subjects.add(String(row.subject_key))
+    }
+    if (row.bundle === 'all') {
+      out.allInGrace = lastTerms && (!out.allSubjects || out.allInGrace)
+      out.allSubjects = true
+    }
     for (const exam of bundle.exams) {
       const until = String(row.expires_at || '')
       if (!out.exams.has(exam) || until > (out.exams.get(exam) || '')) out.exams.set(exam, until)
@@ -259,9 +270,10 @@ export async function priceFor(db: D1Database, input: PurchaseInput, options: { 
   if (key === 'subject') {
     const subjectKey = String(input.subjectKey || '')
     if (!options.offered.includes(subjectKey)) throw new PassError('Choose one of the subjects the class offers.')
-    if (options.held && (options.held.allSubjects || options.held.subjects.has(subjectKey))) throw new PassError('You already have this subject this term.', 409)
+    if (options.held && ((options.held.allSubjects && !options.held.allInGrace) || (options.held.subjects.has(subjectKey) && !options.held.graceSubjects.has(subjectKey)))) throw new PassError('You already have this subject this term.', 409)
     extra.subjectKey = subjectKey
   }
+  if (key === 'all' && options.held && options.held.allSubjects && !options.held.allInGrace) throw new PassError('You already have this pass.', 409)
   if (key === 'jamb' || key === 'super') {
     const chosen = Array.from(new Set((input.jambSubjects || []).map(String).filter(subject => subject && subject !== JAMB_ENGLISH_KEY)))
     if (chosen.length !== 3) throw new PassError('Choose your three JAMB subjects (Use of English is always included).')
@@ -293,7 +305,7 @@ export async function getCheckout(db: D1Database, txRef: string) {
  * Grant a verified payment's passes, exactly once (the payment row is claimed first).
  * `verified` is Flutterwave's own answer: status, amount, currency and reference must all match.
  */
-export async function settleCheckout(db: D1Database, txRef: string, verified: { status: string, amount: number, currency: string, txRef: string, providerId: string }, terms: { termId: string }) {
+export async function settleCheckout(db: D1Database, txRef: string, verified: { status: string, amount: number, currency: string, txRef: string, providerId: string }, terms: { termId: string, passEndsAt?: string }) {
   const payment = await getCheckout(db, txRef)
   if (!payment) throw new PassError('Payment not found.', 404)
   if (payment.status === 'paid') return { payment, granted: 0, alreadyPaid: true }
@@ -308,7 +320,7 @@ export async function settleCheckout(db: D1Database, txRef: string, verified: { 
   if (!Number((claimed as any)?.meta?.changes || 0)) return { payment: await getCheckout(db, txRef), granted: 0, alreadyPaid: true }
   const bundle = BUNDLES[payment.bundle as BundleKey]
   const stamp = now()
-  const expires = bundle.scope === 'year' ? new Date(Date.now() + 365 * 86400_000).toISOString() : null
+  const expires = bundle.scope === 'year' ? new Date(Date.now() + 365 * 86400_000).toISOString() : terms.passEndsAt || null
   const each = payment.amountNaira / Math.max(1, payment.studentIds.length)
   await db.batch(payment.studentIds.map(studentId => db.prepare(`INSERT OR IGNORE INTO practice_passes (id, tenant_id, student_id, bundle, subject_key, subjects_json, term_id, starts_at, expires_at, source, payment_ref, amount_naira, created_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(newId('ppass'), payment.tenantId, studentId, payment.bundle, payment.options.subjectKey || null, JSON.stringify(payment.options.jambSubjects || []),

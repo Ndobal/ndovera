@@ -40,6 +40,8 @@ export type CommDeps = {
   whatsapp: WhatsAppConfig
   sms: PayHosConfig
   sendEmail: ((to: string, subject: string, html: string, tenantId: string) => Promise<void>) | null
+  /** Wakes this person's phones, which then read their newest notification. */
+  wakePhones?: (tenantId: string, userIds: string[]) => Promise<unknown>
   /** https://<school>.ndovera.com — links point at the parent portal there. */
   portalBase: (tenantId: string) => Promise<string>
   schoolName: (tenantId: string) => Promise<string>
@@ -472,6 +474,7 @@ async function sendDelivery(deps: CommDeps, row: Record<string, any>) {
 
   if (row.channel === 'inapp') {
     await addToInbox(db, { tenantId: row.tenant_id, userId: row.guardian_id, eventId: event.id, title: message.title, body: message.text, link })
+    await deps.wakePhones?.(row.tenant_id, [row.guardian_id]).catch(() => null)
     await finish('delivered')
     return
   }

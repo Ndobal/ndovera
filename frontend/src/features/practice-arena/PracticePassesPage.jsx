@@ -114,6 +114,7 @@ export default function PracticePassesPage({ mode }) {
             {child.passes.length ? <ul className="text-sm text-slate-700 dark:text-slate-200">{child.passes.map(pass => <li key={pass.id}>✅ {pass.label}{pass.expiresAt ? ` · until ${new Date(pass.expiresAt).toLocaleDateString()}` : ' · this term'}</li>)}</ul> : null}
             <BundlePicker bundles={child.bundles} subjects={child.subjects} busy={busy} onBuy={payload => pay({ ...payload, studentId: child.studentId })} />
             <RedeemCode subjects={child.subjects} studentId={child.studentId} onDone={load} />
+            <p className="text-sm text-slate-700 dark:text-slate-200">Card not working? In the student's account each pass has "Pay by bank transfer".</p>
           </section>
         )) : <p className={CARD}>No children are linked to your account yet. Ask the school to link them.</p>
       ) : (

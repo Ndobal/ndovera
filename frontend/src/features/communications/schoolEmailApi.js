@@ -24,6 +24,8 @@ export const getEmailTemplates = () => request('/api/school/email-templates');
 export const saveEmailTemplate = (kind, body) => request(`/api/school/email-templates/${kind}`, { method: 'PUT', body });
 export const resetEmailTemplate = kind => request(`/api/school/email-templates/${kind}`, { method: 'DELETE' });
 
+export const getPassNudges = () => request('/api/school/pass-nudges');
+export const setPassNudges = off => request('/api/school/pass-nudges', { method: 'PUT', body: { off } });
 export const getReceiptEmailStatus = () => request('/api/school/finance/simple/receipts/email-status');
 export const emailReceiptBatch = () => request('/api/school/finance/simple/receipts/email-batch', { method: 'POST', body: {} });
 export const emailReceiptToParents = (receiptNo, again = false) => request('/api/school/finance/simple/receipts/email', { method: 'POST', body: { receiptNo, again } });

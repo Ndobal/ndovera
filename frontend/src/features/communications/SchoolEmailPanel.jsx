@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { emailReceiptBatch, getEmailTemplates, getReceiptEmailStatus, resetEmailTemplate, saveEmailTemplate } from './schoolEmailApi';
+import { emailReceiptBatch, getEmailTemplates, getPassNudges, getReceiptEmailStatus, resetEmailTemplate, saveEmailTemplate, setPassNudges } from './schoolEmailApi';
 import { askConfirm } from '../../shared/components/AppDialog';
 
 // The school's emails: one button to email every new receipt, and the words the school sends.
@@ -81,6 +81,24 @@ function TemplateEditor({ template, onChanged }) {
   );
 }
 
+/** Monthly reminders about practice passes. On unless the school turns them off. */
+function PassReminders() {
+  const [off, setOff] = useState(null);
+  const [message, setMessage] = useState('');
+  useEffect(() => { getPassNudges().then(result => setOff(result.off)).catch(() => setOff(null)); }, []);
+  if (off === null) return null;
+  const change = () => setPassNudges(!off).then(result => { setOff(result.off); setMessage('Saved.'); }).catch(error => setMessage(error.message));
+  return (
+    <section className={CARD} aria-label="Practice pass reminders">
+      <h2 className={HEADING}>Practice pass reminders</h2>
+      <p className="text-sm">Once a month, students with no pass and their parents get a notice with a button to buy one. Parents of senior students also get an email about WAEC, NECO and JAMB passes.</p>
+      <p className="text-sm font-bold">{off ? 'Off for your school.' : 'On for your school.'}</p>
+      <button type="button" className={SECONDARY} onClick={change}>{off ? 'Turn on' : 'Turn off'}</button>
+      {message ? <p role="status" className="text-sm font-bold">{message}</p> : null}
+    </section>
+  );
+}
+
 export default function SchoolEmailPanel() {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
@@ -90,6 +108,7 @@ export default function SchoolEmailPanel() {
   return (
     <div className="space-y-4">
       <ReceiptBulkEmail />
+      <PassReminders />
       {error ? <p role="alert" className="rounded-2xl bg-rose-100 px-4 py-2 text-sm font-semibold text-rose-900">{error}</p> : null}
       {letter ? (
         <section className={CARD} aria-label="Your letterhead">

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getCodeBatch, getCodeBatches, makeCodes, stopCodes } from '../../../features/showcase/showcaseApi';
+import { decideBankClaim, getBankClaims, getCodeBatch, getCodeBatches, makeCodes, stopCodes } from '../../../features/showcase/showcaseApi';
 import { askConfirm } from '../../../shared/components/AppDialog';
 
 // Free practice passes by one-time codes: each code gives one student one pass, until the
@@ -23,6 +23,38 @@ function downloadCodes(batch) {
   link.download = `practice-codes-${batch.createdAt.slice(0, 10)}.csv`;
   link.click();
   URL.revokeObjectURL(link.href);
+}
+
+/** Bank transfers people say they made. Check your Moniepoint account and the receipt on WhatsApp before approving. */
+function BankClaims() {
+  const [claims, setClaims] = useState(null);
+  const [notice, setNotice] = useState('');
+  const load = useCallback(() => getBankClaims('waiting').then(result => setClaims(result.claims)).catch(error => setNotice(error.message)), []);
+  useEffect(() => { load(); }, [load]);
+  const decide = async (claim, decision) => {
+    if (decision === 'approve' && !await askConfirm(`Has ₦${Number(claim.amountNaira).toLocaleString()} from ${claim.payerName} reached the account? Approving gives the pass.`)) return;
+    decideBankClaim(claim.id, decision).then(load).catch(error => setNotice(error.message));
+  };
+  return (
+    <section className={`${CARD} space-y-2`} aria-label="Bank transfers to check">
+      <h3 className={HEADING}>Bank transfers to check</h3>
+      {notice ? <p role="status" className={BODY}>{notice}</p> : null}
+      {!claims ? <p role="status" className={BODY}>Loading…</p> : claims.length ? (
+        <ul className="space-y-2">
+          {claims.map(claim => (
+            <li key={claim.id} className="rounded-2xl bg-slate-100 p-3 dark:bg-white/5">
+              <p className="text-sm font-bold text-slate-900 dark:text-white">₦{Number(claim.amountNaira).toLocaleString()} · {claim.label} · {claim.id}</p>
+              <p className="text-xs text-slate-700 dark:text-slate-300">{claim.payerName} for {claim.studentName}, {claim.schoolName}{claim.reference ? ` · reference ${claim.reference}` : ''} · {when(claim.createdAt)}</p>
+              <div className="mt-2 flex gap-2">
+                <button type="button" className={PRIMARY} onClick={() => decide(claim, 'approve')}>Money received</button>
+                <button type="button" className={SECONDARY} onClick={() => decide(claim, 'reject')}>Not received</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : <p className={BODY}>Nothing waiting.</p>}
+    </section>
+  );
 }
 
 export default function AmiPassCodes() {
@@ -55,6 +87,7 @@ export default function AmiPassCodes() {
   return (
     <div className="space-y-5">
       {notice ? <p role="status" className="rounded-2xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-900 dark:bg-rose-500/15 dark:text-rose-100">{notice}</p> : null}
+      <BankClaims />
       <form onSubmit={make} className={`${CARD} space-y-3`} aria-label="Make codes">
         <h2 className={`text-lg ${HEADING}`}>Make free pass codes</h2>
         <p className={BODY}>A pass with a choice (a subject, or JAMB's three subjects) lets the student choose when they use the code.</p>

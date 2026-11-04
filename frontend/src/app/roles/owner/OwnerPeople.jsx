@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { localMoney } from '../../../shared/pricing/localPrice';
 import { Link } from 'react-router-dom';
 import {
-  getPeople, addPerson, deactivatePerson, setPersonRoles, changePersonEmail, getSchoolEmailFor, getPastStudents, restorePerson,
+  getPeople, addPerson, deactivatePerson, setPersonRoles, changePersonEmail, getSchoolEmailFor, getContactChanges, buyContactChanges, confirmContactChanges, getPastStudents, restorePerson,
   getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
   resetPassword, uploadBulkPeople, getBulkPeopleJobs, retryBulkPeopleJob, deletePastStudents, removePastStudents, getPastParents,
   getQuestionBankAccess, setQuestionBankAccess,
@@ -42,6 +43,29 @@ function buildAvatarSrc(user) {
 }
 
 
+const CONTACT_WARNING = 'Please check this carefully. Your school can change emails and phone numbers only 3 times a month for free. More changes cost extra.';
+
+/** How many changes are left, and the button to buy more. */
+function ContactChangesNote() {
+  const [status, setStatus] = useState(null);
+  const [message, setMessage] = useState('');
+  useEffect(() => {
+    const load = () => getContactChanges().then(setStatus).catch(() => null);
+    const txRef = new URLSearchParams(window.location.search).get('contact_tx');
+    (txRef ? confirmContactChanges(txRef).catch(() => null) : Promise.resolve()).then(load);
+  }, []);
+  if (!status) return null;
+  const buy = () => buyContactChanges().then(result => { if (result.checkoutUrl) window.location.href = result.checkoutUrl; }).catch(err => setMessage(err.message));
+  const left = status.freeLeft + status.extra;
+  return (
+    <div className="mt-2 rounded-xl border border-amber-500 bg-amber-50 p-2 text-xs font-semibold text-amber-950">
+      <p>Changes left this month: {left} ({status.freeLeft} free{status.extra ? `, ${status.extra} bought` : ''}).</p>
+      {!left ? <button type="button" onClick={buy} className="mt-1 rounded-lg bg-[#191970] px-3 py-1.5 font-bold text-white">Buy {status.packSize} more for {localMoney(status.packNaira, status.pricing)}</button> : null}
+      {message ? <p role="alert">{message}</p> : null}
+    </div>
+  );
+}
+
 /** Owner and Head of School correct a student's or parent's sign-in address here. */
 function EmailEditor({ profile, onChanged }) {
   const [email, setEmail] = useState(profile.email || '');
@@ -67,6 +91,8 @@ function EmailEditor({ profile, onChanged }) {
         {isStudent ? <button type="button" disabled={busy} onClick={() => run({ useSchoolEmail: true })} className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-white disabled:opacity-60">Use school email</button> : null}
       </div>
       {message ? <p role="status" className="mt-1 text-xs font-semibold text-[#191970]">{message}</p> : null}
+      <p className="mt-1 text-xs font-semibold text-[#191970]">{CONTACT_WARNING}</p>
+      <ContactChangesNote />
     </div>
   );
 }
@@ -232,6 +258,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     onChange={e => setEditForm(f => ({ ...f, phone: e.target.value }))}
                     className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                   />
+                  {canChangeEmail ? <p className="mt-1 text-xs font-semibold text-[#191970]">{CONTACT_WARNING}</p> : null}
                 </div>
                 <div>
                   <label className="text-xs font-semibold uppercase text-[#800020]">Date of Birth</label>
@@ -491,6 +518,7 @@ function AddPersonModal({ onClose, onAdd }) {
           {[['Name', 'name', 'text'], ['Email', 'email', 'email'], ['Password', 'password', 'password']].map(([label, key, type]) => (
             <div key={key}>
               <label className="text-xs text-[#800020] dark:text-slate-400 font-semibold uppercase">{label}{key === 'password' && ' (optional)'}{key === 'email' && form.role === 'student' && ' (optional: made from the name)'}</label>
+              {key === 'email' ? <p className="mt-0.5 text-xs font-semibold text-[#191970] dark:text-slate-200">{CONTACT_WARNING}</p> : null}
               <input
                 type={type}
                 value={form[key]}
@@ -580,6 +608,7 @@ function AddPersonModal({ onClose, onAdd }) {
 
                 {form.parentOption === 'new' && (
                   <div className="space-y-2">
+                    <p className="text-xs font-semibold text-[#191970] dark:text-slate-200">{CONTACT_WARNING}</p>
                     {[['Parent Phone', 'parentPhone', 'tel'], ['Parent Name', 'parentName', 'text'], ['Parent Email', 'parentEmail', 'email']].map(([label, key, type]) => (
                       <div key={key}>
                         <label className="text-xs text-[#800020] dark:text-slate-400 font-semibold uppercase">{label} (optional)</label>

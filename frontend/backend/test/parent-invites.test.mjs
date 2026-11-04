@@ -203,6 +203,28 @@ test('changing a parent number moves their sign-in: the old one stops, a taken o
   assert.equal((await ctx.call('owner', 'PUT', '/api/people/' + phoneOnly, { phone: '' })).status, 400, 'a phone-only parent cannot lose their only sign-in')
 })
 
+test('a school gets 3 changes a month, then buys 5 more; first addresses are free', async () => {
+  const ctx = await setup()
+  const change = n => ctx.call('owner', 'PUT', '/api/people/k-1/email', { email: `a${n}@old.test` })
+  assert.equal((await ctx.call('owner', 'GET', '/api/school/contact-changes')).body.freeLeft, 3)
+  for (const n of [1, 2, 3]) assert.equal((await change(n)).status, 200)
+  const refused = await change(4)
+  assert.equal(refused.status, 402)
+  assert.equal(refused.body.needsChanges, true)
+  assert.equal(ctx.db.db.prepare('SELECT email FROM users WHERE id = ?').get('k-1').email, 'a3@old.test', 'nothing changed')
+
+  await ctx.db.prepare('UPDATE settings SET payload = json_set(payload, ?, ?) WHERE studentId = ?').bind('$.phone', '08030000001', 'bayo@old.test').run()
+  assert.equal((await ctx.call('owner', 'PUT', '/api/people/k-2', { phone: '08030000002' })).status, 402, 'a phone change counts too')
+  assert.equal((await ctx.call('hos', 'PUT', '/api/people/t-1', { phone: '08030000009' })).status, 200, 'adding a first number does not')
+
+  assert.equal((await ctx.call('teacher', 'PUT', '/api/ami/contact-change-price', { naira: 1 })).status, 403)
+  ctx.db.db.exec("INSERT INTO school_contact_wallet (tenant_id, extra) VALUES ('school-a', 5)")
+  assert.equal((await change(4)).status, 200, 'a bought change is used')
+  const left = (await ctx.call('owner', 'GET', '/api/school/contact-changes')).body
+  assert.equal(left.extra, 4)
+  assert.equal(left.packNaira, 1500)
+})
+
 test('too many wrong passwords stop the link', async () => {
   const ctx = await setup()
   const invite = async ids => tokenOf((await ctx.call('owner', 'POST', '/api/school/parent-invites', { studentIds: ids })).body.url)

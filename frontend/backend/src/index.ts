@@ -425,7 +425,12 @@ import {
   EXAMS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, freeQuestionsLeft, useFreeQuestions, FREE_LIMIT_REACHED, FREE_QUESTIONS_PER_DAY,
   entitlements, examCoreShort, examStock, examsForSection, getCheckout, normalizeExam, packValidUntil, priceFor, rebuildExamStock, recordCheckout, settleCheckout,
 } from './practicePasses'
-import { BUNDLES } from './practicePasses'
+import { BUNDLES, ensurePassTables } from './practicePasses'
+import { changeAllowance, ContactLimitError, ensureContactChangeTables, packPrice, recordPackBuy, setPackPrice, settlePackBuy, takeContactChange } from './contactChanges'
+import { addBankClaim, BankClaimError, claimWhatsAppUrl, decideBankClaim, listBankClaims, NDOVERA_BANK, NDOVERA_WHATSAPP } from './bankClaims'
+import { chargeReportAi, ReportAiError } from './reportAi'
+import { ensureNudgeTables, NUDGE_BATCH, nextNudgeSchool, nudgeMonth, nudgesAreOff, parentNudge, saveNudgeProgress, seniorParentEmail, setNudgesOff, studentNudge } from './passNudges'
+import { createPayLink, PAY_LINK_DAYS, PayLinkError, readPayLink, rememberPayLinkTx } from './passPayLinks'
 import { cleanDomain, freeStudentEmail, moveRecordsToEmail, saveSchoolDomain, schoolDomainSetting, studentEmailDomain } from './studentEmails'
 import { checkInviteForm, claimInvite, countFailedTry, createInvite, InviteError, INVITE_DAYS, MAX_CHILDREN, readInvite, releaseInvite } from './parentInvites'
 import { answerExamRequest, checkCurriculumFile, createExamRequest, examRequestFile, ExamRequestError, listExamRequests, listMyExamRequests, PRIVATE_PREFIX } from './examRequests'
@@ -447,7 +452,7 @@ import {
   CommError, createQuote, getPlatformConfig, giftUnits, isChannel, ledgerFor, listGifts, listGrants, listPurchases, getPurchase, priceSchedule, reverseGift,
   schedulePrice, setPlatformConfig, settlePurchase, startCheckout, walletSummary as commWalletSummary, ensureTermAllowance, CHANNELS,
 } from './commCredits'
-import { DEFAULT_SETTINGS as DEFAULT_COMM_SETTINGS, EVENT_TYPES, consentsFor as commConsentsFor, getSettings as getCommSettings, listInbox, listTemplates, markInboxRead, setConsent, setDesignation, setTemplate, updateSettings as updateCommSettings, normalizePhone, type EventType } from './commMessages'
+import { ensureMessageTables as ensureCommMessageTables, DEFAULT_SETTINGS as DEFAULT_COMM_SETTINGS, EVENT_TYPES, consentsFor as commConsentsFor, getSettings as getCommSettings, listInbox, listTemplates, markInboxRead, setConsent, setDesignation, setTemplate, updateSettings as updateCommSettings, normalizePhone, type EventType } from './commMessages'
 import {
   admitBatch, applyWhatsAppStatuses, commTick, deliveryHistory, overview as commOverview, previewEvent, readmitWaiting, recordEvent, resolveUnknown,
   scheduleAssignmentDigest, scheduleDeadlineReminders, scheduleFeeReminders, ensureEngineTables, resolveRecipients, type CommDeps, type CommEvent, type Scope,
@@ -4503,7 +4508,11 @@ async function listActiveWebPushSubscriptions(db: D1Database, options: {
 }) {
   await ensureWebPushSubscriptionsTable(db)
 
-  const userIds = Array.from(new Set((options.userIds || []).map(value => String(value || '').trim()).filter(Boolean)))
+  // A phone's subscription is stored under the sign-in key, which is usually the email, while
+  // notifications name people by id. Both are looked for, or the phone is never found.
+  const named = Array.from(new Set((options.userIds || []).map(value => String(value || '').trim()).filter(Boolean)))
+  const known = named.length ? await db.prepare(`SELECT id, email FROM users WHERE id IN (${named.map(() => '?').join(', ')}) OR email IN (${named.map(() => '?').join(', ')})`).bind(...named, ...named).all().catch(() => ({ results: [] })) : { results: [] }
+  const userIds = Array.from(new Set([...named, ...((known.results || []) as Record<string, any>[]).flatMap(row => [String(row.id || ''), String(row.email || '')]).filter(Boolean)]))
   const roleKeys = Array.from(new Set((options.roleKeys || []).map(value => normalizeRole(value)).filter(Boolean)))
 
   let rows: { results?: Record<string, any>[] } = { results: [] }
@@ -4548,7 +4557,8 @@ async function sendWebPushSignal(env: Bindings, subscriptionEndpoint: string) {
     method: 'POST',
     headers: {
       ...headers,
-      TTL: '60',
+      // A phone may be asleep or off the network for hours. With 60 seconds it simply never heard.
+      TTL: '86400',
       Urgency: 'high',
     },
   })
@@ -4607,6 +4617,7 @@ function buildPushNotificationPayload(item: Record<string, any> | null, roleKey:
     body: String(item.detail || item.preview || item.sender || ''),
     tag: `${category}:${String(item.id || roleKey)}`,
     url: String(item.actionUrl || resolvePushNotificationPath(roleKey, category)),
+    actionLabel: String(item.actionLabel || ''),
     icon: '/android-chrome-192x192.png',
     badge: '/android-chrome-192x192.png',
     category,
@@ -5964,7 +5975,14 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
     buildHealthNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole, String(resolvedUser.userRow?.id || canonicalReaderId), settings).catch(() => [] as any[]),
     tenantId ? buildFinanceReportNotificationItems(c.env.APP_DB, String(tenantId), actorRole).catch(() => [] as any[]) : Promise.resolve([] as any[]),
   ])
+  const inboxRows = tenantId ? ((await c.env.APP_DB.prepare(`SELECT id, title, body, link, created_at FROM comm_inbox WHERE tenant_id = ? AND user_id = ? AND read_at IS NULL AND created_at >= ? ORDER BY created_at DESC LIMIT 3`)
+    .bind(String(tenantId), String(resolvedUser.userRow?.id || canonicalReaderId), new Date(Date.now() - 7 * 86400_000).toISOString()).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[] : []
+  const inboxItems = inboxRows.map(row => ({
+    id: `inbox:${row.id}`, category: 'inbox', title: String(row.title || ''), sender: String(row.title || ''), detail: String(row.body || ''), preview: String(row.body || ''),
+    actionUrl: String(row.link || ''), actionLabel: /practice/.test(String(row.link || '')) ? 'Buy pass' : 'Open', time: new Date(String(row.created_at)).toLocaleDateString(), sortAt: String(row.created_at), unread: true,
+  }))
   const notificationItems = [
+    ...inboxItems,
     ...financeReportItems,
     ...healthItems,
     ...transportItems,
@@ -13654,9 +13672,11 @@ app.post('/api/staff-evaluations/:id/results/:staffId/ai-summary', authenticate,
     if (!staffResult) return c.json({ success: false, message: 'Staff member not found in this evaluation.' }, 404)
     if (!staffResult.responses) return c.json({ success: false, message: 'There are no responses to summarise yet.' }, 400)
     if (!c.env.AI || typeof c.env.AI.run !== 'function') return c.json({ success: false, message: 'Ndovera AI is not available right now.' }, 503)
+    const charge = await reportAiCharge(c)
+    if (charge.refused) return c.json({ success: false, message: charge.refused, needCredits: true }, 402)
     const prompt = buildEvaluationSummaryPrompt(staffResult.name, evaluation.scale, staffResult)
     const text = extractWorkersAiText(await c.env.AI.run(WORKERS_AI_MODEL, { messages: [{ role: 'system', content: prompt.system }, { role: 'user', content: prompt.user }], max_tokens: 600, temperature: 0.2 }))
-    if (!text) return c.json({ success: false, message: 'Ndovera AI returned an empty summary. Please try again.' }, 502)
+    if (!text) { await charge.refund!().catch(() => null); return c.json({ success: false, message: 'Ndovera AI returned an empty summary. Please try again.' }, 502) }
     await saveEvaluationSummary(c.env.APP_DB, { tenantId: actor.tenantId, evaluationId: evaluation.id, staffId: staffResult.staffId, summary: text, responseCount: staffResult.responses, actorId: actor.actorId })
     return c.json({ success: true, summary: { text, responseCount: staffResult.responses, generatedAt: new Date().toISOString() } })
   } catch (error) {
@@ -14572,9 +14592,11 @@ app.post('/api/compliance/class-report/:id/ai-summary', authenticate, async (c) 
     const classRow = await c.env.APP_DB.prepare(`SELECT id, name, arm, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`).bind(report.classId, viewer.tenantId).first() as Record<string, any> | null
     const students = classRow ? await listResultClassStudents(c.env.APP_DB, viewer.tenantId, classRow) : []
     const prompt = buildClassReportPrompt(report, new Map(students.map(student => [String(student.id), String(student.name || '')])))
+    const reportCharge = await reportAiCharge(c)
+    if (reportCharge.refused) return c.json({ success: false, message: reportCharge.refused, needCredits: true }, 402)
     const result = await c.env.AI.run(WORKERS_AI_MODEL, { messages: [{ role: 'system', content: prompt.system }, { role: 'user', content: prompt.user }], max_tokens: 900, temperature: 0.2 })
     const text = extractWorkersAiText(result)
-    if (!text) return c.json({ success: false, message: 'Ndovera AI returned an empty report. Please try again.' }, 502)
+    if (!text) { await reportCharge.refund!().catch(() => null); return c.json({ success: false, message: 'Ndovera AI returned an empty report. Please try again.' }, 502) }
     await storeClassReportAiSummary(c.env.APP_DB, viewer.tenantId, report.id, text)
     return c.json({ success: true, report: await getClassReport(c.env.APP_DB, viewer.tenantId, report.id) })
   } catch (error) {
@@ -16989,6 +17011,15 @@ async function practiceTermId(db: D1Database, tenantId: string) {
   return String(period?.termId || `year-${new Date(Date.now() + 3600_000).getUTCFullYear()}`)
 }
 
+/** A term pass lasts to the end of the term plus one month. New term, new pass. */
+async function termPassEnd(db: D1Database, tenantId: string) {
+  const period = await getCurrentAcademicPeriod(db, tenantId).catch(() => null)
+  const end = Date.parse(String((period?.term as any)?.endDate || ''))
+  const base = new Date(Number.isFinite(end) && end > Date.now() ? end : Date.now() + 120 * 86400_000)
+  base.setUTCMonth(base.getUTCMonth() + 1)
+  return base.toISOString()
+}
+
 async function resolvePracticeStudent(c: any) {
   const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
   if (!hasRequiredRole(actor.role, ['student'])) throw new PracticeError('Practice is for students. Teachers\' questions reach it through the question bank.', 403)
@@ -17045,7 +17076,7 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
     return c.json({
       success: true, student: { name: student.studentName, className: student.className, level: student.rank !== null ? labelOfRank(student.rank) : '', section: student.section },
       profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES, levels: practiceLevels(student.section),
-      passes: { freePerDay: FREE_QUESTIONS_PER_DAY, freeLeftToday: freeLeft, allSubjects: held.allSubjects, subjects: [...held.subjects], exams: Object.fromEntries(held.exams), jambSubjects: held.jambSubjects, list: held.passes },
+      passes: { freePerDay: FREE_QUESTIONS_PER_DAY, freeLeftToday: freeLeft, allSubjects: held.allSubjects, allInGrace: held.allInGrace, subjects: [...held.subjects], exams: Object.fromEntries(held.exams), jambSubjects: held.jambSubjects, list: held.passes },
       bundles: bundleList(student.section, stock), jambMock: JAMB_MOCK, exams: Object.fromEntries(examsForSection(student.section).map(exam => [exam, { label: EXAMS[exam].label, mockQuestions: EXAMS[exam].mockQuestions, mockMinutes: EXAMS[exam].mockMinutes }])),
       canGenerate: Boolean(student.section && student.rank !== null), enoughQuestions: GENERATION_LIMITS.enoughQuestions,
     })
@@ -17350,7 +17381,7 @@ async function settlePracticePayment(c: any, txRef: string) {
   if (!payment) throw new PassError('Payment not found.', 404)
   if (payment.status === 'paid') return { payment, granted: 0, alreadyPaid: true }
   const data = (await verifyFlutterwavePayment(c, txRef))?.data || {}
-  return settleCheckout(c.env.APP_DB, txRef, { status: String(data.status || ''), amount: Number(data.amount || 0), currency: String(data.currency || ''), txRef: String(data.tx_ref || ''), providerId: String(data.id || '') }, { termId: await practiceTermId(c.env.APP_DB, payment.tenantId) })
+  return settleCheckout(c.env.APP_DB, txRef, { status: String(data.status || ''), amount: Number(data.amount || 0), currency: String(data.currency || ''), txRef: String(data.tx_ref || ''), providerId: String(data.id || '') }, { termId: await practiceTermId(c.env.APP_DB, payment.tenantId), passEndsAt: await termPassEnd(c.env.APP_DB, payment.tenantId) })
 }
 
 app.post('/api/practice-arena/passes/verify', authenticate, async (c) => {
@@ -17365,13 +17396,246 @@ app.post('/api/practice-arena/passes/verify', authenticate, async (c) => {
   } catch (error) { return practiceFailure(c, error, 'Could not check the payment.') }
 })
 
+// ─── Paying by bank transfer (bankClaims.ts) ───
+
+const bankClaimFailure = (c: any, error: unknown, fallback: string) => {
+  if (error instanceof BankClaimError) return c.json({ success: false, message: error.message }, error.status as any)
+  return practiceFailure(c, error, fallback)
+}
+
+/** The account, and exactly what to transfer for this pass. The account is in naira, so abroad it is the naira price plus 20%. */
+async function bankQuote(c: any, body: Record<string, any>) {
+  const buyer = await passBuyer(c, body)
+  const quote = await priceFor(c.env.APP_DB, body as any, { section: buyer.section, students: buyer.students.length, forSchool: buyer.forSchool, offered: buyer.offered, held: buyer.held })
+  const rule = await localRuleForUser(c)
+  const amountNaira = Math.ceil(quote.amountNaira * (1 + (rule.foreign ? Number(rule.surcharge) || 0 : 0)))
+  return { buyer, quote, amountNaira }
+}
+
+app.post('/api/practice-arena/passes/bank-details', authenticate, async (c) => {
+  try {
+    const { amountNaira, quote } = await bankQuote(c, await c.req.json().catch(() => ({})))
+    return c.json({ success: true, ...NDOVERA_BANK, amountNaira, label: quote.label, whatsapp: NDOVERA_WHATSAPP })
+  } catch (error) { return bankClaimFailure(c, error, 'Could not load the account details.') }
+})
+
+app.post('/api/practice-arena/passes/bank-claim', authenticate, async (c) => {
+  try {
+    const db = c.env.APP_DB
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const { buyer, quote, amountNaira } = await bankQuote(c, body)
+    const txRef = `bank_${crypto.randomUUID().replace(/-/g, '').slice(0, 24)}`
+    await recordCheckout(db, { txRef, tenantId: buyer.actor.tenantId, buyerId: buyer.actor.actorId, buyerRole: buyer.actor.role, bundle: quote.bundle, studentIds: buyer.students.map((student: any) => student.studentId), options: quote.extra, amountNaira: quote.amountNaira })
+    const studentName = buyer.forSchool ? `${buyer.students.length} students` : String((buyer.students[0] as any)?.studentName || '')
+    const claimNo = await addBankClaim(db, { txRef, tenantId: buyer.actor.tenantId, payerId: String(buyer.actor.actorId), payerName: String(buyer.actor.actorName || ''), studentName, label: quote.label, amountNaira, reference: String(body.reference || '').trim().slice(0, 120) })
+    const letter = await letterSchool(db, buyer.actor.tenantId)
+    return c.json({ success: true, claimNo, whatsappUrl: claimWhatsAppUrl({ claimNo, label: quote.label, studentName, schoolName: letter.schoolName, amountNaira }) }, 201)
+  } catch (error) { return bankClaimFailure(c, error, 'Could not save that.') }
+})
+
+app.get('/api/ami/bank-claims', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const rows = await listBankClaims(c.env.APP_DB, String(c.req.query('status') || 'waiting'))
+    const schools = new Map<string, string>()
+    for (const tenantId of new Set(rows.map(row => String(row.tenant_id)))) schools.set(tenantId, String((await getTenantById(c.env.APP_DB, tenantId))?.schoolName || ''))
+    return c.json({ success: true, claims: rows.map(row => ({ id: row.id, payerName: row.payer_name, studentName: row.student_name, label: row.label, amountNaira: row.amount_naira, reference: row.reference, status: row.status, createdAt: row.created_at, schoolName: schools.get(String(row.tenant_id)) || '' })) })
+  } catch (error) { return bankClaimFailure(c, error, 'Could not load the payments.') }
+})
+
+/** Approving goes through the same grant as a card payment, once, at the pass's own price. */
+app.post('/api/ami/bank-claims/:id', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    const db = c.env.APP_DB
+    const decision = (await c.req.json().catch(() => ({})) as Record<string, any>).decision === 'approve' ? 'approved' : 'rejected'
+    const claim = await decideBankClaim(db, c.req.param('id'), decision, ami.id)
+    const tenantId = String(claim.tenant_id)
+    if (decision === 'approved') {
+      const payment = await getCheckout(db, String(claim.tx_ref))
+      if (!payment) throw new BankClaimError('The payment record was not found.', 404)
+      await settleCheckout(db, payment.txRef, { status: 'successful', amount: payment.amountNaira, currency: 'NGN', txRef: payment.txRef, providerId: `bank:${claim.id}:${ami.id}` }, { termId: await practiceTermId(db, tenantId), passEndsAt: await termPassEnd(db, tenantId) })
+    }
+    await ensureCommMessageTables(db)
+    const person = await db.prepare(`SELECT id FROM users WHERE id = ? OR email = ? LIMIT 1`).bind(String(claim.payer_id), String(claim.payer_id)).first() as Record<string, any> | null
+    if (person) {
+      await db.prepare(`INSERT INTO comm_inbox (id, tenant_id, user_id, event_id, title, body, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`).bind(`cib_${crypto.randomUUID()}`, tenantId, person.id, `bank-claim:${claim.id}`,
+        decision === 'approved' ? 'Your payment is confirmed' : 'Your payment could not be confirmed',
+        decision === 'approved' ? `Your ${claim.label} is ready to use.` : `Ndovera could not find your payment for ${claim.label}. Please send your receipt again on WhatsApp.`, '', new Date().toISOString()).run()
+      await sendWebPushToAudience(db, c.env, { tenantId, userIds: [String(person.id)] }).catch(() => null)
+    }
+    return c.json({ success: true })
+  } catch (error) { return bankClaimFailure(c, error, 'Could not decide that payment.') }
+})
+
+// ─── "Ask someone to pay" (passPayLinks.ts) ───
+
+function payLinkFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof PayLinkError) return c.json({ success: false, message: error.message }, error.status as any)
+  return practiceFailure(c, error, fallback)
+}
+
+app.post('/api/practice-arena/passes/pay-link', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const buyer = await passBuyer(c, body)
+    if (buyer.forSchool) throw new PassError('Payment links are for one student at a time.', 403)
+    const quote = await priceFor(c.env.APP_DB, body as any, { section: buyer.section, students: 1, forSchool: false, offered: buyer.offered, held: buyer.held })
+    const student = buyer.students[0] as Record<string, any>
+    const token = await createPayLink(c.env.APP_DB, { tenantId: buyer.actor.tenantId, studentId: student.studentId, studentName: String(student.studentName || ''), classId: String(student.classId || ''), bundle: quote.bundle, options: quote.extra, createdBy: String(buyer.actor.actorId) })
+    const url = `${new URL(c.req.url).origin}/pay/${token}`
+    const first = String(student.studentName || '').trim().split(/\s+/)[0]
+    return c.json({ success: true, url, days: PAY_LINK_DAYS, message: `Please help ${first || 'me'} with a ${quote.label} for Ndovera practice. You can pay here, with no account needed:\n\n${url}` }, 201)
+  } catch (error) { return payLinkFailure(c, error, 'Could not make the payment link.') }
+})
+
+const payLinkStudent = async (db: D1Database, link: Awaited<ReturnType<typeof readPayLink>>) => {
+  const student = { ...(await practiceStudent(db, { tenantId: link.tenantId, studentId: link.studentId, studentName: link.studentName, classId: link.classId })), termId: await practiceTermId(db, link.tenantId) }
+  return student
+}
+
+app.get('/api/public/pass-pay/:token', async (c) => {
+  try {
+    const db = c.env.APP_DB
+    const link = await readPayLink(db, c.req.param('token'))
+    const bundle = BUNDLES[link.bundle as keyof typeof BUNDLES]
+    const letter = await letterSchool(db, link.tenantId)
+    const tenant = await getTenantById(db, link.tenantId)
+    const pricing = await ruleFor(db, countryForTenant(tenant?.country, visitorCountry(c)))
+    const paid = link.lastTx ? (await getCheckout(db, link.lastTx))?.status === 'paid' : false
+    return c.json({ success: true, schoolName: letter.schoolName, logoUrl: letter.logoUrl, childName: link.studentName.trim().split(/\s+/)[0] || 'This student', label: bundle?.label || 'practice pass', amountNaira: bundle?.priceNaira || 0, pricing: tenant?.discountCode ? { ...pricing, surcharge: 0 } : pricing, paid, expired: link.expired })
+  } catch (error) { return payLinkFailure(c, error, 'Could not open this link.') }
+})
+
+app.post('/api/public/pass-pay/:token/checkout', async (c) => {
+  try {
+    const db = c.env.APP_DB
+    const link = await readPayLink(db, c.req.param('token'))
+    if (link.expired) throw new PayLinkError('This payment link has expired.', 410)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const email = String(body.email || '').trim().toLowerCase()
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new PayLinkError('Enter your email address.')
+    const student = await payLinkStudent(db, link)
+    // Checked again now: the pass may have been bought since the link was made. The price is Ndovera's, never the request's.
+    const quote = await priceFor(db, { bundle: link.bundle, ...link.options } as any, { section: student.section, students: 1, forSchool: false, offered: (await offeredSubjects(db, student)).map(item => item.key), held: await entitlements(db, student) })
+    const txRef = `prac_${crypto.randomUUID().replace(/-/g, '').slice(0, 24)}`
+    await recordCheckout(db, { txRef, tenantId: link.tenantId, buyerId: `sponsor:${email}`, buyerRole: 'sponsor', bundle: quote.bundle, studentIds: [link.studentId], options: quote.extra, amountNaira: quote.amountNaira })
+    const provider = await createFlutterwavePayment(c, {
+      tx_ref: txRef, amount: quote.amountNaira, currency: 'NGN',
+      redirect_url: `${new URL(c.req.url).origin}/pay/${encodeURIComponent(c.req.param('token'))}?practice_tx=${txRef}`,
+      customer: { email, name: String(body.name || '').trim().slice(0, 120) || 'Ndovera supporter' },
+      customizations: { title: `Ndovera Practice — ${quote.label}`, description: `${quote.label} for a student` },
+      meta: { tenantId: link.tenantId, kind: 'practice_pass' },
+    })
+    await rememberPayLinkTx(db, link.hash, txRef)
+    return c.json({ success: true, checkoutUrl: String(provider?.data?.link || '') })
+  } catch (error) { return payLinkFailure(c, error, 'Could not start the payment.') }
+})
+
+app.post('/api/public/pass-pay/:token/confirm', async (c) => {
+  try {
+    const link = await readPayLink(c.env.APP_DB, c.req.param('token'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    if (!link.lastTx || String(body.txRef || '') !== link.lastTx) throw new PayLinkError('That payment is not for this link.', 400)
+    const result = await settlePracticePayment(c, link.lastTx)
+    return c.json({ success: true, paid: result.payment?.status === 'paid' })
+  } catch (error) { return payLinkFailure(c, error, 'Could not check the payment.') }
+})
+
+// ─── Monthly pass reminders (passNudges.ts) ───
+
+app.get('/api/school/pass-nudges', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  return c.json({ success: true, off: await nudgesAreOff(c.env.APP_DB, String(c.var.user?.tenantId || '')) })
+})
+
+app.put('/api/school/pass-nudges', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  await setNudgesOff(c.env.APP_DB, String(c.var.user?.tenantId || ''), body.off === true, String(c.var.user?.id || ''))
+  return c.json({ success: true, off: body.off === true })
+})
+
+/**
+ * A few students at a time: anyone without a pass and their parents get a notice with a button to buy, and parents
+ * of senior students an email about the exam passes on sale. One run a month for each school.
+ */
+async function runPassNudgeTick(env: Bindings, at = new Date()) {
+  const db = env.APP_DB
+  await ensureNudgeTables(db)
+  await ensureCommMessageTables(db)
+  await ensurePassTables(db)
+  await ensureParentStudentLinksTable(db)
+  const month = nudgeMonth(at)
+  const school = await nextNudgeSchool(db, month).catch(() => null)
+  if (!school) return { idle: true }
+  const tenantId = String(school.tenant_id)
+  const rows = ((await db.prepare(`SELECT u.id, u.name, s.payload FROM users u LEFT JOIN settings s ON s.studentId = u.email
+    WHERE u.tenantId = ? AND lower(COALESCE(u.primary_role, u.role, '')) = 'student' AND lower(COALESCE(u.status, 'active')) = 'active' AND u.id > ? ORDER BY u.id LIMIT ${NUDGE_BATCH}`).bind(tenantId, school.cursor).all()).results || []) as Record<string, any>[]
+  if (!rows.length) { await saveNudgeProgress(db, tenantId, month, school.cursor, true); return { tenantId, done: true } }
+  const ids = rows.map(row => String(row.id))
+  const marks = ids.map(() => '?').join(', ')
+  const termId = await practiceTermId(db, tenantId)
+  const passRows = ((await db.prepare(`SELECT student_id, bundle, term_id FROM practice_passes WHERE student_id IN (${marks}) AND (expires_at IS NULL OR expires_at > ?)`).bind(...ids, at.toISOString()).all()).results || []) as Record<string, any>[]
+  const holders = new Set(passRows.filter(row => (BUNDLES as any)[row.bundle]?.scope === 'year' || !row.term_id || row.term_id === termId).map(row => String(row.student_id)))
+  const links = ((await db.prepare(`SELECT parent_id, student_id FROM parent_student_links WHERE tenant_id = ? AND student_id IN (${marks})`).bind(tenantId, ...ids).all()).results || []) as Record<string, any>[]
+  const parentKeys = [...new Set(links.map(link => String(link.parent_id)))]
+  const parents = parentKeys.length ? ((await db.prepare(`SELECT id, name, email FROM users WHERE tenantId = ? AND (id IN (${parentKeys.map(() => '?').join(', ')}) OR email IN (${parentKeys.map(() => '?').join(', ')}))`).bind(tenantId, ...parentKeys, ...parentKeys).all()).results || []) as Record<string, any>[] : []
+  const parentOf = (key: string) => parents.find(person => String(person.id) === key || String(person.email) === key)
+  const consents = await commConsentsFor(db, tenantId, parents.map(person => String(person.id))).catch(() => new Map<string, Record<string, string>>())
+  const stock = await examStock(db).catch(() => ({} as Record<string, number>))
+  const onSale = [...((stock.waec || 0) >= EXAM_MIN_STOCK ? ['WAEC'] : []), ...((stock.neco || 0) >= EXAM_MIN_STOCK ? ['NECO'] : []), ...((stock.jamb || 0) >= EXAM_MIN_STOCK ? ['JAMB'] : [])]
+  const letter = await letterSchool(db, tenantId)
+  const base = await commPortalBase(env, tenantId).catch(() => 'https://ndovera.com')
+  const stamp = at.toISOString()
+  const inbox: D1PreparedStatement[] = []
+  const woken = new Set<string>()
+  let emails = 0
+  const add = (userId: string, note: { title: string, body: string, link: string }, studentId: string) => {
+    inbox.push(db.prepare(`INSERT INTO comm_inbox (id, tenant_id, user_id, event_id, title, body, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`).bind(`cib_${crypto.randomUUID()}`, tenantId, userId, `pass-nudge:${month}:${studentId}`, note.title, note.body, note.link, stamp))
+    woken.add(userId)
+  }
+  for (const row of rows) {
+    const studentId = String(row.id)
+    if (holders.has(studentId)) continue
+    add(studentId, studentNudge(), studentId)
+    let settings: Record<string, any> = {}
+    try { settings = JSON.parse(String(row.payload || '{}')) || {} } catch { settings = {} }
+    const student = await practiceStudent(db, { tenantId, studentId, studentName: String(row.name || ''), classId: String(settings.classId || '') }).catch(() => null)
+    for (const link of links.filter(item => String(item.student_id) === studentId)) {
+      const parent = parentOf(String(link.parent_id))
+      if (!parent) continue
+      add(String(parent.id), parentNudge(String(row.name || '')), studentId)
+      if (student?.section === 'senior' && onSale.length && parent.email && env.ZOHO_MAIL_ACCOUNT_ID && consents.get(String(parent.id))?.email !== 'withdrawn') {
+        const words = seniorParentEmail({ parentName: String(parent.name || ''), childName: String(row.name || ''), schoolName: letter.schoolName, exams: onSale })
+        const button = `<p style="margin:0 0 14px;"><a href="${base}/roles/parent/practice-passes" style="display:inline-block;padding:12px 20px;background:#1a5c38;color:#ffffff;border-radius:10px;font-weight:700;text-decoration:none;">Buy a pass</a></p>`
+        const paragraphs = words.text.split('\n\n').map(block => `<p style="margin:0 0 14px;">${escapeCommHtml(block)}</p>`).join('')
+        const footer = '<p style="margin:0;font-size:12px;color:#444a63;">You can turn off these emails under Notifications in your Ndovera account.</p>'
+        const sent = await sendZohoEmail(env, { to: [String(parent.email)], subject: words.subject, html: schoolEmailFrame(letter, paragraphs + button + footer) }).catch(() => ({ sent: [] as string[] }))
+        emails += sent.sent.length
+      }
+    }
+  }
+  if (inbox.length) await db.batch(inbox)
+  if (woken.size) await sendWebPushToAudience(db, env, { tenantId, userIds: [...woken] }).catch(() => null)
+  await saveNudgeProgress(db, tenantId, month, ids[ids.length - 1], rows.length < NUDGE_BATCH)
+  return { tenantId, students: rows.length, notices: inbox.length, emails }
+}
+
+app.post('/api/ami/pass-nudges/tick', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, ...(await runPassNudgeTick(c.env)) })
+  } catch (error) { return practiceFailure(c, error, 'Could not run the reminders.') }
+})
+
 /** A free pass from a one-time code. Students and parents use codes; a school buys for a class. */
 app.post('/api/practice-arena/passes/redeem', authenticate, async (c) => {
   try {
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
     const buyer = await passBuyer(c, body)
     if (buyer.forSchool) throw new PassError('A code gives one pass to one student, so students and parents use them.', 403)
-    const result = await redeemCode(c.env.APP_DB, body.code, buyer.students[0], body, { offered: buyer.offered, held: buyer.held })
+    const result = await redeemCode(c.env.APP_DB, body.code, buyer.students[0], body, { offered: buyer.offered, held: buyer.held, termPassEnd: await termPassEnd(c.env.APP_DB, buyer.actor.tenantId) })
     return c.json({ success: true, ...result, message: `${result.label} is ready to use.` })
   } catch (error) { return practiceFailure(c, error, 'Could not use that code.') }
 })
@@ -18156,6 +18420,17 @@ function aiPayStart(env: Record<string, any>) {
   return String(env.AI_PAY_START || AI_PAY_START)
 }
 
+/** Two free AI reports a day, then 50 credits each. Returns how to give the charge back, or a reply saying it cannot be paid. */
+async function reportAiCharge(c: any): Promise<{ refund: () => Promise<void>, refused?: never } | { refused: string, refund?: never }> {
+  const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
+  try {
+    return { refund: await chargeReportAi(c.env.APP_DB, { settingsKey: actor.settingsKey, tenantId: actor.tenantId }) }
+  } catch (error) {
+    if (error instanceof ReportAiError) return { refused: error.message }
+    throw error
+  }
+}
+
 async function chargeTeacherGeneration(c: any, input: Omit<ChargeInput, 'startsAt' | 'settingsKey'>) {
   // Credits live in the AI wallet, keyed the way the AI tutor keys them.
   const aiActor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
@@ -18190,7 +18465,7 @@ app.get('/api/ai-pay/wallet', authenticate, async (c) => {
 
 app.get('/api/ai/credit-bundles', authenticate, async (c) => {
   const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
-  return c.json({ success: true, bundles: AI_CREDIT_BUNDLES, creditValueNaira: 1, freeDailyRequests: freeRequestsForRole(actor.role), canBuyForSchool: canManageAiBilling(actor.role) })
+  return c.json({ success: true, bundles: AI_CREDIT_BUNDLES, creditValueNaira: 1, freeDailyRequests: freeRequestsForRole(actor.role), canBuyForSchool: canManageAiBilling(actor.role), pricing: await localRuleForUser(c) })
 })
 
 // Purchase and package (in-memory books)
@@ -22233,6 +22508,17 @@ app.put('/api/people/:userId', authenticate, async (c) => {
       updates.phone = profileUpdates.phone || null
       // A parent signs in with this number, so the sign-in number moves with it: the old one stops working at once.
       const roles = parseRoleList(settings?.primaryRole, settings?.role, settings?.roles, existingUser.role)
+      const previousPhone = String(settings?.phone || '').trim()
+      const nextPhone = String(payload.phone || '').trim()
+      const samePhone = (normalizeLoginPhone(previousPhone) || previousPhone) === (normalizeLoginPhone(nextPhone) || nextPhone)
+      // Only the school correcting a number already on file counts. Adding a first number, or someone's own edit, does not.
+      if (access.isAdminEdit && previousPhone && !samePhone && String(existingUser.email || '').toLowerCase() !== String(c.var.user?.email || '').toLowerCase()) {
+        if (nextPhone && roles.includes('parent') && !normalizeLoginPhone(nextPhone)) return c.json({ error: 'Enter a valid phone number. Outside Nigeria, start with the country code, such as +233.' }, 400)
+        try { await takeContactChange(c.env.APP_DB, tenantId) } catch (error) {
+          if (error instanceof ContactLimitError) return c.json({ error: error.message, message: error.message, ...error.details }, error.status as any)
+          throw error
+        }
+      }
       if (roles.includes('parent')) {
         await ensureLoginPhonesTable(c.env.APP_DB)
         const typed = String(payload.phone || '').trim()
@@ -22592,10 +22878,66 @@ async function moveAccountToEmail(db: D1Database, userId: string, oldKey: string
 
 const EMAIL_EDIT_ROLES = ['owner', 'hos']
 const familyFailure = (c: any, error: unknown, fallback: string) => {
+  if (error instanceof ContactLimitError) return c.json({ success: false, message: error.message, ...error.details }, error.status as any)
   if (error instanceof InviteError) return c.json({ success: false, message: error.message, ...error.details }, error.status as any)
   console.error(fallback, error)
   return c.json({ success: false, message: fallback }, 500)
 }
+
+app.get('/api/school/contact-changes', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, [...EMAIL_EDIT_ROLES, 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const allowance = await changeAllowance(c.env.APP_DB, String(c.var.user?.tenantId || ''))
+  return c.json({ success: true, ...allowance, pricing: await localRuleForUser(c) })
+})
+
+app.post('/api/school/contact-changes/buy', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, EMAIL_EDIT_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  const tenantId = String(c.var.user?.tenantId || '')
+  try {
+    const naira = await packPrice(db)
+    const txRef = `ccb_${crypto.randomUUID().replace(/-/g, '').slice(0, 24)}`
+    await recordPackBuy(db, txRef, tenantId, naira)
+    const tenant = await getTenantById(db, tenantId)
+    const role = normalizeRole(c.var.user.role) === 'hos' ? 'hos' : 'owner'
+    const provider = await createFlutterwavePayment(c, {
+      tx_ref: txRef, amount: naira, currency: 'NGN', redirect_url: `${new URL(c.req.url).origin}/roles/${role}/people?contact_tx=${txRef}`,
+      customer: { email: schoolContactEmail(tenant) || String(c.var.user?.email || 'billing@ndovera.com'), name: String(tenant?.schoolName || 'School') },
+      customizations: { title: 'Ndovera: 5 more email and phone changes', description: String(tenant?.schoolName || 'School') },
+      meta: { tenantId, kind: 'contact_changes' },
+    })
+    return c.json({ success: true, checkoutUrl: String(provider?.data?.link || '') })
+  } catch (error) { return familyFailure(c, error, 'Could not start the payment.') }
+})
+
+app.post('/api/school/contact-changes/confirm', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, EMAIL_EDIT_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  try {
+    const db = c.env.APP_DB
+    await ensureContactChangeTables(db)
+    const txRef = String((await c.req.json().catch(() => ({})) as Record<string, any>).txRef || '')
+    const buy = await db.prepare(`SELECT tenant_id FROM contact_change_buys WHERE tx_ref = ?`).bind(txRef).first() as Record<string, any> | null
+    if (!buy || String(buy.tenant_id) !== String(c.var.user?.tenantId || '')) return c.json({ success: false, message: 'Payment not found.' }, 404)
+    const data = (await verifyFlutterwavePayment(c, txRef))?.data || {}
+    const result = await settlePackBuy(db, txRef, { status: String(data.status || ''), amount: Number(data.amount || 0), currency: String(data.currency || '') })
+    return c.json({ success: true, paid: result.paid })
+  } catch (error) { return familyFailure(c, error, 'Could not check the payment.') }
+})
+
+app.get('/api/ami/contact-change-price', authenticate, async (c) => {
+  try { requireAmi(c); return c.json({ success: true, naira: await packPrice(c.env.APP_DB) }) } catch (error) { return practiceFailure(c, error, 'Could not load the price.') }
+})
+
+app.put('/api/ami/contact-change-price', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    await setPackPrice(c.env.APP_DB, (await c.req.json().catch(() => ({})) as Record<string, any>).naira, ami.id)
+    return c.json({ success: true, naira: await packPrice(c.env.APP_DB) })
+  } catch (error) {
+    if (error instanceof ContactLimitError) return c.json({ success: false, message: error.message }, error.status as any)
+    return practiceFailure(c, error, 'Could not save the price.')
+  }
+})
 
 app.get('/api/school/student-email-domain', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, [...EMAIL_EDIT_ROLES, 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
@@ -22644,6 +22986,8 @@ app.put('/api/people/:userId/email', authenticate, async (c) => {
     if (holder) return c.json({ success: false, message: 'Another account already uses that address.' }, 409)
     await ensureParentStudentLinksTable(db)
     await ensureLoginPhonesTable(db)
+    // Giving a phone-only parent their first real email is not a change.
+    if (!isPlaceholderEmail(old)) await takeContactChange(db, tenantId)
     await moveAccountToEmail(db, String(person.id), old, next)
     const settings = await getSettings(db, next).catch(() => null) as Record<string, any> | null
     if (settings) await upsertSettings(db, next, { ...settings, email: next })
@@ -22908,7 +23252,11 @@ app.post('/api/school/families/save', authenticate, async (c) => {
           if (settings && (phone !== normalizeLoginPhone(settings.phone) && phone || nextName !== settings.name)) {
             await upsertSettings(db, settingsKey, { ...settings, name: nextName, ...(phone ? { phone } : {}) })
           }
-          if (phone) await registerLoginPhone(db, { phone, userId: parentId, settingsKey, tenantId, takenBy: id => familyAccountName(db, id) })
+          if (phone) {
+            const before = normalizeLoginPhone(settings?.phone)
+            if (before && before !== phone) await takeContactChange(db, tenantId).catch(error => { throw new FamilyRowError(error instanceof Error ? error.message : 'Could not change that number.') })
+            await registerLoginPhone(db, { phone, userId: parentId, settingsKey, tenantId, takenBy: id => familyAccountName(db, id) })
+          }
         }
 
         if (!linkedIds.has(parentId)) {
@@ -29502,6 +29850,8 @@ app.post('/api/students/:studentId/ai-report', authenticate, async (c) => {
     { role: 'user', content: `Generate the progress report from this data:\n\n${dataBlock}` },
   ]
 
+  const charge = await reportAiCharge(c)
+  if (charge.refused) return c.json({ error: charge.refused, message: charge.refused, needCredits: true }, 402)
   let raw = ''
   try {
     if (c.env.AI && typeof c.env.AI.run === 'function') {
@@ -29513,7 +29863,7 @@ app.post('/api/students/:studentId/ai-report', authenticate, async (c) => {
   } catch {
     raw = ''
   }
-  if (!raw) return c.json({ error: 'The AI progress report is not available right now. Please try again shortly.' }, 503)
+  if (!raw) { await charge.refund!().catch(() => null); return c.json({ error: 'The AI progress report is not available right now. Please try again shortly.' }, 503) }
   return c.json({ success: true, report: raw, generatedAt: new Date().toISOString() })
 })
 
@@ -34328,12 +34678,15 @@ app.post('/api/school/finance/ai-analysis', authenticate, async (c) => {
       if (saved) return c.json({ success: true, analysis: { ...saved, term: report.term, terms: report.terms } })
     }
     const outlook = await financeOutlook(context).catch(error => { console.error('finance outlook failed', error); return null })
+    const charge = await reportAiCharge(c)
+    if (charge.refused) return c.json({ success: false, message: charge.refused, needCredits: true }, 402)
     let narrative: { summary: string, suggestions: string[] } | null = null
     try {
       narrative = await runFinanceAiNarrative(c.env, report, outlook)
     } catch (error) {
       console.error('finance AI narrative failed', error)
     }
+    if (!narrative) await charge.refund!().catch(() => null)
     const document = buildFinanceReportDocument(report, String(tenant?.schoolName || tenant?.name || ''), narrative, outlook)
     return c.json({
       success: true,
@@ -39629,6 +39982,7 @@ function commDeps(env: Bindings): CommDeps {
     db: env.APP_DB,
     whatsapp: { token: String(env.META_WHATSAPP_TOKEN || ''), phoneNumberId: String(env.META_WHATSAPP_PHONE_NUMBER_ID || '') },
     sms: { apiKey: String(env.PAYHOS_API_KEY || ''), senderId: String(env.PAYHOS_SENDER_ID || '') },
+    wakePhones: (tenantId, userIds) => sendWebPushToAudience(env.APP_DB, env, { tenantId, userIds }),
     sendEmail: env.ZOHO_MAIL_ACCOUNT_ID ? async (to, subject, html, tenantId) => { await sendZohoEmail(env, { to: [to], subject, html: schoolEmailFrame(await letterOf(tenantId), html) }) } : null,
     portalBase: tenantId => commPortalBase(env, tenantId),
     schoolName: async tenantId => String((await getTenantById(env.APP_DB, tenantId))?.schoolName || 'Your school'),
@@ -39690,6 +40044,7 @@ app.get('/api/communications/overview', authenticate, async (c) => {
     if (term) await ensureTermAllowance(c.env.APP_DB, tenantId, { sessionId: term.sessionId, termId: term.id, endDate: term.endDate }).catch(() => [])
     const [data, prices, config, templates] = await Promise.all([commOverview(c.env.APP_DB, tenantId), priceSchedule(c.env.APP_DB), getPlatformConfig(c.env.APP_DB), listTemplates(c.env.APP_DB)])
     return c.json({
+      pricing: await localRuleForUser(c),
       success: true, ...data, prices, packages: config.packages, minimumPurchase: config.minimumPurchase,
       providers: { whatsapp: Boolean(c.env.META_WHATSAPP_TOKEN && c.env.META_WHATSAPP_PHONE_NUMBER_ID), sms: Boolean(c.env.PAYHOS_API_KEY && c.env.PAYHOS_SENDER_ID), email: Boolean(c.env.ZOHO_MAIL_ACCOUNT_ID) },
       templatesApproved: templates.filter(item => item.status === 'approved').map(item => item.eventType),
@@ -40091,6 +40446,16 @@ app.post('/api/webhooks/payments/flutterwave', async (c) => {
       return c.json({ success: false }, 500)
     }
   }
+  if (txRef.startsWith('ccb_')) {
+    try {
+      const data = (await verifyFlutterwavePayment(c, txRef))?.data || {}
+      const result = await settlePackBuy(c.env.APP_DB, txRef, { status: String(data.status || ''), amount: Number(data.amount || 0), currency: String(data.currency || '') })
+      return c.json({ success: true, paid: result.paid })
+    } catch (error) {
+      console.error('Contact change payment webhook failed', error)
+      return c.json({ success: false }, 500)
+    }
+  }
   if (txRef.startsWith('prac_')) {
     try {
       const result = await settlePracticePayment(c, txRef)
@@ -40413,6 +40778,8 @@ export default {
     }
     // Fortnightly fee reminders and the report to the Owner/HoS, for schools that switched it on (09:00–09:30 Lagos, one school a run).
     if (at.getUTCHours() === 8 && at.getUTCMinutes() % 5 === 0 && at.getUTCMinutes() <= 30) ctx.waitUntil(runFortnightlyFeeReminders(env).then(result => { if (result) console.log('Fortnightly fee reminders', result) }).catch(error => console.error('Fortnightly fee reminders failed', error)))
+    // Pass reminders: a few students a minute, 10:00–11:59 Lagos, until each school's month is done.
+    if (at.getUTCHours() === 9 || at.getUTCHours() === 10) ctx.waitUntil(runPassNudgeTick(env, at).catch(error => console.error('Pass reminders failed', error)))
     // Calendars and timetables uploaded today are read by Ndovera AI just after midnight (00:05–00:55 Lagos).
     if (at.getUTCHours() === 23 && at.getUTCMinutes() >= 5 && at.getUTCMinutes() <= 55) ctx.waitUntil(runSchoolImports(env).catch(error => console.error('School imports failed', error)))
     // Parents with no child still at the school are turned off (02:45 Lagos).

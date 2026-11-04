@@ -174,6 +174,8 @@ function showDeliveredNotification(notification, fallbackUrl) {
       tag: deliveryKey,
       icon: notification.icon || '/android-chrome-192x192.png',
       badge: notification.badge || '/android-chrome-192x192.png',
+      // The button shows beside the message on Android; tapping anywhere goes to the same place.
+      actions: notification.actionLabel ? [{ action: 'open', title: notification.actionLabel }] : [],
       data: {
         url: notification.url || fallbackUrl || '/'
       }
@@ -187,6 +189,10 @@ function showDeliveredNotification(notification, fallbackUrl) {
 function syncPushNotifications(roleKey) {
   return fetchPushFeed(roleKey)
     .then(function (payload) {
+      // The phone was woken for a reason, so it says so even if the details cannot be read now.
+      if (!payload) {
+        return self.registration.showNotification('NDOVERA', { body: 'You have a new notification.', tag: 'ndovera-new', icon: '/android-chrome-192x192.png', data: { url: '/roles/' + String(roleKey || 'student') } });
+      }
       return showDeliveredNotification(payload && payload.notification, '/roles/' + String(roleKey || 'student'));
     });
 }

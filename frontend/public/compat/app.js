@@ -250,10 +250,21 @@
     select.onchange=function(){choice.show(select.value==='subject'?'subject':select.value==='jamb'||select.value==='super'?'jamb':'');};
     var pay=button('Continue to payment',function(){if(!select.value){message('Choose a pass first.',true,card);return;}pay.disabled=true;var body=choice.fill({bundle:select.value});if(studentId)body.studentId=studentId;
       request('POST','/api/practice-arena/passes/checkout',body,function(err,data){pay.disabled=false;if(err){message(err.message,true,card);return;}goPay(data.checkoutUrl,'Your pass opens as soon as the payment is confirmed.');});},card);
+    button('Pay by bank transfer instead',function(){if(!select.value){message('Choose a pass first.',true,card);return;}var body=choice.fill({bundle:select.value});if(studentId)body.studentId=studentId;bankPage(body,rule);},card);
     var code=node('form',null,card),cl=node('label','Have a code for a free pass?',code),input=node('input',null,code);input.id='lite-code-'+(studentId||'me');cl.htmlFor=input.id;input.autocomplete='off';
     var codePicks=node('div',null,code),codeChoice=choices(codePicks,subjects),use=node('button','Use code',code);use.type='submit';
     code.onsubmit=function(e){e.preventDefault();use.disabled=true;var body=codeChoice.fill({code:input.value});if(studentId)body.studentId=studentId;
       request('POST','/api/practice-arena/passes/redeem',body,function(err,data){use.disabled=false;if(err){if(err.details&&err.details.needs)codeChoice.show(err.details.needs);message(err.message,true,code);return;}message(data.message,false,code);input.value='';codeChoice.show('');});};
+  }
+  /* For phones that cannot open the card page: transfer, press "I have paid", send the receipt on WhatsApp. */
+  function bankPage(body){
+    header('Pay by bank transfer');var status=message('Loading…');
+    request('POST','/api/practice-arena/passes/bank-details',body,function(err,bank){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}
+      var card=node('article',null,app);card.className='card';node('h2','Transfer \u20A6'+Number(bank.amountNaira).toLocaleString()+' to:',card);node('p',bank.bankName,card);node('p',bank.accountName,card);var number=node('p',bank.accountNumber,card);number.className='timer';
+      var form=node('form',null,card),reference=field(form,'Your transfer reference (optional)','bank-ref');reference.required=false;var paid=node('button','I have paid',form);paid.type='submit';
+      form.onsubmit=function(e){e.preventDefault();paid.disabled=true;var claim={reference:reference.value};for(var k in body)if(Object.prototype.hasOwnProperty.call(body,k))claim[k]=body[k];
+        request('POST','/api/practice-arena/passes/bank-claim',claim,function(claimErr,done){paid.disabled=false;if(claimErr){message(claimErr.message,true,form);return;}
+          header('Send your receipt');message('Now send your payment receipt to Ndovera on WhatsApp, so it can be checked. Claim number: '+done.claimNo+'. Your pass opens as soon as Ndovera confirms the payment.');var a=node('a','Send receipt on WhatsApp',app);a.className='button';a.href=done.whatsappUrl;a.rel='noreferrer';});};});
   }
   /* The choice a pass may need: one subject, or JAMB's three. */
   function choices(parent,subjects){
@@ -287,7 +298,8 @@
     clear();node('h1','Ndovera invoice',app);var status=message('Loading…'),path='/api/public/invoices/'+encodeURIComponent(token);
     function show(invoice){status.parentNode.removeChild(status);var card=node('article',null,app);card.className='card';node('h2',invoice.schoolName||'School',card);node('p','Invoice '+(invoice.invoiceNo||''),card);node('p',(invoice.term||'')+' '+(invoice.session||''),card);node('p','Amount: '+money(invoice.amountCents/100,invoice.pricing),card);
       if(invoice.status==='paid'){message('This invoice is paid. Thank you.',false,card);return;}
-      var pay=button('Continue to payment',function(){pay.disabled=true;request('POST',path+'/checkout',{},function(err,data){pay.disabled=false;if(err){message(err.message,true,card);return;}goPay(data.link,'Ndovera marks the invoice paid as soon as the payment is confirmed.');});},card);}
+      var pay=button('Continue to payment',function(){pay.disabled=true;request('POST',path+'/checkout',{},function(err,data){pay.disabled=false;if(err){message(err.message,true,card);return;}goPay(data.link,'Ndovera marks the invoice paid as soon as the payment is confirmed.');});},card);
+      node('p','Or transfer to Moniepoint, Ndovera Limited, 8064252542, and send your receipt to Ndovera:',card);var wa=node('a','Send receipt on WhatsApp',card);wa.href='https://wa.me/2348128882800?text='+encodeURIComponent('Hello Ndovera. I have paid invoice '+(invoice.invoiceNo||'')+' for '+(invoice.schoolName||'')+'. My payment receipt is attached.');wa.rel='noreferrer';}
     function read(){request('GET',path,null,function(err,data){if(err){status.parentNode.removeChild(status);message(err.message,true);return;}show(data.invoice);});}
     if(paymentRef)request('POST',path+'/confirm',{txRef:paymentRef},function(err,data){if(!err&&data.invoice&&data.paid){show(data.invoice);return;}read();});else read();
   }

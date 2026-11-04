@@ -674,6 +674,14 @@ export async function recordAttempt(db: D1Database, student: PracticeStudent, in
     const result = await db.prepare(`SELECT * FROM question_bank WHERE id IN (${slice.map(() => '?').join(',')})`).bind(...slice).all()
     for (const row of (result.results || []) as Record<string, any>[]) rows.set(String(row.id), row)
   }
+  // A question already answered right earns nothing the second time: points are for new learning.
+  const alreadyRight = new Set<string>()
+  for (let start = 0; start < ids.length; start += 90) {
+    const slice = ids.slice(start, start + 90)
+    const known = await db.prepare(`SELECT question_id FROM practice_question_stats WHERE student_id = ? AND correct > 0 AND question_id IN (${slice.map(() => '?').join(',')})`).bind(student.studentId, ...slice).all()
+    for (const row of (known.results || []) as Record<string, any>[]) alreadyRight.add(String(row.question_id))
+  }
+  let earning = 0
   const mode = (MODES as readonly string[]).includes(String(input.mode)) ? String(input.mode) : 'quick'
   let combo = 0
   let bestCombo = 0
@@ -693,7 +701,10 @@ export async function recordAttempt(db: D1Database, student: PracticeStudent, in
     if (marked.correct) { combo += 1; bestCombo = Math.max(bestCombo, combo) } else combo = 0
     // 10 XP a right answer (15 for a written one), half for half right; a run of right answers earns a little more.
     const base = (question.type === 'essay' || question.type === 'comprehension') ? 15 : 10
-    xp += Math.round(base * marked.credit) + (marked.correct && combo >= 3 ? Math.min(10, (combo - 2) * 2) : 0)
+    if (!alreadyRight.has(question.id)) {
+      earning += 1
+      xp += Math.round(base * marked.credit) + (marked.correct && combo >= 3 ? Math.min(10, (combo - 2) * 2) : 0)
+    }
     details.push({ questionId: question.id, credit: marked.credit, correct: marked.correct })
     statements.push(db.prepare(`INSERT INTO practice_question_stats (student_id, question_id, seen, correct, box, last_seen) VALUES (?, ?, 1, ?, ?, ?)
       ON CONFLICT(student_id, question_id) DO UPDATE SET seen = seen + 1, correct = correct + excluded.correct,
@@ -704,14 +715,14 @@ export async function recordAttempt(db: D1Database, student: PracticeStudent, in
   if (!total) throw new PracticeError('None of these questions are in the question bank any more.', 404)
   const percent = Math.round((credit / total) * 100)
   if (mode === 'blitz') xp = Math.round(xp * 1.25)
-  if (total >= 5 && percent === 100) xp += 25
+  if (total >= 5 && percent === 100 && earning) xp += 25
 
   const finished = new Date(Math.min(Date.now(), Date.parse(String(input.finishedAt || '')) || Date.now()))
   const today = lagosDate(finished)
   const previous = await db.prepare(`SELECT * FROM practice_profiles WHERE student_id = ?`).bind(student.studentId).first() as Record<string, any> | null
   const before = profileView(previous, lagosDate(new Date()))
   const firstToday = String(previous?.last_active_date || '') !== today
-  if (firstToday) xp += 10
+  if (firstToday && earning) xp += 10
   const yesterday = new Date(Date.parse(`${today}T00:00:00Z`) - 86400000).toISOString().slice(0, 10)
   const lastActive = String(previous?.last_active_date || '')
   // An offline quiz synced late still counts for the day it was played, never moving the streak backwards.
@@ -756,6 +767,8 @@ export async function recordAttempt(db: D1Database, student: PracticeStudent, in
   await db.batch(statements)
   const profile = await getProfile(db, student.studentId)
   return {
+    // Every question right, and all of them right before: only new questions can earn more.
+    needNewQuestions: !earning && percent === 100,
     attempt: { id, total, correct: credit, percent, xp, bestCombo, mode, subjectKey: input.subjectKey, details },
     profile,
     newBadges: BADGES.filter(badge => badges.has(badge.key) && !earnedBefore.has(badge.key)),

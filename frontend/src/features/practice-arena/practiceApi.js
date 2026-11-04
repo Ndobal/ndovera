@@ -112,6 +112,12 @@ export const getSchoolPasses = () => request('/api/practice-arena/school').then(
 export const getSchoolPassSubjects = classId => request(`/api/practice-arena/school/subjects?classId=${encodeURIComponent(classId)}`);
 export const clearStudentDevices =studentId => request('/api/practice-arena/devices/clear', { method: 'POST', body: { studentId } });
 /** Use a one-time code for a free pass. A pass needing a choice comes back with error.data.needs. */
+export const getBankDetails = payload => request('/api/practice-arena/passes/bank-details', { method: 'POST', body: payload });
+export const makeBankClaim = payload => request('/api/practice-arena/passes/bank-claim', { method: 'POST', body: payload });
+export const createPayLink = payload => request('/api/practice-arena/passes/pay-link', { method: 'POST', body: payload });
+export const getPayLink = token => request(`/api/public/pass-pay/${encodeURIComponent(token)}`);
+export const checkoutPayLink = (token, body) => request(`/api/public/pass-pay/${encodeURIComponent(token)}/checkout`, { method: 'POST', body });
+export const confirmPayLink = (token, txRef) => request(`/api/public/pass-pay/${encodeURIComponent(token)}/confirm`, { method: 'POST', body: { txRef } });
 export const redeemPassCode = payload => request('/api/practice-arena/passes/redeem', { method: 'POST', body: payload });
 
 // Prices follow the rule the worker sends for this school's country (Nigeria stays in naira).

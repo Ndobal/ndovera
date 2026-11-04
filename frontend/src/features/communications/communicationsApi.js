@@ -1,5 +1,6 @@
 import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
+import { localMoney } from '../../shared/pricing/localPrice';
 
 // Parent notifications (N20): WhatsApp, SMS, email and in-app, with message units.
 // Worker: commCredits.ts, commMessages.ts, commEngine.ts (routes under /api/communications
@@ -29,7 +30,8 @@ const query = params => {
 };
 
 // School
-export const getOverview = () => request('/api/communications/overview');
+let priceRule = null;
+export const getOverview = () => request('/api/communications/overview').then(data => { priceRule = data?.pricing || null; return data; });
 export const saveSettings = body => request('/api/communications/settings', { method: 'PATCH', body });
 export const previewNotification = body => request('/api/communications/batches/preview', { method: 'POST', body });
 export const recheckBatch = batchId => request(`/api/communications/batches/${id(batchId)}/admit`, { method: 'POST' });
@@ -65,7 +67,9 @@ export const saveTemplate = (eventType, body) => request(`/api/super-admin/commu
 export const getReconciliation = () => request('/api/super-admin/communications/reconciliation');
 export const resolveDelivery = (deliveryId, decision) => request(`/api/super-admin/communications/deliveries/${id(deliveryId)}/resolve`, { method: 'POST', body: { decision } });
 
-export const naira = kobo => `₦${(Number(kobo || 0) / 100).toLocaleString('en-NG', { minimumFractionDigits: Number(kobo) % 100 ? 2 : 0, maximumFractionDigits: 2 })}`;
+// Prices follow the school's country; Nigeria stays in naira.
+export const naira = kobo => (priceRule?.foreign ? localMoney(Number(kobo || 0) / 100, priceRule) : nairaText(kobo));
+const nairaText = kobo => `₦${(Number(kobo || 0) / 100).toLocaleString('en-NG', { minimumFractionDigits: Number(kobo) % 100 ? 2 : 0, maximumFractionDigits: 2 })}`;
 export const CHANNEL_LABELS = { whatsapp: 'WhatsApp', sms: 'SMS', email: 'Email', inapp: 'In-app' };
 export const STATUS_LABELS = {
   planned: 'Planned', awaiting_credits: 'Waiting for units', queued: 'Queued', submitting: 'Sending', accepted: 'Accepted by provider',

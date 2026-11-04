@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import RedeemCode from './RedeemCode';
+import AskToPay from './AskToPay';
+import BankTransferPay from './BankTransferPay';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MODES, TYPE_LABELS, buildQuiz, estimateXp, levelForXp, newAttemptId } from './engine';
 import {
@@ -249,7 +251,7 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
         <h3 className="font-black text-slate-900 dark:text-white">Get a pass</h3>
         <div className="grid gap-3 sm:grid-cols-2">
           {(home.bundles || []).map(bundle => {
-            const owned = bundle.exams.length ? bundle.exams.every(exam => passes.exams?.[exam]) : bundle.key === 'all' && passes.allSubjects;
+            const owned = bundle.exams.length ? bundle.exams.every(exam => passes.exams?.[exam]) : bundle.key === 'all' && passes.allSubjects && !passes.allInGrace;
             return (
               <article key={bundle.key} className={`${CARD} ${preset?.exam && bundle.exams.includes(preset.exam) ? 'ring-2 ring-indigo-500' : ''}`}>
                 <div className="flex items-start justify-between gap-2"><h4 className="font-black text-slate-900 dark:text-white">{bundle.label}</h4><span className="text-lg font-black text-indigo-700 dark:text-cyan-300">{money(bundle.priceNaira)}</span></div>
@@ -276,6 +278,8 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
                   className="mt-3 w-full rounded-2xl bg-slate-900 py-2 text-sm font-black text-white disabled:opacity-50 dark:bg-cyan-400 dark:text-black">
                   {owned ? 'You have this' : paying === bundle.key ? 'Opening payment…' : `Pay ${money(bundle.priceNaira)}`}
                 </button>
+                {!owned && bundle.ready ? <AskToPay className="mt-2" disabled={(bundle.key === 'subject' && !subjectKey) || (['jamb', 'super'].includes(bundle.key) && jamb.length !== 3)} payload={{ bundle: bundle.key, ...(bundle.key === 'subject' ? { subjectKey } : {}), ...(['jamb', 'super'].includes(bundle.key) ? { jambSubjects: jamb } : {}) }} /> : null}
+                {!owned && bundle.ready ? <BankTransferPay className="mt-2" disabled={(bundle.key === 'subject' && !subjectKey) || (['jamb', 'super'].includes(bundle.key) && jamb.length !== 3)} payload={{ bundle: bundle.key, ...(bundle.key === 'subject' ? { subjectKey } : {}), ...(['jamb', 'super'].includes(bundle.key) ? { jambSubjects: jamb } : {}) }} /> : null}
               </article>
             );
           })}
@@ -289,7 +293,8 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
 export default function PracticeArena() {
   const [home, setHome] = useState(null);
   const [error, setError] = useState('');
-  const [tab, setTab] = useState('subjects');
+  // A notification's button opens straight on the passes.
+  const [tab, setTab] = useState(() => { try { return new URLSearchParams(window.location.search).get('tab') === 'passes' ? 'passes' : 'subjects'; } catch { return 'subjects'; } });
   const [picker, setPicker] = useState(null);
   const [busy, setBusy] = useState(false);
   const [game, setGame] = useState(null);
@@ -412,7 +417,7 @@ export default function PracticeArena() {
         setOutcome({ ...base, queued: true });
         setWaiting(await pendingAttempts().catch(() => 0));
       } else {
-        setOutcome({ ...base, saved: true, xp: response.attempt?.xp ?? base.xp, percent: response.attempt?.percent ?? percent, newBadges: response.newBadges, levelUp: response.levelUp, profile: response.profile });
+        setOutcome({ ...base, saved: true, xp: response.attempt?.xp ?? base.xp, percent: response.attempt?.percent ?? percent, newBadges: response.newBadges, levelUp: response.levelUp, profile: response.profile, needNewQuestions: Boolean(response.needNewQuestions) });
         setHome(previous => (previous ? { ...previous, profile: response.profile } : previous));
       }
     } catch (saveError) {
@@ -438,7 +443,7 @@ export default function PracticeArena() {
     return <QuizPlayer quiz={game.quiz} subjectName={game.subject.name} onFinish={finish} onExit={async () => { if (await askConfirm('Leave this quiz? Your answers so far will not be saved.')) setGame(null); }} />;
   }
   if (outcome) {
-    return <QuizResults outcome={outcome} onBack={() => { setOutcome(null); refresh(); }} onPlayAgain={() => { const subject = outcome.subject; setOutcome(null); refresh(); if (subject) setPicker(subject); }} />;
+    return <QuizResults outcome={outcome} hasAllSubjects={Boolean(home?.passes?.allSubjects && !home?.passes?.allInGrace)} onGetPass={() => { setOutcome(null); setTab('passes'); refresh(); }} onBack={() => { setOutcome(null); refresh(); }} onPlayAgain={() => { const subject = outcome.subject; setOutcome(null); refresh(); if (subject) setPicker(subject); }} />;
   }
 
   const profile = home?.profile;

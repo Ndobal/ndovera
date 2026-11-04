@@ -387,6 +387,9 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
   );
 
   const canRequestDeviceNotifications = notificationPermission !== 'unsupported';
+  // Phones must be asked out loud: a browser only lets a site ask after a tap, and the small bell went unnoticed.
+  const [promptHidden, setPromptHidden] = useState(() => { try { return Date.now() < Number(localStorage.getItem('ndovera:notifyPromptHiddenUntil') || 0); } catch { return false; } });
+  const hideNotifyPrompt = () => { try { localStorage.setItem('ndovera:notifyPromptHiddenUntil', String(Date.now() + 14 * 86400000)); } catch { /* ignore */ } setPromptHidden(true); };
 
   const panelItems = activePanel === 'chat' ? chatItems : notificationItems;
 
@@ -722,7 +725,8 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
                             <p className="text-[10px] micro-label neon-subtle">{item.time}</p>
                           </div>
                           <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{item.preview || item.detail}</p>
-                          {item.unread && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
+                          {item.actionLabel ? <span className="mt-2 inline-block rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-black text-white">{item.actionLabel}</span> : null}
+                          {item.unread && !item.actionLabel && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
                         </button>
                       ) : (
                         <div key={item.id} className="glass-chip rounded-2xl border border-slate-200/70 dark:border-cyan-300/15 p-3">
@@ -760,6 +764,13 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
       <ConnectionBanner />
       {roleKey !== 'ami' && <BirthdayStrip roleKey={roleKey} />}
     </header>
+    {notificationPermission === 'default' && !promptHidden ? (
+      <div role="region" aria-label="Turn on notifications" className="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-white px-4 py-2 text-sm text-slate-900 dark:border-white/10 dark:bg-slate-900 dark:text-white">
+        <span className="min-w-[12rem] flex-1 font-semibold">Turn on notifications to hear from your school on this device.</span>
+        <button type="button" onClick={requestDeviceNotifications} className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-black text-white">Turn on</button>
+        <button type="button" onClick={hideNotifyPrompt} className="rounded-xl border border-slate-400 px-3 py-1.5 text-xs font-bold text-slate-800 dark:border-white/30 dark:text-white">Not now</button>
+      </div>
+    ) : null}
       {typeof window !== 'undefined' && window.location.pathname.startsWith('/roles/') ? (
         <div className="px-4 md:px-6">
           <div className="mx-auto max-w-7xl pt-3">

@@ -101,7 +101,7 @@ async function countFailure(db: D1Database, studentId: string, day: string) {
  * Use a code for a student. A wrong code counts against a daily limit, so codes can't be guessed.
  * A pass with a choice (a subject, JAMB's three) comes back asking for it, the code still unused.
  */
-export async function redeemCode(db: D1Database, rawCode: unknown, student: PassStudent, input: Record<string, any>, context: { offered: string[], held: Entitlements }) {
+export async function redeemCode(db: D1Database, rawCode: unknown, student: PassStudent, input: Record<string, any>, context: { offered: string[], held: Entitlements, termPassEnd?: string }) {
   await ensureCodeTables(db)
   const code = cleanCode(rawCode)
   const now = new Date().toISOString()
@@ -127,11 +127,11 @@ export async function redeemCode(db: D1Database, rawCode: unknown, student: Pass
   // Only one request can take the code.
   const claimed = await db.prepare(`UPDATE practice_pass_codes SET redeemed_by = ?, redeemed_at = ? WHERE code = ? AND redeemed_at IS NULL`).bind(student.studentId, now, code).run()
   if (!Number((claimed as any)?.meta?.changes || 0)) throw new PassError('That code has already been used.', 409)
-  const endsAt = row.pass_ends_at ? String(row.pass_ends_at) : definition.scope === 'year' ? new Date(Date.now() + 365 * 86400_000).toISOString() : null
+  const endsAt = row.pass_ends_at ? String(row.pass_ends_at) : definition.scope === 'year' ? new Date(Date.now() + 365 * 86400_000).toISOString() : context.termPassEnd || null
   await db.batch([
     db.prepare(`INSERT INTO practice_passes (id, tenant_id, student_id, bundle, subject_key, subjects_json, term_id, starts_at, expires_at, source, payment_ref, amount_naira, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'code', ?, 0, ?)`)
       .bind(`ppass_${crypto.randomUUID()}`, student.tenantId, student.studentId, bundle, (quote.extra as any).subjectKey || null, JSON.stringify((quote.extra as any).jambSubjects || []),
-        definition.scope === 'term' && !row.pass_ends_at ? student.termId : null, now, endsAt, `code:${code}`, now),
+        definition.scope === 'term' ? student.termId : null, now, endsAt, `code:${code}`, now),
     db.prepare(`UPDATE practice_code_batches SET used = used + 1 WHERE id = ?`).bind(String(row.batch_id)),
   ])
   return { bundle, label: definition.label, expiresAt: endsAt }

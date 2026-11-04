@@ -111,7 +111,7 @@ const ROUTE_META = {
 };
 
 // Signed-in application surfaces and one-time links. These should never be indexed.
-const NOINDEX_PREFIXES = ['/compat', '/invite/', '/roles/', '/login', '/change-password', '/reset-password', '/settings', '/classroom', '/assignments', '/exams', '/ai-tutor', '/attendance', '/rewards', '/news'];
+const NOINDEX_PREFIXES = ['/compat', '/invite/', '/pay/', '/roles/', '/login', '/change-password', '/reset-password', '/settings', '/classroom', '/assignments', '/exams', '/ai-tutor', '/attendance', '/rewards', '/news'];
 
 function normalizePath(pathname) {
   if (pathname.length > 1 && pathname.endsWith('/')) return pathname.slice(0, -1);

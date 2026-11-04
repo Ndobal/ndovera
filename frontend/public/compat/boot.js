@@ -10,7 +10,7 @@
   var needsLite = (android && Number(android[1]) < 5) || (ios && Number(ios[1]) < 12) ||
     !w.Promise || !w.fetch || !w.Map || !w.Set || !w.URLSearchParams;
   // Lite has no invitation form, so a parent's invitation always opens in the standard app.
-  if (w.location.pathname.indexOf('/compat/') === 0 || w.location.pathname.indexOf('/invite/') === 0 || standard) return;
+  if (w.location.pathname.indexOf('/compat/') === 0 || w.location.pathname.indexOf('/invite/') === 0 || w.location.pathname.indexOf('/pay/') === 0 || standard) return;
   if (requested || needsLite) {
     // Keep password-reset tokens on this origin only; never forward them as return URLs.
     var token = /(?:^|[?&])token=([^&]*)/.exec(query);

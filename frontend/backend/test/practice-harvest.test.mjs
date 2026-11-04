@@ -402,10 +402,10 @@ test('AI generation spends AI credits once (half to regenerate), is free before 
 
   // Free Ndovera AI a day: 10 for students, 3 for staff.
   const bundles = await call(db, 'jss2', 'GET', '/api/ai/credit-bundles', null, free)
-  assert.equal(bundles.body.freeDailyRequests, 5)
-  assert.equal((await call(db, 'maths', 'GET', '/api/ai/credit-bundles', null, free)).body.freeDailyRequests, 3)
+  assert.equal(bundles.body.freeDailyRequests, 1)
+  assert.equal((await call(db, 'maths', 'GET', '/api/ai/credit-bundles', null, free)).body.freeDailyRequests, 1)
   const access = await call(db, 'maths', 'GET', '/api/ai/access', null, free)
-  assert.equal(access.body.access.usage.dailyFreeRequests, 3)
+  assert.equal(access.body.access.usage.dailyFreeRequests, 1)
 })
 
 test('a staff sign-in made offline counts from when it was made, survives a QR rotation, and keeps the earliest time', async () => {

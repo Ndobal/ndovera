@@ -56,6 +56,10 @@ export const makeCodes = body => request('/api/ami/pass-codes', { method: 'POST'
 export const getCodeBatch = id => request(`/api/ami/pass-codes/${encodeURIComponent(id)}`);
 export const stopCodes = id => request(`/api/ami/pass-codes/${encodeURIComponent(id)}/cancel`, { method: 'POST', body: {} });
 
+export const getContactChangePrice = () => request('/api/ami/contact-change-price');
+export const saveContactChangePrice = naira => request('/api/ami/contact-change-price', { method: 'PUT', body: { naira } });
+export const getBankClaims = status => request(`/api/ami/bank-claims?status=${encodeURIComponent(status)}`);
+export const decideBankClaim = (id, decision) => request(`/api/ami/bank-claims/${encodeURIComponent(id)}`, { method: 'POST', body: { decision } });
 export const getCountryPrices = () => request('/api/ami/pricing-countries');
 export const saveCountryPrice = body => request('/api/ami/pricing-countries', { method: 'POST', body });
 export const removeCountryPrice = country => request(`/api/ami/pricing-countries/${encodeURIComponent(country)}`, { method: 'DELETE' });
