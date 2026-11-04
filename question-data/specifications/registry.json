@@ -971,6 +971,23 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "The NECO timetable lists General Mathematics Papers II (1022, essay) and III (1023, objective). Historical WAEC examiner observations support provisional topic selection. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
+    },
+    {
+      "id": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "kind": "official_prescribed_texts_with_historical_format_reference",
+      "source": "https://waecnigeria.org/sites/default/files/2023-06/LITERATURE-IN-ENG%202026-2030.pdf",
+      "formatReference": "https://waeconline.org.ng/e-learning/Literature/litE340mw.html",
+      "retrievedOn": "2026-11-04",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "note": "Official PDF includes the prescribed poem versions. Historical Paper 3 examiner feedback supports text-based extended responses. Marks and objectives are for practice; full current assessment scheme remains unverified. No verse is reproduced."
     }
   ],
   "banks": [
@@ -7757,6 +7774,114 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-lit-poetry-10-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Once Upon a Time",
+      "subtopic": "Social performance, voice and self-critique",
+      "learningObjective": "Analyse how contrast, imagery and the speaker’s relationship with his son develop the critique of learned insincerity.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, pp. 2–3",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-10"
+    },
+    {
+      "id": "waec-lit-poetry-13-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Not my Business",
+      "subtopic": "Refrain, unequal power and complicity",
+      "learningObjective": "Analyse how repetition, selected incidents and the reversal of perspective shape the poem’s treatment of self-protection.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, pp. 4–5",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-13"
+    },
+    {
+      "id": "waec-lit-poetry-16-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: She Walks in Beauty",
+      "subtopic": "Light, proportion and moral inference",
+      "learningObjective": "Explain how image patterns and the movement of the stanzas shape the speaker’s judgement of beauty.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, p. 7",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-16"
+    },
+    {
+      "id": "waec-lit-poetry-21-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Stone",
+      "subtopic": "Narrative framing and grief",
+      "learningObjective": "Analyse the narrative order, contrasting responses to grief and the development of stone imagery.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, pp. 12–14",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-21"
     }
   ],
   "scopeGaps": [

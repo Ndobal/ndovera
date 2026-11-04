@@ -1,0 +1,752 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Literature in English prescribed poetry theory practice",
+  "questionCount": 12,
+  "note": "Original essay prompts with practice marking guides. Read the poems in the official 2026–2030 WAEC PDF. No verses reproduced. Alternate well-supported interpretations are acceptable. Academic review pending.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Once Upon a Time",
+      "subtopic": "Social performance, voice and self-critique",
+      "learningObjective": "Analyse how contrast, imagery and the speaker’s relationship with his son develop the critique of learned insincerity.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-10",
+      "id": "ndv-064-001",
+      "objectiveId": "waec-lit-poetry-10-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Once Upon a Time by Gabriel Okara, explain how the visits to other people’s homes expose the gap between words and conduct. Develop your interpretation with two details from the episode.",
+      "answer": "The hosts offer warm invitations, apparently putting the visitor at ease. Yet the invitations lead to repeated visits and then exclusion at the door. The sequence makes it possible for the speaker to test the words by acting on them. When access is denied, the earlier friendliness looks like social performance.",
+      "explanation": "The irony depends on the difference between the stated welcome and the treatment received. A response should show how the sequence exposes that difference.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "State a claim about insincere hospitality."
+        },
+        {
+          "marks": 3,
+          "description": "Explain what the initial welcome leads the visitor to expect."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the closed door alters the meaning of the welcome."
+        },
+        {
+          "marks": 2,
+          "description": "Link the two details in a coherent interpretation."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Once Upon a Time",
+        "author": "Gabriel Okara"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 2–3"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Once Upon a Time",
+      "subtopic": "Social performance, voice and self-critique",
+      "learningObjective": "Analyse how contrast, imagery and the speaker’s relationship with his son develop the critique of learned insincerity.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-10",
+      "id": "ndv-064-002",
+      "objectiveId": "waec-lit-poetry-10-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Once Upon a Time by Gabriel Okara, trace the change from the speaker’s criticism of other people’s expressions to his scrutiny of his own reflection. How does the last image of his smile deepen the criticism?",
+      "answer": "The speaker begins by observing smiles that show teeth without warmth. He then admits learning to present different faces for different settings. In the mirror he recognises the same behaviour in himself. The comparison to a snake makes his smile seem threatening, exposing the cost of the habits he has adopted.",
+      "explanation": "The mirror changes the target of criticism. The final comparison shows his discomfort with his own behaviour.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the shift from observing others to self-examination."
+        },
+        {
+          "marks": 3,
+          "description": "Connect the learned social faces to the earlier description of insincerity."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the effect of the snake comparison in the mirror scene."
+        },
+        {
+          "marks": 2,
+          "description": "Draw a conclusion about the speaker’s complicity."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Once Upon a Time",
+        "author": "Gabriel Okara"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 2–3"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Once Upon a Time",
+      "subtopic": "Social performance, voice and self-critique",
+      "learningObjective": "Analyse how contrast, imagery and the speaker’s relationship with his son develop the critique of learned insincerity.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-10",
+      "id": "ndv-064-003",
+      "objectiveId": "waec-lit-poetry-10-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Once Upon a Time by Gabriel Okara, assess the view that the son’s main role is to listen to a story. Use the opening address and final appeal to support your judgement.",
+      "answer": "The opening sounds like an adult telling a child about the past. By the end, the father asks the boy to teach him to smile again. The child becomes a model of conduct the adult wants to recover, so the change in address reverses the expected teacher–learner relationship.",
+      "explanation": "The role changes through the poem’s direct address. The son can be silent throughout and still matter to the speaker’s attempt to change.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Present a defensible judgement on the son’s role."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the adult-to-child address at the opening."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the significance of the request for instruction at the end."
+        },
+        {
+          "marks": 2,
+          "description": "Evaluate the change in their roles."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Once Upon a Time",
+        "author": "Gabriel Okara"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 2–3"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Not my Business",
+      "subtopic": "Refrain, unequal power and complicity",
+      "learningObjective": "Analyse how repetition, selected incidents and the reversal of perspective shape the poem’s treatment of self-protection.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-13",
+      "id": "ndv-064-004",
+      "objectiveId": "waec-lit-poetry-13-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Not my Business by Niyi Osundare, examine how the abrupt loss of Chinwe’s job broadens the kinds of abuse represented in the poem. Compare this incident with one of the earlier episodes.",
+      "answer": "Chinwe learns that she has lost her job without warning or inquiry, despite her good record. In Akanni’s case, violence is immediate and physical as he is beaten and taken away. Chinwe’s experience shows that unchecked power can also operate through an apparently administrative act.",
+      "explanation": "The incidents differ in method. The absence of a fair process gives the dismissal a place alongside the earlier acts of coercion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the kind of harm done to Chinwe."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the details of her dismissal suggest arbitrary power."
+        },
+        {
+          "marks": 3,
+          "description": "Accurately compare one earlier episode and its method of coercion."
+        },
+        {
+          "marks": 2,
+          "description": "Explain what the comparison adds to the poem."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Not my Business",
+        "author": "Niyi Osundare"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 4–5"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Not my Business",
+      "subtopic": "Refrain, unequal power and complicity",
+      "learningObjective": "Analyse how repetition, selected incidents and the reversal of perspective shape the poem’s treatment of self-protection.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-13",
+      "id": "ndv-064-005",
+      "objectiveId": "waec-lit-poetry-13-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Not my Business by Niyi Osundare, explain what the repeated reference to the speaker’s meal tells us about the condition he sets for getting involved. Discuss the effect of the meal being interrupted in the final episode.",
+      "answer": "He judges other people’s suffering by whether it affects his own food and comfort. Repetition makes this narrow standard sound settled. At the end, a knock interrupts the very meal that stood for his security. The physical interruption demonstrates that the private comfort he protected was precarious.",
+      "explanation": "The meal provides a concrete way to track the speaker’s reasoning. Its interruption exposes a consequence of treating other people’s danger as remote.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the condition the speaker sets for concern."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the significance of repetition and the meal image."
+        },
+        {
+          "marks": 3,
+          "description": "Explain what happens as he sits down to eat in the last episode."
+        },
+        {
+          "marks": 2,
+          "description": "Connect the interruption with his earlier reasoning."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Not my Business",
+        "author": "Niyi Osundare"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 4–5"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Not my Business",
+      "subtopic": "Refrain, unequal power and complicity",
+      "learningObjective": "Analyse how repetition, selected incidents and the reversal of perspective shape the poem’s treatment of self-protection.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-13",
+      "id": "ndv-064-006",
+      "objectiveId": "waec-lit-poetry-13-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Not my Business by Niyi Osundare, consider whether the final scene needs to show what happens to the speaker after the knock. Explain how the vehicle and the change of setting influence what the reader expects.",
+      "answer": "The ending leaves his fate unstated. The vehicle recalls the earlier removal of Akanni, but it is now waiting outside the speaker’s home. Moving the threat to his own surroundings makes the earlier pattern personally relevant. The unresolved ending makes readers imagine the consequences without claiming that the same fate has already occurred.",
+      "explanation": "The vehicle creates an association rather than proof of a specific outcome. Suspense comes from moving the signs of danger into the speaker’s space.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Give a reasoned view of the unresolved ending."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the link between the vehicle and an earlier episode."
+        },
+        {
+          "marks": 3,
+          "description": "Discuss how the location changes the speaker’s position."
+        },
+        {
+          "marks": 2,
+          "description": "Distinguish a supported expectation from an event the poem explicitly shows."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Not my Business",
+        "author": "Niyi Osundare"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 4–5"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: She Walks in Beauty",
+      "subtopic": "Light, proportion and moral inference",
+      "learningObjective": "Explain how image patterns and the movement of the stanzas shape the speaker’s judgement of beauty.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-16",
+      "id": "ndv-064-007",
+      "objectiveId": "waec-lit-poetry-16-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In She Walks in Beauty by Lord Byron, explain what the opening night scene contributes to the portrait. Contrast its light with the daylight evoked at the end of the first stanza.",
+      "answer": "The clear night contains points of brightness within darkness, so it offers a model for the woman’s appearance. The daylight contrast suggests a showier brightness, whereas the light associated with her is gentle. The comparison makes a balance of qualities central to the portrait.",
+      "explanation": "The simile uses a particular kind of night. Its stars and clarity matter to the visual balance as much as its darkness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the comparison to a clear, starry night."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse the interaction of darkness and brightness."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the contrasting effect of daylight in the first stanza."
+        },
+        {
+          "marks": 2,
+          "description": "Relate the contrast to the portrait."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "She Walks in Beauty",
+        "author": "Lord Byron"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 7"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: She Walks in Beauty",
+      "subtopic": "Light, proportion and moral inference",
+      "learningObjective": "Explain how image patterns and the movement of the stanzas shape the speaker’s judgement of beauty.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-16",
+      "id": "ndv-064-008",
+      "objectiveId": "waec-lit-poetry-16-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In She Walks in Beauty by Lord Byron, discuss how the speaker’s imagined changes to shade and light in the second stanza refine the idea of beauty introduced in the first. Use the description of both hair and face.",
+      "answer": "The imagined increase of shade or decrease of light would upset the effect the speaker admires. The dark hair and the soft illumination of the face make the two elements visible in the portrait. Beauty therefore depends on a delicate relation between features, which the speaker tests by imagining a small alteration.",
+      "explanation": "The stanza uses a hypothetical change to explain why proportion matters. Hair and face give this abstract balance a physical form.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the hypothetical alteration and its consequence."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the hair supplies evidence of shade."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the face supplies evidence of gentle light."
+        },
+        {
+          "marks": 2,
+          "description": "Connect those features to the principle of proportion."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "She Walks in Beauty",
+        "author": "Lord Byron"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 7"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: She Walks in Beauty",
+      "subtopic": "Light, proportion and moral inference",
+      "learningObjective": "Explain how image patterns and the movement of the stanzas shape the speaker’s judgement of beauty.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-16",
+      "id": "ndv-064-009",
+      "objectiveId": "waec-lit-poetry-16-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In She Walks in Beauty by Lord Byron, assess the claim that the last stanza simply adds physical details. Use the movement from visible expression to the speaker’s conclusions about character.",
+      "answer": "The cheek, brow and smile extend the description, but they also become signs from which the speaker infers a peaceful mind and an innocent heart. The stanza changes from describing what can be seen to interpreting what those features signify. These conclusions belong to the admiring speaker’s reading of her expression.",
+      "explanation": "The distinction between observation and inference allows a reasoned judgement about what the final stanza contributes.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "State a judgement about the claim."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how a visible detail contributes to the portrait."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse at least one inference about character and its relation to expression."
+        },
+        {
+          "marks": 2,
+          "description": "Account for the speaker’s perspective."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "She Walks in Beauty",
+        "author": "Lord Byron"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 7"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Stone",
+      "subtopic": "Narrative framing and grief",
+      "learningObjective": "Analyse the narrative order, contrasting responses to grief and the development of stone imagery.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-21",
+      "id": "ndv-064-010",
+      "objectiveId": "waec-lit-poetry-21-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Stone by Wilfrid Wilson Gibson, explain the effect of beginning with the woman’s request for a gravestone before revealing the quarry accident. Show how the later account changes the reader’s understanding of the request.",
+      "answer": "The opening presents a repeated, practical request before the reader knows who died or how. The account of the quarry explosion then supplies the cause of the death. Once we learn about the sudden violence and her response, the repetition sounds like the speech of a person struggling to give shape to shock.",
+      "explanation": "The poem withholds causal information and then returns to the request. This order lets the reader encounter her words first as a mystery and later as an expression of grief.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the opening request and the subsequent move back in time."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the effect of initially withholding details of the death."
+        },
+        {
+          "marks": 3,
+          "description": "Connect the accident and the woman’s shock to the request."
+        },
+        {
+          "marks": 2,
+          "description": "Explain how that structure changes the meaning of the repetition."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Stone",
+        "author": "Wilfrid Wilson Gibson"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 12–14"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Stone",
+      "subtopic": "Narrative framing and grief",
+      "learningObjective": "Analyse the narrative order, contrasting responses to grief and the development of stone imagery.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-21",
+      "id": "ndv-064-011",
+      "objectiveId": "waec-lit-poetry-21-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Stone by Wilfrid Wilson Gibson, compare the mother’s outward response to the death with the young woman’s behaviour during the following days. What does the juxtaposition suggest about interpreting grief?",
+      "answer": "The mother weeps, while the young woman remains tearless and still. Her wakefulness over several days shows the intensity behind that outward immobility. Placing the two reactions together suggests that the presence or absence of tears alone tells us little about the depth of a person’s grief.",
+      "explanation": "The parallel descriptions make two forms of mourning visible. The account of sleeplessness gives evidence against mistaking silence for indifference.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify both responses accurately."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the significance of the woman’s wakefulness or fixed gaze."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse the effect of the juxtaposition."
+        },
+        {
+          "marks": 2,
+          "description": "Draw a text-supported conclusion about the visibility of grief."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Stone",
+        "author": "Wilfrid Wilson Gibson"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 12–14"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Stone",
+      "subtopic": "Narrative framing and grief",
+      "learningObjective": "Analyse the narrative order, contrasting responses to grief and the development of stone imagery.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-21",
+      "id": "ndv-064-012",
+      "objectiveId": "waec-lit-poetry-21-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Stone by Wilfrid Wilson Gibson, assess the idea that the carving brings the woman lasting peace. Relate the narrator’s comparison of his work to Death’s work to the change he must make to the memorial at the end.",
+      "answer": "The narrator sees his own chisel cutting the memorial while Death seems to cut deeper into her emotionally. Her sigh when the work ends briefly suggests relief. Yet the narrator returns alone to add her name, turning the apparent resolution into a second loss. The poem strongly implies her death and leaves its precise cause unstated.",
+      "explanation": "The simultaneous acts of carving prepare for the closing reversal. The narrator’s momentary impression of peace is tentative, and the added name undercuts it.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Give a defensible judgement about lasting peace."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the parallel between the two acts of carving."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the sigh and departure in light of the narrator’s uncertainty."
+        },
+        {
+          "marks": 2,
+          "description": "Use the added name to explain the reversal without asserting an unsupported cause of death."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Stone",
+        "author": "Wilfrid Wilson Gibson"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 12–14"
+    }
+  ]
+}

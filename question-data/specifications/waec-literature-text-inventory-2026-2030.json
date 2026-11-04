@@ -151,10 +151,16 @@
       "authorAsPrinted": "Gabriel Okara",
       "titleAsPrinted": "Once Upon a Time",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": []
+      "developmentStatus": "partial_theory_objectives_draft",
+      "linkedQuestionIds": [
+        "ndv-064-001",
+        "ndv-064-002",
+        "ndv-064-003"
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "editionStatus": "Version in official prescribed-text PDF checked (pp. 2–3); commercial edition equivalence unverified."
     },
     {
       "textId": "waec-lit-2026-11",
@@ -184,10 +190,16 @@
       "authorAsPrinted": "Niyi Osundare",
       "titleAsPrinted": "Not my Business",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": []
+      "developmentStatus": "partial_theory_objectives_draft",
+      "linkedQuestionIds": [
+        "ndv-064-004",
+        "ndv-064-005",
+        "ndv-064-006"
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "editionStatus": "Version in official prescribed-text PDF checked (pp. 4–5); commercial edition equivalence unverified."
     },
     {
       "textId": "waec-lit-2026-14",
@@ -217,10 +229,17 @@
       "authorAsPrinted": "Lord Byron",
       "titleAsPrinted": "She Walks in Beauty",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": []
+      "developmentStatus": "partial_theory_objectives_draft",
+      "linkedQuestionIds": [
+        "ndv-064-007",
+        "ndv-064-008",
+        "ndv-064-009"
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "editionStatus": "Version in official prescribed-text PDF checked (p. 7); commercial edition equivalence unverified.",
+      "editionCrossCheck": "Hebrew Melodies (1815) transcription, https://en.wikisource.org/wiki/Hebrew_Melodies_(Byron,_1815)/She_walks_in_beauty"
     },
     {
       "textId": "waec-lit-2026-17",
@@ -272,12 +291,20 @@
       "authorAsPrinted": "Wilfred Wilson Gipson",
       "titleAsPrinted": "The Stone",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": [],
-      "bibliographicCheckRequired": true,
-      "note": "Spelling or author initials transcribed as printed in official list; verify bibliographic identity before text-specific authoring."
+      "developmentStatus": "partial_theory_objectives_draft",
+      "linkedQuestionIds": [
+        "ndv-064-010",
+        "ndv-064-011",
+        "ndv-064-012"
+      ],
+      "bibliographicCheckRequired": false,
+      "note": "The page-one spelling is preserved. The heading on page 12 and the 1912 Fires title page support the corrected bibliographic name.",
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "editionStatus": "Version in official prescribed-text PDF checked (pp. 12–14); commercial edition equivalence unverified.",
+      "editionCrossCheck": "Fires, Book I (1912), Project Gutenberg eBook 42677, https://www.gutenberg.org/ebooks/42677",
+      "verifiedAuthor": "Wilfrid Wilson Gibson"
     }
   ]
 }

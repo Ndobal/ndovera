@@ -331,3 +331,10 @@ objective drafts on circle geometry, coordinate geometry and probability.
 The 2026 Internal timetable verifies the essay and objective papers.
 Historical WAEC examiner observations inform provisional topic mapping.
 Official NECO topic objectives remain open.
+
+Batch 064 adds original WAEC poetry essays on Once Upon a Time,
+Not my Business, She Walks in Beauty and The Stone. The versions in the
+official 2026–2030 prescribed-text PDF supply textual evidence. The
+practice rubrics draw on historical examiner guidance for text-based
+responses. No verses are reproduced. Commercial edition equivalence and
+the full current assessment scheme remain open.
