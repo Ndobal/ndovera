@@ -32,7 +32,7 @@ function BankClaims() {
   const load = useCallback(() => getBankClaims('waiting').then(result => setClaims(result.claims)).catch(error => setNotice(error.message)), []);
   useEffect(() => { load(); }, [load]);
   const decide = async (claim, decision) => {
-    if (decision === 'approve' && !await askConfirm(`Has ₦${Number(claim.amountNaira).toLocaleString()} from ${claim.payerName} reached the account? Approving gives the pass.`)) return;
+    if (decision === 'approve' && !await askConfirm(`Has ₦${Number(claim.payNaira).toLocaleString()} from ${claim.payerName} reached the account? Approving gives them what they paid for.`)) return;
     decideBankClaim(claim.id, decision).then(load).catch(error => setNotice(error.message));
   };
   return (
@@ -43,8 +43,8 @@ function BankClaims() {
         <ul className="space-y-2">
           {claims.map(claim => (
             <li key={claim.id} className="rounded-2xl bg-slate-100 p-3 dark:bg-white/5">
-              <p className="text-sm font-bold text-slate-900 dark:text-white">₦{Number(claim.amountNaira).toLocaleString()} · {claim.label} · {claim.id}</p>
-              <p className="text-xs text-slate-700 dark:text-slate-300">{claim.payerName} for {claim.studentName}, {claim.schoolName}{claim.reference ? ` · reference ${claim.reference}` : ''} · {when(claim.createdAt)}</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-white">₦{Number(claim.payNaira).toLocaleString()} · {claim.label} · {claim.id}</p>
+              <p className="text-xs text-slate-700 dark:text-slate-300">{claim.payerName}{claim.schoolName ? `, ${claim.schoolName}` : ''}{claim.reference ? ` · reference ${claim.reference}` : ''} · {when(claim.claimedAt)}</p>
               <div className="mt-2 flex gap-2">
                 <button type="button" className={PRIMARY} onClick={() => decide(claim, 'approve')}>Money received</button>
                 <button type="button" className={SECONDARY} onClick={() => decide(claim, 'reject')}>Not received</button>

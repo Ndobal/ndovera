@@ -973,7 +973,7 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
           </div>
         </div>
         <div className="border-t border-white/10">
-          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 pt-5 pb-[calc(1.25rem+var(--safe-bottom))] text-xs text-white/45 sm:flex-row sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 pt-5 pb-[calc(1.25rem+var(--safe-bottom))] text-xs text-white/70 sm:flex-row sm:px-6 lg:px-8">
             <span>© {new Date().getFullYear()} Ndovera. All rights reserved.</span>
             <span className="uppercase tracking-[0.2em]">Learn · Lead · Grow</span>
           </div>
@@ -1814,7 +1814,18 @@ function GalleryPageBody({ section }) {
   );
 }
 
+/** The public site has one design. A visitor's dark setting returns when they go back into the app. */
+export function useLightPage() {
+  useEffect(() => {
+    const root = document.documentElement;
+    const wasDark = root.classList.contains('dark');
+    root.classList.remove('dark');
+    return () => { if (wasDark) root.classList.add('dark'); };
+  }, []);
+}
+
 function PublicSitePageContent({ pageKey = 'home' }) {
+  useLightPage();
   const pageLocation = useLocation();
   // URL previews never change the saved content or payment/registration flows.
   // The executive design is the safe default when no preview is requested.

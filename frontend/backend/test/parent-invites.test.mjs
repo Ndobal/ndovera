@@ -225,6 +225,20 @@ test('a school gets 3 changes a month, then buys 5 more; first addresses are fre
   assert.equal(left.packNaira, 1500)
 })
 
+test('changing a student name keeps their email if nobody changes it, and the new name shows everywhere current', async () => {
+  const ctx = await setup()
+  ctx.db.db.exec(`CREATE TABLE IF NOT EXISTS practice_profiles (student_id TEXT PRIMARY KEY, tenant_id TEXT, student_name TEXT, xp INTEGER DEFAULT 0);
+    DELETE FROM practice_profiles; INSERT INTO practice_profiles (student_id, tenant_id, student_name) VALUES ('k-1', 'school-a', 'Ada Obi');`)
+  const changed = await ctx.call('owner', 'PUT', '/api/people/k-1', { name: 'Ada Nwosu' })
+  assert.equal(changed.status, 200, JSON.stringify(changed.body))
+  const row = ctx.db.db.prepare('SELECT name, email FROM users WHERE id = ?').get('k-1')
+  assert.equal(row.name, 'Ada Nwosu')
+  assert.equal(row.email, 'ada@old.test', 'the email stays until someone changes it')
+  assert.equal(payload(ctx.db, 'ada@old.test').name, 'Ada Nwosu')
+  assert.equal(ctx.db.db.prepare(`SELECT student_name FROM practice_profiles WHERE student_id = 'k-1'`).get().student_name, 'Ada Nwosu')
+  assert.equal((await ctx.call('owner', 'GET', '/api/school/contact-changes')).body.freeLeft, 3, 'a name change is not an email change')
+})
+
 test('too many wrong passwords stop the link', async () => {
   const ctx = await setup()
   const invite = async ids => tokenOf((await ctx.call('owner', 'POST', '/api/school/parent-invites', { studentIds: ids })).body.url)

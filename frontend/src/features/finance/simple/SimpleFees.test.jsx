@@ -160,7 +160,7 @@ test('Fees & Billing receipts open in the school\'s designed receipt, with the t
   expect(within(dialog).getByText('Fifty Thousand Naira Only')).toBeTruthy();
   expect(within(dialog).getByText('₦160,000')).toBeTruthy(); // expected fees for the term
   expect(within(dialog).getByText('₦90,000')).toBeTruthy(); // paid to date
-  expect(within(dialog).getByRole('button', { name: 'Share on WhatsApp' })).toBeTruthy();
+  expect(within(dialog).getByRole('button', { name: 'WhatsApp text' })).toBeTruthy();
 });
 
 test('fee entry saves itself as a draft a few seconds after typing stops', async () => {

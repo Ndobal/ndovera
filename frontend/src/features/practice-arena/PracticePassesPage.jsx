@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { checkoutPass, clearStudentDevices, getFamilyPasses, getSchoolPassSubjects, getSchoolPasses, money, quotePass, verifyPass } from './practiceApi';
+import AskToPay from './AskToPay';
+import BankTransferPay from './BankTransferPay';
+import { checkoutPass, checkoutPassByBank, clearStudentDevices, getFamilyPasses, getSchoolPassSubjects, getSchoolPasses, money, quotePass, verifyPass } from './practiceApi';
 import { getPeople } from '../school/services/schoolApi';
 import RedeemCode from './RedeemCode';
 import { askConfirm } from '../../shared/components/AppDialog';
@@ -11,7 +13,7 @@ const CARD = 'rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:bo
 const FIELD = 'rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 dark:border-white/20 dark:bg-slate-900 dark:text-white';
 const PRIMARY = 'rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-black text-white disabled:opacity-50';
 
-function BundlePicker({ bundles, subjects, onBuy, busy, school = false, subjectsNote = '' }) {
+function BundlePicker({ bundles, subjects, onBuy, busy, school = false, subjectsNote = '', extra = {} }) {
   const [bundle, setBundle] = useState('');
   const [subjectKey, setSubjectKey] = useState('');
   const [jamb, setJamb] = useState([]);
@@ -45,6 +47,8 @@ function BundlePicker({ bundles, subjects, onBuy, busy, school = false, subjects
       )}
       <button type="button" className={PRIMARY} disabled={busy || !bundle || (needsSubject && !subjectKey) || (needsJamb && jamb.length !== 3)}
         onClick={() => onBuy({ bundle, ...(needsSubject ? { subjectKey } : {}), ...(needsJamb ? { jambSubjects: jamb } : {}) })}>{busy ? 'Opening payment…' : 'Continue to payment'}</button>
+      <BankTransferPay disabled={busy || !bundle || (needsSubject && !subjectKey) || (needsJamb && jamb.length !== 3)} start={() => checkoutPassByBank({ bundle, ...(needsSubject ? { subjectKey } : {}), ...(needsJamb ? { jambSubjects: jamb } : {}), ...extra })} />
+      {!school && bundle && (!needsSubject || subjectKey) && (!needsJamb || jamb.length === 3) ? <AskToPay payload={{ bundle, ...(needsSubject ? { subjectKey } : {}), ...(needsJamb ? { jambSubjects: jamb } : {}), ...extra }} /> : null}
     </div>
   );
 }
@@ -112,9 +116,9 @@ export default function PracticePassesPage({ mode }) {
             <h2 className="text-lg font-black text-slate-900 dark:text-white">{child.name} <span className="text-sm font-semibold text-slate-500">· {child.className}</span></h2>
             <p className="text-sm text-slate-600 dark:text-slate-300">Free: every subject, {child.freePerDay || 10} new questions a day</p>
             {child.passes.length ? <ul className="text-sm text-slate-700 dark:text-slate-200">{child.passes.map(pass => <li key={pass.id}>✅ {pass.label}{pass.expiresAt ? ` · until ${new Date(pass.expiresAt).toLocaleDateString()}` : ' · this term'}</li>)}</ul> : null}
-            <BundlePicker bundles={child.bundles} subjects={child.subjects} busy={busy} onBuy={payload => pay({ ...payload, studentId: child.studentId })} />
+            <BundlePicker bundles={child.bundles} subjects={child.subjects} busy={busy} extra={{ studentId: child.studentId }} onBuy={payload => pay({ ...payload, studentId: child.studentId })} />
             <RedeemCode subjects={child.subjects} studentId={child.studentId} onDone={load} />
-            <p className="text-sm text-slate-700 dark:text-slate-200">Card not working? In the student's account each pass has "Pay by bank transfer".</p>
+
           </section>
         )) : <p className={CARD}>No children are linked to your account yet. Ask the school to link them.</p>
       ) : (
@@ -125,7 +129,7 @@ export default function PracticePassesPage({ mode }) {
                 <option value="">Choose a class…</option>{data.classes.filter(item => item.section).map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
               </select>
             </label>
-            {klass && <BundlePicker key={classId} school bundles={klass.bundles} subjects={subjects} subjectsNote={subjectsNote} busy={busy} onBuy={payload => pay({ ...payload, classId })} />}
+            {klass && <BundlePicker key={classId} school bundles={klass.bundles} subjects={subjects} subjectsNote={subjectsNote} busy={busy} extra={{ classId }} onBuy={payload => pay({ ...payload, classId })} />}
           </section>
           <section className={`${CARD} space-y-2`}>
             <h2 className="font-black text-slate-900 dark:text-white">A student changed phone?</h2>

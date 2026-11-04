@@ -24,6 +24,7 @@ import {
 } from '../../services/headerBarService';
 import {
   getPushPublicKey,
+  markInboxRead,
   savePushSubscription,
 } from '../../features/school/services/schoolApi';
 
@@ -295,6 +296,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
 
   const openNotificationItem = useCallback((item) => {
     const actionUrl = String(item?.actionUrl || '').trim();
+    if (String(item?.id || '').startsWith('inbox:')) markInboxRead([String(item.id).slice(6)]).catch(() => null);
     if (!actionUrl) return;
 
     setActivePanel(null);

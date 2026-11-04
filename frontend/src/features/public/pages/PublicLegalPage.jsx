@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useLightPage } from './PublicSitePage';
 import { Link } from 'react-router-dom';
 import { PublicShell } from './PublicSitePage';
 import { getPublicPlatformSite } from '../services/publicSiteApi';
@@ -71,6 +72,7 @@ function LegalBody({ body }) {
 }
 
 export default function PublicLegalPage({ docKey = 'privacy' }) {
+  useLightPage();
   const [sections, setSections] = useState([]);
 
   useEffect(() => {

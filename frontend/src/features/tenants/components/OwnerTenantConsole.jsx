@@ -143,16 +143,16 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
 
         {termBilling?.overdue && (
           <div className="mt-6 rounded-3xl border border-rose-400/40 bg-rose-500/10 p-5 space-y-3">
-            <p className="text-lg font-semibold text-black">
+            <p className="text-lg font-semibold text-black dark:text-white">
               {termBilling.blocked
                 ? 'School administration is locked: this term\'s bill is overdue.'
                 : 'This term\'s bill is overdue.'}
             </p>
-            <p className="text-sm text-black">
+            <p className="text-sm text-black dark:text-white">
               {currencyFormatter.format(termBilling.amount || 0)} for {termBilling.session} {termBilling.term}. The grace period ended{' '}
               {termBilling.graceEndedAt ? new Date(termBilling.graceEndedAt).toLocaleDateString() : 'earlier this term'}.
             </p>
-            <p className="text-sm text-black">
+            <p className="text-sm text-black dark:text-white">
               Owner, HoS, ICT manager, and ICT accounts stay locked until it is settled. Teachers, students, and parents keep working, and your school website stays online.
               {termBilling.payUrl ? ' Pay it online now; access returns as soon as Flutterwave confirms the payment.' : ' Contact Ami to settle this bill.'}
             </p>
@@ -166,8 +166,8 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
 
         {!dashboardActive && !termBilling?.overdue && (
           <div className="mt-6 rounded-3xl border border-amber-400/30 bg-amber-500/10 p-5 space-y-3">
-            <p className="text-lg font-semibold text-black">Owner dashboard is locked until onboarding is complete.</p>
-            <ol className="space-y-2 text-sm text-black list-decimal list-inside">
+            <p className="text-lg font-semibold text-black dark:text-white">Owner dashboard is locked until onboarding is complete.</p>
+            <ol className="space-y-2 text-sm text-black dark:text-white list-decimal list-inside">
               <li>Pay the onboarding invoice through Flutterwave.</li>
               <li>Wait for Ami to approve the tenant.</li>
               <li>Once both are done, {tenant?.websiteDomain || 'your school subdomain'} becomes active.</li>
@@ -199,19 +199,19 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         <div className="glass-surface rounded-3xl p-5">
           <p className="micro-label neon-subtle">Plan</p>
-          <p className="mt-2 text-2xl command-title text-black dark:text-slate-100">{quote?.planName || tenant?.planKey || 'Unknown'}</p>
+          <p className="mt-2 text-2xl command-title text-black dark:text-white dark:text-slate-100">{quote?.planName || tenant?.planKey || 'Unknown'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
           <p className="micro-label neon-subtle">Setup Fee</p>
-          <p className="mt-2 text-2xl command-title text-black dark:text-slate-100">{quote ? currencyFormatter.format(quote.setupFee) : '-'}</p>
+          <p className="mt-2 text-2xl command-title text-black dark:text-white dark:text-slate-100">{quote ? currencyFormatter.format(quote.setupFee) : '-'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
           <p className="micro-label neon-subtle">User Billing / Subsequent Term</p>
-          <p className="mt-2 text-2xl command-title text-black dark:text-slate-100">{quote ? currencyFormatter.format(quote.userFeePerTerm || quote.studentFeePerTerm) : '-'}</p>
+          <p className="mt-2 text-2xl command-title text-black dark:text-white dark:text-slate-100">{quote ? currencyFormatter.format(quote.userFeePerTerm || quote.studentFeePerTerm) : '-'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
           <p className="micro-label neon-subtle">Subdomain</p>
-          <p className="mt-2 text-xl command-title text-black dark:text-slate-100">{tenant?.websiteDomain || 'pending.ndovera.com'}</p>
+          <p className="mt-2 text-xl command-title text-black dark:text-white dark:text-slate-100">{tenant?.websiteDomain || 'pending.ndovera.com'}</p>
         </div>
       </section>
 

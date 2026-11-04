@@ -51,7 +51,7 @@ export const PTAAttendanceEngine = ({ userRole = 'parent' }) => {
                 whileTap={{ scale: 0.95 }}
                 className={`px-4 py-2 rounded-lg font-semibold transition-all whitespace-nowrap relative group ${
                   activeView === tab.id
-                    ? 'text-white bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg shadow-purple-500/50'
+                    ? 'text-white bg-gradient-to-r from-purple-700 to-pink-700 shadow-lg shadow-purple-500/50'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >

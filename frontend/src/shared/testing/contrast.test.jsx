@@ -48,6 +48,8 @@ import { FeaturesPageBody, HomeFeatures } from '../../features/public/FeaturesSe
 import SchoolEmailPanel from '../../features/communications/SchoolEmailPanel';
 import * as schoolEmailApi from '../../features/communications/schoolEmailApi';
 import PassPayPage from '../../features/practice-arena/PassPayPage';
+import BankPayPage from '../../features/practice-arena/BankPayPage';
+import PortalLinkPage from '../../features/school/components/PortalLinkPage';
 import QuizResults from '../../features/practice-arena/QuizResults';
 import ParentInvitePage from '../../features/auth/pages/ParentInvitePage';
 import ParentInvitePanel, { StudentEmailDomain } from '../../features/school/components/ParentInvitePanel';
@@ -382,8 +384,12 @@ test('my payslip and my salary account are readable in light and dark mode', asy
   getWebsiteSections.mockResolvedValue({ sections: [] });
   const { container } = render(<TeacherPayslip auth={{ user: { name: 'Tola Ade', role: 'teacher' } }} />);
   await screen.findByText('Staff Loan');
+  expectReadable(container, 'My payslip');
+  fireEvent.click(screen.getByRole('tab', { name: 'Account details' }));
   await screen.findByRole('textbox', { name: 'Account number' });
-  expectReadable(container, 'My payslip with the salary account form');
+  expectReadable(container, 'The salary account form');
+  fireEvent.click(screen.getByRole('tab', { name: 'Previous payslips' }));
+  expectReadable(container, 'Previous payslips with none yet');
 });
 
 test('the roles editor is readable, and with every role removed it asks for one', () => {
@@ -612,6 +618,8 @@ describe('reviews, home strips, pass codes and country prices', () => {
     const realFetch = global.fetch;
     global.fetch = jest.fn(async () => ({ ok: true, json: async () => ({ success: true, schoolName: 'Genesis College', logoUrl: '', childName: 'Ada', label: 'All Subjects Pass', amountNaira: 1500, paid: false, expired: false }) }));
     await inBothModes(() => <PassPayPage />, 'Help Ada with practice');
+    global.fetch = jest.fn(async () => ({ ok: true, json: async () => ({ success: true, id: 'NB1', label: 'All Subjects', payNaira: 1500, bankName: 'Moniepoint', accountName: 'Ndovera Limited', accountNumber: '8064252542', status: 'opened' }) }));
+    await inBothModes(() => <BankPayPage />, '8064252542');
     global.fetch = realFetch;
     const result = { questionId: 'q', correct: true, question: { prompt: 'Two plus two' }, credit: 1 };
     await inBothModes(() => <QuizResults outcome={{ results: [result], percent: 100, xp: 0, saved: true, needNewQuestions: true }} onPlayAgain={() => {}} onBack={() => {}} onGetPass={() => {}} />, 'You have mastered these questions! 🎉');

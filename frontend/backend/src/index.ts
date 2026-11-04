@@ -427,7 +427,7 @@ import {
 } from './practicePasses'
 import { BUNDLES, ensurePassTables } from './practicePasses'
 import { changeAllowance, ContactLimitError, ensureContactChangeTables, packPrice, recordPackBuy, setPackPrice, settlePackBuy, takeContactChange } from './contactChanges'
-import { addBankClaim, BankClaimError, claimWhatsAppUrl, decideBankClaim, listBankClaims, NDOVERA_BANK, NDOVERA_WHATSAPP } from './bankClaims'
+import { BankClaimError, claimWhatsAppUrl, decideBankClaim, listBankClaims, markBankClaimPaid, NDOVERA_BANK, NDOVERA_WHATSAPP, openBankClaim, readBankClaim, reopenBankClaim } from './bankClaims'
 import { chargeReportAi, ReportAiError } from './reportAi'
 import { ensureNudgeTables, NUDGE_BATCH, nextNudgeSchool, nudgeMonth, nudgesAreOff, parentNudge, saveNudgeProgress, seniorParentEmail, setNudgesOff, studentNudge } from './passNudges'
 import { createPayLink, PAY_LINK_DAYS, PayLinkError, readPayLink, rememberPayLinkTx } from './passPayLinks'
@@ -4917,7 +4917,27 @@ async function localRuleForUser(c: any) {
   return tenant?.discountCode ? { ...rule, surcharge: 0 } : rule
 }
 
+/** A checkout asked for by bank: the same pending payment, with Ndovera's account instead of a card page. */
+async function openBankCheckout(c: any, payload: Record<string, any>) {
+  const db = c.env.APP_DB
+  const meta = payload.meta || {}
+  const baseNaira = Number(payload.amount)
+  const tenant = meta.tenantId ? await getTenantById(db, String(meta.tenantId)).catch(() => null) : null
+  const visitor = visitorCountry(c)
+  const country = !tenant || (meta.planKey && !String(tenant.country || '').trim()) ? visitor : countryForTenant(tenant.country, visitor)
+  const rule = await ruleFor(db, country)
+  const discounted = Boolean(meta.discountCode || tenant?.discountCode)
+  // The account is in naira, so abroad it is the price plus 20% in naira.
+  const payNaira = Math.ceil(baseNaira * (1 + (rule.foreign && !discounted ? FOREIGN_SURCHARGE : 0)))
+  const id = await openBankClaim(db, {
+    txRef: String(payload.tx_ref), tenantId: String(meta.tenantId || ''), payerId: String(c.var?.user?.id || ''), payerName: String(payload.customer?.name || ''), payerEmail: String(payload.customer?.email || ''),
+    label: String(payload.customizations?.title || 'Ndovera payment'), baseNaira, payNaira,
+  })
+  return { status: 'success', data: { link: `${new URL(c.req.url).origin}/bank-pay/${id}` } }
+}
+
 async function createFlutterwavePayment(c: any, payload: Record<string, any>) {
+  if (c.req.query('payBy') === 'bank') return openBankCheckout(c, payload)
   if (!c.env.FLUTTERWAVE_SECRET_KEY) {
     throw new Error('Flutterwave secret is not configured.')
   }
@@ -4941,6 +4961,11 @@ async function createFlutterwavePayment(c: any, payload: Record<string, any>) {
 }
 
 async function verifyFlutterwavePayment(c: any, txRef: string) {
+  // Ami has confirmed this bank transfer herself: settle it as a payment of its own price.
+  const manual = c.get?.('manualPayment') as { txRef: string, amount: number, id: string } | undefined
+  if (manual && manual.txRef === txRef) {
+    return { status: 'success', data: { status: 'successful', tx_ref: txRef, amount: manual.amount, charged_amount: manual.amount, currency: 'NGN', id: manual.id, customer: {} } }
+  }
   if (!c.env.FLUTTERWAVE_SECRET_KEY) {
     throw new Error('Flutterwave secret is not configured.')
   }
@@ -17403,33 +17428,23 @@ const bankClaimFailure = (c: any, error: unknown, fallback: string) => {
   return practiceFailure(c, error, fallback)
 }
 
-/** The account, and exactly what to transfer for this pass. The account is in naira, so abroad it is the naira price plus 20%. */
-async function bankQuote(c: any, body: Record<string, any>) {
-  const buyer = await passBuyer(c, body)
-  const quote = await priceFor(c.env.APP_DB, body as any, { section: buyer.section, students: buyer.students.length, forSchool: buyer.forSchool, offered: buyer.offered, held: buyer.held })
-  const rule = await localRuleForUser(c)
-  const amountNaira = Math.ceil(quote.amountNaira * (1 + (rule.foreign ? Number(rule.surcharge) || 0 : 0)))
-  return { buyer, quote, amountNaira }
+const bankClaimView = async (db: D1Database, row: Record<string, any>) => {
+  const school = row.tenant_id ? String((await getTenantById(db, String(row.tenant_id)).catch(() => null))?.schoolName || '') : ''
+  return {
+    id: String(row.id), label: String(row.label || ''), payNaira: Number(row.pay_naira), status: String(row.status), ...NDOVERA_BANK, whatsapp: NDOVERA_WHATSAPP,
+    whatsappUrl: claimWhatsAppUrl({ id: String(row.id), label: String(row.label || ''), payNaira: Number(row.pay_naira), schoolName: school }),
+  }
 }
 
-app.post('/api/practice-arena/passes/bank-details', authenticate, async (c) => {
-  try {
-    const { amountNaira, quote } = await bankQuote(c, await c.req.json().catch(() => ({})))
-    return c.json({ success: true, ...NDOVERA_BANK, amountNaira, label: quote.label, whatsapp: NDOVERA_WHATSAPP })
-  } catch (error) { return bankClaimFailure(c, error, 'Could not load the account details.') }
+// A claim number is long and random, and shows nothing but the account and the amount.
+app.get('/api/public/bank-pay/:id', async (c) => {
+  try { return c.json({ success: true, ...(await bankClaimView(c.env.APP_DB, await readBankClaim(c.env.APP_DB, c.req.param('id')))) }) } catch (error) { return bankClaimFailure(c, error, 'Could not open this payment.') }
 })
 
-app.post('/api/practice-arena/passes/bank-claim', authenticate, async (c) => {
+app.post('/api/public/bank-pay/:id/paid', async (c) => {
   try {
-    const db = c.env.APP_DB
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
-    const { buyer, quote, amountNaira } = await bankQuote(c, body)
-    const txRef = `bank_${crypto.randomUUID().replace(/-/g, '').slice(0, 24)}`
-    await recordCheckout(db, { txRef, tenantId: buyer.actor.tenantId, buyerId: buyer.actor.actorId, buyerRole: buyer.actor.role, bundle: quote.bundle, studentIds: buyer.students.map((student: any) => student.studentId), options: quote.extra, amountNaira: quote.amountNaira })
-    const studentName = buyer.forSchool ? `${buyer.students.length} students` : String((buyer.students[0] as any)?.studentName || '')
-    const claimNo = await addBankClaim(db, { txRef, tenantId: buyer.actor.tenantId, payerId: String(buyer.actor.actorId), payerName: String(buyer.actor.actorName || ''), studentName, label: quote.label, amountNaira, reference: String(body.reference || '').trim().slice(0, 120) })
-    const letter = await letterSchool(db, buyer.actor.tenantId)
-    return c.json({ success: true, claimNo, whatsappUrl: claimWhatsAppUrl({ claimNo, label: quote.label, studentName, schoolName: letter.schoolName, amountNaira }) }, 201)
+    return c.json({ success: true, ...(await bankClaimView(c.env.APP_DB, await markBankClaimPaid(c.env.APP_DB, c.req.param('id'), String(body.reference || '').trim()))) })
   } catch (error) { return bankClaimFailure(c, error, 'Could not save that.') }
 })
 
@@ -17438,34 +17453,40 @@ app.get('/api/ami/bank-claims', authenticate, async (c) => {
     requireAmi(c)
     const rows = await listBankClaims(c.env.APP_DB, String(c.req.query('status') || 'waiting'))
     const schools = new Map<string, string>()
-    for (const tenantId of new Set(rows.map(row => String(row.tenant_id)))) schools.set(tenantId, String((await getTenantById(c.env.APP_DB, tenantId))?.schoolName || ''))
-    return c.json({ success: true, claims: rows.map(row => ({ id: row.id, payerName: row.payer_name, studentName: row.student_name, label: row.label, amountNaira: row.amount_naira, reference: row.reference, status: row.status, createdAt: row.created_at, schoolName: schools.get(String(row.tenant_id)) || '' })) })
+    for (const tenantId of new Set(rows.map(row => String(row.tenant_id || '')).filter(Boolean))) schools.set(tenantId, String((await getTenantById(c.env.APP_DB, tenantId))?.schoolName || ''))
+    return c.json({ success: true, claims: rows.map(row => ({ id: row.id, payerName: row.payer_name, payerEmail: row.payer_email, label: row.label, payNaira: row.pay_naira, reference: row.reference, status: row.status, claimedAt: row.claimed_at, schoolName: schools.get(String(row.tenant_id)) || '' })) })
   } catch (error) { return bankClaimFailure(c, error, 'Could not load the payments.') }
 })
 
-/** Approving goes through the same grant as a card payment, once, at the pass's own price. */
+/** Approving settles it exactly as a card payment would, once, at its own price. */
 app.post('/api/ami/bank-claims/:id', authenticate, async (c) => {
+  const db = c.env.APP_DB
+  const id = c.req.param('id')
+  let decided = false
   try {
     const ami = requireAmi(c)
-    const db = c.env.APP_DB
     const decision = (await c.req.json().catch(() => ({})) as Record<string, any>).decision === 'approve' ? 'approved' : 'rejected'
-    const claim = await decideBankClaim(db, c.req.param('id'), decision, ami.id)
-    const tenantId = String(claim.tenant_id)
+    const claim = await decideBankClaim(db, id, decision, ami.id)
+    decided = true
     if (decision === 'approved') {
-      const payment = await getCheckout(db, String(claim.tx_ref))
-      if (!payment) throw new BankClaimError('The payment record was not found.', 404)
-      await settleCheckout(db, payment.txRef, { status: 'successful', amount: payment.amountNaira, currency: 'NGN', txRef: payment.txRef, providerId: `bank:${claim.id}:${ami.id}` }, { termId: await practiceTermId(db, tenantId), passEndsAt: await termPassEnd(db, tenantId) })
+      ;(c as any).set('manualPayment', { txRef: String(claim.tx_ref), amount: Number(claim.base_naira), id: `bank:${id}` })
+      await settleByTxRef(c, String(claim.tx_ref))
     }
-    await ensureCommMessageTables(db)
-    const person = await db.prepare(`SELECT id FROM users WHERE id = ? OR email = ? LIMIT 1`).bind(String(claim.payer_id), String(claim.payer_id)).first() as Record<string, any> | null
+    const tenantId = String(claim.tenant_id || '')
+    const person = claim.payer_id && tenantId ? await db.prepare(`SELECT id FROM users WHERE id = ? OR email = ? LIMIT 1`).bind(String(claim.payer_id), String(claim.payer_id)).first() as Record<string, any> | null : null
     if (person) {
-      await db.prepare(`INSERT INTO comm_inbox (id, tenant_id, user_id, event_id, title, body, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`).bind(`cib_${crypto.randomUUID()}`, tenantId, person.id, `bank-claim:${claim.id}`,
+      await ensureCommMessageTables(db)
+      await db.prepare(`INSERT INTO comm_inbox (id, tenant_id, user_id, event_id, title, body, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`).bind(`cib_${crypto.randomUUID()}`, tenantId, person.id, `bank-claim:${id}`,
         decision === 'approved' ? 'Your payment is confirmed' : 'Your payment could not be confirmed',
-        decision === 'approved' ? `Your ${claim.label} is ready to use.` : `Ndovera could not find your payment for ${claim.label}. Please send your receipt again on WhatsApp.`, '', new Date().toISOString()).run()
+        decision === 'approved' ? `${claim.label}: your payment has been confirmed. Thank you.` : `Ndovera could not find your payment for ${claim.label}. Please send your receipt again on WhatsApp.`, '', new Date().toISOString()).run()
       await sendWebPushToAudience(db, c.env, { tenantId, userIds: [String(person.id)] }).catch(() => null)
     }
     return c.json({ success: true })
-  } catch (error) { return bankClaimFailure(c, error, 'Could not decide that payment.') }
+  } catch (error) {
+    // If settling failed the money is still unapplied, so it goes back on Ami's list.
+    if (decided) await reopenBankClaim(db, id).catch(() => null)
+    return bankClaimFailure(c, error, 'Could not decide that payment.')
+  }
 })
 
 // ─── "Ask someone to pay" (passPayLinks.ts) ───
@@ -17560,6 +17581,8 @@ app.put('/api/school/pass-nudges', authenticate, async (c) => {
  * A few students at a time: anyone without a pass and their parents get a notice with a button to buy, and parents
  * of senior students an email about the exam passes on sale. One run a month for each school.
  */
+let passNudgesFinished = ''
+
 async function runPassNudgeTick(env: Bindings, at = new Date()) {
   const db = env.APP_DB
   await ensureNudgeTables(db)
@@ -17570,6 +17593,10 @@ async function runPassNudgeTick(env: Bindings, at = new Date()) {
   const school = await nextNudgeSchool(db, month).catch(() => null)
   if (!school) return { idle: true }
   const tenantId = String(school.tenant_id)
+  // Passes bought before "term plus one month" get it too, at the start of each school's run.
+  if (!school.cursor) {
+    await db.prepare(`UPDATE practice_passes SET expires_at = ? WHERE tenant_id = ? AND term_id = ? AND expires_at IS NULL AND bundle IN ('subject', 'all')`).bind(await termPassEnd(db, tenantId), tenantId, await practiceTermId(db, tenantId)).run().catch(() => null)
+  }
   const rows = ((await db.prepare(`SELECT u.id, u.name, s.payload FROM users u LEFT JOIN settings s ON s.studentId = u.email
     WHERE u.tenantId = ? AND lower(COALESCE(u.primary_role, u.role, '')) = 'student' AND lower(COALESCE(u.status, 'active')) = 'active' AND u.id > ? ORDER BY u.id LIMIT ${NUDGE_BATCH}`).bind(tenantId, school.cursor).all()).results || []) as Record<string, any>[]
   if (!rows.length) { await saveNudgeProgress(db, tenantId, month, school.cursor, true); return { tenantId, done: true } }
@@ -17591,12 +17618,18 @@ async function runPassNudgeTick(env: Bindings, at = new Date()) {
   const inbox: D1PreparedStatement[] = []
   const woken = new Set<string>()
   let emails = 0
+  // Zoho allows 30 sends a minute at most, and a school may be mailing receipts too.
+  const EMAILS_PER_TICK = 3
+  let reached = school.cursor
+  let stopped = false
   const add = (userId: string, note: { title: string, body: string, link: string }, studentId: string) => {
     inbox.push(db.prepare(`INSERT INTO comm_inbox (id, tenant_id, user_id, event_id, title, body, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`).bind(`cib_${crypto.randomUUID()}`, tenantId, userId, `pass-nudge:${month}:${studentId}`, note.title, note.body, note.link, stamp))
     woken.add(userId)
   }
   for (const row of rows) {
     const studentId = String(row.id)
+    if (emails >= EMAILS_PER_TICK) { stopped = true; break }
+    reached = studentId
     if (holders.has(studentId)) continue
     add(studentId, studentNudge(), studentId)
     let settings: Record<string, any> = {}
@@ -17618,7 +17651,7 @@ async function runPassNudgeTick(env: Bindings, at = new Date()) {
   }
   if (inbox.length) await db.batch(inbox)
   if (woken.size) await sendWebPushToAudience(db, env, { tenantId, userIds: [...woken] }).catch(() => null)
-  await saveNudgeProgress(db, tenantId, month, ids[ids.length - 1], rows.length < NUDGE_BATCH)
+  await saveNudgeProgress(db, tenantId, month, reached, !stopped && rows.length < NUDGE_BATCH)
   return { tenantId, students: rows.length, notices: inbox.length, emails }
 }
 
@@ -22491,6 +22524,14 @@ app.put('/api/people/:userId', authenticate, async (c) => {
 
     if (normalizedName) {
       await c.env.APP_DB.prepare(`UPDATE users SET name = ? WHERE id = ? AND tenantId = ?`).bind(normalizedName, existingUser.id, tenantId).run()
+      // The new name shows wherever a current copy is kept, whether or not the email changes too.
+      // Receipts already issued keep the name they were issued in.
+      if (normalizedName !== String(existingUser.name || '')) {
+        for (const table of ['session_enrollments', 'fees_ledger', 'fee_student_amounts', 'practice_profiles']) {
+          await c.env.APP_DB.prepare(`UPDATE ${table} SET student_name = ? WHERE student_id = ?${table === 'practice_profiles' ? '' : ' AND tenant_id = ?'}`)
+            .bind(...(table === 'practice_profiles' ? [normalizedName, existingUser.id] : [normalizedName, existingUser.id, tenantId])).run().catch(() => null)
+        }
+      }
     }
     const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, existingUser.email || existingUser.id)
     const settingsKey = String(resolvedIdentity.settingsKey || existingUser.email || existingUser.id || '').trim()
@@ -22884,6 +22925,12 @@ const familyFailure = (c: any, error: unknown, fallback: string) => {
   return c.json({ success: false, message: fallback }, 500)
 }
 
+app.get('/api/school/portal-link', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, [...EMAIL_EDIT_ROLES, 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const base = await schoolReceiptBase(c.env.APP_DB, String(c.var.user?.tenantId || ''), c.env.TENANT_BASE_DOMAIN)
+  return c.json({ success: true, url: `${base || 'https://ndovera.com'}/login` })
+})
+
 app.get('/api/school/contact-changes', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, [...EMAIL_EDIT_ROLES, 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const allowance = await changeAllowance(c.env.APP_DB, String(c.var.user?.tenantId || ''))
@@ -23021,6 +23068,29 @@ app.post('/api/school/parent-invites', authenticate, async (c) => {
     }
     return c.json({ success: true, url, message, emailedTo, days: INVITE_DAYS }, 201)
   } catch (error) { return familyFailure(c, error, 'Could not create the invitation.') }
+})
+
+const inviteMessage = (schoolName: string, children: Array<{ name: string, code: string }>, url: string) => `Dear Parent/Guardian,\n\n${schoolName} invites you to follow your child's school life on Ndovera:\n\n${children.map(child => `${child.name}${child.code ? ` (student code: ${child.code})` : ''}`).join('\n')}\n\nPlease open this private link and fill in your details. You can then sign in with your email or phone number.\n\n${url}\n\nThe link works once, for ${INVITE_DAYS} days. Please do not share it.\n\nThank you,\n${schoolName}`
+
+/** One invitation for each of these students. A page at a time, so a request stays within its limits. */
+app.post('/api/school/parent-invites/bulk', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '')
+  const db = c.env.APP_DB
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const ids = [...new Set((Array.isArray(body.studentIds) ? body.studentIds : []).map(String).filter(Boolean))].slice(0, 30) as string[]
+    if (!ids.length) throw new InviteError('Choose the students.')
+    const children = await inviteChildren(db, tenantId, ids)
+    const letter = await letterSchool(db, tenantId)
+    const base = String(c.env.FLUTTERWAVE_REDIRECT_BASE_URL || new URL(c.req.url).origin).replace(/\/$/, '')
+    const invites = []
+    for (const child of children) {
+      const url = `${base}/invite/${await createInvite(db, tenantId, [child.id], String(c.var.user?.id || ''))}`
+      invites.push({ studentId: child.id, name: child.name, className: child.className, code: child.code, url, message: inviteMessage(letter.schoolName, [child], url) })
+    }
+    return c.json({ success: true, invites, days: INVITE_DAYS }, 201)
+  } catch (error) { return familyFailure(c, error, 'Could not create the invitations.') }
 })
 
 async function inviteChildren(db: D1Database, tenantId: string, ids: string[]) {
@@ -40419,67 +40489,37 @@ app.post('/api/webhooks/communications/meta', async (c) => {
   return c.json({ success: true, applied })
 })
 
+/** Settles any Ndovera payment by its reference. Flutterwave's word (or Ami's, for a bank transfer) is asked for inside. */
+async function settleByTxRef(c: any, txRef: string): Promise<Record<string, any>> {
+  if (txRef.startsWith('tenant_')) {
+    if (!(await getTenantPaymentByTxRef(c.env.APP_DB, txRef))) return { ignored: true }
+    return { verified: (await verifyTenantPaymentForState(c, txRef, 'flutterwave-webhook')).verified }
+  }
+  if (txRef.startsWith('ai_')) {
+    const payment = await getAiPaymentRecord(c.env.APP_DB, txRef)
+    if (!payment) return { ignored: true }
+    return { verified: (await settleAiCreditPayment(c, txRef, payment)).verified }
+  }
+  if (txRef.startsWith('ccb_')) {
+    const data = (await verifyFlutterwavePayment(c, txRef))?.data || {}
+    return { paid: (await settlePackBuy(c.env.APP_DB, txRef, { status: String(data.status || ''), amount: Number(data.amount || 0), currency: String(data.currency || '') })).paid }
+  }
+  if (txRef.startsWith('prac_')) return { granted: (await settlePracticePayment(c, txRef)).granted }
+  if (txRef.startsWith('nbill_')) return { paid: (await settleInvoicePayment(c, txRef)).paid }
+  if (txRef.startsWith('comm_')) return { credited: (await verifyCommPurchase(c, c.env, txRef)).credited }
+  return { ignored: true }
+}
+
 app.post('/api/webhooks/payments/flutterwave', async (c) => {
   const expected = String(c.env.FLUTTERWAVE_WEBHOOK_HASH || '')
   if (!expected || c.req.header('verif-hash') !== expected) return c.text('forbidden', 401)
   const body = await c.req.json().catch(() => ({})) as Record<string, any>
   const txRef = String(body?.data?.tx_ref || body?.txRef || '')
   // Every checkout Ndovera opens is settled here; the payload is a hint — Flutterwave is asked directly.
-  if (txRef.startsWith('tenant_')) {
-    try {
-      if (!(await getTenantPaymentByTxRef(c.env.APP_DB, txRef))) return c.json({ success: true, ignored: true })
-      const result = await verifyTenantPaymentForState(c, txRef, 'flutterwave-webhook')
-      return c.json({ success: true, verified: result.verified })
-    } catch (error) {
-      console.error('Onboarding payment webhook failed', error)
-      return c.json({ success: false }, 500)
-    }
-  }
-  if (txRef.startsWith('ai_')) {
-    try {
-      const payment = await getAiPaymentRecord(c.env.APP_DB, txRef)
-      if (!payment) return c.json({ success: true, ignored: true })
-      const result = await settleAiCreditPayment(c, txRef, payment)
-      return c.json({ success: true, verified: result.verified })
-    } catch (error) {
-      console.error('AI credit webhook failed', error)
-      return c.json({ success: false }, 500)
-    }
-  }
-  if (txRef.startsWith('ccb_')) {
-    try {
-      const data = (await verifyFlutterwavePayment(c, txRef))?.data || {}
-      const result = await settlePackBuy(c.env.APP_DB, txRef, { status: String(data.status || ''), amount: Number(data.amount || 0), currency: String(data.currency || '') })
-      return c.json({ success: true, paid: result.paid })
-    } catch (error) {
-      console.error('Contact change payment webhook failed', error)
-      return c.json({ success: false }, 500)
-    }
-  }
-  if (txRef.startsWith('prac_')) {
-    try {
-      const result = await settlePracticePayment(c, txRef)
-      return c.json({ success: true, granted: result.granted })
-    } catch (error) {
-      console.error('Practice payment webhook failed', error)
-      return c.json({ success: false }, 500)
-    }
-  }
-  if (txRef.startsWith('nbill_')) {
-    try {
-      const result = await settleInvoicePayment(c, txRef)
-      return c.json({ success: true, paid: result.paid })
-    } catch (error) {
-      console.error('Invoice payment webhook failed', error)
-      return c.json({ success: false }, 500)
-    }
-  }
-  if (!txRef.startsWith('comm_')) return c.json({ success: true, ignored: true })
   try {
-    const result = await verifyCommPurchase(c, c.env, txRef)
-    return c.json({ success: true, credited: result.credited })
+    return c.json({ success: true, ...(await settleByTxRef(c, txRef)) })
   } catch (error) {
-    console.error('Flutterwave webhook failed', error)
+    console.error('Flutterwave webhook failed', txRef.split('_')[0], error)
     return c.json({ success: false }, 500)
   }
 })
@@ -40779,7 +40819,10 @@ export default {
     // Fortnightly fee reminders and the report to the Owner/HoS, for schools that switched it on (09:00–09:30 Lagos, one school a run).
     if (at.getUTCHours() === 8 && at.getUTCMinutes() % 5 === 0 && at.getUTCMinutes() <= 30) ctx.waitUntil(runFortnightlyFeeReminders(env).then(result => { if (result) console.log('Fortnightly fee reminders', result) }).catch(error => console.error('Fortnightly fee reminders failed', error)))
     // Pass reminders: a few students a minute, 10:00–11:59 Lagos, until each school's month is done.
-    if (at.getUTCHours() === 9 || at.getUTCHours() === 10) ctx.waitUntil(runPassNudgeTick(env, at).catch(error => console.error('Pass reminders failed', error)))
+    // Once every school's month is done, this worker stops reading until the month changes.
+    if ((at.getUTCHours() === 9 || at.getUTCHours() === 10) && passNudgesFinished !== nudgeMonth(at)) {
+      ctx.waitUntil(runPassNudgeTick(env, at).then(result => { if ((result as any).idle) passNudgesFinished = nudgeMonth(at) }).catch(error => console.error('Pass reminders failed', error)))
+    }
     // Calendars and timetables uploaded today are read by Ndovera AI just after midnight (00:05–00:55 Lagos).
     if (at.getUTCHours() === 23 && at.getUTCMinutes() >= 5 && at.getUTCMinutes() <= 55) ctx.waitUntil(runSchoolImports(env).catch(error => console.error('School imports failed', error)))
     // Parents with no child still at the school are turned off (02:45 Lagos).

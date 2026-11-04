@@ -9,6 +9,7 @@ const HEADING = 'text-lg font-black text-[#800000] dark:text-white';
 const FIELD = 'mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 dark:border-white/20 dark:bg-slate-800 dark:text-white';
 const PRIMARY = 'rounded-xl bg-[#1a5c38] px-4 py-2 text-sm font-black text-white disabled:opacity-60';
 const SECONDARY = 'rounded-xl border border-[#191970]/40 bg-white px-4 py-2 text-sm font-black text-[#191970] disabled:opacity-60 dark:border-white/30 dark:bg-slate-800 dark:text-white';
+const BATCH_PAUSE_MS = process.env.NODE_ENV === 'test' ? 0 : 30000;
 const TITLES = { fee_reminder: 'Fee reminder', receipt: 'Payment receipt' };
 const SAMPLE = { schoolName: 'Your School', parentName: 'Mrs Obi', studentName: 'Ada Obi', className: 'JSS 1 A', term: 'First Term, 2026/2027', date: '4 November 2026', senderTitle: 'The Accounts Office', totalPayable: '₦150,000', paid: '₦100,000', balance: '₦50,000', bankDetails: 'Bank: First Bank\nAccount name: Your School\nAccount number: 0123456789', receiptNo: 'RCT-2026-0001', amount: '₦100,000', paidToDate: '₦100,000', method: 'bank transfer', reference: 'TRF12345', paidOn: '4 November 2026', verifyLink: 'https://yourschool.ndovera.com/receipt-verification/RCT-2026-0001' };
 
@@ -37,6 +38,9 @@ export function ReceiptBulkEmail() {
         setProgress({ ...total, remaining: result.remaining });
         if (result.stop) { setMessage('Email is not going through right now. Nothing more was sent. Please try again later.'); break; }
         if (!result.remaining || !(result.sent + result.noEmail)) break;
+        // Email allows 30 sends a minute at most, and each round can send a dozen.
+        // eslint-disable-next-line no-await-in-loop
+        await new Promise(resolve => { setTimeout(resolve, BATCH_PAUSE_MS); });
       }
       setMessage(current => current || `Done: ${total.sent} sent${total.noEmail ? `, ${total.noEmail} with no parent email on file` : ''}${total.failed ? `, ${total.failed} could not be sent` : ''}.`);
     } catch (error) { setMessage(error.message); } finally {

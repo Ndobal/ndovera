@@ -263,6 +263,34 @@ test('an invoice link opens without signing in', () => {
   expect(text()).toContain('₦10,000');
 });
 
+test('a card that will not open: bank transfer, "I have paid", then the receipt on WhatsApp', () => {
+  const claim = { id: 'NB1', label: 'All Subjects', payNaira: 1500, bankName: 'Moniepoint', accountName: 'Ndovera Limited', accountNumber: '8064252542', status: 'opened' };
+  net.reply = classroom({ ...PASSES,
+    '/api/practice-arena/passes/checkout?payBy=bank': () => ({ body: { checkoutUrl: 'https://ndovera.com/bank-pay/NB1' } }),
+    '/api/public/bank-pay/NB1': () => ({ body: claim }),
+    '/api/public/bank-pay/NB1/paid': () => ({ body: { ...claim, status: 'waiting', whatsappUrl: 'https://wa.me/2348128882800?text=x' } }) });
+  start();
+  press('Practice passes');
+  const select = app().querySelector('select');
+  select.value = 'all'; select.onchange();
+  press('Pay by bank transfer instead');
+  expect(text()).toContain('8064252542');
+  expect(text()).toContain('Ndovera Limited');
+  app().querySelector('form').onsubmit({ preventDefault() {} });
+  expect(app().querySelector('a.button').getAttribute('href')).toContain('wa.me/2348128882800');
+});
+
+test('a parent can accept an invitation on an old phone', () => {
+  net.reply = () => null;
+  net.reply = call => (call.method === 'GET'
+    ? { body: { schoolName: 'Genesis', children: [{ name: 'Ada Obi', code: 'GEN-1' }] } }
+    : { body: { success: true, email: 'mum@x.test', phone: '2348030000000' } });
+  start(null, { hash: '#invite=tok1' });
+  expect(text()).toContain('GEN-1');
+  app().querySelector('form').onsubmit({ preventDefault() {} });
+  expect(text()).toContain('mum@x.test');
+});
+
 test('nothing is sent on the timer when nothing is waiting', () => {
   start();
   const flush = intervals.mock.calls.find(([, ms]) => ms === 60000)[0];

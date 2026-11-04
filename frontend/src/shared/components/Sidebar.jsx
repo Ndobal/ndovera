@@ -103,6 +103,11 @@ const PAYSLIP_ROLES = new Set([...staffAiEligibleRoles, 'driver']);
 
 export function getRoleSidebarItems(roleKey) {
   let items = buildRoleSidebarItems(roleKey);
+  if (['owner', 'hos'].includes(roleKey) && !items.some(item => String(item.path || '').endsWith('/own-website'))) {
+    const settingsIndex = items.findIndex(item => String(item.path || '').endsWith('/settings'));
+    const insertAt = settingsIndex >= 0 ? settingsIndex : items.length;
+    items = [...items.slice(0, insertAt), { name: 'Use Your Own Website', path: `/roles/${roleKey}/own-website` }, ...items.slice(insertAt)];
+  }
   if (['student', 'parent', 'teacher', 'owner', 'hos'].includes(roleKey) && !items.some(item => String(item.path || '').endsWith('/exam-requests'))) {
     const settingsIndex = items.findIndex(item => String(item.path || '').endsWith('/settings'));
     const insertAt = settingsIndex >= 0 ? settingsIndex : items.length;

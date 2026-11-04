@@ -92,44 +92,44 @@ export default function TuckShopAiServicesPanel({ title = 'Added Services' }) {
   }
 
   return (
-    <section className="rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4]/95 p-5 shadow-[0_20px_44px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/68">
+    <section className="ndv-keep-light rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4]/95 p-5 shadow-[0_20px_44px_rgba(128,0,0,0.08)]">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#800020] dark:text-[#bf00ff]">{title}</p>
-          <h3 className="mt-2 text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">AI Credits In The Tuck Shop</h3>
-          <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#800020]">{title}</p>
+          <h3 className="mt-2 text-2xl font-semibold text-[#800000]">AI Credits In The Tuck Shop</h3>
+          <p className="mt-2 text-sm leading-6 text-[#191970]">
             Buy personal Ndovera AI credits from the same tuck-shop area you use for school items. Credits keep the chat assistant active after the daily free requests are exhausted.
           </p>
         </div>
 
         <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[420px]">
           {(loading ? [{ label: 'Status', value: 'Loading...' }] : summary).map(card => (
-            <div key={card.label} className="rounded-3xl border border-[#800000]/10 bg-white/55 px-4 py-3 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">{card.label}</p>
-              <p className="mt-2 text-lg font-semibold text-[#800000] dark:text-white">{card.value}</p>
+            <div key={card.label} className="rounded-3xl border border-[#800000]/10 bg-white/55 px-4 py-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#800020]">{card.label}</p>
+              <p className="mt-2 text-lg font-semibold text-[#800000]">{card.value}</p>
             </div>
           ))}
         </div>
       </div>
 
       {error ? (
-        <div className="mt-4 rounded-2xl border border-red-300/60 bg-red-50 px-4 py-3 text-sm font-semibold text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-white">
+        <div className="mt-4 rounded-2xl border border-red-300/60 bg-red-50 px-4 py-3 text-sm font-semibold text-[#800000]">
           {error}
         </div>
       ) : null}
 
       <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]">
-        <div className="rounded-[1.75rem] border border-[#800000]/10 bg-white/60 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
-          <p className="text-sm font-semibold text-[#800000] dark:text-white">Service Notes</p>
-          <div className="mt-3 space-y-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
+        <div className="rounded-[1.75rem] border border-[#800000]/10 bg-white/60 p-4">
+          <p className="text-sm font-semibold text-[#800000]">Service Notes</p>
+          <div className="mt-3 space-y-2 text-sm leading-6 text-[#191970]">
             <p>Daily free requests are used first before any personal AI credit is charged.</p>
             <p>If your school is on school-sponsored billing, this panel still shows the live AI status even though personal checkout is disabled.</p>
             <p>After payment, your new balance is available in Ndovera AI automatically.</p>
           </div>
         </div>
 
-        <div className="rounded-[1.75rem] border border-[#800000]/10 bg-white/60 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">AI Credit Checkout</p>
+        <div className="rounded-[1.75rem] border border-[#800000]/10 bg-white/60 p-4">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#800020]">AI Credit Checkout</p>
           {canBuyIndividualCredits ? (
             <>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -141,41 +141,41 @@ export default function TuckShopAiServicesPanel({ title = 'Added Services' }) {
                       type="button"
                       onClick={() => setPurchaseQuantity(pack.quantity)}
                       className={`rounded-3xl border px-4 py-4 text-left transition ${active
-                        ? 'border-[#1a5c38] bg-[#1a5c38]/12 dark:border-[#00ffff] dark:bg-[#00ffff]/12'
-                        : 'border-[#800000]/10 bg-[#fff8ea] dark:border-[#bf00ff]/20 dark:bg-[#120014]/70'
+                        ? 'border-[#1a5c38] bg-[#1a5c38]/12'
+                        : 'border-[#800000]/10 bg-[#fff8ea]'
                       }`}
                     >
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Credit Pack</p>
-                      <p className="mt-2 text-2xl font-semibold text-[#800000] dark:text-white">{pack.quantity}</p>
-                      <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">{currencyFormatter.format(pack.total)}</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#800020]">Credit Pack</p>
+                      <p className="mt-2 text-2xl font-semibold text-[#800000]">{pack.quantity}</p>
+                      <p className="mt-1 text-sm text-[#191970]">{currencyFormatter.format(pack.total)}</p>
                     </button>
                   );
                 })}
               </div>
-              <label className="mt-4 block text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">
+              <label className="mt-4 block text-xs font-semibold uppercase tracking-[0.2em] text-[#800020]">
                 Custom Quantity
                 <input
                   type="number"
                   min="1"
                   value={purchaseQuantity}
                   onChange={event => setPurchaseQuantity(Math.max(1, Number(event.target.value) || 1))}
-                  className="mt-2 w-full rounded-2xl border border-[#800000]/15 bg-[#fff8ea] px-4 py-3 text-sm text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-4 focus:ring-[#1a5c38]/10 dark:border-[#bf00ff]/20 dark:bg-[#120014]/70 dark:text-white"
+                  className="mt-2 w-full rounded-2xl border border-[#800000]/15 bg-[#fff8ea] px-4 py-3 text-sm text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-4 focus:ring-[#1a5c38]/10"
                 />
               </label>
-              <p className="mt-3 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                Estimated total: <span className="font-semibold text-[#800000] dark:text-white">{currencyFormatter.format(estimatedTotal)}</span>
+              <p className="mt-3 text-sm leading-6 text-[#191970]">
+                Estimated total: <span className="font-semibold text-[#800000]">{currencyFormatter.format(estimatedTotal)}</span>
               </p>
               <button
                 type="button"
                 onClick={handleCheckout}
                 disabled={purchaseBusy}
-                className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
+                className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60"
               >
                 {purchaseBusy ? 'Opening Checkout...' : 'Buy AI Credits'}
               </button>
             </>
           ) : (
-            <div className="mt-3 rounded-2xl border border-[#800000]/10 bg-[#fff8ea] px-4 py-3 text-sm leading-6 text-[#191970] dark:border-[#bf00ff]/20 dark:bg-[#120014]/70 dark:text-[#39ff14]">
+            <div className="mt-3 rounded-2xl border border-[#800000]/10 bg-[#fff8ea] px-4 py-3 text-sm leading-6 text-[#191970]">
               {loading
                 ? 'Loading the current billing policy...'
                 : access?.policy?.billingModel === 'school'

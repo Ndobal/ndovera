@@ -50,6 +50,12 @@ test('a payment coming back, and an invoice link, carry on inside Lite',()=>{
  assert.equal(navigate('Android 4.4','',false,'/invoice/tok1'),'/compat/index.html#invoice=tok1');
  assert.equal(navigate('Android 4.4','?payment_ref=nbill_1',false,'/invoice/tok1'),'/compat/index.html?payment_ref=nbill_1#invoice=tok1');
 });
+test('links sent to parents and helpers open their own page in Lite',()=>{
+ assert.equal(navigate('Android 4.4','',false,'/invite/tok1'),'/compat/index.html#invite=tok1');
+ assert.equal(navigate('Android 4.4','?practice_tx=prac_1',false,'/pay/tok2'),'/compat/index.html?practice_tx=prac_1#pay=tok2');
+ assert.equal(navigate('Android 4.4','',false,'/bank-pay/NB1'),'/compat/index.html#bank-pay=NB1');
+ assert.equal(navigate('Mozilla/5.0 (Linux; Android 14)','',false,'/invite/tok1'),undefined);
+});
 test('Lite assets bypass the React shell, keep no private data, and may be stored for offline use',async()=>{
  let fetched;const response=await worker().fetch(new Request('https://ndovera.com/compat/index.html'),{ASSETS:{fetch:async r=>{fetched=r.url;return new Response('lite',{headers:{'Content-Type':'text/html'}})}}});
  assert.equal(fetched,'https://ndovera.com/compat/index.html');assert.equal(await response.text(),'lite');assert.equal(response.headers.get('Cache-Control'),'no-cache');assert.match(response.headers.get('X-Robots-Tag'),/noindex/);assert.match(response.headers.get('Content-Security-Policy'),/script-src 'self'/);

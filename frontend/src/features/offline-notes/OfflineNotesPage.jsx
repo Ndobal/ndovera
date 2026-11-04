@@ -109,7 +109,7 @@ export default function OfflineNotesPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-5 p-4 md:p-8">
-      <section className="rounded-[2rem] bg-gradient-to-br from-emerald-700 to-teal-700 p-6 text-white shadow-xl">
+      <section className="rounded-[2rem] bg-gradient-to-br from-emerald-800 to-teal-800 p-6 text-white shadow-xl">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-white">Student Dashboard</p>
         <h1 className="text-3xl font-black">Ndovera Notes</h1>
         <p className="mt-1 max-w-2xl text-white">Every material your teachers share, neatly formatted and saved on this device — read it anywhere, even with no internet.</p>

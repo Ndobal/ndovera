@@ -318,7 +318,7 @@ test('a notification is sent within the request that caused it; while idle the m
   // No tick: the in-app notices went out with the request.
   assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM comm_deliveries WHERE channel = 'inapp' AND status = 'delivered'`).get().n, 3)
   assert.equal(db.db.prepare(`SELECT next_due_at FROM comm_work WHERE id = 'main'`).get().next_due_at, null, 'and nothing is left due')
-  const parentInbox = db.db.prepare(`SELECT COUNT(*) AS n FROM comm_inbox WHERE user_id = 'p-01'`).get().n
+  const parentInbox = db.db.prepare(`SELECT COUNT(*) AS n FROM comm_inbox WHERE user_id = 'p-01' AND event_id NOT LIKE 'pass-nudge:%'`).get().n
   assert.equal(parentInbox, 1)
 })
 

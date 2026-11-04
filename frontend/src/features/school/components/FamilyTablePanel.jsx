@@ -153,6 +153,7 @@ export default function FamilyTablePanel() {
 
   return (
     <div className="space-y-4">
+      <p role="note" className="rounded-2xl border border-amber-500 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-950">Please check emails and phone numbers carefully. Your school can change them only 3 times a month for free. More changes cost extra.</p>
       <div className={CARD}>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

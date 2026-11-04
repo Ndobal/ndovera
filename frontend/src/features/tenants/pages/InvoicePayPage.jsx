@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { localMoney } from '../../../shared/pricing/localPrice';
+import BankTransferPay from '../../practice-arena/BankTransferPay';
 import { useLocation, useParams } from 'react-router-dom';
 import { confirmInvoicePayment, getPublicInvoice, startInvoiceCheckout } from '../services/tenantApi';
 
@@ -160,6 +161,7 @@ export default function InvoicePayPage() {
             <button type="button" onClick={pay} disabled={busy} className="rounded-full bg-[#1a5c38] px-8 py-3 text-lg font-black text-white shadow-lg transition-transform hover:-translate-y-0.5 disabled:opacity-60">
               {busy ? 'Opening Flutterwave…' : `Pay ${naira(invoice.amountCents)} now`}
             </button>
+            <BankTransferPay className="mt-3" start={() => startInvoiceCheckout(token, true).then(result => result.link)} />
             <p className="mt-2 text-xs text-slate-600">Card, bank transfer or USSD, through Flutterwave. Your receipt is emailed as soon as Flutterwave confirms the payment.</p>
             <p className="mt-3 rounded-2xl bg-[#fdecee] px-4 py-2 text-sm text-[#800000]">
               Please pay by <b>{day(invoice.dueAt)}</b>. After that, the Owner, Head of School and ICT accounts are locked until it is paid. Teachers, students, parents and your website are not affected.

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { localMoney } from '../../shared/pricing/localPrice';
+import BankTransferPay from '../practice-arena/BankTransferPay';
 import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 
@@ -21,7 +22,7 @@ async function request(path, { method = 'GET', body } = {}) {
 export const getAiWallet = () => request('/api/ai-pay/wallet');
 let priceRule = null;
 export const getCreditBundles = () => request('/api/ai/credit-bundles').then(data => { priceRule = data?.pricing || null; return data; });
-export const buyCreditBundle = (bundle, target = 'individual') => request('/api/ai/access/top-up/initiate', { method: 'POST', body: { bundle, target } });
+export const buyCreditBundle = (bundle, target = 'individual', byBank = false) => request(`/api/ai/access/top-up/initiate${byBank ? '?payBy=bank' : ''}`, { method: 'POST', body: { bundle, target } });
 
 const KIND_LABELS = { assignment: 'an assignment, quiz or test', exam: 'an examination paper', notes: 'student notes' };
 const formatDate = value => new Date(value).toLocaleDateString(undefined, { day: 'numeric', month: 'long' });
@@ -73,6 +74,7 @@ export function BundlePicker({ onClose, canFundSchool }) {
               <button type="button" disabled={Boolean(busy)} onClick={() => buy(bundle)} className="mt-3 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 py-2.5 font-black text-white disabled:opacity-60">
                 {busy === bundle.key ? 'Opening checkout…' : `Buy for ${localMoney(bundle.priceNaira, priceRule)}`}
               </button>
+                <BankTransferPay className="mt-2" start={() => buyCreditBundle(bundle.key, bundle.schoolOnly ? 'school' : target, true).then(result => result.paymentLink)} />
             </div>
           ))}
         </div>

@@ -138,19 +138,19 @@ function periodLabel(period) {
   return new Date(Date.UTC(year, month - 1, 1)).toLocaleString('default', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 }
 
-export default function TeacherPayslip({ auth }) {
+/** One month's payslip. With no month given, the newest released one. */
+function PayslipViewer({ auth, initialPeriod = '', onAvailable = null, nested = false }) {
   const [payslip, setPayslip] = useState(null);
   const [pendingMessage, setPendingMessage] = useState('');
   const [contactInfo, setContactInfo] = useState({ address: '', phone: '', email: '' });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  // Every month whose payslip has been released, newest first; the newest opens first.
-  const [available, setAvailable] = useState([]);
-  const [period, setPeriod] = useState('');
+  const [shownPeriod, setShownPeriod] = useState(initialPeriod);
+  const period = initialPeriod;
   const [offline, setOffline] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const sheetRef = useRef(null);
-  const month = periodLabel(period) || new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+  const month = periodLabel(shownPeriod) || new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
 
   useEffect(() => {
     let active = true;
@@ -167,8 +167,8 @@ export default function TeacherPayslip({ auth }) {
       })
       .then(([data, sectionsResult]) => {
         if (!active) return;
-        setAvailable(Array.isArray(data?.available) ? data.available : []);
-        if (data?.period && !period) setPeriod(data.period);
+        if (onAvailable) onAvailable(Array.isArray(data?.available) ? data.available : []);
+        if (data?.period) setShownPeriod(data.period);
         if (data && data.success && data.payslip === null) {
           setPendingMessage(data.message || 'Your payslip has not been released yet.');
           setPayslip(null);
@@ -181,30 +181,17 @@ export default function TeacherPayslip({ auth }) {
       .catch(err => { if (active) setError(err.message || 'Could not load your payslip.'); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [period]);
+  }, [period, onAvailable]);
 
-  const shell = 'p-4 sm:p-8 max-w-3xl mx-auto';
-  const picker = available.length > 0 && (
-    <label className="flex items-center gap-2 text-sm font-bold text-[#191970] print:hidden dark:text-white">
-      Month
-      <select className="rounded-xl border border-[#7cc4e8] bg-white px-3 py-2 text-sm text-[#191970]" value={period} onChange={event => setPeriod(event.target.value)}>
-        {!available.some(item => item.period === period) && period ? <option value={period}>{periodLabel(period)}</option> : null}
-        {available.map(item => <option key={item.period} value={item.period}>{periodLabel(item.period)}</option>)}
-      </select>
-    </label>
-  );
+  const shell = nested ? '' : 'p-4 sm:p-8 max-w-3xl mx-auto';
   if (loading) return <div className={shell}><div className="rounded-2xl bg-white p-6 shadow"><p className="text-[#191970]">Loading payslip…</p></div></div>;
   if (error) return <div className={shell}><div className="rounded-2xl bg-white p-6 shadow"><p className="text-rose-700 text-sm">{error}</p></div></div>;
   if (pendingMessage) return (
     <div className={`${shell} space-y-4`}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-extrabold text-[#191970] dark:text-white">My Payslip <span className="text-base font-medium text-slate-600 dark:text-slate-300">· {month}</span></h1>
-        {picker}
       </div>
-      <div className="rounded-2xl bg-white p-6 shadow"><p className="text-sm font-semibold text-[#191970]">{pendingMessage}</p>
-        {available.length > 0 && <p className="mt-2 text-sm text-slate-600">Released payslips are in the Month list above.</p>}
-      </div>
-      <SalaryAccountCard />
+      <div className="rounded-2xl bg-white p-6 shadow"><p className="text-sm font-semibold text-[#191970] dark:text-white">{pendingMessage}</p></div>
     </div>
   );
 
@@ -228,7 +215,6 @@ export default function TeacherPayslip({ auth }) {
     <div className={`${shell} space-y-4`}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-extrabold text-[#191970] dark:text-white">My Payslip <span className="text-base font-medium text-slate-600 dark:text-slate-300">· {month}</span></h1>
-        {picker}
         <div className="flex gap-2 print:hidden">
           <button
             type="button"
@@ -236,7 +222,7 @@ export default function TeacherPayslip({ auth }) {
             onClick={async () => {
               if (!sheetRef.current) return;
               setDownloading(true);
-              try { await downloadPayslipPdf(sheetRef.current, `payslip-${p.period || period || 'month'}.pdf`); } catch { window.print(); } finally { setDownloading(false); }
+              try { await downloadPayslipPdf(sheetRef.current, `payslip-${p.period || shownPeriod || 'month'}.pdf`); } catch { window.print(); } finally { setDownloading(false); }
             }}
             className="rounded-xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-white shadow transition hover:bg-[#154a2e] disabled:opacity-70"
           >
@@ -248,7 +234,7 @@ export default function TeacherPayslip({ auth }) {
       {offline ? <p role="status" className="rounded-xl border border-amber-300 bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-900 print:hidden">No connection — this is the copy saved on this device.</p> : null}
 
       {/* Payslip sheet */}
-      <div ref={sheetRef} id="payslip-print" className="overflow-hidden rounded-2xl border border-[#7cc4e8]/50 bg-white shadow-[0_10px_40px_rgba(20,33,91,0.12)]">
+      <div ref={sheetRef} id="payslip-print" className="ndv-keep-light overflow-hidden rounded-2xl border border-[#7cc4e8]/50 bg-white shadow-[0_10px_40px_rgba(20,33,91,0.12)]">
         {/* Header band */}
         <div className="relative flex items-center gap-4 bg-[#1b34a8] bg-gradient-to-r from-[#2447d8] to-[#1b34a8] px-5 py-4 text-white">
           {logoUrl ? (
@@ -329,7 +315,72 @@ export default function TeacherPayslip({ auth }) {
           </p>
         </div>
       </div>
-      <SalaryAccountCard />
+    </div>
+  );
+}
+
+const naira = value => `₦${(Number(value) || 0).toLocaleString()}`;
+const GROUP = 'flex w-full items-center justify-between gap-3 rounded-2xl border border-[#7cc4e8]/50 bg-white px-4 py-3 text-left font-extrabold text-[#191970] dark:border-slate-700 dark:bg-slate-800 dark:text-white';
+
+/** Earlier payslips: years, with months inside. Everything starts closed, and a month is only fetched when opened. */
+function PreviousPayslips({ auth, payslips }) {
+  const [openYears, setOpenYears] = useState([]);
+  const [openMonths, setOpenMonths] = useState([]);
+  const flip = (setter, key) => setter(current => (current.includes(key) ? current.filter(item => item !== key) : [...current, key]));
+  const years = [...new Set(payslips.map(item => item.period.slice(0, 4)))].sort().reverse();
+  if (!payslips.length) return <div className="rounded-2xl bg-white p-6 shadow dark:bg-slate-800"><p className="text-sm font-semibold text-[#191970] dark:text-white">You have no earlier payslips yet. They appear here once your school has released them.</p></div>;
+  return (
+    <ul className="space-y-3">
+      {years.map(year => {
+        const months = payslips.filter(item => item.period.startsWith(year)).sort((left, right) => right.period.localeCompare(left.period));
+        const yearOpen = openYears.includes(year);
+        return (
+          <li key={year}>
+            <button type="button" aria-expanded={yearOpen} onClick={() => flip(setOpenYears, year)} className={GROUP}>
+              <span>{year}</span>
+              <span className="text-sm font-semibold">{months.length} payslip{months.length === 1 ? '' : 's'} <span aria-hidden="true">{yearOpen ? '▾' : '▸'}</span></span>
+            </button>
+            {yearOpen ? (
+              <ul className="mt-2 space-y-2 pl-3">
+                {months.map(item => {
+                  const monthOpen = openMonths.includes(item.period);
+                  return (
+                    <li key={item.period}>
+                      <button type="button" aria-expanded={monthOpen} onClick={() => flip(setOpenMonths, item.period)} className={GROUP}>
+                        <span>{periodLabel(item.period)}</span>
+                        <span className="text-sm font-semibold">{naira(item.net)} <span aria-hidden="true">{monthOpen ? '▾' : '▸'}</span></span>
+                      </button>
+                      {monthOpen ? <div className="mt-3"><PayslipViewer auth={auth} initialPeriod={item.period} nested /></div> : null}
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : null}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+const TABS = [['latest', 'Latest payslip'], ['previous', 'Previous payslips'], ['account', 'Account details']];
+
+export default function TeacherPayslip({ auth }) {
+  const [tab, setTab] = useState('latest');
+  // Every month whose payslip has been released, newest first. The newest is the Latest tab.
+  const [available, setAvailable] = useState([]);
+  return (
+    <div>
+      <div role="tablist" aria-label="My payslips" className="mx-auto flex max-w-3xl flex-wrap gap-2 px-4 pt-4 print:hidden sm:px-8 sm:pt-8">
+        {TABS.map(([key, label]) => (
+          <button key={key} type="button" role="tab" aria-selected={tab === key} onClick={() => setTab(key)}
+            className={`rounded-xl px-4 py-2 text-sm font-bold ${tab === key ? 'bg-[#191970] text-white dark:bg-white dark:text-[#191970]' : 'border border-[#191970]/40 bg-white text-[#191970] dark:border-white/30 dark:bg-slate-800 dark:text-white'}`}>{label}</button>
+        ))}
+      </div>
+      {/* Kept in place while another tab shows, so coming back does not fetch it again. */}
+      <div hidden={tab !== 'latest'}><PayslipViewer auth={auth} onAvailable={setAvailable} /></div>
+      {tab === 'previous' ? <div className="mx-auto max-w-3xl p-4 sm:p-8"><PreviousPayslips auth={auth} payslips={available.slice(1)} /></div> : null}
+      {tab === 'account' ? <div className="mx-auto max-w-3xl p-4 sm:p-8"><SalaryAccountCard /></div> : null}
     </div>
   );
 }

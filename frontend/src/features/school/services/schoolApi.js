@@ -281,7 +281,10 @@ export const updateClass = (classId, data) => req(`/api/school/classes/${classId
 export const getUserProfile = (userId) => req(`/api/people/${userId}`);
 export const updateUserProfile = (userId, data) => req(`/api/people/${userId}`, { method: 'PUT', body: data });
 export const getContactChanges = () => req('/api/school/contact-changes');
-export const buyContactChanges = () => req('/api/school/contact-changes/buy', { method: 'POST', body: {} });
+export const buyContactChanges = (byBank = false) => req(`/api/school/contact-changes/buy${byBank ? '?payBy=bank' : ''}`, { method: 'POST', body: {} });
+export const getPortalLink = () => req('/api/school/portal-link');
+export const createBulkInvites = (studentIds) => req('/api/school/parent-invites/bulk', { method: 'POST', body: { studentIds } });
+export const markInboxRead = (ids) => req('/api/communications/inbox/read', { method: 'POST', body: { ids } });
 export const confirmContactChanges = (txRef) => req('/api/school/contact-changes/confirm', { method: 'POST', body: { txRef } });
 export const getStudentEmailDomain = () => req('/api/school/student-email-domain');
 export const saveStudentEmailDomain = (domain) => req('/api/school/student-email-domain', { method: 'PUT', body: { domain } });

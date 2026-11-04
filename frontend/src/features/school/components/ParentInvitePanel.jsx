@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createParentInvite, getStudentEmailDomain, saveStudentEmailDomain } from '../services/schoolApi';
+import { createBulkInvites, createParentInvite, getStudentEmailDomain, saveStudentEmailDomain } from '../services/schoolApi';
 
 // Two school-wide settings for families: the email ending for students, and invitation links for parents.
 
@@ -27,6 +27,60 @@ export function StudentEmailDomain() {
       <button type="submit" className={PRIMARY}>Save</button>
       {message ? <p role="status" className="text-sm font-bold">{message}</p> : null}
     </form>
+  );
+}
+
+const BULK_PAGE = 30;
+
+/** One invitation for each student in a class whose parent is not linked yet. */
+export function ClassInvites({ students = [] }) {
+  const classes = [...new Set(students.map(student => student.className).filter(Boolean))].sort();
+  const [className, setClassName] = useState('');
+  const [invites, setInvites] = useState([]);
+  const [message, setMessage] = useState('');
+  const [busy, setBusy] = useState(false);
+  const made = new Set(invites.map(item => item.studentId));
+  const waiting = students.filter(student => student.className === className && !(student.parents || []).length && !made.has(student.id));
+  const create = async () => {
+    setBusy(true); setMessage('');
+    try {
+      const result = await createBulkInvites(waiting.slice(0, BULK_PAGE).map(student => student.id));
+      setInvites(current => [...current, ...result.invites]);
+    } catch (err) { setMessage(err.message); } finally { setBusy(false); }
+  };
+  const download = () => {
+    const rows = ['student,class,student_code,link', ...invites.map(item => [item.name, item.className, item.code, item.url].map(value => `"${String(value || '').replace(/"/g, '""')}"`).join(','))];
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([rows.join('\n')], { type: 'text/csv' }));
+    link.download = 'parent-invitations.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+  return (
+    <section className={CARD} aria-label="Invite a whole class">
+      <h3 className="text-lg font-black text-[#800000] dark:text-white">Invite a whole class</h3>
+      <label className="block text-sm font-bold">Class
+        <select className={FIELD} value={className} onChange={event => setClassName(event.target.value)}>
+          <option value="">Choose a class…</option>{classes.map(name => <option key={name} value={name}>{name}</option>)}
+        </select>
+      </label>
+      {className ? <p className="text-sm">{waiting.length} student{waiting.length === 1 ? '' : 's'} in {className} with no parent linked.</p> : null}
+      <button type="button" className={PRIMARY} disabled={!waiting.length || busy} onClick={create}>{busy ? 'Creating…' : `Create ${Math.min(waiting.length, BULK_PAGE) || ''} invitations`}</button>
+      {message ? <p role="alert" className="text-sm font-bold">{message}</p> : null}
+      {invites.length ? (
+        <>
+          <button type="button" className={LINK} onClick={download}>Download all as a spreadsheet</button>
+          <ul className="max-h-72 space-y-1 overflow-y-auto">
+            {invites.map(item => (
+              <li key={item.url} className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-slate-100 px-3 py-2 text-sm dark:bg-white/10">
+                <span className="font-semibold">{item.name}</span>
+                <a href={`https://wa.me/?text=${encodeURIComponent(item.message)}`} target="_blank" rel="noreferrer noopener" className="rounded-lg bg-[#25D366] px-2 py-1 text-xs font-black text-[#06301a]">WhatsApp</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </section>
   );
 }
 

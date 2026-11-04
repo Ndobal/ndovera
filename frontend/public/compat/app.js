@@ -112,7 +112,7 @@
     var f=node('form',null,app),p=field(f,'New password (at least 8 characters)','reset-password','password'),c=field(f,'Confirm password','reset-confirm','password');var b=node('button','Reset password',f);b.type='submit';
     f.onsubmit=function(e){e.preventDefault();if(p.value.length<8||p.value!==c.value){message('Enter matching passwords of at least 8 characters.',true,f);return;}b.disabled=true;request('POST','/api/auth/reset-password',{token:token,newPassword:p.value},function(err){b.disabled=false;p.value=c.value='';if(err){message(err.message,true,f);return;}w.location.replace('/compat/index.html');});};
   }
-  function header(title){clear();node('h1',title,app);node('p','Signed in as '+(auth.user.name||auth.user.id||'your account'),app);button('My classes',home);if(isRole('student')||isRole('parent'))button('Practice passes',passesPage);if(isRole('parent'))button('School fees',feesPage);var waiting=outbox().length;if(waiting)button('Waiting to send ('+waiting+')',outboxPage);button('Sign out',logout);}
+  function header(title){clear();node('h1',title,app);node('p','Signed in as '+(auth.user.name||auth.user.id||'your account'),app);button('My classes',home);if(isRole('student')||isRole('parent'))button('Practice passes',passesPage);if(isRole('parent'))button('School fees',feesPage);if(isRole('parent')||isRole('student'))button('School bus',busPage);button('Give feedback',reviewPage);var waiting=outbox().length;if(waiting)button('Waiting to send ('+waiting+')',outboxPage);button('Sign out',logout);}
   function isRole(name){return String(role||'').toLowerCase()===name;}
   /* A saved copy when the network fails: what is on the phone is better than an error. */
   function load(path,suffix,done){request('GET',path,null,function(err,data){if(!err){keep(suffix,{at:new Date().getTime(),data:data});done(null,data,false);return;}var copy=err.offline?kept(suffix):null;if(copy){done(null,copy.data,new Date(copy.at));return;}done(err);});}
@@ -250,21 +250,57 @@
     select.onchange=function(){choice.show(select.value==='subject'?'subject':select.value==='jamb'||select.value==='super'?'jamb':'');};
     var pay=button('Continue to payment',function(){if(!select.value){message('Choose a pass first.',true,card);return;}pay.disabled=true;var body=choice.fill({bundle:select.value});if(studentId)body.studentId=studentId;
       request('POST','/api/practice-arena/passes/checkout',body,function(err,data){pay.disabled=false;if(err){message(err.message,true,card);return;}goPay(data.checkoutUrl,'Your pass opens as soon as the payment is confirmed.');});},card);
-    button('Pay by bank transfer instead',function(){if(!select.value){message('Choose a pass first.',true,card);return;}var body=choice.fill({bundle:select.value});if(studentId)body.studentId=studentId;bankPage(body,rule);},card);
+    button('Pay by bank transfer instead',function(){if(!select.value){message('Choose a pass first.',true,card);return;}var body=choice.fill({bundle:select.value});if(studentId)body.studentId=studentId;
+      request('POST','/api/practice-arena/passes/checkout?payBy=bank',body,function(err,data){if(err){message(err.message,true,card);return;}bankPage(String(data.checkoutUrl||'').split('/').pop());});},card);
     var code=node('form',null,card),cl=node('label','Have a code for a free pass?',code),input=node('input',null,code);input.id='lite-code-'+(studentId||'me');cl.htmlFor=input.id;input.autocomplete='off';
     var codePicks=node('div',null,code),codeChoice=choices(codePicks,subjects),use=node('button','Use code',code);use.type='submit';
     code.onsubmit=function(e){e.preventDefault();use.disabled=true;var body=codeChoice.fill({code:input.value});if(studentId)body.studentId=studentId;
       request('POST','/api/practice-arena/passes/redeem',body,function(err,data){use.disabled=false;if(err){if(err.details&&err.details.needs)codeChoice.show(err.details.needs);message(err.message,true,code);return;}message(data.message,false,code);input.value='';codeChoice.show('');});};
   }
   /* For phones that cannot open the card page: transfer, press "I have paid", send the receipt on WhatsApp. */
-  function bankPage(body){
-    header('Pay by bank transfer');var status=message('Loading…');
-    request('POST','/api/practice-arena/passes/bank-details',body,function(err,bank){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}
-      var card=node('article',null,app);card.className='card';node('h2','Transfer \u20A6'+Number(bank.amountNaira).toLocaleString()+' to:',card);node('p',bank.bankName,card);node('p',bank.accountName,card);var number=node('p',bank.accountNumber,card);number.className='timer';
+  function pageTitle(text){if(auth)header(text);else{clear();node('h1',text,app);}}
+  function bankPage(id){
+    pageTitle('Pay by bank transfer');var status=message('Loading…'),path='/api/public/bank-pay/'+encodeURIComponent(id);
+    function done(claim){pageTitle('Send your receipt');message('Now send your payment receipt to Ndovera on WhatsApp, so it can be checked. Claim number: '+claim.id+'. Your purchase opens as soon as Ndovera confirms the payment.');var a=node('a','Send receipt on WhatsApp',app);a.className='button';a.href=claim.whatsappUrl;a.rel='noreferrer';}
+    request('GET',path,null,function(err,claim){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}
+      if(claim.status==='approved'){message('Your payment is confirmed. Thank you.');return;}if(claim.status==='waiting'){done(claim);return;}
+      var card=node('article',null,app);card.className='card';node('p',claim.label,card);node('h2','Transfer exactly \u20A6'+Number(claim.payNaira).toLocaleString()+' to:',card);node('p',claim.bankName,card);node('p',claim.accountName,card);var number=node('p',claim.accountNumber,card);number.className='timer';
       var form=node('form',null,card),reference=field(form,'Your transfer reference (optional)','bank-ref');reference.required=false;var paid=node('button','I have paid',form);paid.type='submit';
-      form.onsubmit=function(e){e.preventDefault();paid.disabled=true;var claim={reference:reference.value};for(var k in body)if(Object.prototype.hasOwnProperty.call(body,k))claim[k]=body[k];
-        request('POST','/api/practice-arena/passes/bank-claim',claim,function(claimErr,done){paid.disabled=false;if(claimErr){message(claimErr.message,true,form);return;}
-          header('Send your receipt');message('Now send your payment receipt to Ndovera on WhatsApp, so it can be checked. Claim number: '+done.claimNo+'. Your pass opens as soon as Ndovera confirms the payment.');var a=node('a','Send receipt on WhatsApp',app);a.className='button';a.href=done.whatsappUrl;a.rel='noreferrer';});};});
+      form.onsubmit=function(e){e.preventDefault();paid.disabled=true;request('POST',path+'/paid',{reference:reference.value},function(paidErr,saved){paid.disabled=false;if(paidErr){message(paidErr.message,true,form);return;}done(saved);});};});
+  }
+  /* A parent's invitation: their children, and the form that sets up their account. */
+  function invitePage(token){
+    clear();node('h1','Your invitation',app);var status=message('Loading…'),path='/api/public/parent-invites/'+encodeURIComponent(token);
+    request('GET',path,null,function(err,invite){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}
+      node('h2',invite.schoolName,app);var children=invite.children||[];for(var i=0;i<children.length;i++)node('p',children[i].name+(children[i].code?' \u00B7 Student code: '+children[i].code:''),app);
+      var form=node('form',null,app);form.className='card';var inputs={name:field(form,'Full name','inv-name'),email:field(form,'Email address','inv-email','email'),phone:field(form,'Phone number','inv-phone','tel'),dateOfBirth:field(form,'Date of birth (year-month-day)','inv-dob'),occupation:field(form,'Occupation','inv-job'),password:field(form,'Choose a password (at least 8 characters)','inv-pass','password')};
+      var send=node('button','Submit',form);send.type='submit';
+      form.onsubmit=function(e){e.preventDefault();send.disabled=true;var body={};for(var k in inputs)if(Object.prototype.hasOwnProperty.call(inputs,k))body[k]=inputs[k].value;
+        request('POST',path,body,function(sendErr,saved){send.disabled=false;if(sendErr){message(sendErr.message,true,form);return;}clear();node('h1','You are all set',app);message('Sign in with '+saved.email+' or '+saved.phone+', and your password.');button('Sign in',login);});};});
+  }
+  /* The page someone else pays on. */
+  function payLinkPage(token){
+    clear();node('h1','Help with practice',app);var status=message('Loading…'),path='/api/public/pass-pay/'+encodeURIComponent(token);
+    request('GET',path,null,function(err,link){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}
+      if(link.paid){message(link.childName+"'s pass is paid for. Thank you!");return;}if(link.expired){message('This payment link has expired.',true);return;}
+      node('p',link.childName+' at '+link.schoolName+' is asking you to pay for a '+link.label+'.',app);node('h2',money(link.amountNaira,link.pricing),app);
+      var form=node('form',null,app);form.className='card';var email=field(form,'Your email, for the receipt','pay-email','email');var go=node('button','Pay now',form);go.type='submit';
+      form.onsubmit=function(e){e.preventDefault();go.disabled=true;request('POST',path+'/checkout',{email:email.value},function(payErr,data){go.disabled=false;if(payErr){message(payErr.message,true,form);return;}goPay(data.checkoutUrl,'The pass goes straight to the student.');});};});
+  }
+  /* A parent's home location for the bus driver, and the bus details. */
+  function busPage(){
+    header('School bus');var status=message('Loading…');
+    load('/api/transport/mine','bus',function(err,data,at){status.parentNode.removeChild(status);if(err){message(err.message,true);return;}savedNote(at);var children=data.children||[];if(!children.length)message('No school bus is set up for you yet.');
+      for(var i=0;i<children.length;i++)(function(child){var card=node('article',null,app);card.className='card';node('h2',child.name,card);var routes=child.routes||[];for(var r=0;r<routes.length;r++)node('p',routes[r].routeName+(routes[r].driverName?' \u00B7 Driver: '+routes[r].driverName:'')+(routes[r].driverPhone?' \u00B7 '+routes[r].driverPhone:''),card);
+        if(!data.canSetHome)return;var home=child.home||{},pin=home.lat!==null&&home.lat!==undefined?{lat:home.lat,lng:home.lng}:null,form=node('form',null,card),address=field(form,'Home address','bus-addr-'+child.studentId),landmark=field(form,'Landmark or gate','bus-land-'+child.studentId);address.required=false;landmark.required=false;address.value=home.address||'';landmark.value=home.landmark||'';
+        if(w.navigator.geolocation)button('I am at home: use my location',function(){w.navigator.geolocation.getCurrentPosition(function(p){pin={lat:p.coords.latitude,lng:p.coords.longitude};message('Location found. Press Save.',false,form);},function(){message('Could not get your location. Type the address instead.',true,form);},{enableHighAccuracy:true,timeout:20000});},form);
+        var save=node('button','Save',form);save.type='submit';form.onsubmit=function(e){e.preventDefault();request('PUT','/api/transport/mine/'+encodeURIComponent(child.studentId)+'/home',{address:address.value,landmark:landmark.value,lat:pin?pin.lat:null,lng:pin?pin.lng:null},function(saveErr){message(saveErr?saveErr.message:'Saved. The driver sees this on the trips your child rides.',!!saveErr,form);});};}(children[i]));});
+  }
+  /* Feedback about Ndovera. */
+  function reviewPage(){
+    header('Give feedback');var form=node('form',null,app);form.className='card';var label=node('label','Rating',form),rating=node('select',null,form);rating.id='lite-rating';label.htmlFor=rating.id;for(var n=5;n>=1;n--){var o=node('option',n+' out of 5',rating);o.value=n;}
+    var bl=node('label','Your review',form),body=node('textarea',null,form);body.id='lite-review';bl.htmlFor=body.id;body.rows=4;body.maxLength=400;var row=node('label',null,form);row.className='option';var ok=node('input',null,row);ok.type='checkbox';row.appendChild(d.createTextNode('Ndovera may show this review on its home page'));var send=node('button','Send my review',form);send.type='submit';
+    form.onsubmit=function(e){e.preventDefault();send.disabled=true;request('POST','/api/reviews/mine',{rating:Number(rating.value),body:body.value,consent:ok.checked},function(err,data){send.disabled=false;message(err?err.message:data.message,!!err,form);});};
   }
   /* The choice a pass may need: one subject, or JAMB's three. */
   function choices(parent,subjects){
@@ -299,7 +335,7 @@
     function show(invoice){status.parentNode.removeChild(status);var card=node('article',null,app);card.className='card';node('h2',invoice.schoolName||'School',card);node('p','Invoice '+(invoice.invoiceNo||''),card);node('p',(invoice.term||'')+' '+(invoice.session||''),card);node('p','Amount: '+money(invoice.amountCents/100,invoice.pricing),card);
       if(invoice.status==='paid'){message('This invoice is paid. Thank you.',false,card);return;}
       var pay=button('Continue to payment',function(){pay.disabled=true;request('POST',path+'/checkout',{},function(err,data){pay.disabled=false;if(err){message(err.message,true,card);return;}goPay(data.link,'Ndovera marks the invoice paid as soon as the payment is confirmed.');});},card);
-      node('p','Or transfer to Moniepoint, Ndovera Limited, 8064252542, and send your receipt to Ndovera:',card);var wa=node('a','Send receipt on WhatsApp',card);wa.href='https://wa.me/2348128882800?text='+encodeURIComponent('Hello Ndovera. I have paid invoice '+(invoice.invoiceNo||'')+' for '+(invoice.schoolName||'')+'. My payment receipt is attached.');wa.rel='noreferrer';}
+      button('Pay by bank transfer instead',function(){request('POST',path+'/checkout?payBy=bank',{},function(err,data){if(err){message(err.message,true,card);return;}bankPage(String(data.link||'').split('/').pop());});},card);}
     function read(){request('GET',path,null,function(err,data){if(err){status.parentNode.removeChild(status);message(err.message,true);return;}show(data.invoice);});}
     if(paymentRef)request('POST',path+'/confirm',{txRef:paymentRef},function(err,data){if(!err&&data.invoice&&data.paid){show(data.invoice);return;}read();});else read();
   }
@@ -312,8 +348,11 @@
   if(w.addEventListener)w.addEventListener('online',flush);
   /* Only sends when something is waiting, so an idle phone makes no requests. */
   w.setInterval(flush,60000);
-  var invoice=/^#invoice=(.+)$/.exec(w.location.hash);
+  var invoice=/^#invoice=(.+)$/.exec(w.location.hash),shared=/^#(invite|pay|bank-pay)=(.+)$/.exec(w.location.hash);
   if(invoice)invoicePage(invoice[1],param('payment_ref'));
+  else if(shared&&shared[1]==='invite')invitePage(shared[2]);
+  else if(shared&&shared[1]==='pay')payLinkPage(shared[2]);
+  else if(shared)bankPage(shared[2]);
   else if(w.location.hash==='#reset')reset();
   else if(auth){home();flush();if(param('practice_tx'))verifyPass(param('practice_tx'));}
   else login();

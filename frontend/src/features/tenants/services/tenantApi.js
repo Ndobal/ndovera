@@ -53,8 +53,8 @@ export function registerSchool(payload) {
   });
 }
 
-export function registerSchoolAndPay(payload) {
-  return requestJson('/api/tenants/register-and-pay', {
+export function registerSchoolAndPay(payload, byBank = false) {
+  return requestJson(`/api/tenants/register-and-pay${byBank ? '?payBy=bank' : ''}`, {
     method: 'POST',
     body: payload,
     auth: false,
@@ -239,8 +239,8 @@ export function getPublicInvoice(token) {
   return requestJson(`/api/public/invoices/${encodeURIComponent(token)}`, { auth: false });
 }
 
-export function startInvoiceCheckout(token) {
-  return requestJson(`/api/public/invoices/${encodeURIComponent(token)}/checkout`, { method: 'POST', body: {}, auth: false });
+export function startInvoiceCheckout(token, byBank = false) {
+  return requestJson(`/api/public/invoices/${encodeURIComponent(token)}/checkout${byBank ? '?payBy=bank' : ''}`, { method: 'POST', body: {}, auth: false });
 }
 
 export function confirmInvoicePayment(token, txRef) {

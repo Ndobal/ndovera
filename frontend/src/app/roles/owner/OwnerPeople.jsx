@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { localMoney } from '../../../shared/pricing/localPrice';
+import BankTransferPay from '../../../features/practice-arena/BankTransferPay';
 import { Link } from 'react-router-dom';
 import {
   getPeople, addPerson, deactivatePerson, setPersonRoles, changePersonEmail, getSchoolEmailFor, getContactChanges, buyContactChanges, confirmContactChanges, getPastStudents, restorePerson,
@@ -61,6 +62,7 @@ function ContactChangesNote() {
     <div className="mt-2 rounded-xl border border-amber-500 bg-amber-50 p-2 text-xs font-semibold text-amber-950">
       <p>Changes left this month: {left} ({status.freeLeft} free{status.extra ? `, ${status.extra} bought` : ''}).</p>
       {!left ? <button type="button" onClick={buy} className="mt-1 rounded-lg bg-[#191970] px-3 py-1.5 font-bold text-white">Buy {status.packSize} more for {localMoney(status.packNaira, status.pricing)}</button> : null}
+      {!left ? <BankTransferPay className="mt-1" start={() => buyContactChanges(true).then(result => result.checkoutUrl)} /> : null}
       {message ? <p role="alert">{message}</p> : null}
     </div>
   );
@@ -723,7 +725,7 @@ function BulkImportModal({ onClose, onDone }) {
           <div className="rounded-2xl bg-[#ade1f4] dark:bg-slate-800 p-4 flex items-center justify-between gap-3">
             <div>
               <p className="text-xs font-bold text-[#800000] dark:text-slate-100 uppercase">Step 1: Download Template</p>
-              <p className="text-xs text-[#191970] dark:text-slate-400 mt-0.5">Fill in name, email, role, optional password &amp; classId.</p>
+              <p className="text-xs text-[#191970] dark:text-slate-400 mt-0.5">Fill in name, email, role, optional password &amp; classId. {CONTACT_WARNING}</p>
             </div>
             <button onClick={downloadCsvTemplate} className="shrink-0 bg-[#191970] hover:bg-[#111450] text-[#b5e3f4] font-bold text-xs px-4 py-2 rounded-xl transition-colors">
               📥 Template
@@ -1368,7 +1370,7 @@ export default function OwnerPeople() {
       {profileUserId && (
         <UserProfileModal
           userId={profileUserId}
-          onClose={() => setProfileUserId(null)}
+          onClose={() => { setProfileUserId(null); load(page, searchTerm, filter); }}
           isAdmin={isAdmin}
           currentUserId={currentUserId}
         />

@@ -41,7 +41,7 @@ export const getWallets = () => request('/api/communications/wallets');
 export const getContacts = () => request('/api/communications/contacts');
 export const setContactConsent = (guardianId, body) => request(`/api/communications/contacts/${id(guardianId)}/consent`, { method: 'POST', body });
 export const quoteUnits = body => request('/api/communications/purchases/quote', { method: 'POST', body });
-export const startPurchase = purchaseId => request('/api/communications/purchases', { method: 'POST', body: { purchaseId } });
+export const startPurchase = (purchaseId, byBank = false) => request(`/api/communications/purchases${byBank ? '?payBy=bank' : ''}`, { method: 'POST', body: { purchaseId } });
 export const checkPurchase = purchaseId => request(`/api/communications/purchases/${id(purchaseId)}`);
 export const listPurchases = () => request('/api/communications/purchases');
 

@@ -86,6 +86,8 @@ import MyReviewPage from './features/showcase/MyReviewPage';
 import ExamRequestPage from './features/showcase/ExamRequestPage';
 import ParentInvitePage from './features/auth/pages/ParentInvitePage';
 import PassPayPage from './features/practice-arena/PassPayPage';
+import BankPayPage from './features/practice-arena/BankPayPage';
+import PortalLinkPage from './features/school/components/PortalLinkPage';
 import AmiExamRequests from './app/roles/ami/AmiExamRequests';
 import LoginPage from './features/auth/pages/LoginPage';
 import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
@@ -304,6 +306,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/invoice/:token" element={<InvoicePayPage />} />
         <Route path="/invite/:token" element={<ParentInvitePage />} />
         <Route path="/pay/:token" element={<PassPayPage />} />
+        <Route path="/bank-pay/:id" element={<BankPayPage />} />
+        <Route path="/roles/:role/own-website" element={<RequireAuth auth={auth}><RouteTransition><PortalLinkPage /></RouteTransition></RequireAuth>} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
         <Route path="/roles/chiefsecurityofficer/*" element={<RoleGuard auth={auth} expectedRole="chiefsecurityofficer"><RouteTransition><PremisesSecurityDashboard role="chiefsecurityofficer" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/securityofficer/*" element={<RoleGuard auth={auth} expectedRole="securityofficer"><RouteTransition><PremisesSecurityDashboard role="securityofficer" /></RouteTransition></RoleGuard>} />
