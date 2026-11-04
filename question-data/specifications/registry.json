@@ -761,6 +761,19 @@
       "curriculumReference": "https://www.nerdc.gov.ng/content_manager/primary/pri4-6_english_studies.pdf",
       "retrievedOn": "2026-11-04",
       "note": "NECO confirms Paper II Part B. Older Primary 6 English Studies objectives support vocabulary practice and age suitability only. Official Verbal Aptitude task families, option count and current NERDC adoption remain unverified."
+    },
+    {
+      "id": "ncee-qva-primary-six-reference-2026",
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "kind": "official_component_with_historical_curriculum_references",
+      "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
+      "curriculumReferences": [
+        "https://nerdc.gov.ng/content_manager/primary/pri4-6_maths.pdf",
+        "https://www.nerdc.gov.ng/content_manager/primary/pri4-6_prevoc.pdf"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "NECO confirms Paper II Part A. Older Primary Six NERDC references guide provisional practice. The official blueprint, task families, option count and current curriculum adoption are unverified."
     }
   ],
   "banks": [
@@ -1290,7 +1303,7 @@
       "subject": "Quantitative and Vocational Aptitude",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+      "scopeStatus": "official_2026_component_with_provisional_primary_six_reference"
     },
     {
       "exam": "NCEE",
@@ -6778,6 +6791,44 @@
       "sourceSections": [
         "NECO 2026 Paper II Part B",
         "Historical NERDC Primary 6 English Studies: synonyms and antonyms"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-qva-p6-1-v1",
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Fraction relationships",
+      "learningObjective": "Compare quantities expressed as fractions or decimals and reason about their relative sizes.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part A",
+        "Historical Primary Six Mathematics, p. 48"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-qva-p6-2-v1",
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Produce packaging and farm records",
+      "learningObjective": "Select packaging for a purpose and interpret simple farm records.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part A",
+        "Historical Primary Six Pre-Vocational Studies: packaging, marketing and farm records"
       ],
       "level": "Primary 6",
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",

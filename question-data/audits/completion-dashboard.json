@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2914,
-    "validDrafts": 1235,
+    "raw": 2926,
+    "validDrafts": 1247,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -414,6 +414,12 @@
     {
       "path": "original-multisubject-batch-047.json",
       "sha256": "ca6573a371c18273264f8f246215e560049bd19e9b2cdd32052cdca56361b4e3",
+      "declared": 12,
+      "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-048.json",
+      "sha256": "3c8150046d4a04d5520155a0e82aff647778153047750b165c7db65384f76de6",
       "declared": 12,
       "actual": 12
     },
@@ -1877,17 +1883,21 @@
       "subject": "Quantitative and Vocational Aptitude",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_2026_paper_components_topic_specification_pending",
-      "raw": 0,
-      "validDrafts": 0,
+      "scopeStatus": "official_2026_component_with_provisional_primary_six_reference",
+      "raw": 12,
+      "validDrafts": 12,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 12
+      },
+      "difficulty": {
+        "standard": 12
+      },
+      "remaining": 988,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "NCEE",
@@ -4050,10 +4060,10 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -4064,7 +4074,7 @@
     "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 163,
+    "explicitArithmeticClaims": 169,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -26054,6 +26064,78 @@
       "errors": []
     },
     {
+      "id": "ndv-048-001",
+      "file": "original-multisubject-batch-048.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-002",
+      "file": "original-multisubject-batch-048.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-003",
+      "file": "original-multisubject-batch-048.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-004",
+      "file": "original-multisubject-batch-048.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-005",
+      "file": "original-multisubject-batch-048.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-006",
+      "file": "original-multisubject-batch-048.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-007",
+      "file": "original-multisubject-batch-048.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-008",
+      "file": "original-multisubject-batch-048.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-009",
+      "file": "original-multisubject-batch-048.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-010",
+      "file": "original-multisubject-batch-048.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-011",
+      "file": "original-multisubject-batch-048.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-048-012",
+      "file": "original-multisubject-batch-048.json",
+      "index": 11,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -46410,6 +46492,68 @@
       "difficulty": {
         "easy": 1,
         "standard": 5
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-qva-p6-1-v1",
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Fraction relationships",
+      "learningObjective": "Compare quantities expressed as fractions or decimals and reason about their relative sizes.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 6
+      },
+      "sourceSections": [
+        "NECO 2026 Paper II Part A",
+        "Historical Primary Six Mathematics, p. 48"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-qva-p6-2-v1",
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Produce packaging and farm records",
+      "learningObjective": "Select packaging for a purpose and interpret simple farm records.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 6
+      },
+      "sourceSections": [
+        "NECO 2026 Paper II Part A",
+        "Historical Primary Six Pre-Vocational Studies: packaging, marketing and farm records"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
       },
       "tiers": {
         "not_specified": 6

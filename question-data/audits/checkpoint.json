@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_047_automated_validation_passed",
+  "phase": "batch_048_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-048.json",
+  "nextBatch": "original-multisubject-batch-049.json",
   "nextPriorities": [
-    "Investigate the NCEE Quantitative and Vocational Aptitude component, including which task formats have official evidence. Verbal Aptitude currently covers provisional vocabulary practice only.",
+    "Investigate an official current NECO SSCE subject syllabus to open an unrepresented bank. NCEE now has drafts for all six named subject/component rows, with full objectives and legacy label mappings still open.",
     "Continue WAEC prescribed Literature beyond Shakespeare: verify editions, permissions and primary-text evidence for poetry/prose/drama theory. Antony and Cleopatra now has 25 WAEC context drafts and 25 provisional JAMB practice drafts; each act represented is not whole-play coverage. Verify current official JAMB set-text adoption independently.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-047.json",
-  "lastRemoteVerifiedCommit": "cedb1ff4ccad9bc39a2041c86e8418e9af588958",
+  "lastValidatedBatch": "original-multisubject-batch-048.json",
+  "lastRemoteVerifiedCommit": "41d3b8c901b9eaa4bec419472b9036a952f530da",
   "verifiedTotals": {
-    "raw": 2914,
-    "validDrafts": 1235,
+    "raw": 2926,
+    "validDrafts": 1247,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-047.json",
+  "lastPopulatedBatch": "original-multisubject-batch-048.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 2914
+  "inventoryRaw": 2926
 }
