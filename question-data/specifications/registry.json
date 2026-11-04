@@ -730,6 +730,17 @@
         2027,
         2028
       ]
+    },
+    {
+      "id": "ncee-mathematics-primary-six-reference-2026",
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "kind": "official_component_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
+      "curriculumReference": "https://nerdc.gov.ng/content_manager/primary/pri4-6_maths.pdf",
+      "curriculumContents": "https://nerdc.gov.ng/content_manager/primary/pri4-6_maths_intro.pdf",
+      "retrievedOn": "2026-11-04",
+      "note": "NECO confirms Mathematics in Paper I Part A and final-year primary eligibility. Older NERDC Primary Six material guides age and topic selection only. Official NCEE topic specification, option count and current NERDC adoption remain unverified. Four-option format is an author practice choice."
     }
   ],
   "banks": [
@@ -1231,7 +1242,7 @@
       "subject": "Mathematics",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+      "scopeStatus": "official_2026_component_with_provisional_primary_six_reference"
     },
     {
       "exam": "NCEE",
@@ -6580,6 +6591,82 @@
         2027,
         2028
       ]
+    },
+    {
+      "id": "ncee-mathematics-p6-1-v1",
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Fractions",
+      "subtopic": "Ordering and equivalent forms",
+      "learningObjective": "Compare fractions and convert between decimals and equivalent fractions.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part A",
+        "Historical NERDC Primary Six reference, pp. 48"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-mathematics-p6-2-v1",
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Ratios and proportions",
+      "subtopic": "Sharing, mixtures and unit rates",
+      "learningObjective": "Use ratios to compare quantities and solve proportional problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part A",
+        "Historical NERDC Primary Six reference, pp. 49"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-mathematics-p6-3-v1",
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Percentages",
+      "subtopic": "Part of a whole and change",
+      "learningObjective": "Interpret percentages and calculate simple percentage changes.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part A",
+        "Historical NERDC Primary Six reference, pp. 52–53"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-mathematics-p6-4-v1",
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Basic operations",
+      "subtopic": "Order of operations and remainders",
+      "learningObjective": "Select and apply operations to whole-number calculations and practical problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part A",
+        "Historical NERDC Primary Six reference, pp. 54–56"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [

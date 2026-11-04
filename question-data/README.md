@@ -216,3 +216,9 @@ and resultant forces. The 2026–2028 source mapping combines the official
 syllabus text with the version 2 update, which records a weblink change.
 Each item includes a worked answer, a practice marking guide and a Bloom
 level. Core and other syllabus topics remain open.
+
+Batch 045 opens NCEE Mathematics with twenty Primary 6 practice items on
+fractions, ratios, percentages and whole-number operations. NECO confirms
+the component in Paper I Part A. The older NERDC Primary Six reference guides
+provisional topic selection. Full official topic scope, current curriculum
+adoption and official option count remain unverified.

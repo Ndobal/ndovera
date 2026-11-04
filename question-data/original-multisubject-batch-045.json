@@ -1,0 +1,772 @@
+{
+  "schemaVersion": 2,
+  "collection": "NCEE Mathematics Primary 6 original practice",
+  "questionCount": 20,
+  "note": "Four-option original practice. Topic mapping uses a historical Primary Six reference and remains provisional. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Fractions",
+      "subtopic": "Ordering and equivalent forms",
+      "learningObjective": "Compare fractions and convert between decimals and equivalent fractions.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-001",
+      "objectiveId": "ncee-mathematics-p6-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Which fraction in simplest form is equal to 0.36?",
+      "answer": "9/25",
+      "options": [
+        "9/25",
+        "3/25",
+        "9/20",
+        "36/10"
+      ],
+      "correctOption": "A",
+      "explanation": "0.36 = 36/100 = 9/25.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "36/100",
+          "expected": "9/25",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Fractions",
+      "subtopic": "Ordering and equivalent forms",
+      "learningObjective": "Compare fractions and convert between decimals and equivalent fractions.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-002",
+      "objectiveId": "ncee-mathematics-p6-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Which list shows the fractions in order from smallest to largest?",
+      "answer": "7/12, 5/8, 2/3",
+      "options": [
+        "5/8, 7/12, 2/3",
+        "2/3, 5/8, 7/12",
+        "7/12, 2/3, 5/8",
+        "7/12, 5/8, 2/3"
+      ],
+      "correctOption": "D",
+      "explanation": "With denominator 24 the fractions are 14/24, 15/24 and 16/24.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Fractions",
+      "subtopic": "Ordering and equivalent forms",
+      "learningObjective": "Compare fractions and convert between decimals and equivalent fractions.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-003",
+      "objectiveId": "ncee-mathematics-p6-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Musa has walked 0.4 of a marked trail. Which fraction of the trail remains?",
+      "answer": "3/5",
+      "options": [
+        "2/5",
+        "1/4",
+        "3/5",
+        "4/5"
+      ],
+      "correctOption": "C",
+      "explanation": "He has walked 2/5, so 3/5 remains.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "1-4/10",
+          "expected": "3/5",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Fractions",
+      "subtopic": "Ordering and equivalent forms",
+      "learningObjective": "Compare fractions and convert between decimals and equivalent fractions.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-004",
+      "objectiveId": "ncee-mathematics-p6-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A pupil says 4/9 is greater than 3/5 because 4 is greater than 3. Which response explains the error?",
+      "answer": "Use equal denominators: 20/45 is less than 27/45.",
+      "options": [
+        "The larger denominator always gives the larger fraction.",
+        "Use equal denominators: 20/45 is less than 27/45.",
+        "The fractions are equal because both are less than 1.",
+        "Add each numerator and denominator, then compare the sums."
+      ],
+      "correctOption": "B",
+      "explanation": "The numerators measure pieces of different sizes until the denominators are made equal.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Fractions",
+      "subtopic": "Ordering and equivalent forms",
+      "learningObjective": "Compare fractions and convert between decimals and equivalent fractions.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-005",
+      "objectiveId": "ncee-mathematics-p6-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Which decimal lies exactly halfway between 1/4 and 1/2?",
+      "answer": "0.375",
+      "options": [
+        "0.375",
+        "0.125",
+        "0.275",
+        "0.425"
+      ],
+      "correctOption": "A",
+      "explanation": "The average of 0.25 and 0.50 is 0.375.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(1/4+1/2)/2",
+          "expected": "3/8",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Ratios and proportions",
+      "subtopic": "Sharing, mixtures and unit rates",
+      "learningObjective": "Use ratios to compare quantities and solve proportional problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-006",
+      "objectiveId": "ncee-mathematics-p6-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A box has 14 black counters and 21 white counters. What is the simplest ratio of black to white counters?",
+      "answer": "2:3",
+      "options": [
+        "2:3",
+        "3:2",
+        "2:5",
+        "3:7"
+      ],
+      "correctOption": "A",
+      "explanation": "Divide both counts by 7.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Ratios and proportions",
+      "subtopic": "Sharing, mixtures and unit rates",
+      "learningObjective": "Use ratios to compare quantities and solve proportional problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-007",
+      "objectiveId": "ncee-mathematics-p6-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Share 72 seedlings between two classes in the ratio 5:4. How many does the class with the larger share receive?",
+      "answer": "40",
+      "options": [
+        "32",
+        "36",
+        "45",
+        "40"
+      ],
+      "correctOption": "D",
+      "explanation": "There are 9 equal shares of 8 seedlings. The larger class share is 5 × 8.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "72*5/9",
+          "expected": "40",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Ratios and proportions",
+      "subtopic": "Sharing, mixtures and unit rates",
+      "learningObjective": "Use ratios to compare quantities and solve proportional problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-008",
+      "objectiveId": "ncee-mathematics-p6-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Mix A uses 2 cups of concentrate for 5 cups of water. Mix B uses 3 cups of concentrate for 8 cups of water. Which has more concentrate per cup of water?",
+      "answer": "Mix A",
+      "options": [
+        "Mix B",
+        "Both have the same amount per cup of water",
+        "Mix A",
+        "It cannot be determined without knowing the cup size"
+      ],
+      "correctOption": "C",
+      "explanation": "2/5 = 16/40 and 3/8 = 15/40. Mix A has the higher concentrate-to-water ratio.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Ratios and proportions",
+      "subtopic": "Sharing, mixtures and unit rates",
+      "learningObjective": "Use ratios to compare quantities and solve proportional problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-009",
+      "objectiveId": "ncee-mathematics-p6-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A printer uses 18 sheets to make 6 identical booklets. How many sheets are needed for 11 booklets?",
+      "answer": "33",
+      "options": [
+        "29",
+        "33",
+        "36",
+        "108"
+      ],
+      "correctOption": "B",
+      "explanation": "There are 3 sheets per booklet, so 11 booklets use 33 sheets.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "18/6*11",
+          "expected": "33",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Ratios and proportions",
+      "subtopic": "Sharing, mixtures and unit rates",
+      "learningObjective": "Use ratios to compare quantities and solve proportional problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-010",
+      "objectiveId": "ncee-mathematics-p6-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "At a stall, 4 oranges cost ₦600 and 6 cost ₦840. Which pack costs less per orange, and by how much?",
+      "answer": "The 6-pack, by ₦10 per orange",
+      "options": [
+        "The 6-pack, by ₦10 per orange",
+        "The 4-pack, by ₦10 per orange",
+        "The 6-pack, by ₦40 per orange",
+        "Both cost the same per orange"
+      ],
+      "correctOption": "A",
+      "explanation": "The two unit prices are ₦150 and ₦140.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "600/4-840/6",
+          "expected": "10",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Percentages",
+      "subtopic": "Part of a whole and change",
+      "learningObjective": "Interpret percentages and calculate simple percentage changes.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-011",
+      "objectiveId": "ncee-mathematics-p6-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "What does the percent sign mean?",
+      "answer": "Per hundred",
+      "options": [
+        "Per hundred",
+        "Per thousand",
+        "Per ten",
+        "Per whole number"
+      ],
+      "correctOption": "A",
+      "explanation": "Percent means out of one hundred.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Percentages",
+      "subtopic": "Part of a whole and change",
+      "learningObjective": "Interpret percentages and calculate simple percentage changes.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-012",
+      "objectiveId": "ncee-mathematics-p6-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A library lends 30% of its 180 storybooks on Monday. How many storybooks does it lend?",
+      "answer": "54",
+      "options": [
+        "45",
+        "60",
+        "126",
+        "54"
+      ],
+      "correctOption": "D",
+      "explanation": "Calculate 30/100 × 180.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "30/100*180",
+          "expected": "54",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Percentages",
+      "subtopic": "Part of a whole and change",
+      "learningObjective": "Interpret percentages and calculate simple percentage changes.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-013",
+      "objectiveId": "ncee-mathematics-p6-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "One team wins 9 of 12 matches. Another wins 14 of 20. By how many percentage points is the first team’s win rate higher?",
+      "answer": "5",
+      "options": [
+        "2",
+        "7",
+        "5",
+        "15"
+      ],
+      "correctOption": "C",
+      "explanation": "The rates are 75% and 70%. Their difference is 5 percentage points.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(9/12-14/20)*100",
+          "expected": "5",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Percentages",
+      "subtopic": "Part of a whole and change",
+      "learningObjective": "Interpret percentages and calculate simple percentage changes.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-014",
+      "objectiveId": "ncee-mathematics-p6-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A ₦3,500 backpack is reduced by 10%. What is its new price?",
+      "answer": "₦3,150",
+      "options": [
+        "₦350",
+        "₦3,150",
+        "₦3,490",
+        "₦3,850"
+      ],
+      "correctOption": "B",
+      "explanation": "Ten percent is ₦350. Subtract it from ₦3,500.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "3500*(1-10/100)",
+          "expected": "3150",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Percentages",
+      "subtopic": "Part of a whole and change",
+      "learningObjective": "Interpret percentages and calculate simple percentage changes.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-015",
+      "objectiveId": "ncee-mathematics-p6-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A school has 25 pupils in Group A and 50 in Group B. Exactly 20% of each group brings lunch. Which conclusion is correct?",
+      "answer": "Group B has twice as many pupils who bring lunch.",
+      "options": [
+        "Group B has twice as many pupils who bring lunch.",
+        "Both groups have the same number bringing lunch.",
+        "Group A has twice as many pupils who bring lunch.",
+        "Group B has 20 more pupils who bring lunch."
+      ],
+      "correctOption": "A",
+      "explanation": "Five pupils in A and ten in B bring lunch. The percentages are equal, but the groups have different sizes.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Basic operations",
+      "subtopic": "Order of operations and remainders",
+      "learningObjective": "Select and apply operations to whole-number calculations and practical problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-016",
+      "objectiveId": "ncee-mathematics-p6-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Calculate 48 ÷ (5 + 3) × 4.",
+      "answer": "24",
+      "options": [
+        "24",
+        "6",
+        "12",
+        "36"
+      ],
+      "correctOption": "A",
+      "explanation": "Work out the brackets first, then divide and multiply from left to right.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "48/(5+3)*4",
+          "expected": "24",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Basic operations",
+      "subtopic": "Order of operations and remainders",
+      "learningObjective": "Select and apply operations to whole-number calculations and practical problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-017",
+      "objectiveId": "ncee-mathematics-p6-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A school takes 94 pupils on a trip. Each bus holds 24 pupils. What is the smallest number of buses needed?",
+      "answer": "4",
+      "options": [
+        "3",
+        "5",
+        "22",
+        "4"
+      ],
+      "correctOption": "D",
+      "explanation": "Three buses seat 72. The remaining 22 pupils need another bus.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Basic operations",
+      "subtopic": "Order of operations and remainders",
+      "learningObjective": "Select and apply operations to whole-number calculations and practical problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-018",
+      "objectiveId": "ncee-mathematics-p6-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Which expression gives the cost of three ₦800 notebooks after using one ₦200 voucher on the total purchase?",
+      "answer": "3 × 800 − 200",
+      "options": [
+        "3 × (800 − 200)",
+        "3 × 800 + 200",
+        "3 × 800 − 200",
+        "800 − 3 × 200"
+      ],
+      "correctOption": "C",
+      "explanation": "The voucher applies once, after calculating the total for all three notebooks.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Basic operations",
+      "subtopic": "Order of operations and remainders",
+      "learningObjective": "Select and apply operations to whole-number calculations and practical problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-019",
+      "objectiveId": "ncee-mathematics-p6-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A teacher has 125 pencils. After keeping 8 spare pencils, she shares as many of the others as possible equally among 9 groups. How many pencils does each group get?",
+      "answer": "13",
+      "options": [
+        "12",
+        "13",
+        "14",
+        "15"
+      ],
+      "correctOption": "B",
+      "explanation": "There are 117 pencils to share, and 117 divided by 9 is 13.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(125-8)/9",
+          "expected": "13",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Mathematics",
+      "topic": "Basic operations",
+      "subtopic": "Order of operations and remainders",
+      "learningObjective": "Select and apply operations to whole-number calculations and practical problems.",
+      "specificationId": "ncee-mathematics-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-045-020",
+      "objectiveId": "ncee-mathematics-p6-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Tola estimates 398 × 19 as about 8,000. Which calculation best supports that estimate?",
+      "answer": "400 × 20",
+      "options": [
+        "400 × 20",
+        "400 × 10",
+        "300 × 20",
+        "398 + 19"
+      ],
+      "correctOption": "A",
+      "explanation": "398 is close to 400 and 19 is close to 20. Their rounded product is 8,000.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "400*20",
+          "expected": "8000",
+          "purpose": "Check the calculation used in the worked answer."
+        }
+      ]
+    }
+  ]
+}
