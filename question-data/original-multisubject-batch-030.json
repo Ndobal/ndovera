@@ -1,0 +1,3871 @@
+{
+  "schemaVersion": 2,
+  "collection": "Ndovera original WAEC and JAMB Commerce and Financial Accounting — batch 030",
+  "questionCount": 100,
+  "note": "Original drafts based on supplied syllabus compilations with limited official crosschecks. Country-specific legislation, current tax rates and statutory thresholds are not assumed. Independent academic and full current-source verification remain pending. Accounting scenarios state their policies and omit unstated taxes/fees.",
+  "questions": [
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Commercial activity",
+      "subtopic": "Trade and aids to trade",
+      "learningObjective": "Distinguish commercial functions and production roles.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-001",
+      "objectiveId": "jamb-commerce-scope-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A manufacturer produces shoes, while another business transports them to shops. Which statement best distinguishes their roles?",
+      "answer": "Manufacturing creates the shoes; transport helps make them available where buyers need them.",
+      "explanation": "Production and commercial aids are related; transport helps overcome the barrier of place.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Transport must manufacture the leather before it can move shoes.",
+        "Only physical manufacturing can add any utility.",
+        "The transporter owns every shop that receives shoes.",
+        "Manufacturing creates the shoes; transport helps make them available where buyers need them."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Commercial activity",
+      "subtopic": "Trade and aids to trade",
+      "learningObjective": "Distinguish commercial functions and production roles.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-002",
+      "objectiveId": "jamb-commerce-scope-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which activity belongs to primary production?",
+      "answer": "Harvesting timber from a managed forest.",
+      "explanation": "Primary production obtains natural resources; furniture manufacture is secondary production.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Selling desks in a showroom.",
+        "Advertising a furniture delivery service.",
+        "Harvesting timber from a managed forest.",
+        "Making desks from timber."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Commercial activity",
+      "subtopic": "Trade and aids to trade",
+      "learningObjective": "Distinguish commercial functions and production roles.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-003",
+      "objectiveId": "jamb-commerce-scope-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A factory divides assembly into specialised tasks. Which disadvantage may arise if workers learn only one narrow task?",
+      "answer": "They may find it harder to move to other roles when technology changes.",
+      "explanation": "Narrow specialisation can restrict adaptability even when it improves efficiency in the current process.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The factory no longer needs coordination.",
+        "They may find it harder to move to other roles when technology changes.",
+        "Every worker automatically becomes equally skilled in all occupations.",
+        "Training ceases to have any value."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-004",
+      "objectiveId": "jamb-commerce-business-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which feature most clearly distinguishes a consumer cooperative’s purpose from that of a conventional investor-owned retailer?",
+      "answer": "It is organised to serve its member-consumers through their jointly owned enterprise.",
+      "explanation": "A consumer cooperative’s members are also its intended users, rather than ownership being defined only by outside investment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It is organised to serve its member-consumers through their jointly owned enterprise.",
+        "It is necessarily owned by one government minister.",
+        "It is prohibited from buying goods for resale in every country.",
+        "It has no members and no governance."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-005",
+      "objectiveId": "jamb-commerce-business-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Two firms combine operations to form one business through a merger. What is a possible commercial motive?",
+      "answer": "Combining complementary resources and reducing duplicated costs.",
+      "explanation": "A merger may seek synergies, although these are not guaranteed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Making all demand disappear.",
+        "Ensuring that integration requires no planning.",
+        "Automatically eliminating every business risk.",
+        "Combining complementary resources and reducing duplicated costs."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-006",
+      "objectiveId": "jamb-commerce-business-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A sole proprietor wants to preserve full decision-making control. Which possible trade-off should be recognised?",
+      "answer": "The owner may have a narrower pool of finance and management skills than a business with several owners.",
+      "explanation": "Control can be retained at the cost of access to other owners’ funds and expertise.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Control removes the need to keep business records.",
+        "A sole proprietor can never employ a manager.",
+        "The owner may have a narrower pool of finance and management skills than a business with several owners.",
+        "Sole ownership always guarantees the largest possible capital base."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-007",
+      "objectiveId": "jamb-commerce-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A producer sells fresh bread directly to nearby households each morning. Which factor most strongly supports a short distribution channel?",
+      "answer": "The product is perishable and customers are close to the producer.",
+      "explanation": "Short channels can reduce time before consumption when distance and customer reach permit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Households can buy only from foreign wholesalers.",
+        "The product is perishable and customers are close to the producer.",
+        "Bread becomes less perishable when intermediaries increase.",
+        "A long channel is compulsory for every locally sold product."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-008",
+      "objectiveId": "jamb-commerce-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A seller issues a credit note after accepting a customer’s return of damaged goods. What does the note normally communicate?",
+      "answer": "The amount owed by that customer is being reduced.",
+      "explanation": "The seller acknowledges a reduction of the original charge for accepted returns or allowances.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The amount owed by that customer is being reduced.",
+        "The customer must pay the original invoice twice.",
+        "The seller has made a new loan unrelated to the return.",
+        "The returned goods are automatically exports."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-009",
+      "objectiveId": "jamb-commerce-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What is the main function of a pro forma invoice sent before a confirmed sale?",
+      "answer": "Provide a preliminary statement of proposed goods and charges.",
+      "explanation": "A pro forma invoice supplies indicative transaction details; it is not the same as a receipt confirming payment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Prove that cash has already been received in every case.",
+        "Replace every transport document.",
+        "Certify that a bank has insured the buyer’s warehouse.",
+        "Provide a preliminary statement of proposed goods and charges."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-010",
+      "objectiveId": "jamb-commerce-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A country imports goods and later exports those same goods without substantial processing. This is described as",
+      "answer": "entrepôt trade.",
+      "explanation": "Entrepôt trade involves importing for re-export rather than domestic consumption or substantial manufacture.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "retail trade with no border movement.",
+        "primary production.",
+        "entrepôt trade.",
+        "barter within one household."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-011",
+      "objectiveId": "jamb-commerce-finance-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which source of finance is most directly generated inside a profitable business?",
+      "answer": "Retained profits.",
+      "explanation": "Retained profits are earnings kept in the business rather than distributed; bank loans and new outside investment are external sources.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A supplier’s credit facility.",
+        "Retained profits.",
+        "A new bank loan.",
+        "A new outside investor’s contribution."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-012",
+      "objectiveId": "jamb-commerce-finance-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A shop has current assets of ₦480,000 and current liabilities of ₦310,000. What is working capital?",
+      "answer": "₦170,000",
+      "explanation": "Working capital is current assets minus current liabilities: ₦480,000−₦310,000 = ₦170,000.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "₦170,000",
+        "₦790,000",
+        "₦310,000",
+        "₦480,000"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "480000-310000",
+          "expected": "170000",
+          "answerValue": "170000",
+          "purpose": "Working capital"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-013",
+      "objectiveId": "jamb-commerce-finance-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why is financing a long-lived factory mainly with immediately repayable short-term borrowing potentially risky?",
+      "answer": "The debt may fall due before the asset generates enough cash to repay it.",
+      "explanation": "A maturity mismatch can create refinancing and liquidity pressure despite the asset’s long-term usefulness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A long-lived asset always generates its full purchase cost on the first day.",
+        "Short-term borrowing can never carry any repayment obligation.",
+        "The factory’s physical life automatically postpones the loan due date.",
+        "The debt may fall due before the asset generates enough cash to repay it."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Risk transfer principles",
+      "learningObjective": "Apply insurance concepts to stated business circumstances.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-014",
+      "objectiveId": "jamb-commerce-risk-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Under the principle of indemnity, the general aim of a valid property-insurance claim is to",
+      "answer": "restore the insured’s financial position for the covered loss, within policy terms.",
+      "explanation": "Indemnity compensates loss rather than providing a profit merely because damage occurred.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "transfer ownership of every insured asset before any loss.",
+        "remove every policy condition.",
+        "restore the insured’s financial position for the covered loss, within policy terms.",
+        "guarantee profit greater than the loss in every claim."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Risk transfer principles",
+      "learningObjective": "Apply insurance concepts to stated business circumstances.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-015",
+      "objectiveId": "jamb-commerce-risk-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A business insures goods for transit. Why should it disclose material information requested by the insurer honestly?",
+      "answer": "The information affects the insurer’s assessment and acceptance of the risk.",
+      "explanation": "Material disclosure supports the insurance principle of utmost good faith; it is not a guarantee that every possible event is covered.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "An insurance proposal is unrelated to the risks being insured.",
+        "The information affects the insurer’s assessment and acceptance of the risk.",
+        "Disclosure makes all goods impossible to damage.",
+        "Only favourable information can ever affect risk assessment."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-016",
+      "objectiveId": "jamb-commerce-logistics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which transport mode is generally most suitable for moving a continuous large flow of crude oil between fixed connected points?",
+      "answer": "Pipeline.",
+      "explanation": "Pipelines suit fluid movement between connected points, subject to the infrastructure and route.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Pipeline.",
+        "Passenger bicycles.",
+        "Hand-carried parcels.",
+        "Ordinary postal letters."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-017",
+      "objectiveId": "jamb-commerce-logistics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why might a retailer choose air freight for a small consignment of urgently needed, high-value spare parts?",
+      "answer": "Saving time can justify a higher transport cost relative to the consignment’s value and urgency.",
+      "explanation": "Mode choice depends on time, value, size and cost rather than lowest freight charge alone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Air freight is always the cheapest mode for every heavy bulk commodity.",
+        "All air shipments arrive with no handling or route constraints.",
+        "Urgency has no relevance to mode choice.",
+        "Saving time can justify a higher transport cost relative to the consignment’s value and urgency."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-018",
+      "objectiveId": "jamb-commerce-logistics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What commercial problem does warehousing chiefly help solve when production is seasonal but sales occur throughout the year?",
+      "answer": "The timing gap between production and consumption.",
+      "explanation": "Storage can hold output until it is needed, subject to cost and preservation constraints.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The need to manufacture all goods in the warehouse itself.",
+        "The impossibility of maintaining inventory records.",
+        "The timing gap between production and consumption.",
+        "The absence of every form of consumer demand."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-019",
+      "objectiveId": "jamb-commerce-marketing-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A business asks potential customers which packaging size they prefer before launching a product. This is mainly",
+      "answer": "market research.",
+      "explanation": "The business is gathering information to support a marketing decision rather than simply promoting an existing offer.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a bank reconciliation.",
+        "market research.",
+        "mass advertising.",
+        "a finished sales invoice."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-020",
+      "objectiveId": "jamb-commerce-marketing-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A washing-machine supplier provides installation and repair support after purchase. This is an example of",
+      "answer": "after-sales service.",
+      "explanation": "Support after purchase can improve customer experience and confidence in using the product.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "after-sales service.",
+        "primary extraction.",
+        "a customs tariff.",
+        "an unpaid import duty."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-021",
+      "objectiveId": "jamb-commerce-marketing-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A promotion gives a temporary price reduction to encourage immediate purchases. What distinguishes this from ordinary long-term brand advertising?",
+      "answer": "It is a short-term sales incentive with a direct purchase trigger.",
+      "explanation": "Sales promotion commonly uses temporary incentives, while brand advertising may build awareness over a longer period.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It guarantees every purchaser becomes loyal permanently.",
+        "It eliminates the need to deliver the advertised goods.",
+        "It prevents any measurement of sales response.",
+        "It is a short-term sales incentive with a direct purchase trigger."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-022",
+      "objectiveId": "jamb-commerce-management-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A supervisor assigns a routine purchasing task to an assistant with clear limits. Which principle is illustrated?",
+      "answer": "Delegation of authority.",
+      "explanation": "The assistant receives authority for a task, while the supervisor retains responsibility for appropriate oversight.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A merger of all suppliers.",
+        "A change from money to barter.",
+        "Delegation of authority.",
+        "Elimination of accountability."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-023",
+      "objectiveId": "jamb-commerce-management-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why can an excessively wide span of control create difficulty for a manager?",
+      "answer": "Too many direct reports can reduce the time available for guidance and supervision.",
+      "explanation": "The suitable span depends on task complexity and staff capability; there is no universal number for every business.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It automatically increases the manager’s available hours.",
+        "Too many direct reports can reduce the time available for guidance and supervision.",
+        "It always removes every communication channel.",
+        "It guarantees that all tasks become identical."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-024",
+      "objectiveId": "jamb-commerce-management-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A business compares actual monthly sales with its plan and investigates a shortfall. Which management function is most directly involved?",
+      "answer": "Controlling.",
+      "explanation": "Control compares performance with objectives and supports corrective action.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Controlling.",
+        "Mining.",
+        "Sublimation.",
+        "Barter."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "jamb-commerce-compilation-2026",
+      "id": "ndv-030-025",
+      "objectiveId": "jamb-commerce-management-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A shop receives the same complaint from many customers but records none of them. What is the strongest management weakness?",
+      "answer": "The business loses evidence needed to identify and correct a recurring problem.",
+      "explanation": "Records can reveal patterns and test whether corrective action works.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Customer complaints are always proof of fraud.",
+        "Keeping records automatically resolves every complaint.",
+        "Only large multinational firms can learn from complaints.",
+        "The business loses evidence needed to identify and correct a recurring problem."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Commercial activity",
+      "subtopic": "Trade and aids to trade",
+      "learningObjective": "Distinguish commercial functions and production roles.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-026",
+      "objectiveId": "waec-commerce-scope-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which statement best describes commerce?",
+      "answer": "Activities that facilitate exchange and distribution, including trade and aids to trade.",
+      "explanation": "Commerce connects buying and selling with enabling services such as transport, finance and communication.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Only unpaid household cooking.",
+        "Every biological process in a plant.",
+        "Activities that facilitate exchange and distribution, including trade and aids to trade.",
+        "Only the physical extraction of minerals."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-027",
+      "objectiveId": "waec-commerce-business-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why may partners agree their duties and profit-sharing arrangements in writing?",
+      "answer": "To clarify expectations and reduce avoidable disputes.",
+      "explanation": "An agreed record can define roles and allocation rules; it does not guarantee no future disagreement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "To ensure that every partner has exactly the same personal skills.",
+        "To clarify expectations and reduce avoidable disputes.",
+        "To make all business losses mathematically impossible.",
+        "To remove the need for any accounting records."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-028",
+      "objectiveId": "waec-commerce-business-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A chamber of commerce is generally distinguished from a single-industry trade association because it",
+      "answer": "can represent business interests across several trades within an area.",
+      "explanation": "A chamber has a broader cross-trade remit, while an industry association focuses on a particular trade or sector.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "can represent business interests across several trades within an area.",
+        "must manufacture every member’s products.",
+        "is identical to a private household savings box.",
+        "has no connection with business interests."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-029",
+      "objectiveId": "waec-commerce-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which feature characterises a department store rather than a chain of separate shops?",
+      "answer": "Several product departments operate within one large retail establishment.",
+      "explanation": "Departments are grouped in one establishment; chain stores consist of multiple outlets under common ownership.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Only one narrow product can ever be sold.",
+        "Every outlet must have a different unrelated owner.",
+        "Goods are sold only to other wholesalers.",
+        "Several product departments operate within one large retail establishment."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-030",
+      "objectiveId": "waec-commerce-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why can an intermediary remain useful even when a producer could theoretically contact retailers directly?",
+      "answer": "It may perform storage, breaking bulk and market-contact functions efficiently.",
+      "explanation": "Eliminating an intermediary does not eliminate the functions it performs; another participant must carry them out.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It necessarily doubles every product’s usefulness without cost.",
+        "Only intermediaries can legally speak to consumers in every market.",
+        "It may perform storage, breaking bulk and market-contact functions efficiently.",
+        "Its functions disappear from the market whenever it is removed."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-031",
+      "objectiveId": "waec-commerce-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A buyer pays before goods are dispatched under a cash-with-order arrangement. Which description is correct?",
+      "answer": "Payment accompanies the order rather than waiting for delivery.",
+      "explanation": "Cash with order differs from cash on delivery in the timing of payment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Payment can occur only after the goods are resold.",
+        "Payment accompanies the order rather than waiting for delivery.",
+        "Payment is made only after ten years in every case.",
+        "The seller must never receive payment."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-032",
+      "objectiveId": "waec-commerce-finance-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A business sells 400 units at ₦2,500 each during a period. What is its sales turnover for that period?",
+      "answer": "₦1,000,000",
+      "explanation": "Turnover here means sales revenue: quantity sold × selling price. It is not profit without cost information.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "₦1,000,000",
+        "₦400,000",
+        "₦2,100",
+        "₦6,250"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "400*2500",
+          "expected": "1000000",
+          "answerValue": "1000000",
+          "purpose": "Sales turnover"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-033",
+      "objectiveId": "waec-commerce-finance-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why is a share different from a conventional fixed-interest debenture?",
+      "answer": "A share represents equity ownership, while a debenture normally represents borrowing.",
+      "explanation": "Their claims and returns differ; ownership should not be confused with lending.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every share is a demand deposit at a commercial bank.",
+        "Every debenture makes the holder a retail customer.",
+        "Both are always identical to ordinary cash receipts.",
+        "A share represents equity ownership, while a debenture normally represents borrowing."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Risk transfer principles",
+      "learningObjective": "Apply insurance concepts to stated business circumstances.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-034",
+      "objectiveId": "waec-commerce-risk-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "What is the main purpose of reinsurance?",
+      "answer": "An insurer transfers part of its accepted risk to another insurer.",
+      "explanation": "Reinsurance spreads an insurer’s exposure; it is not the same as a consumer taking out an unrelated second policy.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A bank prints new legal-tender currency.",
+        "A retailer cancels every inventory record.",
+        "An insurer transfers part of its accepted risk to another insurer.",
+        "An insured trader sells damaged goods without disclosure."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Risk transfer principles",
+      "learningObjective": "Apply insurance concepts to stated business circumstances.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-035",
+      "objectiveId": "waec-commerce-risk-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which event is a pure risk rather than a speculative business opportunity?",
+      "answer": "Accidental fire damage to a warehouse.",
+      "explanation": "A pure risk involves possible loss or no loss rather than the prospect of profit from taking the risk.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Speculating on a commodity’s future price.",
+        "Accidental fire damage to a warehouse.",
+        "Buying goods in the hope that market prices rise.",
+        "Opening a new branch to seek extra profits."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-036",
+      "objectiveId": "waec-commerce-logistics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A supplier sends a detailed written delivery schedule to several branches. What advantage does writing provide?",
+      "answer": "A common record that recipients can refer to and check.",
+      "explanation": "Written communication can improve consistency and provide evidence, although it does not by itself ensure everyone reads it.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A common record that recipients can refer to and check.",
+        "A guarantee that no recipient can misunderstand any word.",
+        "Automatic transport of the goods without vehicles.",
+        "Removal of every need for confirmation."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-037",
+      "objectiveId": "waec-commerce-logistics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why should storage conditions differ for frozen food and bags of cement?",
+      "answer": "The products deteriorate in different ways and require different protection.",
+      "explanation": "Frozen food needs temperature control, while cement must be protected against moisture and contamination.",
+      "difficulty": "easy",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "All goods need exactly the same temperature and humidity.",
+        "Cement is preserved best by soaking it before storage.",
+        "Frozen food never changes during storage.",
+        "The products deteriorate in different ways and require different protection."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-038",
+      "objectiveId": "waec-commerce-marketing-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which action changes the place element of the marketing mix?",
+      "answer": "Adding a convenient collection point near customers.",
+      "explanation": "Place concerns distribution and access, rather than merely changing promotion or product appearance.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Changing only the advertising slogan.",
+        "Reducing only the quoted price.",
+        "Adding a convenient collection point near customers.",
+        "Changing only the package colour."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-039",
+      "objectiveId": "waec-commerce-marketing-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which advertisement is primarily informative?",
+      "answer": "A notice stating a new bus route, its stops and its timetable.",
+      "explanation": "It supplies service facts that help users make decisions, rather than relying mainly on emotional persuasion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A promise of guaranteed wealth without stating a product.",
+        "A notice stating a new bus route, its stops and its timetable.",
+        "A slogan claiming an unnamed product makes everyone famous.",
+        "A picture with no service details and only a celebrity endorsement."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-040",
+      "objectiveId": "waec-commerce-management-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A manager sets an objective but gives staff no deadline or performance measure. What improvement is most useful?",
+      "answer": "Define a realistic timescale and a way to assess achievement.",
+      "explanation": "A clear measure and deadline make it possible to monitor progress and evaluate the objective.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Define a realistic timescale and a way to assess achievement.",
+        "Replace the objective with an unrelated slogan.",
+        "Ban all communication about progress.",
+        "Assume effort alone proves that the objective has been achieved."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Commercial activity",
+      "subtopic": "Trade and aids to trade",
+      "learningObjective": "Distinguish commercial functions and production roles.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-041",
+      "objectiveId": "waec-commerce-scope-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Explain how transport, warehousing and banking can help a rice producer serve customers beyond the harvest area. Link each service to a distinct commercial barrier.",
+      "answer": "Transport moves rice to places where buyers need it, addressing distance. Warehousing holds rice between harvest and later sale, addressing timing. Banking can provide payment facilities or appropriate finance, helping exchange and funding needs.",
+      "explanation": "Credit a linked explanation for each service rather than three isolated definitions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link transport to place/distance.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Link storage to time between production and consumption.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Link banking to payments or appropriate finance.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business organisation",
+      "subtopic": "Ownership and cooperation",
+      "learningObjective": "Compare business forms and organisational choices.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-042",
+      "objectiveId": "waec-commerce-business-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Two skilled tailors plan to work together. Discuss two possible benefits of a partnership and two possible difficulties they should address before starting.",
+      "answer": "They can combine finance and complementary skills and share workload. They may disagree over decisions or contributions, and changes in one partner’s availability or willingness to continue can affect the business. A clear agreement on roles and financial arrangements can reduce avoidable uncertainty.",
+      "explanation": "Accept other relevant trade-offs supported by the facts; do not require current statutory thresholds or assume every partnership has identical legal terms.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain two distinct benefits.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Explain two distinct difficulties.",
+          "marks": 4
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-043",
+      "objectiveId": "waec-commerce-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A remote farm sells a highly perishable crop. Compare direct sales to urban consumers with using a specialist distributor. Give one benefit and one limitation of each route, then state what evidence should guide the choice.",
+      "answer": "Direct sales may retain more of the selling price and provide customer contact, but require the farm to manage delivery and find customers. A distributor can provide established transport and market access, but charges a margin and may reduce the farmer’s control. Compare spoilage, delivery time, total costs, demand and achievable prices.",
+      "explanation": "The conclusion should depend on evidence; removing an intermediary does not automatically maximise net earnings.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Benefit and limitation of direct selling.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Benefit and limitation of distributor use.",
+          "marks": 4
+        },
+        {
+          "step": 3,
+          "description": "Identify relevant decision evidence.",
+          "marks": 2
+        }
+      ],
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Channels and documents",
+      "learningObjective": "Choose suitable trade channels and interpret documents.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-044",
+      "objectiveId": "waec-commerce-trade-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Distinguish an invoice, a receipt and a credit note. Use the case of a shop buying goods, paying the supplier and later returning an accepted damaged item.",
+      "answer": "The invoice states the goods supplied and amount charged. The receipt acknowledges payment. The supplier’s credit note records a reduction of the shop’s debt or a credit due for the accepted return.",
+      "explanation": "Document functions differ even when they relate to the same original transaction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain invoice using the sale.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain receipt using payment.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain credit note using the accepted return.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Business finance",
+      "subtopic": "Capital and financial services",
+      "learningObjective": "Interpret finance choices and commercial calculations.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-045",
+      "objectiveId": "waec-commerce-finance-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A trader buys goods with a list price of ₦80,000 less a 10% trade discount. The invoice offers a further 2% cash discount on the discounted price for prompt payment. Calculate the invoice amount and prompt-payment amount, then distinguish the discounts.",
+      "answer": "Invoice amount = 80,000×0.90 = ₦72,000. Cash discount = 72,000×0.02 = ₦1,440; prompt payment = ₦70,560. Trade discount reduces the quoted list price; cash discount encourages payment within the stated period.",
+      "explanation": "Apply the cash discount to the discounted invoice amount, not to the original list price.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate invoice amount ₦72,000.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate cash discount ₦1,440 and payment ₦70,560.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain the different purposes.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "80000*(1-0.10)",
+          "expected": "72000",
+          "answerValue": "72000",
+          "purpose": "Invoice after trade discount"
+        },
+        {
+          "expression": "80000*0.90*0.98",
+          "expected": "70560",
+          "purpose": "Prompt payment amount"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Risk transfer principles",
+      "learningObjective": "Apply insurance concepts to stated business circumstances.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-046",
+      "objectiveId": "waec-commerce-risk-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A bakery’s owner believes that buying fire insurance removes the need for fire prevention. Explain why this reasoning is unsound and give two prevention measures suitable for a bakery.",
+      "answer": "Insurance may compensate a covered financial loss within its terms, but cannot prevent injury, disruption or all uncovered costs. Prevention remains necessary. Suitable measures include maintaining electrical equipment, safe storage and handling of fuel, unobstructed exits and appropriate staff training.",
+      "explanation": "Explain the difference between financial risk transfer and preventing the event; no policy is assumed to cover every loss.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain insurance’s limited financial role.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain a remaining human, operational or uncovered consequence.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain two suitable prevention measures.",
+          "marks": 4
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Logistics and communication",
+      "subtopic": "Transport storage and information",
+      "learningObjective": "Evaluate movement storage and communication decisions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-047",
+      "objectiveId": "waec-commerce-logistics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "An online retailer has 120 orders recorded as dispatched, but only 95 delivery confirmations. Give two possible explanations and describe two records or checks needed before accusing a driver of theft.",
+      "answer": "Some parcels may still be in transit or awaiting confirmation, or there may be failed deliveries or recording errors. Reconcile parcel identifiers with carrier scans and delivery attempts, check proof-of-delivery records and contact customers or carriers through verified channels.",
+      "explanation": "A discrepancy is evidence to investigate, not proof of a particular cause. Avoid counting duplicate dispatch records as separate parcels.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain two plausible causes other than assumed theft.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Describe two traceable reconciliation checks.",
+          "marks": 4
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Marketing",
+      "subtopic": "Customer value and promotion",
+      "learningObjective": "Select and assess marketing actions.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-048",
+      "objectiveId": "waec-commerce-marketing-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A firm’s advertisement doubles visits to its website, but completed purchases do not rise. Explain why visits alone do not establish campaign success and give two further measures or investigations.",
+      "answer": "Visits show attention but not necessarily profitable sales. Examine conversion rates, order value, acquisition cost and repeat purchases. Investigate whether visitors face misleading offers, poor availability, delivery charges or checkout difficulty. Compare results with the campaign’s stated objective and cost.",
+      "explanation": "A successful campaign must be judged against its intended outcome; more traffic does not automatically mean more profit.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Distinguish attention from purchases/profit.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain two useful measures or investigations.",
+          "marks": 4
+        },
+        {
+          "step": 3,
+          "description": "Link judgement to objectives and costs.",
+          "marks": 2
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-049",
+      "objectiveId": "waec-commerce-management-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A purchasing officer can select suppliers, approve invoices and make payments without review. Explain two risks and propose two controls that preserve an audit trail.",
+      "answer": "Concentrating these duties creates opportunities for fictitious suppliers, inflated invoices or unnoticed errors. Separate ordering, approval and payment where possible, require evidence of receipt, use approval limits and retain dated records of who authorised each action.",
+      "explanation": "Controls should reduce both errors and misuse while keeping responsibility traceable; a shared password does not create accountability.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain two distinct risks.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Explain two suitable controls linked to those risks.",
+          "marks": 4
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Management",
+      "subtopic": "Planning control and responsibility",
+      "learningObjective": "Apply management principles to business problems.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-030-050",
+      "objectiveId": "waec-commerce-management-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A shop’s staff receive conflicting instructions from two supervisors about the same delivery. Explain the management problem, one consequence and a practical way to resolve it.",
+      "answer": "Unclear authority or conflicting reporting lines cause the problem. Staff may duplicate work, miss deadlines or make inconsistent promises. Clarify who decides the delivery plan, document responsibilities and establish an agreed escalation route for conflicting instructions.",
+      "explanation": "A solution should clarify coordination rather than simply blame the employee receiving conflicting orders.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify conflicting authority/reporting responsibilities.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain a plausible operational consequence.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Propose clear responsibility and a communication/escalation process.",
+          "marks": 3
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-051",
+      "objectiveId": "jamb-accounts-concepts-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A proprietor pays a child’s personal school fees from the business bank account. Under the business-entity concept, this payment is normally recorded as",
+      "answer": "drawings, not a business operating expense.",
+      "explanation": "The owner’s personal consumption is separated from the business’s expenses.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a trade payable to all customers.",
+        "drawings, not a business operating expense.",
+        "sales revenue.",
+        "factory overhead in every case."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-052",
+      "objectiveId": "jamb-accounts-concepts-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which assumption supports preparing accounts without valuing every asset as if an immediate forced liquidation were planned?",
+      "answer": "Going concern.",
+      "explanation": "Going concern assumes continuing operation unless evidence indicates otherwise; it does not guarantee permanent survival.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Going concern.",
+        "Every business closes at the end of each month.",
+        "All transactions are ignored until cash is counted.",
+        "Owner and business are the same accounting entity."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-053",
+      "objectiveId": "jamb-accounts-concepts-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A service is completed and invoiced before year-end, but the customer pays next month. Under accrual accounting, recognition normally follows",
+      "answer": "when the service is earned, not merely when cash arrives.",
+      "explanation": "Accrual accounting distinguishes earning income from receiving cash.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "only the date the owner spends the money.",
+        "the date the customer first heard of the business.",
+        "never recognising credit services.",
+        "when the service is earned, not merely when cash arrives."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-054",
+      "objectiveId": "jamb-accounts-concepts-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An owner injects additional cash capital into a business. Why is this not sales revenue?",
+      "answer": "It is an owner contribution rather than income earned from trading.",
+      "explanation": "Financing by owners increases equity without being revenue from customers.",
+      "difficulty": "easy",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Capital contributions are always trade discounts.",
+        "The cash cannot appear in the business records.",
+        "It is an owner contribution rather than income earned from trading.",
+        "Every cash receipt must be revenue."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Double entry and documents",
+      "subtopic": "Transaction recording",
+      "learningObjective": "Record transactions using appropriate accounts and evidence.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-055",
+      "objectiveId": "jamb-accounts-entry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Under a periodic inventory system, goods for resale are bought on credit. Which double entry is appropriate?",
+      "answer": "Debit purchases; credit the supplier’s account.",
+      "explanation": "Purchases increase and the amount owed to the supplier is recognised.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Debit sales; credit cash.",
+        "Debit purchases; credit the supplier’s account.",
+        "Debit the supplier; credit sales.",
+        "Debit drawings; credit purchases."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Double entry and documents",
+      "subtopic": "Transaction recording",
+      "learningObjective": "Record transactions using appropriate accounts and evidence.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-056",
+      "objectiveId": "jamb-accounts-entry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which source document normally supports recording a credit sale of goods in the sales journal?",
+      "answer": "The sales invoice issued to the customer.",
+      "explanation": "A credit-sales invoice provides evidence of the customer, goods and amount charged.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The sales invoice issued to the customer.",
+        "A personal birthday invitation.",
+        "A wage time sheet unrelated to the sale.",
+        "An uncompleted cheque with no transaction details."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Double entry and documents",
+      "subtopic": "Transaction recording",
+      "learningObjective": "Record transactions using appropriate accounts and evidence.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-057",
+      "objectiveId": "jamb-accounts-entry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A business returns goods to a credit supplier, who accepts the return. Under periodic inventory accounting, which entry reduces the debt?",
+      "answer": "Debit the supplier; credit purchases returns.",
+      "explanation": "Debiting the payable reduces what is owed, while purchases returns records the goods sent back.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Debit sales; credit the supplier.",
+        "Debit drawings; credit wages.",
+        "Debit purchases; credit cash.",
+        "Debit the supplier; credit purchases returns."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-058",
+      "objectiveId": "jamb-accounts-cash-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Cash is deposited from the till into the business bank account. In a two-column cash book, this is",
+      "answer": "a contra entry between cash and bank columns.",
+      "explanation": "The transfer changes the location of the business’s money but is not income or an expense.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a bad debt written off.",
+        "an additional profit from a customer.",
+        "a contra entry between cash and bank columns.",
+        "a new credit sale."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-059",
+      "objectiveId": "jamb-accounts-cash-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An imprest petty-cash float is ₦15,000 and valid vouchers total ₦11,200. What reimbursement restores the float, assuming no other differences?",
+      "answer": "₦11,200",
+      "explanation": "The reimbursement equals supported spending, replacing the amount used from the float.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "₦26,200",
+        "₦11,200",
+        "₦3,800",
+        "₦15,000"
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "15000-(15000-11200)",
+          "expected": "11200",
+          "answerValue": "11200",
+          "purpose": "Imprest reimbursement"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-060",
+      "objectiveId": "jamb-accounts-cash-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Goods have list price ₦20,000 less a 10% trade discount. In the buyer’s ordinary purchases records, what amount is initially recorded before any cash discount?",
+      "answer": "₦18,000",
+      "explanation": "Trade discount is deducted before recording the invoice amount: 20,000×0.90 = 18,000.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "₦18,000",
+        "₦20,000 with ₦2,000 posted as cash discount.",
+        "₦2,000 as the full purchase.",
+        "₦22,000"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "20000*0.9",
+          "expected": "18000",
+          "answerValue": "18000",
+          "purpose": "Recorded invoice amount"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-061",
+      "objectiveId": "jamb-accounts-cash-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A bank overdraft is normally classified in a basic statement of financial position as",
+      "answer": "a liability.",
+      "explanation": "An overdraft represents money owed to the bank rather than a positive cash asset.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "sales revenue.",
+        "an inventory item.",
+        "a reduction of every non-current asset.",
+        "a liability."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-062",
+      "objectiveId": "jamb-accounts-cash-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Bank charges appear on the statement but have not been recorded in the cash book. What is the appropriate cash-book update?",
+      "answer": "Debit bank-charges expense and credit bank.",
+      "explanation": "The charge reduces the bank asset balance and recognises an expense.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Debit drawings and credit the customer.",
+        "Make no update because all bank-statement items are timing differences.",
+        "Debit bank-charges expense and credit bank.",
+        "Debit bank and credit sales."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Errors and control accounts",
+      "subtopic": "Accuracy and correction",
+      "learningObjective": "Identify and correct errors using reconciled records.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-063",
+      "objectiveId": "jamb-accounts-errors-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A credit purchase is completely omitted from both relevant ledger accounts. What is the effect on trial-balance agreement?",
+      "answer": "The trial balance can still agree.",
+      "explanation": "Both debit and credit are missing, so equal totals do not prove that every transaction was recorded.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Agreement proves the omission could not have occurred.",
+        "The trial balance can still agree.",
+        "The debit total must exceed the credit total by twice the purchase.",
+        "The omission automatically creates a cash surplus."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Errors and control accounts",
+      "subtopic": "Accuracy and correction",
+      "learningObjective": "Identify and correct errors using reconciled records.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-064",
+      "objectiveId": "jamb-accounts-errors-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A new machine’s cost is debited to repairs expense instead of the machine account, with the credit entry correct. This is principally an error of",
+      "answer": "principle.",
+      "explanation": "A capital item has been treated as a revenue expense; the debit-credit arithmetic may still balance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "principle.",
+        "complete omission.",
+        "original-entry transposition affecting both sides equally.",
+        "bank timing only."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-065",
+      "objectiveId": "jamb-accounts-final-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An allowance for doubtful receivables is increased at year-end. Other things equal, what is the usual effect of the increase?",
+      "answer": "An expense increase and a reduction in net receivables.",
+      "explanation": "The increase recognises expected non-collection and reduces the receivable’s net reported amount.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A guaranteed receipt of cash.",
+        "An increase in sales units already delivered.",
+        "Elimination of every customer debt.",
+        "An expense increase and a reduction in net receivables."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Assets and depreciation",
+      "subtopic": "Measurement and cost allocation",
+      "learningObjective": "Apply stated asset and inventory policies.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-066",
+      "objectiveId": "jamb-accounts-assets-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why is depreciation not itself a fund of cash set aside for replacing an asset?",
+      "answer": "It is an accounting allocation of cost and does not by itself move cash into a separate fund.",
+      "explanation": "Recognising depreciation and saving cash are distinct actions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Depreciation can occur only when cash is paid each year.",
+        "Depreciation increases the asset’s physical output automatically.",
+        "It is an accounting allocation of cost and does not by itself move cash into a separate fund.",
+        "Every depreciation entry automatically opens a funded bank account."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Assets and depreciation",
+      "subtopic": "Measurement and cost allocation",
+      "learningObjective": "Apply stated asset and inventory policies.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-067",
+      "objectiveId": "jamb-accounts-assets-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A machine requires an installation charge before it can operate as intended. In a basic historical-cost model, the charge is normally",
+      "answer": "included in the machine’s cost.",
+      "explanation": "A directly attributable cost of bringing the asset into use forms part of the recorded asset cost.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "ignored because the machine has already been purchased.",
+        "included in the machine’s cost.",
+        "treated as the owner’s personal drawings.",
+        "deducted from sales discounts."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-068",
+      "objectiveId": "jamb-accounts-interpretation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What does the current ratio mainly compare?",
+      "answer": "Current assets with current liabilities.",
+      "explanation": "It is a liquidity indicator, not a direct measure of profit margin or inventory units.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Current assets with current liabilities.",
+        "Net profit with sales revenue.",
+        "Non-current assets with the number of employees.",
+        "Cash sales with advertising slogans."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-069",
+      "objectiveId": "jamb-accounts-interpretation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A good is sold for ₦120 after costing ₦90. What is gross profit as a percentage of sales?",
+      "answer": "25%",
+      "explanation": "Gross profit is 30; margin on sales is 30/120×100 = 25%. Mark-up on cost uses a different denominator.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "33⅓%",
+        "75%",
+        "133⅓%",
+        "25%"
+      ],
+      "correctOption": "D",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "(120-90)/120*100",
+          "expected": "25",
+          "answerValue": "25",
+          "purpose": "Gross profit margin"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-070",
+      "objectiveId": "jamb-accounts-final-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "How can a profitable business still face a cash shortage?",
+      "answer": "Revenue may have been earned on credit while expenses and purchases require earlier payment.",
+      "explanation": "Profit recognition and cash timing differ, so positive profit does not ensure immediate liquidity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A business cannot sell on credit if it makes any profit.",
+        "Cash shortages prove every revenue entry is false.",
+        "Revenue may have been earned on credit while expenses and purchases require earlier payment.",
+        "Accounting profit always equals the bank balance."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-071",
+      "objectiveId": "jamb-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In a textbook partnership appropriation account, a partner’s agreed salary is normally treated as",
+      "answer": "an allocation of profit to that partner.",
+      "explanation": "Within this model, partner salary is part of profit appropriation, distinct from an employee’s operating wage.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a sales return.",
+        "an allocation of profit to that partner.",
+        "a purchase of inventory from the partner.",
+        "a loan repayment to all suppliers."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-072",
+      "objectiveId": "jamb-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Where fixed capital accounts are used for partners, routine drawings and profit shares are normally recorded in",
+      "answer": "partners’ current accounts.",
+      "explanation": "Current accounts track routine changes while the agreed fixed capital balances remain separate.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "partners’ current accounts.",
+        "the sales returns journal only.",
+        "an inventory quantity card only.",
+        "the company’s share-premium account."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-073",
+      "objectiveId": "jamb-accounts-interpretation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "When inventory turnover is defined as cost of sales divided by inventory held, which denominator is most appropriate for a period when both opening and closing figures are available?",
+      "answer": "Average inventory measured at cost.",
+      "explanation": "Using an average balance at cost aligns the inventory measure with cost of sales and is generally more representative than a single closing balance. The simple mean is an approximation if inventory varies within the period.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Closing sales revenue.",
+        "Average inventory measured at cost.",
+        "Total customer receipts.",
+        "The number of employees."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-074",
+      "objectiveId": "jamb-accounts-interpretation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A public-sector accounting report compares expenditure with an authorised budget. What purpose does this serve?",
+      "answer": "Support accountability for the use of public resources.",
+      "explanation": "Budget comparison helps assess whether resources were used within authorised plans and explain variances.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Remove the need for supporting documents.",
+        "Guarantee that every recorded payment was efficient.",
+        "Support accountability for the use of public resources.",
+        "Prove that every public service must earn a commercial profit."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "jamb-accounts-compilation-2026",
+      "id": "ndv-030-075",
+      "objectiveId": "jamb-accounts-interpretation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which control best supports traceability in a computerised accounting system?",
+      "answer": "Individual user accounts with permissions and logs of changes.",
+      "explanation": "Identifiable users and recorded changes help establish responsibility and investigate errors.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Allowing all users to edit approved records without a log.",
+        "Individual user accounts with permissions and logs of changes.",
+        "One shared administrator password for all staff.",
+        "Deleting every transaction history after posting."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-076",
+      "objectiveId": "waec-accounts-concepts-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which practice most directly improves the verifiability of a recorded purchase?",
+      "answer": "Retain the invoice and evidence that the goods were received.",
+      "explanation": "Supporting documents allow others to trace the entry to evidence of the transaction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Retain the invoice and evidence that the goods were received.",
+        "Record an amount solely because it seems plausible.",
+        "Destroy the supplier’s invoice after entering an estimate.",
+        "Change the date to whichever period gives the highest profit."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-077",
+      "objectiveId": "waec-accounts-concepts-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why is consistent use of an accounting policy helpful when comparing periods?",
+      "answer": "It reduces changes caused solely by switching methods, making trends easier to interpret.",
+      "explanation": "Consistency supports comparability while justified and properly explained changes can still be appropriate.",
+      "difficulty": "easy",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It means no policy may ever change for any reason.",
+        "It guarantees that the business becomes more profitable.",
+        "It makes supporting evidence unnecessary.",
+        "It reduces changes caused solely by switching methods, making trends easier to interpret."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Accounting concepts",
+      "subtopic": "Purpose and recognition",
+      "learningObjective": "Apply accounting concepts and ethical judgement.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-078",
+      "objectiveId": "waec-accounts-concepts-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which action best reflects prudent accounting rather than deliberate bias?",
+      "answer": "Use a supportable allowance for expected receivable losses.",
+      "explanation": "Prudence requires care under uncertainty, not arbitrary suppression of income or creation of hidden reserves.",
+      "difficulty": "easy",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Recognise all hoped-for profits as already earned.",
+        "Omit known liabilities to make the business look stronger.",
+        "Use a supportable allowance for expected receivable losses.",
+        "Understate every asset regardless of evidence."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-079",
+      "objectiveId": "waec-accounts-final-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Electricity used in December will be paid for in January. In December’s accrual accounts it should normally be recorded as",
+      "answer": "an expense and an accrued liability.",
+      "explanation": "The expense belongs to the period of use even though payment follows later.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "nothing, solely because cash has not yet moved.",
+        "an expense and an accrued liability.",
+        "drawings and a cash receipt.",
+        "sales revenue and a non-current asset."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-080",
+      "objectiveId": "waec-accounts-final-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A portion of insurance paid before year-end covers the next accounting period. The unused portion is normally",
+      "answer": "a prepayment reported as an asset.",
+      "explanation": "The payment secures a future benefit and is excluded from the current period’s insurance expense.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a prepayment reported as an asset.",
+        "a trade-sales return.",
+        "an extra current-period expense with no future benefit.",
+        "an overdraft created by a customer."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-081",
+      "objectiveId": "waec-accounts-final-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Trade receivables are shown after deducting an allowance for doubtful amounts. The deduction principally represents",
+      "answer": "an estimate of amounts not expected to be collected.",
+      "explanation": "It adjusts the reported recoverable amount without implying that cash has already been received.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "cash deposited in a separate customer account.",
+        "a guarantee that all customers will default.",
+        "additional sales made after year-end.",
+        "an estimate of amounts not expected to be collected."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Assets and depreciation",
+      "subtopic": "Measurement and cost allocation",
+      "learningObjective": "Apply stated asset and inventory policies.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-082",
+      "objectiveId": "waec-accounts-assets-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Inventory cost is ₦18,000 and estimated net realisable value is ₦15,000. Using the stated lower-of-cost-and-net-realisable-value rule, what carrying amount is used?",
+      "answer": "₦15,000",
+      "explanation": "The stated rule selects the lower recoverable amount.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "₦33,000",
+        "₦3,000",
+        "₦15,000",
+        "₦18,000"
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-083",
+      "objectiveId": "waec-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Rent of a production workshop is normally classified in a manufacturing account as",
+      "answer": "factory overhead.",
+      "explanation": "Workshop rent supports production generally and is not normally traceable to one individual unit as a direct material.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a customer’s trade discount.",
+        "factory overhead.",
+        "selling commission only.",
+        "the proprietor’s drawings."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-084",
+      "objectiveId": "waec-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A royalty is payable for every unit manufactured under a licence. If directly attributable to those units, it is classified as",
+      "answer": "a direct expense.",
+      "explanation": "The per-unit production charge can be traced to the output for which it is incurred.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a direct expense.",
+        "an unrelated office donation.",
+        "a purchase of share capital.",
+        "a loan received from customers."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-085",
+      "objectiveId": "waec-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Subscriptions received in advance by a club relate to the next membership period. At year-end they are normally",
+      "answer": "a liability until earned.",
+      "explanation": "The club has received cash for a period whose service or membership entitlement is still to be provided.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "current-period income solely because cash was received.",
+        "an irrecoverable trade debt.",
+        "a depreciation charge.",
+        "a liability until earned."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-086",
+      "objectiveId": "waec-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which item can appear in a receipts and payments account but is not itself income in an income and expenditure account?",
+      "answer": "Cash received from selling an old equipment asset.",
+      "explanation": "Receipts and payments include capital cash flows; the full sale proceeds are not ordinary subscription income or a direct measure of gain.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A donation earned and received for current activities.",
+        "Current-year interest income received.",
+        "Cash received from selling an old equipment asset.",
+        "Subscriptions earned and received for the current year."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-087",
+      "objectiveId": "waec-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Two departments share a building. Which basis is most directly relevant for allocating building rent when their occupied areas differ?",
+      "answer": "Floor area used by each department.",
+      "explanation": "An allocation basis should reflect the cost’s relationship to departmental use; floor area is relevant to occupation cost.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The date each customer was born.",
+        "Floor area used by each department.",
+        "The first letter of each manager’s name.",
+        "A random number unrelated to use."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-088",
+      "objectiveId": "waec-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Goods sent to a branch are invoiced above cost for internal control. Before reporting group profit, why must internal loading on unsold branch goods be considered?",
+      "answer": "Internal mark-up is not profit earned from an external customer.",
+      "explanation": "Unrealised internal profit must not inflate the group’s inventory or profit in the stated basic model.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Internal mark-up is not profit earned from an external customer.",
+        "Every transfer creates a sale to an independent outside customer.",
+        "Internal mark-up is automatically additional cash in the bank.",
+        "The physical goods cease to be inventory at the branch."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Interpretation and systems",
+      "subtopic": "Ratios finance and safeguards",
+      "learningObjective": "Interpret accounting information and system controls.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-089",
+      "objectiveId": "waec-accounts-interpretation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why is depreciation commonly added back to profit when calculating operating cash flow by an indirect reconciliation?",
+      "answer": "It reduced profit without itself being a cash payment in that period.",
+      "explanation": "Adding back removes the non-cash expense’s effect in the profit-to-cash reconciliation; it does not create new cash.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It is always cash received from customers.",
+        "It increases every trade payable directly.",
+        "It is the same as proceeds from selling the asset.",
+        "It reduced profit without itself being a cash payment in that period."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Errors and control accounts",
+      "subtopic": "Accuracy and correction",
+      "learningObjective": "Identify and correct errors using reconciled records.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-090",
+      "objectiveId": "waec-accounts-errors-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A purchases-ledger control account has a credit balance after all entries are reconciled. In the basic model without supplier advances, what does this balance represent?",
+      "answer": "The total amount owed to credit suppliers.",
+      "explanation": "The control account summarises supplier balances. Its closing credit balance represents a payable, rather than goods held or customer debts.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The total amount owed to credit suppliers.",
+        "The selling value of closing inventory.",
+        "The total amount owed by credit customers.",
+        "The proprietor’s personal savings."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Cash books and reconciliation",
+      "subtopic": "Cash records and bank differences",
+      "learningObjective": "Reconcile cash records and explain timing differences.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-091",
+      "objectiveId": "waec-accounts-cash-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "The cash book shows a ₦20,000 debit bank balance. A bank charge of ₦1,000 and direct customer credit of ₦6,000 are unrecorded. The bank statement shows ₦22,000 positive balance; deposits in transit are ₦7,000 and unpresented cheques ₦4,000. Prepare the adjusted cash-book balance and reconcile it with the statement.",
+      "answer": "Adjusted cash book = 20,000−1,000+6,000 = ₦25,000 debit. Statement reconciliation: 22,000+7,000−4,000 = ₦25,000. Deposits in transit increase the statement balance when reconciling to the cash book; unpresented cheques reduce it.",
+      "explanation": "Only unrecorded bank transactions update the cash book; timing differences are handled in the reconciliation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Record charge as a reduction of bank by ₦1,000.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Record direct credit as an increase of ₦6,000.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Obtain adjusted balance ₦25,000 debit.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Add deposits in transit and subtract unpresented cheques from the positive statement balance.",
+          "marks": 2
+        },
+        {
+          "step": 5,
+          "description": "Show agreement at ₦25,000.",
+          "marks": 1
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "20000-1000+6000",
+          "expected": "25000",
+          "answerValue": "25000",
+          "purpose": "Adjusted cash-book bank balance"
+        },
+        {
+          "expression": "22000+7000-4000",
+          "expected": "25000",
+          "purpose": "Reconciled statement balance"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-092",
+      "objectiveId": "waec-accounts-final-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Prepare a short income calculation from these figures, all in naira: sales 200,000; sales returns 10,000; opening inventory 30,000; purchases 110,000; purchase returns 5,000; carriage inwards 5,000; closing inventory 40,000; wages paid 20,000 plus accrual 3,000; rent paid 12,000 including prepayment 2,000; depreciation 8,000. Find net sales, cost of sales, gross profit and net profit.",
+      "answer": "Net sales = 190,000. Cost of sales = 30,000+110,000−5,000+5,000−40,000 = 100,000. Gross profit = 90,000. Wages expense = 23,000 and rent expense = 10,000. Net profit = 90,000−23,000−10,000−8,000 = ₦49,000.",
+      "explanation": "Accrue unpaid wages and exclude prepaid rent. Carriage inwards belongs in inventory cost for this exercise.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate net sales 190,000.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate cost of sales 100,000 with appropriate returns and inventory treatment.",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Calculate gross profit 90,000.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Calculate wages 23,000 and rent 10,000.",
+          "marks": 2
+        },
+        {
+          "step": 5,
+          "description": "Deduct depreciation and obtain net profit 49,000.",
+          "marks": 2
+        }
+      ],
+      "score": 9,
+      "maxMarks": 9,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "30000+110000-5000+5000-40000",
+          "expected": "100000",
+          "answerValue": "100000",
+          "purpose": "Cost of sales"
+        },
+        {
+          "expression": "200000-10000-100000-(20000+3000)-(12000-2000)-8000",
+          "expected": "49000",
+          "purpose": "Adjusted net profit"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Assets and depreciation",
+      "subtopic": "Measurement and cost allocation",
+      "learningObjective": "Apply stated asset and inventory policies.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-093",
+      "objectiveId": "waec-accounts-assets-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "An asset costs ₦100,000. Policy S depreciates it straight-line over four years with residual value ₦20,000. Policy R uses a 20% reducing-balance rate, with no residual-value constraint affecting the first two years. Calculate year-two depreciation and carrying amount after two years under each policy.",
+      "answer": "Policy S: annual depreciation = (100,000−20,000)/4 = ₦20,000; carrying amount after two years = ₦60,000. Policy R: first-year depreciation = ₦20,000, leaving ₦80,000; year-two depreciation = ₦16,000 and carrying amount = ₦64,000.",
+      "explanation": "Different policies allocate expense differently over time. The question specifies policy assumptions rather than implying a universal statutory rate.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find straight-line year-two expense 20,000.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find straight-line carrying amount 60,000.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Find reducing-balance first-year carrying amount 80,000.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Find year-two expense 16,000 and final carrying amount 64,000.",
+          "marks": 3
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(100000-20000)/4",
+          "expected": "20000",
+          "answerValue": "20000",
+          "purpose": "Straight-line annual depreciation"
+        },
+        {
+          "expression": "100000*0.8*0.2",
+          "expected": "16000",
+          "purpose": "Year-two reducing-balance expense"
+        },
+        {
+          "expression": "100000*0.8**2",
+          "expected": "64000",
+          "purpose": "Reducing-balance carrying amount after two years"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-094",
+      "objectiveId": "waec-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A club received subscriptions of ₦60,000. At the start of the year, subscriptions in arrears were ₦5,000 and in advance ₦4,000. At the end, arrears were ₦8,000 and advances ₦6,000. Find subscription income for the year and identify the closing balances as assets or liabilities.",
+      "answer": "Subscription income = 60,000−5,000+8,000+4,000−6,000 = ₦61,000. Closing arrears of ₦8,000 are a receivable asset, assuming recoverability; closing advances of ₦6,000 are a liability for the next membership period.",
+      "explanation": "Adjust receipts to the period earned rather than treating every cash receipt as current-year income.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Remove opening arrears and add closing arrears.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Add opening advances and remove closing advances.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Calculate income 61,000.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Classify closing arrears and advances correctly.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "60000-5000+8000+4000-6000",
+          "expected": "61000",
+          "answerValue": "61000",
+          "purpose": "Accrual subscription income"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-095",
+      "objectiveId": "waec-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Prepare a manufacturing cost calculation from these figures in naira: opening raw materials 10,000; raw-material purchases 45,000; carriage inwards 2,000; closing raw materials 7,000; direct wages 30,000; direct expenses 5,000; factory overhead 20,000; opening work in progress 8,000; closing work in progress 6,000. Find raw materials consumed, prime cost and cost of production.",
+      "answer": "Raw materials consumed = 10,000+45,000+2,000−7,000 = ₦50,000. Prime cost = 50,000+30,000+5,000 = ₦85,000. Cost of production = 85,000+20,000+8,000−6,000 = ₦107,000.",
+      "explanation": "Prime cost includes direct materials, direct labour and direct expenses. Work-in-progress changes adjust the cost completed during the period.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate materials consumed 50,000.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate prime cost 85,000.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Add factory overhead and correctly adjust work in progress.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Obtain production cost 107,000.",
+          "marks": 1
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "10000+45000+2000-7000",
+          "expected": "50000",
+          "answerValue": "50000",
+          "purpose": "Raw materials consumed"
+        },
+        {
+          "expression": "50000+30000+5000+20000+8000-6000",
+          "expected": "107000",
+          "purpose": "Cost of production"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Specialised accounts",
+      "subtopic": "Manufacturing clubs and partnerships",
+      "learningObjective": "Prepare accounts using the stated organisational model.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-096",
+      "objectiveId": "waec-accounts-organisations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A partnership earns ₦120,000 before appropriations. The agreement gives A a salary of ₦20,000, interest on capital of ₦10,000 to A and ₦6,000 to B, then shares the residual profit 3:2 between A and B. Find residual profit and each partner’s total entitlement. There are no other appropriations.",
+      "answer": "Residual profit = 120,000−20,000−10,000−6,000 = ₦84,000. A receives 20,000+10,000+84,000×3/5 = ₦80,400. B receives 6,000+84,000×2/5 = ₦39,600. Total allocation is ₦120,000.",
+      "explanation": "Apply the residual-sharing ratio only after the stated prior appropriations.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate residual profit 84,000.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Allocate residual as 50,400 to A and 33,600 to B.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Find total A entitlement 80,400 and B entitlement 39,600.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Show allocation totals 120,000.",
+          "marks": 1
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "120000-20000-10000-6000",
+          "expected": "84000",
+          "answerValue": "84000",
+          "purpose": "Residual partnership profit"
+        },
+        {
+          "expression": "20000+10000+84000*3/5",
+          "expected": "80400",
+          "purpose": "A total entitlement"
+        },
+        {
+          "expression": "6000+84000*2/5",
+          "expected": "39600",
+          "purpose": "B total entitlement"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Errors and control accounts",
+      "subtopic": "Accuracy and correction",
+      "learningObjective": "Identify and correct errors using reconciled records.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-097",
+      "objectiveId": "waec-accounts-errors-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Prepare the closing sales-ledger control balance from these naira figures: opening debit balance 40,000; credit sales 150,000; customer receipts 120,000; sales returns 8,000; discounts allowed 2,000; bad debts written off 3,000; dishonoured customer cheque 5,000. Assume no other entries and no opening credit balances.",
+      "answer": "Closing receivables = 40,000+150,000+5,000−120,000−8,000−2,000−3,000 = ₦62,000 debit. The dishonoured cheque restores the customer debt that the earlier receipt had reduced.",
+      "explanation": "A control account summarises receivable movements. A dishonoured cheque is not another reduction of the customer balance.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Include opening receivables and credit sales on the increasing side.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Add the dishonoured cheque correctly.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Deduct receipts, returns, discounts and bad debts.",
+          "marks": 3
+        },
+        {
+          "step": 4,
+          "description": "Obtain 62,000 debit.",
+          "marks": 1
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "40000+150000+5000-120000-8000-2000-3000",
+          "expected": "62000",
+          "answerValue": "62000",
+          "purpose": "Closing sales-ledger control balance"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Errors and control accounts",
+      "subtopic": "Accuracy and correction",
+      "learningObjective": "Identify and correct errors using reconciled records.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-098",
+      "objectiveId": "waec-accounts-errors-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A suspense account has a ₦6,000 debit balance. Investigation shows that a ₦10,000 credit purchase was correctly credited to the supplier but debited to purchases as ₦4,000. Separately, ₦3,000 of stationery was wrongly debited to rent, with the credit entry correct. Give the correcting journal entries and show which one clears suspense.",
+      "answer": "Debit purchases ₦6,000; credit suspense ₦6,000, clearing its debit balance. Separately, debit stationery ₦3,000; credit rent ₦3,000. The second correction does not involve suspense because its original debit and credit amounts balanced.",
+      "explanation": "Use suspense only for the difference that caused trial-balance disagreement, not for every classification error.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate the missing purchase debit 6,000.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Correctly debit purchases and credit suspense by 6,000.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Show suspense cleared.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Correctly debit stationery and credit rent by 3,000 without suspense.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "10000-4000",
+          "expected": "6000",
+          "answerValue": "6000",
+          "purpose": "Missing debit causing suspense difference"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Assets and depreciation",
+      "subtopic": "Measurement and cost allocation",
+      "learningObjective": "Apply stated asset and inventory policies.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-099",
+      "objectiveId": "waec-accounts-assets-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Inventory consists of 10 units bought at ₦200 each and a later 20 units at ₦250 each. The business sells 18 units at ₦350 each. Under FIFO, calculate cost of sales, closing inventory and gross profit. Ignore other costs and returns.",
+      "answer": "FIFO issues the 10 earlier units costing ₦2,000 and 8 later units costing ₦2,000, so cost of sales is ₦4,000. Twelve later units remain at ₦250, giving closing inventory ₦3,000. Revenue is 18×350 = ₦6,300, so gross profit is ₦2,300.",
+      "explanation": "Track quantities and costs separately. FIFO is the stated allocation policy, not an assumption about every physical issue.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Allocate 10 units from the first batch and 8 from the second.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate cost of sales 4,000.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate closing inventory 3,000.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Calculate revenue 6,300 and gross profit 2,300.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "10*200+8*250",
+          "expected": "4000",
+          "answerValue": "4000",
+          "purpose": "FIFO cost of sales"
+        },
+        {
+          "expression": "12*250",
+          "expected": "3000",
+          "purpose": "FIFO closing inventory"
+        },
+        {
+          "expression": "18*350-4000",
+          "expected": "2300",
+          "purpose": "Gross profit"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Financial Accounting",
+      "topic": "Final accounts and adjustments",
+      "subtopic": "Profit and financial position",
+      "learningObjective": "Prepare and interpret adjusted accounting figures.",
+      "specificationId": "waec-accounts-compilation-2026",
+      "id": "ndv-030-100",
+      "objectiveId": "waec-accounts-final-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Opening assets are ₦180,000 and liabilities ₦40,000. Closing assets are ₦250,000 and liabilities ₦70,000. During the year the proprietor introduced ₦20,000 capital and withdrew ₦30,000. Use the capital comparison method to calculate profit, assuming no other equity changes.",
+      "answer": "Opening capital = 180,000−40,000 = ₦140,000. Closing capital = 250,000−70,000 = ₦180,000. Profit = 180,000−140,000+30,000−20,000 = ₦50,000.",
+      "explanation": "Drawings reduced closing capital and must be added back; introduced capital increased it without being profit and must be removed.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate opening capital 140,000.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate closing capital 180,000.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Adjust correctly for drawings and introduced capital.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Obtain profit 50,000.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(250000-70000)-(180000-40000)+30000-20000",
+          "expected": "50000",
+          "answerValue": "50000",
+          "purpose": "Profit from capital comparison"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO SSCE Internal Economics original theory drafts",
+  "questionCount": 8,
+  "note": "Original structured theory practice. Topic alignment is provisional and practice marks are author-assigned.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Market changes",
+      "subtopic": "Movements and shifts",
+      "learningObjective": "Distinguish changes in quantity from changes in demand or supply and reason about the effects.",
+      "specificationId": "neco-economics-market-reference-2026",
+      "id": "ndv-049-001",
+      "objectiveId": "neco-economics-markets-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A bakery lowers the price of a loaf. Over the same week, a nearby hostel opens and its residents start buying bread. With other factors constant, distinguish the two effects on demand for the bakery’s bread.",
+      "answer": "The price cut increases quantity demanded along a given curve. The hostel adds buyers, increasing demand at each price.",
+      "explanation": "Identify the price cut as a movement along a demand curve. Explain that more buyers shift demand right.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the price cut as a movement along a demand curve."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that more buyers shift demand right."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Market changes",
+      "subtopic": "Movements and shifts",
+      "learningObjective": "Distinguish changes in quantity from changes in demand or supply and reason about the effects.",
+      "specificationId": "neco-economics-market-reference-2026",
+      "id": "ndv-049-002",
+      "objectiveId": "neco-economics-markets-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A tomato grower installs drip irrigation, reducing the cost of producing each basket. At an unchanged selling price, predict the effect on the number of baskets the grower is willing to sell and name the change.",
+      "answer": "More baskets at the same price. This is an increase in supply.",
+      "explanation": "Explain that lower costs make more baskets profitable at the given price. Identify a rightward supply shift.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain that lower costs make more baskets profitable at the given price."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a rightward supply shift."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Market changes",
+      "subtopic": "Movements and shifts",
+      "learningObjective": "Distinguish changes in quantity from changes in demand or supply and reason about the effects.",
+      "specificationId": "neco-economics-market-reference-2026",
+      "id": "ndv-049-003",
+      "objectiveId": "neco-economics-markets-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A road closure makes it harder to bring fresh fish to a market. At the same time, a local event attracts more buyers. In a competitive market, predict the direction of the equilibrium price and explain why the direction of the equilibrium quantity cannot be decided from this information alone.",
+      "answer": "Price rises. Quantity may rise, fall or stay the same, depending on the relative effects of lower supply and higher demand.",
+      "explanation": "Identify a decrease in supply. Identify an increase in demand. Explain that both shifts raise price. Explain that their effects on quantity oppose each other.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify a decrease in supply."
+        },
+        {
+          "marks": 1,
+          "description": "Identify an increase in demand."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that both shifts raise price."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that their effects on quantity oppose each other."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Market changes",
+      "subtopic": "Movements and shifts",
+      "learningObjective": "Distinguish changes in quantity from changes in demand or supply and reason about the effects.",
+      "specificationId": "neco-economics-market-reference-2026",
+      "id": "ndv-049-004",
+      "objectiveId": "neco-economics-markets-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A stall owner says rising prices and rising sales of umbrellas during heavy rain prove that demand curves slope upwards. Evaluate the claim using a change in demand.",
+      "answer": "Rain can shift demand right. Both equilibrium price and sales may increase even though each demand curve slopes downwards.",
+      "explanation": "Explain why heavy rain can increase demand at a given price. Distinguish a comparison between equilibria from a movement along one demand curve.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain why heavy rain can increase demand at a given price."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish a comparison between equilibria from a movement along one demand curve."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Market equilibrium",
+      "subtopic": "Market clearing and price controls",
+      "learningObjective": "Interpret market-clearing conditions and assess shortages, surpluses and allocation.",
+      "specificationId": "neco-economics-market-reference-2026",
+      "id": "ndv-049-005",
+      "objectiveId": "neco-economics-markets-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At ₦500 per cup, buyers want 75 cups of juice per day and sellers offer 55. Identify the imbalance and calculate its size. If price can adjust, state the direction of pressure on price.",
+      "answer": "A shortage of 20 cups per day puts upward pressure on price.",
+      "explanation": "Identify excess demand. Compute 75 − 55 = 20. State that price faces upward pressure.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify excess demand."
+        },
+        {
+          "marks": 1,
+          "description": "Compute 75 − 55 = 20."
+        },
+        {
+          "marks": 1,
+          "description": "State that price faces upward pressure."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "75-55",
+          "expected": "20",
+          "purpose": "Check the difference in quantities."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Market equilibrium",
+      "subtopic": "Market clearing and price controls",
+      "learningObjective": "Interpret market-clearing conditions and assess shortages, surpluses and allocation.",
+      "specificationId": "neco-economics-market-reference-2026",
+      "id": "ndv-049-006",
+      "objectiveId": "neco-economics-markets-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At the original market-clearing price, demand and supply were both 120 trays per day. A new minimum price raises supply to 150 trays and reduces demand to 90 trays. With no outside buyer and all willing buyers served, find sales and the number of trays left unsold.",
+      "answer": "90 trays sold and 60 trays unsold.",
+      "explanation": "Explain that the number buyers want limits actual sales to 90. Subtract sales from 150 trays supplied.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain that the number buyers want limits actual sales to 90."
+        },
+        {
+          "marks": 1,
+          "description": "Subtract sales from 150 trays supplied."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "150-90",
+          "expected": "60",
+          "purpose": "Check the difference in quantities."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Market equilibrium",
+      "subtopic": "Market clearing and price controls",
+      "learningObjective": "Interpret market-clearing conditions and assess shortages, surpluses and allocation.",
+      "specificationId": "neco-economics-market-reference-2026",
+      "id": "ndv-049-007",
+      "objectiveId": "neco-economics-markets-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A council sets a maximum price below the market-clearing price for a fixed number of stalls. It allocates stalls to applicants in order of arrival. Explain one advantage for successful applicants and one disadvantage for others.",
+      "answer": "Successful applicants pay less than the clearing price. With more applicants than stalls at that price, others may have to queue or miss out.",
+      "explanation": "Identify the price saving for successful applicants. Explain why lower price creates excess demand with fixed supply. Identify a consequence of allocating stalls by arrival time.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the price saving for successful applicants."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why lower price creates excess demand with fixed supply."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a consequence of allocating stalls by arrival time."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Market equilibrium",
+      "subtopic": "Market clearing and price controls",
+      "learningObjective": "Interpret market-clearing conditions and assess shortages, surpluses and allocation.",
+      "specificationId": "neco-economics-market-reference-2026",
+      "id": "ndv-049-008",
+      "objectiveId": "neco-economics-markets-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A cooperative advertises a maximum price of ₦1,400 when the current competitive equilibrium price is ₦1,200. Demand and supply conditions stay the same. Explain whether the maximum price changes the outcome.",
+      "answer": "It does not change the outcome. Trading at ₦1,200 is still allowed, so the maximum is non-binding.",
+      "explanation": "Compare the maximum with the equilibrium price. Explain that the current clearing price remains permitted.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Compare the maximum with the equilibrium price."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that the current clearing price remains permitted."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

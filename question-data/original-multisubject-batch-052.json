@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Financial Accounting objective practice",
+  "questionCount": 12,
+  "note": "Original four-option practice for Paper III with provisional topic mapping. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Overdrafts, errors and timing",
+      "learningObjective": "Classify bank differences and reconcile balances with correct signs.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-001",
+      "objectiveId": "neco-accounting-objective-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A bookkeeper finds a cheque recorded in the cash book that the bank has not yet paid. The cheque was correctly entered. What kind of difference is this?",
+      "answer": "A timing difference",
+      "options": [
+        "A timing difference",
+        "A bank charge",
+        "A duplicate payment",
+        "A cash book omission"
+      ],
+      "correctOption": "A",
+      "explanation": "The business has recorded the payment before the bank has processed it.",
+      "score": 1,
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Overdrafts, errors and timing",
+      "learningObjective": "Classify bank differences and reconcile balances with correct signs.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-002",
+      "objectiveId": "neco-accounting-objective-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "The cash book shows a ₦24,500 overdraft before a ₦7,000 standing order and ₦2,500 bank interest charge are recorded. What is the adjusted overdraft?",
+      "answer": "₦34,000",
+      "options": [
+        "₦15,000",
+        "₦29,000",
+        "₦22,000",
+        "₦34,000"
+      ],
+      "correctOption": "D",
+      "explanation": "Both debits reduce available funds and increase the overdraft by ₦9,500.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "24500+7000+2500",
+          "expected": "34000",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Overdrafts, errors and timing",
+      "learningObjective": "Classify bank differences and reconcile balances with correct signs.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-003",
+      "objectiveId": "neco-accounting-objective-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A supplier cheque of ₦18,700 appears correctly on the statement, but the cash book shows the payment as ₦17,800. Which adjustment is required?",
+      "answer": "Credit the bank column by ₦900.",
+      "options": [
+        "Debit the bank column by ₦900.",
+        "Credit the bank column by ₦18,700.",
+        "Credit the bank column by ₦900.",
+        "Debit the bank column by ₦17,800."
+      ],
+      "correctOption": "C",
+      "explanation": "The cash book understated the payment by ₦900. The bank balance must be reduced by that difference.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "18700-17800",
+          "expected": "900",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Overdrafts, errors and timing",
+      "learningObjective": "Classify bank differences and reconcile balances with correct signs.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-004",
+      "objectiveId": "neco-accounting-objective-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A customer’s cheque was deposited and entered in the cash book. The bank later returned it unpaid. Which entry reverses the earlier receipt?",
+      "answer": "Debit the customer’s account and credit bank.",
+      "options": [
+        "Debit bank and credit the customer’s account.",
+        "Debit the customer’s account and credit bank.",
+        "Debit bank and credit sales.",
+        "Debit the customer’s account and credit sales."
+      ],
+      "correctOption": "B",
+      "explanation": "The debt is restored and the bank balance is reduced.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Overdrafts, errors and timing",
+      "learningObjective": "Classify bank differences and reconcile balances with correct signs.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-005",
+      "objectiveId": "neco-accounting-objective-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A statement shows an overdraft of ₦30,000. A ₦12,000 deposit recorded by the business is still in transit. There are no other differences. What is the adjusted cash book balance?",
+      "answer": "₦18,000 overdraft",
+      "options": [
+        "₦18,000 overdraft",
+        "₦42,000 overdraft",
+        "₦18,000 favourable",
+        "₦30,000 favourable"
+      ],
+      "correctOption": "A",
+      "explanation": "From the statement balance of −₦30,000, add the deposit already recognised in the cash book.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "-30000+12000",
+          "expected": "-18000",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Overdrafts, errors and timing",
+      "learningObjective": "Classify bank differences and reconcile balances with correct signs.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-006",
+      "objectiveId": "neco-accounting-objective-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "An assistant proposes recording all deposits in transit again so the cash book matches the bank statement. What is the strongest reason to reject this?",
+      "answer": "It would record receipts already entered and overstate the cash book balance.",
+      "options": [
+        "It would cause the bank to process the deposits immediately.",
+        "It would increase the cash book overdraft by the amount deposited.",
+        "It would correctly bring forward receipts from the next month.",
+        "It would record receipts already entered and overstate the cash book balance."
+      ],
+      "correctOption": "D",
+      "explanation": "The cash book already recognises these receipts. Their absence from the statement is a timing issue.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Returns, offsets and balance interpretation",
+      "learningObjective": "Identify control-account effects and use control totals to diagnose errors.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-007",
+      "objectiveId": "neco-accounting-objective-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In which book would a credit note sent to a customer for goods they returned first be recorded?",
+      "answer": "Sales returns book",
+      "options": [
+        "Purchases returns book",
+        "Sales day book",
+        "Cash payments book",
+        "Sales returns book"
+      ],
+      "correctOption": "D",
+      "explanation": "A credit customer returning goods reduces a previous sale, so the credit note is recorded in the sales returns book.",
+      "score": 1,
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Returns, offsets and balance interpretation",
+      "learningObjective": "Identify control-account effects and use control totals to diagnose errors.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-008",
+      "objectiveId": "neco-accounting-objective-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A supplier is also a credit customer. Both parties agree to offset ₦11,000 owed to the supplier against the amount due from that customer. Which control-account entry records the offset?",
+      "answer": "Debit payables and credit receivables.",
+      "options": [
+        "Debit receivables and credit payables.",
+        "Debit payables and credit bank.",
+        "Debit payables and credit receivables.",
+        "Debit bank and credit receivables."
+      ],
+      "correctOption": "C",
+      "explanation": "The offset reduces both the liability to the supplier and the asset due from the customer.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Returns, offsets and balance interpretation",
+      "learningObjective": "Identify control-account effects and use control totals to diagnose errors.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-009",
+      "objectiveId": "neco-accounting-objective-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "The receivables control account is ₦92,000 debit and the customer balances total ₦88,500 debit. A credit sale of ₦3,500 was entered in the sales journal and included in control. Which single error could explain the difference?",
+      "answer": "The sale was omitted from the individual customer’s account.",
+      "options": [
+        "The sale was posted twice to the individual customer’s account.",
+        "The sale was omitted from the individual customer’s account.",
+        "A customer receipt was omitted from the individual account.",
+        "A sales return was entered twice in the control account only."
+      ],
+      "correctOption": "B",
+      "explanation": "The control total exceeds the list by exactly the missing customer debit.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "92000-88500",
+          "expected": "3500",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Returns, offsets and balance interpretation",
+      "learningObjective": "Identify control-account effects and use control totals to diagnose errors.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-010",
+      "objectiveId": "neco-accounting-objective-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A credit customer pays more than the amount outstanding and leaves the excess on account. What will the customer’s account show after posting the payment?",
+      "answer": "A credit balance for the excess",
+      "options": [
+        "A credit balance for the excess",
+        "A debit balance for the excess",
+        "A debit balance for the original amount",
+        "A zero balance regardless of the amount paid"
+      ],
+      "correctOption": "A",
+      "explanation": "The payment credit exceeds the prior debit. The excess represents an amount owed or credited to the customer.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Returns, offsets and balance interpretation",
+      "learningObjective": "Identify control-account effects and use control totals to diagnose errors.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-011",
+      "objectiveId": "neco-accounting-objective-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A receivable of ₦4,200 is written off as irrecoverable. Which posting in the receivables control account records the write-off?",
+      "answer": "Credit ₦4,200",
+      "options": [
+        "Debit ₦4,200",
+        "Credit ₦8,400",
+        "No posting until money is collected",
+        "Credit ₦4,200"
+      ],
+      "correctOption": "D",
+      "explanation": "A write-off reduces the amount owed by credit customers, so receivables control is credited.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Returns, offsets and balance interpretation",
+      "learningObjective": "Identify control-account effects and use control totals to diagnose errors.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-052-012",
+      "objectiveId": "neco-accounting-objective-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A credit sale appears in the correct customer account and control total but was entered under the wrong invoice date. Which check can directly detect the date error?",
+      "answer": "Compare the dated invoice with the journal entry.",
+      "options": [
+        "Compare the control total with the sum of customer balances.",
+        "Check that total debits equal total credits.",
+        "Compare the dated invoice with the journal entry.",
+        "Recalculate the total amount due from all customers."
+      ],
+      "correctOption": "C",
+      "explanation": "All the monetary totals can agree despite a date error. Comparison to the original invoice checks the date.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

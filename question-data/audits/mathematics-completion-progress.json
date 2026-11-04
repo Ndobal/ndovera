@@ -162,5 +162,7 @@
     "Do not reuse identical prompts across examinations; remediate batch 022a before publication",
     "Independently verify answers, topic coverage and production compatibility"
   ],
-  "restriction": "Data files only; no application code or production database changes."
+  "restriction": "Data files only; no application code or production database changes.",
+  "supersededBy": "question-data/audits/completion-dashboard.json",
+  "note": "Historical raw counts only. The complete-project validator excludes unmapped and similarity-held drafts."
 }

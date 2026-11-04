@@ -1,0 +1,3838 @@
+{
+  "schemaVersion": 2,
+  "collection": "Ndovera complete question bank — Biology Chemistry Physics batch 026",
+  "questionCount": 100,
+  "note": "Original drafts with provisional author-proposed objective alignment. Independent academic review and full current-source verification pending. Original practice rubrics, not official examination marking schemes. No production import.",
+  "questions": [
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Cell organisation",
+      "subtopic": "Membranes and organelles",
+      "learningObjective": "Relate cellular structures to transport and energy processes.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-001",
+      "objectiveId": "jamb-biology-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A cell has a cellulose wall, chloroplasts and a large permanent vacuole. Which identification is best supported?",
+      "answer": "A photosynthetic plant cell.",
+      "explanation": "The combination of a cellulose wall, chloroplasts and a large vacuole is characteristic of a photosynthetic plant cell.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A mature mammalian red blood cell.",
+        "A bacterial cell with a membrane-bound nucleus.",
+        "An animal muscle cell.",
+        "A photosynthetic plant cell."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Cell organisation",
+      "subtopic": "Membranes and organelles",
+      "learningObjective": "Relate cellular structures to transport and energy processes.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-002",
+      "objectiveId": "jamb-biology-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A plant cell is placed in a solution with lower water potential than its cell sap. What is the initial net movement of water?",
+      "answer": "Out of the cell through its partially permeable membrane.",
+      "explanation": "Water moves by osmosis from higher to lower water potential across a partially permeable membrane.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Equally out of both the cell wall and nucleus only.",
+        "No movement because a cell wall makes water movement impossible.",
+        "Out of the cell through its partially permeable membrane.",
+        "Into the cell against the water-potential gradient without energy."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Cell organisation",
+      "subtopic": "Membranes and organelles",
+      "learningObjective": "Relate cellular structures to transport and energy processes.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-003",
+      "objectiveId": "jamb-biology-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which observation most directly indicates active transport of mineral ions into root cells?",
+      "answer": "Uptake continues against the concentration gradient and decreases when respiration is inhibited.",
+      "explanation": "Movement against a gradient requires energy; sensitivity to inhibited respiration supports energy-dependent transport.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Particles spread through still air without metabolic energy.",
+        "Uptake continues against the concentration gradient and decreases when respiration is inhibited.",
+        "Ions move from higher to lower concentration in water without cells.",
+        "Water crosses a membrane towards lower water potential."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Plant and animal nutrition",
+      "learningObjective": "Interpret nutrition experiments and explain nutrient functions.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-004",
+      "objectiveId": "jamb-biology-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A destarched variegated leaf is exposed to light and tested for starch. Only the previously green regions turn blue-black. What does this result support?",
+      "answer": "Chlorophyll-containing regions produced starch under the experimental conditions.",
+      "explanation": "The colour change localises starch to green tissue. It supports a role for chlorophyll but does not prove that light or carbon dioxide is unnecessary.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Chlorophyll-containing regions produced starch under the experimental conditions.",
+        "White regions contain more starch than green regions.",
+        "All plant tissue photosynthesises without pigments.",
+        "Iodine turns every living cell blue-black."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Plant and animal nutrition",
+      "learningObjective": "Interpret nutrition experiments and explain nutrient functions.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-005",
+      "objectiveId": "jamb-biology-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What is the main digestive role of bile in the small intestine?",
+      "answer": "It emulsifies fats, increasing surface area available to lipase.",
+      "explanation": "Bile salts break large fat droplets into smaller droplets. Bile is not itself the enzyme that hydrolyses fat.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It is a protease that digests proteins.",
+        "It converts starch directly to amino acids.",
+        "It transports oxygen to intestinal cells.",
+        "It emulsifies fats, increasing surface area available to lipase."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Plant and animal nutrition",
+      "learningObjective": "Interpret nutrition experiments and explain nutrient functions.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-006",
+      "objectiveId": "jamb-biology-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A food sample gives a violet colour in the biuret test. Which nutrient class is indicated?",
+      "answer": "Protein.",
+      "explanation": "The biuret reaction detects peptide bonds and gives a violet colour with proteins under suitable conditions.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Reducing sugar.",
+        "Pure water.",
+        "Protein.",
+        "Starch."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Circulation and gas exchange",
+      "learningObjective": "Connect transport and exchange structures with their functions.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-007",
+      "objectiveId": "jamb-biology-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why does the left ventricle have a thicker muscular wall than the right ventricle?",
+      "answer": "It must generate pressure to drive blood through the systemic circulation.",
+      "explanation": "The left ventricle pumps around the body against greater overall resistance than the pulmonary circuit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Its wall must filter urea from blood.",
+        "It must generate pressure to drive blood through the systemic circulation.",
+        "It contains only deoxygenated blood.",
+        "It pumps blood only to the nearby lungs."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Circulation and gas exchange",
+      "learningObjective": "Connect transport and exchange structures with their functions.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-008",
+      "objectiveId": "jamb-biology-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which feature of mammalian alveoli most directly reduces the diffusion distance for gases?",
+      "answer": "A very thin exchange surface.",
+      "explanation": "Thin alveolar and capillary walls create a short path for oxygen and carbon dioxide diffusion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A very thin exchange surface.",
+        "Thick layers of keratin.",
+        "A complete absence of capillaries.",
+        "A dry impermeable surface."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Circulation and gas exchange",
+      "learningObjective": "Connect transport and exchange structures with their functions.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-009",
+      "objectiveId": "jamb-biology-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Ring-barking removes a complete strip of bark including phloem but leaves xylem intact. Why may swelling occur above the ring?",
+      "answer": "Sugars transported in phloem accumulate above the interruption.",
+      "explanation": "Removing phloem disrupts translocation from leaves to lower sinks, so assimilates may accumulate above the damaged region.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Xylem immediately changes into starch.",
+        "All upward water movement must stop at once.",
+        "Roots begin photosynthesising inside the bark.",
+        "Sugars transported in phloem accumulate above the interruption."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Coordination and homeostasis",
+      "subtopic": "Regulation and responses",
+      "learningObjective": "Explain responses that maintain internal conditions.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-010",
+      "objectiveId": "jamb-biology-control-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "When body temperature rises, which response helps increase heat loss?",
+      "answer": "Dilation of blood vessels supplying the skin.",
+      "explanation": "Vasodilation increases blood flow near the skin surface, supporting transfer of heat to cooler surroundings.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Increased involuntary shivering.",
+        "Reduced sweat secretion as the only cooling mechanism.",
+        "Dilation of blood vessels supplying the skin.",
+        "Constriction of skin blood vessels in every case."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Coordination and homeostasis",
+      "subtopic": "Regulation and responses",
+      "learningObjective": "Explain responses that maintain internal conditions.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-011",
+      "objectiveId": "jamb-biology-control-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In a reflex arc, what is the role of the sensory neurone?",
+      "answer": "Carry impulses from a receptor towards the central nervous system.",
+      "explanation": "A sensory neurone links detection at a receptor to processing in the central nervous system.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Carry impulses from the spinal cord to a muscle only.",
+        "Carry impulses from a receptor towards the central nervous system.",
+        "Carry hormones from a gland through blood.",
+        "Contract directly as the muscle effector."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Reproduction",
+      "subtopic": "Life cycles and development",
+      "learningObjective": "Distinguish reproductive processes and their consequences.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-012",
+      "objectiveId": "jamb-biology-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What is pollination in a flowering plant?",
+      "answer": "Transfer of pollen from an anther to a stigma.",
+      "explanation": "Pollination is pollen transfer. Fusion of gametes occurs later during fertilisation.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Transfer of pollen from an anther to a stigma.",
+        "Fusion of a sperm nucleus with an egg nucleus.",
+        "Development of an ovary into a fruit.",
+        "Dispersal of a mature seed away from the parent."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Reproduction",
+      "subtopic": "Life cycles and development",
+      "learningObjective": "Distinguish reproductive processes and their consequences.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-013",
+      "objectiveId": "jamb-biology-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why does meiosis normally precede sexual reproduction in a diploid life cycle?",
+      "answer": "It produces haploid cells so fertilisation can restore the diploid number.",
+      "explanation": "Reduction division halves chromosome number, preventing doubling at each generation when gametes fuse.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It doubles the chromosome number in every gamete.",
+        "It guarantees that every offspring is genetically identical.",
+        "It replaces fertilisation with binary fission.",
+        "It produces haploid cells so fertilisation can restore the diploid number."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Heredity and variation",
+      "subtopic": "Inheritance",
+      "learningObjective": "Infer inheritance patterns from stated genetic models.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-014",
+      "objectiveId": "jamb-biology-genetics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In a monohybrid cross Tt × Tt with complete dominance, what fraction of offspring is expected to be homozygous recessive?",
+      "answer": "1/4",
+      "explanation": "The four equally likely genotype combinations are TT, Tt, Tt and tt; one is homozygous recessive.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "3/4",
+        "1",
+        "1/4",
+        "1/2"
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "1/4",
+          "expected": "1/4",
+          "answerValue": "1/4",
+          "purpose": "Homozygous recessive probability"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Heredity and variation",
+      "subtopic": "Inheritance",
+      "learningObjective": "Infer inheritance patterns from stated genetic models.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-015",
+      "objectiveId": "jamb-biology-genetics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A plant with a dominant phenotype is crossed with a homozygous recessive plant. A large offspring sample contains both phenotypes. Under a single-gene complete-dominance model, what does this show?",
+      "answer": "The dominant-phenotype parent is heterozygous.",
+      "explanation": "A recessive offspring must receive a recessive allele from each parent; the parent showing dominance therefore carries both alleles.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The dominant allele has disappeared from all offspring.",
+        "The dominant-phenotype parent is heterozygous.",
+        "The recessive parent must be homozygous dominant.",
+        "Every offspring must be a new species."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Populations and interactions",
+      "learningObjective": "Analyse ecological interactions and evaluate sampling evidence.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-016",
+      "objectiveId": "jamb-biology-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A student samples grass cover only beside a football pitch and generalises to the whole school compound. What is the main weakness?",
+      "answer": "The selected location may not represent the full range of habitats.",
+      "explanation": "A convenience location can bias an estimate when conditions differ elsewhere; more quadrats at the same biased location do not necessarily fix representativeness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The selected location may not represent the full range of habitats.",
+        "Quadrats can never be used for plants.",
+        "Grass cover cannot vary between locations.",
+        "Sampling more areas would always make the result less reliable."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Populations and interactions",
+      "learningObjective": "Analyse ecological interactions and evaluate sampling evidence.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-017",
+      "objectiveId": "jamb-biology-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In the chain grass → grasshopper → lizard → hawk, which organism is the secondary consumer?",
+      "answer": "Lizard.",
+      "explanation": "The grasshopper is the primary consumer feeding on the producer; the lizard eats that primary consumer.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Grass.",
+        "Grasshopper.",
+        "Hawk.",
+        "Lizard."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Populations and interactions",
+      "learningObjective": "Analyse ecological interactions and evaluate sampling evidence.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-018",
+      "objectiveId": "jamb-biology-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why can excessive fertiliser runoff lead to low dissolved oxygen in a pond?",
+      "answer": "Increased algal biomass can later fuel decomposition that consumes oxygen.",
+      "explanation": "Nutrient enrichment promotes growth; respiration by decomposers breaking down dead biomass can reduce dissolved oxygen.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every algal cell permanently stops respiration.",
+        "Water can contain oxygen only when no organisms are present.",
+        "Increased algal biomass can later fuel decomposition that consumes oxygen.",
+        "Fertiliser turns all oxygen directly into nitrogen gas."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Diversity and adaptation",
+      "subtopic": "Classification and selection",
+      "learningObjective": "Explain how observable features relate to classification or survival.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-019",
+      "objectiveId": "jamb-biology-adaptation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which feature distinguishes insects from spiders among adult arthropods?",
+      "answer": "Insects normally have three pairs of walking legs.",
+      "explanation": "Adult insects have six legs; spiders have four pairs. Both groups have jointed appendages, so that feature alone does not distinguish them.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Only insects possess an exoskeleton.",
+        "Insects normally have three pairs of walking legs.",
+        "All insects have eight walking legs.",
+        "Only insects have jointed appendages."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Biology",
+      "topic": "Diversity and adaptation",
+      "subtopic": "Classification and selection",
+      "learningObjective": "Explain how observable features relate to classification or survival.",
+      "specificationId": "jamb-biology-source-2026",
+      "id": "ndv-026-020",
+      "objectiveId": "jamb-biology-adaptation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "During a drought, plants with an inherited ability to reduce water loss leave more offspring. Which statement best describes natural selection in this case?",
+      "answer": "The inherited water-saving trait becomes more frequent through differential reproductive success.",
+      "explanation": "Selection acts on existing heritable variation; it does not require every individual to acquire a trait because it needs it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The inherited water-saving trait becomes more frequent through differential reproductive success.",
+        "Every plant consciously changes its genes.",
+        "Drought creates identical useful mutations in all plants.",
+        "Survival differences cannot affect future generations."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Cell organisation",
+      "subtopic": "Membranes and organelles",
+      "learningObjective": "Relate cellular structures to transport and energy processes.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-021",
+      "objectiveId": "waec-biology-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which organelle is the principal site of aerobic ATP production in a typical plant root cell?",
+      "answer": "Mitochondrion.",
+      "explanation": "Root cells respire; mitochondria carry out key stages of aerobic respiration even in cells that do not photosynthesise.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Chloroplast.",
+        "Cell wall.",
+        "Large vacuole.",
+        "Mitochondrion."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Cell organisation",
+      "subtopic": "Membranes and organelles",
+      "learningObjective": "Relate cellular structures to transport and energy processes.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-022",
+      "objectiveId": "waec-biology-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A freshly cut potato strip becomes firm after standing in distilled water. Which explanation is best?",
+      "answer": "Water enters cells by osmosis and increases turgor.",
+      "explanation": "Water entry expands the vacuole and presses the contents against the wall, increasing tissue firmness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Water moves out of every cell into distilled water.",
+        "The cell walls dissolve and form bone.",
+        "Water enters cells by osmosis and increases turgor.",
+        "Starch is instantly converted into a new cell wall."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Plant and animal nutrition",
+      "learningObjective": "Interpret nutrition experiments and explain nutrient functions.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-023",
+      "objectiveId": "waec-biology-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why is a leaf first boiled in water during a starch test?",
+      "answer": "To kill the tissue and stop its metabolic reactions.",
+      "explanation": "Boiling stops ongoing cellular processes; the later ethanol step removes chlorophyll.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "To make iodine unnecessary.",
+        "To kill the tissue and stop its metabolic reactions.",
+        "To remove chlorophyll using water alone.",
+        "To add starch that was absent from the leaf."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Plant and animal nutrition",
+      "learningObjective": "Interpret nutrition experiments and explain nutrient functions.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-024",
+      "objectiveId": "waec-biology-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A plant supplied with too little magnesium may develop yellow leaves because magnesium is needed for",
+      "answer": "the chlorophyll molecule.",
+      "explanation": "Magnesium is part of chlorophyll, so deficiency can impair pigment production and photosynthesis.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "the chlorophyll molecule.",
+        "the cellulose molecule as its only element.",
+        "the conversion of every root into a flower.",
+        "the formation of animal haemoglobin in leaves."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Circulation and gas exchange",
+      "learningObjective": "Connect transport and exchange structures with their functions.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-025",
+      "objectiveId": "waec-biology-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which blood component is most directly responsible for antibody production?",
+      "answer": "Certain lymphocytes.",
+      "explanation": "B lymphocytes can differentiate into plasma cells that secrete antibodies; platelets mainly support clotting.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Platelets.",
+        "Red blood cells.",
+        "Dissolved urea.",
+        "Certain lymphocytes."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Circulation and gas exchange",
+      "learningObjective": "Connect transport and exchange structures with their functions.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-026",
+      "objectiveId": "waec-biology-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "What is the main consequence of many stomata closing during a hot, dry afternoon?",
+      "answer": "Water loss is reduced, but carbon dioxide entry may also be restricted.",
+      "explanation": "Stomata provide routes for water vapour loss and carbon dioxide uptake, creating a trade-off when they close.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "All xylem vessels change into phloem.",
+        "The roots immediately stop absorbing every mineral ion.",
+        "Water loss is reduced, but carbon dioxide entry may also be restricted.",
+        "Both water loss and carbon dioxide entry must increase."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Coordination and homeostasis",
+      "subtopic": "Regulation and responses",
+      "learningObjective": "Explain responses that maintain internal conditions.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-027",
+      "objectiveId": "waec-biology-control-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which statement correctly compares nervous and hormonal communication?",
+      "answer": "Nerve impulses travel along neurones, whereas hormones are carried to target tissues in blood.",
+      "explanation": "The pathways differ; hormones act on cells with suitable receptors and need not affect every tissue equally.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every hormone acts equally on every cell.",
+        "Nerve impulses travel along neurones, whereas hormones are carried to target tissues in blood.",
+        "Hormones move only inside motor neurones.",
+        "Nerve impulses are carried only in red blood cells."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Reproduction",
+      "subtopic": "Life cycles and development",
+      "learningObjective": "Distinguish reproductive processes and their consequences.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-028",
+      "objectiveId": "waec-biology-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which floral feature is most typical of wind pollination?",
+      "answer": "Large exposed feathery stigmas.",
+      "explanation": "Feathery exposed stigmas provide a large surface to catch airborne pollen.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Large exposed feathery stigmas.",
+        "Heavy sticky pollen produced only in tiny quantities.",
+        "A closed stigma inaccessible to air.",
+        "A strong scent that is the sole mechanism of pollen transfer."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Heredity and variation",
+      "subtopic": "Inheritance",
+      "learningObjective": "Infer inheritance patterns from stated genetic models.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-029",
+      "objectiveId": "waec-biology-genetics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which difference is an example of environmental variation rather than a directly inherited blood-group difference?",
+      "answer": "A scar formed after a cut.",
+      "explanation": "A scar results from an acquired injury and repair; ABO blood-group alleles are inherited.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "ABO blood group.",
+        "An inherited allele for haemoglobin structure.",
+        "The X or Y chromosome inherited in a sperm cell.",
+        "A scar formed after a cut."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Populations and interactions",
+      "learningObjective": "Analyse ecological interactions and evaluate sampling evidence.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-030",
+      "objectiveId": "waec-biology-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "What is the ecological role of decomposers in a woodland?",
+      "answer": "They break down dead organic matter and help return nutrients to the environment.",
+      "explanation": "Decomposition recycles nutrients; energy flows through the system and is not recycled in the same manner.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "They prevent every nutrient from re-entering soil.",
+        "They convert all animals directly into living trees.",
+        "They break down dead organic matter and help return nutrients to the environment.",
+        "They create sunlight from mineral salts."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Populations and interactions",
+      "learningObjective": "Analyse ecological interactions and evaluate sampling evidence.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-031",
+      "objectiveId": "waec-biology-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why should a mark-release-recapture study allow time for marked animals to mix before recapture?",
+      "answer": "To make marked animals more representative of the population available for sampling.",
+      "explanation": "Poor mixing can distort the marked fraction in the recapture sample and bias the estimate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "To prevent any marked animal from being caught again.",
+        "To make marked animals more representative of the population available for sampling.",
+        "To ensure every marked animal leaves the habitat permanently.",
+        "To make marks alter survival rates."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Diversity and adaptation",
+      "subtopic": "Classification and selection",
+      "learningObjective": "Explain how observable features relate to classification or survival.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-032",
+      "objectiveId": "waec-biology-adaptation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A cactus has reduced leaves and a thick waxy surface. These features are most directly associated with",
+      "answer": "limiting water loss in dry habitats.",
+      "explanation": "Reduced leaf area and a waxy cuticle reduce evaporative loss, helping conserve water.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "limiting water loss in dry habitats.",
+        "maximising uncontrolled evaporation.",
+        "absorbing food directly from animal blood.",
+        "eliminating the need for cellular respiration."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Cell organisation",
+      "subtopic": "Membranes and organelles",
+      "learningObjective": "Relate cellular structures to transport and energy processes.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-033",
+      "objectiveId": "waec-biology-cells-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Describe two structural differences between a typical photosynthetic leaf cell and a typical animal cheek cell. Explain one functional consequence.",
+      "answer": "The leaf cell has a cellulose wall and chloroplasts; the cheek cell lacks both. The wall supports the plant cell and resists excessive swelling, while chloroplasts allow photosynthesis.",
+      "explanation": "Credit a large permanent vacuole as an alternative structural difference when contrasted accurately; link the stated function to a relevant structure.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "First correct paired structural difference.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Second distinct correct paired structural difference.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain a relevant functional consequence.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Nutrition",
+      "subtopic": "Plant and animal nutrition",
+      "learningObjective": "Interpret nutrition experiments and explain nutrient functions.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-034",
+      "objectiveId": "waec-biology-nutrition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A learner claims that light is necessary for starch production in a leaf. Outline a controlled test using a destarched plant, an opaque cover and iodine. State the expected result and one safety precaution.",
+      "answer": "Cover part of a leaf on a destarched plant with opaque material, leave another part exposed and place the plant in light. Test the leaf for starch after exposure. The exposed region should turn blue-black while the covered region remains yellow-brown. Heat ethanol in a water bath away from flames when removing chlorophyll.",
+      "explanation": "The uncovered portion is the comparison on the same leaf. A properly destarched plant reduces starch from earlier photosynthesis.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use a destarched plant with covered and exposed leaf regions.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Expose to light and describe starch testing with chlorophyll removal and iodine.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State the contrasting expected results.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "State an appropriate ethanol/heating safety precaution.",
+          "marks": 1
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Transport and exchange",
+      "subtopic": "Circulation and gas exchange",
+      "learningObjective": "Connect transport and exchange structures with their functions.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-035",
+      "objectiveId": "waec-biology-transport-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Explain how three features of a root hair cell support absorption from soil.",
+      "answer": "Its long extension increases contact surface area. Its thin wall offers a short path for water movement. A large vacuole containing cell sap can maintain a water-potential gradient for water entry under suitable soil conditions. Mitochondria can provide energy for active ion uptake.",
+      "explanation": "Credit any three accurate feature-function pairs; do not award full credit for naming structures without explaining their contribution.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "First correct structure-function pair.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Second distinct structure-function pair.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Third distinct structure-function pair.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Coordination and homeostasis",
+      "subtopic": "Regulation and responses",
+      "learningObjective": "Explain responses that maintain internal conditions.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-036",
+      "objectiveId": "waec-biology-control-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Explain why a rise in blood glucose after a meal can trigger negative feedback. Refer to insulin and the subsequent change in glucose concentration.",
+      "answer": "Raised blood glucose stimulates insulin release from pancreatic beta cells. Insulin promotes glucose uptake by responsive tissues and storage, including glycogen formation. Blood glucose falls towards its regulated range, reducing the original stimulus for insulin release.",
+      "explanation": "Negative feedback opposes the initial departure; it is not a process that increases blood glucose indefinitely.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify the rise in glucose as a stimulus for insulin release.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain uptake or storage that lowers blood glucose.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain reduction of the original stimulus as glucose returns towards range.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Reproduction",
+      "subtopic": "Life cycles and development",
+      "learningObjective": "Distinguish reproductive processes and their consequences.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-037",
+      "objectiveId": "waec-biology-reproduction-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Distinguish seed dispersal from germination and explain two advantages that dispersal away from the parent may provide.",
+      "answer": "Dispersal moves seeds away from the parent; germination is the resumption of embryo growth under suitable conditions. Dispersal can reduce competition with the parent or siblings and allow colonisation of suitable new habitats.",
+      "explanation": "Credit reduced local crowding or escape from concentrated pests as a separately explained advantage; do not claim that every dispersed seed survives.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Accurately distinguish dispersal from germination.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain one advantage.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain a second distinct advantage.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Heredity and variation",
+      "subtopic": "Inheritance",
+      "learningObjective": "Infer inheritance patterns from stated genetic models.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-038",
+      "objectiveId": "waec-biology-genetics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "In pea plants, R is completely dominant to r for the trait being studied. Cross Rr with rr. Give the possible gametes, expected offspring genotypes and expected dominant-to-recessive phenotype ratio.",
+      "answer": "Rr produces R and r gametes; rr produces r gametes. The expected offspring are half Rr and half rr, giving a 1:1 dominant-to-recessive phenotype ratio.",
+      "explanation": "The ratio is a probability expectation for many offspring, not a guarantee for every pair of seeds.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct gametes from both parents.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Correct offspring genotypes and equal expected proportions.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Correct phenotype ratio of 1:1.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "verification": [
+        {
+          "expression": "1/2",
+          "expected": "1/2",
+          "answerValue": "1/2",
+          "purpose": "Expected heterozygous offspring fraction"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Populations and interactions",
+      "learningObjective": "Analyse ecological interactions and evaluate sampling evidence.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-039",
+      "objectiveId": "waec-biology-ecology-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Five equal-area quadrats contain 4, 0, 3, 1 and 2 seedlings. Each quadrat covers 0.5 m². Estimate seedling density per square metre, and state one condition needed for a defensible estimate for the whole site.",
+      "answer": "There are 10 seedlings in 2.5 m², so estimated density is 4 seedlings per m². Quadrat placement should represent the site, for example through an appropriate random or stratified sampling design.",
+      "explanation": "Adding counts alone does not produce density: the sampled area is required. Representativeness is a separate issue from arithmetic.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find total count 10 and total sampled area 2.5 m².",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate 4 seedlings per m² with units.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State and explain representativeness of placement.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "verification": [
+        {
+          "expression": "(4+0+3+1+2)/(5*0.5)",
+          "expected": "4",
+          "answerValue": "4",
+          "purpose": "Seedling density"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Biology",
+      "topic": "Diversity and adaptation",
+      "subtopic": "Classification and selection",
+      "learningObjective": "Explain how observable features relate to classification or survival.",
+      "specificationId": "waec-biology-source-2026",
+      "id": "ndv-026-040",
+      "objectiveId": "waec-biology-adaptation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A bacterial population contains a rare inherited resistance trait before exposure to an antibiotic. Explain how repeated exposure can increase the frequency of resistance without suggesting that the bacteria deliberately change.",
+      "answer": "Susceptible bacteria are more likely to be killed or prevented from reproducing. Resistant survivors reproduce and pass resistance to descendants, so their share of the population can rise. The treatment selects among existing heritable differences; it does not require purposeful change.",
+      "explanation": "This is a population-level selection explanation, not clinical treatment advice. The existence of variation precedes the selection in the stated scenario.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use the initial inherited variation stated in the question.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain differential survival or reproduction during exposure.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain inheritance and increasing frequency over generations.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Reject purposeful change as the mechanism.",
+          "marks": 1
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Separation of mixtures",
+      "subtopic": "Purification and identification",
+      "learningObjective": "Choose separation methods using component properties.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-041",
+      "objectiveId": "jamb-chemistry-separation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which method best separates a mixture of ethanol and water into fractions enriched in each liquid?",
+      "answer": "Fractional distillation.",
+      "explanation": "The miscible liquids have different volatilities; repeated vaporisation and condensation improve separation. This does not imply that simple fractional distillation produces unlimited-purity ethanol.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Filtration through ordinary paper.",
+        "Magnetic separation.",
+        "Separating-funnel drainage of two layers.",
+        "Fractional distillation."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Separation of mixtures",
+      "subtopic": "Purification and identification",
+      "learningObjective": "Choose separation methods using component properties.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-042",
+      "objectiveId": "jamb-chemistry-separation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A dye sample gives two distinct spots during paper chromatography in a suitable solvent. What conclusion is supported?",
+      "answer": "It contains at least two components separated under those conditions.",
+      "explanation": "Distinct spots indicate separable components. A single spot, by contrast, would not always prove purity because substances may co-migrate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Each spot must represent a chemical element.",
+        "The dye contains exactly two atoms.",
+        "It contains at least two components separated under those conditions.",
+        "It is certainly one pure compound."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Chemical combination",
+      "subtopic": "Moles and reacting quantities",
+      "learningObjective": "Use balanced equations to calculate chemical quantities.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-043",
+      "objectiveId": "jamb-chemistry-stoichiometry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "How many moles are present in 11 g of carbon(IV) oxide? Use C = 12 and O = 16.",
+      "answer": "0.25 mol",
+      "explanation": "Molar mass CO₂ = 12+2(16) = 44 g mol⁻¹; amount = 11/44 = 0.25 mol.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "44 mol",
+        "0.25 mol",
+        "0.5 mol",
+        "4 mol"
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "11/(12+2*16)",
+          "expected": "0.25",
+          "answerValue": "0.25",
+          "purpose": "Moles of carbon dioxide"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Chemical combination",
+      "subtopic": "Moles and reacting quantities",
+      "learningObjective": "Use balanced equations to calculate chemical quantities.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-044",
+      "objectiveId": "jamb-chemistry-stoichiometry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "For N₂ + 3H₂ → 2NH₃, 2 mol N₂ is mixed with 3 mol H₂. What is the maximum amount of NH₃, assuming complete reaction?",
+      "answer": "2 mol",
+      "explanation": "The 3 mol of hydrogen reacts with only 1 mol of nitrogen to form 2 mol ammonia. Hydrogen limits the yield; nitrogen remains in excess.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "2 mol",
+        "1 mol",
+        "3 mol",
+        "4 mol"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "3*2/3",
+          "expected": "2",
+          "answerValue": "2",
+          "purpose": "Ammonia from limiting hydrogen"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "States of matter",
+      "subtopic": "Particles and gas relationships",
+      "learningObjective": "Apply particle models and gas relationships under stated conditions.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-045",
+      "objectiveId": "jamb-chemistry-gases-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "At constant temperature, a fixed amount of ideal gas is compressed to half its original volume. Its pressure",
+      "answer": "doubles.",
+      "explanation": "Boyle’s law gives PV = constant for a fixed gas amount at constant temperature.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "halves.",
+        "remains unchanged.",
+        "becomes zero.",
+        "doubles."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "States of matter",
+      "subtopic": "Particles and gas relationships",
+      "learningObjective": "Apply particle models and gas relationships under stated conditions.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-046",
+      "objectiveId": "jamb-chemistry-gases-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why does a gas diffuse faster at a higher temperature, other conditions equal?",
+      "answer": "Its particles have higher average kinetic energy.",
+      "explanation": "Higher average particle speeds increase the rate of spreading; heating does not require each molecule to gain mass.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Its particles stop random motion.",
+        "Its molecules all acquire the same velocity.",
+        "Its particles have higher average kinetic energy.",
+        "Its individual molecules become heavier."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Atomic structure and bonding",
+      "subtopic": "Electrons and structure",
+      "learningObjective": "Relate electron arrangement and bonding to substance properties.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-047",
+      "objectiveId": "jamb-chemistry-bonding-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An atom has electron arrangement 2,8,1. What is the most likely ion formed in a simple ionic compound?",
+      "answer": "A singly charged positive ion.",
+      "explanation": "Loss of the outer electron leaves a stable filled outer shell and a +1 charge.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "An electrically neutral ion with no electron change.",
+        "A singly charged positive ion.",
+        "A singly charged negative ion.",
+        "A doubly charged negative ion."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Atomic structure and bonding",
+      "subtopic": "Electrons and structure",
+      "learningObjective": "Relate electron arrangement and bonding to substance properties.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-048",
+      "objectiveId": "jamb-chemistry-bonding-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why does solid sodium chloride not conduct electricity while molten sodium chloride does?",
+      "answer": "Its ions are fixed in the solid lattice but mobile in the liquid.",
+      "explanation": "Electrical conduction requires mobile charged particles; melting allows ions to move.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Its ions are fixed in the solid lattice but mobile in the liquid.",
+        "Melting converts every ion to a free electron.",
+        "The solid contains no charged particles.",
+        "Only neutral sodium atoms carry the current in the liquid."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Energetics and rates",
+      "subtopic": "Energy change and reaction rates",
+      "learningObjective": "Interpret energy changes and factors affecting reaction rates.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-049",
+      "objectiveId": "jamb-chemistry-energy-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A catalyst increases reaction rate mainly by",
+      "answer": "providing a pathway with lower activation energy.",
+      "explanation": "A catalyst changes the reaction pathway and is regenerated; it does not change the reaction’s overall enthalpy difference.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "raising the equilibrium yield in every reversible reaction.",
+        "increasing the enthalpy of every product permanently.",
+        "being completely consumed as the limiting reagent.",
+        "providing a pathway with lower activation energy."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Energetics and rates",
+      "subtopic": "Energy change and reaction rates",
+      "learningObjective": "Interpret energy changes and factors affecting reaction rates.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-050",
+      "objectiveId": "jamb-chemistry-energy-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A reaction releases heat to the surroundings at constant pressure. Which sign describes its enthalpy change for the reacting system?",
+      "answer": "Negative.",
+      "explanation": "For an exothermic reaction, the system’s enthalpy decreases as heat is released.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Always zero.",
+        "Undefined because energy is destroyed.",
+        "Negative.",
+        "Positive in every case."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Equilibrium and neutralisation",
+      "learningObjective": "Explain acid-base behaviour and interpret chemical equilibria.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-051",
+      "objectiveId": "jamb-chemistry-acids-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A strong monoprotic acid has concentration 1.0 × 10⁻³ mol dm⁻³ and is fully dissociated. Neglect water’s contribution. What is its pH?",
+      "answer": "3",
+      "explanation": "The hydrogen-ion concentration is 10⁻³ mol dm⁻³, so pH = −log₁₀(10⁻³) = 3.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "11",
+        "3",
+        "1",
+        "7"
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Equilibrium and neutralisation",
+      "learningObjective": "Explain acid-base behaviour and interpret chemical equilibria.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-052",
+      "objectiveId": "jamb-chemistry-acids-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "For N₂(g) + 3H₂(g) ⇌ 2NH₃(g), what is the equilibrium effect of increasing pressure by reducing volume at constant temperature?",
+      "answer": "The equilibrium shifts towards ammonia.",
+      "explanation": "The product side has fewer gas moles: two rather than four. Increased pressure favours that side.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The equilibrium shifts towards ammonia.",
+        "The equilibrium shifts towards the four-mole reactant side.",
+        "The equilibrium constant changes solely because volume is reduced.",
+        "Pressure cannot affect any gaseous equilibrium."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Oxidation and reduction",
+      "subtopic": "Electron transfer and electrolysis",
+      "learningObjective": "Use oxidation states and electrode processes to explain reactions.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-053",
+      "objectiveId": "jamb-chemistry-redox-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Zn + Cu²⁺ → Zn²⁺ + Cu, which species is oxidised?",
+      "answer": "Zn.",
+      "explanation": "Zinc loses two electrons to form Zn²⁺; loss of electrons is oxidation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Cu²⁺.",
+        "Cu metal after it is formed.",
+        "Neither reactant because no oxygen is written.",
+        "Zn."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Functional groups and reactions",
+      "learningObjective": "Infer organic reactions and properties from functional groups.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-054",
+      "objectiveId": "jamb-chemistry-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which functional group identifies an alcohol such as ethanol?",
+      "answer": "A hydroxyl group bonded to a saturated carbon atom.",
+      "explanation": "The alcohol group is −OH attached to a saturated carbon; a carboxyl group identifies a carboxylic acid instead.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A carbon-carbon triple bond alone.",
+        "An ionic chloride ion alone.",
+        "A hydroxyl group bonded to a saturated carbon atom.",
+        "A carboxyl group, −COOH."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Functional groups and reactions",
+      "learningObjective": "Infer organic reactions and properties from functional groups.",
+      "specificationId": "jamb-chemistry-source-2026",
+      "id": "ndv-026-055",
+      "objectiveId": "jamb-chemistry-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Bromine water is decolourised rapidly by ethene without ultraviolet light. What process accounts for this?",
+      "answer": "Addition across the carbon-carbon double bond.",
+      "explanation": "Ethene is unsaturated and undergoes addition; substitution of methane normally requires different conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Complete combustion with no oxygen supply.",
+        "Addition across the carbon-carbon double bond.",
+        "Neutralisation of an alkali by ethene.",
+        "Formation of an ionic metal lattice."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Separation of mixtures",
+      "subtopic": "Purification and identification",
+      "learningObjective": "Choose separation methods using component properties.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-056",
+      "objectiveId": "waec-chemistry-separation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A mixture contains sand and sodium chloride. Which sequence recovers dry sand and dry salt separately?",
+      "answer": "Add water, filter, then evaporate or crystallise the filtrate and dry the products.",
+      "explanation": "Salt dissolves but sand does not. Filtration separates sand; removal of water recovers salt.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Add water, filter, then evaporate or crystallise the filtrate and dry the products.",
+        "Filter the dry mixture once.",
+        "Add water and discard the filtrate.",
+        "Heat the dry mixture until sand sublimes."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Atomic structure and bonding",
+      "subtopic": "Electrons and structure",
+      "learningObjective": "Relate electron arrangement and bonding to substance properties.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-057",
+      "objectiveId": "waec-chemistry-bonding-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Isotopes of the same element differ in their number of",
+      "answer": "neutrons.",
+      "explanation": "They share a proton number but have different neutron numbers and hence different mass numbers.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "protons.",
+        "nuclei per atom.",
+        "electron shells in every neutral atom.",
+        "neutrons."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Atomic structure and bonding",
+      "subtopic": "Electrons and structure",
+      "learningObjective": "Relate electron arrangement and bonding to substance properties.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-058",
+      "objectiveId": "waec-chemistry-bonding-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why does graphite conduct electricity along its layers?",
+      "answer": "It has delocalised electrons that can move through the structure.",
+      "explanation": "Some electrons are not confined to individual bonds and can carry charge, unlike mobile ions in a melt.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every electron is completely immobile.",
+        "It contains liquid copper between all layers.",
+        "It has delocalised electrons that can move through the structure.",
+        "Its carbon atoms move freely as ions in the solid."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "States of matter",
+      "subtopic": "Particles and gas relationships",
+      "learningObjective": "Apply particle models and gas relationships under stated conditions.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-059",
+      "objectiveId": "waec-chemistry-gases-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A sealed rigid container of gas is heated. Why does its pressure generally rise?",
+      "answer": "Particles collide with the walls more frequently and with greater average momentum change.",
+      "explanation": "At fixed volume, greater average kinetic energy increases the force exerted per area through wall collisions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Heating converts all particles to vacuum.",
+        "Particles collide with the walls more frequently and with greater average momentum change.",
+        "The container necessarily doubles its volume.",
+        "Particles lose all kinetic energy."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Energetics and rates",
+      "subtopic": "Energy change and reaction rates",
+      "learningObjective": "Interpret energy changes and factors affecting reaction rates.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-060",
+      "objectiveId": "waec-chemistry-energy-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Powdered calcium carbonate reacts faster than equal-mass large lumps with excess dilute acid because the powder",
+      "answer": "offers a larger total surface area for collisions.",
+      "explanation": "More exposed reacting surface increases the opportunity for effective collisions under comparable conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "offers a larger total surface area for collisions.",
+        "has a different atomic number.",
+        "always has a lower molar mass.",
+        "changes the acid into a catalyst."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Equilibrium and neutralisation",
+      "learningObjective": "Explain acid-base behaviour and interpret chemical equilibria.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-061",
+      "objectiveId": "waec-chemistry-acids-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which observation is expected when dilute acid reacts with a carbonate?",
+      "answer": "Effervescence of a gas that turns limewater milky.",
+      "explanation": "Carbonates react with acids to release CO₂, which forms a calcium carbonate precipitate in limewater.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A gas that relights a glowing splint.",
+        "Formation of hydrogen as the only gaseous product.",
+        "No possible gas release under any conditions.",
+        "Effervescence of a gas that turns limewater milky."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Oxidation and reduction",
+      "subtopic": "Electron transfer and electrolysis",
+      "learningObjective": "Use oxidation states and electrode processes to explain reactions.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-062",
+      "objectiveId": "waec-chemistry-redox-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "What is the oxidation number of sulfur in SO₄²⁻?",
+      "answer": "+6",
+      "explanation": "Four oxygen atoms contribute −8; sulfur must be +6 for the total to be −2.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "+4",
+        "−2",
+        "+6",
+        "−6"
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "-2-4*(-2)",
+          "expected": "6",
+          "answerValue": "6",
+          "purpose": "Sulfur oxidation state"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Oxidation and reduction",
+      "subtopic": "Electron transfer and electrolysis",
+      "learningObjective": "Use oxidation states and electrode processes to explain reactions.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-063",
+      "objectiveId": "waec-chemistry-redox-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "During electrolysis of molten lead(II) bromide with inert electrodes, what forms at the cathode?",
+      "answer": "Lead metal.",
+      "explanation": "Pb²⁺ ions gain electrons at the negative cathode: Pb²⁺ + 2e⁻ → Pb.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Hydrogen from water.",
+        "Lead metal.",
+        "Bromine.",
+        "Oxygen from water."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Functional groups and reactions",
+      "learningObjective": "Infer organic reactions and properties from functional groups.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-064",
+      "objectiveId": "waec-chemistry-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which product pair is expected from complete combustion of pure propane in excess oxygen?",
+      "answer": "Carbon dioxide and water.",
+      "explanation": "Complete combustion of a hydrocarbon converts its carbon to CO₂ and hydrogen to H₂O.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Carbon dioxide and water.",
+        "Carbon monoxide and hydrogen only.",
+        "Sodium carbonate and water.",
+        "Nitrogen and chlorine."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Chemical combination",
+      "subtopic": "Moles and reacting quantities",
+      "learningObjective": "Use balanced equations to calculate chemical quantities.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-065",
+      "objectiveId": "waec-chemistry-stoichiometry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Magnesium reacts according to 2Mg + O₂ → 2MgO. Calculate the mass of MgO formed from 4.8 g Mg with excess oxygen. Use Mg = 24 and O = 16.",
+      "answer": "Amount of Mg = 4.8/24 = 0.20 mol. The equation gives the same amount of MgO. Molar mass MgO = 40 g mol⁻¹, so mass = 0.20×40 = 8.0 g.",
+      "explanation": "The added oxygen contributes to product mass; the product is not limited to the original magnesium mass.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 0.20 mol Mg.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Use the 1:1 Mg-to-MgO mole relationship.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Use molar mass 40 and obtain 8.0 g MgO.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "verification": [
+        {
+          "expression": "4.8/24*(24+16)",
+          "expected": "8",
+          "answerValue": "8",
+          "purpose": "Magnesium oxide mass"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Chemical combination",
+      "subtopic": "Moles and reacting quantities",
+      "learningObjective": "Use balanced equations to calculate chemical quantities.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-066",
+      "objectiveId": "waec-chemistry-stoichiometry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A solution contains 0.10 mol NaOH in 250 cm³. Find its concentration in mol dm⁻³ and the volume of 0.20 mol dm⁻³ HCl needed to neutralise the whole solution. Use HCl + NaOH → NaCl + H₂O.",
+      "answer": "250 cm³ = 0.250 dm³. NaOH concentration = 0.10/0.250 = 0.40 mol dm⁻³. Neutralisation needs 0.10 mol HCl; volume = 0.10/0.20 = 0.50 dm³ = 500 cm³.",
+      "explanation": "Use the whole stated NaOH amount; do not take an unstated aliquot.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Convert solution volume to 0.250 dm³.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate concentration 0.40 mol dm⁻³.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Apply 1:1 neutralisation to obtain 0.10 mol HCl.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Calculate 0.50 dm³ or 500 cm³ acid.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "verification": [
+        {
+          "expression": "0.10/0.250",
+          "expected": "0.4",
+          "answerValue": "0.4",
+          "purpose": "Sodium hydroxide concentration"
+        },
+        {
+          "expression": "0.10/0.20*1000",
+          "expected": "500",
+          "purpose": "Hydrochloric acid volume in cubic centimetres"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Energetics and rates",
+      "subtopic": "Energy change and reaction rates",
+      "learningObjective": "Interpret energy changes and factors affecting reaction rates.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-067",
+      "objectiveId": "waec-chemistry-energy-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "In two experiments, equal masses of zinc react with equal volumes and concentrations of excess acid at different temperatures. The warmer experiment produces gas faster but gives the same final gas volume at the same measurement conditions. Explain both observations.",
+      "answer": "Higher temperature increases particle energies and the fraction of collisions exceeding activation energy, increasing rate. The same amount of limiting zinc reacts in each experiment, so the total amount of gas and its volume at equal measurement conditions are the same.",
+      "explanation": "Rate and final yield are different quantities. The question specifies common gas measurement conditions to avoid thermal-expansion ambiguity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Relate temperature to particle energy and effective collisions.",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Identify equal zinc amounts as the same limiting amount.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Connect equal gas moles with equal final volumes at common conditions.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Acids bases and salts",
+      "subtopic": "Equilibrium and neutralisation",
+      "learningObjective": "Explain acid-base behaviour and interpret chemical equilibria.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-068",
+      "objectiveId": "waec-chemistry-acids-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Distinguish a strong acid from a concentrated acid. Explain whether a dilute solution can contain a strong acid.",
+      "answer": "Strength concerns the extent of ionisation in water; concentration concerns the amount of acid per volume of solution. A strong acid such as HCl can be present in a dilute solution while the dissolved acid is still essentially fully ionised.",
+      "explanation": "Do not define strong as merely dangerous or concentrated. These are separate concepts.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Define strength in terms of ionisation.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Define concentration as amount per volume.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain a dilute strong acid with a valid example.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Oxidation and reduction",
+      "subtopic": "Electron transfer and electrolysis",
+      "learningObjective": "Use oxidation states and electrode processes to explain reactions.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-069",
+      "objectiveId": "waec-chemistry-redox-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Iron objects rust more readily in moist air than in dry air. State the two conditions required for ordinary rusting and explain how an intact paint layer helps prevent it.",
+      "answer": "Ordinary rusting requires water and oxygen. An intact paint layer acts as a barrier that limits contact between the iron and both moisture and oxygen.",
+      "explanation": "Paint is a barrier, not a sacrificial metal. Damage to the coating can expose iron to the required conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify water.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify oxygen.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain the physical barrier to contact.",
+          "marks": 2
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Chemistry",
+      "topic": "Organic chemistry",
+      "subtopic": "Functional groups and reactions",
+      "learningObjective": "Infer organic reactions and properties from functional groups.",
+      "specificationId": "waec-chemistry-source-2026",
+      "id": "ndv-026-070",
+      "objectiveId": "waec-chemistry-organic-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Describe a chemical test that distinguishes ethene from ethane under ordinary laboratory test conditions. State the reagent, contrasting observations and the reason.",
+      "answer": "Shake each gas with bromine water without ultraviolet light. Ethene decolourises it; ethane shows no rapid decolourisation under these conditions. Ethene undergoes addition at its carbon-carbon double bond, while ethane is saturated.",
+      "explanation": "Specify absence of UV to avoid introducing alkane substitution as a confounding reaction. Perform reagent handling only under appropriate laboratory supervision.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify bromine water with no ultraviolet light.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Give both contrasting observations.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain unsaturation and addition in ethene.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Measurements and units",
+      "subtopic": "Uncertainty and dimensions",
+      "learningObjective": "Interpret measurements using units and appropriate uncertainty.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-071",
+      "objectiveId": "jamb-physics-measurement-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which pair consists entirely of SI base quantities?",
+      "answer": "Mass and electric current.",
+      "explanation": "Mass and electric current are base quantities; force, pressure, energy and speed are derived.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Energy and speed.",
+        "Mass and electric current.",
+        "Force and mass.",
+        "Pressure and time."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Measurements and units",
+      "subtopic": "Uncertainty and dimensions",
+      "learningObjective": "Interpret measurements using units and appropriate uncertainty.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-072",
+      "objectiveId": "jamb-physics-measurement-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A ruler has 1 mm divisions and a length is read to the nearest division. Which reported length suggests unjustified precision for a single direct reading?",
+      "answer": "12.347 cm",
+      "explanation": "A reading to the nearest millimetre corresponds to 0.1 cm, so three decimal places in centimetres are not justified by that reading.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "12.347 cm",
+        "12.3 cm",
+        "123 mm",
+        "0.123 m"
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Mechanics",
+      "subtopic": "Motion and forces",
+      "learningObjective": "Apply motion and force relationships with stated idealisations.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-073",
+      "objectiveId": "jamb-physics-mechanics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A runner completes one lap of a circular track and returns to the starting point. Which statement is correct?",
+      "answer": "Distance travelled is positive but displacement is zero.",
+      "explanation": "Distance measures the path length; displacement depends only on the change in position.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Both distance and displacement must be zero.",
+        "Displacement equals the circumference in every direction.",
+        "Distance is negative because the runner returns.",
+        "Distance travelled is positive but displacement is zero."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Mechanics",
+      "subtopic": "Motion and forces",
+      "learningObjective": "Apply motion and force relationships with stated idealisations.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-074",
+      "objectiveId": "jamb-physics-mechanics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A trolley increases its velocity uniformly from 2 m s⁻¹ to 14 m s⁻¹ in 4 s along a straight line. Find its acceleration.",
+      "answer": "3 m s⁻²",
+      "explanation": "Acceleration = (14−2)/4 = 3 m s⁻².",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "4 m s⁻²",
+        "12 m s⁻²",
+        "3 m s⁻²",
+        "0.5 m s⁻²"
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "(14-2)/4",
+          "expected": "3",
+          "answerValue": "3",
+          "purpose": "Uniform acceleration"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Mechanics",
+      "subtopic": "Motion and forces",
+      "learningObjective": "Apply motion and force relationships with stated idealisations.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-075",
+      "objectiveId": "jamb-physics-mechanics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A 6 N force and an 8 N force act at right angles on a body. What is the magnitude of their resultant?",
+      "answer": "10 N",
+      "explanation": "For perpendicular forces, R² = 6²+8² = 100, so R = 10 N.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "48 N",
+        "10 N",
+        "2 N",
+        "14 N"
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "6**2+8**2",
+          "expected": "100",
+          "answerValue": "100",
+          "purpose": "Squared resultant in newtons squared"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Energy and power",
+      "subtopic": "Transfers and efficiency",
+      "learningObjective": "Calculate transfers and evaluate energy conversion.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-076",
+      "objectiveId": "jamb-physics-energy-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A pump raises 50 kg of water through 6 m in 10 s. Neglect losses and take g = 10 m s⁻². What useful power is required?",
+      "answer": "300 W",
+      "explanation": "Useful power = mgh/t = 50×10×6/10 = 300 W.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "300 W",
+        "30 W",
+        "500 W",
+        "3,000 W"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "50*10*6/10",
+          "expected": "300",
+          "answerValue": "300",
+          "purpose": "Useful pump power"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Energy and power",
+      "subtopic": "Transfers and efficiency",
+      "learningObjective": "Calculate transfers and evaluate energy conversion.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-077",
+      "objectiveId": "jamb-physics-energy-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which statement correctly applies conservation of energy to a braking bicycle?",
+      "answer": "Some kinetic energy is transferred to thermal energy in the brakes and surroundings.",
+      "explanation": "The bicycle’s kinetic energy decreases, but energy is transferred rather than destroyed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "All kinetic energy disappears from the universe.",
+        "The brakes create energy from nothing.",
+        "The bicycle must gain gravitational potential energy on every level road.",
+        "Some kinetic energy is transferred to thermal energy in the brakes and surroundings."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Heat and temperature",
+      "learningObjective": "Explain thermal processes and quantify energy changes.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-078",
+      "objectiveId": "jamb-physics-thermal-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why can a metal spoon feel colder than a wooden spoon at the same room temperature?",
+      "answer": "Metal transfers thermal energy away from the hand more rapidly.",
+      "explanation": "Thermal conductivity affects the rate of energy flow; the sensation does not prove a lower initial temperature.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Wood contains no thermal energy.",
+        "Temperature is measured only by touch.",
+        "Metal transfers thermal energy away from the hand more rapidly.",
+        "The metal must have a lower temperature in every room."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Heat and temperature",
+      "learningObjective": "Explain thermal processes and quantify energy changes.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-079",
+      "objectiveId": "jamb-physics-thermal-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "How much energy heats 0.5 kg of water by 20 °C? Take specific heat capacity as 4,200 J kg⁻¹ K⁻¹ and neglect losses.",
+      "answer": "42,000 J",
+      "explanation": "Q = mcΔT = 0.5×4,200×20 = 42,000 J.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "84,000 J",
+        "42,000 J",
+        "4,200 J",
+        "21,000 J"
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "0.5*4200*20",
+          "expected": "42000",
+          "answerValue": "42000",
+          "purpose": "Thermal energy supplied"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Waves and sound",
+      "subtopic": "Propagation and interference",
+      "learningObjective": "Relate wave behaviour to frequency wavelength and speed.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-080",
+      "objectiveId": "jamb-physics-waves-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A wave travels at 240 m s⁻¹ with frequency 60 Hz. What is its wavelength?",
+      "answer": "4 m",
+      "explanation": "From v = fλ, wavelength = 240/60 = 4 m.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "4 m",
+        "0.25 m",
+        "180 m",
+        "14,400 m"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "240/60",
+          "expected": "4",
+          "answerValue": "4",
+          "purpose": "Wavelength"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Waves and sound",
+      "subtopic": "Propagation and interference",
+      "learningObjective": "Relate wave behaviour to frequency wavelength and speed.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-081",
+      "objectiveId": "jamb-physics-waves-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why can sound not travel through an ideal vacuum?",
+      "answer": "Sound requires a material medium for mechanical disturbance.",
+      "explanation": "Sound propagates through particle interactions; an ideal vacuum has no material medium.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Sound requires only an electric field.",
+        "Every vacuum absorbs light but transmits all sound.",
+        "Sound waves contain stationary material particles that create themselves.",
+        "Sound requires a material medium for mechanical disturbance."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Light",
+      "subtopic": "Reflection and refraction",
+      "learningObjective": "Explain image formation and optical behaviour.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-082",
+      "objectiveId": "jamb-physics-optics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A ray passes obliquely from air into glass. Its speed decreases. Relative to the normal, the transmitted ray generally",
+      "answer": "bends towards the normal.",
+      "explanation": "Entering a medium with higher refractive index reduces speed and decreases the angle to the normal.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "must travel along the surface.",
+        "is converted entirely into sound.",
+        "bends towards the normal.",
+        "bends away from the normal."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Electric circuits",
+      "subtopic": "Current resistance and power",
+      "learningObjective": "Analyse circuit behaviour and electrical energy.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-083",
+      "objectiveId": "jamb-physics-electricity-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A 12 V battery is connected across a 4 Ω resistor. Treat both as ideal. What current flows?",
+      "answer": "3 A",
+      "explanation": "Ohm’s law gives I = V/R = 12/4 = 3 A.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "48 A",
+        "3 A",
+        "0.33 A",
+        "8 A"
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "12/4",
+          "expected": "3",
+          "answerValue": "3",
+          "purpose": "Circuit current"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Electric circuits",
+      "subtopic": "Current resistance and power",
+      "learningObjective": "Analyse circuit behaviour and electrical energy.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-084",
+      "objectiveId": "jamb-physics-electricity-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Two identical lamps are connected in parallel across an ideal battery. If one branch is opened, the other lamp",
+      "answer": "continues to receive the same battery voltage.",
+      "explanation": "The remaining parallel branch still spans the battery terminals. With an ideal battery its voltage is unchanged.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "continues to receive the same battery voltage.",
+        "must go out because all circuits are series circuits.",
+        "receives zero potential difference.",
+        "has its resistance automatically doubled."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Physics",
+      "topic": "Fields and induction",
+      "subtopic": "Electromagnetic effects",
+      "learningObjective": "Explain field forces and induced electromotive force.",
+      "specificationId": "jamb-physics-source-2026",
+      "id": "ndv-026-085",
+      "objectiveId": "jamb-physics-fields-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A magnet is held stationary inside a stationary coil. With no other changing fields, why is no sustained emf induced?",
+      "answer": "The magnetic flux linkage through the coil is not changing.",
+      "explanation": "Faraday’s law relates induced emf to the rate of change of flux linkage, not simply the presence of a magnetic field.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A magnetic field cannot pass through a coil.",
+        "All magnets have zero field when near copper.",
+        "Induction requires a chemical reaction inside every wire.",
+        "The magnetic flux linkage through the coil is not changing."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Measurements and units",
+      "subtopic": "Uncertainty and dimensions",
+      "learningObjective": "Interpret measurements using units and appropriate uncertainty.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-086",
+      "objectiveId": "waec-physics-measurement-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which physical quantity has the SI unit pascal?",
+      "answer": "Pressure.",
+      "explanation": "A pascal is one newton per square metre, the SI unit of pressure.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Electric charge.",
+        "Frequency.",
+        "Pressure.",
+        "Power."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Mechanics",
+      "subtopic": "Motion and forces",
+      "learningObjective": "Apply motion and force relationships with stated idealisations.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-087",
+      "objectiveId": "waec-physics-mechanics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A book rests on a horizontal table. Which pair is a Newton’s third-law interaction pair?",
+      "answer": "The force of the book on the table and the force of the table on the book.",
+      "explanation": "Third-law forces arise from one interaction and act on different bodies; weight and normal force on the same book are not such a pair.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The mass of the book and its weight.",
+        "The force of the book on the table and the force of the table on the book.",
+        "The book’s weight and the normal force acting on that same book.",
+        "Two separate forces both exerted only on the Earth."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Energy and power",
+      "subtopic": "Transfers and efficiency",
+      "learningObjective": "Calculate transfers and evaluate energy conversion.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-088",
+      "objectiveId": "waec-physics-energy-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A machine receives 800 J and delivers 600 J of useful output. Its efficiency is",
+      "answer": "75%.",
+      "explanation": "Efficiency = useful output/input × 100% = 600/800×100% = 75%.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "75%.",
+        "25%.",
+        "60%.",
+        "133%."
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "600/800*100",
+          "expected": "75",
+          "answerValue": "75",
+          "purpose": "Machine efficiency percentage"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Heat and temperature",
+      "learningObjective": "Explain thermal processes and quantify energy changes.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-089",
+      "objectiveId": "waec-physics-thermal-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "During steady boiling of pure water at constant pressure, added heat mainly",
+      "answer": "provides latent heat for the liquid-to-vapour change.",
+      "explanation": "Energy is used in the phase change while temperature remains at the boiling point under these conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "raises the temperature without limit while liquid remains.",
+        "reduces the mass of every water molecule.",
+        "eliminates all intermolecular forces in the remaining liquid.",
+        "provides latent heat for the liquid-to-vapour change."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Waves and sound",
+      "subtopic": "Propagation and interference",
+      "learningObjective": "Relate wave behaviour to frequency wavelength and speed.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-090",
+      "objectiveId": "waec-physics-waves-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which change increases the pitch of a sound in the same medium?",
+      "answer": "Increasing its frequency.",
+      "explanation": "Pitch is primarily related to frequency; amplitude relates mainly to loudness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Decreasing its frequency.",
+        "Increasing only the source’s loudness at fixed frequency.",
+        "Increasing its frequency.",
+        "Increasing only its amplitude."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Light",
+      "subtopic": "Reflection and refraction",
+      "learningObjective": "Explain image formation and optical behaviour.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-091",
+      "objectiveId": "waec-physics-optics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "What type of image is formed by a plane mirror?",
+      "answer": "Virtual, upright and the same size as the object.",
+      "explanation": "The image appears behind the mirror at the same perpendicular distance and cannot be projected onto a screen directly.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Virtual and always twice the object’s size.",
+        "Virtual, upright and the same size as the object.",
+        "Real and always smaller than the object.",
+        "Real and upside down."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Electric circuits",
+      "subtopic": "Current resistance and power",
+      "learningObjective": "Analyse circuit behaviour and electrical energy.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-092",
+      "objectiveId": "waec-physics-electricity-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why is a fuse wire placed in series with the live conductor of an appliance?",
+      "answer": "It can melt and break the circuit if current becomes excessive.",
+      "explanation": "The series fuse carries the appliance current and interrupts the live supply when its rating is exceeded sufficiently.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It can melt and break the circuit if current becomes excessive.",
+        "It stores all excess charge without heating.",
+        "It guarantees that the appliance uses no power.",
+        "It increases current to any value the appliance requests."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Electric circuits",
+      "subtopic": "Current resistance and power",
+      "learningObjective": "Analyse circuit behaviour and electrical energy.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-093",
+      "objectiveId": "waec-physics-electricity-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "For a uniform wire of fixed material and temperature, which change increases resistance?",
+      "answer": "Increasing length while keeping cross-sectional area constant.",
+      "explanation": "R = ρL/A, so resistance rises with length when resistivity and area are unchanged.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Increasing cross-sectional area at fixed length.",
+        "Reducing length at fixed area.",
+        "Using a shorter and thicker piece of the same wire.",
+        "Increasing length while keeping cross-sectional area constant."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Fields and induction",
+      "subtopic": "Electromagnetic effects",
+      "learningObjective": "Explain field forces and induced electromotive force.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-094",
+      "objectiveId": "waec-physics-fields-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which change reverses the force on a current-carrying wire in a fixed magnetic field, if the wire is initially perpendicular to the field?",
+      "answer": "Reverse the current direction only.",
+      "explanation": "The magnetic-force direction reverses when current reverses while the field direction stays fixed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Increase only the wire’s mass.",
+        "Reverse both current and magnetic field together.",
+        "Reverse the current direction only.",
+        "Double the current without reversing it."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Mechanics",
+      "subtopic": "Motion and forces",
+      "learningObjective": "Apply motion and force relationships with stated idealisations.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-095",
+      "objectiveId": "waec-physics-mechanics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A vehicle moving at 20 m s⁻¹ slows uniformly to rest in 5 s. Calculate its acceleration and stopping distance during braking.",
+      "answer": "Acceleration = (0−20)/5 = −4 m s⁻². Average velocity during uniform deceleration = (20+0)/2 = 10 m s⁻¹. Distance = 10×5 = 50 m.",
+      "explanation": "The negative sign indicates acceleration opposite the chosen positive direction. The distance excludes any reaction-time travel before braking.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use velocity change over time and obtain −4 m s⁻².",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find average velocity or use an equivalent constant-acceleration relation.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate 50 m with units.",
+          "marks": 2
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "verification": [
+        {
+          "expression": "(0-20)/5",
+          "expected": "-4",
+          "answerValue": "-4",
+          "purpose": "Acceleration during braking"
+        },
+        {
+          "expression": "(20+0)/2*5",
+          "expected": "50",
+          "purpose": "Braking distance"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Energy and power",
+      "subtopic": "Transfers and efficiency",
+      "learningObjective": "Calculate transfers and evaluate energy conversion.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-096",
+      "objectiveId": "waec-physics-energy-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A 2 kg stone falls from rest through 5 m. Neglect air resistance and use g = 10 m s⁻². Find its loss of gravitational potential energy and its speed just before the end of the fall.",
+      "answer": "Potential-energy loss = mgh = 2×10×5 = 100 J. This becomes kinetic energy: ½×2×v² = 100, so v = 10 m s⁻¹.",
+      "explanation": "Conservation applies under the stated no-resistance assumption. The positive root gives the speed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 100 J gravitational energy lost.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Equate the energy to ½mv².",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Obtain speed 10 m s⁻¹.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "verification": [
+        {
+          "expression": "2*10*5",
+          "expected": "100",
+          "answerValue": "100",
+          "purpose": "Gravitational energy loss"
+        },
+        {
+          "expression": "2*10*5",
+          "expected": "100",
+          "purpose": "Squared speed in square metres per square second"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Heat and temperature",
+      "learningObjective": "Explain thermal processes and quantify energy changes.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-097",
+      "objectiveId": "waec-physics-thermal-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Explain why coastal areas may experience a sea breeze during a sunny afternoon. Refer to differences in heating and air movement.",
+      "answer": "Land generally heats faster than the sea during the day. Air over the warmer land warms, expands and rises. Cooler, denser air from over the sea moves towards the land near the surface, forming the sea breeze and part of a convection circulation.",
+      "explanation": "Credit a clear heating-pressure/convection explanation; do not reverse the surface wind direction for the stated daytime case.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State faster daytime heating of land relative to sea.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain warmer air rising over land.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain near-surface replacement by air from the sea.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Waves and sound",
+      "subtopic": "Propagation and interference",
+      "learningObjective": "Relate wave behaviour to frequency wavelength and speed.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-098",
+      "objectiveId": "waec-physics-waves-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A learner stands 85 m from a large wall and hears an echo. Taking sound speed as 340 m s⁻¹, calculate the time between the original sound and the echo. Explain why the travel distance is not 85 m.",
+      "answer": "The sound travels to the wall and back, a total of 170 m. Time = 170/340 = 0.50 s. The echo returns along a second 85 m path after reflection.",
+      "explanation": "A one-way travel time of 0.25 s omits the return path.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify the round-trip distance of 170 m.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Use t = distance/speed and obtain 0.50 s.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain the outward and reflected return paths.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "verification": [
+        {
+          "expression": "2*85/340",
+          "expected": "0.5",
+          "answerValue": "0.5",
+          "purpose": "Echo round-trip time"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Electric circuits",
+      "subtopic": "Current resistance and power",
+      "learningObjective": "Analyse circuit behaviour and electrical energy.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-099",
+      "objectiveId": "waec-physics-electricity-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A 6 Ω resistor and a 3 Ω resistor are connected in parallel across an ideal 12 V supply. Calculate the current in each branch and the total power delivered to the pair.",
+      "answer": "The 6 Ω branch carries 12/6 = 2 A; the 3 Ω branch carries 12/3 = 4 A. Total current is 6 A, so power = 12×6 = 72 W.",
+      "explanation": "Both resistors have the full supply voltage in parallel. Total power can also be found by adding V²/R for the branches.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct 2 A current in the 6 Ω branch.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Correct 4 A current in the 3 Ω branch.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Find total current 6 A and total power 72 W.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "verification": [
+        {
+          "expression": "12/6",
+          "expected": "2",
+          "answerValue": "2",
+          "purpose": "Current in six-ohm branch"
+        },
+        {
+          "expression": "12/3",
+          "expected": "4",
+          "purpose": "Current in three-ohm branch"
+        },
+        {
+          "expression": "12*(12/6+12/3)",
+          "expected": "72",
+          "purpose": "Total electrical power"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Physics",
+      "topic": "Light",
+      "subtopic": "Reflection and refraction",
+      "learningObjective": "Explain image formation and optical behaviour.",
+      "specificationId": "waec-physics-source-2026",
+      "id": "ndv-026-100",
+      "objectiveId": "waec-physics-optics-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A convex lens has focal length 10 cm. An object is placed 30 cm from the lens. Using 1/f = 1/u + 1/v for the real object and image distances here, calculate image distance and magnification, and describe the image.",
+      "answer": "1/v = 1/10−1/30 = 1/15, so v = 15 cm. Magnification magnitude = v/u = 15/30 = 0.5. The image is real, inverted and diminished.",
+      "explanation": "The object is beyond twice the focal length; the real image forms between one and two focal lengths on the opposite side. The stated formula convention uses positive real distances.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Substitute into the lens equation correctly.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find image distance 15 cm.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Find magnification magnitude 0.5.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "State real, inverted and diminished.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "verification": [
+        {
+          "expression": "1/(1/10-1/30)",
+          "expected": "15",
+          "answerValue": "15",
+          "purpose": "Real image distance in centimetres"
+        },
+        {
+          "expression": "15/30",
+          "expected": "0.5",
+          "purpose": "Magnification magnitude"
+        }
+      ]
+    }
+  ]
+}

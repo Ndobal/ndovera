@@ -1,0 +1,3774 @@
+{
+  "schemaVersion": 2,
+  "collection": "Ndovera original WAEC/JAMB Government and Geography — batch 031",
+  "questionCount": 100,
+  "note": "Original draft practice. Supplied syllabus compilations with partial primary crosschecks; full current official alignment and independent academic review pending. Geographical and electoral numerical scenarios are invented and self-contained. No current officeholders, treaty membership lists or legal thresholds assumed.",
+  "questions": [
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political foundations",
+      "subtopic": "State power and legitimacy",
+      "learningObjective": "Distinguish political concepts using evidence.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-001",
+      "objectiveId": "jamb-government-foundations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Residents obey a council mainly because they accept its right to make decisions, rather than because they fear punishment. Which concept is most directly illustrated?",
+      "answer": "Legitimacy.",
+      "explanation": "Legitimacy concerns acceptance of the right to rule; coercive capacity alone does not establish that acceptance.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Military power.",
+        "Population density.",
+        "Legitimacy.",
+        "Territorial size."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political foundations",
+      "subtopic": "State power and legitimacy",
+      "learningObjective": "Distinguish political concepts using evidence.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-002",
+      "objectiveId": "jamb-government-foundations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A cultural community shares language and historical identity but lives across several independent states. Which description best fits the community?",
+      "answer": "A nation that does not coincide with one state.",
+      "explanation": "A nation concerns shared identity; a state concerns political organisation, territory and sovereignty.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A political party by definition.",
+        "A nation that does not coincide with one state.",
+        "One necessarily sovereign state.",
+        "A local-government department."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Constitutions and principles",
+      "subtopic": "Limits and rights",
+      "learningObjective": "Analyse constitutional limits on power.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-003",
+      "objectiveId": "jamb-government-constitution-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An official is required to answer a charge through the same publicly established court procedure used for other citizens. Which principle is most directly supported?",
+      "answer": "Equality before the law.",
+      "explanation": "The scenario applies legal procedures to an official rather than granting arbitrary exemption from them.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Equality before the law.",
+        "Government by personal decree.",
+        "Hereditary succession.",
+        "Unrestricted executive discretion."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-004",
+      "objectiveId": "jamb-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A legislative committee questions ministers about how approved public funds were spent. This is primarily an example of",
+      "answer": "legislative oversight of the executive.",
+      "explanation": "The committee checks executive performance without necessarily administering the programme itself.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "judicial sentencing of ministers.",
+        "executive appointment of judges.",
+        "direct election of civil servants.",
+        "legislative oversight of the executive."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Constitutions and principles",
+      "subtopic": "Limits and rights",
+      "learningObjective": "Analyse constitutional limits on power.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-005",
+      "objectiveId": "jamb-government-constitution-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A constitution requires a special supermajority and additional approval to amend its principal provisions. It is described as rigid mainly because",
+      "answer": "amendment is harder than passing ordinary legislation.",
+      "explanation": "Rigidity concerns the amendment procedure, not whether the document can ever be changed.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "it must be changed by the executive alone.",
+        "it can never be amended under any circumstances.",
+        "amendment is harder than passing ordinary legislation.",
+        "it cannot contain any written provisions."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-006",
+      "objectiveId": "jamb-government-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In a federation, what most clearly distinguishes constituent governments’ constitutional powers from ordinary administrative delegation?",
+      "answer": "The powers are constitutionally allocated and cannot simply be withdrawn as an ordinary administrative instruction.",
+      "explanation": "Federal distribution is protected by the constitution; routine delegation depends more directly on the delegating authority.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every local official is elected by all citizens nationally.",
+        "The powers are constitutionally allocated and cannot simply be withdrawn as an ordinary administrative instruction.",
+        "The constituent governments necessarily have identical populations.",
+        "The central government has no powers of any kind."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-007",
+      "objectiveId": "jamb-government-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which feature is most characteristic of a confederation in the conventional textbook distinction?",
+      "answer": "Member states retain sovereignty while assigning limited common responsibilities to joint institutions.",
+      "explanation": "A confederation is based on cooperation among sovereign members rather than necessarily creating a single sovereign federal state.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Member states retain sovereignty while assigning limited common responsibilities to joint institutions.",
+        "All member identities disappear into one unitary administration.",
+        "One hereditary ruler must control every member state.",
+        "Constituent units have no independent political existence."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-008",
+      "objectiveId": "jamb-government-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which feature most directly distinguishes a presidential executive from a parliamentary executive in the usual models?",
+      "answer": "The president normally holds a separately constituted mandate rather than remaining in office solely through legislative confidence.",
+      "explanation": "A parliamentary executive depends on legislative confidence; the ordinary presidential model separates the executive mandate and tenure from that mechanism.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A presidential system has no legislature.",
+        "A parliamentary system cannot hold elections.",
+        "A president must be a hereditary monarch.",
+        "The president normally holds a separately constituted mandate rather than remaining in office solely through legislative confidence."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-009",
+      "objectiveId": "jamb-government-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Under collective cabinet responsibility, a minister who fundamentally rejects an agreed cabinet policy is normally expected to",
+      "answer": "support the common policy publicly or leave the cabinet.",
+      "explanation": "Collective responsibility requires a united public position while a minister remains part of the cabinet.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "dismiss the entire legislature personally.",
+        "transfer all executive powers to a court clerk.",
+        "support the common policy publicly or leave the cabinet.",
+        "remain in cabinet while treating every agreed decision as optional."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-010",
+      "objectiveId": "jamb-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why might a legislature authorise a ministry to make detailed technical regulations under an enabling law?",
+      "answer": "Technical detail can be handled within authority and limits set by the legislature.",
+      "explanation": "Delegated legislation can use expertise and flexibility while remaining subject to the enabling law and oversight.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The legislature ceases to exist after one delegation.",
+        "Technical detail can be handled within authority and limits set by the legislature.",
+        "Delegation makes the constitution irrelevant.",
+        "A ministry then gains unlimited power to change any law."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-011",
+      "objectiveId": "jamb-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A permanent official implements lawful policy under successive elected governments without campaigning for one party in the office. This illustrates",
+      "answer": "political neutrality of the civil service.",
+      "explanation": "Neutrality supports professional continuity while elected officeholders determine policy within lawful authority.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "political neutrality of the civil service.",
+        "automatic membership of the governing party.",
+        "judicial immunity for all administrative errors.",
+        "abolition of ministerial accountability."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-012",
+      "objectiveId": "jamb-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What is a central distinction between a pressure group and a political party?",
+      "answer": "A pressure group chiefly seeks to influence policy, while a party seeks to win and exercise governmental office.",
+      "explanation": "Methods can overlap, but their primary institutional purposes differ.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every pressure group must contest all parliamentary seats.",
+        "Parties are forbidden to propose policies.",
+        "Pressure groups can represent only business owners.",
+        "A pressure group chiefly seeks to influence policy, while a party seeks to win and exercise governmental office."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-013",
+      "objectiveId": "jamb-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Under a hypothetical exact proportional allocation with no threshold, a party wins 24% of valid votes for 100 seats. How many seats would it receive?",
+      "answer": "24",
+      "explanation": "The stated rule gives 0.24×100 = 24 seats. Actual systems may use thresholds or rounding rules, which are excluded here.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "48",
+        "76",
+        "24",
+        "12"
+      ],
+      "correctOption": "C",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "24/100*100",
+          "expected": "24",
+          "answerValue": "24",
+          "purpose": "Seats under stated exact proportional allocation"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-014",
+      "objectiveId": "jamb-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In a single-member election using plurality, A wins 40 votes, B 35 and C 25. Which statement is correct?",
+      "answer": "A wins despite receiving less than half of the valid votes.",
+      "explanation": "Plurality selects the largest vote total; it does not necessarily require an absolute majority.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "C wins because C has the fewest votes.",
+        "A wins despite receiving less than half of the valid votes.",
+        "B wins because the two losing candidates together exceed A.",
+        "A must receive 51 votes before any plurality winner can be declared."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-015",
+      "objectiveId": "jamb-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which action most directly improves the accuracy of an electoral register without deliberately excluding eligible voters?",
+      "answer": "Provide a documented process to correct duplicate and erroneous entries with opportunities to challenge mistakes.",
+      "explanation": "Accuracy and fair correction protect register integrity while reducing wrongful exclusion.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Provide a documented process to correct duplicate and erroneous entries with opportunities to challenge mistakes.",
+        "Delete all entries from areas where turnout was previously low.",
+        "Allow candidates to remove opponents’ supporters without evidence.",
+        "Treat every spelling error as permanent loss of voting rights."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-016",
+      "objectiveId": "jamb-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An electoral commission is legally described as independent but cannot obtain approved operational funds unless a candidate authorises each payment. What is the main concern?",
+      "answer": "Financial dependence can undermine practical independence.",
+      "explanation": "Formal status alone does not remove opportunities for operational interference through funding.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Legal independence proves that financial arrangements can never matter.",
+        "Candidates must therefore become the judges of every complaint.",
+        "Operational funding has no connection with election administration.",
+        "Financial dependence can undermine practical independence."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-017",
+      "objectiveId": "jamb-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A website poll asks visitors whether they support a policy. Why should its result not automatically be treated as the opinion of all citizens?",
+      "answer": "Participants self-select and may differ from citizens who do not visit or respond.",
+      "explanation": "A voluntary online sample can have coverage and selection bias.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "All respondents must deliberately lie.",
+        "Public opinion can never be studied with any evidence.",
+        "Participants self-select and may differ from citizens who do not visit or respond.",
+        "The number of responses alone guarantees national representativeness."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-018",
+      "objectiveId": "jamb-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Naturalisation is best described generally as",
+      "answer": "a legal process through which a non-citizen acquires citizenship after meeting the state’s requirements.",
+      "explanation": "The precise requirements vary; the concept is acquisition through the recognised legal process rather than citizenship arising automatically from any visit.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "membership of a trade association.",
+        "a legal process through which a non-citizen acquires citizenship after meeting the state’s requirements.",
+        "automatic citizenship from buying a local newspaper.",
+        "temporary permission to cross a border for one day."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political foundations",
+      "subtopic": "State power and legitimacy",
+      "learningObjective": "Distinguish political concepts using evidence.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-019",
+      "objectiveId": "jamb-government-foundations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A child gradually learns political attitudes through family discussion, schooling and media. This process is",
+      "answer": "political socialisation.",
+      "explanation": "Political socialisation develops political orientations through social experience and institutions.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "political socialisation.",
+        "legislative dissolution.",
+        "territorial annexation.",
+        "judicial review."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political development",
+      "subtopic": "Colonial rule and nationalism",
+      "learningObjective": "Explain historical institutions and political change.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-020",
+      "objectiveId": "jamb-government-history-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which method is most characteristic of British indirect rule in its conventional colonial form?",
+      "answer": "Governing through recognised local authorities under colonial supervision.",
+      "explanation": "Indirect rule used existing or constructed local authority structures rather than relying solely on direct rule by European officials at every level.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Granting immediate equal sovereignty to every village.",
+        "Eliminating all local intermediaries in every region.",
+        "Holding universal adult elections for all colonial offices.",
+        "Governing through recognised local authorities under colonial supervision."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political development",
+      "subtopic": "Colonial rule and nationalism",
+      "learningObjective": "Explain historical institutions and political change.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-021",
+      "objectiveId": "jamb-government-history-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why could indirect rule operate differently in a centralised emirate and a community governed through dispersed assemblies?",
+      "answer": "The pre-existing distribution of authority affected which intermediaries could exercise accepted power.",
+      "explanation": "A uniform colonial administrative label could encounter very different local institutions and legitimacy.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Geography alone determined every political institution.",
+        "Decentralised communities had no ways of making collective decisions.",
+        "The pre-existing distribution of authority affected which intermediaries could exercise accepted power.",
+        "All communities already had identical office structures."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political development",
+      "subtopic": "Colonial rule and nationalism",
+      "learningObjective": "Explain historical institutions and political change.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-022",
+      "objectiveId": "jamb-government-history-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which feature is commonly associated with political organisation in many pre-colonial Igbo communities?",
+      "answer": "Decision-making involving village assemblies and several institutions rather than one uniform central monarch.",
+      "explanation": "Many communities had decentralised arrangements, though practices varied and should not be described as identical everywhere.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A single colonial governor before European colonial rule.",
+        "Decision-making involving village assemblies and several institutions rather than one uniform central monarch.",
+        "One identical absolute emperor ruling all communities.",
+        "The complete absence of collective decision-making."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political development",
+      "subtopic": "Colonial rule and nationalism",
+      "learningObjective": "Explain historical institutions and political change.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-023",
+      "objectiveId": "jamb-government-history-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which constitutional development is associated with the Clifford Constitution of 1922 in Nigeria?",
+      "answer": "A limited elective principle for representation in Lagos and Calabar.",
+      "explanation": "The reform introduced limited elected representation; it did not establish universal adult suffrage or national independence.",
+      "cognitiveDemand": "remember",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A limited elective principle for representation in Lagos and Calabar.",
+        "Universal adult suffrage throughout all regions.",
+        "Adoption of the 1979 presidential system.",
+        "Abolition of British colonial rule in 1922."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "Political development",
+      "subtopic": "Colonial rule and nationalism",
+      "learningObjective": "Explain historical institutions and political change.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-024",
+      "objectiveId": "jamb-government-history-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "How could the experiences of the Second World War strengthen anti-colonial nationalism in West Africa?",
+      "answer": "Service, wider contact and demands for freedom could intensify criticism of colonial inequality.",
+      "explanation": "Wartime experiences and international ideas could challenge colonial claims, without being the only cause of nationalism.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The war automatically granted independence to every colony on one date.",
+        "All nationalist organisations disappeared permanently.",
+        "Returning servicemen had no possible influence on political ideas.",
+        "Service, wider contact and demands for freedom could intensify criticism of colonial inequality."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Government",
+      "topic": "International relations",
+      "subtopic": "Foreign policy and cooperation",
+      "learningObjective": "Evaluate foreign-policy choices and cooperation.",
+      "specificationId": "jamb-government-compilation-2026",
+      "id": "ndv-031-025",
+      "objectiveId": "jamb-government-international-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In the historical idea of non-alignment, the main aim was to",
+      "answer": "preserve independent foreign-policy judgement rather than automatically join a rival power bloc.",
+      "explanation": "Non-alignment is not equivalent to refusing every international relationship or remaining neutral on every issue.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "promise automatic support for one bloc in every dispute.",
+        "abolish the sovereignty of participating states.",
+        "preserve independent foreign-policy judgement rather than automatically join a rival power bloc.",
+        "end all diplomatic relations with every state."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Political foundations",
+      "subtopic": "State power and legitimacy",
+      "learningObjective": "Distinguish political concepts using evidence.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-026",
+      "objectiveId": "waec-government-foundations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "An officer gives an instruction within powers attached to the office and recognised procedures. This illustrates authority mainly as",
+      "answer": "the recognised right to issue binding decisions within a defined role.",
+      "explanation": "Authority differs from the mere ability to compel compliance by force.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "any personal preference expressed by a resident.",
+        "the recognised right to issue binding decisions within a defined role.",
+        "the physical size of a territory.",
+        "the total number of soldiers in a state."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Political foundations",
+      "subtopic": "State power and legitimacy",
+      "learningObjective": "Distinguish political concepts using evidence.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-027",
+      "objectiveId": "waec-government-foundations-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "External sovereignty refers mainly to a state’s",
+      "answer": "independence from another state’s supreme political control.",
+      "explanation": "External sovereignty concerns the state’s position in relation to other states, rather than the popularity of one government.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "independence from another state’s supreme political control.",
+        "guaranteed economic self-sufficiency.",
+        "absence of every international agreement.",
+        "ability to ignore all physical geography."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-028",
+      "objectiveId": "waec-government-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A constitutional monarchy can coexist with parliamentary government when",
+      "answer": "the monarch’s role is constitutionally limited while ministers conduct government under the relevant parliamentary rules.",
+      "explanation": "Monarchical headship does not necessarily mean unlimited personal rule.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "the monarch must personally decide every court case.",
+        "there can be no elected legislature.",
+        "the constitution forbids all ministerial accountability.",
+        "the monarch’s role is constitutionally limited while ministers conduct government under the relevant parliamentary rules."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-029",
+      "objectiveId": "waec-government-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A central ministry posts its own officers to regional offices while retaining decision-making power. This is most clearly",
+      "answer": "deconcentration.",
+      "explanation": "Administrative work is geographically dispersed without necessarily transferring autonomous powers to separate local governments.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a treaty-based confederation.",
+        "automatic constitutional devolution of autonomous power.",
+        "deconcentration.",
+        "the creation of sovereign independent states."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Constitutions and principles",
+      "subtopic": "Limits and rights",
+      "learningObjective": "Analyse constitutional limits on power.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-030",
+      "objectiveId": "waec-government-constitution-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which is a basic function of a constitution?",
+      "answer": "Define institutions, their powers and the framework for governing.",
+      "explanation": "A constitution establishes the governing framework rather than merely recording each day’s administrative tasks.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Guarantee that no political disagreement can arise.",
+        "Define institutions, their powers and the framework for governing.",
+        "Replace every government budget with one permanent figure.",
+        "List every private purchase made by all citizens."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-031",
+      "objectiveId": "waec-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why can secure judicial tenure, subject to a proper removal process, support judicial independence?",
+      "answer": "It reduces pressure to decide cases merely to avoid arbitrary dismissal.",
+      "explanation": "Security of tenure can protect impartial decision-making while appropriate accountability mechanisms remain possible.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It reduces pressure to decide cases merely to avoid arbitrary dismissal.",
+        "It makes every judicial decision correct automatically.",
+        "It removes all professional obligations from judges.",
+        "It makes the executive the final author of every judgment."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-032",
+      "objectiveId": "waec-government-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Several parties agree to form a government because none can command the required legislative support alone. This is a",
+      "answer": "coalition government.",
+      "explanation": "A coalition combines parties to obtain or maintain the necessary governing support.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "military coup by definition.",
+        "hereditary succession.",
+        "single-party monopoly by definition.",
+        "coalition government."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-033",
+      "objectiveId": "waec-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A legislative quorum requirement primarily ensures that",
+      "answer": "a minimum number of members is present for specified business to proceed.",
+      "explanation": "Quorum concerns valid participation in proceedings, not the final vote share needed to pass every type of bill.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "only the speaker may attend proceedings.",
+        "all members must belong to one party.",
+        "a minimum number of members is present for specified business to proceed.",
+        "every bill must receive unanimous national approval."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-034",
+      "objectiveId": "waec-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "An ombudsman-type institution investigates complaints about administrative unfairness. Its principal concern is",
+      "answer": "maladministration and related grievances.",
+      "explanation": "The role is administrative complaint investigation, distinct from replacing every ordinary court or conducting all elections.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "selecting candidates in every party primary.",
+        "maladministration and related grievances.",
+        "commanding the armed forces in wartime.",
+        "printing legal-tender currency."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-035",
+      "objectiveId": "waec-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A party primary is mainly used to",
+      "answer": "select the party’s candidate for an election.",
+      "explanation": "Internal nomination differs from the general electorate choosing an officeholder.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "select the party’s candidate for an election.",
+        "amend every clause of the national constitution.",
+        "appoint all civil servants permanently.",
+        "settle every electoral petition in court."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-036",
+      "objectiveId": "waec-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Citizens vote directly on a specified public question rather than choosing representatives. This is a",
+      "answer": "referendum.",
+      "explanation": "A referendum asks electors to decide an issue directly.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "cabinet reshuffle.",
+        "judicial appeal.",
+        "legislative adjournment.",
+        "referendum."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Constitutions and principles",
+      "subtopic": "Limits and rights",
+      "learningObjective": "Analyse constitutional limits on power.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-037",
+      "objectiveId": "waec-government-constitution-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A government claims that an emergency allows any official to detain any critic indefinitely without review. Which concern is strongest from a constitutionalist perspective?",
+      "answer": "Emergency powers still need defined legal limits and safeguards against arbitrary use.",
+      "explanation": "Constitutionalism examines how power is constrained and reviewed, rather than treating an emergency label as unlimited authority.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every criticism of government is automatically a criminal offence.",
+        "Declaring an emergency permanently abolishes the constitution.",
+        "Emergency powers still need defined legal limits and safeguards against arbitrary use.",
+        "Public officials should have no legal powers in any emergency."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-038",
+      "objectiveId": "waec-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which activity demonstrates lawful political participation between elections?",
+      "answer": "Submitting evidence and a petition to a public hearing.",
+      "explanation": "Participation includes organised communication and scrutiny beyond casting a ballot.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Destroying public records to hide a complaint.",
+        "Submitting evidence and a petition to a public hearing.",
+        "Falsifying another citizen’s registration details.",
+        "Threatening witnesses to prevent a hearing."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-039",
+      "objectiveId": "waec-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Publishing a spending total without records of approvals, recipients or delivered work gives weak accountability because",
+      "answer": "the public cannot readily trace the total to authorised transactions and outcomes.",
+      "explanation": "Accountability requires evidence that allows spending and responsibility to be checked.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "the public cannot readily trace the total to authorised transactions and outcomes.",
+        "a single total necessarily proves that every payment was stolen.",
+        "supporting records have no relevance once a total is announced.",
+        "public spending can never be documented."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "International relations",
+      "subtopic": "Foreign policy and cooperation",
+      "learningObjective": "Evaluate foreign-policy choices and cooperation.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-040",
+      "objectiveId": "waec-government-international-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Two neighbouring states resolve a boundary disagreement through negotiation and mediation. These methods primarily illustrate",
+      "answer": "peaceful diplomatic dispute management.",
+      "explanation": "Negotiation and mediation seek an agreed settlement through dialogue rather than force.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "automatic territorial conquest.",
+        "abolition of both governments.",
+        "a compulsory merger of all neighbouring states.",
+        "peaceful diplomatic dispute management."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Constitutions and principles",
+      "subtopic": "Limits and rights",
+      "learningObjective": "Analyse constitutional limits on power.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-041",
+      "objectiveId": "waec-government-constitution-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A state has a detailed written constitution, but officials routinely ignore court orders and approved procedures. Explain why having a written constitution is not sufficient to establish constitutionalism. Give three supporting conditions.",
+      "answer": "Constitutionalism means public power is exercised within effective limits, not merely that a document exists. Relevant conditions include enforceable rules and court decisions, independent oversight, transparent procedures, public access to remedies and a political culture of compliance.",
+      "explanation": "Credit three explained conditions linked to constraining power. Do not equate the length of a constitution with its effectiveness.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Distinguish a constitutional document from effective limitation of power.",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Explain three supporting conditions.",
+          "marks": 6
+        }
+      ],
+      "score": 9,
+      "maxMarks": 9,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-042",
+      "objectiveId": "waec-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Explain three safeguards that can support judicial independence and one reason why independence should coexist with proper accountability.",
+      "answer": "Safeguards include a transparent merit-based appointment process, secure tenure with due removal procedures, adequate protected administration and freedom from improper pressure in deciding cases. Accountability is needed to address misconduct or incompetence through fair processes without dictating judgments.",
+      "explanation": "Assess the balance: independence does not mean immunity from all scrutiny, and accountability should not become political direction of case outcomes.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain three distinct safeguards.",
+          "marks": 6
+        },
+        {
+          "step": 2,
+          "description": "Explain a proper accountability purpose and its limits.",
+          "marks": 3
+        }
+      ],
+      "score": 9,
+      "maxMarks": 9,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Structures and systems",
+      "subtopic": "Distribution of authority",
+      "learningObjective": "Compare governmental structures and executive systems.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-043",
+      "objectiveId": "waec-government-systems-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Compare a federal distribution of power with a unitary arrangement in responding to a disaster that affects several regions. Give one coordination benefit and one possible difficulty for each.",
+      "answer": "Federal arrangements can allow regional responses informed by local conditions but may require coordination across constitutionally divided responsibilities. A unitary arrangement can coordinate national direction through a common authority but may overlook local needs or face administrative bottlenecks. Actual performance depends on capacity and institutional design.",
+      "explanation": "Neither structure guarantees effectiveness. Credit reasoned benefits and difficulties without describing all unitary systems as authoritarian.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain the basic difference in allocation of authority.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Benefit and difficulty of federal response.",
+          "marks": 4
+        },
+        {
+          "step": 3,
+          "description": "Benefit and difficulty of unitary response.",
+          "marks": 4
+        }
+      ],
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-044",
+      "objectiveId": "waec-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "In a hypothetical election there are 2,000 registered voters. Valid votes are 720 for A and 680 for B; 50 ballots are invalid. Calculate turnout and A’s percentage of valid votes, to one decimal place. Explain why the two denominators differ.",
+      "answer": "Ballots cast = 720+680+50 = 1,450. Turnout = 1,450/2,000×100 = 72.5%. A’s valid-vote share = 720/1,400×100 ≈ 51.4%. Turnout uses all ballots cast relative to registered voters; candidate share uses valid votes only.",
+      "explanation": "Invalid ballots contribute to turnout in the definition given here but not to a candidate’s share of valid votes.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find 1,450 ballots cast.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate turnout 72.5%.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Use 1,400 valid votes and obtain about 51.4%.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Explain the different denominators.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(720+680+50)/2000*100",
+          "expected": "72.5",
+          "answerValue": "72.5",
+          "purpose": "Turnout percentage"
+        },
+        {
+          "expression": "720/(720+680)*100",
+          "expected": "360/7",
+          "purpose": "Unrounded A share of valid votes"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Participation and elections",
+      "subtopic": "Representation and organisation",
+      "learningObjective": "Interpret participation and electoral processes.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-045",
+      "objectiveId": "waec-government-participation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "An environmental association wants stricter waste controls but does not seek governmental office. Explain why it is a pressure group, describe two legitimate methods it can use and identify one limitation of its claim to represent the public.",
+      "answer": "Its central aim is policy influence rather than winning office. It can submit research to hearings, petition representatives, organise lawful campaigns or negotiate with agencies. Its members may not represent every affected resident, so transparent membership and evidence are important.",
+      "explanation": "Credit other lawful influence methods and a reasoned representativeness limitation; advocacy does not itself prove a universal public mandate.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Apply the pressure-group distinction to the association.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain two legitimate methods.",
+          "marks": 4
+        },
+        {
+          "step": 3,
+          "description": "Explain one limitation of representativeness.",
+          "marks": 2
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-046",
+      "objectiveId": "waec-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A senior official is instructed to direct routine public services only to supporters of the governing party. Explain how professional neutrality, equal treatment and accountability are relevant, and propose an appropriate institutional response in this hypothetical case.",
+      "answer": "Professional neutrality requires administration based on lawful public duties rather than party favour. Equal treatment requires relevant service criteria rather than political support. The official should use established clarification, reporting and review channels, preserve an accurate record and seek lawful resolution rather than secretly falsify records.",
+      "explanation": "Assess institutional reasoning; the task does not ask for jurisdiction-specific legal advice or assume that every instruction from a superior is lawful.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain neutrality.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain equal service treatment.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain a documented lawful reporting/review response.",
+          "marks": 3
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Political development",
+      "subtopic": "Colonial rule and nationalism",
+      "learningObjective": "Explain historical institutions and political change.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-047",
+      "objectiveId": "waec-government-history-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Explain why a colonial policy of indirect rule could produce different results in areas with centralised traditional authority and areas with several dispersed decision-making institutions. Include one possible consequence of appointing an intermediary without local legitimacy.",
+      "answer": "Existing central authorities could provide established channels for administration, although acceptance was not guaranteed. In decentralised settings, a single appointed intermediary could conflict with assemblies or other institutions. An appointee lacking legitimacy might face resistance, weaken existing checks or create new concentrations of power.",
+      "explanation": "Recognise local variation instead of assuming one uniform African political system.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain use of established central authority.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain difficulties where authority was dispersed.",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Explain one consequence of an unaccepted intermediary.",
+          "marks": 3
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Political development",
+      "subtopic": "Colonial rule and nationalism",
+      "learningObjective": "Explain historical institutions and political change.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-048",
+      "objectiveId": "waec-government-history-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Discuss how newspapers, organised labour and educated associations could contribute to anti-colonial nationalism in West Africa. Explain why none alone should be treated as the sole cause of independence.",
+      "answer": "Newspapers circulated criticism and political ideas; organised labour mobilised collective demands and action; educated associations developed programmes, leaders and networks. Their effects interacted with wider social, economic and international changes, and independence followed different processes across territories.",
+      "explanation": "Credit relevant historical mechanisms without requiring invented quotations, unsupported dates or a single-cause explanation.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain the role of newspapers.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain the role of labour.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain the role of educated associations.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Explain interaction with other causes and local variation.",
+          "marks": 2
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "Institutions of government",
+      "subtopic": "Roles and accountability",
+      "learningObjective": "Evaluate institutions and oversight.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-049",
+      "objectiveId": "waec-government-institutions-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A local council plans a market project. Residents want to know who selected the contractor and whether the promised work was delivered. Describe four accountability arrangements that would help answer these questions.",
+      "answer": "Use documented selection criteria, record conflicts and approvals, publish an understandable project budget, retain invoices and payment records, inspect work against agreed milestones and provide an accessible complaint channel. Together these connect decisions, expenditure and results.",
+      "explanation": "Credit four explained arrangements with traceable evidence, rather than merely saying that officials should be honest.",
+      "cognitiveDemand": "create",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain four suitable arrangements, each linked to a decision, payment or delivered result.",
+          "marks": 8
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Government",
+      "topic": "International relations",
+      "subtopic": "Foreign policy and cooperation",
+      "learningObjective": "Evaluate foreign-policy choices and cooperation.",
+      "specificationId": "waec-government-compilation-2026",
+      "id": "ndv-031-050",
+      "objectiveId": "waec-government-international-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A hypothetical state wants cheaper imports from a distant partner, stronger relations with neighbours and protection of local jobs. Explain three considerations its foreign-policy makers should weigh and why the goals may involve trade-offs.",
+      "answer": "They should consider economic gains and adjustment costs, regional commitments and relations, security and diplomatic interests, and the distribution of benefits and losses at home. Cheaper imports may help consumers while competing with some producers; a distant agreement may affect regional partners. The choice requires evidence and negotiation rather than assuming all goals improve simultaneously.",
+      "explanation": "Accept different defensible balances; no current treaty or membership rule is presumed.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain three relevant considerations.",
+          "marks": 6
+        },
+        {
+          "step": 2,
+          "description": "Explain a concrete trade-off between goals.",
+          "marks": 3
+        }
+      ],
+      "score": 9,
+      "maxMarks": 9,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-051",
+      "objectiveId": "jamb-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "On a map at 1:25,000, a rectangular field measures 2 cm by 3 cm. What is its ground area?",
+      "answer": "0.375 km²",
+      "explanation": "The ground dimensions are 0.5 km and 0.75 km, so area = 0.5×0.75 = 0.375 km².",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "0.375 km²",
+        "0.06 km²",
+        "1.25 km²",
+        "3.75 km²"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "(2*25000/100000)*(3*25000/100000)",
+          "expected": "0.375",
+          "answerValue": "0.375",
+          "purpose": "Mapped field area"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-052",
+      "objectiveId": "jamb-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A whole-circle bearing of 135° points generally towards the",
+      "answer": "south-east.",
+      "explanation": "Bearings are measured clockwise from north; 135° lies halfway between east and south.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "north-east.",
+        "south-west.",
+        "north-west.",
+        "south-east."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-053",
+      "objectiveId": "jamb-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Contours cross a stream in V-shapes whose tips point west. With no other complications, the stream most likely flows towards the",
+      "answer": "east.",
+      "explanation": "Contour Vs in a valley usually point upstream, so downstream is away from their tips.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "north along every contour.",
+        "south along every contour.",
+        "east.",
+        "west."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-054",
+      "objectiveId": "jamb-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why are eastings read before northings when stating a conventional grid reference?",
+      "answer": "The reference locates the horizontal position first and then the vertical position.",
+      "explanation": "The ordering convention distinguishes coordinates and avoids interchanging positions; it is not a measure of elevation.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Both numbers refer only to magnetic north.",
+        "The reference locates the horizontal position first and then the vertical position.",
+        "Eastings give height and northings give rainfall.",
+        "Northings always measure distance from a coastline."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-055",
+      "objectiveId": "jamb-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Ignoring time zones and daylight-saving rules, what is local solar time at 75°E when it is 08:00 at Greenwich?",
+      "answer": "13:00",
+      "explanation": "At 15° per hour, 75° east is five solar hours ahead: 08:00+5 hours = 13:00.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "13:00",
+        "03:00",
+        "08:05",
+        "18:00"
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "75/15",
+          "expected": "5",
+          "answerValue": "5",
+          "purpose": "Solar-time offset in hours"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Physical geography",
+      "subtopic": "Earth processes and landforms",
+      "learningObjective": "Explain Earth processes and resulting landforms.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-056",
+      "objectiveId": "jamb-geography-earth-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What chiefly explains the annual change in the angle of sunlight and day length at a fixed mid-latitude location?",
+      "answer": "Earth’s axial tilt combined with its revolution around the Sun.",
+      "explanation": "The tilted axis changes seasonal solar geometry as Earth orbits; daily rotation alone explains the day-night cycle rather than the annual pattern.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A daily reversal of Earth’s rotation.",
+        "The Moon blocking sunlight every afternoon.",
+        "Earth’s axis becoming vertical each month.",
+        "Earth’s axial tilt combined with its revolution around the Sun."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Physical geography",
+      "subtopic": "Earth processes and landforms",
+      "learningObjective": "Explain Earth processes and resulting landforms.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-057",
+      "objectiveId": "jamb-geography-earth-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which setting is most strongly associated with an oceanic plate descending beneath another plate?",
+      "answer": "A convergent boundary with subduction.",
+      "explanation": "Subduction occurs as plates converge and one descends, rather than simply moving apart.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A transform boundary with only horizontal sliding.",
+        "A stable continental interior with no plate interaction.",
+        "A convergent boundary with subduction.",
+        "A divergent boundary creating only new oceanic crust."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Physical geography",
+      "subtopic": "Earth processes and landforms",
+      "learningObjective": "Explain Earth processes and resulting landforms.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-058",
+      "objectiveId": "jamb-geography-earth-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Rainwater containing weak carbonic acid dissolves limestone. This is primarily",
+      "answer": "chemical weathering by carbonation.",
+      "explanation": "The rock’s material changes or dissolves through chemical reaction, unlike purely mechanical breakdown.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "wind abrasion.",
+        "chemical weathering by carbonation.",
+        "freeze-thaw action.",
+        "exfoliation caused only by heating."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Physical geography",
+      "subtopic": "Earth processes and landforms",
+      "learningObjective": "Explain Earth processes and resulting landforms.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-059",
+      "objectiveId": "jamb-geography-earth-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Why can prolonged rainfall increase the likelihood of a landslide on a steep, unstable slope?",
+      "answer": "Added water can increase mass and reduce the material’s resistance to movement.",
+      "explanation": "Saturation and pore-water effects can destabilise slope material; rainfall does not guarantee failure on every slope.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Added water can increase mass and reduce the material’s resistance to movement.",
+        "Rainfall always removes gravity from the slope.",
+        "Water necessarily makes every slope permanently stronger.",
+        "All slope material becomes solid bedrock immediately."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-060",
+      "objectiveId": "jamb-geography-water-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A river enters a lake and loses velocity. Which process is most likely near the entry point?",
+      "answer": "Deposition of some transported sediment.",
+      "explanation": "Lower flow energy reduces the river’s capacity to carry part of its sediment load.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Uniform acceleration of all sediment upstream.",
+        "Creation of new sediment by plate subduction in the channel.",
+        "Immediate evaporation of the entire lake.",
+        "Deposition of some transported sediment."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-061",
+      "objectiveId": "jamb-geography-water-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An oxbow lake most directly forms when",
+      "answer": "a meander loop is cut off from the main river channel.",
+      "explanation": "A new shorter channel can isolate the old meander, leaving a curved water body.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "a river is forced to flow uphill indefinitely.",
+        "groundwater dissolves a complete volcanic cone.",
+        "a meander loop is cut off from the main river channel.",
+        "a glacier deepens every desert basin."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Physical geography",
+      "subtopic": "Earth processes and landforms",
+      "learningObjective": "Explain Earth processes and resulting landforms.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-062",
+      "objectiveId": "jamb-geography-earth-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "What produces the zigzag movement of beach sediment during longshore drift?",
+      "answer": "Oblique swash carries material up the beach, while backwash returns it more directly down the slope.",
+      "explanation": "The combination yields a net movement along the shore when waves approach obliquely.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Tides prevent all sediment movement.",
+        "Oblique swash carries material up the beach, while backwash returns it more directly down the slope.",
+        "Both swash and backwash always travel exactly parallel to the coast.",
+        "Only vertical tectonic uplift moves every grain."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-063",
+      "objectiveId": "jamb-geography-water-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which drainage feature is commonly associated with permeable, jointed limestone terrain?",
+      "answer": "Streams may disappear into sinkholes and flow underground.",
+      "explanation": "Water can enter joints and solution openings, supporting underground drainage.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Streams may disappear into sinkholes and flow underground.",
+        "All rainfall must remain on the surface.",
+        "Every valley necessarily contains a permanent surface river.",
+        "Limestone cannot be affected by water."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-064",
+      "objectiveId": "jamb-geography-climate-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Moist air rises over a mountain, cools and produces rain on the windward slope. The rain is mainly",
+      "answer": "orographic rainfall.",
+      "explanation": "Relief forces moist air upwards; a leeward rain shadow may develop.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "rain caused only by a passing warm front.",
+        "rain formed without cooling or uplift.",
+        "a measurement of atmospheric pressure.",
+        "orographic rainfall."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-065",
+      "objectiveId": "jamb-geography-climate-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which instrument is designed to collect precipitation for measurement of rainfall depth?",
+      "answer": "Rain gauge.",
+      "explanation": "A rain gauge collects rainfall over a known opening so the depth can be measured.",
+      "cognitiveDemand": "remember",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Wind vane.",
+        "Hygrometer.",
+        "Rain gauge.",
+        "Anemometer."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-066",
+      "objectiveId": "jamb-geography-climate-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Air cools to its dew point without first losing water vapour. What is likely to begin if suitable condensation surfaces or nuclei are available?",
+      "answer": "Condensation as the air becomes saturated.",
+      "explanation": "Cooling reduces the amount of water vapour required for saturation, so condensation can begin at the dew point.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A reversal of Earth’s rotation.",
+        "Condensation as the air becomes saturated.",
+        "An automatic increase in the saturation capacity of the cooler air.",
+        "Complete destruction of all atmospheric moisture."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-067",
+      "objectiveId": "jamb-geography-climate-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Which annual pattern is most consistent with a humid equatorial climate?",
+      "answer": "High temperatures and substantial rainfall in most months.",
+      "explanation": "Humid equatorial climates generally lack the long dry season characteristic of many tropical continental climates.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "High temperatures and substantial rainfall in most months.",
+        "Very low temperatures throughout the year.",
+        "Rainfall only as winter snow.",
+        "No rainfall for several consecutive years as the defining norm."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-068",
+      "objectiveId": "jamb-geography-water-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Strong leaching under hot, wet conditions can leave tropical soils enriched in relatively less soluble iron compounds. This is associated with",
+      "answer": "lateritic soil development.",
+      "explanation": "Intense weathering and removal of soluble material can concentrate iron and aluminium compounds.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "the complete absence of chemical weathering.",
+        "permanent freezing of soil water.",
+        "accumulation of unaltered sea salt as the only soil process.",
+        "lateritic soil development."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Environment and regions",
+      "subtopic": "Resources and sustainability",
+      "learningObjective": "Explain regional interactions and environmental management.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-069",
+      "objectiveId": "jamb-geography-environment-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Large buttress roots in some tropical rainforest trees mainly help",
+      "answer": "support tall trees in relatively shallow rooting conditions.",
+      "explanation": "Wide supports can stabilise the trunk; not every rainforest species has identical root structures.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "replace all leaves in photosynthesis.",
+        "prevent the tree from taking up any water.",
+        "support tall trees in relatively shallow rooting conditions.",
+        "make every root an aquatic breathing tube."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Population and settlement",
+      "learningObjective": "Interpret population and settlement evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-070",
+      "objectiveId": "jamb-geography-population-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A hypothetical district has 200,000 people in 4,000 km². What is its arithmetic population density?",
+      "answer": "50 people per km²",
+      "explanation": "Density = population/area = 200,000/4,000 = 50 people per km².",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "800 people per km²",
+        "50 people per km²",
+        "0.02 people per km²",
+        "500 people per km²"
+      ],
+      "correctOption": "B",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "200000/4000",
+          "expected": "50",
+          "answerValue": "50",
+          "purpose": "Arithmetic population density"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Population and settlement",
+      "learningObjective": "Interpret population and settlement evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-071",
+      "objectiveId": "jamb-geography-population-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "An area has a birth rate of 42 per thousand and a death rate of 18 per thousand. Ignoring migration, its annual rate of natural increase is",
+      "answer": "2.4%.",
+      "explanation": "Natural increase is 24 per thousand, equal to 24/10 = 2.4%.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "2.4%.",
+        "24%.",
+        "6.0%.",
+        "0.24%."
+      ],
+      "correctOption": "A",
+      "score": 1,
+      "verification": [
+        {
+          "expression": "(42-18)/10",
+          "expected": "2.4",
+          "answerValue": "2.4",
+          "purpose": "Natural increase percentage"
+        }
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Population and settlement",
+      "learningObjective": "Interpret population and settlement evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-072",
+      "objectiveId": "jamb-geography-population-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "Houses develop in a narrow line along a major road. The settlement pattern is best described as",
+      "answer": "linear.",
+      "explanation": "A transport route can guide development along an elongated corridor.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "radial around one central point only.",
+        "randomly dispersed with no corridor.",
+        "concentric circular rings by definition.",
+        "linear."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Economic geography",
+      "subtopic": "Industry transport and tourism",
+      "learningObjective": "Evaluate location and development choices.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-073",
+      "objectiveId": "jamb-geography-economic-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A cement plant is placed near a major limestone quarry. Which locational consideration most directly explains this choice?",
+      "answer": "Reducing the movement cost of a bulky major raw material.",
+      "explanation": "Cement uses substantial limestone input, so proximity can reduce raw-material transport costs.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Avoiding every connection with a market.",
+        "Maximising the distance from all raw materials.",
+        "Reducing the movement cost of a bulky major raw material.",
+        "Ensuring that no electricity is needed."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-074",
+      "objectiveId": "jamb-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A GIS stores roads as connected lines and settlements as points. These are examples of",
+      "answer": "vector data.",
+      "explanation": "Vector representations use points, lines and polygons, unlike a raster grid of cells.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "an instrument for measuring humidity.",
+        "vector data.",
+        "raster pixels only.",
+        "a single non-spatial text paragraph."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Geography",
+      "topic": "Environment and regions",
+      "subtopic": "Resources and sustainability",
+      "learningObjective": "Explain regional interactions and environmental management.",
+      "specificationId": "jamb-geography-compilation-2026",
+      "id": "ndv-031-075",
+      "objectiveId": "jamb-geography-environment-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "A town replaces vegetated ground with roofs and paved roads without improving drainage. During similar heavy rainfall, a likely result is",
+      "answer": "more rapid surface runoff and increased local flood pressure.",
+      "explanation": "Impermeable surfaces reduce infiltration and can deliver water to drains more quickly.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "more rapid surface runoff and increased local flood pressure.",
+        "all rainfall infiltrates faster because of the paving.",
+        "river discharge must become zero.",
+        "the amount of rain falling is automatically halved."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-076",
+      "objectiveId": "waec-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which statement correctly compares maps at 1:25,000 and 1:100,000?",
+      "answer": "The 1:25,000 map shows a smaller ground area on the same paper size but can show more detail.",
+      "explanation": "A larger map scale represents less ground per unit of map length.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The 1:100,000 map is the larger-scale map.",
+        "Both show exactly the same ground distance per centimetre.",
+        "The denominator does not affect represented ground area.",
+        "The 1:25,000 map shows a smaller ground area on the same paper size but can show more detail."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-077",
+      "objectiveId": "waec-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A spot height on a topographic map gives",
+      "answer": "the elevation of a specific point relative to the stated datum.",
+      "explanation": "A spot height applies to a point, whereas a contour joins locations of equal elevation.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "the compass bearing of the nearest road.",
+        "the population of a whole grid square.",
+        "the elevation of a specific point relative to the stated datum.",
+        "the average monthly rainfall at every point on a contour."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-078",
+      "objectiveId": "waec-geography-climate-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A wind described as north-easterly blows mainly",
+      "answer": "from the north-east towards the south-west.",
+      "explanation": "Wind names normally indicate the direction from which the wind comes.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "from the north-west towards the south-east.",
+        "from the north-east towards the south-west.",
+        "from the south-west towards the north-east.",
+        "only vertically downwards."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-079",
+      "objectiveId": "waec-geography-climate-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Intense surface heating causes moist air to rise, cool and form rain clouds. This rainfall mechanism is",
+      "answer": "convectional.",
+      "explanation": "Heating at the surface initiates uplift, unlike uplift forced mainly by a mountain or frontal boundary.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "convectional.",
+        "orographic solely because a mountain blocks the air.",
+        "a groundwater-flow process.",
+        "an effect requiring permanent snow cover."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-080",
+      "objectiveId": "waec-geography-climate-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Compared with an otherwise similar coast influenced by a cold current, a warm current can",
+      "answer": "raise coastal temperatures by transferring heat from warmer water to the air.",
+      "explanation": "Ocean currents can influence nearby air temperature, though winds and other factors also matter.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "remove every seasonal change everywhere.",
+        "turn all seawater into freshwater.",
+        "prevent any moisture exchange between sea and air.",
+        "raise coastal temperatures by transferring heat from warmer water to the air."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-081",
+      "objectiveId": "waec-geography-water-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A roughly cone-shaped volcanic mountain has streams flowing outward in many directions from its high centre. The drainage pattern is",
+      "answer": "radial.",
+      "explanation": "Streams diverge down the slopes from a central high point.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "centripetal towards one central low basin.",
+        "rectangular solely because streams turn at right angles.",
+        "radial.",
+        "trellis along alternating parallel rock bands."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Physical geography",
+      "subtopic": "Earth processes and landforms",
+      "learningObjective": "Explain Earth processes and resulting landforms.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-082",
+      "objectiveId": "waec-geography-earth-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which observation most strongly supports identifying a rock as sedimentary?",
+      "answer": "Distinct bedding containing preserved fossils.",
+      "explanation": "Bedding and fossils are characteristic evidence for many sedimentary rocks, unlike a purely interlocking crystalline texture.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A wholly molten sample at the surface.",
+        "Distinct bedding containing preserved fossils.",
+        "Fresh glassy texture with gas bubbles from lava.",
+        "Large interlocking crystals without layers."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-083",
+      "objectiveId": "waec-geography-water-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Groundwater is pumped out of an aquifer faster than long-term recharge replaces it. What is a likely consequence?",
+      "answer": "A declining water table and reduced groundwater availability.",
+      "explanation": "Persistent withdrawal above recharge depletes stored groundwater, although local conditions affect the rate.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A declining water table and reduced groundwater availability.",
+        "The aquifer gains unlimited new water automatically.",
+        "Recharge becomes irrelevant because storage is always infinite.",
+        "All wells must rise at exactly the same rate."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-084",
+      "objectiveId": "waec-geography-water-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "On a cultivated slope, contour ploughing can reduce soil erosion because the furrows",
+      "answer": "interrupt downslope flow and slow surface runoff.",
+      "explanation": "Following contours can retain or slow water, unlike furrows running directly downhill.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "guide all water straight down the steepest path.",
+        "remove every soil particle immediately.",
+        "prevent any rainfall from reaching the field.",
+        "interrupt downslope flow and slow surface runoff."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Environment and regions",
+      "subtopic": "Resources and sustainability",
+      "learningObjective": "Explain regional interactions and environmental management.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-085",
+      "objectiveId": "waec-geography-environment-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Which distinction between renewable and non-renewable resources is most accurate?",
+      "answer": "Renewable resources can be replenished on relevant human timescales, but use can still exceed renewal.",
+      "explanation": "Renewability does not mean an unlimited supply under any level of extraction.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Fossil fuels are replenished as quickly as they are burned.",
+        "Non-renewable resources have no economic uses.",
+        "Renewable resources can be replenished on relevant human timescales, but use can still exceed renewal.",
+        "Every renewable resource is impossible to deplete."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Population and settlement",
+      "learningObjective": "Interpret population and settlement evidence.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-086",
+      "objectiveId": "waec-geography-population-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A population pyramid with a very broad base most directly indicates",
+      "answer": "a large proportion of young people.",
+      "explanation": "The lower age groups form the base; the shape alone does not give a precise future population total.",
+      "cognitiveDemand": "understand",
+      "difficulty": "easy",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "an exact income level for every household.",
+        "a large proportion of young people.",
+        "that every adult has emigrated.",
+        "a population consisting mainly of elderly people."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Economic geography",
+      "subtopic": "Industry transport and tourism",
+      "learningObjective": "Evaluate location and development choices.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-087",
+      "objectiveId": "waec-geography-economic-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Why can a tourism-dependent town experience seasonal employment?",
+      "answer": "Visitor demand may rise and fall during particular parts of the year.",
+      "explanation": "Businesses can adjust staffing to seasonal flows, although some employment may remain throughout the year.",
+      "cognitiveDemand": "understand",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Visitor demand may rise and fall during particular parts of the year.",
+        "All tourism workers must move abroad monthly.",
+        "Tourism demand is necessarily identical every day.",
+        "Seasonal employment can occur only in mining."
+      ],
+      "correctOption": "A",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-088",
+      "objectiveId": "waec-geography-water-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "In a hot irrigated area with poor drainage, repeated evaporation can contribute to",
+      "answer": "salt accumulation in the upper soil.",
+      "explanation": "Water is lost while dissolved salts can remain, especially where drainage and leaching are inadequate.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "the guaranteed removal of every salt from the root zone.",
+        "permanent freezing of the field.",
+        "a complete stop to groundwater movement worldwide.",
+        "salt accumulation in the upper soil."
+      ],
+      "correctOption": "D",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Environment and regions",
+      "subtopic": "Resources and sustainability",
+      "learningObjective": "Explain regional interactions and environmental management.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-089",
+      "objectiveId": "waec-geography-environment-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "A low-lying delta crossed by distributaries and wetlands is likely to face which settlement constraint?",
+      "answer": "Flood risk and waterlogged ground in some locations.",
+      "explanation": "Low relief, channels and wet ground can complicate building and transport; local conditions vary.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The complete absence of surface water.",
+        "Permanent polar ice cover.",
+        "Flood risk and waterlogged ground in some locations.",
+        "Universal steep mountain slopes."
+      ],
+      "correctOption": "C",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Environment and regions",
+      "subtopic": "Resources and sustainability",
+      "learningObjective": "Explain regional interactions and environmental management.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-090",
+      "objectiveId": "waec-geography-environment-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "mcq",
+      "prompt": "Abandoned surface-mining ground has exposed loose material and developing gullies. Which restoration action most directly addresses erosion?",
+      "answer": "Stabilise slopes and establish suitable vegetation while managing runoff.",
+      "explanation": "Reducing exposed unstable surfaces and controlling concentrated flow can limit further soil loss.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Dump more loose spoil on unstable slopes without drainage.",
+        "Stabilise slopes and establish suitable vegetation while managing runoff.",
+        "Concentrate all runoff into unprotected steep channels.",
+        "Remove every remaining plant cover."
+      ],
+      "correctOption": "B",
+      "score": 1
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-091",
+      "objectiveId": "waec-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "On a hypothetical square grid, A is at easting 10 km and northing 20 km; B is at easting 14 km and northing 23 km. Find the straight-line distance AB and its general compass direction from A. Explain why a road journey can be longer.",
+      "answer": "The eastward change is 4 km and northward change 3 km. AB = √(4²+3²) = 5 km, generally north-east. A road may bend around terrain, property or rivers rather than follow the straight line.",
+      "explanation": "The coordinates are distances in kilometres, not a latitude-longitude projection. The task supplies all needed spatial information.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find east/north differences of 4 km and 3 km.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Use Pythagoras to obtain 5 km.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State north-east.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain a plausible reason for a longer route.",
+          "marks": 2
+        }
+      ],
+      "score": 7,
+      "maxMarks": 7,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(14-10)**2+(23-20)**2",
+          "expected": "25",
+          "answerValue": "25",
+          "purpose": "Squared straight-line distance"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Maps and spatial information",
+      "learningObjective": "Interpret scales locations and mapped evidence.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-092",
+      "objectiveId": "waec-geography-maps-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Route P climbs from 120 m to 320 m over a horizontal distance of 2 km. Route Q reaches the same endpoints over 5 km. Calculate each average gradient as 1:n and explain one benefit and one cost of choosing the gentler route for a road.",
+      "answer": "The rise is 200 m. P has gradient 200/2,000 = 1:10; Q has gradient 200/5,000 = 1:25. Q is gentler, which may ease climbing and reduce steep-slope engineering demands, but its greater length can raise construction, travel or land-use costs.",
+      "explanation": "Use horizontal distance in the same units as rise. A gentler route is not automatically the best after all costs are considered.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate rise 200 m.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate P as 1:10.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Calculate Q as 1:25.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Explain one benefit and one cost of Q.",
+          "marks": 4
+        }
+      ],
+      "score": 9,
+      "maxMarks": 9,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "2000/(320-120)",
+          "expected": "10",
+          "answerValue": "10",
+          "purpose": "Route P gradient denominator"
+        },
+        {
+          "expression": "5000/(320-120)",
+          "expected": "25",
+          "purpose": "Route Q gradient denominator"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-093",
+      "objectiveId": "waec-geography-climate-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A hypothetical station has monthly rainfall (mm) Jan–Dec: 24, 30, 62, 120, 180, 220, 240, 220, 180, 110, 50, 25. Monthly mean temperatures (°C) are 25, 26, 27, 28, 27, 26, 25, 25, 26, 26, 25, 24. Calculate annual rainfall and annual temperature range. Identify months with rainfall strictly below 50 mm and describe the seasonal pattern.",
+      "answer": "Annual rainfall totals 1,461 mm. Temperature range is 28−24 = 4°C. January, February and December are below 50 mm; November equals 50 and is excluded. Rain is concentrated in the middle of the year while temperatures remain high with a small annual range.",
+      "explanation": "These are invented practice data, not observations for a named city. Use the stated strict threshold rather than treating 50 mm as below 50.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate annual rainfall 1,461 mm.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate temperature range 4°C.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Identify Jan, Feb and Dec only.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Describe the wet-season concentration and limited temperature variation.",
+          "marks": 3
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "24+30+62+120+180+220+240+220+180+110+50+25",
+          "expected": "1461",
+          "answerValue": "1461",
+          "purpose": "Annual rainfall"
+        },
+        {
+          "expression": "28-24",
+          "expected": "4",
+          "purpose": "Annual temperature range"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Water and soils",
+      "subtopic": "Drainage and land processes",
+      "learningObjective": "Analyse water movement and soil relationships.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-094",
+      "objectiveId": "waec-geography-water-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A river cross-section has width 8 m and mean depth 0.75 m. Mean velocity is 1.2 m s⁻¹. Estimate discharge and explain two reasons why one such estimate may not represent the river throughout the year.",
+      "answer": "Area ≈ 8×0.75 = 6 m². Discharge = 6×1.2 = 7.2 m³ s⁻¹. Rainfall, season and recent storms can change water level and velocity; one measurement may also miss spatial variation or measurement error. Repeat measurements at suitable times and use representative depth and velocity observations.",
+      "explanation": "The calculation assumes the mean-depth representation and supplied mean velocity are appropriate; no unsupervised river measurement is requested.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate cross-sectional area 6 m².",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate discharge 7.2 m³ s⁻¹.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Explain two distinct temporal or measurement limitations.",
+          "marks": 4
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "8*0.75*1.2",
+          "expected": "7.2",
+          "answerValue": "7.2",
+          "purpose": "Estimated river discharge"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Weather and climate",
+      "subtopic": "Measurements and patterns",
+      "learningObjective": "Interpret atmospheric evidence and climatic patterns.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-095",
+      "objectiveId": "waec-geography-climate-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Plan a fair investigation comparing daytime air temperature in a paved town centre and a vegetated rural site. State three conditions or methods to standardise and explain why repeated observations are useful.",
+      "answer": "Use comparable calibrated instruments and shielding, the same height above ground and matched observation times. Avoid placing one sensor in direct sun while the other is shaded differently by its housing. Repeat on several days and at several representative sites to distinguish persistent patterns from a single weather event or site peculiarity.",
+      "explanation": "The study compares air temperature, not an unlabelled mixture of surface and air measurements. Field access and exposure must be comparable.",
+      "cognitiveDemand": "create",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State and explain three suitable standardised methods or conditions.",
+          "marks": 6
+        },
+        {
+          "step": 2,
+          "description": "Explain why repeats across time or sites improve interpretation.",
+          "marks": 2
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Population and settlement",
+      "learningObjective": "Interpret population and settlement evidence.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-096",
+      "objectiveId": "waec-geography-population-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A hypothetical district begins the year with 100,000 residents. During the year there are 4,200 births, 1,800 deaths, 900 immigrants and 600 emigrants. Calculate natural increase, net migration, total population change and percentage growth on the opening population.",
+      "answer": "Natural increase = 4,200−1,800 = 2,400. Net migration = 900−600 = 300. Total change = 2,700, giving 2.7% growth relative to 100,000. Closing population is 102,700 if these are the only changes.",
+      "explanation": "Migration and natural change are different components; use the stated opening population as the percentage base.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate natural increase 2,400.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate net migration 300.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate total change 2,700.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Calculate growth 2.7%.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "4200-1800+900-600",
+          "expected": "2700",
+          "answerValue": "2700",
+          "purpose": "Population change"
+        },
+        {
+          "expression": "(4200-1800+900-600)/100000*100",
+          "expected": "2.7",
+          "purpose": "Population growth percentage"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Economic geography",
+      "subtopic": "Industry transport and tourism",
+      "learningObjective": "Evaluate location and development choices.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-097",
+      "objectiveId": "waec-geography-economic-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "For a hypothetical factory, unit costs in naira are: Site P—raw-material delivery 4,000, outward delivery 2,000, labour 3,000, energy 1,000; Site Q—7,000, 1,000, 2,000 and 1,000 respectively. Calculate total unit cost at each site, choose the lower-cost site using only the table and explain two other factors needed before a final location decision.",
+      "answer": "P totals ₦10,000 per unit; Q totals ₦11,000. P is lower by ₦1,000 on these figures. Reliability of energy and transport, market access, land conditions, environmental impacts or future expansion can affect the final decision.",
+      "explanation": "The table determines the stated narrow cost comparison, not every possible long-term advantage.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate P cost 10,000.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate Q cost 11,000.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Select P and state the 1,000 difference.",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Explain two additional relevant locational factors.",
+          "marks": 4
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "4000+2000+3000+1000",
+          "expected": "10000",
+          "answerValue": "10000",
+          "purpose": "Site P unit cost"
+        },
+        {
+          "expression": "7000+1000+2000+1000",
+          "expected": "11000",
+          "purpose": "Site Q unit cost"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Environment and regions",
+      "subtopic": "Resources and sustainability",
+      "learningObjective": "Explain regional interactions and environmental management.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-098",
+      "objectiveId": "waec-geography-environment-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "After extensive vegetation clearance in a catchment, a similar storm is followed by a faster river rise and muddier water. Explain two mechanisms that could connect clearance with these observations, and one reason why the comparison alone does not prove clearance was the only cause.",
+      "answer": "Reduced interception and infiltration can increase rapid surface runoff, shortening the response time. Less protective cover and root binding can increase soil erosion, adding sediment. Soil moisture before the storm, drainage works or differences in rainfall intensity could also affect the observations.",
+      "explanation": "Use plausible process links while recognising remaining differences; similar total rainfall does not guarantee identical storm intensity or prior conditions.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain faster runoff through reduced interception/infiltration.",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Explain erosion and increased sediment.",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Identify and explain a relevant alternative factor.",
+          "marks": 2
+        }
+      ],
+      "score": 8,
+      "maxMarks": 8,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Economic geography",
+      "subtopic": "Industry transport and tourism",
+      "learningObjective": "Evaluate location and development choices.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-099",
+      "objectiveId": "waec-geography-economic-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "A coastal community plans to expand tourism. Discuss two possible local benefits, two pressures on the community or environment and two management measures linked to those pressures.",
+      "answer": "Benefits can include jobs and income for local suppliers. Pressures can include waste, water demand, habitat damage, congestion or higher seasonal living costs. Suitable measures include reliable waste systems, water-use planning, habitat protection, visitor-capacity management and opportunities for local participation.",
+      "explanation": "Credit linked and realistic measures, not a claim that tourism always produces only benefits or only harm.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain two benefits.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Explain two distinct pressures.",
+          "marks": 4
+        },
+        {
+          "step": 3,
+          "description": "Explain two measures linked to pressures.",
+          "marks": 4
+        }
+      ],
+      "score": 12,
+      "maxMarks": 12,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Environment and regions",
+      "subtopic": "Resources and sustainability",
+      "learningObjective": "Explain regional interactions and environmental management.",
+      "specificationId": "waec-geography-compilation-2026",
+      "id": "ndv-031-100",
+      "objectiveId": "waec-geography-environment-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "type": "structured",
+      "prompt": "Compare how water conditions can influence settlement and transport in a low-lying Niger Delta wetland area and a much drier northern Nigerian savanna area. Give two influences for each and one caution against overgeneralising.",
+      "answer": "In a wetland delta, channels may support water transport while flooding and waterlogged ground complicate roads and building. In a drier savanna area, settlements may cluster near reliable water and seasonal shortages may constrain farming or water supply. Conditions vary within each region, and infrastructure or technology can modify the effects.",
+      "explanation": "The question uses broad contrasting settings, not a claim that every delta location or northern community is the same.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain two water-related influences in the delta setting.",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Explain two in the drier savanna setting.",
+          "marks": 4
+        },
+        {
+          "step": 3,
+          "description": "State and explain local variation or human adaptation.",
+          "marks": 2
+        }
+      ],
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true
+    }
+  ]
+}

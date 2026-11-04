@@ -1,0 +1,2283 @@
+{
+  "schemaVersion": 2,
+  "collection": "Ndovera original WAEC/JAMB Literature in English — batch 036",
+  "questionCount": 50,
+  "note": "50 distinct, original text-specific context MCQs: 25 WAEC and 25 JAMB, covering selected episodes across five acts. WAEC Shakespeare context remains objective-only. Public-domain primary text checked; commercial edition equivalence and full current scheme not established. JAMB adoption rests on the supplied compilation and is provisional pending official current verification. These are practice drafts, not historical examination questions. This batch does not complete coverage of the play or either examination.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-001",
+      "objectiveId": "waec-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 1: Philo contrasts Antony’s former soldierly gaze with his present attention to Cleopatra. What does this opening contrast establish?",
+      "answer": "A Roman soldier’s critical view of Antony’s changed priorities.",
+      "options": [
+        "Cleopatra’s admission that she intends to abandon Antony.",
+        "An impartial verdict delivered by the play’s narrator.",
+        "A Roman soldier’s critical view of Antony’s changed priorities.",
+        "Caesar’s direct account of Antony’s recent battles."
+      ],
+      "correctOption": "C",
+      "explanation": "Philo speaks as Antony’s dissatisfied follower. His military comparison introduces a judgement that the action will complicate; it is not an omniscient narration.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 1; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-002",
+      "objectiveId": "jamb-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 1: Why does Antony resist Cleopatra’s invitation to state how much he loves her?",
+      "answer": "He presents genuine love as exceeding measurable limits.",
+      "options": [
+        "He presents genuine love as exceeding measurable limits.",
+        "He insists that Rome must first authorise their relationship.",
+        "He thinks affection can be settled by a territorial survey.",
+        "He cannot remember the value of a promised gift."
+      ],
+      "correctOption": "A",
+      "explanation": "Antony associates a love that can be reckoned with poverty and imagines new heaven and earth. The exaggeration makes measurement inadequate to his claim.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 1; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-003",
+      "objectiveId": "waec-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 1: When Antony imagines Rome melting into the Tiber while embracing Cleopatra, which conflict becomes most explicit?",
+      "answer": "Private fulfilment competes with imperial responsibility.",
+      "options": [
+        "Religious obedience prevents his return to Alexandria.",
+        "Private fulfilment competes with imperial responsibility.",
+        "Military discipline has ended Cleopatra’s political influence.",
+        "His concern for Roman citizens outweighs his attachment."
+      ],
+      "correctOption": "B",
+      "explanation": "His extravagant dismissal of Rome accompanies an embrace. Speech and action momentarily place the lovers’ shared space above the empire he helps govern.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 1; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-004",
+      "objectiveId": "jamb-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 1: Cleopatra imagines Caesar issuing commands to Antony. How does this mock imitation put pressure on Antony?",
+      "answer": "It challenges his claim to be an independent, powerful lover.",
+      "options": [
+        "It reassures him that Roman politics cannot affect Egypt.",
+        "It offers him a neutral summary of a treaty already signed.",
+        "It proves she has secretly received Caesar’s written orders.",
+        "It challenges his claim to be an independent, powerful lover."
+      ],
+      "correctOption": "D",
+      "explanation": "Her teasing casts Antony as Caesar’s subordinate and invokes Fulvia’s authority too. The point is provocation, not a verified report of an actual command.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 1; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-005",
+      "objectiveId": "waec-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 2: The Soothsayer says Charmian will outlive her mistress. In light of the ending, what is the strongest reading of this prediction?",
+      "answer": "It is fulfilled narrowly, without promising Charmian a long surviving life.",
+      "options": [
+        "It is fulfilled narrowly, without promising Charmian a long surviving life.",
+        "It fails because Cleopatra is still alive at the curtain.",
+        "It guarantees Charmian will inherit Cleopatra’s throne.",
+        "It proves Charmian will leave Egypt before the final defeat."
+      ],
+      "correctOption": "A",
+      "explanation": "Charmian survives Cleopatra only briefly in the final scene. Outliving someone does not necessarily mean surviving for many years.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-006",
+      "objectiveId": "jamb-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 2: How does news of Fulvia’s death affect Antony’s judgement of her?",
+      "answer": "Absence makes him reassess what he had wished to lose.",
+      "options": [
+        "It makes him deny that they were ever married.",
+        "It confirms that he had always valued her actions equally.",
+        "Absence makes him reassess what he had wished to lose.",
+        "It leads him to declare that Pompey is no longer a threat."
+      ],
+      "correctOption": "C",
+      "explanation": "Antony reflects that what people cast away can become desirable once lost. His response exposes a changeable relation between possession, dissatisfaction and regret.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-007",
+      "objectiveId": "waec-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 3: Why does Cleopatra tell Alexas to report an opposite mood to Antony’s own?",
+      "answer": "She wants to disturb his composure and draw his attention.",
+      "options": [
+        "She wants to disturb his composure and draw his attention.",
+        "She is preparing Alexas to replace Antony as commander.",
+        "She is obeying a fixed rule of Roman court protocol.",
+        "She wants him to receive an accurate medical report."
+      ],
+      "correctOption": "A",
+      "explanation": "She instructs Alexas to describe sickness if Antony is merry and dancing if he is sad. The deliberate reversal is an emotional tactic.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 3; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-008",
+      "objectiveId": "jamb-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 3: What does Charmian’s advice to give Antony his way reveal about her understanding of Cleopatra’s courtship?",
+      "answer": "She thinks habitual opposition may drive Antony away.",
+      "options": [
+        "She believes Caesar has ordered Cleopatra to marry again.",
+        "She believes Antony can be detained by military force alone.",
+        "She thinks Cleopatra has already stopped caring for him.",
+        "She thinks habitual opposition may drive Antony away."
+      ],
+      "correctOption": "D",
+      "explanation": "Charmian recommends accommodation rather than provoking Antony at every turn. Cleopatra disputes this advice, exposing competing ideas about sustaining attachment.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 3; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-009",
+      "objectiveId": "waec-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 4: Caesar recalls Antony’s endurance during earlier campaigns while censuring his life in Egypt. What is the effect of this recollection?",
+      "answer": "It makes Antony’s apparent decline more striking by recalling his capacity.",
+      "options": [
+        "It shows Caesar believes Antony has never been a competent soldier.",
+        "It makes Antony’s apparent decline more striking by recalling his capacity.",
+        "It establishes that Caesar personally witnessed every hardship described.",
+        "It removes every political disagreement between the triumvirs."
+      ],
+      "correctOption": "B",
+      "explanation": "The account of remarkable endurance supplies a demanding contrast to present indulgence. Caesar can recognise Antony’s past greatness while condemning his current conduct.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 4; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 1: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 1 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-010",
+      "objectiveId": "jamb-literature-antony-act-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 1, scene 5: Cleopatra describes her earlier attachment to Julius Caesar as belonging to her salad days. What does the image chiefly suggest?",
+      "answer": "She represents her former judgement as youthful and unseasoned.",
+      "options": [
+        "She confirms that Julius Caesar survived into the play’s final act.",
+        "She says the Roman court imposed a vegetable-only diet.",
+        "She represents her former judgement as youthful and unseasoned.",
+        "She claims her present attachment has no emotional intensity."
+      ],
+      "correctOption": "C",
+      "explanation": "The accompanying images of greenness and cold judgement connect the phrase with inexperience. She reframes the earlier relationship from her present perspective.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 1, scene 5; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-011",
+      "objectiveId": "waec-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 1: Why does Pompey initially welcome reports that Antony is absorbed in Cleopatra?",
+      "answer": "Antony’s absence may weaken Pompey’s opponents militarily.",
+      "options": [
+        "Cleopatra has promised to put Pompey in command of Rome.",
+        "Antony’s marriage has already made Pompey ruler of Egypt.",
+        "Pompey believes Antony has formally surrendered his army.",
+        "Antony’s absence may weaken Pompey’s opponents militarily."
+      ],
+      "correctOption": "D",
+      "explanation": "Pompey treats Antony’s indulgence as a strategic advantage because it keeps a formidable opponent away; he does not have evidence of a military surrender.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 1; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-012",
+      "objectiveId": "jamb-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 2: Before Antony and Caesar confer, why does Lepidus ask for gentle speech?",
+      "answer": "He hopes careful language will prevent their grievances becoming a rupture.",
+      "options": [
+        "He wants both men to conceal the existence of Pompey.",
+        "He hopes careful language will prevent their grievances becoming a rupture.",
+        "He believes the meeting concerns only a private wedding gift.",
+        "He intends to deny either man the right to speak at all."
+      ],
+      "correctOption": "B",
+      "explanation": "Lepidus acts as mediator between suspicious allies. His appeal recognises that the manner of discussing injuries can either heal or intensify them.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-013",
+      "objectiveId": "waec-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 2: What political purpose does Agrippa assign to Antony’s marriage to Octavia?",
+      "answer": "It could bind Caesar and Antony through a family relationship.",
+      "options": [
+        "It would make Octavia the sole commander at sea.",
+        "It would abolish all Roman claims over Egypt.",
+        "It would transfer Pompey’s entire fleet to Lepidus immediately.",
+        "It could bind Caesar and Antony through a family relationship."
+      ],
+      "correctOption": "D",
+      "explanation": "Octavia is Caesar’s sister, so Agrippa proposes kinship as a stabilising bond between the rival leaders. The proposal does not itself resolve their underlying tensions.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-014",
+      "objectiveId": "jamb-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 2: Why does Enobarbus doubt that marriage to Octavia will keep Antony away from Cleopatra?",
+      "answer": "He thinks Cleopatra’s continuing appeal will outweigh the new political bond.",
+      "options": [
+        "He has been told that Cleopatra will immediately leave Egypt.",
+        "He believes Antony has legally renounced every marriage.",
+        "He thinks Cleopatra’s continuing appeal will outweigh the new political bond.",
+        "He knows Octavia has secretly married Pompey already."
+      ],
+      "correctOption": "C",
+      "explanation": "Enobarbus responds to the expected stabilising marriage by describing Cleopatra’s inexhaustible attractions. His scepticism distinguishes political arrangements from enduring desire.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-015",
+      "objectiveId": "waec-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 2: In Enobarbus’s account of Cleopatra’s arrival on the Cydnus, what do the colours, perfumes and music collectively achieve?",
+      "answer": "They turn her entrance into an overwhelming sensory spectacle.",
+      "options": [
+        "They suggest that she arrives unnoticed and without attendants.",
+        "They establish that Enobarbus considers material display irrelevant.",
+        "They turn her entrance into an overwhelming sensory spectacle.",
+        "They provide an exact military inventory of Antony’s fleet."
+      ],
+      "correctOption": "C",
+      "explanation": "The description layers visual, aural and olfactory impressions. Cleopatra’s presence is staged as a public event that draws attention and imaginatively exceeds ordinary description.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-016",
+      "objectiveId": "jamb-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 2: Enobarbus says that Cleopatra creates more appetite through the very act of satisfying it. Which effect does this paradox express?",
+      "answer": "Familiarity with her can renew desire instead of exhausting it.",
+      "options": [
+        "Her visitors are concerned exclusively with the price of food.",
+        "Familiarity with her can renew desire instead of exhausting it.",
+        "Antony’s interest ends as soon as he sees her again.",
+        "Her influence depends on nobody ever meeting her."
+      ],
+      "correctOption": "B",
+      "explanation": "The apparent contradiction explains her infinite variety: encounter does not produce satiation. It supports Enobarbus’s prediction that Antony will return.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-017",
+      "objectiveId": "waec-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 3: What practical advice follows from the Soothsayer’s claim that Caesar’s fortune overpowers Antony’s?",
+      "answer": "Antony should keep his distance from Caesar.",
+      "options": [
+        "Antony should challenge Caesar to more games of chance.",
+        "Antony should keep his distance from Caesar.",
+        "Antony should make Caesar ruler of Egypt at once.",
+        "Antony should dismiss every soldier who has served abroad."
+      ],
+      "correctOption": "B",
+      "explanation": "The Soothsayer describes Antony’s spirit as diminished in Caesar’s presence and urges separation. Antony connects this warning with his own experiences of losing to Caesar.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 3; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-018",
+      "objectiveId": "jamb-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 5: Cleopatra rewards the bearer of welcome news but strikes him after hearing of Antony’s marriage. What distinction does her response fail to respect?",
+      "answer": "Reporting an unwelcome event is different from causing it.",
+      "options": [
+        "An Egyptian messenger always has authority to annul a Roman marriage.",
+        "A servant must be the author of every message he delivers.",
+        "A royal marriage is different from a naval engagement.",
+        "Reporting an unwelcome event is different from causing it."
+      ],
+      "correctOption": "D",
+      "explanation": "The messenger protests that he did not make the match. Her violence transfers anger about Antony’s action onto the person who reports it.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 5; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-019",
+      "objectiveId": "waec-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 6: At the settlement with Pompey, why do the undertakings to remove pirates and send wheat matter?",
+      "answer": "They connect political peace with secure movement and food supply.",
+      "options": [
+        "They replace all military agreements with a private love pledge.",
+        "They guarantee that no Roman leader will ever quarrel again.",
+        "They connect political peace with secure movement and food supply.",
+        "They make Cleopatra responsible for appointing Roman magistrates."
+      ],
+      "correctOption": "C",
+      "explanation": "Control of the sea affects transport and grain reaching Rome. These concrete terms reveal the material interests behind a settlement among ambitious leaders.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 6; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 2: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 2 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-020",
+      "objectiveId": "jamb-literature-antony-act-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 2, scene 7: Pompey says Menas should have carried out the proposed killings without telling him. What does this response expose?",
+      "answer": "Pompey wants the advantage while preserving a sense of personal honour.",
+      "options": [
+        "Pompey values friendship more than every possible political gain.",
+        "Pompey has already publicly ordered the guests’ execution.",
+        "Pompey wants the advantage while preserving a sense of personal honour.",
+        "Pompey regards the proposed act as harmless entertainment."
+      ],
+      "correctOption": "C",
+      "explanation": "He refuses knowingly to authorise the treachery yet regrets losing its benefit. The distinction between secret profit and explicit consent makes his honour morally compromised.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 2, scene 7; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-021",
+      "objectiveId": "waec-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 1: Why does Ventidius refuse to pursue the defeated enemy further?",
+      "answer": "He fears that excessive success would threaten his superior’s standing.",
+      "options": [
+        "He has been ordered to negotiate Octavia’s marriage.",
+        "He believes Antony has already been killed at Actium.",
+        "He has decided that all military victories are dishonourable.",
+        "He fears that excessive success would threaten his superior’s standing."
+      ],
+      "correctOption": "D",
+      "explanation": "Ventidius understands the political danger of a subordinate winning too much glory in a commander’s absence. Restraint here is shaped by hierarchy as well as tactics.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 1; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-022",
+      "objectiveId": "jamb-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 3: Why should the audience treat the messenger’s belittling description of Octavia cautiously?",
+      "answer": "His earlier punishment gives him a motive to tell Cleopatra what she wants to hear.",
+      "options": [
+        "The play establishes that he has never seen any Roman woman.",
+        "Caesar has appointed him to write an impartial biography.",
+        "Octavia herself has dictated every word of his report.",
+        "His earlier punishment gives him a motive to tell Cleopatra what she wants to hear."
+      ],
+      "correctOption": "D",
+      "explanation": "The previous violent reception of bad news makes pleasing the queen a strong incentive. His description is situated speech, not an authoritative narrator’s portrait.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 3; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-023",
+      "objectiveId": "waec-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 4: Octavia imagines praying for her husband and brother against each other. What does this situation reveal?",
+      "answer": "Her marriage binds her emotionally to both sides of an emerging conflict.",
+      "options": [
+        "She secretly commands the armies of both rival leaders.",
+        "Her marriage binds her emotionally to both sides of an emerging conflict.",
+        "Her family relationships have ceased to matter to her.",
+        "She has already decided that neither man deserves to survive."
+      ],
+      "correctOption": "B",
+      "explanation": "Each desired victory would damage another person she loves. The divided prayer dramatises the personal cost of a marriage intended to secure political unity.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 4; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-024",
+      "objectiveId": "jamb-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 6: What is politically significant about the report of Antony and Cleopatra distributing kingdoms to their children in Alexandria?",
+      "answer": "Their dynastic display can be presented as a challenge to Roman authority.",
+      "options": [
+        "It means Pompey has been restored to his former alliance.",
+        "It proves Caesar has permanently withdrawn from imperial affairs.",
+        "It shows Antony has abandoned all public claims to power.",
+        "Their dynastic display can be presented as a challenge to Roman authority."
+      ],
+      "correctOption": "D",
+      "explanation": "The enthronement joins family display to territorial claims. Caesar uses it to frame Antony’s conduct as a public political offence, beyond a private relationship.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 6; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-025",
+      "objectiveId": "waec-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 7: Cleopatra insists that her kingdom’s contribution to the war gives her a right to attend it. What does this argument emphasise?",
+      "answer": "She participates as a ruler with material stakes in the conflict.",
+      "options": [
+        "She acknowledges that Egypt has no political interest in the war.",
+        "She promises that her personal presence will guarantee victory.",
+        "She participates as a ruler with material stakes in the conflict.",
+        "She asks to replace every Roman officer with a servant."
+      ],
+      "correctOption": "C",
+      "explanation": "Her appeal to the kingdom’s expenditure frames her presence as political participation. It complicates a reading of her as only Antony’s private companion.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 7; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-026",
+      "objectiveId": "jamb-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 7: Antony chooses to fight at sea because Caesar has challenged him there, despite contrary advice. What weakness does this decision expose?",
+      "answer": "Personal pride can override a comparison of military advantages.",
+      "options": [
+        "He is incapable of understanding the difference between land and sea.",
+        "He has received unanimous advice that his fleet is superior.",
+        "Personal pride can override a comparison of military advantages.",
+        "He has no experienced infantry available to him."
+      ],
+      "correctOption": "C",
+      "explanation": "Canidius and a soldier favour the army’s established strengths, while difficulties with ships and crews are raised. Accepting the challenge gives honour priority over those practical objections.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 7; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-027",
+      "objectiveId": "waec-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 10: What makes Antony’s pursuit of Cleopatra’s retreating ship at Actium especially damaging?",
+      "answer": "He abandons the engagement before the battle has been fully decided.",
+      "options": [
+        "He abandons the engagement before the battle has been fully decided.",
+        "He does so in compliance with a command from Caesar.",
+        "He leaves only after both fleets have agreed on a truce.",
+        "He goes to collect reinforcements whose arrival wins the battle."
+      ],
+      "correctOption": "A",
+      "explanation": "The reports distinguish Cleopatra’s flight from Antony’s choice to follow her. His departure sacrifices command at a crucial point rather than merely acknowledging an already completed defeat.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 10; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-028",
+      "objectiveId": "jamb-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 11: After Actium, Antony offers his followers treasure and permission to seek safety elsewhere. What complexity does this action reveal?",
+      "answer": "Generosity to dependants persists alongside his loss of confidence.",
+      "options": [
+        "He blames every follower equally for Cleopatra’s retreat.",
+        "He now regards wealth as a sufficient substitute for every soldier.",
+        "He has recovered complete command of Caesar’s navy.",
+        "Generosity to dependants persists alongside his loss of confidence."
+      ],
+      "correctOption": "D",
+      "explanation": "He recognises his ruined position and releases followers with resources. The action combines despair with consideration for those whose fortunes depend on him.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 11; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-029",
+      "objectiveId": "waec-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 12: Caesar offers Cleopatra favourable terms if she removes Antony, while rejecting Antony’s request to retire privately. What strategy underlies these different responses?",
+      "answer": "He seeks to separate the interests of the defeated partners.",
+      "options": [
+        "He seeks to separate the interests of the defeated partners.",
+        "He has promised equal and unconditional mercy to both.",
+        "He intends to restore Antony to his former share of power.",
+        "He wants Cleopatra to lead an immediate attack on Rome."
+      ],
+      "correctOption": "A",
+      "explanation": "The unequal treatment encourages Cleopatra to consider survival apart from Antony. Caesar exploits their vulnerability rather than negotiating with them as a united pair.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 12; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 3: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 3 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-030",
+      "objectiveId": "jamb-literature-antony-act-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 3, scene 13: What does Antony’s whipping of Caesar’s envoy Thidias chiefly reveal about his response to threatened authority?",
+      "answer": "Jealousy and humiliation erupt into a display of coercive power.",
+      "options": [
+        "He calmly accepts the envoy’s account as legally binding.",
+        "Jealousy and humiliation erupt into a display of coercive power.",
+        "He has permanently ended his attachment to Cleopatra.",
+        "He has forgotten that the visitor represents Caesar."
+      ],
+      "correctOption": "B",
+      "explanation": "Antony reacts to perceived intimacy and political condescension with punishment. The scene makes his assertion of rank inseparable from wounded pride and jealousy.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 3, scene 13; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-031",
+      "objectiveId": "waec-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 1: Why does Caesar refuse Antony’s challenge to single combat?",
+      "answer": "He sees no reason to risk a broader advantage in a personal duel.",
+      "options": [
+        "He sees no reason to risk a broader advantage in a personal duel.",
+        "He considers Antony too young to qualify as an opponent.",
+        "He has already lost every army and fleet available to him.",
+        "He accepts that Antony alone may choose the terms of war."
+      ],
+      "correctOption": "A",
+      "explanation": "Caesar treats the challenge as strategically unnecessary. The refusal contrasts calculating command with Antony’s appeal to a personal martial contest.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 1; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-032",
+      "objectiveId": "jamb-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 2: Antony thanks his household servants and imagines an exchange of service. Why does the scene move them to tears?",
+      "answer": "His gratitude sounds like a farewell even while he denies wishing to distress them.",
+      "options": [
+        "He informs them that Caesar has already crowned Cleopatra.",
+        "He demands repayment for all the food they have consumed.",
+        "His gratitude sounds like a farewell even while he denies wishing to distress them.",
+        "He announces that every servant will be executed before dawn."
+      ],
+      "correctOption": "C",
+      "explanation": "The unusually tender acknowledgement of their service carries the possibility of approaching death. Their reaction exposes the foreboding beneath the convivial occasion.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-033",
+      "objectiveId": "waec-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 3: Soldiers hear mysterious music and say that Hercules is leaving Antony. What should a careful reader distinguish?",
+      "answer": "The audible event from the soldiers’ interpretation of its meaning.",
+      "options": [
+        "Antony’s own confession from Cleopatra’s private stage direction.",
+        "The sound of music from an explicit order spoken by Caesar.",
+        "The audible event from the soldiers’ interpretation of its meaning.",
+        "A completed historical proof from a narrator’s dated report."
+      ],
+      "correctOption": "C",
+      "explanation": "The stage presents a sound and the soldiers explain it as the departure of Antony’s divine patron. The interpretation conveys anxiety without requiring a visible god on stage.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 3; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-034",
+      "objectiveId": "jamb-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 4: What is the dramatic effect of Cleopatra helping Antony put on his armour?",
+      "answer": "It joins their intimacy to his military preparation.",
+      "options": [
+        "It joins their intimacy to his military preparation.",
+        "It establishes that she is taking his place as Roman general.",
+        "It reveals that he is unaware a battle is approaching.",
+        "It shows her removing him permanently from military life."
+      ],
+      "correctOption": "A",
+      "explanation": "The domestic assistance becomes part of the arming scene. Their relationship is entangled with martial identity rather than represented only as an interruption of it.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 4; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-035",
+      "objectiveId": "waec-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 6: Why does Antony’s return of Enobarbus’s abandoned treasure intensify Enobarbus’s anguish?",
+      "answer": "Unexpected generosity makes his own desertion appear more shameful.",
+      "options": [
+        "The treasure proves that Antony has agreed with his decision to defect.",
+        "He learns that the treasure belongs exclusively to Caesar.",
+        "Unexpected generosity makes his own desertion appear more shameful.",
+        "He discovers that Antony has publicly rewarded his betrayal as loyal service."
+      ],
+      "correctOption": "C",
+      "explanation": "Enobarbus expected the practical advantages of desertion but encounters magnanimity from the man he left. The mismatch deepens his sense of moral indebtedness.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 6; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-036",
+      "objectiveId": "jamb-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 8: Antony rewards the wounded Scarus after a successful engagement. What does this moment contribute before the final collapse?",
+      "answer": "A temporary renewal of martial confidence and recognition of loyal service.",
+      "options": [
+        "An admission that Scarus secretly commands Caesar’s army.",
+        "A permanent settlement that ends the war with Caesar.",
+        "A temporary renewal of martial confidence and recognition of loyal service.",
+        "A declaration that soldiers’ injuries have no value to their commander."
+      ],
+      "correctOption": "C",
+      "explanation": "Antony celebrates courage and asks Cleopatra to honour Scarus. The renewed solidarity is real but temporary, which sharpens the subsequent reversal.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 8; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-037",
+      "objectiveId": "waec-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 9: What is the principal dramatic cause of Enobarbus’s collapse in the night-watch scene?",
+      "answer": "Remorse over abandoning a generous master.",
+      "options": [
+        "Remorse over abandoning a generous master.",
+        "A plan to deceive Caesar by pretending to be asleep.",
+        "A wound received in a duel with Cleopatra.",
+        "A judicial sentence delivered by Lepidus."
+      ],
+      "correctOption": "A",
+      "explanation": "His speech condemns his own revolt and invokes Antony’s forgiveness. His death grows out of guilt rather than a staged combat injury.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 9; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-038",
+      "objectiveId": "jamb-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 13: Why does Cleopatra send Mardian to tell Antony she is dead?",
+      "answer": "She hopes an invented report will manage his dangerous anger.",
+      "options": [
+        "She hopes an invented report will manage his dangerous anger.",
+        "She has received instructions from Octavia to join Caesar.",
+        "She is relaying an eyewitness report of her own completed death.",
+        "She wants Mardian to announce her coronation in Rome."
+      ],
+      "correctOption": "A",
+      "explanation": "Charmian proposes retreat to the monument and a report of death after Antony’s furious accusations. The deception attempts protection but produces consequences Cleopatra cannot control.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 13; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-039",
+      "objectiveId": "waec-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 14: How do Antony’s changing cloud images help express his crisis of identity?",
+      "answer": "They suggest that a recognisable heroic form can dissolve into another shape.",
+      "options": [
+        "They suggest that a recognisable heroic form can dissolve into another shape.",
+        "They establish a fixed map for an imminent naval expedition.",
+        "They reassure Eros that Antony’s public identity is perfectly secure.",
+        "They prove the battle has literally been decided by the weather."
+      ],
+      "correctOption": "A",
+      "explanation": "Antony compares himself to shapes in clouds that seem definite and then change. The image gives form to his sense that the familiar Antony is disappearing.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 14; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 4: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 4 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-040",
+      "objectiveId": "jamb-literature-antony-act-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 4, scene 15: Why does Cleopatra refuse to descend from the monument to reach the wounded Antony?",
+      "answer": "She fears capture even while desperately wanting to bring him close.",
+      "options": [
+        "She has been told that Antony is uninjured and resting.",
+        "She is waiting for Caesar to give her permission to mourn.",
+        "She fears capture even while desperately wanting to bring him close.",
+        "She no longer knows who Antony is."
+      ],
+      "correctOption": "C",
+      "explanation": "The danger of being taken prisoner constrains physical access. Hauling Antony upward stages the collision between personal intimacy and the political danger surrounding her.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 4, scene 15; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-041",
+      "objectiveId": "waec-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 1: Dercetus brings Antony’s sword to Caesar and offers service. What role does the object play in his speech?",
+      "answer": "It supplies evidence of Antony’s death while supporting a transfer of allegiance.",
+      "options": [
+        "It grants Dercetus a legal right to inherit Egypt.",
+        "It proves Caesar personally wounded Antony in combat.",
+        "It is a gift that Cleopatra has sent to celebrate victory.",
+        "It supplies evidence of Antony’s death while supporting a transfer of allegiance."
+      ],
+      "correctOption": "D",
+      "explanation": "Dercetus identifies the sword and presents his former master’s death as the occasion for serving Caesar. The material token connects information with a bid for employment.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 1; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-042",
+      "objectiveId": "jamb-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 1: Why does Caesar want Cleopatra preserved alive after Antony’s death?",
+      "answer": "Her presence could enhance his triumph in Rome.",
+      "options": [
+        "He believes Antony will recover if he sees her again.",
+        "Her presence could enhance his triumph in Rome.",
+        "He has promised that she may command his army.",
+        "He intends to return every conquered kingdom to her immediately."
+      ],
+      "correctOption": "B",
+      "explanation": "Caesar explicitly values the spectacle of bringing Cleopatra to Rome. Her survival therefore serves the victor’s political display, not merely a humanitarian concern.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 1; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-043",
+      "objectiveId": "waec-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 2: Proculeius offers reassuring words before Cleopatra is seized. What does the sequence reveal?",
+      "answer": "Roman assurances of care coexist with coercive control.",
+      "options": [
+        "The monument is secure against every possible entry.",
+        "Caesar has already recognised her complete freedom of movement.",
+        "Cleopatra has invited Proculeius to replace Charmian.",
+        "Roman assurances of care coexist with coercive control."
+      ],
+      "correctOption": "D",
+      "explanation": "The seizure exposes the practical limits of the reassurance. Protection in Roman terms includes preventing Cleopatra from determining her own fate.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-044",
+      "objectiveId": "jamb-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 2: What does Cleopatra’s dreamlike description of Antony’s enormous, world-spanning body chiefly accomplish?",
+      "answer": "It imaginatively reconstructs the grandeur of the man she has lost.",
+      "options": [
+        "It imaginatively reconstructs the grandeur of the man she has lost.",
+        "It shows that Cleopatra has ceased to distinguish Antony from Caesar.",
+        "It provides literal measurements for a Roman military survey.",
+        "It proves Dolabella once saw a physically gigantic Antony."
+      ],
+      "correctOption": "A",
+      "explanation": "The extravagant body imagery turns memory into a monumental portrait. Its imaginative scale expresses loss and admiration rather than documentary physical fact.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-045",
+      "objectiveId": "waec-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 2: What makes Dolabella’s admission that Caesar will lead Cleopatra in triumph important to her?",
+      "answer": "It confirms the public humiliation she has feared behind Roman reassurances.",
+      "options": [
+        "It confirms the public humiliation she has feared behind Roman reassurances.",
+        "It proves that no Roman officer has ever spoken to Caesar.",
+        "It guarantees that Caesar will release her before leaving Egypt.",
+        "It reveals that Antony is hiding safely in Rome."
+      ],
+      "correctOption": "A",
+      "explanation": "Dolabella answers her direct question candidly. This confirmation lets her judge the practical meaning of captivity despite the language of favourable treatment.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-046",
+      "objectiveId": "jamb-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 2: When Seleucus challenges Cleopatra’s account of her remaining wealth before Caesar, what reversal becomes visible?",
+      "answer": "A servant publicly questions the former sovereign’s account before the conqueror.",
+      "options": [
+        "Seleucus is being formally crowned as king of Egypt.",
+        "A servant publicly questions the former sovereign’s account before the conqueror.",
+        "A victorious Cleopatra is auditing Caesar’s private treasury.",
+        "Caesar is compelled to surrender his entire inheritance to Cleopatra."
+      ],
+      "correctOption": "B",
+      "explanation": "The dispute places Cleopatra’s property and credibility under scrutiny, even by her treasurer. Her anger registers the loss of unquestioned royal authority.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-047",
+      "objectiveId": "waec-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 2: Cleopatra imagines an actor representing her in a Roman entertainment. What additional fear does this express beyond physical captivity?",
+      "answer": "Others may control and debase the public representation of her life.",
+      "options": [
+        "No audience will ever remember her existence.",
+        "She will be required to direct Caesar’s next military campaign.",
+        "Others may control and debase the public representation of her life.",
+        "The Roman stage will guarantee an entirely faithful account of her feelings."
+      ],
+      "correctOption": "C",
+      "explanation": "Her imagined caricature includes a boy actor performing her and a drunken Antony. The fear concerns appropriation of identity and story as part of conquest.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-048",
+      "objectiveId": "jamb-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 2: Why are Cleopatra’s royal robe and crown significant in the final scene?",
+      "answer": "They allow her to shape her last appearance as a queen.",
+      "options": [
+        "They allow her to shape her last appearance as a queen.",
+        "They are ceremonial gifts sent by Octavia after a peace treaty.",
+        "They disguise her as an ordinary Roman soldier.",
+        "They demonstrate that Caesar has restored her empire."
+      ],
+      "correctOption": "A",
+      "explanation": "The dressing is a deliberate act of self-presentation under conditions of defeat. Royal appearance asserts a dignity that military victory can no longer protect.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "waec-literature-shakespeare-context-2026-2030",
+      "id": "ndv-036-049",
+      "objectiveId": "waec-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 2: What does Charmian’s attention to Cleopatra’s displaced crown communicate at the end?",
+      "answer": "Loyal care for the queen’s dignity survives political ruin.",
+      "options": [
+        "Loyal care for the queen’s dignity survives political ruin.",
+        "Charmian is preparing to claim the throne from Caesar.",
+        "Cleopatra has ordered a second coronation for Antony.",
+        "The servants now regard royal symbols as entirely meaningless."
+      ],
+      "correctOption": "A",
+      "explanation": "The small physical adjustment continues service after Cleopatra’s death. It gives the final image a ceremonious dignity in opposition to humiliation.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "prescribedTextId": "waec-lit-2026-01",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ]
+    },
+    {
+      "exam": "JAMB",
+      "subject": "Literature in English",
+      "topic": "Prescribed drama: Antony and Cleopatra",
+      "subtopic": "Act 5: character, conflict and dramatic methods",
+      "learningObjective": "Interpret character motives, political conflict and dramatic presentation in Act 5 of Antony and Cleopatra using the play as evidence.",
+      "specificationId": "jamb-literature-shakespeare-provisional-2026",
+      "id": "ndv-036-050",
+      "objectiveId": "jamb-literature-antony-act-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "UTME",
+      "type": "mcq",
+      "prompt": "In Shakespeare’s Antony and Cleopatra, Act 5, scene 2: Caesar orders Antony and Cleopatra to be buried together. What tension does this closing act preserve?",
+      "answer": "The conqueror controls the ceremony while acknowledging the lovers’ exceptional story.",
+      "options": [
+        "The lovers recover military authority over every Roman province.",
+        "Caesar withdraws all claims to have defeated Egypt.",
+        "The conqueror controls the ceremony while acknowledging the lovers’ exceptional story.",
+        "The play ends by denying that either lover has died."
+      ],
+      "correctOption": "C",
+      "explanation": "Caesar arranges the funeral as victor but grants a shared commemoration. Political conquest and recognition of the lovers’ significance remain present together.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "literatureComponent": "prescribed-shakespeare-context",
+      "studyText": {
+        "title": "Antony and Cleopatra",
+        "author": "William Shakespeare"
+      },
+      "textReference": "Act 5, scene 2; Project Gutenberg eBook 1534 HTML scene divisions",
+      "contentSourceId": "shakespeare-antony-cleopatra-gutenberg-1534",
+      "setTextAdoptionStatus": "supplied_compilation_only_current_official_adoption_pending"
+    }
+  ]
+}

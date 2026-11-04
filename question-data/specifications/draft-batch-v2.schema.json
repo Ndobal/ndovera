@@ -1,0 +1,466 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ndovera.com/schemas/draft-question-batch-v2.json",
+  "title": "Ndovera offline draft question batch v2",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "collection",
+    "questionCount",
+    "questions"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "collection": {
+      "type": "string",
+      "minLength": 1
+    },
+    "questionCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "exam",
+          "examType",
+          "curriculum",
+          "level",
+          "subject",
+          "topic",
+          "subtopic",
+          "learningObjective",
+          "objectiveId",
+          "specificationId",
+          "type",
+          "prompt",
+          "answer",
+          "explanation",
+          "difficulty",
+          "cognitiveDemand",
+          "source",
+          "status",
+          "license",
+          "score",
+          "academicReview"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "exam": {
+            "type": "string",
+            "minLength": 1
+          },
+          "examType": {
+            "type": "string",
+            "minLength": 1
+          },
+          "curriculum": {
+            "type": "string",
+            "minLength": 1
+          },
+          "level": {
+            "type": "string",
+            "minLength": 1
+          },
+          "subject": {
+            "type": "string",
+            "minLength": 1
+          },
+          "topic": {
+            "type": "string",
+            "minLength": 1
+          },
+          "subtopic": {
+            "type": "string",
+            "minLength": 1
+          },
+          "learningObjective": {
+            "type": "string",
+            "minLength": 1
+          },
+          "objectiveId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "specificationId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "mcq",
+              "structured",
+              "essay",
+              "longanswer",
+              "comprehension",
+              "shortanswer"
+            ]
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "answer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "explanation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "difficulty": {
+            "enum": [
+              "easy",
+              "standard",
+              "difficult"
+            ]
+          },
+          "cognitiveDemand": {
+            "enum": [
+              "remember",
+              "understand",
+              "apply",
+              "analyse",
+              "evaluate",
+              "create"
+            ]
+          },
+          "source": {
+            "const": "original"
+          },
+          "status": {
+            "const": "draft"
+          },
+          "license": {
+            "const": "original-content"
+          },
+          "score": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 100
+          },
+          "academicReview": {
+            "type": "object",
+            "required": [
+              "status",
+              "reviewer"
+            ],
+            "properties": {
+              "status": {
+                "const": "pending"
+              },
+              "reviewer": {
+                "type": "null"
+              }
+            },
+            "additionalProperties": false
+          },
+          "options": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "correctOption": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          },
+          "markingGuide": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "step",
+                "description",
+                "marks"
+              ],
+              "properties": {
+                "step": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "marks": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              }
+            }
+          },
+          "maxMarks": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "passage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "verification": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "required": [
+                    "expression",
+                    "expected",
+                    "purpose"
+                  ],
+                  "properties": {
+                    "expression": {
+                      "type": "string",
+                      "maxLength": 160
+                    },
+                    "expected": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    },
+                    "purpose": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "kind": {
+                      "const": "arithmetic"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "kind",
+                    "operator",
+                    "rows",
+                    "purpose"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "truth-table"
+                    },
+                    "operator": {
+                      "enum": [
+                        "AND",
+                        "OR",
+                        "NOT",
+                        "NAND",
+                        "NOR",
+                        "XOR"
+                      ]
+                    },
+                    "purpose": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "rows": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 4,
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "inputs",
+                          "output"
+                        ],
+                        "properties": {
+                          "inputs": {
+                            "type": "array",
+                            "minItems": 1,
+                            "maxItems": 2,
+                            "items": {
+                              "type": "integer",
+                              "enum": [
+                                0,
+                                1
+                              ]
+                            }
+                          },
+                          "output": {
+                            "type": "integer",
+                            "enum": [
+                              0,
+                              1
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "qualificationCode": {
+            "type": "string",
+            "pattern": "^[0-9]{4}$"
+          },
+          "syllabusVersion": {
+            "type": "string",
+            "minLength": 1
+          },
+          "examinationYear": {
+            "type": "integer"
+          },
+          "tier": {
+            "enum": [
+              "Core",
+              "Extended",
+              "Untiered"
+            ]
+          },
+          "assessmentObjectives": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "AO1",
+                "AO2",
+                "AO3"
+              ]
+            }
+          },
+          "practiceComponent": {
+            "enum": [
+              "multiple-choice",
+              "theory",
+              "alternative-to-practical"
+            ]
+          },
+          "literatureComponent": {
+            "enum": [
+              "unseen-appreciation",
+              "prescribed-shakespeare-context",
+              "prescribed-text-appreciation"
+            ]
+          },
+          "contentSourceId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "textReference": {
+            "type": "string",
+            "minLength": 1
+          },
+          "studyText": {
+            "type": "object",
+            "required": [
+              "title",
+              "author"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "author": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "mcq"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "options",
+                "correctOption"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "structured",
+                    "essay",
+                    "longanswer",
+                    "comprehension"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "markingGuide",
+                "maxMarks"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "exam": {
+                  "const": "IGCSE"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "qualificationCode",
+                "syllabusVersion",
+                "examinationYear",
+                "tier",
+                "assessmentObjectives",
+                "practiceComponent"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "literatureComponent"
+              ],
+              "properties": {
+                "literatureComponent": {
+                  "enum": [
+                    "prescribed-shakespeare-context",
+                    "prescribed-text-appreciation"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "studyText",
+                "textReference",
+                "contentSourceId"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$comment": "Cross-field equality, registry links, marks sums, similarity and answer truth require the Python validator and independent academic review. This schema is for authored v2 batches; legacy v1 records are audited separately."
+}
