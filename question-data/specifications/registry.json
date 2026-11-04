@@ -853,6 +853,20 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "NECO confirms Papers II and III, essay and objective. Historical WAEC examiner references support provisional topics. Scenarios are fictional and do not assert current Nigerian legal requirements. Official NECO objectives and option counts remain open."
+    },
+    {
+      "id": "neco-geography-settlement-map-reference-2026",
+      "exam": "NECO",
+      "subject": "Geography",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Geography/Geo117nq1.html",
+        "https://waeconline.org.ng/e-learning/Geography/Geo220mq1.html",
+        "https://waeconline.org.ng/e-learning/Geography/Geo220mq2.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "NECO timetable distinguishes Paper I practical and physical geography from Paper II essay in human and regional geography. Historical WAEC material informs provisional topics only. Practical drafts use original supplied measurements or observations. Official NECO objectives remain unverified."
     }
   ],
   "banks": [
@@ -2023,7 +2037,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "III": "objective",
         "I": "practical and physical geography",
@@ -7281,6 +7295,42 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Government Papers II and III",
         "Historical WAEC Government examiner materials"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-geography-skills-1-v1",
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Map skills",
+      "subtopic": "Scale, gradient and relief",
+      "learningObjective": "Use supplied map measurements and terrain evidence to calculate and interpret distances, gradients and routes.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Geography Paper I practical and physical geography",
+        "Historical WAEC Geography examiner reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-geography-skills-2-v1",
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Geography Paper II essay: human and regional geography",
+        "Historical WAEC Geography examiner reference"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

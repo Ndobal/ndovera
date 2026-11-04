@@ -1,0 +1,437 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Geography map skills and human geography practice",
+  "questionCount": 10,
+  "note": "Original structured practice. Map calculations use supplied measurements. Official objectives remain unverified and academic review is pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Map skills",
+      "subtopic": "Scale, gradient and relief",
+      "learningObjective": "Use supplied map measurements and terrain evidence to calculate and interpret distances, gradients and routes.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-001",
+      "objectiveId": "neco-geography-skills-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A straight path between a clinic and a bridge measures 7.6 cm on a 1:25,000 map. Calculate the straight-line ground distance in kilometres.",
+      "answer": "1.9 km.",
+      "explanation": "1.9 km.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Convert one map centimetre to 250 m on the ground."
+        },
+        {
+          "marks": 1,
+          "description": "Multiply by 7.6 to obtain 1,900 m."
+        },
+        {
+          "marks": 1,
+          "description": "Convert to 1.9 km."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "76/10*250/1000",
+          "expected": "19/10",
+          "purpose": "Check the map calculation."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Map skills",
+      "subtopic": "Scale, gradient and relief",
+      "learningObjective": "Use supplied map measurements and terrain evidence to calculate and interpret distances, gradients and routes.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-002",
+      "objectiveId": "neco-geography-skills-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two points on a mapped footpath have heights of 315 m and 195 m. Their horizontal ground separation is 1.8 km. Calculate the average gradient as 1 in n, and state which point is uphill from the other.",
+      "answer": "1 in 15. The 315 m point is uphill from the 195 m point.",
+      "explanation": "1 in 15. The 315 m point is uphill from the 195 m point.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Find the vertical difference of 120 m."
+        },
+        {
+          "marks": 1,
+          "description": "Convert the horizontal distance to 1,800 m and divide by 120."
+        },
+        {
+          "marks": 1,
+          "description": "Give 1 in 15 and the correct uphill direction."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "1800/(315-195)",
+          "expected": "15",
+          "purpose": "Check the map calculation."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Map skills",
+      "subtopic": "Scale, gradient and relief",
+      "learningObjective": "Use supplied map measurements and terrain evidence to calculate and interpret distances, gradients and routes.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-003",
+      "objectiveId": "neco-geography-skills-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two equal-length map segments cross slopes with the same contour interval. Segment A crosses six contour intervals and segment B crosses two. The heights change steadily along each segment. Which segment has the steeper average slope, and why?",
+      "answer": "Segment A. It has a larger vertical change over the same horizontal distance.",
+      "explanation": "Segment A. It has a larger vertical change over the same horizontal distance.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify segment A."
+        },
+        {
+          "marks": 1,
+          "description": "Use equal contour intervals to link the crossing count to vertical change."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why greater vertical change over the same distance means steeper gradient."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Map skills",
+      "subtopic": "Scale, gradient and relief",
+      "learningObjective": "Use supplied map measurements and terrain evidence to calculate and interpret distances, gradients and routes.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-004",
+      "objectiveId": "neco-geography-skills-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A map shows Route A as 2 km long with a total climb of 140 m, and Route B as 3 km long with a total climb of 35 m. Both routes are open. A group wants to minimise climbing even if it walks farther. Recommend a route and explain one limit of the map data for planning.",
+      "answer": "Choose B because it has less total climbing. Total climb and route length do not show how steep the steepest short section is.",
+      "explanation": "Choose B because it has less total climbing. Total climb and route length do not show how steep the steepest short section is.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Select B using the stated priority."
+        },
+        {
+          "marks": 1,
+          "description": "Compare the climbs of 35 m and 140 m."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a valid missing detail, such as maximum gradient or surface condition."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Map skills",
+      "subtopic": "Scale, gradient and relief",
+      "learningObjective": "Use supplied map measurements and terrain evidence to calculate and interpret distances, gradients and routes.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-005",
+      "objectiveId": "neco-geography-skills-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A printed map at 1:40,000 is photocopied at 80% of its original linear size. Calculate the new representative fraction.",
+      "answer": "1:50,000.",
+      "explanation": "1:50,000.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain that 0.8 cm on the copy represents the original 1 cm."
+        },
+        {
+          "marks": 1,
+          "description": "Divide the original scale denominator by 0.8 to obtain 50,000."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "40000/(80/100)",
+          "expected": "50000",
+          "purpose": "Check the map calculation."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-006",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a fictional village, most houses stand beside a raised road through seasonally wet farmland. Name the settlement pattern and explain how both the road and wet ground can help account for it.",
+      "answer": "A linear settlement. The road provides access and its raised strip offers drier building sites than the adjacent fields.",
+      "explanation": "A linear settlement. The road provides access and its raised strip offers drier building sites than the adjacent fields.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the linear pattern."
+        },
+        {
+          "marks": 1,
+          "description": "Link the road to access or movement."
+        },
+        {
+          "marks": 1,
+          "description": "Link the wet surroundings to concentration on higher ground."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-007",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A council must choose a weekly market site. Site A is at the road junction but floods regularly. Site B is slightly farther away on dry ground and has a bus stop. If the priority is reliable trading in the rainy season, recommend a site and discuss one trade-off.",
+      "answer": "Choose B for reliable access to a dry site. It loses some junction traffic or requires a longer journey for some traders, although the bus stop helps.",
+      "explanation": "Choose B for reliable access to a dry site. It loses some junction traffic or requires a longer journey for some traders, although the bus stop helps.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Select B using the stated priority."
+        },
+        {
+          "marks": 1,
+          "description": "Link dry ground to fewer weather-related interruptions."
+        },
+        {
+          "marks": 1,
+          "description": "Explain a plausible access or visibility cost."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-008",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A town has a large produce depot and several truck repair yards. A nearby village mainly has homes and fields. Explain one commercial function and one transport-related function of the town using the evidence.",
+      "answer": "The depot supports collecting and distributing produce. The repair yards service vehicles used in moving goods.",
+      "explanation": "The depot supports collecting and distributing produce. The repair yards service vehicles used in moving goods.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use the depot to infer a commercial function."
+        },
+        {
+          "marks": 1,
+          "description": "Use the repair yards to infer a transport-support function."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-009",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A family leaves a village after two failed harvests and settles in a city because one parent has found paid work there. Identify the type of migration and distinguish the push factor from the pull factor.",
+      "answer": "Rural-to-urban migration. Crop failure is the push factor and the city job is the pull factor.",
+      "explanation": "Rural-to-urban migration. Crop failure is the push factor and the city job is the pull factor.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classify the migration as rural-to-urban."
+        },
+        {
+          "marks": 1,
+          "description": "Identify failed harvests as the pressure at origin."
+        },
+        {
+          "marks": 1,
+          "description": "Identify paid work as the attraction at destination."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-055-010",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school survey counts pupils who cross into a nearby town each morning and return home in the afternoon. A report calls this permanent migration. Evaluate that label and say what evidence would support a claim of permanent migration.",
+      "answer": "The trips are commuting because the pupils return to their usual homes. Evidence of a lasting change of usual residence would support permanent migration.",
+      "explanation": "The trips are commuting because the pupils return to their usual homes. Evidence of a lasting change of usual residence would support permanent migration.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguish regular commuting from relocation."
+        },
+        {
+          "marks": 1,
+          "description": "Identify evidence of a lasting change of usual residence."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

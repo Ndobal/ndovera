@@ -279,3 +279,9 @@ Batch 054 opens NECO Government with six structured and four objective
 drafts on delegated legislation and the rule of law. The timetable supports
 paper formats. Historical WAEC examiner materials support provisional topics.
 Scenarios are fictional, and official NECO objectives remain unverified.
+
+Batch 055 opens NECO Geography with five practical map-skills and five
+human geography drafts. The map items supply original measurements or
+terrain observations. The human items use original settlement and
+migration scenarios. Historical WAEC sources support provisional topics,
+while the NECO timetable establishes the distinct paper formats.
