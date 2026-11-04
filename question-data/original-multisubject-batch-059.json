@@ -1,0 +1,467 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Chemistry rates and equilibrium practice",
+  "questionCount": 12,
+  "note": "Original theory and four-option practice with provisional topic mapping. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Reaction rates",
+      "subtopic": "Measurement and collision model",
+      "learningObjective": "Interpret reaction-rate evidence and explain changes using particle collisions.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-001",
+      "objectiveId": "neco-chemistry-rates-equilibrium-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A reaction releases 18 cm³ of gas by 10 s and 42 cm³ by 30 s. Calculate the average gas production rate between these readings and give the unit.",
+      "answer": "1.2 cm³/s.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Find the volume increase of 24 cm³."
+        },
+        {
+          "marks": 1,
+          "description": "Divide by the elapsed time of 20 s."
+        },
+        {
+          "marks": 1,
+          "description": "Give the answer with the correct unit."
+        }
+      ],
+      "explanation": "Find the volume increase of 24 cm³. Divide by the elapsed time of 20 s. Give the answer with the correct unit.",
+      "verification": [
+        {
+          "expression": "(42-18)/(30-10)",
+          "expected": "6/5",
+          "purpose": "Check the average rate."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Reaction rates",
+      "subtopic": "Measurement and collision model",
+      "learningObjective": "Interpret reaction-rate evidence and explain changes using particle collisions.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-002",
+      "objectiveId": "neco-chemistry-rates-equilibrium-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Equal masses of powdered and chipped calcium carbonate react separately with excess acid of the same concentration. Assume both reactions finish and all gas is collected. Compare initial rates and final carbon dioxide volumes.",
+      "answer": "Powder reacts faster initially because it exposes more surface to acid. Both give the same final volume at the same temperature and pressure because equal amounts of calcium carbonate react.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the faster initial rate for powder."
+        },
+        {
+          "marks": 1,
+          "description": "Link it to more exposed surface and more frequent effective collisions."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why equal amounts of limiting reactant give equal final gas amounts."
+        }
+      ],
+      "explanation": "Identify the faster initial rate for powder. Link it to more exposed surface and more frequent effective collisions. Explain why equal amounts of limiting reactant give equal final gas amounts."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Reaction rates",
+      "subtopic": "Measurement and collision model",
+      "learningObjective": "Interpret reaction-rate evidence and explain changes using particle collisions.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-003",
+      "objectiveId": "neco-chemistry-rates-equilibrium-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two groups compare acid concentrations. The more concentrated acid is also warmer at the start. Explain why their rate difference cannot be attributed to concentration alone, and describe how to improve the comparison.",
+      "answer": "Temperature also affects rate. Bring both acid samples to the same measured temperature, then use equal volumes and identical samples of the other reactant.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify temperature as a second changed variable."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that it can affect rate independently."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a comparison controlling temperature and relevant other conditions."
+        }
+      ],
+      "explanation": "Identify temperature as a second changed variable. Explain that it can affect rate independently. Propose a comparison controlling temperature and relevant other conditions."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Reaction rates",
+      "subtopic": "Measurement and collision model",
+      "learningObjective": "Interpret reaction-rate evidence and explain changes using particle collisions.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-004",
+      "objectiveId": "neco-chemistry-rates-equilibrium-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which change explains why a catalyst can speed up a reaction at a fixed temperature?",
+      "answer": "It provides a route with lower activation energy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "It increases the average kinetic energy of the particles.",
+        "It provides a route with lower activation energy.",
+        "It raises the energy needed to start a reaction.",
+        "It increases the amount of reactant in the vessel."
+      ],
+      "correctOption": "B",
+      "explanation": "At the same temperature, more collisions can meet the lower activation-energy requirement."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Reaction rates",
+      "subtopic": "Measurement and collision model",
+      "learningObjective": "Interpret reaction-rate evidence and explain changes using particle collisions.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-005",
+      "objectiveId": "neco-chemistry-rates-equilibrium-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A gas-volume graph rises quickly and then becomes less steep while gas is still being produced. What does the decreasing slope mean?",
+      "answer": "The rate of gas production is falling.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The rate of gas production is falling.",
+        "The total volume collected is falling.",
+        "The reaction has stopped at every point on the curve.",
+        "The same volume is produced in each successive second."
+      ],
+      "correctOption": "A",
+      "explanation": "The slope gives the increase in collected volume per unit time."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Reaction rates",
+      "subtopic": "Measurement and collision model",
+      "learningObjective": "Interpret reaction-rate evidence and explain changes using particle collisions.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-006",
+      "objectiveId": "neco-chemistry-rates-equilibrium-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Dilute acid is made more concentrated without changing temperature or the exposed area of a solid reactant. Why can the initial reaction rate rise?",
+      "answer": "More acid particles per unit volume can collide with the solid surface per second.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The solid has a larger exposed area.",
+        "Each acid particle necessarily moves faster.",
+        "The reaction changes into a different chemical equation.",
+        "More acid particles per unit volume can collide with the solid surface per second."
+      ],
+      "correctOption": "D",
+      "explanation": "Increasing concentration increases the number of reacting particles available to collide with the surface."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Chemical equilibrium",
+      "subtopic": "Dynamic equilibrium and responses to change",
+      "learningObjective": "Distinguish rates from equilibrium composition and predict shifts for stated changes.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-007",
+      "objectiveId": "neco-chemistry-rates-equilibrium-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A sealed vessel contains a reversible reaction at equilibrium. Explain why constant concentrations do not mean the reaction has stopped.",
+      "answer": "Both directions continue, but the forward and reverse reaction rates are equal, so concentrations have no net change.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "State that both directions continue."
+        },
+        {
+          "marks": 1,
+          "description": "Relate equal forward and reverse rates to constant concentrations."
+        }
+      ],
+      "explanation": "State that both directions continue. Relate equal forward and reverse rates to constant concentrations."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Chemical equilibrium",
+      "subtopic": "Dynamic equilibrium and responses to change",
+      "learningObjective": "Distinguish rates from equilibrium composition and predict shifts for stated changes.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-008",
+      "objectiveId": "neco-chemistry-rates-equilibrium-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A sealed vessel contains 2SO₂(g) + O₂(g) ⇌ 2SO₃(g) at equilibrium. The vessel volume is decreased at constant temperature. Predict the change in equilibrium composition and explain.",
+      "answer": "The equilibrium shifts towards SO₃. The product side has two moles of gas per reaction unit, compared with three on the reactant side.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify increased pressure due to compression."
+        },
+        {
+          "marks": 1,
+          "description": "Compare gaseous stoichiometric totals, three versus two."
+        },
+        {
+          "marks": 1,
+          "description": "Predict a shift towards SO₃."
+        }
+      ],
+      "explanation": "Identify increased pressure due to compression. Compare gaseous stoichiometric totals, three versus two. Predict a shift towards SO₃."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Chemical equilibrium",
+      "subtopic": "Dynamic equilibrium and responses to change",
+      "learningObjective": "Distinguish rates from equilibrium composition and predict shifts for stated changes.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-009",
+      "objectiveId": "neco-chemistry-rates-equilibrium-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A student proposes adding a catalyst to an equilibrated mixture to increase the final amount of product at constant temperature. Evaluate the proposal and distinguish the effect if the mixture starts away from equilibrium.",
+      "answer": "The equilibrium composition remains the same. A catalyst speeds both directions, so a mixture starting away from equilibrium reaches the same equilibrium composition sooner.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reject a change in final equilibrium composition."
+        },
+        {
+          "marks": 1,
+          "description": "Identify acceleration of both reaction directions."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the effect on time to reach equilibrium."
+        }
+      ],
+      "explanation": "Reject a change in final equilibrium composition. Identify acceleration of both reaction directions. Explain the effect on time to reach equilibrium."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Chemical equilibrium",
+      "subtopic": "Dynamic equilibrium and responses to change",
+      "learningObjective": "Distinguish rates from equilibrium composition and predict shifts for stated changes.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-010",
+      "objectiveId": "neco-chemistry-rates-equilibrium-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "For N₂O₄(g) ⇌ 2NO₂(g), the forward reaction absorbs heat. Which change favours more NO₂ at equilibrium when the vessel volume is held fixed?",
+      "answer": "Increasing temperature",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Increasing temperature",
+        "Lowering temperature",
+        "Adding a catalyst at the original temperature",
+        "Waiting longer at the original equilibrium"
+      ],
+      "correctOption": "A",
+      "explanation": "Adding heat favours the endothermic direction."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Chemical equilibrium",
+      "subtopic": "Dynamic equilibrium and responses to change",
+      "learningObjective": "Distinguish rates from equilibrium composition and predict shifts for stated changes.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-011",
+      "objectiveId": "neco-chemistry-rates-equilibrium-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "For H₂(g) + I₂(g) ⇌ 2HI(g), which statement describes the effect of compressing the equilibrium mixture at constant temperature in the ideal-gas model?",
+      "answer": "The equilibrium mole fractions are unchanged because both sides have the same total gas coefficient.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The equilibrium shifts right because HI has a coefficient of 2.",
+        "The equilibrium shifts left because the reactants have two different names.",
+        "The equilibrium stops because both sides are compressed.",
+        "The equilibrium mole fractions are unchanged because both sides have the same total gas coefficient."
+      ],
+      "correctOption": "D",
+      "explanation": "There are two gaseous stoichiometric units on each side, so compression does not favour either side."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Chemistry",
+      "topic": "Chemical equilibrium",
+      "subtopic": "Dynamic equilibrium and responses to change",
+      "learningObjective": "Distinguish rates from equilibrium composition and predict shifts for stated changes.",
+      "specificationId": "neco-chemistry-rate-equilibrium-reference-2026",
+      "id": "ndv-059-012",
+      "objectiveId": "neco-chemistry-rates-equilibrium-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "For the elementary reversible reaction A(g) ⇌ B(g) at equilibrium, some B is selectively removed without changing the temperature or volume. What is the immediate direction of net reaction?",
+      "answer": "Towards formation of more product",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Towards formation of more reactant",
+        "Neither direction because the system was at equilibrium",
+        "Towards formation of more product",
+        "Both directions at equal rates immediately after removal"
+      ],
+      "correctOption": "C",
+      "explanation": "Removing product reduces the reverse reaction’s contribution and the system responds with net product formation."
+    }
+  ]
+}

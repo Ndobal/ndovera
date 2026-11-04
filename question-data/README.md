@@ -302,3 +302,9 @@ drafts on ecology and plant nutrition. NECO's 2026 Internal timetable
 confirms paper formats. Historical WAEC feedback supports provisional
 topic selection. The batch includes written evidence interpretation.
 Practical performance and full NECO topic mapping remain open.
+
+Batch 059 opens NECO Chemistry with six structured and six objective
+drafts on reaction rates and equilibrium. NECO's 2026 Internal timetable
+confirms paper formats. Historical WAEC examiner materials support
+provisional topic selection. Practical performance and full NECO
+topic mapping remain open.
