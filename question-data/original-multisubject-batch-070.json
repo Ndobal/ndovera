@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO General Mathematics statistics practice",
+  "questionCount": 12,
+  "note": "Original structured and four-option practice. NECO formats verified; statistics mapping provisional from historical WAEC evidence. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Frequency tables",
+      "learningObjective": "Recover frequencies and interpret totals, categories and cumulative counts.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-001",
+      "objectiveId": "neco-math-070-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A reading club counted the books borrowed by each of 30 members in June. The cumulative totals for at most 0, 1, 2, 3 and 4 books were 3, 10, 21, 27 and 30. Find the number who borrowed exactly two books and the number who borrowed at least three. Explain the difference between your two calculations.",
+      "answer": "11 borrowed exactly two books. 9 borrowed at least three.",
+      "explanation": "Subtract the cumulative count through one from the count through two to isolate exactly two. Subtract the count through two from the full membership to keep everyone above two.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use consecutive cumulative counts to obtain 11."
+        },
+        {
+          "marks": 1,
+          "description": "Use the full count and the count through two to obtain 9."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the distinction between isolating one category and finding a tail."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "21-10",
+          "expected": "11",
+          "purpose": "Exactly two"
+        },
+        {
+          "expression": "30-21",
+          "expected": "9",
+          "purpose": "At least three"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Frequency tables",
+      "learningObjective": "Recover frequencies and interpret totals, categories and cumulative counts.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-002",
+      "objectiveId": "neco-math-070-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A market survey assigns each of 72 stalls to exactly one of four categories. Produce has 24, clothing 18 and repairs 12. The remaining stalls sell cooked food. What angle should represent cooked food on a pie chart?",
+      "answer": "90°",
+      "explanation": "There are 18 cooked-food stalls. Their share is 18/72 of a full turn, which is 90°.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "18°",
+        "72°",
+        "90°",
+        "120°"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "(72-24-18-12)*360/72",
+          "expected": "90",
+          "purpose": "Sector angle"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Frequency tables",
+      "learningObjective": "Recover frequencies and interpret totals, categories and cumulative counts.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-003",
+      "objectiveId": "neco-math-070-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A notice says that attendance improved because more learners attended a workshop in July. In June, 36 of 40 invited learners attended. In July, 42 of 50 attended. Assess the notice if the organiser’s goal was to increase the proportion of invited learners who attended.",
+      "answer": "Attendance rose by 6 learners but the participation rate fell from 90% to 84%, so the stated goal was not met.",
+      "explanation": "Compare each count to its own number of invitees. The direction of the count and the direction of the proportion differ.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Find June’s rate."
+        },
+        {
+          "marks": 1,
+          "description": "Find July’s rate."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish the increase in numbers from the decrease in rate and judge the claim."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "36*100/40",
+          "expected": "90",
+          "purpose": "June rate"
+        },
+        {
+          "expression": "42*100/50",
+          "expected": "84",
+          "purpose": "July rate"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Frequency tables",
+      "learningObjective": "Recover frequencies and interpret totals, categories and cumulative counts.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-004",
+      "objectiveId": "neco-math-070-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A library tables each member’s preferred reading language. The categories are mutually exclusive. What does the modal category identify?",
+      "answer": "The language chosen by the largest number of members.",
+      "explanation": "For categorical data, the mode is the category with the greatest frequency.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The language chosen by the largest number of members.",
+        "The category in the middle of the printed list.",
+        "The language represented by half the categories.",
+        "The category whose count equals the total membership."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Grouped data",
+      "learningObjective": "Use class intervals, frequencies and midpoints to estimate and interpret summaries.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-005",
+      "objectiveId": "neco-math-070-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Travel times in minutes are recorded for 18 staff. The intervals 0 ≤ t < 10, 10 ≤ t < 20 and 20 ≤ t < 30 contain 4, 9 and 5 staff respectively. Estimate the mean and explain why the table does not give the exact mean.",
+      "answer": "About 15.6 minutes.",
+      "explanation": "Use midpoints 5, 15 and 25. The weighted sum is 280 minutes, so the estimate is 280/18 minutes. The individual times within each interval are unknown.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use all three midpoints."
+        },
+        {
+          "marks": 1,
+          "description": "Compute the weighted sum and divide by 18."
+        },
+        {
+          "marks": 1,
+          "description": "Report the estimate and explain the lost within-class information."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(4*5+9*15+5*25)/18",
+          "expected": "140/9",
+          "purpose": "Midpoint mean"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Grouped data",
+      "learningObjective": "Use class intervals, frequencies and midpoints to estimate and interpret summaries.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-006",
+      "objectiveId": "neco-math-070-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A repair desk groups waiting times. The intervals 0 ≤ t < 5, 5 ≤ t < 10 and 10 ≤ t < 20 minutes have frequencies 8, 12 and 16. A histogram uses minutes along its horizontal axis. Find the three bar heights in frequency per minute and identify the tallest bar.",
+      "answer": "1.6, 2.4 and 1.6 per minute. The 5 ≤ t < 10 bar is tallest.",
+      "explanation": "Bar area represents frequency. Dividing by widths 5, 5 and 10 gives the heights. The widest class has the highest count but not the highest density.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use the class widths 5, 5 and 10."
+        },
+        {
+          "marks": 1,
+          "description": "Calculate the three frequency densities."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the tallest bar and justify it using density."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "8/5",
+          "expected": "8/5",
+          "purpose": "First density"
+        },
+        {
+          "expression": "12/5",
+          "expected": "12/5",
+          "purpose": "Second density"
+        },
+        {
+          "expression": "16/10",
+          "expected": "8/5",
+          "purpose": "Third density"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Grouped data",
+      "learningObjective": "Use class intervals, frequencies and midpoints to estimate and interpret summaries.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-007",
+      "objectiveId": "neco-math-070-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A workshop recorded 21 repair times. Five were under 15 minutes, 10 were at least 15 but under 30 minutes, and six were at least 30 but under 45 minutes. Which statement about the median is justified?",
+      "answer": "It is at least 15 minutes and less than 30 minutes.",
+      "explanation": "The median is observation 11. The first interval contains ranks 1–5 and the second contains ranks 6–15. The exact time at rank 11 is unavailable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "It is exactly 22.5 minutes.",
+        "It is at least 30 minutes and less than 45 minutes.",
+        "It is below 15 minutes.",
+        "It is at least 15 minutes and less than 30 minutes."
+      ],
+      "correctOption": "D",
+      "verification": [
+        {
+          "expression": "(21+1)/2",
+          "expected": "11",
+          "purpose": "Median rank"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Grouped data",
+      "learningObjective": "Use class intervals, frequencies and midpoints to estimate and interpret summaries.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-008",
+      "objectiveId": "neco-math-070-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A table uses the class labels 2 ≤ m < 4 and 4 ≤ m < 6 for masses in kilograms. Why can a measured mass of 4 kg be classified unambiguously?",
+      "answer": "Only the second class includes 4 kg.",
+      "explanation": "The strict upper bound excludes 4 from the first class, while the inclusive lower bound puts it in the second.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Both classes include 4 kg.",
+        "Only the second class includes 4 kg.",
+        "Only the first class includes 4 kg.",
+        "Neither class includes 4 kg."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Measures of centre",
+      "learningObjective": "Calculate and compare measures of centre and reason about changes to a data set.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-009",
+      "objectiveId": "neco-math-070-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "One centre ran a practice test for 16 learners with a mean of 64 marks. Another centre used the same test for 24 learners with a mean of 74 marks. Find the mean for all 40 learners. Explain why simply averaging the two means gives a different result.",
+      "answer": "70 marks.",
+      "explanation": "The groups contribute totals of 1,024 and 1,776 marks. Dividing 2,800 by 40 gives 70. The group with the higher mean has more learners and receives greater weight.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recover both group totals."
+        },
+        {
+          "marks": 1,
+          "description": "Divide the combined total by 40 to get 70."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the unequal weights."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(16*64+24*74)/40",
+          "expected": "70",
+          "purpose": "Combined mean"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Measures of centre",
+      "learningObjective": "Calculate and compare measures of centre and reason about changes to a data set.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-010",
+      "objectiveId": "neco-math-070-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "The five delivery times for a shop are 12, 14, 14, 16 and 19 minutes. A check shows that the final entry should be 39 minutes. Compare the mean and median before and after correction, then explain which statistic responds more to the change.",
+      "answer": "Mean increases from 15 to 19 minutes. Median remains 14 minutes.",
+      "explanation": "The correction adds 20 to the total, increasing the mean by 4. The corrected value remains last in the order, so the third value is still 14.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Obtain both means."
+        },
+        {
+          "marks": 1,
+          "description": "Identify both medians."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the effects of a change in total and an unchanged middle rank."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(12+14+14+16+19)/5",
+          "expected": "15",
+          "purpose": "Original mean"
+        },
+        {
+          "expression": "(12+14+14+16+39)/5",
+          "expected": "19",
+          "purpose": "Corrected mean"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Measures of centre",
+      "learningObjective": "Calculate and compare measures of centre and reason about changes to a data set.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-011",
+      "objectiveId": "neco-math-070-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A vendor’s mean revenue across seven market days was ₦18,000. After omitting the busiest day, the mean for the other six days was ₦16,500. What was the revenue on the omitted day?",
+      "answer": "₦27,000",
+      "explanation": "Subtract the six-day total of ₦99,000 from the seven-day total of ₦126,000.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "₦19,500",
+        "₦25,500",
+        "₦27,000",
+        "₦28,500"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "7*18000-6*16500",
+          "expected": "27000",
+          "purpose": "Omitted revenue"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Measures of centre",
+      "learningObjective": "Calculate and compare measures of centre and reason about changes to a data set.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-070-012",
+      "objectiveId": "neco-math-070-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Every recorded temperature in a set is increased by 3 °C after a calibration check. What happens to the median and range?",
+      "answer": "The median increases by 3 °C and the range stays the same.",
+      "explanation": "The order of the readings stays the same, so the middle shifts by 3 °C. Both extremes shift equally, preserving their difference.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Both increase by 3 °C.",
+        "Both stay the same.",
+        "The median stays the same and the range increases by 3 °C.",
+        "The median increases by 3 °C and the range stays the same."
+      ],
+      "correctOption": "D"
+    }
+  ]
+}

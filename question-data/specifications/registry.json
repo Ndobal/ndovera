@@ -1041,6 +1041,19 @@
         2030
       ],
       "note": "WAEC list p. 1 confirms prescription. Pearson Edexcel documents host primary-text extracts used as evidence only. Neither Pearson questions nor dialogue are reproduced. Full play, edition equivalence and current WAEC assessment details remain unverified."
+    },
+    {
+      "id": "neco-mathematics-statistics-reference-2026",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/Mathematics/maths221Nq12.html",
+        "https://www.waeconline.org.ng/e-learning/Mathematics/maths224nq11.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "The NECO timetable lists General Mathematics Papers II (1022, essay) and III (1023, objective). Historical WAEC examiner observations support provisional topic selection. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
     }
   ],
   "banks": [
@@ -8340,6 +8353,63 @@
       ],
       "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
       "prescribedTextId": "waec-lit-2026-08"
+    },
+    {
+      "id": "neco-math-070-1-v1",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Frequency tables",
+      "learningObjective": "Recover frequencies and interpret totals, categories and cumulative counts.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal General Mathematics Papers II and III",
+        "Historical WAEC General Mathematics examiner observations, 2012 and 2015"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-math-070-2-v1",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Grouped data",
+      "learningObjective": "Use class intervals, frequencies and midpoints to estimate and interpret summaries.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal General Mathematics Papers II and III",
+        "Historical WAEC General Mathematics examiner observations, 2012 and 2015"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-math-070-3-v1",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Measures of centre",
+      "learningObjective": "Calculate and compare measures of centre and reason about changes to a data set.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal General Mathematics Papers II and III",
+        "Historical WAEC General Mathematics examiner observations, 2012 and 2015"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [

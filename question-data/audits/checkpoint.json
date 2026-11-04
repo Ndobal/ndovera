@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_069_automated_validation_passed",
+  "phase": "batch_070_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-070.json",
+  "nextBatch": "original-multisubject-batch-071.json",
   "nextPriorities": [
-    "Verify a primary-text preview for a prescribed African drama. An Inspector Calls coverage is limited to two excerpts. Retry the publisher-linked Redemption Road excerpt when available. Whole-work coverage and edition equivalence remain pending.",
+    "Verify an accessible primary-text excerpt for a prescribed WAEC African drama. Publisher and catalogue records establish the identity of Once Upon an Elephant and The Marriage of Anansewa, but a usable primary-text excerpt remains unverified. Retry the Redemption Road excerpt. NECO statistics mapping remains provisional.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-069.json",
-  "lastRemoteVerifiedCommit": "4a6e36b2478772d8b4e34e8d88db9f73c230ed8e",
+  "lastValidatedBatch": "original-multisubject-batch-070.json",
+  "lastRemoteVerifiedCommit": "d9d6f283e5418158a171e6ca253f57275dda10e2",
   "verifiedTotals": {
-    "raw": 3148,
-    "validDrafts": 1469,
+    "raw": 3160,
+    "validDrafts": 1481,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-069.json",
+  "lastPopulatedBatch": "original-multisubject-batch-070.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3148
+  "inventoryRaw": 3160
 }

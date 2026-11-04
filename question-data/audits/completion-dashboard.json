@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3148,
-    "validDrafts": 1469,
+    "raw": 3160,
+    "validDrafts": 1481,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -548,6 +548,12 @@
       "sha256": "cdf9e76c8dc79e5a24189ef8aa529845d0ed02916a52e8c98318479b159fedfe",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-070.json",
+      "sha256": "4b69623b7ccf62ee43a3cfaa717169a2ffb31c551192169d1a15a551a88f75f6",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2371,23 +2377,23 @@
         "II": "essay"
       },
       "timetableSubject": "General Mathematics",
-      "raw": 26,
-      "validDrafts": 12,
+      "raw": 38,
+      "validDrafts": 24,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 6,
-        "mcq": 20
+        "structured": 12,
+        "mcq": 26
       },
       "difficulty": {
-        "standard": 6,
-        "easy": 3,
-        "difficult": 4,
+        "standard": 14,
+        "easy": 5,
+        "difficult": 6,
         "missing": 12,
         "very difficult": 1
       },
-      "remaining": 988,
-      "mappedObjectives": 3,
-      "representedObjectives": 3,
+      "remaining": 976,
+      "mappedObjectives": 6,
+      "representedObjectives": 6,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -4284,21 +4290,21 @@
     }
   ],
   "errorCounts": {
+    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 201,
+    "explicitArithmeticClaims": 215,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -27692,6 +27698,78 @@
       "errors": []
     },
     {
+      "id": "ndv-070-001",
+      "file": "original-multisubject-batch-070.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-002",
+      "file": "original-multisubject-batch-070.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-003",
+      "file": "original-multisubject-batch-070.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-004",
+      "file": "original-multisubject-batch-070.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-005",
+      "file": "original-multisubject-batch-070.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-006",
+      "file": "original-multisubject-batch-070.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-007",
+      "file": "original-multisubject-batch-070.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-008",
+      "file": "original-multisubject-batch-070.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-009",
+      "file": "original-multisubject-batch-070.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-010",
+      "file": "original-multisubject-batch-070.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-011",
+      "file": "original-multisubject-batch-070.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-070-012",
+      "file": "original-multisubject-batch-070.json",
+      "index": 11,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -49829,6 +49907,103 @@
       "difficulty": {
         "standard": 2,
         "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-math-070-1-v1",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Frequency tables",
+      "learningObjective": "Recover frequencies and interpret totals, categories and cumulative counts.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "questionTypes": {
+        "structured": 2,
+        "mcq": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal General Mathematics Papers II and III",
+        "Historical WAEC General Mathematics examiner observations, 2012 and 2015"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-math-070-2-v1",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Grouped data",
+      "learningObjective": "Use class intervals, frequencies and midpoints to estimate and interpret summaries.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "questionTypes": {
+        "structured": 2,
+        "mcq": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal General Mathematics Papers II and III",
+        "Historical WAEC General Mathematics examiner observations, 2012 and 2015"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-math-070-3-v1",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Measures of centre",
+      "learningObjective": "Calculate and compare measures of centre and reason about changes to a data set.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "questionTypes": {
+        "structured": 2,
+        "mcq": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal General Mathematics Papers II and III",
+        "Historical WAEC General Mathematics examiner observations, 2012 and 2015"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
       },
       "tiers": {
         "not_specified": 4

@@ -366,3 +366,8 @@ Batch 069 adds eight original essays on two excerpts of An Inspector
 Calls hosted by Pearson Edexcel. The excerpts provide textual evidence
 for practice in close reading. Full-play coverage, examination edition
 equivalence and the current WAEC marking scheme remain open.
+
+Batch 070 adds 12 NECO General Mathematics drafts on statistics. The
+2026 internal timetable verifies the essay and objective formats.
+Historical WAEC examiner materials inform provisional topic mapping.
+Official NECO content objectives remain open.

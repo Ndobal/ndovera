@@ -78,7 +78,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Financial Accounting | 1000 | 21 | 20 | 0 | 980 | partial_objective_register |
 | NECO | Geography | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Government | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
-| NECO | Mathematics | 1000 | 26 | 12 | 0 | 988 | partial_objective_register |
+| NECO | Mathematics | 1000 | 38 | 24 | 0 | 976 | partial_objective_register |
 | NECO | Physics | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
 | NERDC | Basic Science / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Nursery | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -183,13 +183,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 199 | 164 | 0 | 12000 | 11836 |
+| NECO | 211 | 176 | 0 | 12000 | 11824 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3148, "validDrafts": 1469, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3160, "validDrafts": 1481, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
