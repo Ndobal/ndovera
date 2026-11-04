@@ -1006,6 +1006,23 @@
         2030
       ],
       "note": "Official WAEC list p. 1 confirms prescription. Primary evidence begins with Baramusu’s arrival and ends when she introduces the story of Musudugu, before that story is told. Pagination, examination edition equivalence, whole-novel coverage and current assessment details remain unverified. No source prose is reproduced."
+    },
+    {
+      "id": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "kind": "official_prescription_with_primary_text_extracts",
+      "source": "https://waecnigeria.org/sites/default/files/2023-06/LITERATURE-IN-ENG%202026-2030.pdf",
+      "contentReference": "https://www.education.gov.za/LinkClick.aspx?fileticket=eO0qlhWnTrw%3D&mid=6359&portalid=0&tabid=1608",
+      "retrievedOn": "2026-11-04",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "note": "WAEC list p. 1 confirms the prescribed work. Primary evidence is confined to the novel extracts from chapters 6 and 9 in the South African DBE February/March 2017 English FAL P2, pp. 5 and 7. DBE is used solely as a host for the novel extracts. Edition and whole-novel coverage are unverified. No excerpts or assessment questions are reproduced."
     }
   ],
   "banks": [
@@ -8197,6 +8214,60 @@
       ],
       "contentSourceId": "waec-literature-hollist-prose-excerpt-2026-2030",
       "prescribedTextId": "waec-lit-2026-02"
+    },
+    {
+      "id": "waec-lit-mockingbird-public-scene-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Public accounts and narrative tension",
+      "learningObjective": "Analyse how Scout’s narration, group dialogue and changing attention shape the public scene at the Radley gate.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text list, p. 1",
+        "Harper Lee novel extracts, South African DBE February/March 2017 English FAL P2, pp. 5 and 7"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04"
+    },
+    {
+      "id": "waec-lit-mockingbird-private-scene-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Private conversation and moral responsibility",
+      "learningObjective": "Analyse how the private conversation frames Atticus’s choices as both professional and parental.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text list, p. 1",
+        "Harper Lee novel extracts, South African DBE February/March 2017 English FAL P2, pp. 5 and 7"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04"
     }
   ],
   "scopeGaps": [

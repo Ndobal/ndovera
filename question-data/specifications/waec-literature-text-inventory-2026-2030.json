@@ -84,7 +84,8 @@
       "objectiveMappingStatus": "pending",
       "academicReviewStatus": "pending",
       "developmentStatus": "not_started",
-      "linkedQuestionIds": []
+      "linkedQuestionIds": [],
+      "sourceAccessNote": "Cotton Tree Press links to the official Redemption Road site for a free excerpt. Direct web retrieval timed out on 2026-11-04. Text and edition remain unverified."
     },
     {
       "textId": "waec-lit-2026-04",
@@ -92,12 +93,22 @@
       "authorAsPrinted": "Harper Lee",
       "titleAsPrinted": "To Kill a Mocking Bird",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": [],
-      "bibliographicCheckRequired": true,
-      "note": "Spelling or author initials transcribed as printed in official list; verify bibliographic identity before text-specific authoring."
+      "developmentStatus": "partial_excerpt_theory_draft",
+      "linkedQuestionIds": [
+        "ndv-068-001",
+        "ndv-068-002",
+        "ndv-068-003",
+        "ndv-068-004",
+        "ndv-068-005",
+        "ndv-068-006"
+      ],
+      "bibliographicCheckRequired": false,
+      "note": "WAEC’s printed title is preserved in the inventory. The DBE primary-text extracts identify the work as To Kill a Mockingbird by Harper Lee.",
+      "verifiedTitle": "To Kill a Mockingbird",
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "editionStatus": "Chapter 6 and 9 extracts checked in the DBE paper. Edition equivalence and whole-novel coverage unverified."
     },
     {
       "textId": "waec-lit-2026-05",

@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_067_automated_validation_passed",
+  "phase": "batch_068_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-068.json",
+  "nextBatch": "original-multisubject-batch-069.json",
   "nextPriorities": [
-    "Verify the publisher-linked excerpt of Elma Shaw\u2019s Redemption Road and develop bounded WAEC African prose theory. Hollist coverage is excerpt-only. Continue edition and primary-text checks for the other prose and drama selections.",
+    "Locate a publisher or library preview for a prescribed WAEC drama and draft only from verified scenes. Retry Cotton Tree Press\u2019s linked Redemption Road excerpt when available. Whole-novel coverage for Hollist and Lee remains pending.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-067.json",
-  "lastRemoteVerifiedCommit": "c361d47695f44ca09df80c09c33fe5e4c8962db7",
+  "lastValidatedBatch": "original-multisubject-batch-068.json",
+  "lastRemoteVerifiedCommit": "94e2a2e877ec053b9cd91cc6646965dea57a7c30",
   "verifiedTotals": {
-    "raw": 3134,
-    "validDrafts": 1455,
+    "raw": 3140,
+    "validDrafts": 1461,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-067.json",
+  "lastPopulatedBatch": "original-multisubject-batch-068.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3134
+  "inventoryRaw": 3140
 }

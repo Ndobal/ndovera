@@ -1,0 +1,380 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Literature in English non-African prose theory practice",
+  "questionCount": 6,
+  "note": "Original essay practice. Use only the linked novel extracts from chapters 6 and 9. Practice marking guides credit alternate supported readings. Academic review pending.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Public accounts and narrative tension",
+      "learningObjective": "Analyse how Scout’s narration, group dialogue and changing attention shape the public scene at the Radley gate.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04",
+      "id": "ndv-068-001",
+      "objectiveId": "waec-lit-mockingbird-public-scene-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "How does the arrangement of people around the Radley gate shape the scene’s sense of authority? Discuss Nathan Radley’s position and the children’s arrival.",
+      "answer": "Nathan stands within the gate holding the gun, so property and the power to use force have a visible centre. The neighbours gather around that boundary. The children join at its edge beside Miss Maudie, initially unnoticed, and hear an account already being told by adults. Their position makes them listeners to a public version of the event.",
+      "explanation": "The physical positions help explain who commands attention and who receives the account. Credit readings grounded in the scene’s arrangement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify where the gathering takes place."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret Nathan’s position and the gun."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the children’s entry into the group."
+        },
+        {
+          "marks": 2,
+          "description": "Connect staging to the distribution of authority or attention."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee"
+      },
+      "textReference": "South African DBE February/March 2017 English FAL P2, primary-text extract: Chapter 6, extract A, p. 5"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Public accounts and narrative tension",
+      "learningObjective": "Analyse how Scout’s narration, group dialogue and changing attention shape the public scene at the Radley gate.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04",
+      "id": "ndv-068-002",
+      "objectiveId": "waec-lit-mockingbird-public-scene-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Analyse how the dialogue shifts attention from the gunshot to Jem’s clothing. What changes for Jem when the topic shifts?",
+      "answer": "The children are initially able to ask what the adults know. Stephanie’s speech swings towards Jem, and Atticus’s question makes a visible detail about him the centre of the exchange. Jem’s brief echo delays an explanation but leaves him answering a question in public. The scene turns him from a questioner into the person under scrutiny.",
+      "explanation": "The change is enacted through the turns of dialogue. A strong answer traces who asks questions and who must respond.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the initial topic and Jem’s position in the conversation."
+        },
+        {
+          "marks": 3,
+          "description": "Trace the turn from Stephanie’s speech to Atticus’s question."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret Jem’s response as a delay, surprise or loss of control."
+        },
+        {
+          "marks": 2,
+          "description": "Explain the public consequence of the shift."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee"
+      },
+      "textReference": "South African DBE February/March 2017 English FAL P2, primary-text extract: Chapter 6, extract A, p. 5"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Public accounts and narrative tension",
+      "learningObjective": "Analyse how Scout’s narration, group dialogue and changing attention shape the public scene at the Radley gate.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04",
+      "id": "ndv-068-003",
+      "objectiveId": "waec-lit-mockingbird-public-scene-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "At the end of the extract, how far can a reader trust Scout’s reading of Dill’s expression? Distinguish an observation from an inference.",
+      "answer": "Scout can observe Dill’s widened eyes and altered expression in the street light. She interprets those signs as preparation to invent an explanation. Her familiarity with Dill makes the reading plausible, but the extract stops before he gives the explanation. The first-person narration creates anticipation through an interpretation the reader cannot yet confirm.",
+      "explanation": "The evidence supports a judgement about the credibility and limits of Scout’s reading. The response should stay within the extract’s endpoint.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "State a judgement about Scout’s inference."
+        },
+        {
+          "marks": 3,
+          "description": "Identify a visible cue."
+        },
+        {
+          "marks": 3,
+          "description": "Explain why Scout may be able to interpret it."
+        },
+        {
+          "marks": 2,
+          "description": "Account for what the extract leaves unconfirmed."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee"
+      },
+      "textReference": "South African DBE February/March 2017 English FAL P2, primary-text extract: Chapter 6, extract A, p. 5"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Private conversation and moral responsibility",
+      "learningObjective": "Analyse how the private conversation frames Atticus’s choices as both professional and parental.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04",
+      "id": "ndv-068-004",
+      "objectiveId": "waec-lit-mockingbird-private-scene-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Explain why the difference between the trial and a possible appeal matters to the portrait of Atticus. Use his comments about what he plans and what he cannot yet know.",
+      "answer": "Atticus intends to challenge the jury in the trial and sees a possible further route through appeal. He qualifies his judgement because the case is still developing. The distinction shows a lawyer planning more than one step without treating either plan as a guarantee.",
+      "explanation": "Focus on the relationship between the strategy and the limits of prediction, rather than recalling the novel’s eventual outcome.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify a step Atticus proposes during the trial."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the appeal as a separate possibility."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the qualification about what he can know."
+        },
+        {
+          "marks": 2,
+          "description": "Connect the distinction to his professional judgement."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee"
+      },
+      "textReference": "South African DBE February/March 2017 English FAL P2, primary-text extract: Chapter 9, extract B, p. 7"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Private conversation and moral responsibility",
+      "learningObjective": "Analyse how the private conversation frames Atticus’s choices as both professional and parental.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04",
+      "id": "ndv-068-005",
+      "objectiveId": "waec-lit-mockingbird-private-scene-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Assess whether being assigned the case is enough to explain why Atticus accepts responsibility for it. Consider how the discussion moves from the judge to Atticus’s children.",
+      "answer": "Atticus’s account of Judge Taylor explains how the case came to him. His reluctance shows that he recognises the cost, while his question about facing his children reveals a separate personal obligation. The two explanations work together, but the second shows why carrying out the assignment matters to his own sense of integrity.",
+      "explanation": "Distinguish the cause of the assignment from Atticus’s reason for taking his responsibility seriously.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Give a reasoned judgement."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the judge’s role."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret Atticus’s reluctance."
+        },
+        {
+          "marks": 2,
+          "description": "Explain how the reference to his children adds a moral reason."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee"
+      },
+      "textReference": "South African DBE February/March 2017 English FAL P2, primary-text extract: Chapter 9, extract B, p. 7"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Private conversation and moral responsibility",
+      "learningObjective": "Analyse how the private conversation frames Atticus’s choices as both professional and parental.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04",
+      "id": "ndv-068-006",
+      "objectiveId": "waec-lit-mockingbird-private-scene-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "How does the contrast between Uncle Jack’s questions and Atticus’s final hopes widen the subject of their conversation?",
+      "answer": "Jack initially asks how difficult the case will be and what Atticus will do. Atticus eventually speaks about getting Jem and Scout through it without bitterness or absorbing the town’s prejudice. The conversation therefore expands from how a lawyer handles a case to how a family lives through its social consequences.",
+      "explanation": "Track the shift in subject and explain what the children’s experience adds to the professional discussion.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the main concern of Jack’s early questions."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the change in subject near the end."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret a specific hope Atticus has for the children."
+        },
+        {
+          "marks": 2,
+          "description": "Link the shift to the case’s effects outside the courtroom."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee"
+      },
+      "textReference": "South African DBE February/March 2017 English FAL P2, primary-text extract: Chapter 9, extract B, p. 7"
+    }
+  ]
+}

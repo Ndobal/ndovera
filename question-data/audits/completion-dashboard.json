@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3134,
-    "validDrafts": 1455,
+    "raw": 3140,
+    "validDrafts": 1461,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -536,6 +536,12 @@
       "sha256": "9678f21a73d7583c7b800dc5bbcf9298e42434f793ed43ec4fa7731c7e7ff4ce",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-068.json",
+      "sha256": "209c92f9baf44432dea56241cc1d4372c839db6faaa7fe81e1fb17342347c200",
+      "declared": 6,
+      "actual": 6
     },
     {
       "path": "original-practice-batch-001.json",
@@ -4065,21 +4071,21 @@
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
       "specificationId": "waec-literature-provisional-2026",
-      "raw": 119,
-      "validDrafts": 119,
+      "raw": 125,
+      "validDrafts": 125,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 75,
-        "essay": 44
+        "essay": 50
       },
       "difficulty": {
-        "standard": 81,
+        "standard": 84,
         "easy": 10,
-        "difficult": 28
+        "difficult": 31
       },
-      "remaining": 881,
-      "mappedObjectives": 26,
-      "representedObjectives": 25,
+      "remaining": 875,
+      "mappedObjectives": 28,
+      "representedObjectives": 27,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -4273,17 +4279,17 @@
   ],
   "errorCounts": {
     "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 201,
@@ -27596,6 +27602,42 @@
       "errors": []
     },
     {
+      "id": "ndv-068-001",
+      "file": "original-multisubject-batch-068.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-068-002",
+      "file": "original-multisubject-batch-068.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-068-003",
+      "file": "original-multisubject-batch-068.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-068-004",
+      "file": "original-multisubject-batch-068.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-068-005",
+      "file": "original-multisubject-batch-068.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-068-006",
+      "file": "original-multisubject-batch-068.json",
+      "index": 5,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -49576,6 +49618,86 @@
       },
       "tiers": {
         "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-lit-mockingbird-public-scene-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Public accounts and narrative tension",
+      "learningObjective": "Analyse how Scout’s narration, group dialogue and changing attention shape the public scene at the Radley gate.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "questionTypes": {
+        "essay": 3
+      },
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text list, p. 1",
+        "Harper Lee novel extracts, South African DBE February/March 2017 English FAL P2, pp. 5 and 7"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "waec-lit-mockingbird-private-scene-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African prose: To Kill a Mockingbird",
+      "subtopic": "Private conversation and moral responsibility",
+      "learningObjective": "Analyse how the private conversation frames Atticus’s choices as both professional and parental.",
+      "specificationId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "questionTypes": {
+        "essay": 3
+      },
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text list, p. 1",
+        "Harper Lee novel extracts, South African DBE February/March 2017 English FAL P2, pp. 5 and 7"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
+      "prescribedTextId": "waec-lit-2026-04",
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 1,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

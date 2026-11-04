@@ -355,3 +355,9 @@ the published Narrative Landscape Press excerpt of So the Path Does Not
 Die. The excerpt ends as Baramusu introduces the story of Musudugu.
 Whole-novel coverage, examination edition equivalence and current
 assessment details remain open.
+
+Batch 068 adds six original WAEC prose essays using chapter 6 and 9
+extracts from To Kill a Mockingbird. The South African DBE archive is
+used as a host for primary text. Edition equivalence, whole-novel coverage
+and the current WAEC marking scheme remain unverified. The official
+Redemption Road excerpt page timed out during retrieval.
