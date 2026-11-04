@@ -839,6 +839,20 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "NECO timetable confirms Commerce Papers II and III, essay and objective. Historical WAEC examiner materials support provisional topics. Official NECO objectives and option counts remain unverified."
+    },
+    {
+      "id": "neco-government-accountability-reference-2026",
+      "exam": "NECO",
+      "subject": "Government",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Government/Govt225nq1.html",
+        "https://www.waeconline.org.ng/e-learning/Government/Govt219mq2.html",
+        "https://waeconline.org.ng/e-learning/Government/Govt228jq1.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "NECO confirms Papers II and III, essay and objective. Historical WAEC examiner references support provisional topics. Scenarios are fictional and do not assert current Nigerian legal requirements. Official NECO objectives and option counts remain open."
     }
   ],
   "banks": [
@@ -2022,7 +2036,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "III": "objective",
         "II": "essay"
@@ -7229,6 +7243,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Commerce Papers II and III",
         "Historical WAEC Commerce examiner materials"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-government-accountability-1-v1",
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Government Papers II and III",
+        "Historical WAEC Government examiner materials"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-government-accountability-2-v1",
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Government Papers II and III",
+        "Historical WAEC Government examiner materials"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

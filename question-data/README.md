@@ -274,3 +274,8 @@ drafts on warehousing and retail outlets. The official timetable
 confirms paper formats. Historical WAEC examiner materials inform
 provisional topics. Official NECO topic objectives and option count
 remain unverified.
+
+Batch 054 opens NECO Government with six structured and four objective
+drafts on delegated legislation and the rule of law. The timetable supports
+paper formats. Historical WAEC examiner materials support provisional topics.
+Scenarios are fictional, and official NECO objectives remain unverified.

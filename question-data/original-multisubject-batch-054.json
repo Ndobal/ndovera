@@ -1,0 +1,384 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Government authority and accountability practice",
+  "questionCount": 10,
+  "note": "Original structured and four-option practice. Provisional topic mapping. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-001",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a fictional state, an Act lets a transport agency set the technical specifications for vehicle lights. The agency issues a rule requiring a particular lamp brightness and another rule setting market stall rents. Explain which rule fits the delegation and why.",
+      "answer": "The brightness rule fits the power over vehicle lights. The stall-rent rule concerns a different subject and exceeds the power granted by this Act.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the brightness rule as within the stated subject."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that setting stall rents is outside the stated grant of authority."
+        }
+      ],
+      "explanation": "The brightness rule fits the power over vehicle lights. The stall-rent rule concerns a different subject and exceeds the power granted by this Act."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-002",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A legislature wants drinking-water testing standards to keep pace with new testing methods. It proposes allowing a technical board to update the detailed standards. Explain one benefit and recommend one safeguard.",
+      "answer": "Specialists can update technical requirements without a new Act each time. Require the board to publish proposed rules and give reasons so that the legislature can scrutinise them.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connect specialist knowledge or speed of updates to the stated need."
+        },
+        {
+          "marks": 1,
+          "description": "Recommend a relevant accountability safeguard."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how the safeguard makes scrutiny possible."
+        }
+      ],
+      "explanation": "Specialists can update technical requirements without a new Act each time. Require the board to publish proposed rules and give reasons so that the legislature can scrutinise them."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-003",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A fictional Act authorises an agency to issue safety rules but requires publication before those rules take effect. An officer proposes enforcing a new rule that is still in an internal email. Apply the Act’s condition and state the agency’s next step.",
+      "answer": "The rule has not taken effect under the stated Act because it has not been published. The agency should publish it in the required way before enforcing it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Apply the stated publication condition."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the step needed before enforcement."
+        }
+      ],
+      "explanation": "The rule has not taken effect under the stated Act because it has not been published. The agency should publish it in the required way before enforcing it."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-004",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "What is the main difference between an enabling Act and a regulation made under it?",
+      "answer": "The Act grants authority, and the regulation exercises that authority within its limits.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The regulation grants the legislature its power to pass the Act.",
+        "The Act grants authority, and the regulation exercises that authority within its limits.",
+        "The regulation automatically replaces the Act.",
+        "The Act and the regulation must always be written by the same body."
+      ],
+      "correctOption": "B",
+      "explanation": "An enabling Act defines the scope of the delegated power. A regulation uses that power."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-005",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "An enabling Act allows a board to update forms but reserves changes to eligibility for the legislature. Which action falls within the board’s stated authority?",
+      "answer": "Adding a reference-number field to the form without changing who qualifies.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Adding a reference-number field to the form without changing who qualifies.",
+        "Raising the minimum age for eligibility.",
+        "Excluding first-time applicants from the scheme.",
+        "Creating a new income threshold for applicants."
+      ],
+      "correctOption": "A",
+      "explanation": "Changing a form field is within the delegated task. The other actions change eligibility."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-006",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a fictional district, two traders breach the same permit condition in identical circumstances. One is fined and the other is excused solely because she is the officer’s relative. Identify the principle at issue and explain how a review could address the problem.",
+      "answer": "Equal treatment under the rules is undermined. An independent reviewer can compare both decisions with the permit criteria and correct inconsistent treatment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify equal treatment or impartial administration."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how the family connection displaced the stated criteria."
+        },
+        {
+          "marks": 1,
+          "description": "Describe a review based on the same criteria and relevant evidence."
+        }
+      ],
+      "explanation": "Equal treatment under the rules is undermined. An independent reviewer can compare both decisions with the permit criteria and correct inconsistent treatment."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-007",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A local authority gives applicants written reasons when refusing permits. It also makes the officer who refused the permit the final reviewer of any complaint about that decision. Assess both features and suggest an improvement.",
+      "answer": "Written reasons let applicants identify mistakes or challenge the basis of refusal. Final review by the same officer lacks independence. Assign it to a separate officer or body with authority to reconsider.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain the accountability benefit of written reasons."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the weakness in the review arrangement."
+        },
+        {
+          "marks": 1,
+          "description": "Propose an independent review with meaningful power to reconsider."
+        }
+      ],
+      "explanation": "Written reasons let applicants identify mistakes or challenge the basis of refusal. Final review by the same officer lacks independence. Assign it to a separate officer or body with authority to reconsider."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-008",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A fictional government accepts that its courts can review agency decisions. An agency then ignores a court ruling that sets aside one of its decisions. Explain why the right to bring a case is insufficient on its own.",
+      "answer": "Access to review means little if officials ignore binding decisions. Compliance gives practical effect to the court’s ability to restrain unlawful action.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguish access to a court from implementation of its ruling."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how compliance makes review an effective check."
+        }
+      ],
+      "explanation": "Access to review means little if officials ignore binding decisions. Compliance gives practical effect to the court’s ability to restrain unlawful action."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-009",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A permit office may grant exceptions only where a published safety condition is satisfied. Which decision most clearly follows that rule?",
+      "answer": "Grant an exception after recording evidence that the applicant meets the safety condition.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Grant an exception because the applicant knows the director.",
+        "Grant an exception after recording evidence that the applicant meets the safety condition.",
+        "Refuse every exception even when the condition is met.",
+        "Grant an exception to the applicant who offers the highest payment."
+      ],
+      "correctOption": "B",
+      "explanation": "The decision uses the published condition and records relevant evidence."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-054-010",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which arrangement gives a person the strongest opportunity to challenge a disputed administrative decision?",
+      "answer": "Receive reasons and submit evidence to an independent reviewer with power to change the decision.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Receive reasons and submit evidence to an independent reviewer with power to change the decision.",
+        "Receive a receipt confirming a complaint that nobody is assigned to consider.",
+        "Submit a complaint only to the official whose conduct is disputed, with no further review.",
+        "Read general statistics about other complaints without access to the reasons for the decision."
+      ],
+      "correctOption": "A",
+      "explanation": "Reasons make a challenge specific, and independent review with corrective power can provide a remedy."
+    }
+  ]
+}
