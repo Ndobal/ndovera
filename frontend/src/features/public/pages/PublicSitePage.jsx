@@ -1881,7 +1881,7 @@ function PublicSitePageContent({ pageKey = 'home' }) {
     const nodes = Array.from(document.querySelectorAll('[data-reveal]'));
     if (!nodes.length) return undefined;
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (typeof window.IntersectionObserver !== 'function' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       nodes.forEach(node => node.classList.add('is-visible'));
       return undefined;
     }

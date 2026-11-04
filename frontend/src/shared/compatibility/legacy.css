@@ -1,0 +1,25 @@
+/* Old WebKit has flexbox but no CSS Grid. Keep forms and cards in document order.
+   Feature classes are set before the application or stylesheet loads. */
+.ndv-no-grid .grid:not(.hidden),
+.ndv-no-grid .inline-grid:not(.hidden) {
+  display: block;
+}
+.ndv-no-grid .grid > * + * {
+  margin-top: 1rem;
+}
+.ndv-no-grid .public-reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+/* Glass effects are optional: use opaque paired colours on engines without vars. */
+.ndv-no-css-vars .glass-card,
+.ndv-no-css-vars .frost-panel {
+  background: #ffffff;
+  color: #0f172a;
+}
+.ndv-no-css-vars.dark .glass-card,
+.ndv-no-css-vars.dark .frost-panel {
+  background: #0f172a;
+  color: #f1f5f9;
+}
