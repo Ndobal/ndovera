@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Further Mathematics binary operations practice",
+  "questionCount": 8,
+  "note": "Original structured and objective practice. NECO paper formats verified. Topic scope provisional from historical WAEC evidence. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Evaluation and closure",
+      "learningObjective": "Evaluate defined operations and determine whether the result remains in the stated set.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "id": "ndv-073-001",
+      "objectiveId": "neco-math-073-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "For real numbers define a ◇ b = 2a − b. Solve x ◇ (x ◇ 4) = 4, or explain why no solution exists.",
+      "answer": "Every real x is a solution.",
+      "explanation": "The inner value is 2x − 4. Substituting into the outer operation gives 2x − (2x − 4) = 4, independently of x.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Evaluate the inner operation."
+        },
+        {
+          "marks": 1,
+          "description": "Substitute and simplify the outer expression."
+        },
+        {
+          "marks": 1,
+          "description": "Conclude that every real x works."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Evaluation and closure",
+      "learningObjective": "Evaluate defined operations and determine whether the result remains in the stated set.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "id": "ndv-073-002",
+      "objectiveId": "neco-math-073-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A learner says the rule a ◇ b = (a + b)/2 defines a binary operation on the positive integers. Assess closure and state a larger familiar number set on which the same rule is closed.",
+      "answer": "The rule is not closed on the positive integers: 1 ◇ 2 = 3/2. It is closed on the positive rational numbers.",
+      "explanation": "An average of two positive rational numbers is positive and rational. The integer counterexample suffices to disprove closure there.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Give a correct counterexample."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that the output leaves the stated set."
+        },
+        {
+          "marks": 1,
+          "description": "Name and justify a larger closed set."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(1+2)/2",
+          "expected": "3/2",
+          "purpose": "Closure counterexample"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Evaluation and closure",
+      "learningObjective": "Evaluate defined operations and determine whether the result remains in the stated set.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "id": "ndv-073-003",
+      "objectiveId": "neco-math-073-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "On the real numbers let a ★ b = a² + b. What is 2 ★ (−5)?",
+      "answer": "−1",
+      "explanation": "Square the first input only and add the second. Thus 4 − 5 = −1.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "29",
+        "−1",
+        "9",
+        "−7"
+      ],
+      "correctOption": "B",
+      "verification": [
+        {
+          "expression": "2**2-5",
+          "expected": "-1",
+          "purpose": "Operation value"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Evaluation and closure",
+      "learningObjective": "Evaluate defined operations and determine whether the result remains in the stated set.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "id": "ndv-073-004",
+      "objectiveId": "neco-math-073-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Consider a rule that returns the larger of two inputs, or their common value if equal. On the set {2, 7, 11}, why is the rule closed?",
+      "answer": "Every output is one of the two inputs.",
+      "explanation": "The operation always selects a member of the input pair, so its output lies in the set.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "All outputs are odd.",
+        "Every output equals 11.",
+        "Every output is one of the two inputs.",
+        "The set has an odd number of members."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Identity and operation laws",
+      "learningObjective": "Test identities, inverses, commutativity and associativity for defined operations.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "id": "ndv-073-005",
+      "objectiveId": "neco-math-073-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "For real numbers define a ◇ b = a + b + ab. Show that 0 is a two-sided identity. Find all real a for which there is no b satisfying a ◇ b = 0.",
+      "answer": "0 is the identity. Only a = −1 has no such b.",
+      "explanation": "Putting 0 on either side gives back a. The equation a + (1 + a)b = 0 gives b = −a/(1 + a) when a differs from −1. At −1 the left side is always −1.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Verify both identity equations."
+        },
+        {
+          "marks": 1,
+          "description": "Rearrange the inverse equation."
+        },
+        {
+          "marks": 1,
+          "description": "Identify and explain the exceptional input."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Identity and operation laws",
+      "learningObjective": "Test identities, inverses, commutativity and associativity for defined operations.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "id": "ndv-073-006",
+      "objectiveId": "neco-math-073-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On the real numbers, define a △ b = a − b. A classmate says subtraction is associative because (a △ b) △ c and a △ (b △ c) both subtract b somewhere. Determine exactly when the expressions agree and use the result to judge the claim.",
+      "answer": "They agree exactly when c = 0. Subtraction is not associative.",
+      "explanation": "Expanding gives a − b − c and a − b + c. Equality requires −c = c, hence c = 0. Associativity requires agreement for all inputs.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Expand both expressions with the correct signs."
+        },
+        {
+          "marks": 1,
+          "description": "Derive the exact condition c = 0."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why agreement on some triples does not establish associativity."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Identity and operation laws",
+      "learningObjective": "Test identities, inverses, commutativity and associativity for defined operations.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "id": "ndv-073-007",
+      "objectiveId": "neco-math-073-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "For real inputs let a ★ b = a. Which statement about identity elements is true?",
+      "answer": "Every real number is a right identity, and there is no left identity.",
+      "explanation": "For any e, a ★ e = a. But e ★ a always equals e, which cannot equal every possible a.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Zero is the unique two-sided identity.",
+        "Every real number is a left identity, and there is no right identity.",
+        "There are no right or left identities.",
+        "Every real number is a right identity, and there is no left identity."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Identity and operation laws",
+      "learningObjective": "Test identities, inverses, commutativity and associativity for defined operations.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "id": "ndv-073-008",
+      "objectiveId": "neco-math-073-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "For real numbers let a ⊙ b = 3a + kb, where k is fixed. Which value of k makes a ⊙ b = b ⊙ a for every pair?",
+      "answer": "3",
+      "explanation": "The difference is (3 − k)(a − b). It vanishes for all pairs only when k = 3.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "3",
+        "0",
+        "−3",
+        "1"
+      ],
+      "correctOption": "A"
+    }
+  ]
+}

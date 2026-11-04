@@ -382,3 +382,8 @@ Batch 072 adds six hands-on NECO Computer Studies drafts requiring
 editable spreadsheet or database artifacts. The official 2026 timetable
 confirms Paper I is practical. Historical WAEC examiner reports inform
 provisional skills. Exact NECO practical specifications remain open.
+
+Batch 073 registers NECO Further Mathematics and adds eight original
+binary-operation questions. The 2026 internal timetable verifies the
+essay and objective formats. Historical WAEC examiner evidence supports
+provisional topic mapping. Official NECO topic objectives remain open.

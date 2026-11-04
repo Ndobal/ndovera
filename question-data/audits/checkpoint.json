@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_072_automated_validation_passed",
+  "phase": "batch_073_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-073.json",
+  "nextBatch": "original-multisubject-batch-074.json",
   "nextPriorities": [
-    "Verify the next NECO SSCE Internal subject and paper codes against the official timetable before extending another underrepresented bank. Obtain the official NECO Computer Studies Paper I objectives and specifications. Prescribed WAEC African drama still needs accessible primary text.",
+    "Verify another NECO SSCE Internal subject and its paper formats. Further Mathematics has initial provisional binary-operation coverage. Seek official NECO Further Mathematics and Computer Studies objectives, and accessible primary text for WAEC African drama.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-072.json",
-  "lastRemoteVerifiedCommit": "22c7b9e2314b701cfc4db277fb18c2407941536a",
+  "lastValidatedBatch": "original-multisubject-batch-073.json",
+  "lastRemoteVerifiedCommit": "c061d990cb084e39d6897ff0292245483857ae6a",
   "verifiedTotals": {
-    "raw": 3176,
-    "validDrafts": 1497,
+    "raw": 3184,
+    "validDrafts": 1505,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-072.json",
+  "lastPopulatedBatch": "original-multisubject-batch-073.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3176
+  "inventoryRaw": 3184
 }

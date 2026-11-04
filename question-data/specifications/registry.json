@@ -1080,6 +1080,19 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "The NECO timetable lists Computer Studies Papers I (2031, practical), II (2032, essay) and III (2033, objective). These are hands-on laboratory practice tasks. Historical WAEC examiner observations support provisional topic selection. Tool choice, submitted artifacts and marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
+    },
+    {
+      "id": "neco-further-binary-reference-2026",
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/Mathematics/maths221Nq12.html",
+        "https://www.waeconline.org.ng/e-learning/Mathematics/maths224nq11.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "The NECO timetable lists Further Mathematics Papers II (2052, essay) and III (2053, objective). Historical WAEC examiner observations support provisional topic selection. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
     }
   ],
   "banks": [
@@ -2304,6 +2317,18 @@
       "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "I": "practical",
+        "III": "objective",
+        "II": "essay"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
         "III": "objective",
         "II": "essay"
       }
@@ -8520,6 +8545,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Computer Studies Paper I",
         "Historical WAEC Computer Studies examiner observations, 2014 and 2022"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-math-073-1-v1",
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Evaluation and closure",
+      "learningObjective": "Evaluate defined operations and determine whether the result remains in the stated set.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Further Mathematics Papers II and III",
+        "Historical WAEC Further Mathematics examiner observations, 2010"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-math-073-2-v1",
+      "exam": "NECO",
+      "subject": "Further Mathematics",
+      "topic": "Binary operations",
+      "subtopic": "Identity and operation laws",
+      "learningObjective": "Test identities, inverses, commutativity and associativity for defined operations.",
+      "specificationId": "neco-further-binary-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Further Mathematics Papers II and III",
+        "Historical WAEC Further Mathematics examiner observations, 2010"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
