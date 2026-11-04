@@ -59,18 +59,18 @@ NCEE,Quantitative Reasoning,,,1000,5,0,0,1000,0,0,specification_unresolved,obser
 NCEE,Quantitative and Vocational Aptitude,,,1000,12,12,0,988,2,2,partial_objective_register,official_2026_component_with_provisional_primary_six_reference
 NCEE,Verbal Aptitude,,,1000,12,12,0,988,2,2,partial_objective_register,official_2026_component_with_provisional_primary_six_reference
 NCEE,Verbal Reasoning,,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Agricultural Science,,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Biology,,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Chemistry,,,1000,4,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Civic Education,,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Commerce,,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Economics,,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,English Language,,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Financial Accounting,,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Geography,,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Government,,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Mathematics,,,1000,14,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NECO,Physics,,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NECO,Agricultural Science,,,1000,3,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Biology,,,1000,2,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Chemistry,,,1000,4,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Civic Education,,,1000,2,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Commerce,,,1000,2,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Economics,,,1000,1,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,English Language,,,1000,1,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Financial Accounting,,,1000,1,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Geography,,,1000,1,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Government,,,1000,1,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Mathematics,,,1000,14,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
+NECO,Physics,,,1000,3,0,0,1000,0,0,specification_unresolved,official_2026_internal_paper_formats_verified_objectives_missing
 NERDC,Basic Science,JSS 2,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NERDC,Basic Science,Nursery,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NERDC,Basic Science,Primary,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved

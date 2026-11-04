@@ -240,3 +240,9 @@ Six cover fraction relationships and six cover produce packaging and
 farm records. The NECO notice confirms Paper II Part A. Older NERDC
 Primary Six references guide provisional topics. Full official task scope
 remains open, and the legacy Quantitative Reasoning row remains separate.
+
+The 2026 NECO SSCE Internal timetable now supports paper-format entries for
+twelve existing NECO subject banks. The registry distinguishes objective,
+essay, practical and oral components where applicable. Section 7 of the
+registration guidelines lists the separate syllabus. Topic objectives and
+option counts remain open, and this evidence is specific to Internal.

@@ -1947,7 +1947,13 @@
       "subject": "Agricultural Science",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "I": "practical",
+        "III": "objective",
+        "II": "essay"
+      },
       "raw": 3,
       "validDrafts": 0,
       "reviewed": 0,
@@ -1968,7 +1974,13 @@
       "subject": "Biology",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "I": "practical",
+        "III": "objective",
+        "II": "essay"
+      },
       "raw": 2,
       "validDrafts": 0,
       "reviewed": 0,
@@ -1989,7 +2001,13 @@
       "subject": "Chemistry",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "I": "practical",
+        "III": "objective",
+        "II": "essay"
+      },
       "raw": 4,
       "validDrafts": 0,
       "reviewed": 0,
@@ -2011,7 +2029,12 @@
       "subject": "Civic Education",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "III": "objective",
+        "II": "essay"
+      },
       "raw": 2,
       "validDrafts": 0,
       "reviewed": 0,
@@ -2032,7 +2055,12 @@
       "subject": "Commerce",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "III": "objective",
+        "II": "essay"
+      },
       "raw": 2,
       "validDrafts": 0,
       "reviewed": 0,
@@ -2053,7 +2081,12 @@
       "subject": "Economics",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "III": "objective",
+        "II": "essay"
+      },
       "raw": 1,
       "validDrafts": 0,
       "reviewed": 0,
@@ -2074,7 +2107,13 @@
       "subject": "English Language",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "III": "objective",
+        "II": "essay",
+        "IV": "test of orals"
+      },
       "raw": 1,
       "validDrafts": 0,
       "reviewed": 0,
@@ -2095,7 +2134,13 @@
       "subject": "Financial Accounting",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "III": "objective",
+        "II": "theory and practice"
+      },
+      "timetableSubject": "Accounting",
       "raw": 1,
       "validDrafts": 0,
       "reviewed": 0,
@@ -2116,7 +2161,13 @@
       "subject": "Geography",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "III": "objective",
+        "I": "practical and physical geography",
+        "II": "human and regional geography essay"
+      },
       "raw": 1,
       "validDrafts": 0,
       "reviewed": 0,
@@ -2137,7 +2188,12 @@
       "subject": "Government",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "III": "objective",
+        "II": "essay"
+      },
       "raw": 1,
       "validDrafts": 0,
       "reviewed": 0,
@@ -2158,7 +2214,13 @@
       "subject": "Mathematics",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "III": "objective",
+        "II": "essay"
+      },
+      "timetableSubject": "General Mathematics",
       "raw": 14,
       "validDrafts": 0,
       "reviewed": 0,
@@ -2181,7 +2243,13 @@
       "subject": "Physics",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "paperFormats": {
+        "I": "practical",
+        "III": "objective",
+        "II": "essay"
+      },
       "raw": 3,
       "validDrafts": 0,
       "reviewed": 0,
@@ -4060,8 +4128,8 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
@@ -46580,6 +46648,7 @@
     "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved.",
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
-    "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors."
+    "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",
+    "NECO SSCE Internal 2026 timetable verifies formats for twelve existing subject banks. The separate NECO syllabus remains unverified. The timetable neither supplies topic objectives nor establishes SSCE External scope."
   ]
 }
