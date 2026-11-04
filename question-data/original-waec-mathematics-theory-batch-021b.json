@@ -1,0 +1,388 @@
+{
+  "schemaVersion": 1,
+  "collection": "WAEC Mathematics structured depth batch 021b",
+  "questionCount": 10,
+  "note": "Draft original structured problems with worked answers and stepwise marks; independent academic review and schema integration pending.",
+  "questions": [
+    {
+      "id": "waec-maths-theory-0017",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Simultaneous equations",
+      "type": "structured",
+      "prompt": "A school sells adult tickets for ₦800 and student tickets for ₦500. A total of 120 tickets brings ₦78,000. (a) Form two simultaneous equations. (b) Find the number of each type sold.",
+      "answer": "Let a and s denote adult and student tickets. a+s=120 and 800a+500s=78000. Substituting s=120−a gives 300a=18000, hence a=60 and s=60.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Define variables and total-ticket equation",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Form revenue equation",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Solve for adult tickets",
+          "marks": 3
+        },
+        {
+          "step": 4,
+          "description": "Find student tickets and check",
+          "marks": 1
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0018",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Quadratic functions",
+      "type": "structured",
+      "prompt": "The height h metres of a ball t seconds after it is thrown is h=−5t²+20t+1. (a) Find the time at which the ball reaches maximum height. (b) Find the maximum height. (c) Find its height at t=3 s.",
+      "answer": "h=−5(t−2)²+21. Maximum occurs at t=2 s, and maximum height=21 m. At t=3, h=−45+60+1=16 m.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Complete square or differentiate correctly",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Find time of maximum",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Find maximum height",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Evaluate height at t=3",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0019",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Geometric progression",
+      "type": "structured",
+      "prompt": "A geometric progression has first term 3 and third term 27. Its common ratio is positive. (a) Find the ratio. (b) Find the fifth term. (c) Find the sum of the first five terms.",
+      "answer": "Third term ar²=27; 3r²=27 gives r²=9 and r=3. Fifth term=3×3⁴=243. S₅=3(3⁵−1)/(3−1)=363.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use third-term formula",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find positive ratio",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Find fifth term",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Calculate sum of five terms",
+          "marks": 3
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0020",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Trigonometry and bearings",
+      "type": "structured",
+      "prompt": "From a point P, a vertical tower has an angle of elevation of 30°. After walking 40 m directly towards the tower to Q, the angle is 60°. Assuming level ground, calculate (a) the distance from Q to the tower's foot and (b) the tower height. Give exact answers.",
+      "answer": "Let distance from Q to foot be x and height h. tan60°=h/x so h=x√3. tan30°=h/(x+40), hence x√3=(x+40)/√3. Therefore 3x=x+40, x=20 m, h=20√3 m.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Construct two tangent equations",
+          "marks": 4
+        },
+        {
+          "step": 2,
+          "description": "Solve distance x=20 m",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Find height 20√3 m",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0021",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Probability without replacement",
+      "type": "structured",
+      "prompt": "A box contains 5 red, 3 blue and 2 green counters. Two counters are drawn without replacement. (a) Find the probability both are red. (b) Find the probability that the two counters have different colours.",
+      "answer": "Total=10. P(both red)=(5/10)(4/9)=2/9. P(same colour)=[C(5,2)+C(3,2)+C(2,2)]/C(10,2)=(10+3+1)/45=14/45. P(different)=1−14/45=31/45.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Compute both-red probability",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Count same-colour pairs",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Use complement to find different colours",
+          "marks": 3
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0022",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Statistics",
+      "type": "structured",
+      "prompt": "The marks of 10 learners are 4, 5, 5, 6, 6, 6, 7, 8, 8, 10. Calculate (a) mean, (b) median, (c) mode and (d) range.",
+      "answer": "Sum=65, mean=65/10=6.5. Median is average of fifth and sixth observations, both 6, so 6. Mode=6 (three occurrences). Range=10−4=6.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Sum observations correctly",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate mean",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Find median",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Identify mode",
+          "marks": 2
+        },
+        {
+          "step": 5,
+          "description": "Calculate range",
+          "marks": 1
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0023",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Coordinate geometry",
+      "type": "structured",
+      "prompt": "Points A(−2,3) and B(4,−5) are endpoints of a line segment. (a) Find the gradient AB. (b) Find the midpoint. (c) Find the equation of the line through the midpoint perpendicular to AB.",
+      "answer": "Gradient AB=(−5−3)/(4−(−2))=−8/6=−4/3. Midpoint=((−2+4)/2,(3−5)/2)=(1,−1). Perpendicular gradient=3/4. Equation y+1=(3/4)(x−1), or 3x−4y−7=0.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find gradient −4/3",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Find midpoint (1,−1)",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Use perpendicular gradient 3/4",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Form correct equation",
+          "marks": 3
+        }
+      ],
+      "maxMarks": 10,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0024",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Mensuration",
+      "type": "structured",
+      "prompt": "A closed cylinder has radius 7 cm and height 10 cm. Using π=22/7, calculate (a) its total surface area and (b) its volume.",
+      "answer": "Total surface area=2πr(r+h)=2×(22/7)×7×17=748 cm². Volume=πr²h=(22/7)×49×10=1540 cm³.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State closed-cylinder area formula",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Compute total surface area",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "State volume formula",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Compute volume",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0025",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Financial mathematics",
+      "type": "structured",
+      "prompt": "A trader buys a generator for ₦120,000, spends ₦15,000 repairing it and sells it for ₦162,000. (a) Calculate total cost. (b) Find profit. (c) Calculate profit as a percentage of total cost.",
+      "answer": "Total cost=₦120,000+₦15,000=₦135,000. Profit=₦162,000−₦135,000=₦27,000. Profit percentage=(27000/135000)×100=20%.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find total cost",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find profit",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Calculate percentage using total cost",
+          "marks": 3
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0026",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Linear programming",
+      "type": "structured",
+      "prompt": "A workshop produces chairs x and tables y. Each chair requires 2 labour-hours and each table 4 labour-hours; at most 40 labour-hours are available. At most 12 items can be made. Profit is ₦3,000 per chair and ₦5,000 per table. (a) Form constraints. (b) Find the production plan that maximizes profit.",
+      "answer": "Constraints x≥0,y≥0,2x+4y≤40 (or x+2y≤20), x+y≤12. Feasible vertices (0,0),(12,0),(4,8),(0,10). Profit P=3000x+5000y: 0, ₦36,000, ₦52,000, ₦50,000 respectively. Max ₦52,000 at x=4,y=8.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Write both resource constraints",
+          "marks": 3
+        },
+        {
+          "step": 2,
+          "description": "Include non-negativity",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Find feasible vertices",
+          "marks": 3
+        },
+        {
+          "step": 4,
+          "description": "Evaluate objective and identify optimum",
+          "marks": 4
+        }
+      ],
+      "maxMarks": 11,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    }
+  ]
+}

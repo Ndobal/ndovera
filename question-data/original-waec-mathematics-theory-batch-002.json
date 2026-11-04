@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "collection": "Ndovera WAEC Mathematics Structured Practice — Batch 002",
+  "note": "6 original multistep WAEC structured-response questions. Draft pending academic review; schema not yet verified compatible with Ndovera app. No D1 import.",
+  "questionCount": 6,
+  "questions": [
+    {
+      "id": "waec-maths-theory-0011",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Matrices",
+      "type": "structured",
+      "prompt": "Given A=[[2,1],[5,3]], calculate det(A), find A⁻¹, and solve 2x+y=7 and 5x+3y=19 using the inverse matrix.",
+      "answer": "det(A)=1; A⁻¹=[[3,−1],[−5,2]]; x=2, y=3.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "det(A)=2×3−1×5=1."
+        },
+        {
+          "step": 2,
+          "description": "A⁻¹=(1/1)[[3,−1],[−5,2]]."
+        },
+        {
+          "step": 3,
+          "description": "[x,y]ᵀ=A⁻¹[7,19]ᵀ=[21−19,−35+38]ᵀ=[2,3]ᵀ."
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0012",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Coordinate geometry",
+      "type": "structured",
+      "prompt": "The points A(−1,2), B(5,4), and C(3,−2) form a triangle. Calculate the area of triangle ABC and the midpoint of AC.",
+      "answer": "Area=16 square units; midpoint of AC=(1,0).",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Vectors AB=(6,2), AC=(4,−4)."
+        },
+        {
+          "step": 2,
+          "description": "Area=½|6(−4)−2(4)|=½×32=16."
+        },
+        {
+          "step": 3,
+          "description": "Midpoint AC=((−1+3)/2,(2−2)/2)=(1,0)."
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0013",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Sequences and series",
+      "type": "structured",
+      "prompt": "The third and seventh terms of a geometric progression are 12 and 192 respectively. Given that the common ratio is positive, find the first term, common ratio and sum of the first six terms.",
+      "answer": "First term 3; common ratio 2; sum of first six terms 189.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "ar²=12 and ar⁶=192; divide to obtain r⁴=16."
+        },
+        {
+          "step": 2,
+          "description": "Since r>0, r=2."
+        },
+        {
+          "step": 3,
+          "description": "a=12/2²=3."
+        },
+        {
+          "step": 4,
+          "description": "S₆=a(r⁶−1)/(r−1)=3(64−1)=189."
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0014",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Statistics",
+      "type": "structured",
+      "prompt": "The frequency table has scores 1, 2, 3, 4 with frequencies 2, 3, 4, 1. Find the mean, median, mode and population variance.",
+      "answer": "Mean=2.4; median=2.5; mode=3; population variance=0.84.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Total frequency=10; weighted sum=2+6+12+4=24; mean=2.4."
+        },
+        {
+          "step": 2,
+          "description": "Ordered observations have fifth score 2 and sixth score 3, so median=2.5."
+        },
+        {
+          "step": 3,
+          "description": "Score 3 has highest frequency 4, so mode=3."
+        },
+        {
+          "step": 4,
+          "description": "Weighted squared deviations: 2(1−2.4)²+3(2−2.4)²+4(3−2.4)²+1(4−2.4)²=8.4; variance=8.4/10=0.84."
+        }
+      ],
+      "maxMarks": 10,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0015",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Trigonometry",
+      "type": "structured",
+      "prompt": "From a point 30 m from the base of a vertical tower, the angle of elevation of its top is 30°. Find the height of the tower in exact form. If the observer moves 20 m closer, find the new angle of elevation to the nearest degree.",
+      "answer": "Height=10√3 m; new angle≈60°.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "tan30°=h/30, so h=30/√3=10√3 m."
+        },
+        {
+          "step": 2,
+          "description": "New horizontal distance=30−20=10 m."
+        },
+        {
+          "step": 3,
+          "description": "tan(new angle)=10√3/10=√3, giving 60°."
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0016",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Probability",
+      "type": "structured",
+      "prompt": "A bag contains 5 red, 3 blue and 2 green counters. Two are drawn without replacement. Calculate (i) the probability of two different colours and (ii) the probability of at least one green.",
+      "answer": "Different colours=31/45; at least one green=17/45.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Total unordered pairs=C(10,2)=45."
+        },
+        {
+          "step": 2,
+          "description": "Same-colour pairs=C(5,2)+C(3,2)+C(2,2)=10+3+1=14; different=45−14=31, so P=31/45."
+        },
+        {
+          "step": 3,
+          "description": "No green pairs=C(8,2)=28; at least one green=45−28=17, so P=17/45."
+        }
+      ],
+      "maxMarks": 9,
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    }
+  ]
+}

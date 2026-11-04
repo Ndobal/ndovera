@@ -1,0 +1,388 @@
+{
+  "schemaVersion": 1,
+  "collection": "WAEC Mathematics theory batch 021c",
+  "questionCount": 10,
+  "note": "Original worked theory problems. Draft: pending independent academic review and integration.",
+  "questions": [
+    {
+      "id": "waec-maths-theory-0027",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Algebraic fractions",
+      "type": "structured",
+      "prompt": "Solve (x+1)/(x−2)=3/2, stating any excluded value.",
+      "answer": "2(x+1)=3(x−2), so 2x+2=3x−6 and x=8. The excluded value is x=2.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State x≠2",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Cross-multiply correctly",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Solve x=8",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 5,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0028",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Compound interest",
+      "type": "structured",
+      "prompt": "₦80,000 is invested at 5% compound interest annually for two years. Find the amount and interest earned.",
+      "answer": "A=80000(1.05)²=₦88,200. Interest=₦88,200−₦80,000=₦8,200.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State compound amount formula",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Evaluate amount",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Deduct principal to find interest",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 6,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0029",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Indices and logarithms",
+      "type": "structured",
+      "prompt": "Solve log₂(x−1)+log₂(x+1)=3.",
+      "answer": "Domain x>1. Combine logs: log₂(x²−1)=3. Hence x²−1=8, x²=9, and x=3 (reject −3).",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify domain x>1",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Combine logarithms",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Solve x²=9",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Reject invalid root",
+          "marks": 1
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0030",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Sequences",
+      "type": "structured",
+      "prompt": "The sum of the first n terms of an arithmetic progression is Sₙ=2n²+3n. Find its first term, common difference and twentieth term.",
+      "answer": "First term S₁=5. nth term Sₙ−Sₙ₋₁=4n+1, hence common difference 4 and twentieth term 81.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Compute S₁=5",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Derive nth term 4n+1",
+          "marks": 3
+        },
+        {
+          "step": 3,
+          "description": "Find d=4",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Find twentieth term 81",
+          "marks": 1
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0031",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Mensuration",
+      "type": "structured",
+      "prompt": "A solid hemisphere has radius 6 cm. Calculate its volume in terms of π and its curved surface area.",
+      "answer": "Hemisphere volume=(2/3)πr³=(2/3)π×216=144π cm³. Curved area=2πr²=72π cm².",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State hemisphere volume formula",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Calculate volume 144π",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State curved area formula",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Calculate curved area 72π",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0032",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Coordinate geometry",
+      "type": "structured",
+      "prompt": "Find the equation of the circle with centre (2,−3) passing through (5,1).",
+      "answer": "Radius squared=(5−2)²+(1+3)²=9+16=25. Equation (x−2)²+(y+3)²=25.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Compute coordinate differences",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find r²=25",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Form circle equation",
+          "marks": 3
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0033",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Probability",
+      "type": "structured",
+      "prompt": "A fair coin is tossed three times. Calculate the probability of exactly two heads and the probability of at least one tail.",
+      "answer": "Eight equally likely outcomes. Exactly two heads: HHT, HTH, THH, so 3/8. At least one tail=1−P(HHH)=1−1/8=7/8.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify 8 equally likely outcomes",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Count three two-head outcomes",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Calculate 3/8",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Use complement for at least one tail",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 7,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0034",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Statistics",
+      "type": "structured",
+      "prompt": "The values 2, 4, 6, 8 have frequencies 1, 3, 4, 2 respectively. Find the mean, median and mode.",
+      "answer": "Total frequency=10; weighted sum=2+12+24+16=54; mean=5.4. Ordered positions 5 and 6 both equal 6, so median=6. Mode=6 (highest frequency 4).",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Find total frequency 10",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Find weighted sum 54",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Calculate mean 5.4",
+          "marks": 2
+        },
+        {
+          "step": 4,
+          "description": "Find median 6",
+          "marks": 2
+        },
+        {
+          "step": 5,
+          "description": "Find mode 6",
+          "marks": 1
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0035",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Trigonometry",
+      "type": "structured",
+      "prompt": "From a point 30 m from the foot of a vertical mast, the angle of elevation of the top is 45°. A flagpole 5 m high is mounted on the mast. Find the mast height and the height of the top of the flagpole above the ground.",
+      "answer": "tan45°=h/30=1, so mast height h=30 m. Top of flagpole is 30+5=35 m above ground.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use tangent ratio correctly",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Find mast height 30 m",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Add flagpole height",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 6,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    },
+    {
+      "id": "waec-maths-theory-0036",
+      "exam": "WAEC",
+      "subject": "Mathematics",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "SS 1–3",
+      "topic": "Linear inequalities",
+      "type": "structured",
+      "prompt": "A trader can buy at most 15 bags of rice and beans altogether. A bag of rice costs ₦40,000 and beans ₦25,000. The budget is ₦450,000. Form inequalities for numbers x of rice bags and y of bean bags, and determine whether buying 6 bags of rice and 8 bags of beans is feasible.",
+      "answer": "Constraints x≥0,y≥0, x+y≤15, 40000x+25000y≤450000. For x=6,y=8, x+y=14≤15 and cost=₦240,000+₦200,000=₦440,000≤₦450,000. Thus feasible.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Form quantity constraint",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Form budget constraint",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "State nonnegativity",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Check proposed quantity",
+          "marks": 1
+        },
+        {
+          "step": 5,
+          "description": "Check budget and conclude",
+          "marks": 2
+        }
+      ],
+      "maxMarks": 8,
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content"
+    }
+  ]
+}
