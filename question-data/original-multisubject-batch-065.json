@@ -1,0 +1,752 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Literature in English prescribed non-African poetry theory practice",
+  "questionCount": 12,
+  "note": "Original essay prompts with practice marking guides. Use the versions in the official WAEC 2026–2030 PDF. Chaucer questions refer only to the prescribed shortened selection. Alternate well-supported interpretations are acceptable. Academic review pending.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Nun’s Priest’s Tale (shortened)",
+      "subtopic": "Social contrast and comic elevation",
+      "learningObjective": "Analyse how the prescribed opening uses domestic detail, exaggerated description and human conventions to establish tone.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-17",
+      "id": "ndv-065-001",
+      "objectiveId": "waec-lit-poetry-17-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Nun’s Priest’s Tale (shortened) by Geoffrey Chaucer, explain how the account of the widow’s meals and health complicates an impression of hardship.",
+      "answer": "The meals are plain and the household has limited means. Yet the narrator credits temperate eating and physical labour with good health and contrasts her activity with ailments associated with rich living. Material scarcity is real, but the portrait also values her resourcefulness.",
+      "explanation": "The passage juxtaposes lack of luxury with practical advantages. The response should develop both parts of that contrast.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the household’s limited means."
+        },
+        {
+          "marks": 3,
+          "description": "Explain one detail of the widow’s diet."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the references to health contrast her with wealthier people."
+        },
+        {
+          "marks": 2,
+          "description": "Draw a balanced conclusion about the portrayal."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Nun’s Priest’s Tale (shortened)",
+        "author": "Geoffrey Chaucer"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 7–8"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Nun’s Priest’s Tale (shortened)",
+      "subtopic": "Social contrast and comic elevation",
+      "learningObjective": "Analyse how the prescribed opening uses domestic detail, exaggerated description and human conventions to establish tone.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-17",
+      "id": "ndv-065-002",
+      "objectiveId": "waec-lit-poetry-17-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Nun’s Priest’s Tale (shortened) by Geoffrey Chaucer, show how the description of Chanticleer’s crowing turns an ordinary farmyard sound into an extraordinary accomplishment. Use two different comparisons from the selection.",
+      "answer": "A church organ provides a comparison for the quality of the crow, while clocks and abbey bells provide a standard for its timing. By making the rooster outperform familiar instruments of music and timekeeping, the narrator comically enlarges his importance.",
+      "explanation": "The comparisons praise different qualities. Distinguish the sound of the crow from the regularity of its delivery.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the bird’s ordinary activity."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the comparison with the church organ."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the timekeeping comparisons."
+        },
+        {
+          "marks": 2,
+          "description": "Link the exaggeration to the comic portrait."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Nun’s Priest’s Tale (shortened)",
+        "author": "Geoffrey Chaucer"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 7–8"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Nun’s Priest’s Tale (shortened)",
+      "subtopic": "Social contrast and comic elevation",
+      "learningObjective": "Analyse how the prescribed opening uses domestic detail, exaggerated description and human conventions to establish tone.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-17",
+      "id": "ndv-065-003",
+      "objectiveId": "waec-lit-poetry-17-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Nun’s Priest’s Tale (shortened) by Geoffrey Chaucer, assess whether the portrait of Pertelote belongs more to a farmyard description or to a courtly romance. Explain how the excerpt can sustain both readings.",
+      "answer": "Pertelote is one of the hens and is initially distinguished by her colouring. Yet she is given a title and praised for courtesy and bearing. Chanticleer’s attachment and their shared singing resemble the behaviour of lovers. The humour comes from applying elevated social conventions to recognisably domestic birds.",
+      "explanation": "The courtly language works because the farmyard setting remains visible. Credit a different judgement if it explains the interaction of the two registers.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Give a judgement that addresses both readings."
+        },
+        {
+          "marks": 3,
+          "description": "Explain a detail that grounds Pertelote in the farmyard."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse two details of courtly portrayal or conduct."
+        },
+        {
+          "marks": 2,
+          "description": "Explain how the contrast shapes tone."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Nun’s Priest’s Tale (shortened)",
+        "author": "Geoffrey Chaucer"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 7–8"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Digging",
+      "subtopic": "Memory, skilled labour and artistic inheritance",
+      "learningObjective": "Analyse how sensory memory and the changing significance of tools connect the speaker’s writing to family labour.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-18",
+      "id": "ndv-065-004",
+      "objectiveId": "waec-lit-poetry-18-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Digging by Seamus Heaney, explain how the movement from the window to the potato field changes the way the reader sees the father at work.",
+      "answer": "The speaker first hears the spade and looks out at his father. The bending figure carries his attention back twenty years to the potato drills. Details of how the father uses his boot and knee and how the potatoes feel give the remembered labour precision and intimacy.",
+      "explanation": "The transition uses the present posture to connect two moments. The memory develops the father as a skilled worker and the speaker as a participant in the harvest.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the present sight or sound that starts the transition."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the father’s posture links present and remembered scenes."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret a physical detail of work or harvesting in the memory."
+        },
+        {
+          "marks": 2,
+          "description": "Show what the change in time adds to the portrait."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Digging",
+        "author": "Seamus Heaney"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 9"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Digging",
+      "subtopic": "Memory, skilled labour and artistic inheritance",
+      "learningObjective": "Analyse how sensory memory and the changing significance of tools connect the speaker’s writing to family labour.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-18",
+      "id": "ndv-065-005",
+      "objectiveId": "waec-lit-poetry-18-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Digging by Seamus Heaney, examine why the brief incident of bringing milk to the grandfather matters to the portrait of him as a worker.",
+      "answer": "The child interrupts the work with a bottle of milk. The grandfather pauses just long enough to drink and then resumes cutting turf. His prompt return and the description of his precise, repeated movements give concrete support to the speaker’s admiration of his productivity.",
+      "explanation": "An ordinary act of care provides the setting for an observation of concentration and technique. It gives the praise more substance than a record of speed alone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the reason for the pause."
+        },
+        {
+          "marks": 3,
+          "description": "Explain what the prompt return suggests about concentration."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse a detail of the turf-cutting technique."
+        },
+        {
+          "marks": 2,
+          "description": "Relate the remembered encounter to the speaker’s admiration."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Digging",
+        "author": "Seamus Heaney"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 9"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Digging",
+      "subtopic": "Memory, skilled labour and artistic inheritance",
+      "learningObjective": "Analyse how sensory memory and the changing significance of tools connect the speaker’s writing to family labour.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-18",
+      "id": "ndv-065-006",
+      "objectiveId": "waec-lit-poetry-18-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Digging by Seamus Heaney, judge whether the closing return to the pen presents a break with family tradition or a way to continue it. Account for how the tool’s significance changes from the opening.",
+      "answer": "At the opening the pen rests in the speaker’s hand and is compared to a weapon, suggesting potential force. He later acknowledges that he has no spade to follow the older men. By making the pen the instrument of his own digging, he changes the work while keeping an idea of careful, sustained effort.",
+      "explanation": "The returning image places a different claim on the same object. An answer can stress continuity or departure if it accounts for both the refusal of literal imitation and the closing metaphor.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "State a defensible judgement on continuity and difference."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the opening image of the pen."
+        },
+        {
+          "marks": 3,
+          "description": "Use the speaker’s acknowledgement about the spade as evidence."
+        },
+        {
+          "marks": 2,
+          "description": "Interpret the final digging metaphor."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Digging",
+        "author": "Seamus Heaney"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 9"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Still I Rise",
+      "subtopic": "Defiant address, imagery and historical memory",
+      "learningObjective": "Analyse how direct address and image sequences transform imposed humiliation into collective affirmation.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-19",
+      "id": "ndv-065-007",
+      "objectiveId": "waec-lit-poetry-19-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Still I Rise by Maya Angelou, explain how the speaker’s questions about the listener’s discomfort reverse the balance of power in the address.",
+      "answer": "The questions make the listener’s reaction an object of scrutiny. The speaker treats her own confident movement and laughter as natural while asking why the other person finds them troubling. The listener is placed on the defensive, and the speaker controls the terms of the encounter.",
+      "explanation": "Rhetorical questions are doing more than seeking information. They expose an expectation of submissiveness by drawing attention to the listener’s unease.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the target of the questions."
+        },
+        {
+          "marks": 3,
+          "description": "Discuss a specific kind of conduct that provokes the listener."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how questioning shifts scrutiny onto the listener."
+        },
+        {
+          "marks": 2,
+          "description": "Connect the shift to the speaker’s defiance."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Still I Rise",
+        "author": "Maya Angelou"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 9–10"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Still I Rise",
+      "subtopic": "Defiant address, imagery and historical memory",
+      "learningObjective": "Analyse how direct address and image sequences transform imposed humiliation into collective affirmation.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-19",
+      "id": "ndv-065-008",
+      "objectiveId": "waec-lit-poetry-19-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Still I Rise by Maya Angelou, compare one image of natural movement with one image of imagined wealth. How do these two kinds of image support different aspects of confidence?",
+      "answer": "The regular movement of tides suggests a force that will recur regardless of hostility. Imagining oil production in a private room instead makes the speaker’s bearing seem boldly prosperous and self-assured. One image suggests inevitability, while the other dramatises how confidence appears in everyday conduct.",
+      "explanation": "The natural and wealth images do different work. Credit other examples when the response explains their particular effects.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify an accurate natural image."
+        },
+        {
+          "marks": 3,
+          "description": "Explain what its movement or recurrence suggests."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the effect of an accurate wealth image."
+        },
+        {
+          "marks": 2,
+          "description": "Compare the kinds of confidence conveyed."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Still I Rise",
+        "author": "Maya Angelou"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 9–10"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Still I Rise",
+      "subtopic": "Defiant address, imagery and historical memory",
+      "learningObjective": "Analyse how direct address and image sequences transform imposed humiliation into collective affirmation.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-19",
+      "id": "ndv-065-009",
+      "objectiveId": "waec-lit-poetry-19-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Still I Rise by Maya Angelou, assess whether the closing references to ancestors and slavery change the scale of the poem’s affirmation. Relate these references to the earlier confrontation with the listener.",
+      "answer": "The early address presents a speaker resisting someone who would demean her or distort her history. The ending identifies the inherited suffering and also the gifts of ancestors. Her survival and confidence therefore carry collective memory and aspirations in addition to individual resistance.",
+      "explanation": "The first-person voice remains, but its historical connections become explicit. The ending lets the audience reread the earlier defiance in a wider context.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "State a judgement about the change in scale."
+        },
+        {
+          "marks": 3,
+          "description": "Explain an example of confrontation from earlier in the poem."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the significance of ancestors and slavery in the ending."
+        },
+        {
+          "marks": 2,
+          "description": "Connect personal affirmation with historical memory."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Still I Rise",
+        "author": "Maya Angelou"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 9–10"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Telephone Call",
+      "subtopic": "Dialogue, credibility and reversal",
+      "learningObjective": "Explain how dialogue and shifts in belief produce satire about the manipulation of excitement.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-20",
+      "id": "ndv-065-010",
+      "objectiveId": "waec-lit-poetry-20-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Telephone Call by Fleur Adcock, explain how the callers steer the recipient into describing physical and emotional reactions before the claim can be checked.",
+      "answer": "The callers begin by checking whether the recipient is seated and quickly supply a huge figure. They ask how it feels and encourage further description, even making time for tears. This keeps the conversation focused on performing excitement before the recipient asks about the ticket.",
+      "explanation": "The order of exchanges matters. The callers repeatedly seek an emotional account, while verification comes later from the recipient.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify how the callers prepare the announcement."
+        },
+        {
+          "marks": 3,
+          "description": "Discuss two ways they solicit or prolong the reaction."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the later question about the ticket changes the exchange."
+        },
+        {
+          "marks": 2,
+          "description": "Connect the order of events to the callers’ control."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Telephone Call",
+        "author": "Fleur Adcock"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 11–12"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Telephone Call",
+      "subtopic": "Dialogue, credibility and reversal",
+      "learningObjective": "Explain how dialogue and shifts in belief produce satire about the manipulation of excitement.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-20",
+      "id": "ndv-065-011",
+      "objectiveId": "waec-lit-poetry-20-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Telephone Call by Fleur Adcock, examine how the explanation about old lottery records deals with the recipient’s objection. What makes the answer sound credible, and what remains unsupported?",
+      "answer": "The recipient doubts the claim because of the long gap since buying a ticket. The callers present that gap as part of a system that supposedly purchases old records and uses a computer to select names. Technical language and procedural detail make the story sound organised, but the callers offer no independent evidence that an eligible ticket or a payable prize exists.",
+      "explanation": "The answer supplies a plausible-sounding mechanism in place of proof. Distinguish what the callers describe from what the poem verifies.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the objection about the old ticket purchase."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the procedure the callers claim to use."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse why a feature of the explanation sounds authoritative."
+        },
+        {
+          "marks": 2,
+          "description": "Identify a material claim that remains unverified."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Telephone Call",
+        "author": "Fleur Adcock"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 11–12"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Telephone Call",
+      "subtopic": "Dialogue, credibility and reversal",
+      "learningObjective": "Explain how dialogue and shifts in belief produce satire about the manipulation of excitement.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-20",
+      "id": "ndv-065-012",
+      "objectiveId": "waec-lit-poetry-20-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Telephone Call by Fleur Adcock, judge whether the callers’ final definition of the prize is consistent with their opening presentation. Support your judgement with the recipient’s expectation of a cheque and the way the conversation ends.",
+      "answer": "The opening explicitly encourages the recipient to imagine what to do with a huge sum, making a cheque a reasonable expectation. The callers later redefine the induced excitement as the reward. Their abrupt sign-off leaves the recipient without a chance to challenge the switch, which makes the congratulations sound hollow.",
+      "explanation": "The reversal depends on a change from monetary expectation to an experience the callers themselves manufactured. An answer should explain how the ending affects the fairness of that switch.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Give a judgement on consistency."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse how the opening creates a financial expectation."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the redefinition of the prize."
+        },
+        {
+          "marks": 2,
+          "description": "Discuss the effect of the sign-off and dead line."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Telephone Call",
+        "author": "Fleur Adcock"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 11–12"
+    }
+  ]
+}

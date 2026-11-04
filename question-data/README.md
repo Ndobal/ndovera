@@ -338,3 +338,9 @@ official 2026–2030 prescribed-text PDF supply textual evidence. The
 practice rubrics draw on historical examiner guidance for text-based
 responses. No verses are reproduced. Commercial edition equivalence and
 the full current assessment scheme remain open.
+
+Batch 065 adds WAEC theory drafts for four more prescribed works.
+The Chaucer questions use only the opening excerpt printed on pages
+7–8 of WAEC's 2026–2030 PDF. Digging, Still I Rise and The Telephone Call
+use the versions in the same PDF. Objectives and mark allocations are
+for practice, with academic review and full scheme verification pending.

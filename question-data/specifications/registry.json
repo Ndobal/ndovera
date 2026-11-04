@@ -7882,6 +7882,114 @@
       ],
       "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
       "prescribedTextId": "waec-lit-2026-21"
+    },
+    {
+      "id": "waec-lit-poetry-17-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Nun’s Priest’s Tale (shortened)",
+      "subtopic": "Social contrast and comic elevation",
+      "learningObjective": "Analyse how the prescribed opening uses domestic detail, exaggerated description and human conventions to establish tone.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, pp. 7–8",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-17"
+    },
+    {
+      "id": "waec-lit-poetry-18-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Digging",
+      "subtopic": "Memory, skilled labour and artistic inheritance",
+      "learningObjective": "Analyse how sensory memory and the changing significance of tools connect the speaker’s writing to family labour.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, p. 9",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-18"
+    },
+    {
+      "id": "waec-lit-poetry-19-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Still I Rise",
+      "subtopic": "Defiant address, imagery and historical memory",
+      "learningObjective": "Analyse how direct address and image sequences transform imposed humiliation into collective affirmation.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, pp. 9–10",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-19"
+    },
+    {
+      "id": "waec-lit-poetry-20-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Telephone Call",
+      "subtopic": "Dialogue, credibility and reversal",
+      "learningObjective": "Explain how dialogue and shifts in belief produce satire about the manipulation of excitement.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, pp. 11–12",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-20"
     }
   ],
   "scopeGaps": [
