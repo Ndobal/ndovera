@@ -162,7 +162,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Insurance | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Islamic Religious Knowledge (IRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
-| WAEC | Literature in English | 1000 | 125 | 125 | 0 | 875 | partial_objective_register |
+| WAEC | Literature in English | 1000 | 133 | 133 | 0 | 867 | partial_objective_register |
 | WAEC | Livestock Farming | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Marketing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Mathematics | 1000 | 769 | 0 | 0 | 1000 | specification_unresolved |
@@ -187,9 +187,9 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
-| WAEC | 1274 | 475 | 0 | 42000 | 41525 |
+| WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3140, "validDrafts": 1461, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3148, "validDrafts": 1469, "reviewed": 0, "registeredBanks": 165, "target": 147000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

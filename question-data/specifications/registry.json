@@ -1023,6 +1023,24 @@
         2030
       ],
       "note": "WAEC list p. 1 confirms the prescribed work. Primary evidence is confined to the novel extracts from chapters 6 and 9 in the South African DBE February/March 2017 English FAL P2, pp. 5 and 7. DBE is used solely as a host for the novel extracts. Edition and whole-novel coverage are unverified. No excerpts or assessment questions are reproduced."
+    },
+    {
+      "id": "waec-literature-inspector-drama-extracts-2026-2030",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "kind": "official_prescription_with_primary_text_extracts",
+      "source": "https://waecnigeria.org/sites/default/files/2023-06/LITERATURE-IN-ENG%202026-2030.pdf",
+      "contentReference": "https://qualifications.pearson.com/content/dam/pdf/GCSE/Drama/2016/Exam-materials/1dr0-3a-que-20230516.pdf",
+      "additionalContentReference": "https://qualifications.pearson.com/content/dam/pdf/GCSE/Drama/2016/Specification%20and%20sample%20assessments/SAMs_GCSE_Drama_2016_Sep_%285%29.pdf",
+      "retrievedOn": "2026-11-04",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "note": "WAEC list p. 1 confirms prescription. Pearson Edexcel documents host primary-text extracts used as evidence only. Neither Pearson questions nor dialogue are reproduced. Full play, edition equivalence and current WAEC assessment details remain unverified."
     }
   ],
   "banks": [
@@ -8268,6 +8286,60 @@
       ],
       "contentSourceId": "waec-literature-mockingbird-prose-excerpt-2026-2030",
       "prescribedTextId": "waec-lit-2026-04"
+    },
+    {
+      "id": "waec-lit-inspector-inquiry-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Control of evidence and competing accounts of responsibility",
+      "learningObjective": "Analyse how stage action and exchanges in Act One establish the Inspector’s method and challenge Birling’s assumptions.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text list, p. 1",
+        "Priestley play extracts hosted by Pearson Edexcel, May 2023 Drama Paper 3A and Sample Assessment Materials Issue 5"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08"
+    },
+    {
+      "id": "waec-lit-inspector-disclosure-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Dramatic dialogue and family responses",
+      "learningObjective": "Analyse how changes in conversational control, emotional register and family roles shape the disclosure about Gerald.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text list, p. 1",
+        "Priestley play extracts hosted by Pearson Edexcel, May 2023 Drama Paper 3A and Sample Assessment Materials Issue 5"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08"
     }
   ],
   "scopeGaps": [

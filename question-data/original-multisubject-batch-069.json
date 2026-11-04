@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Literature in English non-African drama theory practice",
+  "questionCount": 8,
+  "note": "Original essay practice limited to the two linked play extracts. Practice marking guides credit alternate supported readings. Academic review pending.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Control of evidence and competing accounts of responsibility",
+      "learningObjective": "Analyse how stage action and exchanges in Act One establish the Inspector’s method and challenge Birling’s assumptions.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08",
+      "id": "ndv-069-001",
+      "objectiveId": "waec-lit-inspector-inquiry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "How does the dispute about who may see the photograph establish the Inspector’s control of information? Consider the reactions of Gerald, Eric and Birling.",
+      "answer": "Gerald challenges being excluded and Eric discovers that the same restriction applies to him. Birling initially supports them. The Inspector insists on taking one person and one line of inquiry at a time. The object therefore helps him direct the order of disclosures even when several people want access at once.",
+      "explanation": "Track the challenge, the temporary alliance and the Inspector’s procedural answer. Explain what selective access does for the scene.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify what access is disputed."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the responses of Gerald and Eric."
+        },
+        {
+          "marks": 3,
+          "description": "Explain Birling’s initial alignment and the Inspector’s reply."
+        },
+        {
+          "marks": 2,
+          "description": "Link restricted access to the order of disclosure."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "An Inspector Calls",
+        "author": "J. B. Priestley"
+      },
+      "textReference": "Pearson Edexcel primary-text extract: May 2023 Drama Paper 3A, Act One extract, p. 10"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Control of evidence and competing accounts of responsibility",
+      "learningObjective": "Analyse how stage action and exchanges in Act One establish the Inspector’s method and challenge Birling’s assumptions.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08",
+      "id": "ndv-069-002",
+      "objectiveId": "waec-lit-inspector-inquiry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Explain how the shift from Eric’s port to the Inspector’s silent attention redirects the scene. What can the audience notice before Birling notices it?",
+      "answer": "Birling turns to reprimand Eric, briefly acting as the head of the household. The stage direction shows the Inspector watching Birling before Birling becomes aware of it. The audience can anticipate a return to the inquiry while Birling is still occupied with Eric. The Inspector then asks about Eva Smith.",
+      "explanation": "The sequence uses a visible action to shift attention before the next question is spoken.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Explain what Birling does about the port."
+        },
+        {
+          "marks": 3,
+          "description": "Identify the difference between what the audience and Birling can notice."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the Inspector returns to the inquiry."
+        },
+        {
+          "marks": 2,
+          "description": "Connect the shift to the scene’s changing focus."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "An Inspector Calls",
+        "author": "J. B. Priestley"
+      },
+      "textReference": "Pearson Edexcel primary-text extract: May 2023 Drama Paper 3A, Act One extract, p. 10"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Control of evidence and competing accounts of responsibility",
+      "learningObjective": "Analyse how stage action and exchanges in Act One establish the Inspector’s method and challenge Birling’s assumptions.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08",
+      "id": "ndv-069-003",
+      "objectiveId": "waec-lit-inspector-inquiry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Explain how Birling’s introduction of Gerald and the Inspector’s response give different meanings to the same engagement.",
+      "answer": "Birling supplies Gerald’s family and business connections, then mentions the engagement as part of the social occasion. The Inspector treats Gerald’s impending marriage to Sheila as a reason for him to remain. An introduction that signals standing and hospitality to Birling becomes relevant to the inquiry.",
+      "explanation": "Use the difference between the speakers’ purposes to explain why Gerald’s surprise matters.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the details Birling volunteers."
+        },
+        {
+          "marks": 3,
+          "description": "Explain what the introduction conveys in the household setting."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the Inspector uses the engagement."
+        },
+        {
+          "marks": 2,
+          "description": "Interpret the effect on Gerald or the audience."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "An Inspector Calls",
+        "author": "J. B. Priestley"
+      },
+      "textReference": "Pearson Edexcel primary-text extract: May 2023 Drama Paper 3A, Act One extract, pp. 10–11"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Control of evidence and competing accounts of responsibility",
+      "learningObjective": "Analyse how stage action and exchanges in Act One establish the Inspector’s method and challenge Birling’s assumptions.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08",
+      "id": "ndv-069-004",
+      "objectiveId": "waec-lit-inspector-inquiry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Assess whether Birling’s partial concession about the sequence of events amounts to accepting responsibility. Explain what each speaker treats as relevant evidence.",
+      "answer": "Birling initially argues from the interval since the dismissal. The Inspector treats earlier decisions as possible links in a sequence of harm. Birling recognises some force in that account but then explicitly rejects responsibility, shifting to the practical difficulty of holding people answerable for all effects. He concedes a possible connection while resisting its moral consequence.",
+      "explanation": "Distinguish a claim about causation from a claim about responsibility. The Inspector presents a possible chain, without claiming that the dismissal alone proves the outcome.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "State a defensible judgement on the concession."
+        },
+        {
+          "marks": 3,
+          "description": "Explain Birling’s initial use of elapsed time."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the Inspector’s account of linked events."
+        },
+        {
+          "marks": 2,
+          "description": "Explain how Birling limits the concession."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "An Inspector Calls",
+        "author": "J. B. Priestley"
+      },
+      "textReference": "Pearson Edexcel primary-text extract: May 2023 Drama Paper 3A, Act One extract, p. 11"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Dramatic dialogue and family responses",
+      "learningObjective": "Analyse how changes in conversational control, emotional register and family roles shape the disclosure about Gerald.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08",
+      "id": "ndv-069-005",
+      "objectiveId": "waec-lit-inspector-disclosure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "How does the disagreement about sending Eric to bed turn an ordinary household decision into a dispute over who sets the pace of the inquiry?",
+      "answer": "Birling wants Eric questioned immediately and dismissed. The Inspector insists on keeping him available while delaying his turn, and interrupts when Birling challenges him. The timing of Eric’s departure becomes a visible sign that Birling’s domestic authority cannot determine the order of questioning.",
+      "explanation": "Explain the contrast between managing the household and managing the inquiry, using the interruption as evidence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the different plans for Eric."
+        },
+        {
+          "marks": 3,
+          "description": "Explain why the timing matters to Birling."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse the Inspector’s interruption or refusal."
+        },
+        {
+          "marks": 2,
+          "description": "Link the exchange to the control of pace."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "An Inspector Calls",
+        "author": "J. B. Priestley"
+      },
+      "textReference": "Pearson Edexcel primary-text extract: Drama Sample Assessment Materials Issue 5, pp. 24–26, opening of extract"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Dramatic dialogue and family responses",
+      "learningObjective": "Analyse how changes in conversational control, emotional register and family roles shape the disclosure about Gerald.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08",
+      "id": "ndv-069-006",
+      "objectiveId": "waec-lit-inspector-disclosure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Compare Birling’s and Sheila’s uses of the rope image. How does the change in meaning alter what the audience expects from the inquiry?",
+      "answer": "Birling uses the rope as something he can choose to grant or withhold, implying that the Inspector depends on his tolerance. Sheila reverses who gives it and imagines the family using it against themselves. Her version invites the audience to watch what the family’s own words reveal.",
+      "explanation": "The echoed image changes direction. Analyse the transfer of agency and its effect on expectation.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the shared image."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the power Birling claims through it."
+        },
+        {
+          "marks": 3,
+          "description": "Explain Sheila’s reversal of agency and consequence."
+        },
+        {
+          "marks": 2,
+          "description": "Relate the reversal to anticipated disclosures."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "An Inspector Calls",
+        "author": "J. B. Priestley"
+      },
+      "textReference": "Pearson Edexcel primary-text extract: Drama Sample Assessment Materials Issue 5, pp. 24–26, exchange before Gerald is questioned"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Dramatic dialogue and family responses",
+      "learningObjective": "Analyse how changes in conversational control, emotional register and family roles shape the disclosure about Gerald.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08",
+      "id": "ndv-069-007",
+      "objectiveId": "waec-lit-inspector-disclosure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "What does Sheila gain by treating Gerald as the central figure in a story she insists on hearing? Consider both her engagement and her irony.",
+      "answer": "Gerald and the parents suggest that Sheila should leave or be spared details. She invokes her engagement to claim a reason to stay and uses an ironic description of Gerald to challenge the flattering account of him. She turns the relationship the others use to justify protecting her into a reason for hearing the evidence.",
+      "explanation": "Link the irony to Sheila’s refusal to let the others decide what she can hear.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the pressure for Sheila to leave or stop listening."
+        },
+        {
+          "marks": 3,
+          "description": "Explain her reason for staying."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the irony of her description of Gerald."
+        },
+        {
+          "marks": 2,
+          "description": "Connect her response to her position in the exchange."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "An Inspector Calls",
+        "author": "J. B. Priestley"
+      },
+      "textReference": "Pearson Edexcel primary-text extract: Drama Sample Assessment Materials Issue 5, pp. 24–26, Sheila refuses to leave"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed non-African drama: An Inspector Calls",
+      "subtopic": "Dramatic dialogue and family responses",
+      "learningObjective": "Analyse how changes in conversational control, emotional register and family roles shape the disclosure about Gerald.",
+      "specificationId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "prescribedTextId": "waec-lit-2026-08",
+      "id": "ndv-069-008",
+      "objectiveId": "waec-lit-inspector-disclosure-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "Evaluate how Gerald’s interruption of his own description changes the emotional direction of the closing exchange. Consider the reactions that follow.",
+      "answer": "Gerald begins by distinguishing the woman he met from the others in the bar. His description breaks when the fact of her death becomes emotionally real to him. The Inspector confirms it bluntly, Sheila raises shared responsibility, and her mother rejects that suggestion. The interruption turns a recollection into an immediate disagreement about what the death means for those present.",
+      "explanation": "Credit different assessments of Gerald’s distress if they distinguish his change of register from the other characters’ responses.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "State a judgement about the change in direction."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the contrast between Gerald’s description and his interruption."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse two contrasting responses to the interruption."
+        },
+        {
+          "marks": 2,
+          "description": "Link the change to the scene’s emotional or moral focus."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "An Inspector Calls",
+        "author": "J. B. Priestley"
+      },
+      "textReference": "Pearson Edexcel primary-text extract: Drama Sample Assessment Materials Issue 5, pp. 24–26, closing exchange"
+    }
+  ]
+}

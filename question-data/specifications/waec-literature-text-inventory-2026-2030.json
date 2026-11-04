@@ -149,12 +149,24 @@
       "authorAsPrinted": "J. D. Priestley",
       "titleAsPrinted": "An Inspector Calls",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": [],
-      "bibliographicCheckRequired": true,
-      "note": "Spelling or author initials transcribed as printed in official list; verify bibliographic identity before text-specific authoring."
+      "developmentStatus": "partial_excerpt_theory_draft",
+      "linkedQuestionIds": [
+        "ndv-069-001",
+        "ndv-069-002",
+        "ndv-069-003",
+        "ndv-069-004",
+        "ndv-069-005",
+        "ndv-069-006",
+        "ndv-069-007",
+        "ndv-069-008"
+      ],
+      "bibliographicCheckRequired": false,
+      "note": "The page-one initials are retained as printed. Pearson identifies the playwright as J. B. Priestley.",
+      "verifiedAuthor": "J. B. Priestley",
+      "contentSourceId": "waec-literature-inspector-drama-extracts-2026-2030",
+      "editionStatus": "Two Pearson-hosted play extracts checked. Full play and examination edition equivalence unverified."
     },
     {
       "textId": "waec-lit-2026-09",

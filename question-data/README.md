@@ -361,3 +361,8 @@ extracts from To Kill a Mockingbird. The South African DBE archive is
 used as a host for primary text. Edition equivalence, whole-novel coverage
 and the current WAEC marking scheme remain unverified. The official
 Redemption Road excerpt page timed out during retrieval.
+
+Batch 069 adds eight original essays on two excerpts of An Inspector
+Calls hosted by Pearson Edexcel. The excerpts provide textual evidence
+for practice in close reading. Full-play coverage, examination edition
+equivalence and the current WAEC marking scheme remain open.
