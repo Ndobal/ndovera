@@ -168,10 +168,16 @@
       "authorAsPrinted": "Elizabeth L. A. Kamara",
       "titleAsPrinted": "New Tongue",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": []
+      "developmentStatus": "partial_theory_objectives_draft",
+      "linkedQuestionIds": [
+        "ndv-066-001",
+        "ndv-066-002",
+        "ndv-066-003"
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "editionStatus": "Version in official prescribed-text PDF checked (pp. 3–4); commercial edition equivalence unverified."
     },
     {
       "textId": "waec-lit-2026-12",
@@ -179,10 +185,16 @@
       "authorAsPrinted": "Wole Soyinka",
       "titleAsPrinted": "Night",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": []
+      "developmentStatus": "partial_theory_objectives_draft",
+      "linkedQuestionIds": [
+        "ndv-066-004",
+        "ndv-066-005",
+        "ndv-066-006"
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "editionStatus": "Version in official prescribed-text PDF checked (p. 4); commercial edition equivalence unverified."
     },
     {
       "textId": "waec-lit-2026-13",
@@ -207,10 +219,16 @@
       "authorAsPrinted": "S.O.H. Afriyie-Vidza",
       "titleAsPrinted": "Hearty Garlands",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": []
+      "developmentStatus": "partial_theory_objectives_draft",
+      "linkedQuestionIds": [
+        "ndv-066-007",
+        "ndv-066-008",
+        "ndv-066-009"
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "editionStatus": "Version in official prescribed-text PDF checked (pp. 5–6); commercial edition equivalence unverified."
     },
     {
       "textId": "waec-lit-2026-15",
@@ -218,10 +236,16 @@
       "authorAsPrinted": "Syl Cheney-Coker",
       "titleAsPrinted": "The Breast of The Sea",
       "sourcePage": 1,
-      "objectiveMappingStatus": "pending",
+      "objectiveMappingStatus": "author_proposed_pending_academic_review",
       "academicReviewStatus": "pending",
-      "developmentStatus": "not_started",
-      "linkedQuestionIds": []
+      "developmentStatus": "partial_theory_objectives_draft",
+      "linkedQuestionIds": [
+        "ndv-066-010",
+        "ndv-066-011",
+        "ndv-066-012"
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "editionStatus": "Version in official prescribed-text PDF checked (p. 6); commercial edition equivalence unverified."
     },
     {
       "textId": "waec-lit-2026-16",

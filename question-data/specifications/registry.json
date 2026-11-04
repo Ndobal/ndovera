@@ -7990,6 +7990,114 @@
       ],
       "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
       "prescribedTextId": "waec-lit-2026-20"
+    },
+    {
+      "id": "waec-lit-poetry-11-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: New Tongue",
+      "subtopic": "Cultural memory and communal bonds",
+      "learningObjective": "Analyse how patterns of imagery and shifts in tone connect cultural estrangement with weakening social bonds.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, pp. 3–4",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-11"
+    },
+    {
+      "id": "waec-lit-poetry-12-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Night",
+      "subtopic": "Personification and bodily vulnerability",
+      "learningObjective": "Analyse how direct address, sensory contrasts and the closing appeal make night a complex presence.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, p. 4",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-12"
+    },
+    {
+      "id": "waec-lit-poetry-14-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Hearty Garlands",
+      "subtopic": "Celebration, ageing and unfinished work",
+      "learningObjective": "Analyse how images of time, collective address and the poem’s closing imperatives shape its birthday tribute.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, pp. 5–6",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-14"
+    },
+    {
+      "id": "waec-lit-poetry-15-v1",
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Breast of the Sea",
+      "subtopic": "Historical memory and the limits of consolation",
+      "learningObjective": "Analyse how the sea’s bodily imagery, historical catalogue and final address test its capacity to bear and heal human suffering.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "WAEC 2026–2030 prescribed-text PDF, p. 6",
+        "Historical WAEC Paper 3 examiner feedback (2023)"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-15"
     }
   ],
   "scopeGaps": [

@@ -1,0 +1,752 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Literature in English prescribed African poetry theory practice",
+  "questionCount": 12,
+  "note": "Original essay prompts with practice marking guides. Use the official WAEC 2026–2030 PDF. Alternate well-supported interpretations are acceptable. Academic review pending.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: New Tongue",
+      "subtopic": "Cultural memory and communal bonds",
+      "learningObjective": "Analyse how patterns of imagery and shifts in tone connect cultural estrangement with weakening social bonds.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-11",
+      "id": "ndv-066-001",
+      "objectiveId": "waec-lit-poetry-11-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In New Tongue by Elizabeth L. A. Kamara, explain how the sequence from damaged ties to scattered ashes changes the scale of the loss.",
+      "answer": "The weakening of family and friendship first suggests bonds that might still be repaired. The images of burning and dispersal move towards destruction, and the depth of the sea makes retrieval seem remote. The passing fish continue undisturbed, heightening the impression that loss can go unremarked.",
+      "explanation": "Follow the order of the images. Their progression makes the consequences seem increasingly hard to reverse.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify what the ties represent."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the movement from weakening to destruction."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the dispersal in the sea."
+        },
+        {
+          "marks": 2,
+          "description": "Connect the sequence to the scale of the loss."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "New Tongue",
+        "author": "Elizabeth L. A. Kamara"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 3–4"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: New Tongue",
+      "subtopic": "Cultural memory and communal bonds",
+      "learningObjective": "Analyse how patterns of imagery and shifts in tone connect cultural estrangement with weakening social bonds.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-11",
+      "id": "ndv-066-002",
+      "objectiveId": "waec-lit-poetry-11-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In New Tongue by Elizabeth L. A. Kamara, show how the portrayal of the younger generation’s attention helps explain the exclusion of elders. Use details about inwardness and hearing.",
+      "answer": "The speaker represents the young as preoccupied with themselves and unable or unwilling to make space for elders in their thoughts. The image of ears closed to the older language makes that mental exclusion sensory. It suggests a breakdown in listening through which knowledge would ordinarily be passed on.",
+      "explanation": "The images describe a failure of attention and of exchange between generations. The poem voices the speaker’s judgement of that failure.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the inward orientation."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the space image represents exclusion."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the blocked hearing in relation to language."
+        },
+        {
+          "marks": 2,
+          "description": "Link both details to transmission between generations."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "New Tongue",
+        "author": "Elizabeth L. A. Kamara"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 3–4"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: New Tongue",
+      "subtopic": "Cultural memory and communal bonds",
+      "learningObjective": "Analyse how patterns of imagery and shifts in tone connect cultural estrangement with weakening social bonds.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-11",
+      "id": "ndv-066-003",
+      "objectiveId": "waec-lit-poetry-11-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In New Tongue by Elizabeth L. A. Kamara, assess whether the ending endorses the movement into the future. Consider how the dancers’ movement interacts with the image of locking up culture.",
+      "answer": "The ending conveys easy forward motion, and the dancers seem pleased with their new ways. Yet the shoes are borrowed and the lock implies a deliberate closing off of heritage. The final lack of any look back makes the smooth motion troubling from the speaker’s perspective.",
+      "explanation": "Distinguish how the generation experiences its movement from the speaker’s evaluation of that movement.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Give a defensible judgement."
+        },
+        {
+          "marks": 3,
+          "description": "Explain what the movement suggests to the younger generation."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the borrowed shoes and the lock."
+        },
+        {
+          "marks": 2,
+          "description": "Explain how the ending positions the reader to assess the movement."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "New Tongue",
+        "author": "Elizabeth L. A. Kamara"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 3–4"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Night",
+      "subtopic": "Personification and bodily vulnerability",
+      "learningObjective": "Analyse how direct address, sensory contrasts and the closing appeal make night a complex presence.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-12",
+      "id": "ndv-066-004",
+      "objectiveId": "waec-lit-poetry-12-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Night by Wole Soyinka, compare the bodily contact at the opening with the later description of the sea losing its light. How do these images give Night agency?",
+      "answer": "Night’s heavy hand makes darkness feel like physical pressure on the speaker. The jealous eye that extinguishes the sea’s glow gives Night an apparent motive as well as power. The movement from brow to coastline enlarges the reach of the presence being addressed.",
+      "explanation": "Both images turn a change of light into the action of a figure. The first is bodily and intimate, while the second extends the action to the landscape.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the body part and effect in the opening."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the eye image personifies Night."
+        },
+        {
+          "marks": 3,
+          "description": "Discuss the extinguishing of light at sea."
+        },
+        {
+          "marks": 2,
+          "description": "Compare the scale or effect of the two images."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Night",
+        "author": "Wole Soyinka"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 4"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Night",
+      "subtopic": "Personification and bodily vulnerability",
+      "learningObjective": "Analyse how direct address, sensory contrasts and the closing appeal make night a complex presence.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-12",
+      "id": "ndv-066-005",
+      "objectiveId": "waec-lit-poetry-12-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Night by Wole Soyinka, explain how the comparison with the sands helps connect the movement of the sea to the speaker’s feeling of submission.",
+      "answer": "The waves have a continuing rhythm, while the speaker stands depleted at the shore. The comparison with sand puts the speaker in the position of material exposed to that motion. The pairing of blood and salt water then lets bodily and coastal sensations overlap.",
+      "explanation": "The image makes submission perceptible through the interaction between an active sea and a yielding shoreline.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the movement of the waves."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the speaker’s comparison with the sands."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the connection made by the bodily and marine imagery."
+        },
+        {
+          "marks": 2,
+          "description": "Relate the pattern to the speaker’s vulnerability."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Night",
+        "author": "Wole Soyinka"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 4"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Night",
+      "subtopic": "Personification and bodily vulnerability",
+      "learningObjective": "Analyse how direct address, sensory contrasts and the closing appeal make night a complex presence.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-12",
+      "id": "ndv-066-006",
+      "objectiveId": "waec-lit-poetry-12-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Night by Wole Soyinka, consider whether Night can be understood as a source of shelter in the closing appeal. Explain why the evidence also makes such shelter uncertain.",
+      "answer": "The speaker asks to be concealed as disturbing presences appear, so Night seems capable of providing refuge. Yet the final prospect of being undone within its enclosure suggests exposure or loss of control. The appeal depends on the same power that the speaker fears.",
+      "explanation": "The direct appeal and final prediction pull in different directions. Credit interpretations that use both to account for the tension.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Give a judgement about the possibility of shelter."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the request for concealment."
+        },
+        {
+          "marks": 3,
+          "description": "Explain an image or prediction that makes safety uncertain."
+        },
+        {
+          "marks": 2,
+          "description": "Account for the coexistence of dependence and fear."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Night",
+        "author": "Wole Soyinka"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 4"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Hearty Garlands",
+      "subtopic": "Celebration, ageing and unfinished work",
+      "learningObjective": "Analyse how images of time, collective address and the poem’s closing imperatives shape its birthday tribute.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-14",
+      "id": "ndv-066-007",
+      "objectiveId": "waec-lit-poetry-14-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Hearty Garlands by S. O. H. Afriyie-Vidza, explain how the images of morning and evening can both describe the same advanced age.",
+      "answer": "Morning suggests brightness and possibility, while evening suggests an accumulation of experience and the satisfaction of achieved aims. Applying both to the same birthday lets the tribute hold promise and fulfilment together.",
+      "explanation": "Explain each association separately before showing how the combination reshapes the portrait of old age.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the birthday or stage of life."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the morning image."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the evening image in relation to fulfilled hopes."
+        },
+        {
+          "marks": 2,
+          "description": "Explain why the two images work together."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Hearty Garlands",
+        "author": "S. O. H. Afriyie-Vidza"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 5–6"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Hearty Garlands",
+      "subtopic": "Celebration, ageing and unfinished work",
+      "learningObjective": "Analyse how images of time, collective address and the poem’s closing imperatives shape its birthday tribute.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-14",
+      "id": "ndv-066-008",
+      "objectiveId": "waec-lit-poetry-14-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Hearty Garlands by S. O. H. Afriyie-Vidza, examine how the voice of the well-wishers makes the birthday tribute an account of mentorship.",
+      "answer": "The collective voice insists on sharing the joy of the occasion and sends symbolic gifts. It also calls the addressee a mentor and imagines him watching the younger group make its own efforts. Their achievement can give him pride, so gratitude is tied to an influence that continues through others.",
+      "explanation": "The plural voice gives the tribute a social basis. Its relationship to the addressee matters as much as the compliments.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify evidence of a collective voice."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the symbolic act of sending garlands."
+        },
+        {
+          "marks": 3,
+          "description": "Discuss how watching others strive expresses mentorship."
+        },
+        {
+          "marks": 2,
+          "description": "Connect collective gratitude to the tribute."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Hearty Garlands",
+        "author": "S. O. H. Afriyie-Vidza"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 5–6"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: Hearty Garlands",
+      "subtopic": "Celebration, ageing and unfinished work",
+      "learningObjective": "Analyse how images of time, collective address and the poem’s closing imperatives shape its birthday tribute.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-14",
+      "id": "ndv-066-009",
+      "objectiveId": "waec-lit-poetry-14-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In Hearty Garlands by S. O. H. Afriyie-Vidza, judge how far the closing movement presents the birthday as a time for rest. Discuss both the call to further effort and the invitation to reminisce.",
+      "answer": "The directive to keep going and face higher tasks refuses a picture of complete retirement. The later invitation to relax and remember nevertheless allows a pause and a private sense of pleasure. The tribute honours continued capacity alongside the right to enjoy what has been accomplished.",
+      "explanation": "Read the two kinds of address together. The closing pause does not cancel the earlier challenge.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Give a judgement that considers both parts of the closing movement."
+        },
+        {
+          "marks": 3,
+          "description": "Analyse the imperative to undertake more work."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the image of relaxed remembrance."
+        },
+        {
+          "marks": 2,
+          "description": "Explain how both contribute to the tribute."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "Hearty Garlands",
+        "author": "S. O. H. Afriyie-Vidza"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, pp. 5–6"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Breast of the Sea",
+      "subtopic": "Historical memory and the limits of consolation",
+      "learningObjective": "Analyse how the sea’s bodily imagery, historical catalogue and final address test its capacity to bear and heal human suffering.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-15",
+      "id": "ndv-066-010",
+      "objectiveId": "waec-lit-poetry-15-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Breast of the Sea by Syl Cheney-Coker, explain how the opening portrayal of the sea’s body turns the century’s history into a physical burden.",
+      "answer": "The sea groans under the accumulated weight of a violent century. Toxins within its body interfere with an imagined ability to produce new land. The combination of strain and impaired fertility gives environmental and human damage a visible bodily form.",
+      "explanation": "The body imagery gives both weight and consequence to what enters the sea. The hoped-for new islands sharpen the sense of what pollution prevents.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify the burden as connected to the century’s violence."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret the groaning as bodily strain."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the relationship between toxins and the failure to yield land."
+        },
+        {
+          "marks": 2,
+          "description": "Connect the images to human or environmental damage."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Breast of the Sea",
+        "author": "Syl Cheney-Coker"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 6"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Breast of the Sea",
+      "subtopic": "Historical memory and the limits of consolation",
+      "learningObjective": "Analyse how the sea’s bodily imagery, historical catalogue and final address test its capacity to bear and heal human suffering.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-15",
+      "id": "ndv-066-011",
+      "objectiveId": "waec-lit-poetry-15-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Breast of the Sea by Syl Cheney-Coker, examine what the historical catalogue contributes to the idea that the sea’s capacity to hold history is limited. Use two unlike examples.",
+      "answer": "The reference to the Middle Passage invokes forced human transport and suffering, while the Titanic recalls a shipwreck whose remains are associated with the sea. Other references include scientific encounters. The list briefly makes the sea seem a vast repository, but the framing claim of limited capacity undermines any idea that every trace can be kept.",
+      "explanation": "The diversity of the catalogue creates a sense of scale. Its effect depends on the contrast with what the sea cannot preserve.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Identify two distinct references from the catalogue."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the type of history associated with the first."
+        },
+        {
+          "marks": 3,
+          "description": "Explain how the second broadens or changes the range of histories."
+        },
+        {
+          "marks": 2,
+          "description": "Connect the range to the stated limits of preservation."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Breast of the Sea",
+        "author": "Syl Cheney-Coker"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 6"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Literature in English",
+      "topic": "Prescribed poetry: The Breast of the Sea",
+      "subtopic": "Historical memory and the limits of consolation",
+      "learningObjective": "Analyse how the sea’s bodily imagery, historical catalogue and final address test its capacity to bear and heal human suffering.",
+      "specificationId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "contentSourceId": "waec-literature-prescribed-poetry-theory-2026-2030",
+      "prescribedTextId": "waec-lit-2026-15",
+      "id": "ndv-066-012",
+      "objectiveId": "waec-lit-poetry-15-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "essay",
+      "prompt": "In The Breast of the Sea by Syl Cheney-Coker, assess whether the closing address to the sea expresses confidence that it can heal the people of Sierra Leone. Connect the question at the end to an earlier image of consolation.",
+      "answer": "The image of the sea comforting some orphans allows for care, but its qualification limits who receives it. Sierra Leone is represented as a wounded body, and the final direct address asks whether a remedy exists. The poem keeps a wish for healing open while withholding assurance.",
+      "explanation": "The question follows a qualified promise of consolation and imagery of injury. That sequence supports uncertainty rather than a simple resolution.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Give a judgement about confidence in healing."
+        },
+        {
+          "marks": 3,
+          "description": "Interpret an earlier image of consolation and its qualification."
+        },
+        {
+          "marks": 3,
+          "description": "Explain the portrayal of Sierra Leone’s wounds."
+        },
+        {
+          "marks": 2,
+          "description": "Discuss the effect of ending with a question."
+        }
+      ],
+      "practiceComponent": "theory",
+      "literatureComponent": "prescribed-text-appreciation",
+      "studyText": {
+        "title": "The Breast of the Sea",
+        "author": "Syl Cheney-Coker"
+      },
+      "textReference": "WAEC 2026–2030 prescribed-text PDF, p. 6"
+    }
+  ]
+}

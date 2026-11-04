@@ -344,3 +344,8 @@ The Chaucer questions use only the opening excerpt printed on pages
 7–8 of WAEC's 2026–2030 PDF. Digging, Still I Rise and The Telephone Call
 use the versions in the same PDF. Objectives and mark allocations are
 for practice, with academic review and full scheme verification pending.
+
+Batch 066 adds three theory drafts each for New Tongue, Night, Hearty
+Garlands and The Breast of the Sea. All twelve 2026–2030 prescribed
+poetry selections now have initial theory drafts. The practice objectives
+and rubrics remain pending academic review and current scheme verification.
