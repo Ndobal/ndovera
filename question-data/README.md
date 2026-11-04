@@ -257,3 +257,9 @@ Batch 050 adds twelve original NECO Economics objective drafts on
 own-price, income and cross-price elasticity. The official timetable
 confirms the objective paper. Topic references are historical WAEC
 examiner materials, and four choices are an author practice decision.
+
+Batch 051 opens NECO Financial Accounting with eight original Paper II
+practice drafts on bank reconciliation and control accounts. The NECO
+timetable supports the theory and practice format. Historical WAEC
+examiner materials support provisional topic selection. Marking guides
+are for practice and official NECO topic objectives remain open.

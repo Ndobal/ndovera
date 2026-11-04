@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Financial Accounting original theory and practice drafts",
+  "questionCount": 8,
+  "note": "Original practice marks and provisional topic mapping. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Cash book adjustments and timing differences",
+      "learningObjective": "Distinguish entries requiring a cash book adjustment from timing differences.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-051-001",
+      "objectiveId": "neco-accounting-controls-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A shop’s cash book shows a favourable bank balance of ₦82,000 before adjustment. The statement includes a ₦1,400 bank charge and a ₦6,800 customer transfer, both absent from the cash book. Calculate the adjusted cash book balance.",
+      "answer": "₦87,400 favourable.",
+      "explanation": "Subtract ₦1,400 for the charge. Add ₦6,800 for the transfer and obtain ₦87,400.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Subtract ₦1,400 for the charge."
+        },
+        {
+          "marks": 1,
+          "description": "Add ₦6,800 for the transfer and obtain ₦87,400."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "82000-1400+6800",
+          "expected": "87400",
+          "purpose": "Check the computed balance."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Cash book adjustments and timing differences",
+      "learningObjective": "Distinguish entries requiring a cash book adjustment from timing differences.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-051-002",
+      "objectiveId": "neco-accounting-controls-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At month-end, the adjusted cash book shows ₦126,000 favourable. A ₦23,000 deposit entered in the cash book has yet to appear on the statement. A ₦9,000 cheque issued by the business has yet to be presented. Reconcile to the bank statement balance.",
+      "answer": "₦112,000 favourable.",
+      "explanation": "Deduct the deposit in transit from the cash book balance. Add the unpresented cheque and obtain ₦112,000.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Deduct the deposit in transit from the cash book balance."
+        },
+        {
+          "marks": 1,
+          "description": "Add the unpresented cheque and obtain ₦112,000."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "126000-23000+9000",
+          "expected": "112000",
+          "purpose": "Check the computed balance."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Cash book adjustments and timing differences",
+      "learningObjective": "Distinguish entries requiring a cash book adjustment from timing differences.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-051-003",
+      "objectiveId": "neco-accounting-controls-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A bank statement shows a ₦12,000 direct payment from a customer and a ₦17,000 debit for another business’s cheque. Neither appears in the cash book. Explain how the accountant should deal with each item while awaiting correction by the bank.",
+      "answer": "Record the customer receipt in the cash book. Notify the bank of the incorrect debit and show it as a reconciling item until corrected.",
+      "explanation": "Debit the bank column for the customer receipt. Keep the bank error out of the cash book and report it to the bank. When reconciling from the statement to the adjusted cash book, add back the wrongful debit.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Debit the bank column for the customer receipt."
+        },
+        {
+          "marks": 1,
+          "description": "Keep the bank error out of the cash book and report it to the bank."
+        },
+        {
+          "marks": 1,
+          "description": "When reconciling from the statement to the adjusted cash book, add back the wrongful debit."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Cash book adjustments and timing differences",
+      "learningObjective": "Distinguish entries requiring a cash book adjustment from timing differences.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-051-004",
+      "objectiveId": "neco-accounting-controls-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A cashier says a matched cash book and bank statement prove every receipt was credited to the right customer. Evaluate the claim and identify a further check.",
+      "answer": "Agreement checks the bank amounts. A genuine receipt may still have been allocated to the wrong customer. Compare the customer ledger entry with the remittance details.",
+      "explanation": "Explain the limit of agreement between the two bank balances. Give a plausible misallocation example. Identify a customer-level check using payment evidence.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain the limit of agreement between the two bank balances."
+        },
+        {
+          "marks": 1,
+          "description": "Give a plausible misallocation example."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a customer-level check using payment evidence."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Receivables and payables control",
+      "learningObjective": "Prepare control balances and diagnose discrepancies using subsidiary records.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-051-005",
+      "objectiveId": "neco-accounting-controls-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A business starts the month with trade receivables of ₦56,000. It makes credit sales of ₦48,000, receives ₦33,000 from credit customers and grants them discounts of ₦2,000. Find the closing receivables control balance.",
+      "answer": "₦69,000 debit.",
+      "explanation": "Add credit sales to the opening balance. Deduct receipts and discounts allowed. Report a ₦69,000 debit balance.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Add credit sales to the opening balance."
+        },
+        {
+          "marks": 1,
+          "description": "Deduct receipts and discounts allowed."
+        },
+        {
+          "marks": 1,
+          "description": "Report a ₦69,000 debit balance."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "56000+48000-33000-2000",
+          "expected": "69000",
+          "purpose": "Check the computed balance."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Receivables and payables control",
+      "learningObjective": "Prepare control balances and diagnose discrepancies using subsidiary records.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-051-006",
+      "objectiveId": "neco-accounting-controls-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "The trade payables control account shows ₦73,000 credit, but the supplier list totals ₦82,000 credit. A ₦9,000 supplier payment was included in the control account and omitted from the supplier’s individual account. Explain the discrepancy and correct the supplier list total.",
+      "answer": "The omission overstates the supplier list by ₦9,000. The corrected total is ₦73,000 credit.",
+      "explanation": "Explain that the supplier’s balance should have been reduced by the payment. Deduct ₦9,000 from the supplier list total.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain that the supplier’s balance should have been reduced by the payment."
+        },
+        {
+          "marks": 1,
+          "description": "Deduct ₦9,000 from the supplier list total."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "82000-9000",
+          "expected": "73000",
+          "purpose": "Check the computed balance."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Receivables and payables control",
+      "learningObjective": "Prepare control balances and diagnose discrepancies using subsidiary records.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-051-007",
+      "objectiveId": "neco-accounting-controls-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A trader returns ₦3,600 of goods previously bought on credit and receives a supplier credit note. State the effect on the trade payables control balance and name the book of original entry for the return.",
+      "answer": "Debit trade payables control by ₦3,600, reducing the amount owed. Enter the return in the purchases returns book.",
+      "explanation": "Debit the payables control account and state the amount. Identify the purchases returns or returns outwards book.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Debit the payables control account and state the amount."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the purchases returns or returns outwards book."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Receivables and payables control",
+      "learningObjective": "Prepare control balances and diagnose discrepancies using subsidiary records.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "id": "ndv-051-008",
+      "objectiveId": "neco-accounting-controls-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "The total of customer balances agrees with the receivables control account. A manager says it is safe to stop checking sales invoices. Explain one error that could leave the totals in agreement and propose a check to detect it.",
+      "answer": "An entire credit sale could be omitted from both records. Compare a sequence of issued sales invoices with the sales journal and investigate missing entries.",
+      "explanation": "Describe an error that affects both records equally or leaves both unchanged. Propose a check against independent source documents, such as tracing numbered invoices.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describe an error that affects both records equally or leaves both unchanged."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a check against independent source documents, such as tracing numbered invoices."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

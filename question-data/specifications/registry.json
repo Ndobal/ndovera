@@ -813,6 +813,19 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "NECO timetable confirms Paper III objective. Historical WAEC material supports provisional topic selection only. Four choices are an author practice design. Official NECO topic objectives and option counts remain open."
+    },
+    {
+      "id": "neco-accounting-reconciliation-reference-2026",
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-Learning/Financial/FA235mq1.html",
+        "https://www.waeconline.org.ng/e-learning/Financial/FA224mq1.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "The NECO timetable lists Accounting Paper II theory and practice. Historical WAEC material supports provisional topic selection only. Official NECO topic objectives remain unverified."
     }
   ],
   "banks": [
@@ -1970,7 +1983,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "III": "objective",
         "II": "theory and practice"
@@ -7093,6 +7106,42 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Economics Paper III",
         "Historical WAEC Economics examiner material: provisional topic reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-accounting-controls-1-v1",
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Cash book adjustments and timing differences",
+      "learningObjective": "Distinguish entries requiring a cash book adjustment from timing differences.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 Internal Accounting Paper II",
+        "Historical WAEC Financial Accounting examiner reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-accounting-controls-2-v1",
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Receivables and payables control",
+      "learningObjective": "Prepare control balances and diagnose discrepancies using subsidiary records.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 Internal Accounting Paper II",
+        "Historical WAEC Financial Accounting examiner reference"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

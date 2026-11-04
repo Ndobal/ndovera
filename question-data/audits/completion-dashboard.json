@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 2946,
-    "validDrafts": 1267,
+    "raw": 2954,
+    "validDrafts": 1275,
     "reviewed": 0,
     "registeredBanks": 165,
     "target": 147000,
@@ -434,6 +434,12 @@
       "sha256": "09b767a9b294f5c04528737497942bdc2eb4420f05a37a0c00c8810c94812872",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-051.json",
+      "sha256": "0a958736bcc169c1bac8e20fc610c75e70da14857ac02254935418fa86c1f05c",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2150,26 +2156,28 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "III": "objective",
         "II": "theory and practice"
       },
       "timetableSubject": "Accounting",
-      "raw": 1,
-      "validDrafts": 0,
+      "raw": 9,
+      "validDrafts": 8,
       "reviewed": 0,
       "questionTypes": {
+        "structured": 8,
         "mcq": 1
       },
       "difficulty": {
+        "standard": 8,
         "missing": 1
       },
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "remaining": 992,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "NECO",
@@ -4144,20 +4152,20 @@
   ],
   "errorCounts": {
     "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 176,
+    "explicitArithmeticClaims": 180,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -26339,6 +26347,54 @@
       "errors": []
     },
     {
+      "id": "ndv-051-001",
+      "file": "original-multisubject-batch-051.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-051-002",
+      "file": "original-multisubject-batch-051.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-051-003",
+      "file": "original-multisubject-batch-051.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-051-004",
+      "file": "original-multisubject-batch-051.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-051-005",
+      "file": "original-multisubject-batch-051.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-051-006",
+      "file": "original-multisubject-batch-051.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-051-007",
+      "file": "original-multisubject-batch-051.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-051-008",
+      "file": "original-multisubject-batch-051.json",
+      "index": 7,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -46882,6 +46938,66 @@
       },
       "tiers": {
         "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-accounting-controls-1-v1",
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Bank reconciliation",
+      "subtopic": "Cash book adjustments and timing differences",
+      "learningObjective": "Distinguish entries requiring a cash book adjustment from timing differences.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "NECO 2026 Internal Accounting Paper II",
+        "Historical WAEC Financial Accounting examiner reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-accounting-controls-2-v1",
+      "exam": "NECO",
+      "subject": "Financial Accounting",
+      "topic": "Control accounts",
+      "subtopic": "Receivables and payables control",
+      "learningObjective": "Prepare control balances and diagnose discrepancies using subsidiary records.",
+      "specificationId": "neco-accounting-reconciliation-reference-2026",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "NECO 2026 Internal Accounting Paper II",
+        "Historical WAEC Financial Accounting examiner reference"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
