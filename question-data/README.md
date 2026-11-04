@@ -252,3 +252,8 @@ drafts on market changes and price controls. NECO's 2026 Internal
 timetable confirms the essay paper. Historical WAEC examiner materials
 provide provisional topic references, and the official NECO objectives
 remain open. Marking guides are for practice.
+
+Batch 050 adds twelve original NECO Economics objective drafts on
+own-price, income and cross-price elasticity. The official timetable
+confirms the objective paper. Topic references are historical WAEC
+examiner materials, and four choices are an author practice decision.

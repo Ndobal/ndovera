@@ -1,0 +1,451 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Economics elasticity objective drafts",
+  "questionCount": 12,
+  "note": "Original objective practice with provisional topic alignment and author-selected four-option format. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Own-price responsiveness",
+      "learningObjective": "Interpret and calculate price elasticity of demand and reason about its determinants.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-001",
+      "objectiveId": "neco-economics-elasticity-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A price rise of 8% leads to a 3% fall in quantity demanded, with other conditions unchanged. How is demand classified over this change?",
+      "answer": "Price inelastic",
+      "options": [
+        "Price inelastic",
+        "Unit price elastic",
+        "Price elastic",
+        "Perfectly price inelastic"
+      ],
+      "correctOption": "A",
+      "explanation": "Quantity changes by a smaller percentage than price, giving a magnitude below 1.",
+      "score": 1,
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "3/8",
+          "expected": "3/8",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Own-price responsiveness",
+      "learningObjective": "Interpret and calculate price elasticity of demand and reason about its determinants.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-002",
+      "objectiveId": "neco-economics-elasticity-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "At a campus canteen, a snack rises from ₦400 to ₦500 and sales fall from 100 to 80 per day. Using the original price and quantity as bases, what is the magnitude of price elasticity of demand?",
+      "answer": "0.8",
+      "options": [
+        "1.25",
+        "0.2",
+        "0.25",
+        "0.8"
+      ],
+      "correctOption": "D",
+      "explanation": "Quantity falls 20% and price rises 25%. Divide 20 by 25.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "((100-80)/100)/((500-400)/400)",
+          "expected": "4/5",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Own-price responsiveness",
+      "learningObjective": "Interpret and calculate price elasticity of demand and reason about its determinants.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-003",
+      "objectiveId": "neco-economics-elasticity-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Two equally priced snacks are sold at the same kiosk. Several other stalls sell close alternatives to snack X, but none sell a close alternative to snack Y. If the kiosk raises each price slightly, which snack would generally have the greater proportional drop in demand, all else equal?",
+      "answer": "Snack X, because customers can switch more readily",
+      "options": [
+        "Snack Y, because fewer stalls stock an alternative",
+        "Both equally, because they began at the same price",
+        "Snack X, because customers can switch more readily",
+        "Snack X, because the kiosk now has more stock"
+      ],
+      "correctOption": "C",
+      "explanation": "A greater choice of close substitutes makes switching easier after a price rise.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Own-price responsiveness",
+      "learningObjective": "Interpret and calculate price elasticity of demand and reason about its determinants.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-004",
+      "objectiveId": "neco-economics-elasticity-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Bus fares rise permanently. In the first week most workers still use the bus. After several months many have organised carpools. What does this suggest about fare elasticity?",
+      "answer": "Demand may be more price elastic over the longer period.",
+      "options": [
+        "Demand necessarily becomes perfectly inelastic.",
+        "Demand may be more price elastic over the longer period.",
+        "The short-run response is larger because fares are permanent.",
+        "The availability of carpools measures income elasticity."
+      ],
+      "correctOption": "B",
+      "explanation": "Workers have more time to make arrangements and substitute away from the bus.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Own-price responsiveness",
+      "learningObjective": "Interpret and calculate price elasticity of demand and reason about its determinants.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-005",
+      "objectiveId": "neco-economics-elasticity-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A shopkeeper says a demand curve must have the same price elasticity everywhere because its slope is constant. What is the strongest objection?",
+      "answer": "Elasticity uses percentage changes, so the starting price and quantity matter.",
+      "options": [
+        "Elasticity uses percentage changes, so the starting price and quantity matter.",
+        "Constant slope means quantity never changes.",
+        "A demand curve cannot have a constant slope.",
+        "Elasticity depends only on the currency used."
+      ],
+      "correctOption": "A",
+      "explanation": "The same absolute changes can be different percentages at different points on the curve.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Own-price responsiveness",
+      "learningObjective": "Interpret and calculate price elasticity of demand and reason about its determinants.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-006",
+      "objectiveId": "neco-economics-elasticity-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A seller raises a basket price from ₦2,000 to ₦2,200. Weekly sales fall from 60 to 52 baskets. What happens to weekly sales revenue?",
+      "answer": "It falls by ₦5,600.",
+      "options": [
+        "It rises by ₦5,600.",
+        "It falls by ₦16,000.",
+        "It stays unchanged.",
+        "It falls by ₦5,600."
+      ],
+      "correctOption": "D",
+      "explanation": "Revenue changes from ₦120,000 to ₦114,400.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "2000*60-2200*52",
+          "expected": "5600",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Income and cross-price responsiveness",
+      "learningObjective": "Interpret income and cross-price elasticity and distinguish them from changes in own-price demand.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-007",
+      "objectiveId": "neco-economics-elasticity-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Household income rises while prices stay fixed. Demand for a product falls. What does this indicate about the product over that income range?",
+      "answer": "It is an inferior good.",
+      "options": [
+        "It is a substitute good.",
+        "It has perfectly elastic demand.",
+        "It is a normal good.",
+        "It is an inferior good."
+      ],
+      "correctOption": "D",
+      "explanation": "Demand moves in the opposite direction to income, giving negative income elasticity.",
+      "score": 1,
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Income and cross-price responsiveness",
+      "learningObjective": "Interpret income and cross-price elasticity and distinguish them from changes in own-price demand.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-008",
+      "objectiveId": "neco-economics-elasticity-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Average income rises by 5% and demand for a service rises by 15%, with prices unchanged. What is the income elasticity of demand?",
+      "answer": "+3",
+      "options": [
+        "+1/3",
+        "−3",
+        "+3",
+        "+10"
+      ],
+      "correctOption": "C",
+      "explanation": "Divide the percentage increase in demand by the percentage increase in income.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "15/5",
+          "expected": "3",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Income and cross-price responsiveness",
+      "learningObjective": "Interpret income and cross-price elasticity and distinguish them from changes in own-price demand.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-009",
+      "objectiveId": "neco-economics-elasticity-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "When the price of one brand of soap rises, shoppers buy more of a different brand, whose price does not change. What relationship does this suggest?",
+      "answer": "The brands are substitutes with positive cross-price elasticity.",
+      "options": [
+        "The brands are complements with negative cross-price elasticity.",
+        "The brands are substitutes with positive cross-price elasticity.",
+        "The second brand has negative income elasticity.",
+        "The first brand has perfectly inelastic demand."
+      ],
+      "correctOption": "B",
+      "explanation": "The second brand gains demand when the first becomes more expensive, suggesting substitution.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Income and cross-price responsiveness",
+      "learningObjective": "Interpret income and cross-price elasticity and distinguish them from changes in own-price demand.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-010",
+      "objectiveId": "neco-economics-elasticity-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "The price of a torch rises by 20%. Demand for the batteries made specifically for it falls by 10%, while battery prices stay fixed. What is the cross-price elasticity of battery demand with respect to the torch price?",
+      "answer": "−0.5",
+      "options": [
+        "−0.5",
+        "+0.5",
+        "−2",
+        "+2"
+      ],
+      "correctOption": "A",
+      "explanation": "Divide the 10% fall in battery demand by the 20% rise in the torch price.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "-10/20",
+          "expected": "-1/2",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Income and cross-price responsiveness",
+      "learningObjective": "Interpret income and cross-price elasticity and distinguish them from changes in own-price demand.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-011",
+      "objectiveId": "neco-economics-elasticity-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A vendor changes the price of a meal during a week when many customers also receive a pay rise. Why is that week alone a poor basis for estimating own-price elasticity?",
+      "answer": "The income change may also affect quantity demanded.",
+      "options": [
+        "Own-price elasticity is calculated using income instead of price.",
+        "A pay rise fixes quantity demanded at its old level.",
+        "Own-price elasticity can only be measured when quantity stays fixed.",
+        "The income change may also affect quantity demanded."
+      ],
+      "correctOption": "D",
+      "explanation": "With price and income changing together, the observed sales change does not isolate the effect of price.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Economics",
+      "topic": "Elasticity of demand",
+      "subtopic": "Income and cross-price responsiveness",
+      "learningObjective": "Interpret income and cross-price elasticity and distinguish them from changes in own-price demand.",
+      "specificationId": "neco-economics-elasticity-reference-2026",
+      "id": "ndv-050-012",
+      "objectiveId": "neco-economics-elasticity-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A retailer wants to estimate cross-price elasticity between two products. Which comparison provides the strongest evidence?",
+      "answer": "Compare demand for product A before and after a change in the price of B, holding A’s price and other demand factors fixed.",
+      "options": [
+        "Compare sales of A and B at one moment with both prices unchanged.",
+        "Change the prices of A and B together and compare total revenue.",
+        "Compare demand for product A before and after a change in the price of B, holding A’s price and other demand factors fixed.",
+        "Compare demand for A before and after a change in customers’ income."
+      ],
+      "correctOption": "C",
+      "explanation": "Cross-price elasticity isolates the response of A’s demand to the price of B.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}
