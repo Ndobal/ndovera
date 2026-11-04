@@ -296,3 +296,9 @@ Batch 057 adds sixteen NECO English Language objective drafts covering
 grammatical structure and vocabulary in context. The NECO timetable
 verifies Paper III objective. Historical WAEC feedback informs provisional
 skill mapping. Four options are an author practice choice.
+
+Batch 058 opens NECO Biology with six structured and six objective
+drafts on ecology and plant nutrition. NECO's 2026 Internal timetable
+confirms paper formats. Historical WAEC feedback supports provisional
+topic selection. The batch includes written evidence interpretation.
+Practical performance and full NECO topic mapping remain open.

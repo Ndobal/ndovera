@@ -1,0 +1,460 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Biology ecology and plant nutrition practice",
+  "questionCount": 12,
+  "note": "Original written theory and four-option practice. No practical performance is assessed. Provisional topics and academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Food chains and carbon transfers",
+      "learningObjective": "Trace feeding relationships and explain how biological processes move carbon.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-001",
+      "objectiveId": "neco-biology-foundations-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a school garden, caterpillars eat okra leaves, and lizards eat the caterpillars. Write the food chain with arrows and explain what an arrow means.",
+      "answer": "Okra → caterpillar → lizard. Each arrow points from the food to its consumer, showing the direction of transfer of energy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Put all three organisms in feeding order."
+        },
+        {
+          "marks": 1,
+          "description": "Draw both arrows pointing towards the consumer."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the direction of energy transfer."
+        }
+      ],
+      "explanation": "Put all three organisms in feeding order. Draw both arrows pointing towards the consumer. Explain the direction of energy transfer."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Food chains and carbon transfers",
+      "learningObjective": "Trace feeding relationships and explain how biological processes move carbon.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-002",
+      "objectiveId": "neco-biology-foundations-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Fungi decompose a pile of dead leaves. Explain how some carbon from the leaves can enter the air and later become part of a living seedling.",
+      "answer": "Decomposers use organic compounds from the leaves and release carbon dioxide by respiration. A seedling takes in carbon dioxide and uses its carbon to build organic compounds during photosynthesis.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Link decomposition to the use of carbon compounds in the leaves."
+        },
+        {
+          "marks": 1,
+          "description": "Identify respiratory release of carbon dioxide."
+        },
+        {
+          "marks": 1,
+          "description": "Explain uptake and fixation by photosynthesis."
+        }
+      ],
+      "explanation": "Link decomposition to the use of carbon compounds in the leaves. Identify respiratory release of carbon dioxide. Explain uptake and fixation by photosynthesis."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Food chains and carbon transfers",
+      "learningObjective": "Trace feeding relationships and explain how biological processes move carbon.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-003",
+      "objectiveId": "neco-biology-foundations-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "An observer says a fall in the number of frogs after a fall in insect numbers proves that food shortage caused the change. Explain why this conclusion is uncertain and identify one additional observation that would help test it.",
+      "answer": "The pattern is consistent with less food, but a third factor could affect both populations. For example, compare frog numbers in similar sites with and without the insect decline while recording habitat conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguish association from proof of causation."
+        },
+        {
+          "marks": 1,
+          "description": "Give a plausible alternative factor or explanation."
+        },
+        {
+          "marks": 1,
+          "description": "Suggest a relevant comparison or observation."
+        }
+      ],
+      "explanation": "Distinguish association from proof of causation. Give a plausible alternative factor or explanation. Suggest a relevant comparison or observation."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Food chains and carbon transfers",
+      "learningObjective": "Trace feeding relationships and explain how biological processes move carbon.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-004",
+      "objectiveId": "neco-biology-foundations-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In a pond, algae are eaten by snails, and snails are eaten by fish. Which organism is the primary consumer in this chain?",
+      "answer": "The snail",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The alga",
+        "The snail",
+        "The fish",
+        "A fungus decomposing dead fish"
+      ],
+      "correctOption": "B",
+      "explanation": "The snail feeds directly on a producer."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Food chains and carbon transfers",
+      "learningObjective": "Trace feeding relationships and explain how biological processes move carbon.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-005",
+      "objectiveId": "neco-biology-foundations-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Some energy in a grasshopper’s food never reaches the bird that eats it. Which process accounts for part of that difference?",
+      "answer": "The grasshopper uses energy in respiration and transfers some to its surroundings as heat.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The grasshopper uses energy in respiration and transfers some to its surroundings as heat.",
+        "The grasshopper absorbs all of the food into new body tissue.",
+        "The bird gives energy back to the grasshopper when it feeds.",
+        "The food contains no energy until the bird eats the grasshopper."
+      ],
+      "correctOption": "A",
+      "explanation": "Energy used in the grasshopper’s life processes is unavailable as chemical energy in the tissue eaten by the bird."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Ecology",
+      "subtopic": "Food chains and carbon transfers",
+      "learningObjective": "Trace feeding relationships and explain how biological processes move carbon.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-006",
+      "objectiveId": "neco-biology-foundations-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which process directly removes carbon dioxide from the air and incorporates its carbon into plant sugars?",
+      "answer": "Photosynthesis",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Respiration",
+        "Combustion",
+        "Transpiration",
+        "Photosynthesis"
+      ],
+      "correctOption": "D",
+      "explanation": "Photosynthesis fixes carbon from carbon dioxide into organic compounds."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Plant nutrition",
+      "subtopic": "Leaf adaptations and photosynthesis evidence",
+      "learningObjective": "Relate leaf features to photosynthesis and interpret evidence about light and gas exchange.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-007",
+      "objectiveId": "neco-biology-foundations-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A leaf has a transparent upper epidermis and many chloroplasts in cells just beneath it. Explain how these features work together during photosynthesis.",
+      "answer": "The transparent epidermis transmits light. Chlorophyll in chloroplasts below it absorbs light energy used for photosynthesis.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Link the upper epidermis to transmission of light."
+        },
+        {
+          "marks": 1,
+          "description": "Locate chloroplasts in the illuminated tissue."
+        },
+        {
+          "marks": 1,
+          "description": "Link chlorophyll to absorption of light energy."
+        }
+      ],
+      "explanation": "Link the upper epidermis to transmission of light. Locate chloroplasts in the illuminated tissue. Link chlorophyll to absorption of light energy."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Plant nutrition",
+      "subtopic": "Leaf adaptations and photosynthesis evidence",
+      "learningObjective": "Relate leaf features to photosynthesis and interpret evidence about light and gas exchange.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-008",
+      "objectiveId": "neco-biology-foundations-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A pupil tests a leaf for starch after keeping its plant in bright light. The pupil concludes that all starch found must have been made that morning. Give one reason this may be wrong and one improvement.",
+      "answer": "Some starch could have been present before the morning exposure. First destarch the plant and verify with a baseline leaf test before beginning the light treatment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify possible pre-existing starch."
+        },
+        {
+          "marks": 1,
+          "description": "Suggest destarching or a valid baseline comparison."
+        }
+      ],
+      "explanation": "Identify possible pre-existing starch. Suggest destarching or a valid baseline comparison."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Plant nutrition",
+      "subtopic": "Leaf adaptations and photosynthesis evidence",
+      "learningObjective": "Relate leaf features to photosynthesis and interpret evidence about light and gas exchange.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-009",
+      "objectiveId": "neco-biology-foundations-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Under bright light, a healthy leaf takes in more carbon dioxide than it releases. Explain how this can happen even though its cells continue to respire.",
+      "answer": "Respiration releases carbon dioxide, but photosynthesis consumes it at a higher rate. The net movement is therefore into the leaf.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify carbon dioxide release by respiration."
+        },
+        {
+          "marks": 1,
+          "description": "Identify consumption by photosynthesis."
+        },
+        {
+          "marks": 1,
+          "description": "Relate the net direction to the difference between rates."
+        }
+      ],
+      "explanation": "Identify carbon dioxide release by respiration. Identify consumption by photosynthesis. Relate the net direction to the difference between rates."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Plant nutrition",
+      "subtopic": "Leaf adaptations and photosynthesis evidence",
+      "learningObjective": "Relate leaf features to photosynthesis and interpret evidence about light and gas exchange.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-010",
+      "objectiveId": "neco-biology-foundations-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A leaf is coated on both surfaces with a clear substance that blocks its stomata. Which input to photosynthesis is most directly restricted by blocking the pores?",
+      "answer": "Carbon dioxide",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Carbon dioxide",
+        "Light",
+        "Mineral ions from roots",
+        "Chlorophyll"
+      ],
+      "correctOption": "A",
+      "explanation": "Stomata allow carbon dioxide to diffuse from the air into the leaf."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Plant nutrition",
+      "subtopic": "Leaf adaptations and photosynthesis evidence",
+      "learningObjective": "Relate leaf features to photosynthesis and interpret evidence about light and gas exchange.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-011",
+      "objectiveId": "neco-biology-foundations-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A previously destarched leaf is exposed to light with one patch covered by opaque paper. The exposed tissue tests positive for starch, while the covered patch does not. Which conclusion is supported?",
+      "answer": "Light was needed for detectable starch accumulation under these conditions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The covered tissue had no living cells before the test.",
+        "The plant respired only in the exposed tissue.",
+        "Light supplied the carbon atoms in the starch.",
+        "Light was needed for detectable starch accumulation under these conditions."
+      ],
+      "correctOption": "D",
+      "explanation": "The light treatment differed between areas of the same leaf, supporting the role of light in the observed accumulation."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Biology",
+      "topic": "Plant nutrition",
+      "subtopic": "Leaf adaptations and photosynthesis evidence",
+      "learningObjective": "Relate leaf features to photosynthesis and interpret evidence about light and gas exchange.",
+      "specificationId": "neco-biology-ecology-plant-reference-2026",
+      "id": "ndv-058-012",
+      "objectiveId": "neco-biology-foundations-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Why do air spaces inside a leaf help photosynthesis?",
+      "answer": "They allow carbon dioxide to diffuse from stomata towards photosynthetic cells.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "They carry dissolved starch directly into the roots.",
+        "They prevent gases from reaching the mesophyll.",
+        "They allow carbon dioxide to diffuse from stomata towards photosynthetic cells.",
+        "They make chloroplasts produce light in darkness."
+      ],
+      "correctOption": "C",
+      "explanation": "Intercellular spaces provide gas diffusion paths within the leaf."
+    }
+  ]
+}
