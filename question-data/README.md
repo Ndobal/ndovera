@@ -222,3 +222,9 @@ fractions, ratios, percentages and whole-number operations. NECO confirms
 the component in Paper I Part A. The older NERDC Primary Six reference guides
 provisional topic selection. Full official topic scope, current curriculum
 adoption and official option count remain unverified.
+
+Batch 046 opens NCEE National Values Education with twelve original
+Primary 6 practice questions on cultural diversity, discipline, and good
+neighbourliness. The NECO notice confirms the component. The older
+ICPC-hosted teaching guide supports provisional topic selection.
+Current NCEE topic specifications and official option count remain open.

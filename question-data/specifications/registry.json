@@ -741,6 +741,16 @@
       "curriculumContents": "https://nerdc.gov.ng/content_manager/primary/pri4-6_maths_intro.pdf",
       "retrievedOn": "2026-11-04",
       "note": "NECO confirms Mathematics in Paper I Part A and final-year primary eligibility. Older NERDC Primary Six material guides age and topic selection only. Official NCEE topic specification, option count and current NERDC adoption remain unverified. Four-option format is an author practice choice."
+    },
+    {
+      "id": "ncee-nve-primary-six-reference-2026",
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "kind": "official_component_with_historical_teaching_reference",
+      "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
+      "curriculumReference": "https://icpc.gov.ng/wp-content/uploads/2024/10/Teachers-Guide-for-the-teaching-of-National-Values-in-Basic-Education-Primary-1-6.pdf",
+      "retrievedOn": "2026-11-04",
+      "note": "NECO confirms Paper I Part B. ICPC-hosted older cross-curricular teaching guide supports provisional age and values mapping only. Official topic specification and current curriculum adoption unverified. Four-option format is an author practice choice."
     }
   ],
   "banks": [
@@ -1263,7 +1273,7 @@
       "subject": "National Values Education",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_2026_paper_components_topic_specification_pending"
+      "scopeStatus": "official_2026_component_with_provisional_primary_six_reference"
     },
     {
       "exam": "NCEE",
@@ -6663,6 +6673,63 @@
       "sourceSections": [
         "NECO 2026 Paper I Part A",
         "Historical NERDC Primary Six reference, pp. 54–56"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-nve-p6-1-v1",
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "topic": "Cultural diversity",
+      "subtopic": "Respect and cultural exchange",
+      "learningObjective": "Assess how pupils can share, adapt and preserve cultural practices respectfully.",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B",
+        "Primary Six Social Studies: foreign cultural influences and cultural diversity, p. 124"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-nve-p6-2-v1",
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "topic": "Discipline",
+      "subtopic": "Self-control and responsible routines",
+      "learningObjective": "Explain and apply self-control and responsible habits in school situations.",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B",
+        "Primary Six English Studies: intensive reading involving discipline, p. 40"
+      ],
+      "level": "Primary 6",
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-nve-p6-3-v1",
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "topic": "Good neighbourliness",
+      "subtopic": "Consideration and resolving disagreements",
+      "learningObjective": "Choose considerate actions and reason about effects on neighbours.",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B",
+        "Primary Six English Studies: reading passages on good neighbourliness, p. 48"
       ],
       "level": "Primary 6",
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
