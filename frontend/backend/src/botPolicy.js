@@ -40,6 +40,7 @@ const PRIVATE_PUBLIC_API = ['/api/public/fees-receipts/', '/api/public/results/'
 
 // Signed-in surfaces and one-time links: never public, whatever host they are on.
 const APP_PREFIXES = [
+  '/compat',
   '/roles', '/login', '/change-password', '/reset-password', '/settings', '/classroom', '/assignments', '/exams',
   '/ai-tutor', '/attendance', '/rewards', '/news', '/receipt-verification', '/result-verification',
 ]
