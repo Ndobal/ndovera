@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Computer Studies database practice",
+  "questionCount": 10,
+  "note": "Original written practice. NECO formats verified; topic mapping provisional from historical WAEC examiner material. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Fields and records",
+      "learningObjective": "Choose suitable field types and identifiers and explain how validation protects data quality.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-001",
+      "objectiveId": "neco-computer-071-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school stores contact numbers as whole numbers. Several local numbers lose their initial zero when saved. Recommend a field type and one separate validation rule for the school’s policy of accepting only 11 digits.",
+      "answer": "Use a text field. Require exactly 11 characters, each a digit.",
+      "explanation": "The value is an identifier and does not need arithmetic. Text preserves leading zeros. A length and character check enforces the stated local format.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Select text."
+        },
+        {
+          "marks": 1,
+          "description": "Explain preservation of leading zeros."
+        },
+        {
+          "marks": 1,
+          "description": "Specify both length and digit constraints."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Fields and records",
+      "learningObjective": "Choose suitable field types and identifiers and explain how validation protects data quality.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-002",
+      "objectiveId": "neco-computer-071-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A tool-hire shop wants to identify each customer record by surname or by an assigned customer code. Different customers can share a surname, and surnames can change. Recommend a key and explain how to keep it reliable.",
+      "answer": "Use the assigned customer code as a primary key. Require a non-empty, unique code and keep it stable.",
+      "explanation": "Uniqueness prevents two customers from sharing a record identifier. Stability means a name change need not affect references to the record.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Choose the code."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why surnames are unsuitable."
+        },
+        {
+          "marks": 1,
+          "description": "State how to enforce uniqueness and preserve stability."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Fields and records",
+      "learningObjective": "Choose suitable field types and identifiers and explain how validation protects data quality.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-003",
+      "objectiveId": "neco-computer-071-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A reading room needs to keep a record of each loan, including repeated borrowing of the same copy by the same pupil. Propose a primary key and three other fields that let staff identify the copy, the pupil and the day it went out. Explain why the copy code alone cannot be the key.",
+      "answer": "Use a unique LoanID as key, with CopyID, PupilID and LoanDate as separate fields.",
+      "explanation": "A copy may appear on many loan rows. Giving each transaction its own identifier preserves repeat loans without confusing a loan with the item loaned.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Propose a unique loan-level identifier."
+        },
+        {
+          "marks": 1,
+          "description": "Include separate copy and pupil identifiers."
+        },
+        {
+          "marks": 1,
+          "description": "Include a loan date."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why a copy code repeats across rows."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Fields and records",
+      "learningObjective": "Choose suitable field types and identifiers and explain how validation protects data quality.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-004",
+      "objectiveId": "neco-computer-071-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In a table where each row represents one school bus trip, what is one record?",
+      "answer": "All the stored field values for one trip.",
+      "explanation": "A row represents one occurrence. Each column holds a field such as the trip date or the vehicle code.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A column containing the dates of all trips.",
+        "All the stored field values for one trip.",
+        "A single field name at the top of a column.",
+        "The list of data types used in the table."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Fields and records",
+      "learningObjective": "Choose suitable field types and identifiers and explain how validation protects data quality.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-005",
+      "objectiveId": "neco-computer-071-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A school database has a numeric field for hours spent on a task. The agreed rule allows values from 0 to 8 inclusive. Which input will a correct range check reject?",
+      "answer": "8.5",
+      "explanation": "The value 8.5 exceeds the upper bound. Both endpoints and intermediate values satisfy the rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "0",
+        "4.5",
+        "8",
+        "8.5"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Queries and reports",
+      "learningObjective": "Select records using criteria and distinguish data entry, retrieval and presentation functions.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-006",
+      "objectiveId": "neco-computer-071-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A library’s overdue list includes returned books because the query checks only whether DueDate is before today. Give a corrected rule using the Yes/No field Returned. Explain why a book due today is excluded.",
+      "answer": "Use DueDate < Today AND Returned = No. A book due today fails the strict earlier-than condition.",
+      "explanation": "Both tests must be true. The date identifies overdue loans, and the status removes returned copies.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Specify the strict due-date test."
+        },
+        {
+          "marks": 1,
+          "description": "Require Returned = No with AND."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why a due date equal to today does not qualify."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Queries and reports",
+      "learningObjective": "Select records using criteria and distinguish data entry, retrieval and presentation functions.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-007",
+      "objectiveId": "neco-computer-071-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A bursar’s query produces the correct unpaid entries. The bursar needs a printable summary grouped by class with a subtotal per class. Describe how the query and the report should work together.",
+      "answer": "Use the unpaid query as the source for a report. Group the report by class and sum the outstanding amount for each group.",
+      "explanation": "The query selects relevant records. The report arranges those records for reading and adds class totals without changing the underlying balances.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use the unpaid query as the report source."
+        },
+        {
+          "marks": 1,
+          "description": "Group by class and specify the amount to subtotal."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish the selection and presentation roles."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Queries and reports",
+      "learningObjective": "Select records using criteria and distinguish data entry, retrieval and presentation functions.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-008",
+      "objectiveId": "neco-computer-071-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A repairs database must show all jobs that are either awaiting a part or assigned urgent priority. Which criterion includes a job satisfying either condition, including jobs satisfying both?",
+      "answer": "Status = Awaiting part OR Priority = Urgent",
+      "explanation": "OR is inclusive here. A row is retained whenever at least one of the two conditions is true.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Status = Awaiting part AND Priority = Urgent",
+        "Status = Awaiting part AND Priority is not Urgent",
+        "Status = Awaiting part OR Priority = Urgent",
+        "Status is not Awaiting part OR Priority is not Urgent"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Queries and reports",
+      "learningObjective": "Select records using criteria and distinguish data entry, retrieval and presentation functions.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-009",
+      "objectiveId": "neco-computer-071-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A cooperative’s clerk needs a screen for entering one member’s details at a time. Which database object is specifically designed to provide that kind of data-entry interface?",
+      "answer": "Form",
+      "explanation": "A form can arrange data-entry controls for one record and save values into the underlying data source.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Form",
+        "Printed report",
+        "Primary key",
+        "Sort order"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Queries and reports",
+      "learningObjective": "Select records using criteria and distinguish data entry, retrieval and presentation functions.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "id": "ndv-071-010",
+      "objectiveId": "neco-computer-071-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A query selects Stock < ReorderPoint. Item P has stock 12 and reorder point 12. Item Q has 7 and 9. Item R has 8 and 6. Which items appear?",
+      "answer": "Q only",
+      "explanation": "P fails because equality is excluded. Q is below its own reorder point. R is above its reorder point.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "P and Q",
+        "Q only",
+        "Q and R",
+        "P only"
+      ],
+      "correctOption": "B"
+    }
+  ]
+}

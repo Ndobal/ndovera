@@ -1054,6 +1054,19 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "The NECO timetable lists General Mathematics Papers II (1022, essay) and III (1023, objective). Historical WAEC examiner observations support provisional topic selection. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
+    },
+    {
+      "id": "neco-computer-databases-reference-2026",
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Computer/Comp335mq3.html",
+        "https://www.waeconline.org.ng/e-learning/Computer/Comp230mq1.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "The NECO timetable lists Computer Studies Papers I (2031, practical), II (2032, essay) and III (2033, objective). This batch covers written practice. Historical WAEC examiner observations support provisional topic selection. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
     }
   ],
   "banks": [
@@ -2259,6 +2272,19 @@
     {
       "exam": "NECO",
       "subject": "Physics",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "I": "practical",
+        "III": "objective",
+        "II": "essay"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
@@ -8407,6 +8433,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal General Mathematics Papers II and III",
         "Historical WAEC General Mathematics examiner observations, 2012 and 2015"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-computer-071-1-v1",
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Fields and records",
+      "learningObjective": "Choose suitable field types and identifiers and explain how validation protects data quality.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Computer Studies Papers II and III",
+        "Historical WAEC Computer Studies examiner observations, 2021 and 2022"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-computer-071-2-v1",
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Databases",
+      "subtopic": "Queries and reports",
+      "learningObjective": "Select records using criteria and distinguish data entry, retrieval and presentation functions.",
+      "specificationId": "neco-computer-databases-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Computer Studies Papers II and III",
+        "Historical WAEC Computer Studies examiner observations, 2021 and 2022"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

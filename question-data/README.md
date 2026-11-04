@@ -371,3 +371,9 @@ Batch 070 adds 12 NECO General Mathematics drafts on statistics. The
 2026 internal timetable verifies the essay and objective formats.
 Historical WAEC examiner materials inform provisional topic mapping.
 Official NECO content objectives remain open.
+
+Batch 071 registers NECO Computer Studies and adds ten written database
+drafts. The 2026 internal timetable establishes practical, essay and
+objective paper formats. Historical WAEC material supports provisional
+written objectives. NECO practical task requirements and full objectives
+remain open.
