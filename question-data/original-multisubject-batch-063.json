@@ -1,0 +1,530 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO General Mathematics geometry and probability practice",
+  "questionCount": 12,
+  "note": "Original structured and four-option practice for the verified 2026 paper formats. Topic alignment is provisional. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Circle properties",
+      "learningObjective": "Use circle properties to find angles or lengths and justify geometric conclusions.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-001",
+      "objectiveId": "neco-math-063-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A circle has centre O and chord AB of length 30 cm. The perpendicular from O meets AB at M, and OM is 8 cm. Find the radius and explain how you know the length of AM.",
+      "answer": "17 cm",
+      "explanation": "The perpendicular from the centre bisects AB, so AM is 15 cm. The right triangle OMA has OA² = 15² + 8² = 289, so OA is 17 cm.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "State that the perpendicular from the centre bisects the chord."
+        },
+        {
+          "marks": 1,
+          "description": "Find AM = 15 cm and set up Pythagoras in OMA."
+        },
+        {
+          "marks": 1,
+          "description": "Obtain the radius 17 cm."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "15**2+8**2",
+          "expected": "289",
+          "purpose": "Squared radius"
+        },
+        {
+          "expression": "17**2",
+          "expected": "289",
+          "purpose": "Check the stated positive radius"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Circle properties",
+      "learningObjective": "Use circle properties to find angles or lengths and justify geometric conclusions.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-002",
+      "objectiveId": "neco-math-063-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "PQ is a diameter and R is on the circle. A student draws the tangent at P and says it must be parallel to QR because both lines are perpendicular to PR. Explain the error and name the radius that is perpendicular to the tangent.",
+      "answer": "QR is perpendicular to PR, but the tangent at P is perpendicular to OP, where O is the centre.",
+      "explanation": "Angle PRQ is 90° because PQ is a diameter. The perpendicularity at P involves OP, which lies on PQ, so the claimed parallelism does not follow.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use the diameter to justify that QR is perpendicular to PR."
+        },
+        {
+          "marks": 1,
+          "description": "Identify OP as the radius perpendicular to the tangent."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that the two given right angles involve different lines."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Circle properties",
+      "learningObjective": "Use circle properties to find angles or lengths and justify geometric conclusions.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-003",
+      "objectiveId": "neco-math-063-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Four distinct points E, F, G and H lie on a circle in that order. The interior angle EFG is obtuse. What must be true of the interior angle GHE?",
+      "answer": "It is acute.",
+      "explanation": "Opposite angles of a cyclic quadrilateral sum to 180°, so the supplement of an obtuse angle is acute.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "It is obtuse.",
+        "It is acute.",
+        "It is a right angle.",
+        "It equals EFG."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Circle properties",
+      "learningObjective": "Use circle properties to find angles or lengths and justify geometric conclusions.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-004",
+      "objectiveId": "neco-math-063-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A circular design has centre C. The minor angle ACB is 76°. A point T lies strictly inside the minor arc AB. Find angle ATB.",
+      "answer": "142°",
+      "explanation": "The arc AB opposite T is the major arc. Its central angle is 360° − 76° = 284°, so the angle at T is half that, 142°.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "38°",
+        "104°",
+        "142°",
+        "152°"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "(360-76)/2",
+          "expected": "142",
+          "purpose": "Half the major arc angle"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Coordinate geometry",
+      "learningObjective": "Use coordinates, gradients and midpoints to analyse geometric relationships.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-005",
+      "objectiveId": "neco-math-063-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On a site plan, a water tap at W(2, 7) must be equally distant from the endpoints A(−4, 3) and B(8, 3) of a fence. Show whether it meets the requirement without calculating either distance. Describe all points that would meet it.",
+      "answer": "Yes. All points on the line x = 2 are equally distant from A and B.",
+      "explanation": "The midpoint is (2, 3), and the fence is horizontal. Its perpendicular bisector is x = 2, and W lies on that line.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Find midpoint (2, 3)."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the perpendicular bisector as x = 2."
+        },
+        {
+          "marks": 1,
+          "description": "Use W’s position and the perpendicular-bisector property to justify the result."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(-4+8)/2",
+          "expected": "2",
+          "purpose": "Midpoint x-coordinate"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Coordinate geometry",
+      "learningObjective": "Use coordinates, gradients and midpoints to analyse geometric relationships.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-006",
+      "objectiveId": "neco-math-063-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "An apprentice checks a rectangular frame with consecutive corners A(1, 1), B(5, 3), C(4, 5) and D(0, 3). They argue that equal diagonals alone prove it is rectangular. Give a valid verification using sides and explain what their argument leaves out.",
+      "answer": "The frame is rectangular. Opposite sides have equal parallel direction vectors and adjacent sides are perpendicular. Equal diagonals alone do not rule out an isosceles trapezium.",
+      "explanation": "AB and DC both have displacement (4, 2). BC and AD both have displacement (−1, 2). Their dot product is 4(−1) + 2(2) = 0, so the parallelogram has a right angle. An isosceles trapezium is a counterexample to the equal-diagonal claim.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Establish both pairs of parallel opposite sides."
+        },
+        {
+          "marks": 1,
+          "description": "Show perpendicular adjacent sides by gradients, a dot product or equivalent reasoning."
+        },
+        {
+          "marks": 1,
+          "description": "Give a valid counterexample or explain why the parallelogram property is needed."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4*(-1)+2*2",
+          "expected": "0",
+          "purpose": "Adjacent displacement dot product"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Coordinate geometry",
+      "learningObjective": "Use coordinates, gradients and midpoints to analyse geometric relationships.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-007",
+      "objectiveId": "neco-math-063-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A bicycle route follows the straight line through (−2, 5) and (4, −1) on a grid. At what point does it cross the horizontal axis?",
+      "answer": "(3, 0)",
+      "explanation": "The gradient is −1, giving y = −x + 3. Set y = 0 to find x = 3.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "(0, 3)",
+        "(−3, 0)",
+        "(3, 0)",
+        "(4, 0)"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "(-1-5)/(4-(-2))",
+          "expected": "-1",
+          "purpose": "Gradient of the bicycle route"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Coordinate geometry",
+      "learningObjective": "Use coordinates, gradients and midpoints to analyse geometric relationships.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-008",
+      "objectiveId": "neco-math-063-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Two points have coordinates (p, 2) and (p, 9). Which statement describes the line through them?",
+      "answer": "The line is vertical and its gradient is undefined.",
+      "explanation": "The horizontal change is zero while the vertical change is nonzero, so the gradient would require division by zero.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The line is horizontal and its gradient is zero.",
+        "The line is vertical and its gradient is zero.",
+        "The line is horizontal and its gradient is undefined.",
+        "The line is vertical and its gradient is undefined."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Probability",
+      "subtopic": "Finite sample spaces and replacement",
+      "learningObjective": "Represent finite sample spaces and calculate probabilities for single or successive events.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-009",
+      "objectiveId": "neco-math-063-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A club has three red and two blue badges. Two badges are drawn at random without replacement. Write the two possible colour orders for drawing different colours and calculate the total probability.",
+      "answer": "RB and BR. The probability is 3/5.",
+      "explanation": "The orders are disjoint. RB has probability (3/5)(2/4), and BR has probability (2/5)(3/4). Their sum is 3/5.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify RB and BR as the two orders."
+        },
+        {
+          "marks": 1,
+          "description": "Calculate both path probabilities with the second denominator equal to 4."
+        },
+        {
+          "marks": 1,
+          "description": "Add the path probabilities to obtain 3/5."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3/5*2/4+2/5*3/4",
+          "expected": "3/5",
+          "purpose": "Probability of different colours"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Probability",
+      "subtopic": "Finite sample spaces and replacement",
+      "learningObjective": "Represent finite sample spaces and calculate probabilities for single or successive events.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-010",
+      "objectiveId": "neco-math-063-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A stall runs a game using five equally likely tokens numbered 1 to 5. A player draws twice, replacing and mixing the token after the first draw. Ada wins if at least one number is 5. Seyi wins if both numbers are odd. Compare their chances and justify your conclusion.",
+      "answer": "They have equal winning probabilities of 9/25.",
+      "explanation": "Ada’s probability is 1 − (4/5)² = 9/25. Seyi’s probability is (3/5)² = 9/25. Replacement keeps the probabilities constant across draws.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use a complement or equivalent counting for Ada."
+        },
+        {
+          "marks": 1,
+          "description": "Identify three odd tokens and calculate the probability that both draws are odd."
+        },
+        {
+          "marks": 1,
+          "description": "Compare the probabilities explicitly."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1-(4/5)**2",
+          "expected": "9/25",
+          "purpose": "Ada’s chance"
+        },
+        {
+          "expression": "(3/5)**2",
+          "expected": "9/25",
+          "purpose": "Seyi’s chance"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Probability",
+      "subtopic": "Finite sample spaces and replacement",
+      "learningObjective": "Represent finite sample spaces and calculate probabilities for single or successive events.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-011",
+      "objectiveId": "neco-math-063-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A fair six-sided die is rolled once. Let E mean that the result is less than 3. Which list contains exactly the outcomes in the complement of E?",
+      "answer": "3, 4, 5, 6",
+      "explanation": "E consists of 1 and 2. The complement contains every other die outcome, including 3.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "1, 2",
+        "1, 2, 3",
+        "4, 5, 6",
+        "3, 4, 5, 6"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Probability",
+      "subtopic": "Finite sample spaces and replacement",
+      "learningObjective": "Represent finite sample spaces and calculate probabilities for single or successive events.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-063-012",
+      "objectiveId": "neco-math-063-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A fair coin and a fair four-sided spinner numbered 1 to 4 are used independently. What is the probability of getting tails and a number greater than 1?",
+      "answer": "3/8",
+      "explanation": "Three spinner results qualify, and tails has probability 1/2. Independence gives (1/2)(3/4) = 3/8.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "1/8",
+        "3/8",
+        "1/2",
+        "3/4"
+      ],
+      "correctOption": "B",
+      "verification": [
+        {
+          "expression": "1/2*3/4",
+          "expected": "3/8",
+          "purpose": "Independent joint event"
+        }
+      ]
+    }
+  ]
+}

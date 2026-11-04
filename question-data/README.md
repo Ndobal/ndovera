@@ -325,3 +325,9 @@ objective drafts on community service and intercommunal relations.
 The 2026 Internal timetable confirms the Civic Education papers.
 Historical WAEC materials support provisional topics. The batch makes
 no claim about a later NECO syllabus or successor subject.
+
+Batch 063 opens NECO General Mathematics with six structured and six
+objective drafts on circle geometry, coordinate geometry and probability.
+The 2026 Internal timetable verifies the essay and objective papers.
+Historical WAEC examiner observations inform provisional topic mapping.
+Official NECO topic objectives remain open.

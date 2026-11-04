@@ -958,6 +958,19 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "The 2026 SSCE Internal timetable lists Civic Education objective and essay papers. Historical WAEC examiner materials guide provisional topics. No inference is made about later NECO years or Citizenship and Heritage Studies. Official topic objectives and option counts remain open."
+    },
+    {
+      "id": "neco-mathematics-geometry-probability-reference-2026",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-Learning/Mathematics/maths235jw.html",
+        "https://www.waeconline.org.ng/e-learning/Mathematics/maths230aw.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "The NECO timetable lists General Mathematics Papers II (1022, essay) and III (1023, objective). Historical WAEC examiner observations support provisional topic selection. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
     }
   ],
   "banks": [
@@ -7684,6 +7697,63 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Civic Education Papers II and III",
         "Historical WAEC Civic Education examiner materials"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-math-063-1-v1",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Circle properties",
+      "learningObjective": "Use circle properties to find angles or lengths and justify geometric conclusions.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal General Mathematics Papers II and III",
+        "Historical WAEC General Mathematics examiner observations, 2020 and 2022"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-math-063-2-v1",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Coordinate geometry",
+      "learningObjective": "Use coordinates, gradients and midpoints to analyse geometric relationships.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal General Mathematics Papers II and III",
+        "Historical WAEC General Mathematics examiner observations, 2020 and 2022"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-math-063-3-v1",
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Probability",
+      "subtopic": "Finite sample spaces and replacement",
+      "learningObjective": "Represent finite sample spaces and calculate probabilities for single or successive events.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal General Mathematics Papers II and III",
+        "Historical WAEC General Mathematics examiner observations, 2020 and 2022"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
