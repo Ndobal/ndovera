@@ -1,0 +1,396 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Civic Education community action and relations practice",
+  "questionCount": 10,
+  "note": "Original structured and four-option practice for the verified 2026 paper formats. Provisional topic mapping. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-001",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school club has six volunteers and one afternoon. Its library is short of books and some younger pupils struggle to choose a suitable book. Design a volunteer activity that addresses the second problem without buying books. Include a way to tell whether the activity helped.",
+      "answer": "Run short reading-choice sessions using books already available. Pair volunteers with younger pupils to discuss interests and try a page before choosing. Record how many pupils can choose a book independently at the end.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Propose a feasible activity using existing books and available volunteers."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how it helps pupils choose suitable books."
+        },
+        {
+          "marks": 1,
+          "description": "Give an indicator linked to the stated problem."
+        }
+      ],
+      "explanation": "Run short reading-choice sessions using books already available. Pair volunteers with younger pupils to discuss interests and try a page before choosing. Record how many pupils can choose a book independently at the end."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-002",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A group repaired a public reading bench. The group counted the number of volunteers, but residents say the bench is still unusable because the path is blocked. Distinguish the measure already collected from a measure of the benefit residents receive.",
+      "answer": "The volunteer count measures participation, while the number of residents able to reach and use the bench would measure a service outcome. The blocked path can prevent a well-attended activity from helping residents.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the volunteer count as a participation measure."
+        },
+        {
+          "marks": 1,
+          "description": "Propose an outcome measure based on access or use."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why participation alone does not show the benefit."
+        }
+      ],
+      "explanation": "The volunteer count measures participation, while the number of residents able to reach and use the bench would measure a service outcome. The blocked path can prevent a well-attended activity from helping residents."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-003",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A youth club is offered two Saturday projects: repainting a wall that was recently painted, or helping a community centre catalogue its donated books. The centre says pupils often cannot find the books they need. The club can do only one project. Recommend one and explain how the club should agree on its role.",
+      "answer": "Choose the catalogue project because it addresses a stated need. Agree on the categories, limits of the work and supervision with centre staff before starting.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Choose the project linked to the demonstrated need."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why it is likely to provide a more immediate benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Describe a concrete way to agree the club’s role with centre staff."
+        }
+      ],
+      "explanation": "Choose the catalogue project because it addresses a stated need. Agree on the categories, limits of the work and supervision with centre staff before starting."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-004",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which example is voluntary community service?",
+      "answer": "Residents give their time to organise free reading sessions at a community centre.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A trader earns a commission for selling exercise books.",
+        "Residents give their time to organise free reading sessions at a community centre.",
+        "A worker receives wages to stock a shop.",
+        "A private tutor charges a family for a lesson."
+      ],
+      "correctOption": "B",
+      "explanation": "The residents volunteer their time for a shared community benefit."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-005",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Volunteers are preparing large-print signs for a community event. Which step most directly checks whether the signs meet users’ needs?",
+      "answer": "Ask intended users to try reading the signs from the places where they will be used.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Ask intended users to try reading the signs from the places where they will be used.",
+        "Count the sheets of paper left after printing.",
+        "Check which volunteer designed the largest number of signs.",
+        "Ask the printer how quickly it can make another batch."
+      ],
+      "correctOption": "A",
+      "explanation": "Testing with intended users in the real setting gives direct evidence about readability."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-006",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two communities share a meeting hall. One uses it every market day. The other has started a training programme at the same hour. Explain the immediate cause of conflict and suggest a rule that would let both groups plan ahead.",
+      "answer": "The groups need the hall at overlapping times. A public booking calendar with a fair procedure for recurring slots and changes would let both plan ahead.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify conflicting use of the same facility at the same time."
+        },
+        {
+          "marks": 1,
+          "description": "Suggest a clear booking rule."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how predictable access reduces the conflict."
+        }
+      ],
+      "explanation": "The groups need the hall at overlapping times. A public booking calendar with a fair procedure for recurring slots and changes would let both plan ahead."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-007",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A rumour claims that one community damaged equipment jointly owned by two communities. There are no inspection records yet. Recommend two steps a joint committee should take before assigning responsibility.",
+      "answer": "Inspect the equipment and gather dated evidence. Invite representatives of both communities to give their accounts before reaching a decision.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recommend a concrete evidence-gathering step."
+        },
+        {
+          "marks": 1,
+          "description": "Recommend hearing both sides."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why the steps reduce the risk of unfair blame."
+        }
+      ],
+      "explanation": "Inspect the equipment and gather dated evidence. Invite representatives of both communities to give their accounts before reaching a decision."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-008",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two neighbouring communities want to run a joint cultural day, but each fears its contributions will receive less attention. Propose a planning arrangement and one visible check that both communities are represented fairly.",
+      "answer": "Form a joint planning group with members from both communities and agree on how time and space will be shared. Publish a draft programme that lists both communities’ activities and invite corrections before the event.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Propose a planning arrangement that includes both communities."
+        },
+        {
+          "marks": 1,
+          "description": "Describe an agreed allocation method."
+        },
+        {
+          "marks": 1,
+          "description": "Give a visible check on representation."
+        }
+      ],
+      "explanation": "Form a joint planning group with members from both communities and agree on how time and space will be shared. Publish a draft programme that lists both communities’ activities and invite corrections before the event."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-009",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Representatives from two communities disagree about how to maintain a shared footbridge. What is a useful first step for a mediator?",
+      "answer": "Ask each group to state its needs and identify concerns they share.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Decide who should pay before hearing either side.",
+        "Ask each group to state its needs and identify concerns they share.",
+        "Invite only the group with the larger population.",
+        "Announce that discussion can begin only after one group gives up its position."
+      ],
+      "correctOption": "B",
+      "explanation": "Hearing both sides and identifying shared interests creates a basis for cooperation."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-062-010",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Members of two villages jointly maintain an access road used by both. How can this cooperation support local trade?",
+      "answer": "A usable shared road can help traders and buyers reach markets in either village.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A usable shared road can help traders and buyers reach markets in either village.",
+        "Joint maintenance prevents all future price changes.",
+        "A shared road means every household must sell the same goods.",
+        "Cooperation removes the need to transport produce."
+      ],
+      "correctOption": "A",
+      "explanation": "Maintaining a shared transport link can reduce interruptions to the movement of goods and customers."
+    }
+  ]
+}

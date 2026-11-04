@@ -319,3 +319,9 @@ objective drafts on soil management and cropping systems. Historical WAEC
 examiner feedback supports provisional topic selection. The 2026 NECO
 timetable confirms written paper formats. Official NECO topic objectives
 and practical performance tasks remain open.
+
+Batch 062 opens NECO Civic Education with six structured and four
+objective drafts on community service and intercommunal relations.
+The 2026 Internal timetable confirms the Civic Education papers.
+Historical WAEC materials support provisional topics. The batch makes
+no claim about a later NECO syllabus or successor subject.

@@ -945,6 +945,19 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "NECO timetable confirms essay and objective papers. Historical WAEC reports support provisional soil and cropping topics. Official NECO objectives and option counts remain open. Practical performance is outside this batch."
+    },
+    {
+      "id": "neco-civic-community-reference-2026",
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Civic/civic230bq6.html",
+        "https://www.waeconline.org.ng/e-learning/Civic/civic229cq1.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "The 2026 SSCE Internal timetable lists Civic Education objective and essay papers. Historical WAEC examiner materials guide provisional topics. No inference is made about later NECO years or Citizenship and Heritage Studies. Official topic objectives and option counts remain open."
     }
   ],
   "banks": [
@@ -2053,7 +2066,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_paper_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "III": "objective",
         "II": "essay"
@@ -7633,6 +7646,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Agricultural Science Papers II and III",
         "Historical WAEC Agricultural Science examiner feedback"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-civic-community-1-v1",
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Civic Education Papers II and III",
+        "Historical WAEC Civic Education examiner materials"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-civic-community-2-v1",
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Civic Education Papers II and III",
+        "Historical WAEC Civic Education examiner materials"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
