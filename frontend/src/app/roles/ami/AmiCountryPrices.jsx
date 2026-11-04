@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getContactChangePrice, getCountryPrices, removeCountryPrice, saveContactChangePrice, saveCountryPrice } from '../../../features/showcase/showcaseApi';
+import { getAiLimits, getContactChangePrice, getCountryPrices, removeCountryPrice, saveAiLimits, saveContactChangePrice, saveCountryPrice } from '../../../features/showcase/showcaseApi';
 import { chargeFor, formatMoney } from '../../../shared/pricing/localPrice';
 
 // What buyers outside Nigeria pay: the Nigerian price plus 20%, in their currency at the rate
@@ -28,6 +28,14 @@ export default function AmiCountryPrices() {
   const [otherName, setOtherName] = useState('');
   const [packNaira, setPackNaira] = useState('');
   const [notice, setNotice] = useState('');
+  const [limits, setLimits] = useState({ freeAiPerDay: '', freeReportsPerDay: '', reportCredits: '' });
+  useEffect(() => { getAiLimits().then(result => setLimits(result.limits)).catch(() => null); }, []);
+  const setLimit = name => event => setLimits(current => ({ ...current, [name]: event.target.value }));
+  const saveLimits = event => {
+    event.preventDefault();
+    saveAiLimits({ freeAiPerDay: Number(limits.freeAiPerDay), freeReportsPerDay: Number(limits.freeReportsPerDay), reportCredits: Number(limits.reportCredits) })
+      .then(result => { setLimits(result.limits); setNotice('Saved.'); }).catch(error => setNotice(error.message));
+  };
   useEffect(() => { getContactChangePrice().then(result => setPackNaira(String(result.naira))).catch(() => null); }, []);
   const savePack = event => { event.preventDefault(); saveContactChangePrice(Number(packNaira)).then(result => { setPackNaira(String(result.naira)); setNotice('Saved.'); }).catch(error => setNotice(error.message)); };
   const load = useCallback(() => getCountryPrices().then(setData).catch(error => setNotice(error.message)), []);
@@ -83,6 +91,14 @@ export default function AmiCountryPrices() {
         {choice === 'other' ? <><label className={LABEL}>Two-letter country code<input className={FIELD} maxLength={2} required value={otherCode} onChange={event => setOtherCode(event.target.value.toUpperCase())} /></label><label className={LABEL}>Country name<input className={FIELD} required value={otherName} onChange={event => setOtherName(event.target.value)} /></label></> : null}
         <label className={LABEL}>Exact naira for 1 {currency || 'unit'}<input type="number" min="0" step="any" required className={FIELD} value={rate} onChange={event => setRate(event.target.value)} /></label>
         <div className="flex items-end"><button type="submit" className={PRIMARY}>Save rate</button></div>
+      </form>
+      <form onSubmit={saveLimits} className={`${CARD} space-y-2`} aria-label="Free AI limits">
+        <h3 className={HEADING}>Free AI limits</h3>
+        <p className={BODY}>For each person, each day. More free AI means more of Cloudflare's daily AI allowance is used, and a new number applies within a minute.</p>
+        <label className={LABEL}>Free AI uses a day<input type="number" min="0" max="100" className={FIELD} value={limits.freeAiPerDay} onChange={setLimit('freeAiPerDay')} /></label>
+        <label className={LABEL}>Free AI reports a day<input type="number" min="0" max="100" className={FIELD} value={limits.freeReportsPerDay} onChange={setLimit('freeReportsPerDay')} /></label>
+        <label className={LABEL}>AI credits for each further report<input type="number" min="1" max="5000" className={FIELD} value={limits.reportCredits} onChange={setLimit('reportCredits')} /></label>
+        <button type="submit" className={PRIMARY}>Save limits</button>
       </form>
       <form onSubmit={savePack} className={`${CARD} space-y-2`} aria-label="Extra email and phone changes">
         <h3 className={HEADING}>Extra email and phone changes</h3>

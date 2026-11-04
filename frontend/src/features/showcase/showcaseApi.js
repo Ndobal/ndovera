@@ -15,6 +15,13 @@ async function request(path, { method = 'GET', body } = {}) {
   return data;
 }
 
+export const getAiLimits = () => request('/api/ami/ai-limits');
+export const saveAiLimits = body => request('/api/ami/ai-limits', { method: 'PUT', body });
+export const getCustomExams = () => request('/api/ami/custom-exams');
+export const createCustomExam = body => request('/api/ami/custom-exams', { method: 'POST', body });
+export const updateCustomExam = (key, body) => request(`/api/ami/custom-exams/${encodeURIComponent(key)}`, { method: 'PUT', body });
+export const addCustomExamTopics = (key, body) => request(`/api/ami/custom-exams/${encodeURIComponent(key)}/topics`, { method: 'POST', body });
+export const joinExamRequest = (id, key) => request(`/api/ami/exam-requests/${encodeURIComponent(id)}/join`, { method: 'POST', body: { key } });
 export const getMyExamRequests = () => request('/api/exam-requests/mine');
 export async function sendExamRequest(form) {
   const { 'Content-Type': ignored, ...plain } = headers();

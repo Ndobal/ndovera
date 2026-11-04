@@ -22,6 +22,7 @@
 // raise it. The queue and every night's work are visible to Ami.
 
 import { ensureCurriculumTables } from './curriculumLibrary'
+import { buildingExamKeys, loadCustomExams } from './customExams'
 import { LEVEL_NAME_SQL, levelOf, subjectKeyOf } from './levels'
 import { bankType, ensurePracticeTables, normalizeText } from './practiceArena'
 import { writeQuestions } from './practiceBank'
@@ -38,7 +39,7 @@ export const DEFAULT_BUILD_SETTINGS = { batchesPerNight: 12, reviewEvery: 3 }
 export const WRITE_DAYS = [0, 3]
 /** Steps a night whatever Ami has saved, unless AI_NIGHT_STEP_LIMIT says otherwise. */
 export const NIGHT_STEP_LIMIT = 12
-const BUILD_GROUPS = ['jamb', 'waec', 'neco', 'bece', 'common_entrance', 'class']
+const buildGroups = () => ['jamb', 'waec', 'neco', 'bece', 'common_entrance', ...buildingExamKeys(), 'class']
 const PAGE = 100
 const REVIEW_BATCH = 10
 
@@ -106,6 +107,8 @@ export async function saveBuildSettings(db: D1Database, input: Record<string, an
 /** Examination names as syllabus documents write them. */
 export function examKeyOf(value: unknown): ExamKey | '' {
   const text = String(value || '').toLowerCase()
+  // An exact key first: an exam built on request may be called something like x_bece_ghana.
+  if (normalizeExam(text)) return normalizeExam(text)
   if (/jamb|utme/.test(text)) return 'jamb'
   if (/neco/.test(text)) return 'neco'
   if (/waec|wassce|ssce/.test(text)) return 'waec'
@@ -202,14 +205,16 @@ async function contextFor(db: D1Database, ref: string) {
 
 /** Examinations and class practice take turns, so one long queue cannot keep the others waiting. */
 async function nextQueueItem(db: D1Database) {
-  const start = Math.max(0, BUILD_GROUPS.indexOf(await getState(db, 'next_group')))
-  for (let turn = 0; turn < BUILD_GROUPS.length; turn += 1) {
-    const group = BUILD_GROUPS[(start + turn) % BUILD_GROUPS.length]
+  await loadCustomExams(db)
+  const groups = buildGroups()
+  const start = Math.max(0, groups.indexOf(await getState(db, 'next_group')))
+  for (let turn = 0; turn < groups.length; turn += 1) {
+    const group = groups[(start + turn) % groups.length]
     const item = await (group === 'class'
       ? db.prepare(`SELECT * FROM practice_build_queue WHERE status = 'pending' AND exam IS NULL ORDER BY priority, made, updated_at LIMIT 1`)
       : db.prepare(`SELECT * FROM practice_build_queue WHERE status = 'pending' AND exam = ? ORDER BY priority, made, updated_at LIMIT 1`).bind(group)).first() as Record<string, any> | null
     if (item) {
-      await setState(db, 'next_group', BUILD_GROUPS[(start + turn + 1) % BUILD_GROUPS.length])
+      await setState(db, 'next_group', groups[(start + turn + 1) % groups.length])
       return item
     }
   }

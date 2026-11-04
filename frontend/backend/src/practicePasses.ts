@@ -34,8 +34,10 @@ export class PassError extends Error {
   }
 }
 
-export type ExamKey = 'common_entrance' | 'bece' | 'waec' | 'neco' | 'jamb'
-export const EXAMS: Record<ExamKey, { label: string, section: string, standard: string, mcqOptions: number, mockQuestions: number, mockMinutes: number, style: string }> = {
+export type ExamKey = 'common_entrance' | 'bece' | 'waec' | 'neco' | 'jamb' | (string & {})
+/** Exams Ndovera built on request (customExams.ts) are added to this list while the worker runs. */
+export type ExamDefinition = { label: string, section: string, standard: string, mcqOptions: number, mockQuestions: number, mockMinutes: number, style: string, custom?: boolean, live?: boolean, paused?: boolean, country?: string, minStock?: number }
+export const EXAMS: Record<ExamKey, ExamDefinition> = {
   common_entrance: { label: 'Common Entrance', section: 'primary', standard: 'school', mcqOptions: 4, mockQuestions: 50, mockMinutes: 60, style: 'the National Common Entrance Examination (NCEE) into Federal Government Colleges: short, clear objective questions for Primary 5–6 pupils' },
   bece: { label: 'BECE (Junior WAEC)', section: 'junior', standard: 'school', mcqOptions: 4, mockQuestions: 50, mockMinutes: 60, style: 'the Basic Education Certificate Examination (BECE / Junior WAEC) for JSS 3 candidates, objective paper style' },
   waec: { label: 'WAEC (WASSCE)', section: 'senior', standard: 'waec', mcqOptions: 4, mockQuestions: 50, mockMinutes: 60, style: 'the WAEC West African Senior School Certificate Examination (WASSCE) objective paper, four options A–D' },
@@ -43,7 +45,9 @@ export const EXAMS: Record<ExamKey, { label: string, section: string, standard: 
   jamb: { label: 'JAMB (UTME)', section: 'senior', standard: 'school', mcqOptions: 4, mockQuestions: 40, mockMinutes: 30, style: 'the JAMB Unified Tertiary Matriculation Examination (UTME) computer-based test: four options A–D, testing the UTME syllabus' },
 }
 export const EXAM_KEYS = Object.keys(EXAMS) as ExamKey[]
-export const examsForSection = (section: string) => EXAM_KEYS.filter(key => EXAMS[key].section === section)
+/** A requested exam stays hidden until it is on sale, then shows where it was asked for: its country, or everywhere. */
+export const examVisibleIn = (key: ExamKey, country = '') => { const exam = EXAMS[key]; return !exam?.custom || Boolean(exam.live && (!exam.country || exam.country === country)) }
+export const examsForSection = (section: string, country = '') => EXAM_KEYS.filter(key => EXAMS[key].section === section && examVisibleIn(key, country))
 export const normalizeExam = (value: unknown): ExamKey | '' => (EXAM_KEYS as string[]).includes(String(value)) ? String(value) as ExamKey : ''
 
 /** The JAMB mock: Use of English (60) and three subjects (40 each), 2 hours, as the UTME. */
@@ -64,6 +68,7 @@ export const SCHOOL_DISCOUNT = 0.3
 export const EXAM_MIN_STOCK = 300
 /** Checked questions each core subject needs too, so a pass is never sold with a main subject empty. */
 const SENIOR_CORE = { english: 50, mathematics: 50, biology: 50, chemistry: 50, physics: 50, government: 50 }
+export const examMinStock = (exam: ExamKey) => EXAMS[exam]?.minStock ?? EXAM_MIN_STOCK
 export const EXAM_CORE: Record<ExamKey, Record<string, number>> = {
   waec: SENIOR_CORE, neco: SENIOR_CORE, jamb: { ...SENIOR_CORE, english: 60 },
   bece: { english: 50, mathematics: 50 }, common_entrance: { english: 50, mathematics: 50 },
@@ -234,7 +239,7 @@ export async function examStock(db: D1Database) {
   const stock: Record<string, number> = Object.fromEntries(EXAM_KEYS.map(key => [key, 0]))
   for (const row of (rows.results || []) as Record<string, any>[]) stock[String(row.exam)] = Number(row.ready || 0)
   const short = await examCoreShort(db)
-  for (const exam of EXAM_KEYS) if (short[exam].length) stock[exam] = Math.min(stock[exam], EXAM_MIN_STOCK - 1)
+  for (const exam of EXAM_KEYS) if (short[exam].length) stock[exam] = Math.min(stock[exam], examMinStock(exam) - 1)
   return stock
 }
 
@@ -281,8 +286,8 @@ export async function priceFor(db: D1Database, input: PurchaseInput, options: { 
   }
   if (bundle.exams.length) {
     const stock = await examStock(db)
-    const short = bundle.exams.filter(exam => (stock[exam] || 0) < EXAM_MIN_STOCK)
-    if (short.length) throw new PassError(`${short.map(exam => EXAMS[exam].label).join(' and ')} practice is still being prepared (${short.map(exam => `${stock[exam] || 0} of ${EXAM_MIN_STOCK} checked questions`).join(', ')}). It goes on sale as soon as it is ready.`, 409, { notReady: short })
+    const short = bundle.exams.filter(exam => (stock[exam] || 0) < examMinStock(exam) || (EXAMS[exam].custom && !EXAMS[exam].live))
+    if (short.length) throw new PassError(`${short.map(exam => EXAMS[exam].label).join(' and ')} practice is still being prepared (${short.map(exam => `${stock[exam] || 0} of ${examMinStock(exam)} checked questions`).join(', ')}). It goes on sale as soon as it is ready.`, 409, { notReady: short })
     if (options.held && bundle.exams.every(exam => options.held!.exams.has(exam))) throw new PassError('You already have this pass.', 409)
   }
   const each = options.forSchool ? Math.round(bundle.priceNaira * (1 - SCHOOL_DISCOUNT)) : bundle.priceNaira
@@ -328,12 +333,12 @@ export async function settleCheckout(db: D1Database, txRef: string, verified: { 
   return { payment: await getCheckout(db, txRef), granted: payment.studentIds.length, alreadyPaid: false }
 }
 
-export function bundleList(section: string, stock: Record<string, number>) {
+export function bundleList(section: string, stock: Record<string, number>, country = '') {
   return (Object.entries(BUNDLES) as Array<[BundleKey, typeof BUNDLES[BundleKey]]>)
-    .filter(([, bundle]) => !('section' in bundle) || bundle.section === section)
+    .filter(([, bundle]) => (!('section' in bundle) || bundle.section === section) && bundle.exams.every(exam => examVisibleIn(exam, country)))
     .map(([key, bundle]) => ({
       key, label: bundle.label, priceNaira: bundle.priceNaira, schoolPriceNaira: Math.round(bundle.priceNaira * (1 - SCHOOL_DISCOUNT)), blurb: bundle.blurb, scope: bundle.scope,
-      exams: bundle.exams, ready: bundle.exams.every(exam => (stock[exam] || 0) >= EXAM_MIN_STOCK),
-      stock: bundle.exams.map(exam => ({ exam, label: EXAMS[exam].label, ready: stock[exam] || 0, needed: EXAM_MIN_STOCK })),
+      exams: bundle.exams, ready: bundle.exams.every(exam => (stock[exam] || 0) >= examMinStock(exam)),
+      stock: bundle.exams.map(exam => ({ exam, label: EXAMS[exam].label, ready: stock[exam] || 0, needed: examMinStock(exam) })),
     }))
 }

@@ -26,6 +26,8 @@ export async function ensureExamRequestTables(db: D1Database) {
     status TEXT NOT NULL DEFAULT 'new', ami_note TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, handled_by TEXT)`).run()
   await db.prepare(`CREATE INDEX IF NOT EXISTS idx_exam_requests_status ON exam_requests(status, created_at)`).run()
   await db.prepare(`CREATE INDEX IF NOT EXISTS idx_exam_requests_user ON exam_requests(user_id, created_at)`).run()
+  await db.prepare(`ALTER TABLE exam_requests ADD COLUMN custom_exam TEXT`).run().catch(() => null)
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_exam_requests_exam ON exam_requests(custom_exam, status)`).run()
   ready.add(db as object)
 }
 
@@ -87,7 +89,7 @@ export async function listExamRequests(db: D1Database, status: string) {
   await ensureExamRequestTables(db)
   const chosen = REQUEST_STATUSES.includes(status) ? status : 'new'
   const rows = await db.prepare(`SELECT * FROM exam_requests WHERE status = ? ORDER BY created_at DESC LIMIT ${LIST_LIMIT}`).bind(chosen).all()
-  return ((rows.results || []) as Record<string, any>[]).map(row => ({ ...view(row), curriculumNote: String(row.curriculum_note || ''), hasFile: Boolean(row.file_key), userName: String(row.user_name || ''), userRole: String(row.user_role || ''), schoolName: String(row.school_name || '') }))
+  return ((rows.results || []) as Record<string, any>[]).map(row => ({ ...view(row), customExam: String(row.custom_exam || ''), curriculumNote: String(row.curriculum_note || ''), hasFile: Boolean(row.file_key), userName: String(row.user_name || ''), userRole: String(row.user_role || ''), schoolName: String(row.school_name || '') }))
 }
 
 export async function answerExamRequest(db: D1Database, id: string, input: Record<string, unknown>, actor: string) {

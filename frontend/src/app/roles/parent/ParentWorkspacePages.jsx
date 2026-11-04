@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import StudentSectionShell from '../student/StudentSectionShell';
 import StudentProfilePage from '../../../features/students/components/StudentProfilePage';
+import ChildNameChange from './ChildNameChange';
 import { getLearningStudents, getLiveSessions, getPosts } from '../../../features/classroom/classroomService';
 import { getParentResult } from '../../../features/results-engine/service/resultEngineService';
 import {
@@ -399,6 +400,7 @@ export function ParentOverviewPage() {
 export function ParentChildrenPage() {
   const { students, selectedStudentId, setSelectedStudentId, loading, error } = useParentLearners();
   const [viewStudent, setViewStudent] = useState(null);
+  const [correctedNames, setCorrectedNames] = useState({});
 
   return (
     <StudentSectionShell
@@ -432,7 +434,7 @@ export function ParentChildrenPage() {
             <article key={student.id} className={CARD}>
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h2 className="text-xl font-semibold text-slate-100">{student.name}</h2>
+                  <h2 className="text-xl font-semibold text-slate-100">{correctedNames[student.id] || student.name}</h2>
                   <p className="mt-1 text-sm text-slate-300">{student.className || 'Class pending'}{student.displayId ? ` • ${student.displayId}` : ''}</p>
                 </div>
                 {String(student.id || '') === String(selectedStudentId || '') ? <span className="glass-chip rounded-full px-3 py-1 micro-label accent-emerald">Active Child</span> : null}
@@ -457,6 +459,7 @@ export function ParentChildrenPage() {
                   Full Profile
                 </button>
               </div>
+              <ChildNameChange student={{ ...student, name: correctedNames[student.id] || student.name }} onChanged={name => setCorrectedNames(current => ({ ...current, [student.id]: name }))} />
             </article>
           ))}
 

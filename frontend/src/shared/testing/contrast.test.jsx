@@ -56,6 +56,7 @@ import ParentInvitePanel, { StudentEmailDomain } from '../../features/school/com
 import { getParentInvite, getStudentEmailDomain } from '../../features/school/services/schoolApi';
 import ExamRequestPage from '../../features/showcase/ExamRequestPage';
 import AmiExamRequests from '../../app/roles/ami/AmiExamRequests';
+import ChildNameChange from '../../app/roles/parent/ChildNameChange';
 import * as showcaseApi from '../../features/showcase/showcaseApi';
 import * as transportApi from '../../features/transport/transportApi';
 import MyBusPage from '../../features/transport/MyBusPage';
@@ -95,7 +96,7 @@ jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
 jest.mock('../../features/tenants/components/SchoolAccessPanel', () => () => <div>School access</div>);
 jest.mock('../components/AppDialog', () => ({ askConfirm: jest.fn(() => Promise.resolve(true)), askText: jest.fn(() => Promise.resolve('')) }));
 jest.mock('../../features/tenants/services/tenantApi', () => new Proxy({}, { get: (target, key) => { if (!target[key]) target[key] = jest.fn(() => Promise.resolve({})); return target[key]; } }));
-jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getParentInvite: jest.fn(), getStudentEmailDomain: jest.fn(), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn(), listLinkCompetitions: jest.fn(), getLinkCompetitionEntries: jest.fn(), getSchoolSetup: jest.fn(), getTermsCalendar: jest.fn(), getGrowthCentre: jest.fn(), getGrowthConversation: jest.fn() }));
+jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getChildNameChange: jest.fn(), changeChildName: jest.fn(), getParentInvite: jest.fn(), getStudentEmailDomain: jest.fn(), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn(), listLinkCompetitions: jest.fn(), getLinkCompetitionEntries: jest.fn(), getSchoolSetup: jest.fn(), getTermsCalendar: jest.fn(), getGrowthCentre: jest.fn(), getGrowthConversation: jest.fn() }));
 jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn(), getNewStudentFees: jest.fn(), getExcursions: jest.fn(), getFeeGroups: jest.fn() }));
 
 const month = new Date().toISOString().slice(0, 7);
@@ -575,6 +576,7 @@ describe('reviews, home strips, pass codes and country prices', () => {
     await inBothModes(() => <AmiPassCodes />, 'Codes made');
   });
   test('Ami setting country prices, with the warning', async () => {
+    jest.spyOn(showcaseApi, 'getAiLimits').mockResolvedValue({ limits: { freeAiPerDay: 1, freeReportsPerDay: 2, reportCredits: 50 } });
     jest.spyOn(showcaseApi, 'getCountryPrices').mockResolvedValue({ surcharge: 0.2, defaultDollarRate: 1500, starters: ['GH', 'KE'], presets: [{ code: 'GH', name: 'Ghana', currency: 'GHS' }, { code: 'KE', name: 'Kenya', currency: 'KES' }], rates: [{ country: 'GH', currency: 'GHS', naira_per_unit: 100 }] });
     await inBothModes(() => <AmiCountryPrices />, /pays in dollars until you set a KES rate/);
   });
@@ -582,7 +584,18 @@ describe('reviews, home strips, pass codes and country prices', () => {
     jest.spyOn(showcaseApi, 'getMyExamRequests').mockResolvedValue({ requests: [{ id: 'x1', examName: 'KCSE', country: 'Kenya', status: 'building', note: 'Started on Mathematics.' }] });
     await inBothModes(() => <ExamRequestPage />, 'Started on Mathematics.');
     jest.spyOn(showcaseApi, 'getExamRequests').mockResolvedValue({ requests: [{ id: 'x1', examName: 'KCSE', scope: 'country', country: 'Kenya', status: 'new', note: '', userName: 'Kofi', userRole: 'teacher', schoolName: 'Accra Academy', section: 'senior', subjects: 'Maths', createdAt: '2029-01-01T00:00:00Z', curriculumNote: 'Algebra and geometry topics', hasFile: true, fileName: 'kcse.pdf', link: 'https://example.com/kcse' }] });
+    jest.spyOn(showcaseApi, 'getCustomExams').mockResolvedValue({ exams: [{ key: 'x_kcse', label: 'KCSE', country: 'KE', status: 'building', priceNaira: 3000, minStock: 150, ready: 40, stillNeeds: [{ subject: 'english', ready: 3, needed: 30 }], subjects: [{ subject: 'English', topics: 12, status: 'published' }] }] });
     await inBothModes(() => <AmiExamRequests />, 'Algebra and geometry topics');
+  });
+  test('a parent correcting a child name once', async () => {
+    const schoolApi = require('../../features/school/services/schoolApi');
+    schoolApi.getChildNameChange.mockResolvedValue({ change: null });
+    const { container, unmount } = render(<ChildNameChange student={{ id: 's1', name: 'Ada Obi' }} onChanged={() => null} />);
+    expectReadable(container, 'Correct this name link');
+    fireEvent.click(screen.getByRole('button', { name: 'Correct this name' }));
+    await screen.findByRole('textbox', { name: 'Correct name' });
+    expectReadable(container, 'The name form');
+    unmount();
   });
   test('a parent saving the home location, and the driver navigating to it', async () => {
     const home = { address: '12 Airport Road', landmark: 'Blue gate', lat: 8.98, lng: 7.38 };

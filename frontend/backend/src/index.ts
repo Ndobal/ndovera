@@ -352,7 +352,6 @@ import {
   AI_CREDIT_BUNDLES,
   AI_GLOBAL_SETTINGS_KEY,
   findCreditBundle,
-  freeRequestsForRole,
   consumeAiAccess,
   getAiPaymentRecord,
   getAiPaymentSettingsKey,
@@ -422,7 +421,7 @@ import { FORTNIGHT_DAYS, buildStandings, ensureFinanceReportTables, standingsEma
 import { PROGRESS_TEMPLATES, defaultTemplateFor, loadEarlierTermTotals, normalizePage2, normalizeProfileExtra, normalizeTermTemplates, page2For, progressTemplate, templateForTerm } from './resultTemplates'
 import type { ClubActor } from './clubs'
 import {
-  EXAMS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, freeQuestionsLeft, useFreeQuestions, FREE_LIMIT_REACHED, FREE_QUESTIONS_PER_DAY,
+  EXAMS, EXAM_KEYS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, freeQuestionsLeft, useFreeQuestions, FREE_LIMIT_REACHED, FREE_QUESTIONS_PER_DAY,
   entitlements, examCoreShort, examStock, examsForSection, getCheckout, normalizeExam, packValidUntil, priceFor, rebuildExamStock, recordCheckout, settleCheckout,
 } from './practicePasses'
 import { BUNDLES, ensurePassTables } from './practicePasses'
@@ -433,6 +432,9 @@ import { ensureNudgeTables, NUDGE_BATCH, nextNudgeSchool, nudgeMonth, nudgesAreO
 import { createPayLink, PAY_LINK_DAYS, PayLinkError, readPayLink, rememberPayLinkTx } from './passPayLinks'
 import { cleanDomain, freeStudentEmail, moveRecordsToEmail, saveSchoolDomain, schoolDomainSetting, studentEmailDomain } from './studentEmails'
 import { checkInviteForm, claimInvite, countFailedTry, createInvite, InviteError, INVITE_DAYS, MAX_CHILDREN, readInvite, releaseInvite } from './parentInvites'
+import { aiLimits, AiLimitsError, saveAiLimits } from './aiLimits'
+import { CHILD_NAME_USED, childNameChange, takeChildNameChange } from './childNameChanges'
+import { addExamTopics, CustomExamError, createCustomExam, linkRequestToExam, listCustomExams, loadCustomExams, promoteReadyExams, updateCustomExam } from './customExams'
 import { answerExamRequest, checkCurriculumFile, createExamRequest, examRequestFile, ExamRequestError, listExamRequests, listMyExamRequests, PRIVATE_PREFIX } from './examRequests'
 import { COUNTRY_PRESETS, chargeFor, countryForTenant, DEFAULT_COUNTRY, DEFAULT_DOLLAR_RATE, STARTER_COUNTRIES, deleteRate, FOREIGN_SURCHARGE, listRates, normaliseVerification, recordCharge, ruleFor, saveRate, visitorCountry } from './countryPricing'
 import { cancelCodeBatch, createCodeBatch, listCodeBatches, readCodeBatch, redeemCode } from './passCodes'
@@ -533,6 +535,12 @@ app.onError((error, c) => {
 
 // Anything done in a school that others may need to see moves the school's change stamp, so
 // browsers re-read only then (changeStamps.ts). Personal actions are left out there.
+// Exams built on request join the fixed list. At most one read every 5 minutes per worker.
+app.use('/api/*', async (c, next) => {
+  if (c.env?.APP_DB) await loadCustomExams(c.env.APP_DB)
+  await next()
+})
+
 app.use('/api/*', async (c, next) => {
   await next()
   const tenantId = String((c.var as any)?.user?.tenantId || '').trim()
@@ -5271,7 +5279,7 @@ async function buildAiAccessPayload(db: D1Database, actor: Record<string, any>) 
   const access = await summarizeAiAccess(db, {
     tenantId: actor.tenantId,
     settingsKey: actor.settingsKey,
-    policyOverrides: getAiPolicyOverrides(actor),
+    policyOverrides: await getAiPolicyOverrides(db),
   })
   return {
     access,
@@ -5284,9 +5292,9 @@ async function buildAiAccessPayload(db: D1Database, actor: Record<string, any>) 
   }
 }
 
-/** Free Ndovera AI a day: 10 requests for students, 3 for staff and parents; credits after that. */
-function getAiPolicyOverrides(actor: Record<string, any>) {
-  return { dailyFreeRequests: freeRequestsForRole(String(actor?.role || '')) }
+/** Free Ndovera AI a day, as Ami has set it; credits after that. */
+async function getAiPolicyOverrides(db: D1Database) {
+  return { dailyFreeRequests: (await aiLimits(db)).freeAiPerDay }
 }
 
 async function createPendingTenantRegistration(c: any, payload: Record<string, any>) {
@@ -12671,7 +12679,7 @@ for (const [prefix, scope] of [['/api/ami/curricula', 'ndovera'], ['/api/school/
 app.get('/api/ami/exam-specs', authenticate, async (c) => {
   try {
     await resolveLibraryEditor(c, 'ndovera')
-    return c.json({ success: true, specs: await listExamSpecs(c.env.APP_DB, { includeDrafts: true }), catalog: EXAM_CATALOG })
+    return c.json({ success: true, specs: await listExamSpecs(c.env.APP_DB, { includeDrafts: true }), catalog: [...EXAM_CATALOG, ...EXAM_KEYS.filter(key => EXAMS[key].custom).map(key => ({ key, label: EXAMS[key].label, body: '', sections: [EXAMS[key].section] }))] })
   } catch (error) { return materialAiFailure(c, error, 'Could not load examination specifications.') }
 })
 app.post('/api/ami/exam-specs', authenticate, async (c) => {
@@ -17055,10 +17063,17 @@ async function resolvePracticeStudent(c: any) {
 }
 
 /** The levels a student can choose: Simple, Intermediate, and each examination of their section. */
-function practiceLevels(section: string) {
+/** The school's country, read only when an exam on sale is limited to one country. */
+async function examCountry(db: D1Database, tenantId: string) {
+  if (!EXAM_KEYS.some(key => EXAMS[key].custom && EXAMS[key].live && EXAMS[key].country)) return ''
+  const tenant = await db.prepare(`SELECT country FROM tenants WHERE id = ?`).bind(tenantId).first().catch(() => null) as Record<string, any> | null
+  return countryForTenant(tenant?.country, '')
+}
+
+function practiceLevels(section: string, country = '') {
   return [
     ...PRACTICE_DIFFICULTIES.filter(level => level.key !== 'external').map(level => ({ key: level.key, difficulty: level.key, exam: '', label: level.label })),
-    ...examsForSection(section).map(exam => ({ key: `external:${exam}`, difficulty: 'external', exam, label: EXAMS[exam].label })),
+    ...examsForSection(section, country).map(exam => ({ key: `external:${exam}`, difficulty: 'external', exam, label: EXAMS[exam].label })),
   ]
 }
 
@@ -17098,11 +17113,12 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
       const access = canOpen(held, subject.key, 'intermediate', '')
       subject.access = access.ok ? access.via : 'locked'
     }
+    const country = await examCountry(c.env.APP_DB, student.tenantId)
     return c.json({
       success: true, student: { name: student.studentName, className: student.className, level: student.rank !== null ? labelOfRank(student.rank) : '', section: student.section },
-      profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES, levels: practiceLevels(student.section),
+      profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES, levels: practiceLevels(student.section, country),
       passes: { freePerDay: FREE_QUESTIONS_PER_DAY, freeLeftToday: freeLeft, allSubjects: held.allSubjects, allInGrace: held.allInGrace, subjects: [...held.subjects], exams: Object.fromEntries(held.exams), jambSubjects: held.jambSubjects, list: held.passes },
-      bundles: bundleList(student.section, stock), jambMock: JAMB_MOCK, exams: Object.fromEntries(examsForSection(student.section).map(exam => [exam, { label: EXAMS[exam].label, mockQuestions: EXAMS[exam].mockQuestions, mockMinutes: EXAMS[exam].mockMinutes }])),
+      bundles: bundleList(student.section, stock, country), jambMock: JAMB_MOCK, exams: Object.fromEntries([...new Set([...examsForSection(student.section, country), ...held.exams.keys()])].filter(exam => EXAMS[exam]).map(exam => [exam, { label: EXAMS[exam].label, mockQuestions: EXAMS[exam].mockQuestions, mockMinutes: EXAMS[exam].mockMinutes }])),
       canGenerate: Boolean(student.section && student.rank !== null), enoughQuestions: GENERATION_LIMITS.enoughQuestions,
     })
   } catch (error) { return practiceFailure(c, error, 'Could not load practice.') }
@@ -17786,6 +17802,68 @@ app.post('/api/ami/exam-requests/:id', authenticate, async (c) => {
   } catch (error) { return examRequestFailure(c, error, 'Could not update that request.') }
 })
 
+// ─── Exams built on request (customExams.ts) ───
+
+function customExamFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof CustomExamError) return c.json({ success: false, message: error.message }, error.status as any)
+  return examRequestFailure(c, error, fallback)
+}
+
+app.get('/api/ami/custom-exams', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, exams: await listCustomExams(c.env.APP_DB) })
+  } catch (error) { return customExamFailure(c, error, 'Could not load the exams.') }
+})
+
+app.post('/api/ami/custom-exams', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    return c.json({ success: true, exam: await createCustomExam(c.env.APP_DB, await c.req.json().catch(() => ({})), ami.id) }, 201)
+  } catch (error) { return customExamFailure(c, error, 'Could not start this exam.') }
+})
+
+app.put('/api/ami/custom-exams/:key', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    await updateCustomExam(c.env.APP_DB, c.req.param('key'), await c.req.json().catch(() => ({})))
+    return c.json({ success: true, exams: await listCustomExams(c.env.APP_DB) })
+  } catch (error) { return customExamFailure(c, error, 'Could not save this exam.') }
+})
+
+app.post('/api/ami/custom-exams/:key/topics', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    return c.json({ success: true, ...(await addExamTopics(c.env.APP_DB, c.req.param('key'), await c.req.json().catch(() => ({})), ami.id)) })
+  } catch (error) { return customExamFailure(c, error, 'Could not add the topics.') }
+})
+
+app.post('/api/ami/exam-requests/:id/join', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    await linkRequestToExam(c.env.APP_DB, c.req.param('id'), String((await c.req.json().catch(() => ({})) as Record<string, any>).key || ''), ami.id)
+    return c.json({ success: true })
+  } catch (error) { return customExamFailure(c, error, 'Could not join this request to that exam.') }
+})
+
+/** Puts exams with enough checked questions on sale, and tells the people who asked. */
+async function putReadyExamsOnSale(env: Bindings) {
+  const ready = await promoteReadyExams(env.APP_DB)
+  for (const exam of ready) {
+    const title = `${exam.label} is ready`
+    const body = `The ${exam.label} questions you asked for are ready. Students can now buy the pass under Practice.`
+    const byTenant = new Map<string, string[]>()
+    for (const person of exam.requesters) byTenant.set(person.tenantId, [...(byTenant.get(person.tenantId) || []), person.userId])
+    for (const [tenantId, userIds] of byTenant) await deliverCalendarReminder(env.APP_DB, userIds, tenantId, title, body, `exam-ready:${exam.key}`).catch(error => console.error('Exam ready notice failed', error))
+    // Zoho allows 30 sends a minute; everyone else still has the notice above.
+    for (const person of exam.requesters.slice(0, 20)) {
+      const user = await findUserByIdentifier(env.APP_DB, person.userId).catch(() => null) as Record<string, any> | null
+      if (user?.email) await sendZohoEmail(env, { to: [String(user.email)], subject: title, html: `<p>${body.replace(/</g, '&lt;')}</p>` }).catch(error => console.error('Exam ready email failed', error))
+    }
+  }
+  return ready.length
+}
+
 app.get('/api/ami/exam-requests/:id/file', authenticate, async (c) => {
   try {
     requireAmi(c)
@@ -17886,12 +17964,13 @@ app.get('/api/practice-arena/family', authenticate, async (c) => {
     if (!hasRequiredRole(actor.role, ['parent'])) throw new PassError('This page is for parents.', 403)
     const db = c.env.APP_DB
     const stock = await examStock(db)
+    const country = await examCountry(db, actor.tenantId)
     const termId = await practiceTermId(db, actor.tenantId)
     const children = []
     for (const child of ((await listAccessibleLearningStudents(db, c.var.user || {})).students || []) as any[]) {
       const student = { ...(await practiceStudent(db, { tenantId: actor.tenantId, studentId: child.id, studentName: child.name, classId: child.classId })), termId }
       const held = await entitlements(db, student)
-      children.push({ studentId: child.id, name: child.name, className: student.className, section: student.section, subjects: (await offeredSubjects(db, student)).map(item => ({ key: item.key, name: item.name })), passes: held.passes, freePerDay: FREE_QUESTIONS_PER_DAY, bundles: bundleList(student.section, stock) })
+      children.push({ studentId: child.id, name: child.name, className: student.className, section: student.section, subjects: (await offeredSubjects(db, student)).map(item => ({ key: item.key, name: item.name })), passes: held.passes, freePerDay: FREE_QUESTIONS_PER_DAY, bundles: bundleList(student.section, stock, country) })
     }
     return c.json({ success: true, children, pricing: await localRuleForUser(c) })
   } catch (error) { return practiceFailure(c, error, 'Could not load your children\'s practice.') }
@@ -17904,12 +17983,13 @@ app.get('/api/practice-arena/school', authenticate, async (c) => {
     if (!hasRequiredRole(actor.role, PASS_SCHOOL_BUYERS)) throw new PassError('For the Owner, Head of School and Accountant.', 403)
     const db = c.env.APP_DB
     const stock = await examStock(db)
+    const country = await examCountry(db, actor.tenantId)
     await ensureClassesTable(db)
     const classRows = await db.prepare(`SELECT id, name, arm, standard_level FROM classes WHERE tenantId = ? ORDER BY name COLLATE NOCASE, arm`).bind(actor.tenantId).all()
     const classes = ((classRows.results || []) as Record<string, any>[]).map(row => {
       const name = [row.name, row.arm].filter(Boolean).join(' ')
       const section = levelOf(row.standard_level || row.name)?.section || ''
-      return { id: String(row.id), name, section, bundles: section ? bundleList(section, stock) : [] }
+      return { id: String(row.id), name, section, bundles: section ? bundleList(section, stock, country) : [] }
     })
     return c.json({ success: true, classes, discount: SCHOOL_DISCOUNT, pricing: await localRuleForUser(c) })
   } catch (error) { return practiceFailure(c, error, 'Could not load practice passes.') }
@@ -18401,6 +18481,7 @@ app.post('/api/ami/practice/recount', authenticate, async (c) => {
   try {
     requireAmi(c)
     await rebuildExamStock(c.env.APP_DB)
+    await putReadyExamsOnSale(c.env)
     return c.json({ success: true, ...(await rebuildBankCounts(c.env.APP_DB)) })
   } catch (error) { return practiceFailure(c, error, 'Could not recount the practice bank.') }
 })
@@ -18498,7 +18579,7 @@ app.get('/api/ai-pay/wallet', authenticate, async (c) => {
 
 app.get('/api/ai/credit-bundles', authenticate, async (c) => {
   const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
-  return c.json({ success: true, bundles: AI_CREDIT_BUNDLES, creditValueNaira: 1, freeDailyRequests: freeRequestsForRole(actor.role), canBuyForSchool: canManageAiBilling(actor.role), pricing: await localRuleForUser(c) })
+  return c.json({ success: true, bundles: AI_CREDIT_BUNDLES, creditValueNaira: 1, freeDailyRequests: (await aiLimits(c.env.APP_DB)).freeAiPerDay, canBuyForSchool: canManageAiBilling(actor.role), pricing: await localRuleForUser(c) })
 })
 
 // Purchase and package (in-memory books)
@@ -18744,7 +18825,7 @@ app.post('/api/ai/access/top-up/verify', authenticate, async (c) => {
       const access = await summarizeAiAccess(c.env.APP_DB, {
         tenantId: payment.tenantId,
         settingsKey: payment.settingsKey,
-        policyOverrides: getAiPolicyOverrides(actor),
+        policyOverrides: await getAiPolicyOverrides(c.env.APP_DB),
       })
       return c.json({ success: true, verified: true, payment, access })
     }
@@ -18762,7 +18843,7 @@ app.post('/api/ai/access/top-up/verify', authenticate, async (c) => {
     const access = await summarizeAiAccess(c.env.APP_DB, {
       tenantId: payment.tenantId,
       settingsKey: payment.settingsKey,
-      policyOverrides: getAiPolicyOverrides(actor),
+      policyOverrides: await getAiPolicyOverrides(c.env.APP_DB),
     })
     return c.json({ success: true, verified: true, payment: settled.payment, access })
   } catch (error) {
@@ -18801,7 +18882,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       const access = await summarizeAiAccess(c.env.APP_DB, {
         tenantId: actor.tenantId,
         settingsKey: actor.settingsKey,
-        policyOverrides: getAiPolicyOverrides(actor),
+        policyOverrides: await getAiPolicyOverrides(c.env.APP_DB),
       })
       return c.json({
         success: false,
@@ -18818,7 +18899,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       if (pooled) {
         return c.json({
           success: true, answer: pooled, source: 'knowledge_pool', chargedCredits: 0, mode, provider: 'ndovera-ai',
-          access: await summarizeAiAccess(c.env.APP_DB, { tenantId: actor.tenantId, settingsKey: actor.settingsKey, policyOverrides: getAiPolicyOverrides(actor) }),
+          access: await summarizeAiAccess(c.env.APP_DB, { tenantId: actor.tenantId, settingsKey: actor.settingsKey, policyOverrides: await getAiPolicyOverrides(c.env.APP_DB) }),
           ...(topicStudy ? { topic: topicStudy.summary } : {}),
         })
       }
@@ -18834,7 +18915,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
           access: await summarizeAiAccess(c.env.APP_DB, {
             tenantId: actor.tenantId,
             settingsKey: actor.settingsKey,
-            policyOverrides: getAiPolicyOverrides(actor),
+            policyOverrides: await getAiPolicyOverrides(c.env.APP_DB),
           }),
         }
       : await consumeAiAccess(c.env.APP_DB, {
@@ -18842,7 +18923,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
           settingsKey: actor.settingsKey,
           actorId: actor.actorId,
           actorName: actor.actorName,
-          policyOverrides: getAiPolicyOverrides(actor),
+          policyOverrides: await getAiPolicyOverrides(c.env.APP_DB),
         })
 
     if (!consumption.allowed) {
@@ -22501,6 +22582,14 @@ app.put('/api/people/:userId/roles', authenticate, async (c) => {
   }
 })
 
+app.get('/api/people/:userId/name-change', authenticate, async (c) => {
+  const access = await resolveUserProfileAccess(c.env.APP_DB, c.var.user || {}, c.req.param('userId'))
+  if (!access.allowed) return c.json({ error: 'forbidden' }, 403)
+  const person = await findUserByIdentifier(c.env.APP_DB, c.req.param('userId'))
+  if (!person || String(person.tenantId || '') !== String(c.var.user?.tenantId || '')) return c.json({ error: 'User not found.' }, 404)
+  return c.json({ success: true, change: await childNameChange(c.env.APP_DB, String(person.id)) })
+})
+
 app.put('/api/people/:userId', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   const userId = c.req.param('userId')
@@ -22520,6 +22609,12 @@ app.put('/api/people/:userId', authenticate, async (c) => {
     const normalizedName = payload.name !== undefined ? sanitizeProfileText(payload.name, 160) : undefined
     if (payload.name !== undefined && !normalizedName) {
       return c.json({ error: 'Name is required.' }, 400)
+    }
+
+    // A parent may correct their child's name once. It never touches the child's email; only the school changes that.
+    if (access.linkedStudent && normalizedName && normalizedName !== String(existingUser.name || '').trim()) {
+      const taken = await takeChildNameChange(c.env.APP_DB, { tenantId, studentId: String(existingUser.id), parentId: String(c.var.user?.id || c.var.user?.email || ''), oldName: String(existingUser.name || ''), newName: normalizedName })
+      if (!taken) return c.json({ error: CHILD_NAME_USED, message: CHILD_NAME_USED }, 403)
     }
 
     if (normalizedName) {
@@ -22969,6 +23064,20 @@ app.post('/api/school/contact-changes/confirm', authenticate, async (c) => {
     const result = await settlePackBuy(db, txRef, { status: String(data.status || ''), amount: Number(data.amount || 0), currency: String(data.currency || '') })
     return c.json({ success: true, paid: result.paid })
   } catch (error) { return familyFailure(c, error, 'Could not check the payment.') }
+})
+
+app.get('/api/ami/ai-limits', authenticate, async (c) => {
+  try { requireAmi(c); return c.json({ success: true, limits: await aiLimits(c.env.APP_DB) }) } catch (error) { return practiceFailure(c, error, 'Could not load the limits.') }
+})
+
+app.put('/api/ami/ai-limits', authenticate, async (c) => {
+  try {
+    const ami = requireAmi(c)
+    return c.json({ success: true, limits: await saveAiLimits(c.env.APP_DB, await c.req.json().catch(() => ({})), ami.id) })
+  } catch (error) {
+    if (error instanceof AiLimitsError) return c.json({ success: false, message: error.message }, error.status as any)
+    return practiceFailure(c, error, 'Could not save the limits.')
+  }
 })
 
 app.get('/api/ami/contact-change-price', authenticate, async (c) => {
@@ -27488,17 +27597,19 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
     const vals: unknown[] = []
     if (name !== undefined) { sets.push('name = ?'); vals.push(name) }
     if (arm !== undefined) { sets.push('arm = ?'); vals.push(arm) }
-    const normalizedTeacherId = classTeacherId !== undefined
-      ? await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, classTeacherId, {
+    // A class teacher already on the class who has since left or changed role must not block other edits to it.
+    const sameTeacher = classTeacherId !== undefined && String(classTeacherId || '').trim() === String(existingClass.classTeacherId || '').trim()
+    const normalizedTeacherId = classTeacherId === undefined || sameTeacher
+      ? undefined
+      : await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, classTeacherId, {
         requireTeachingCapability: true,
         label: 'Class teacher',
       })
-      : undefined
     if (normalizedTeacherId !== undefined) { sets.push('classTeacherId = ?'); vals.push(normalizedTeacherId) }
-    if (sets.length === 0) return c.json({ error: 'Nothing to update.' }, 400)
+    if (sets.length === 0 && !sameTeacher && teacherIds === undefined && caregiverIds === undefined) return c.json({ error: 'Nothing to update.' }, 400)
     if (classTeacherId !== undefined || teacherIds !== undefined) await syncTeachingLedger(c.env.APP_DB, tenantId)
     vals.push(classId, tenantId)
-    await c.env.APP_DB.prepare(`UPDATE classes SET ${sets.join(', ')} WHERE id = ? AND tenantId = ?`).bind(...vals).run()
+    if (sets.length) await c.env.APP_DB.prepare(`UPDATE classes SET ${sets.join(', ')} WHERE id = ? AND tenantId = ?`).bind(...vals).run()
 
     const updatedClass = {
       ...existingClass,
@@ -27517,7 +27628,7 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
       const canonicalTeacherIds = (await Promise.all(normalizedTeacherIds.map(value => resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, value, {
         requireTeachingCapability: true,
         label: 'Assigned teacher',
-      })))).filter(Boolean) as string[]
+      }).catch(() => null)))).filter(Boolean) as string[]
       await replaceClassMemberships(c.env.APP_DB, tenantId, classId, 'teacher', canonicalTeacherIds)
     }
 
@@ -27530,7 +27641,11 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
 
     return c.json({ success: true })
   } catch (err) {
-    return c.json({ error: err instanceof Error ? err.message : 'Could not update class.' }, 500)
+    const text = err instanceof Error ? err.message : 'Could not update class.'
+    // A wrong choice is the school's to correct, not a server failure.
+    if (/was not found in this school|must be a staff account|must have teaching capability/.test(text)) return c.json({ error: text }, 400)
+    console.error('Class update failed', classId, err)
+    return c.json({ error: text }, 500)
   }
 })
 
@@ -27679,6 +27794,7 @@ app.delete('/api/school/classes/:classId', authenticate, async (c) => {
     await c.env.APP_DB.prepare(`DELETE FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).run()
     return c.json({ success: true })
   } catch (error) {
+    console.error('Class delete failed', classId, error)
     return c.json({ error: error instanceof Error ? error.message : 'Could not delete class.' }, 500)
   }
 })
@@ -40807,7 +40923,7 @@ export default {
     const at = new Date()
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 10) {
       ctx.waitUntil(rebuildBankCounts(env.APP_DB).catch(error => console.error('Practice counts failed', error)))
-      ctx.waitUntil(rebuildExamStock(env.APP_DB).catch(error => console.error('Exam stock failed', error)))
+      ctx.waitUntil(loadCustomExams(env.APP_DB).then(() => rebuildExamStock(env.APP_DB)).then(() => putReadyExamsOnSale(env)).catch(error => console.error('Exam stock failed', error)))
     }
     // News: the day's headlines from Nigerian outlets, once at midnight Lagos (with one retry at 00:20).
     if (at.getUTCHours() === 23 && (at.getUTCMinutes() === 0 || at.getUTCMinutes() === 20)) {

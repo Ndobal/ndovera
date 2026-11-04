@@ -1,0 +1,8 @@
+// One bundle for requested-exams.test.mjs, so every module in it shares the same list of exams.
+export { aiLimits, saveAiLimits } from '../src/aiLimits'
+export { chargeReportAi, ReportAiError } from '../src/reportAi'
+export { childNameChange, takeChildNameChange } from '../src/childNameChanges'
+export { addExamTopics, buildingExamKeys, createCustomExam, listCustomExams, loadCustomExams, promoteReadyExams, updateCustomExam } from '../src/customExams'
+export { BUNDLES, EXAMS, addExamStock, bundleList, examStock, examsForSection, priceFor } from '../src/practicePasses'
+export { createExamRequest, ensureExamRequestTables } from '../src/examRequests'
+export { ensureBuilderTables, examKeyOf, planSources } from '../src/practiceBuilder'

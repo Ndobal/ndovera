@@ -167,6 +167,8 @@ export const bulkTagOldStudentCodes = (rows) => req('/api/students/old-codes/bul
 export const getStudentOldCodes = () => req('/api/students/old-codes', { skipOfflineCache: true });
 export const addStudentOldCode = (studentId, code) => req('/api/students/old-codes', { method: 'POST', body: { studentId, code } });
 export const removeStudentOldCode = (codeId) => req(`/api/students/old-codes/${encodeURIComponent(codeId)}`, { method: 'DELETE' });
+export const getChildNameChange = (userId) => req(`/api/people/${encodeURIComponent(userId)}/name-change`, { skipOfflineCache: true });
+export const changeChildName = (userId, name) => req(`/api/people/${encodeURIComponent(userId)}`, { method: 'PUT', body: { name } });
 export const deactivatePerson = (userId) => req(`/api/people/${userId}`, { method: 'DELETE' });
 export const getPastStudents = (view = '') => req(`/api/people/past-students${view ? `?view=${encodeURIComponent(view)}` : ''}`, { skipOfflineCache: true });
 /** Remove turned-off students who have records: they leave every list (classes, fees, score sheets), records kept. */

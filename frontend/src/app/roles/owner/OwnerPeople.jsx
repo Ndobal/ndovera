@@ -4,7 +4,7 @@ import BankTransferPay from '../../../features/practice-arena/BankTransferPay';
 import { Link } from 'react-router-dom';
 import {
   getPeople, addPerson, deactivatePerson, setPersonRoles, changePersonEmail, getSchoolEmailFor, getContactChanges, buyContactChanges, confirmContactChanges, getPastStudents, restorePerson,
-  getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
+  getClasses, getChildNameChange, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
   resetPassword, uploadBulkPeople, getBulkPeopleJobs, retryBulkPeopleJob, deletePastStudents, removePastStudents, getPastParents,
   getQuestionBankAccess, setQuestionBankAccess,
 } from '../../../features/school/services/schoolApi';
@@ -74,6 +74,11 @@ function EmailEditor({ profile, onChanged }) {
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
   const isStudent = profile.role === 'student';
+  const [parentChange, setParentChange] = useState(null);
+  useEffect(() => {
+    if (!isStudent || !profile.id) return;
+    getChildNameChange(profile.id).then(result => setParentChange(result.change)).catch(() => null);
+  }, [isStudent, profile.id]);
   const run = async body => {
     setBusy(true); setMessage('');
     try {
@@ -93,6 +98,7 @@ function EmailEditor({ profile, onChanged }) {
         {isStudent ? <button type="button" disabled={busy} onClick={() => run({ useSchoolEmail: true })} className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-white disabled:opacity-60">Use school email</button> : null}
       </div>
       {message ? <p role="status" className="mt-1 text-xs font-semibold text-[#191970]">{message}</p> : null}
+      {parentChange ? <p className="mt-1 text-xs font-semibold text-[#191970]">A parent corrected this name from "{parentChange.oldName}" to "{parentChange.newName}". The email stays as it is unless you change it here.</p> : null}
       <p className="mt-1 text-xs font-semibold text-[#191970]">{CONTACT_WARNING}</p>
       <ContactChangesNote />
     </div>
