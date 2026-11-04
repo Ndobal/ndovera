@@ -377,3 +377,8 @@ drafts. The 2026 internal timetable establishes practical, essay and
 objective paper formats. Historical WAEC material supports provisional
 written objectives. NECO practical task requirements and full objectives
 remain open.
+
+Batch 072 adds six hands-on NECO Computer Studies drafts requiring
+editable spreadsheet or database artifacts. The official 2026 timetable
+confirms Paper I is practical. Historical WAEC examiner reports inform
+provisional skills. Exact NECO practical specifications remain open.

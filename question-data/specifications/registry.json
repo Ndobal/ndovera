@@ -1067,6 +1067,19 @@
       ],
       "retrievedOn": "2026-11-04",
       "note": "The NECO timetable lists Computer Studies Papers I (2031, practical), II (2032, essay) and III (2033, objective). This batch covers written practice. Historical WAEC examiner observations support provisional topic selection. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
+    },
+    {
+      "id": "neco-computer-lab-reference-2026",
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Computer/Comp335mq3.html",
+        "https://waeconline.org.ng/e-learning/Computer/Comp323mq2.html"
+      ],
+      "retrievedOn": "2026-11-04",
+      "note": "The NECO timetable lists Computer Studies Papers I (2031, practical), II (2032, essay) and III (2033, objective). These are hands-on laboratory practice tasks. Historical WAEC examiner observations support provisional topic selection. Tool choice, submitted artifacts and marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
     }
   ],
   "banks": [
@@ -8471,6 +8484,42 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Computer Studies Papers II and III",
         "Historical WAEC Computer Studies examiner observations, 2021 and 2022"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-computer-072-1-v1",
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Spreadsheet practical",
+      "subtopic": "Formula-driven worksheets",
+      "learningObjective": "Build and test editable spreadsheets using calculated fields, references and summaries.",
+      "specificationId": "neco-computer-lab-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Computer Studies Paper I",
+        "Historical WAEC Computer Studies examiner observations, 2014 and 2022"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-computer-072-2-v1",
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Database practical",
+      "subtopic": "Queries and output artifacts",
+      "learningObjective": "Create and test local database artifacts that select, relate or present records.",
+      "specificationId": "neco-computer-lab-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Computer Studies Paper I",
+        "Historical WAEC Computer Studies examiner observations, 2014 and 2022"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

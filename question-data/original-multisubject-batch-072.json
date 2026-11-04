@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Computer Studies hands-on lab practice",
+  "questionCount": 6,
+  "note": "Provisional Paper I lab practice requiring editable artifacts. Historical WAEC examiner reports are cross-board skill evidence. Exact NECO requirements remain unverified. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Spreadsheet practical",
+      "subtopic": "Formula-driven worksheets",
+      "learningObjective": "Build and test editable spreadsheets using calculated fields, references and summaries.",
+      "specificationId": "neco-computer-lab-reference-2026",
+      "id": "ndv-072-001",
+      "objectiveId": "neco-computer-072-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a spreadsheet, enter opening stock, receipts and issues for Chalk (20, 12, 9), Tape (10, 0, 10) and Markers (8, 5, 6). Use a formula for closing stock. Set a single reorder threshold of 7 in a separate cell and use it in a formula to flag stock below the threshold. Submit the editable file with formulas. Temporarily change the threshold to 8 to check the flags, then restore it.",
+      "answer": "Closing stocks are 23, 0 and 7. Tape alone is flagged at 7. Tape and Markers are flagged at 8.",
+      "explanation": "Closing stock is opening plus receipts minus issues. A fixed cell reference lets a copied flag formula test each closing balance against the same threshold.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Create the three input rows correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Use working closing-stock formulas."
+        },
+        {
+          "marks": 1,
+          "description": "Use a single editable threshold and a strict less-than comparison in all flags."
+        },
+        {
+          "marks": 1,
+          "description": "Show the expected flags and restore the threshold."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "20+12-9",
+          "expected": "23",
+          "purpose": "Chalk closing stock"
+        },
+        {
+          "expression": "10+0-10",
+          "expected": "0",
+          "purpose": "Tape closing stock"
+        },
+        {
+          "expression": "8+5-6",
+          "expected": "7",
+          "purpose": "Markers closing stock"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Spreadsheet practical",
+      "subtopic": "Formula-driven worksheets",
+      "learningObjective": "Build and test editable spreadsheets using calculated fields, references and summaries.",
+      "specificationId": "neco-computer-lab-reference-2026",
+      "id": "ndv-072-002",
+      "objectiveId": "neco-computer-072-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Create a worksheet for three supply orders: Soap, 4 units at ₦350; Gloves, 3 units at ₦600; Towels, 2 units at ₦850. Use a separate cell for a delivery surcharge of 5% applied to the combined goods subtotal. Build formulas for each order value, the subtotal, the surcharge and the final amount. Submit an editable workbook in which changing the surcharge updates the final amount.",
+      "answer": "Order values are ₦1,400, ₦1,800 and ₦1,700. Subtotal is ₦4,900, surcharge is ₦245 and final amount is ₦5,145.",
+      "explanation": "The subtotal sums quantity times price for each order. Multiply the subtotal by the surcharge cell and add the result. Currency formatting should preserve numeric values.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Enter quantities and prices as numeric data."
+        },
+        {
+          "marks": 1,
+          "description": "Use formulas for the line values and subtotal."
+        },
+        {
+          "marks": 1,
+          "description": "Reference the surcharge input in the surcharge formula."
+        },
+        {
+          "marks": 1,
+          "description": "Use a formula for the correct final amount."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4*350+3*600+2*850",
+          "expected": "4900",
+          "purpose": "Goods subtotal"
+        },
+        {
+          "expression": "4900*5/100",
+          "expected": "245",
+          "purpose": "Surcharge"
+        },
+        {
+          "expression": "4900+245",
+          "expected": "5145",
+          "purpose": "Final amount"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Spreadsheet practical",
+      "subtopic": "Formula-driven worksheets",
+      "learningObjective": "Build and test editable spreadsheets using calculated fields, references and summaries.",
+      "specificationId": "neco-computer-lab-reference-2026",
+      "id": "ndv-072-003",
+      "objectiveId": "neco-computer-072-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Build a worksheet comparing planned and actual attendance for Debating (18, 21), Music (25, 20), Chess (15, 15) and Drama (20, 26). Calculate actual minus planned for each club. Add a single chart that compares planned and actual attendance side by side within each club. Submit the editable workbook and highlight the club with the largest positive difference.",
+      "answer": "Differences are +3, −5, 0 and +6. Drama is highlighted. A grouped bar or column chart displays two labelled series for the four clubs.",
+      "explanation": "The signed difference distinguishes gains from shortfalls. Grouped bars share a common scale and keep each club’s pair together.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Enter the four pairs correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Use a signed difference formula for all rows."
+        },
+        {
+          "marks": 1,
+          "description": "Create an accurately labelled grouped chart."
+        },
+        {
+          "marks": 1,
+          "description": "Highlight Drama and retain the correct signed differences."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "21-18",
+          "expected": "3",
+          "purpose": "Debating difference"
+        },
+        {
+          "expression": "20-25",
+          "expected": "-5",
+          "purpose": "Music difference"
+        },
+        {
+          "expression": "15-15",
+          "expected": "0",
+          "purpose": "Chess difference"
+        },
+        {
+          "expression": "26-20",
+          "expected": "6",
+          "purpose": "Drama difference"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Database practical",
+      "subtopic": "Queries and output artifacts",
+      "learningObjective": "Create and test local database artifacts that select, relate or present records.",
+      "specificationId": "neco-computer-lab-reference-2026",
+      "id": "ndv-072-004",
+      "objectiveId": "neco-computer-072-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Using a local database, create a loan table with fields LoanID, Item and Returned. Enter A01 / Map / No, A02 / Ruler / Yes, A03 / Map / Yes and A04 / Compass / No. Set LoanID as the primary key. Save a query listing only outstanding loans, sorted by Item A–Z. Submit the database and query output.",
+      "answer": "The query returns A04 Compass followed by A01 Map. The key is LoanID and the filter selects Returned = No.",
+      "explanation": "The same item name may occur on more than one loan. Filter first by return status and sort the retained records by item name.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Store all four rows with a valid LoanID key."
+        },
+        {
+          "marks": 1,
+          "description": "Use the correct return-status filter."
+        },
+        {
+          "marks": 1,
+          "description": "Sort on Item ascending."
+        },
+        {
+          "marks": 1,
+          "description": "Submit a reusable query and the correct result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Database practical",
+      "subtopic": "Queries and output artifacts",
+      "learningObjective": "Create and test local database artifacts that select, relate or present records.",
+      "specificationId": "neco-computer-lab-reference-2026",
+      "id": "ndv-072-005",
+      "objectiveId": "neco-computer-072-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Build a local database with Clubs (ClubID, Name) and Sessions (SessionID, ClubID, Attendance). Use clubs C1 Robotics and C2 Choir. Add sessions S1/C1/12, S2/C2/17 and S3/C1/8. Save a query that shows the club name beside each session and sorts sessions by attendance from highest to lowest. Submit both tables and the query.",
+      "answer": "S2 Choir 17, S1 Robotics 12, S3 Robotics 8. Clubs.ClubID and Sessions.SessionID are keys. The query joins the tables on ClubID.",
+      "explanation": "ClubID links each session to its club. Retrieve the club name through that link and apply descending order to the numeric attendance field.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Create the tables with appropriate keys and data."
+        },
+        {
+          "marks": 1,
+          "description": "Use ClubID to join each session to one club."
+        },
+        {
+          "marks": 1,
+          "description": "Select the name and attendance alongside the session identifier."
+        },
+        {
+          "marks": 1,
+          "description": "Sort correctly and submit the reusable query."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Studies",
+      "topic": "Database practical",
+      "subtopic": "Queries and output artifacts",
+      "learningObjective": "Create and test local database artifacts that select, relate or present records.",
+      "specificationId": "neco-computer-lab-reference-2026",
+      "id": "ndv-072-006",
+      "objectiveId": "neco-computer-072-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Create a local repair database with Job, Workshop and Paid fields. Enter J1/East/Yes, J2/East/No, J3/West/No, J4/West/No and J5/East/No. Produce a saved query or report showing the number of unpaid jobs per workshop. Add J6/West/Yes, rerun the output and verify the counts. Submit the database and final output.",
+      "answer": "East has 2 unpaid jobs and West has 2. Adding J6 leaves both totals unchanged.",
+      "explanation": "Select unpaid records before grouping by workshop and counting jobs. The test record is paid, so the filtered result excludes it.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Enter the six distinct records."
+        },
+        {
+          "marks": 1,
+          "description": "Apply the unpaid condition."
+        },
+        {
+          "marks": 1,
+          "description": "Group and count the filtered jobs by workshop."
+        },
+        {
+          "marks": 1,
+          "description": "Submit a reusable output with the correct counts after the test."
+        }
+      ]
+    }
+  ]
+}

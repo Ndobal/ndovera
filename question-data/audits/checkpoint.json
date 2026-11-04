@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_071_automated_validation_passed",
+  "phase": "batch_072_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-072.json",
+  "nextBatch": "original-multisubject-batch-073.json",
   "nextPriorities": [
-    "Verify NECO Computer Studies practical requirements and extend source-backed written topics. Prescribed WAEC African drama still needs accessible primary text. Retry the Redemption Road excerpt when available.",
+    "Verify the next NECO SSCE Internal subject and paper codes against the official timetable before extending another underrepresented bank. Obtain the official NECO Computer Studies Paper I objectives and specifications. Prescribed WAEC African drama still needs accessible primary text.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-071.json",
-  "lastRemoteVerifiedCommit": "ad6eec22de0a5f8fe39851f749ea538484ca40c6",
+  "lastValidatedBatch": "original-multisubject-batch-072.json",
+  "lastRemoteVerifiedCommit": "22c7b9e2314b701cfc4db277fb18c2407941536a",
   "verifiedTotals": {
-    "raw": 3170,
-    "validDrafts": 1491,
+    "raw": 3176,
+    "validDrafts": 1497,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-071.json",
+  "lastPopulatedBatch": "original-multisubject-batch-072.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3170
+  "inventoryRaw": 3176
 }
