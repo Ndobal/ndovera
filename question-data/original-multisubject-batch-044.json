@@ -1,0 +1,512 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Physics 0625 mechanics drafts",
+  "questionCount": 10,
+  "note": "Original Extended theory and written alternative-to-practical questions. Partial syllabus coverage. Academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Density",
+      "subtopic": "Density and flotation",
+      "learningObjective": "Use density and compare materials to predict flotation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-001",
+      "objectiveId": "igcse-0625-density-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "Define density and state its SI unit.",
+      "answer": "Mass per unit volume, in kg/m³.",
+      "explanation": "Define density as mass per unit volume. State kg/m³.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Define density as mass per unit volume."
+        },
+        {
+          "marks": 1,
+          "description": "State kg/m³."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Density",
+      "subtopic": "Density and flotation",
+      "learningObjective": "Use density and compare materials to predict flotation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-002",
+      "objectiveId": "igcse-0625-density-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A rectangular block has mass 162 g and dimensions 6.0 cm by 3.0 cm by 2.0 cm. Calculate its density in g/cm³.",
+      "answer": "4.5 g/cm³.",
+      "explanation": "Find volume 36 cm³. Divide 162 g by 36 cm³.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Find volume 36 cm³."
+        },
+        {
+          "marks": 1,
+          "description": "Divide 162 g by 36 cm³."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "162/(6*3*2)",
+          "expected": "9/2",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Density",
+      "subtopic": "Density and flotation",
+      "learningObjective": "Use density and compare materials to predict flotation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-003",
+      "objectiveId": "igcse-0625-density-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "Two immiscible liquids X and Y have densities 0.80 and 1.20 g/cm³ respectively. A solid bead has density 1.00 g/cm³. Predict the bead’s eventual position when gently released in X, assuming it touches neither side of the container. Explain.",
+      "answer": "It settles at the interface between X and Y.",
+      "explanation": "X forms the upper layer because it is less dense. The bead sinks through X because it is denser than X. It floats on Y because it is less dense than Y.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "X forms the upper layer because it is less dense."
+        },
+        {
+          "marks": 1,
+          "description": "The bead sinks through X because it is denser than X."
+        },
+        {
+          "marks": 1,
+          "description": "It floats on Y because it is less dense than Y."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Density",
+      "subtopic": "Density and flotation",
+      "learningObjective": "Use density and compare materials to predict flotation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-004",
+      "objectiveId": "igcse-0625-density-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "Two technicians disagree about whether a floating plastic sample must be denser than water because its total mass exceeds the mass of water in a small cup. Evaluate the argument.",
+      "answer": "The comparison is invalid because the volumes are unspecified and need not be equal. A freely floating sample has average density less than water if partly submerged.",
+      "explanation": "Identify that comparing unequal or unknown volumes does not determine density. Explain that the partly submerged floating sample has lower average density.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify that comparing unequal or unknown volumes does not determine density."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that the partly submerged floating sample has lower average density."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Forces",
+      "subtopic": "Resultant force and acceleration",
+      "learningObjective": "Connect resultant force, mass and changes in motion.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-005",
+      "objectiveId": "igcse-0625-force-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A cart travels in a straight line at constant speed. A student concludes that no forces act on it. Explain why that conclusion does not follow.",
+      "answer": "The resultant force is zero, but individual forces may balance.",
+      "explanation": "State the resultant force is zero. Explain that nonzero forces may cancel.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "State the resultant force is zero."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that nonzero forces may cancel."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Forces",
+      "subtopic": "Resultant force and acceleration",
+      "learningObjective": "Connect resultant force, mass and changes in motion.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-006",
+      "objectiveId": "igcse-0625-force-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A 12 kg trolley is pulled to the right with a horizontal force of 42 N. A horizontal resistive force of 18 N acts to the left. Calculate the acceleration and state its direction.",
+      "answer": "2.0 m/s² to the right.",
+      "explanation": "Find the resultant 24 N to the right. Apply a = F/m to obtain 2.0 m/s². State the acceleration is to the right.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Find the resultant 24 N to the right."
+        },
+        {
+          "marks": 1,
+          "description": "Apply a = F/m to obtain 2.0 m/s²."
+        },
+        {
+          "marks": 1,
+          "description": "State the acceleration is to the right."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(42-18)/12",
+          "expected": "2",
+          "purpose": "Check the numerical result."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Forces",
+      "subtopic": "Resultant force and acceleration",
+      "learningObjective": "Connect resultant force, mass and changes in motion.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-007",
+      "objectiveId": "igcse-0625-force-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A motor pulls a loaded cart to the east. The cart is moving east but slowing down. Compare the magnitudes of the eastward driving force and the westward resistance, and explain your reasoning.",
+      "answer": "Resistance is larger. The acceleration and hence the resultant force point west.",
+      "explanation": "Identify westward acceleration from the decrease in eastward velocity. Relate the westward resultant to resistance exceeding the drive.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify westward acceleration from the decrease in eastward velocity."
+        },
+        {
+          "marks": 1,
+          "description": "Relate the westward resultant to resistance exceeding the drive."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Forces",
+      "subtopic": "Resultant force and acceleration",
+      "learningObjective": "Connect resultant force, mass and changes in motion.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-008",
+      "objectiveId": "igcse-0625-force-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A student says doubling the resultant force on a trolley always doubles its acceleration, even if its mass is increased at the same time. Evaluate the claim and give a counterexample.",
+      "answer": "False. If mass and resultant force both double, acceleration is unchanged.",
+      "explanation": "Use a = F/m. Give a valid counterexample with both force and mass changed.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use a = F/m."
+        },
+        {
+          "marks": 1,
+          "description": "Give a valid counterexample with both force and mass changed."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Density",
+      "subtopic": "Displacement practical",
+      "learningObjective": "Plan and evaluate a displacement measurement of an irregular solid.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-009",
+      "objectiveId": "igcse-0625-practical-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "Plan a method to measure the density of a small irregular stone that sinks in water. You have a balance, a measuring cylinder, water and fine thread. Explain how to avoid a systematic overestimate of the displaced volume.",
+      "answer": "Measure its dry mass. Read the initial water level, lower the stone completely into the cylinder and read the new level. Remove trapped bubbles and minimise submerged thread. Subtract the readings for volume, then divide mass by volume.",
+      "explanation": "Measure dry mass with the balance. Measure initial and final cylinder readings with the stone fully submerged. Describe how to prevent bubbles or excess submerged thread contributing to displacement. Use the difference in readings and calculate mass divided by volume.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Measure dry mass with the balance."
+        },
+        {
+          "marks": 1,
+          "description": "Measure initial and final cylinder readings with the stone fully submerged."
+        },
+        {
+          "marks": 1,
+          "description": "Describe how to prevent bubbles or excess submerged thread contributing to displacement."
+        },
+        {
+          "marks": 1,
+          "description": "Use the difference in readings and calculate mass divided by volume."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Density",
+      "subtopic": "Displacement practical",
+      "learningObjective": "Plan and evaluate a displacement measurement of an irregular solid.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-044-010",
+      "objectiveId": "igcse-0625-practical-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "A student finds the density of a stone by displacement. A large air bubble sticks to the stone during the final cylinder reading. Explain how this affects the calculated density and give a way to improve the measurement.",
+      "answer": "The extra displaced volume makes the calculated density too low. Dislodge the bubble before recording the final reading.",
+      "explanation": "Identify that the measured displacement is too large. Explain that dividing by a larger volume lowers the result. Give a suitable way to remove the bubble before reading.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify that the measured displacement is too large."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that dividing by a larger volume lowers the result."
+        },
+        {
+          "marks": 1,
+          "description": "Give a suitable way to remove the bubble before reading."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

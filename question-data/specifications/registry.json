@@ -713,6 +713,23 @@
         2026,
         2027
       ]
+    },
+    {
+      "id": "cambridge-0625-2026-2028-v2",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "kind": "official_syllabus",
+      "source": "https://www.cambridgeinternational.org/Images/697209-2026-2028-syllabus.pdf",
+      "syllabusUpdate": "https://www.cambridgeinternational.org/Images/748914-2026-2028-syllabus-update.pdf",
+      "retrievedOn": "2026-11-04",
+      "note": "Retrieved syllabus rendering is version 1. Official version 2 notice identifies a weblink change only.",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ]
     }
   ],
   "banks": [
@@ -6480,6 +6497,88 @@
         2025,
         2026,
         2027
+      ]
+    },
+    {
+      "id": "igcse-0625-density-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Density",
+      "subtopic": "Density and flotation",
+      "learningObjective": "Use density and compare materials to predict flotation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "1.4 Core 1 and 3; Supplement 4"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "source_mapped_pending_academic_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ]
+    },
+    {
+      "id": "igcse-0625-force-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Forces",
+      "subtopic": "Resultant force and acceleration",
+      "learningObjective": "Connect resultant force, mass and changes in motion.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "1.5.1 Core 3–5; Supplement 11"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "source_mapped_pending_academic_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ]
+    },
+    {
+      "id": "igcse-0625-practical-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Density",
+      "subtopic": "Displacement practical",
+      "learningObjective": "Plan and evaluate a displacement measurement of an irregular solid.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "1.4 Core 2",
+        "AO3 and Paper 6"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "source_mapped_pending_academic_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
       ]
     }
   ],

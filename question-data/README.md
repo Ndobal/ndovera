@@ -209,3 +209,10 @@ drafts cover selected objectives C1.13, E1.13 and E2.5. Core and Extended
 items have separate tier and paper labels, worked solutions, practice
 marking guides and author-assigned Bloom and Cambridge AO mappings.
 Legacy entries retain their existing holds and item-level mappings.
+
+Batch 044 opens Cambridge IGCSE Physics 0625 with eight Extended theory
+and two written alternative-to-practical drafts on density, flotation
+and resultant forces. The 2026–2028 source mapping combines the official
+syllabus text with the version 2 update, which records a weblink change.
+Each item includes a worked answer, a practice marking guide and a Bloom
+level. Core and other syllabus topics remain open.
