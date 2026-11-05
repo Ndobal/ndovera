@@ -1135,6 +1135,21 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "The 2026 timetable confirms Paper II (4112, essay) and Paper III (4113, objective). WAEC examiner materials support provisional scope. The enacted Independence Act and United Nations records anchor the independence and admission dates. Official NECO learning objectives remain unverified."
+    },
+    {
+      "id": "neco-foods-planning-hygiene-reference-2026",
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Food/Foods218mq5.html",
+        "https://waeconline.org.ng/e-learning/Food/Foods235aq2.html",
+        "https://www.who.int/activities/promoting-safe-food-handling/five-key-to-safer-food/",
+        "https://www.food.gov.uk/sites/default/files/media/document/sfbb-childminders-pack-food-allergies.pdf"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "The 2026 timetable lists Foods & Nutrition essay (2042), objective (2043) and Foods and Nutrition practical (2041). Historical WAEC examiner materials inform provisional topic selection. WHO guidance supports hygiene content. This batch covers written practice. Official NECO objectives and practical requirements remain open."
     }
   ],
   "banks": [
@@ -2410,6 +2425,20 @@
         "III": "objective",
         "II": "essay"
       }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "I": "practical",
+        "III": "objective",
+        "II": "essay"
+      },
+      "timetableSubject": "Foods & Nutrition"
     }
   ],
   "objectives": [
@@ -8775,6 +8804,45 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Nigerian History Papers II and III",
         "Historical WAEC History examiner observations, 2016 and 2020; Nigeria Independence Act 1960 and UN membership record"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-foods-077-1-v1",
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Meal planning",
+      "subtopic": "Constraints and resources",
+      "learningObjective": "Plan meals around available time, equipment, budget and diner needs.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Foods and Nutrition Papers II and III",
+        "Historical WAEC Foods and Nutrition examiner materials, 2009 and 2022; WHO safer food guidance",
+        "Food Standards Agency food allergy guidance, preparing meals and avoiding cross-contact"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-foods-077-2-v1",
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Food hygiene",
+      "subtopic": "Preventing contamination",
+      "learningObjective": "Explain and apply hygiene measures that prevent transfer of contamination during meal preparation.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Foods and Nutrition Papers II and III",
+        "Historical WAEC Foods and Nutrition examiner materials, 2009 and 2022; WHO safer food guidance"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

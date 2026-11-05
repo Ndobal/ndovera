@@ -402,3 +402,8 @@ Batch 076 registers NECO Nigerian History and adds eight drafts on
 decolonisation. NECO's 2026 timetable verifies essay and objective
 formats. Historical WAEC material supports provisional topics. The
 Independence Act and UN records anchor the two distinct 1960 events.
+
+Batch 077 registers NECO Foods and Nutrition and adds eight written
+drafts on meal planning and hygiene. The official 2026 timetable
+verifies practical, essay and objective papers. Topic alignment is
+provisional and official practical task requirements remain open.

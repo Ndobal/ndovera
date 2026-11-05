@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Foods and Nutrition written practice",
+  "questionCount": 8,
+  "note": "Original structured and objective practice. Paper formats verified; NECO topic mapping provisional. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Meal planning",
+      "subtopic": "Constraints and resources",
+      "learningObjective": "Plan meals around available time, equipment, budget and diner needs.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "id": "ndv-077-001",
+      "objectiveId": "neco-foods-077-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school club wants to serve boiled yam, bean stew and oranges at 12:30. It has one burner, and the stew takes longer to cook than the yam. Give a work sequence that uses the burner efficiently and leaves time to prepare the oranges. Explain where the fruit preparation fits.",
+      "answer": "Plan backwards from service. Allow enough time to cook the stew first, then use the burner for the yam. Prepare the oranges during a safe pause in cooking, at a separate clean work area, so they do not occupy burner time. Arrange safe holding for the stew until service.",
+      "explanation": "The burner is the bottleneck. Schedule its two uses in sequence and put the cold preparation into time when the cook can safely attend to it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Schedule the two burner tasks without overlap."
+        },
+        {
+          "marks": 1,
+          "description": "Place fruit preparation in a feasible gap."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how the sequence meets the serving time and keeps cooked food safely held."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Meal planning",
+      "subtopic": "Constraints and resources",
+      "learningObjective": "Plan meals around available time, equipment, budget and diner needs.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "id": "ndv-077-002",
+      "objectiveId": "neco-foods-077-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A caterer plans a lunch with a groundnut sauce. One guest reports a groundnut allergy. A helper proposes serving the same sauce after picking out visible nuts. Evaluate the proposal and give a safer planning response.",
+      "answer": "Picking out the nuts leaves groundnut ingredients or traces in the sauce. Plan a separately prepared alternative using checked ingredients and clean equipment, prevent cross-contact and clearly identify the serving.",
+      "explanation": "The constraint applies to the ingredients and preparation process, not just visible pieces.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain why removing visible nuts is insufficient."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a suitable separately prepared alternative."
+        },
+        {
+          "marks": 1,
+          "description": "Describe one measure to prevent cross-contact or serving mix-ups."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Meal planning",
+      "subtopic": "Constraints and resources",
+      "learningObjective": "Plan meals around available time, equipment, budget and diner needs.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "id": "ndv-077-003",
+      "objectiveId": "neco-foods-077-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A household is choosing a lunch menu for a day when its oven will be unavailable. Which first step addresses the equipment constraint directly?",
+      "answer": "Choose dishes that can be prepared with the working equipment.",
+      "explanation": "A feasible menu depends on the available cooking methods and tools.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Choose dishes that can be prepared with the working equipment.",
+        "Plan every dish around the oven and change the serving plates.",
+        "Buy more of the same ingredients without checking the method.",
+        "Increase portion sizes to compensate for the missing oven."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Meal planning",
+      "subtopic": "Constraints and resources",
+      "learningObjective": "Plan meals around available time, equipment, budget and diner needs.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "id": "ndv-077-004",
+      "objectiveId": "neco-foods-077-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A caterer normally portions a bean dish for 12 learners. Today only eight learners will eat it, and the serving size is unchanged. How should the recipe quantities be adjusted before shopping?",
+      "answer": "Multiply each ingredient quantity by two-thirds.",
+      "explanation": "Eight servings require 8/12 of the original quantities. Reducing the entire recipe by the same factor preserves the ingredient proportions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Multiply each ingredient quantity by three-halves.",
+        "Keep the ingredients unchanged and divide every portion in half.",
+        "Subtract four units from every ingredient quantity.",
+        "Multiply each ingredient quantity by two-thirds."
+      ],
+      "correctOption": "D",
+      "verification": [
+        {
+          "expression": "8/12",
+          "expected": "2/3",
+          "purpose": "Recipe scaling factor"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Food hygiene",
+      "subtopic": "Preventing contamination",
+      "learningObjective": "Explain and apply hygiene measures that prevent transfer of contamination during meal preparation.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "id": "ndv-077-005",
+      "objectiveId": "neco-foods-077-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "After trimming raw chicken, a cook uses the same unwashed board to slice cucumbers for a salad. Explain the route by which contamination can reach the salad and identify two changes that interrupt the route.",
+      "answer": "Material from the raw chicken can remain on the board and transfer to the cucumbers, which will be eaten without cooking. Use separate clean boards or clean and sanitise the board between tasks, and wash hands after handling raw chicken.",
+      "explanation": "Follow the transfer from raw ingredient to contact surface to ready-to-eat food. Distinct controls remove contamination or prevent contact.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the transfer route."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why the salad receives no later cooking step."
+        },
+        {
+          "marks": 1,
+          "description": "Give two feasible controls for the preparation process."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Food hygiene",
+      "subtopic": "Preventing contamination",
+      "learningObjective": "Explain and apply hygiene measures that prevent transfer of contamination during meal preparation.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "id": "ndv-077-006",
+      "objectiveId": "neco-foods-077-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A meal team washed its hands before cooking. One member then handled the kitchen bin and went straight back to portioning cooked rice. Evaluate the team’s claim that the initial handwash was enough and describe a corrective workflow.",
+      "answer": "Handling the bin can contaminate clean hands again. Stop portioning, wash hands with soap and safe water, replace or clean any contaminated utensils as appropriate, and resume with clean equipment.",
+      "explanation": "Hygiene depends on what hands and equipment contact during the task. The initial wash cannot prevent later contamination.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain why the first handwash does not cover later contact."
+        },
+        {
+          "marks": 1,
+          "description": "Require handwashing before resuming."
+        },
+        {
+          "marks": 1,
+          "description": "Address any utensils or surfaces contaminated during the interruption."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Food hygiene",
+      "subtopic": "Preventing contamination",
+      "learningObjective": "Explain and apply hygiene measures that prevent transfer of contamination during meal preparation.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "id": "ndv-077-007",
+      "objectiveId": "neco-foods-077-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A refrigerator shelf must hold a covered container of cooked stew and a sealed container of raw meat. Which arrangement adds protection if the raw container leaks?",
+      "answer": "Place the raw meat below the cooked stew.",
+      "explanation": "Storing raw meat below ready-to-eat food reduces the chance that leakage drips onto it.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Place the raw meat above the cooked stew.",
+        "Place the raw meat below the cooked stew.",
+        "Place both foods together in one larger container.",
+        "Remove the lid from the cooked stew so leakage can be seen."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Food hygiene",
+      "subtopic": "Preventing contamination",
+      "learningObjective": "Explain and apply hygiene measures that prevent transfer of contamination during meal preparation.",
+      "specificationId": "neco-foods-planning-hygiene-reference-2026",
+      "id": "ndv-077-008",
+      "objectiveId": "neco-foods-077-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "At a cooking demonstration, the only water near the preparation table is from a supply marked unsafe to drink. What should the cook use to rinse tomatoes that will be eaten raw?",
+      "answer": "Water from a verified safe supply.",
+      "explanation": "The tomatoes will be eaten without a cooking step, so rinsing them with unsafe water can introduce contamination.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The unsafe water if it looks clear.",
+        "The unsafe water after letting it stand briefly.",
+        "Water from a verified safe supply.",
+        "The unsafe water followed by drying the tomatoes on a towel."
+      ],
+      "correctOption": "C"
+    }
+  ]
+}
