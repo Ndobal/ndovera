@@ -436,3 +436,10 @@ Batch 083 registers NECO SSCE Internal Marketing and adds nine
 original objective and structured drafts on the marketing mix, pricing
 and distribution. The 2026 timetable verifies paper codes and formats.
 The learning objectives use historical WAEC topic evidence provisionally.
+
+Batch 084 registers NECO Catering Craft and adds eight objective and
+structured drafts on menus and table service. The 2026 Internal
+timetable lists practical (4011), essay (4012) and objective (4013)
+papers. The batch covers written practice using provisional topic
+references from WAEC. NECO practical task and marking specifications
+remain unverified.

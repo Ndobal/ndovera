@@ -70,6 +70,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NCEE | Verbal Reasoning | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Agricultural Science | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
 | NECO | Biology | 1000 | 14 | 12 | 0 | 988 | partial_objective_register |
+| NECO | Catering Craft | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Chemistry | 1000 | 16 | 12 | 0 | 988 | partial_objective_register |
 | NECO | Christian Religious Studies | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Civic Education | 1000 | 12 | 10 | 0 | 990 | partial_objective_register |
@@ -192,13 +193,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 310 | 275 | 0 | 21000 | 20725 |
+| NECO | 318 | 283 | 0 | 22000 | 21717 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3259, "validDrafts": 1580, "reviewed": 0, "registeredBanks": 174, "target": 156000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3267, "validDrafts": 1588, "reviewed": 0, "registeredBanks": 175, "target": 157000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

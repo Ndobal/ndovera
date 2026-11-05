@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3259,
-    "validDrafts": 1580,
+    "raw": 3267,
+    "validDrafts": 1588,
     "reviewed": 0,
-    "registeredBanks": 174,
-    "target": 156000,
+    "registeredBanks": 175,
+    "target": 157000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -632,6 +632,12 @@
       "sha256": "4541618d3c0e338e5cd80b20687e13f0560b316d9f1af75aea0b173cab10268f",
       "declared": 9,
       "actual": 9
+    },
+    {
+      "path": "original-multisubject-batch-084.json",
+      "sha256": "7e9cf8914c10e2108c373b629dd14d1e2772ab22a999c4909d06a29d2412adc9",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2206,6 +2212,41 @@
         "missing": 2
       },
       "remaining": 988,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "I": "practical",
+        "II": "essay",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "I": "4011",
+        "II": "4012",
+        "III": "4013"
+      },
+      "raw": 8,
+      "validDrafts": 8,
+      "reviewed": 0,
+      "questionTypes": {
+        "mcq": 4,
+        "structured": 4
+      },
+      "difficulty": {
+        "easy": 2,
+        "standard": 4,
+        "difficult": 2
+      },
+      "remaining": 992,
       "mappedObjectives": 2,
       "representedObjectives": 2,
       "coverage": "partial_objective_register",
@@ -4638,17 +4679,17 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81,
     "invalid_score": 81
   },
   "mathematicalVerification": {
@@ -28712,6 +28753,54 @@
       "errors": []
     },
     {
+      "id": "ndv-084-001",
+      "file": "original-multisubject-batch-084.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-084-002",
+      "file": "original-multisubject-batch-084.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-084-003",
+      "file": "original-multisubject-batch-084.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-084-004",
+      "file": "original-multisubject-batch-084.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-084-005",
+      "file": "original-multisubject-batch-084.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-084-006",
+      "file": "original-multisubject-batch-084.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-084-007",
+      "file": "original-multisubject-batch-084.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-084-008",
+      "file": "original-multisubject-batch-084.json",
+      "index": 7,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -51816,6 +51905,72 @@
       },
       "tiers": {
         "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-catering-084-1-v1",
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Menus",
+      "subtopic": "Menu formats and planning",
+      "learningObjective": "Distinguish individually priced menu items from fixed-price meals and plan menus within service constraints.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Catering Craft Papers II and III",
+        "WAEC Catering Craft Practice examiner materials, 2021 and 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "easy": 1,
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-catering-084-2-v1",
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Food and beverage service",
+      "subtopic": "Service methods and equipment",
+      "learningObjective": "Select and evaluate table-service methods and equipment for a stated service setting.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Catering Craft Papers II and III",
+        "WAEC Catering Craft Practice examiner materials, 2021 and 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "easy": 1,
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 4
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

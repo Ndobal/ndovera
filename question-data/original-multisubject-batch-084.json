@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Catering Craft written practice",
+  "questionCount": 8,
+  "note": "Original written practice. NECO 2026 Internal formats verified. Topic mapping is provisional and academic review is pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Menus",
+      "subtopic": "Menu formats and planning",
+      "learningObjective": "Distinguish individually priced menu items from fixed-price meals and plan menus within service constraints.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "id": "ndv-084-001",
+      "objectiveId": "neco-catering-084-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "At a café, a guest orders pepper soup and adds boiled yam for a separate charge. Every item on the menu has its own price. Which menu format is in use?",
+      "answer": "An à la carte menu.",
+      "explanation": "The guest selects separately priced dishes and pays for the items ordered.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A fixed-price set menu.",
+        "An à la carte menu.",
+        "A buffet with a single admission charge.",
+        "A prepaid meal voucher for a set meal."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Menus",
+      "subtopic": "Menu formats and planning",
+      "learningObjective": "Distinguish individually priced menu items from fixed-price meals and plan menus within service constraints.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "id": "ndv-084-002",
+      "objectiveId": "neco-catering-084-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A school event charges one price for a main dish and a side. Guests may choose beans or chicken as the main dish. Which menu heading communicates the offer clearly?",
+      "answer": "Fixed-price lunch with a choice of main dish.",
+      "explanation": "The main dish choice does not change the price or remove the included side.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Separate prices for all dishes.",
+        "Unlimited buffet lunch.",
+        "Main dishes only, sides billed separately.",
+        "Fixed-price lunch with a choice of main dish."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Menus",
+      "subtopic": "Menu formats and planning",
+      "learningObjective": "Distinguish individually priced menu items from fixed-price meals and plan menus within service constraints.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "id": "ndv-084-003",
+      "objectiveId": "neco-catering-084-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A small eatery uses the same grill for four different made-to-order dishes. At noon, customers can choose freely, but several dishes are delayed while the grill is busy. Explain the bottleneck and propose one change that preserves customer choice.",
+      "answer": "The dishes compete for limited grill capacity at the same time. Keep a choice of mains but offer at least one dish that can be prepared using separate available equipment, such as a bean stew cooked on the hob.",
+      "explanation": "Changing the equipment demands of the menu reduces competition at the grill while preserving alternatives.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the shared grill as the bottleneck."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a feasible alternative with different equipment needs."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how the change retains choice and eases the bottleneck."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Menus",
+      "subtopic": "Menu formats and planning",
+      "learningObjective": "Distinguish individually priced menu items from fixed-price meals and plan menus within service constraints.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "id": "ndv-084-004",
+      "objectiveId": "neco-catering-084-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "For a fixed-price lunch, a hall can serve two mains but expects a queue if guests choose at the counter. Compare taking choices at registration with allowing choices on arrival. Recommend an approach when the hall has only ten minutes to distribute lunch.",
+      "answer": "Take choices at registration and count each main before service. Prepare labelled collection points or trays for the choices. Advance selection reduces decision time and improves quantity planning, but changes on the day need a procedure such as a small reserve subject to availability.",
+      "explanation": "Advance choice moves decisions out of the short collection window, while a reserve can handle limited changes.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain a benefit of advance choices."
+        },
+        {
+          "marks": 1,
+          "description": "Explain an advantage or drawback of choosing on arrival."
+        },
+        {
+          "marks": 1,
+          "description": "Recommend a method tied to the ten-minute limit."
+        },
+        {
+          "marks": 1,
+          "description": "Describe a workable response to last-minute changes."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Food and beverage service",
+      "subtopic": "Service methods and equipment",
+      "learningObjective": "Select and evaluate table-service methods and equipment for a stated service setting.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "id": "ndv-084-005",
+      "objectiveId": "neco-catering-084-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "At a catered meeting, the kitchen portions each main course onto individual plates before waiters bring them to seated guests. Which method is this?",
+      "answer": "Plate service.",
+      "explanation": "The individual portions are plated in the kitchen and presented ready to eat.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Plate service.",
+        "Family service from shared dishes.",
+        "Self-service buffet.",
+        "Service in which the waiter transfers food from a platter at the table."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Food and beverage service",
+      "subtopic": "Service methods and equipment",
+      "learningObjective": "Select and evaluate table-service methods and equipment for a stated service setting.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "id": "ndv-084-006",
+      "objectiveId": "neco-catering-084-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "At a breakfast table, a guest wants to add a small quantity of milk to tea. Which item allows the guest to pour it neatly?",
+      "answer": "A milk jug.",
+      "explanation": "The small jug has a pouring lip suited to serving milk at the table.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A preserve dish.",
+        "A sugar basin.",
+        "A milk jug.",
+        "A butter dish."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Food and beverage service",
+      "subtopic": "Service methods and equipment",
+      "learningObjective": "Select and evaluate table-service methods and equipment for a stated service setting.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "id": "ndv-084-007",
+      "objectiveId": "neco-catering-084-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A catering team serves 36 seated guests. The organiser wants equal first portions and has two waiters, enough plates, and a counter where portions can be checked. Compare plate service and family service for this event and justify a choice.",
+      "answer": "Choose plate service. The team can check portions at the counter before the waiters deliver the plates. Family service can let guests choose their own amounts, but makes equal first portions harder to guarantee. Plate service requires coordination so tables receive their meals promptly.",
+      "explanation": "The controlling criterion is consistent first portions. The counter and available plates make that feasible, while delivery timing remains a trade-off.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describe how plate service supports equal first portions."
+        },
+        {
+          "marks": 1,
+          "description": "Describe how family service distributes food."
+        },
+        {
+          "marks": 1,
+          "description": "Recommend a method using the stated staffing or equipment."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a trade-off of the recommended method."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Food and beverage service",
+      "subtopic": "Service methods and equipment",
+      "learningObjective": "Select and evaluate table-service methods and equipment for a stated service setting.",
+      "specificationId": "neco-catering-service-reference-2026",
+      "id": "ndv-084-008",
+      "objectiveId": "neco-catering-084-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a banquet, a server puts one large serving dish at each table. At two tables the dish runs out before every guest takes a first portion. The organiser wants to keep shared dishes. Explain one likely cause and propose a service adjustment.",
+      "answer": "Some guests may have taken large portions before everyone was served. Supply enough first servings for the number seated and invite guests to take one serving each before returning for seconds. A suitable portioning spoon can help keep the first round consistent.",
+      "explanation": "The service procedure controls allocation while retaining the shared table dish.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify a plausible cause consistent with the observations."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a feasible adjustment that retains shared dishes."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how it improves access to a first portion."
+        }
+      ]
+    }
+  ]
+}
