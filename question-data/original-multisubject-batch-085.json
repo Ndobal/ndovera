@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Catering Craft supervised table-service practice",
+  "questionCount": 6,
+  "note": "Original supervised simulations. The 2026 NECO timetable verifies Paper I as practical. Task details and classroom marks are provisional, and independent academic review is pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service execution",
+      "learningObjective": "Demonstrate table-service methods and select equipment for a supervised simulation.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "id": "ndv-085-001",
+      "objectiveId": "neco-catering-085-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a supervised dining-room simulation, use four plates with foam food models, a tray and two labelled place cards. Deliver one standard plate and one plate labelled “no garnish” to their assigned seats, then deliver the two remaining standard plates to the unlabelled seats. Show the teacher how you verify the special plate before leaving the service station.",
+      "answer": "Read the order and seat label together, check that the special plate has no garnish model, and carry the plates in a stable load. Match the special plate to its place card and place the remaining plates at the other seats.",
+      "explanation": "The delivery is judged by matching each plate to its destination and by controlled handling.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Verify the special plate against the order and seat label before delivery."
+        },
+        {
+          "marks": 1,
+          "description": "Carry the plates in stable loads."
+        },
+        {
+          "marks": 1,
+          "description": "Deliver the special plate to the assigned seat."
+        },
+        {
+          "marks": 1,
+          "description": "Place standard plates at the three remaining seats."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service execution",
+      "learningObjective": "Demonstrate table-service methods and select equipment for a supervised simulation.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "id": "ndv-085-002",
+      "objectiveId": "neco-catering-085-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Set up a simulated four-person table for family-style service. Use an empty bowl to represent stew, a platter to represent yam, and two serving utensils. Demonstrate how guests would serve themselves without reaching across occupied places.",
+      "answer": "Place the bowl and platter on stable surfaces, pair the bowl with a ladle and the platter with tongs or a suitable serving spoon, then demonstrate passing each dish safely between neighbours or repositioning it for easy access.",
+      "explanation": "The setup should support shared service and control where guests reach and where utensils rest.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Set out both serving vessels on stable surfaces."
+        },
+        {
+          "marks": 1,
+          "description": "Provide an appropriate utensil for each vessel."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrate a workable passing or repositioning sequence."
+        },
+        {
+          "marks": 1,
+          "description": "Keep both utensils with their corresponding dishes during service."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service execution",
+      "learningObjective": "Demonstrate table-service methods and select equipment for a supervised simulation.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "id": "ndv-085-003",
+      "objectiveId": "neco-catering-085-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a supervised beverage station, use plain water to simulate milk for two cups of tea. Select a vessel from a milk jug, a sugar basin and a preserve dish. Demonstrate dispensing the same small amount into each cup and returning the vessel to the station.",
+      "answer": "Select the milk jug. Make two controlled pours to similar levels and return the jug upright to its designated place.",
+      "explanation": "The pouring lip helps control the flow. Equal amounts and an orderly return are observable.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Select the milk jug."
+        },
+        {
+          "marks": 1,
+          "description": "Dispense approximately equal amounts without spilling."
+        },
+        {
+          "marks": 1,
+          "description": "Return the jug upright to the designated place."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service checks and recovery",
+      "learningObjective": "Check a service setup and demonstrate how to resolve an observed service problem.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "id": "ndv-085-004",
+      "objectiveId": "neco-catering-085-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Your teacher has set two practice tables. One has a shared platter without serving utensils. The other has individual plates with the place cards switched relative to a supplied seating plan. Inspect both, label each service method, and physically correct both faults before inviting anyone to sit.",
+      "answer": "The platter table models family service. Add a suitable serving utensil. The individual plates model plate service. Restore the place cards to the locations shown on the seating plan and recheck both seats.",
+      "explanation": "The task connects each service method to a different setup error, then checks whether the learner can correct it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify family service at the platter table."
+        },
+        {
+          "marks": 1,
+          "description": "Add an appropriate serving utensil to the platter."
+        },
+        {
+          "marks": 1,
+          "description": "Identify plate service at the individual-plate table."
+        },
+        {
+          "marks": 1,
+          "description": "Restore and verify both seat labels against the plan."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service checks and recovery",
+      "learningObjective": "Check a service setup and demonstrate how to resolve an observed service problem.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "id": "ndv-085-005",
+      "objectiveId": "neco-catering-085-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a supervised role-play, an observer tells you that a cup is chipped just as you are about to pour water at a guest’s place. Stop the service, demonstrate the replacement using an intact spare, and show how you would set the chipped cup aside so another server cannot use it. Use a card marked “chipped” in place of damaged crockery.",
+      "answer": "Stop before pouring, acknowledge the issue, remove the marked cup to the designated out-of-service area, check the replacement, and place the intact cup before resuming the pour.",
+      "explanation": "Separating unsuitable equipment prevents its return to service. Checking the replacement closes the recovery sequence.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Stop the pour and acknowledge the problem."
+        },
+        {
+          "marks": 1,
+          "description": "Remove the marked cup to a clearly designated out-of-service location."
+        },
+        {
+          "marks": 1,
+          "description": "Check the spare before placing it."
+        },
+        {
+          "marks": 1,
+          "description": "Resume the service with the replacement cup."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service checks and recovery",
+      "learningObjective": "Check a service setup and demonstrate how to resolve an observed service problem.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "id": "ndv-085-006",
+      "objectiveId": "neco-catering-085-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A supervisor gives you two tray layouts for a simulated table service. One places two partly filled water jugs at one end, and the other leaves space to distribute them. Without lifting the unbalanced tray, explain the risk, rearrange the load, and demonstrate carrying the corrected tray a short distance under supervision.",
+      "answer": "Explain that the offset load tends to tip the tray. Reposition the jugs upright near the centre with weight distributed on either side, then carry the tray level using a steady grip. Make two trips if the load remains difficult to control.",
+      "explanation": "The adjustment can be judged before lifting and the controlled carry checks the effect of the revised arrangement.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain how the offset load can tip the tray."
+        },
+        {
+          "marks": 1,
+          "description": "Reposition the jugs to balance the load or reduce the load to a manageable amount."
+        },
+        {
+          "marks": 1,
+          "description": "Maintain an upright vessel position and level tray during the short carry."
+        },
+        {
+          "marks": 1,
+          "description": "Set the tray down steadily in the marked area."
+        }
+      ]
+    }
+  ]
+}

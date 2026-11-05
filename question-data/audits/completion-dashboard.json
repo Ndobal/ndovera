@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3267,
-    "validDrafts": 1588,
+    "raw": 3273,
+    "validDrafts": 1594,
     "reviewed": 0,
     "registeredBanks": 175,
     "target": 157000,
@@ -638,6 +638,12 @@
       "sha256": "7e9cf8914c10e2108c373b629dd14d1e2772ab22a999c4909d06a29d2412adc9",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-085.json",
+      "sha256": "a86a7e71cae1cbe703fbed61a10adf55b9bdcaa0a4e929f2b7926d5de4540c68",
+      "declared": 6,
+      "actual": 6
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2234,21 +2240,21 @@
         "II": "4012",
         "III": "4013"
       },
-      "raw": 8,
-      "validDrafts": 8,
+      "raw": 14,
+      "validDrafts": 14,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 4,
-        "structured": 4
+        "structured": 10
       },
       "difficulty": {
-        "easy": 2,
-        "standard": 4,
-        "difficult": 2
+        "easy": 3,
+        "standard": 7,
+        "difficult": 4
       },
-      "remaining": 992,
-      "mappedObjectives": 2,
-      "representedObjectives": 2,
+      "remaining": 986,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -4679,10 +4685,10 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -28801,6 +28807,42 @@
       "errors": []
     },
     {
+      "id": "ndv-085-001",
+      "file": "original-multisubject-batch-085.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-085-002",
+      "file": "original-multisubject-batch-085.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-085-003",
+      "file": "original-multisubject-batch-085.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-085-004",
+      "file": "original-multisubject-batch-085.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-085-005",
+      "file": "original-multisubject-batch-085.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-085-006",
+      "file": "original-multisubject-batch-085.json",
+      "index": 5,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -51971,6 +52013,68 @@
       },
       "tiers": {
         "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-catering-085-1-v1",
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service execution",
+      "learningObjective": "Demonstrate table-service methods and select equipment for a supervised simulation.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Catering Craft Paper I (format only)",
+        "WAEC Catering Craft Practice examiner materials, 2021 and 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-catering-085-2-v1",
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service checks and recovery",
+      "learningObjective": "Check a service setup and demonstrate how to resolve an observed service problem.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Catering Craft Paper I (format only)",
+        "WAEC Catering Craft Practice examiner materials, 2021 and 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 1,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

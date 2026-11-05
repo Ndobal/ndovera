@@ -443,3 +443,9 @@ timetable lists practical (4011), essay (4012) and objective (4013)
 papers. The batch covers written practice using provisional topic
 references from WAEC. NECO practical task and marking specifications
 remain unverified.
+
+Batch 085 adds six supervised Catering Craft table-service simulations.
+Learners demonstrate service, equipment selection and fault recovery.
+The 2026 NECO Internal timetable verifies the practical paper format.
+The simulations and marking guides are original classroom practice,
+with provisional topic alignment and official task details still open.

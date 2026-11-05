@@ -1248,6 +1248,19 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO verifies practical 4011, essay 4012 and objective 4013. WAEC examiner material supports provisional menu and service topics. NECO syllabus and detailed practical requirements remain unverified."
+    },
+    {
+      "id": "neco-catering-practical-reference-2026",
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/CateringCraft/Cater230mq1.html",
+        "https://waeconline.org.ng/e-learning/CateringCraft/Cater340mq2.html"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "NECO verifies practical 4011, essay 4012 and objective 4013. Historical WAEC examiner material supports provisional table service and holloware topics. The observable tasks and marks are original classroom practice. NECO syllabus and detailed practical requirements remain unverified."
     }
   ],
   "banks": [
@@ -9279,6 +9292,42 @@
       ],
       "sourceSections": [
         "NECO 2026 SSCE Internal Catering Craft Papers II and III",
+        "WAEC Catering Craft Practice examiner materials, 2021 and 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-catering-085-1-v1",
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service execution",
+      "learningObjective": "Demonstrate table-service methods and select equipment for a supervised simulation.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Catering Craft Paper I (format only)",
+        "WAEC Catering Craft Practice examiner materials, 2021 and 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-catering-085-2-v1",
+      "exam": "NECO",
+      "subject": "Catering Craft",
+      "topic": "Table service practical",
+      "subtopic": "Service checks and recovery",
+      "learningObjective": "Check a service setup and demonstrate how to resolve an observed service problem.",
+      "specificationId": "neco-catering-practical-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Catering Craft Paper I (format only)",
         "WAEC Catering Craft Practice examiner materials, 2021 and 2023"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
