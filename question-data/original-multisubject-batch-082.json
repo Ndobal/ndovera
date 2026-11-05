@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Physical Education supervised relay drills",
+  "questionCount": 6,
+  "note": "Original supervised performance and observation tasks. Exact NECO Paper I content and marking remain unverified. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics practical",
+      "subtopic": "Supervised baton exchange",
+      "learningObjective": "Demonstrate controlled exchange, cueing and progression during a supervised relay drill.",
+      "specificationId": "neco-physical-relay-practice-reference-2026",
+      "id": "ndv-082-001",
+      "objectiveId": "neco-physical-082-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On a clear lane under teacher supervision, work with a partner and a foam baton. Walk through a visual exchange twice, taking the receiving role once. Ask the teacher to observe your eye direction, hand position and control of the baton. Finish each trial by walking straight ahead to the stop marker.",
+      "answer": "The receiver looks towards the incoming runner and presents a steady hand. The giver places the baton in that hand, and the receiver secures it before the giver releases it. Both stay in the practice lane and continue to the stop marker.",
+      "explanation": "A walking demonstration makes the visual cue and secure transfer easy to observe before speed is added.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Take the receiving role in one trial."
+        },
+        {
+          "marks": 1,
+          "description": "Look towards the giver during receipt."
+        },
+        {
+          "marks": 1,
+          "description": "Present a steady hand and secure the baton before release."
+        },
+        {
+          "marks": 1,
+          "description": "Stay in the marked lane and finish under control."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics practical",
+      "subtopic": "Supervised baton exchange",
+      "learningObjective": "Demonstrate controlled exchange, cueing and progression during a supervised relay drill.",
+      "specificationId": "neco-physical-relay-practice-reference-2026",
+      "id": "ndv-082-002",
+      "objectiveId": "neco-physical-082-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a teacher-led non-visual exchange drill at walking pace, take the receiving role. Agree on a spoken cue with the giver and demonstrate three trials with a foam baton. Keep your gaze forward. After the first trial, correct one timing or hand-position issue the teacher identifies.",
+      "answer": "Respond to the agreed cue with a stable receiving hand while looking ahead. Keep the movement controlled and make the identified adjustment in subsequent trials. If the first transfer succeeds, improve consistency using the teacher’s feedback.",
+      "explanation": "The teacher observes the link between the cue and the hand action, then checks whether the learner acts on specific feedback.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Agree and use an audible cue."
+        },
+        {
+          "marks": 1,
+          "description": "Look forward while presenting the hand."
+        },
+        {
+          "marks": 1,
+          "description": "Receive safely and stay within the lane."
+        },
+        {
+          "marks": 1,
+          "description": "Apply and describe a specific adjustment in a later trial."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics practical",
+      "subtopic": "Supervised baton exchange",
+      "learningObjective": "Demonstrate controlled exchange, cueing and progression during a supervised relay drill.",
+      "specificationId": "neco-physical-relay-practice-reference-2026",
+      "id": "ndv-082-003",
+      "objectiveId": "neco-physical-082-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Under teacher supervision, organise a three-person baton-transfer sequence at walking pace with two marked practice zones. The middle athlete must receive in the first zone and pass in the second. Carry out the sequence twice, rotating roles between trials. Show how your group separates the finished runners from the active lane.",
+      "answer": "Mark two separated zones and a clear route. The middle runner secures the baton in the first zone and carries it to the second, where the final runner receives it. Finished runners continue to the designated clearing point before leaving the lane on the teacher’s signal.",
+      "explanation": "The middle athlete links two handovers. Role rotation and a marked clearing point make coordination and lane management observable.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Set up two distinct zones with teacher approval."
+        },
+        {
+          "marks": 1,
+          "description": "Complete the first and second handovers in the corresponding zones."
+        },
+        {
+          "marks": 1,
+          "description": "Show secure carrying between zones and rotate roles."
+        },
+        {
+          "marks": 1,
+          "description": "Use the agreed clearing point without obstructing the active lane."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics practical",
+      "subtopic": "Relay observation and feedback",
+      "learningObjective": "Observe a supervised drill, document exchange evidence and use feedback to refine practice.",
+      "specificationId": "neco-physical-relay-practice-reference-2026",
+      "id": "ndv-082-004",
+      "objectiveId": "neco-physical-082-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A teacher stages two slow foam-baton handovers at a practice boundary. From a safe side-on position, record whether the entire baton is inside the marked zone at first contact and at release. In one staged trial the receiver is already beyond the boundary while the baton stays inside throughout. Explain your judgement of that trial using your record.",
+      "answer": "Record first contact and release separately. In the specified trial the athlete’s position alone does not establish a zone fault, since the whole baton remains inside throughout the pass.",
+      "explanation": "The boundary judgement concerns the baton, while the two observations identify the start and finish of transfer.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Observe from outside the active lane."
+        },
+        {
+          "marks": 1,
+          "description": "Record both first contact and release for each trial."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the whole baton as the relevant evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the judgement of the specified trial."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics practical",
+      "subtopic": "Relay observation and feedback",
+      "learningObjective": "Observe a supervised drill, document exchange evidence and use feedback to refine practice.",
+      "specificationId": "neco-physical-relay-practice-reference-2026",
+      "id": "ndv-082-005",
+      "objectiveId": "neco-physical-082-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Use a teacher-approved walking relay lane and a foam baton. As observer, record three transfers by the same pair using their usual start marker and three using a teacher-approved adjusted marker. Keep the cue and walking pace as consistent as possible. Compare how often each setting produces a secure transfer inside the practice zone.",
+      "answer": "Record each trial using the same success criterion. Report both counts out of three, including ties, and recommend a marker only to the extent that the observations support it. Repeat if the evidence is inconclusive.",
+      "explanation": "The trial isolates the start marker as far as practical. The small sample supports a tentative recommendation about this pair, rather than a general rule.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Record all six attempts against one criterion."
+        },
+        {
+          "marks": 1,
+          "description": "Keep the pair, cue and pace comparable."
+        },
+        {
+          "marks": 1,
+          "description": "Compare the counts without inventing results."
+        },
+        {
+          "marks": 1,
+          "description": "Give a justified, appropriately limited conclusion."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics practical",
+      "subtopic": "Relay observation and feedback",
+      "learningObjective": "Observe a supervised drill, document exchange evidence and use feedback to refine practice.",
+      "specificationId": "neco-physical-relay-practice-reference-2026",
+      "id": "ndv-082-006",
+      "objectiveId": "neco-physical-082-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Observe a partner pair during two supervised walking relay trials. Use a simple record with separate columns for a clear cue, a steady receiving hand and a secure transfer. Give the pair feedback on one observed feature, then observe a third trial and report whether that feature changed.",
+      "answer": "Complete the record for each trial. For example, if the receiving hand moved just before contact, suggest holding it steady once presented. Check the same feature in the third trial and report the actual result.",
+      "explanation": "Recording separate features makes the feedback specific. The follow-up observation checks the targeted feature rather than relying only on whether the baton was dropped.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Record the three features for the first two trials."
+        },
+        {
+          "marks": 1,
+          "description": "Select a feature supported by the record."
+        },
+        {
+          "marks": 1,
+          "description": "Give specific, feasible feedback."
+        },
+        {
+          "marks": 1,
+          "description": "Use the third trial to assess the same feature."
+        }
+      ]
+    }
+  ]
+}

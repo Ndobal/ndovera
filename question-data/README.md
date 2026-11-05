@@ -427,3 +427,7 @@ Batch 081 registers NECO Physical Education and adds eight written
 relay drafts. The 2026 timetable verifies practical, essay and objective
 papers. Topic alignment remains provisional. Rules questions use World
 Athletics' 2026 technical rules. Official practical tasks remain open.
+
+Batch 082 adds six supervised Physical Education relay drills with
+observable criteria for performance and feedback. NECO's timetable
+confirms Paper I as practical. Classroom tasks and marks are provisional.

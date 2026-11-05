@@ -1208,6 +1208,20 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO lists practical (2081), essay (2082) and objective (2083). WAEC examiner material supports provisional relay skills. For rules questions use World Athletics 2026 TR24; historical zone dimensions are not adopted. Official NECO objectives and practical requirements remain open."
+    },
+    {
+      "id": "neco-physical-relay-practice-reference-2026",
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/Physical/PhEd226mq1.html",
+        "https://www.waeconline.org.ng/e-learning/Physical/PhEd330aq3.html",
+        "https://worldathletics.org/download/download?filename=e7faf2e8-0385-4686-bbd0-acdb5d958e8f.pdf"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "NECO lists practical (2081), essay (2082) and objective (2083). WAEC examiner material supports provisional relay skills. Teacher-marked drill boundaries and observation rubrics are classroom choices. World Athletics 2026 TR24 informs baton-position observation. Official NECO objectives and practical requirements remain open."
     }
   ],
   "banks": [
@@ -9074,6 +9088,42 @@
       ],
       "sourceSections": [
         "NECO 2026 SSCE Internal Physical Education Papers II and III",
+        "WAEC Physical Education examiner materials, 2017 and 2020; World Athletics 2026 TR24"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-physical-082-1-v1",
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics practical",
+      "subtopic": "Supervised baton exchange",
+      "learningObjective": "Demonstrate controlled exchange, cueing and progression during a supervised relay drill.",
+      "specificationId": "neco-physical-relay-practice-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Physical Education Paper I (2081)",
+        "WAEC Physical Education examiner materials, 2017 and 2020; World Athletics 2026 TR24"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-physical-082-2-v1",
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics practical",
+      "subtopic": "Relay observation and feedback",
+      "learningObjective": "Observe a supervised drill, document exchange evidence and use feedback to refine practice.",
+      "specificationId": "neco-physical-relay-practice-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Physical Education Paper I (2081)",
         "WAEC Physical Education examiner materials, 2017 and 2020; World Athletics 2026 TR24"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
