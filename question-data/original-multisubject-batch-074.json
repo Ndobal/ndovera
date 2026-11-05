@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Christian Religious Studies James 2 practice",
+  "questionCount": 8,
+  "note": "Original essay and objective practice. NECO paper formats verified; topic mapping provisional. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith and deeds in James 2:14–26",
+      "learningObjective": "Interpret how examples and analogies relate professed faith to conduct.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "id": "ndv-074-001",
+      "objectiveId": "neco-crs-074-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In James 2:15–17, what makes the speaker’s farewell inadequate? Explain how the example supports the argument about faith.",
+      "answer": "The needy person still lacks food and clothing. A verbal wish does not provide either, so the example exposes the gap between a profession of concern and conduct that gives it effect.",
+      "explanation": "The argument uses a specific unmet need to illustrate the inadequacy of faith claimed without deeds.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the unmet material needs."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why the words are insufficient."
+        },
+        {
+          "marks": 1,
+          "description": "Connect the example to professed faith."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith and deeds in James 2:14–26",
+      "learningObjective": "Interpret how examples and analogies relate professed faith to conduct.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "id": "ndv-074-002",
+      "objectiveId": "neco-crs-074-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Compare the functions of the examples of demons and Rahab in James 2. What does each contribute to the argument?",
+      "answer": "The demons show that correct recognition of God can coexist with a lack of faithful conduct. Rahab’s reception and protection of the messengers gives a positive example of faith expressed through action.",
+      "explanation": "The two examples make contrasting contributions. One limits what assent demonstrates, while the other illustrates action.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain the example of the demons."
+        },
+        {
+          "marks": 1,
+          "description": "Identify what Rahab does for the messengers."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the contrast in argumentative function."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith and deeds in James 2:14–26",
+      "learningObjective": "Interpret how examples and analogies relate professed faith to conduct.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "id": "ndv-074-003",
+      "objectiveId": "neco-crs-074-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "What is the function of the body-and-spirit comparison at the end of James 2?",
+      "answer": "It illustrates why faith without deeds is described as dead.",
+      "explanation": "James uses the lifeless body as an analogy for faith separated from deeds.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "It explains why material assistance is unnecessary.",
+        "It illustrates why faith without deeds is described as dead.",
+        "It introduces a distinction between rich and poor worshippers.",
+        "It establishes that only spoken promises are evidence of faith."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith and deeds in James 2:14–26",
+      "learningObjective": "Interpret how examples and analogies relate professed faith to conduct.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "id": "ndv-074-004",
+      "objectiveId": "neco-crs-074-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A reader says that Abraham’s action in James 2 is described as unrelated to his prior faith. Which response best fits the passage?",
+      "answer": "James presents the faith as working with the action and reaching fulfilment through it.",
+      "explanation": "James 2:22 directly connects the faith and action. The relationship is central to the example.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "James presents the faith as working with the action and reaching fulfilment through it.",
+        "James treats Abraham’s action as evidence that Abraham had never believed.",
+        "James describes the action as unrelated to anything Abraham believed.",
+        "James introduces Abraham solely to discuss the treatment of wealthy visitors."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Partiality in James 2:1–13",
+      "learningObjective": "Analyse James’s account of favouritism and apply its reasoning to comparable situations.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "id": "ndv-074-005",
+      "objectiveId": "neco-crs-074-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a youth fellowship, two first-time visitors arrive together. An organiser moves one to a better seat solely because their clothes look expensive. Explain how James 2:1–4 would evaluate the decision and give a fair seating rule.",
+      "answer": "The organiser assigns honour on the basis of apparent wealth, resembling the favouritism James criticises. The group could use a consistent arrival-order rule with accommodations for access needs.",
+      "explanation": "Apply the passage’s objection to status-based preference and explain how the proposed rule avoids that criterion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify appearance-based favouritism."
+        },
+        {
+          "marks": 1,
+          "description": "Connect it to the seating contrast in James."
+        },
+        {
+          "marks": 1,
+          "description": "Give a feasible rule that avoids favouring apparent wealth."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Partiality in James 2:1–13",
+      "learningObjective": "Analyse James’s account of favouritism and apply its reasoning to comparable situations.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "id": "ndv-074-006",
+      "objectiveId": "neco-crs-074-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A group argues that giving extra honour to a wealthy visitor is harmless because its members obey several other moral commands. Assess that defence using James 2:8–11.",
+      "answer": "James treats loving one’s neighbour as a governing obligation and identifies partiality as a breach. He argues that obedience elsewhere does not erase disobedience to a command of the same lawgiver. The group’s other conduct therefore does not excuse the discriminatory act.",
+      "explanation": "The defence attempts to offset one breach with other acts of obedience. The passage addresses responsibility for the breach itself.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "State a judgement on the defence."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the neighbour-love principle and its relation to partiality."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why obedience elsewhere does not cancel the breach."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Partiality in James 2:1–13",
+      "learningObjective": "Analyse James’s account of favouritism and apply its reasoning to comparable situations.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "id": "ndv-074-007",
+      "objectiveId": "neco-crs-074-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In James 2:1–4, what difference in treatment makes the seating incident an example of partiality?",
+      "answer": "The visitor who appears wealthy receives the more honoured place.",
+      "explanation": "James contrasts the invitation given to the finely dressed visitor with the instruction given to the poor visitor.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Both visitors are invited to take the same place.",
+        "The visitor arriving first chooses a seat.",
+        "The visitor who appears wealthy receives the more honoured place.",
+        "Both visitors are directed to stand for the same reason."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Partiality in James 2:1–13",
+      "learningObjective": "Analyse James’s account of favouritism and apply its reasoning to comparable situations.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "id": "ndv-074-008",
+      "objectiveId": "neco-crs-074-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which principle does James explicitly name when arguing against favouritism in James 2:8–9?",
+      "answer": "Love your neighbour as yourself.",
+      "explanation": "James invokes neighbour-love and then explains that showing partiality violates the law.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Repay each gift with an equal gift.",
+        "Reserve public honour for those who contribute most.",
+        "Avoid speaking to anyone whose status is unknown.",
+        "Love your neighbour as yourself."
+      ],
+      "correctOption": "D"
+    }
+  ]
+}

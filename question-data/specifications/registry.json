@@ -1088,11 +1088,23 @@
       "kind": "official_format_with_cross_board_reference",
       "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
       "topicReferences": [
-        "https://waeconline.org.ng/e-learning/Mathematics/maths221Nq12.html",
-        "https://www.waeconline.org.ng/e-learning/Mathematics/maths224nq11.html"
+        "https://www.waeconline.org.ng/e-learning/Further/furth219nq1.html"
       ],
       "retrievedOn": "2026-11-04",
       "note": "The NECO timetable lists Further Mathematics Papers II (2052, essay) and III (2053, objective). Historical WAEC examiner observations support provisional topic selection. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
+    },
+    {
+      "id": "neco-crs-james-reference-2026",
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/Mathematics/maths221Nq12.html",
+        "https://www.waeconline.org.ng/e-learning/Mathematics/maths224nq11.html"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "The NECO timetable lists Christian Religious Studies Papers II (4022, essay) and III (4023, objective). Historical WAEC evidence supports James 2 faith and deeds. Partiality is adjacent practice based directly on James 2 and remains provisional. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
     }
   ],
   "banks": [
@@ -2324,6 +2336,18 @@
     {
       "exam": "NECO",
       "subject": "Further Mathematics",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "III": "objective",
+        "II": "essay"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
@@ -8583,6 +8607,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Further Mathematics Papers II and III",
         "Historical WAEC Further Mathematics examiner observations, 2010"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-crs-074-1-v1",
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith and deeds in James 2:14–26",
+      "learningObjective": "Interpret how examples and analogies relate professed faith to conduct.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Christian Religious Studies Papers II and III",
+        "Historical WAEC Christian Religious Studies examiner observations, 2020"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-crs-074-2-v1",
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Partiality in James 2:1–13",
+      "learningObjective": "Analyse James’s account of favouritism and apply its reasoning to comparable situations.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Christian Religious Studies Papers II and III",
+        "Historical WAEC Christian Religious Studies examiner observations, 2020"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

@@ -387,3 +387,8 @@ Batch 073 registers NECO Further Mathematics and adds eight original
 binary-operation questions. The 2026 internal timetable verifies the
 essay and objective formats. Historical WAEC examiner evidence supports
 provisional topic mapping. Official NECO topic objectives remain open.
+
+Batch 074 registers NECO Christian Religious Studies and adds eight
+original drafts on James 2. NECO's 2026 internal timetable confirms the
+essay and objective papers. The topic mapping remains provisional.
+The Further Mathematics binary-operations source URL was also corrected.
