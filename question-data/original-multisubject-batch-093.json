@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Beauty and Cosmetology supervised practicals",
+  "questionCount": 6,
+  "note": "Original classroom simulations. Paper I format verified; official tasks and marking requirements remain unverified. Independent review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Salon practical",
+      "subtopic": "Hygiene and station workflow",
+      "learningObjective": "Demonstrate separation of clean and used tools and hygienic product handling.",
+      "specificationId": "neco-beauty-practical-reference-2026",
+      "id": "ndv-093-001",
+      "objectiveId": "neco-beauty-093-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a supervised mock salon station, use the teacher’s status cards to sort clean combs and combs awaiting reprocessing into separate trays. Label each tray and demonstrate where a clean comb goes immediately after simulated use.",
+      "answer": "Place the ready combs in a labelled clean tray and the awaiting combs in a separate labelled used tray. Move the comb from clean to used after simulated service.",
+      "explanation": "Visible status and a one-way route prevent accidental reuse.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Sort both groups correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Label both trays clearly."
+        },
+        {
+          "marks": 1,
+          "description": "Move the simulated used comb into the used tray."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Salon practical",
+      "subtopic": "Hygiene and station workflow",
+      "learningObjective": "Demonstrate separation of clean and used tools and hygienic product handling.",
+      "specificationId": "neco-beauty-practical-reference-2026",
+      "id": "ndv-093-002",
+      "objectiveId": "neco-beauty-093-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Using coloured gel as a substitute for styling cream, portion enough for two mannequin stations from a shared container. Use two clean dishes and separate disposable spatulas. Simulate a request for more at one station and show what happens to leftovers.",
+      "answer": "Dispense separate portions with clean spatulas and send each dish to its station. Use a fresh spatula to take any refill from the shared container. Discard leftover gel from the station dishes as directed by the teacher.",
+      "explanation": "Keeping station material away from the shared container prevents transfer between stations.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Prepare two separate portions."
+        },
+        {
+          "marks": 1,
+          "description": "Keep used station implements away from shared stock."
+        },
+        {
+          "marks": 1,
+          "description": "Use a fresh spatula for the refill."
+        },
+        {
+          "marks": 1,
+          "description": "Keep leftovers out of shared stock."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Salon practical",
+      "subtopic": "Hygiene and station workflow",
+      "learningObjective": "Demonstrate separation of clean and used tools and hygienic product handling.",
+      "specificationId": "neco-beauty-practical-reference-2026",
+      "id": "ndv-093-003",
+      "objectiveId": "neco-beauty-093-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "During a supervised turnover drill, your teacher gives you a mock product card requiring four minutes of wet contact after cleaning. Use plain water on a training comb, a timer and a work log. Demonstrate timing and explain what you would do if the surface dries before the required time.",
+      "answer": "Clean the training comb first, wet all relevant surfaces and start timing when fully wet. Record start and finish, keep the surface wet for the full simulated interval, and follow the product directions for reapplication if it dries. Repeat a full uninterrupted period before logging completion if the prior interval did not meet the instruction.",
+      "explanation": "The drill uses water to demonstrate timing and logging. Effective disinfection in actual service depends on using the specified product as directed.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Demonstrate prior cleaning."
+        },
+        {
+          "marks": 1,
+          "description": "Start timing only once surfaces are wet."
+        },
+        {
+          "marks": 1,
+          "description": "Record timing and check continued wetness."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how to handle an interrupted interval."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Hair care practical",
+      "subtopic": "Mannequin washing and handling",
+      "learningObjective": "Demonstrate and evaluate hair-care procedures on mannequin hair or training swatches.",
+      "specificationId": "neco-beauty-practical-reference-2026",
+      "id": "ndv-093-004",
+      "objectiveId": "neco-beauty-093-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On a supervised mannequin with long hair, use clips to divide the hair into four sections before a wash demonstration. Show how to release one section without disturbing the others.",
+      "answer": "Part the hair into four manageable groups, clip each separately and release one clip while keeping the other groups secured.",
+      "explanation": "Independently secured sections make hair easier to handle in sequence.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Form four workable sections."
+        },
+        {
+          "marks": 1,
+          "description": "Secure them individually."
+        },
+        {
+          "marks": 1,
+          "description": "Release only the chosen section."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Hair care practical",
+      "subtopic": "Mannequin washing and handling",
+      "learningObjective": "Demonstrate and evaluate hair-care procedures on mannequin hair or training swatches.",
+      "specificationId": "neco-beauty-practical-reference-2026",
+      "id": "ndv-093-005",
+      "objectiveId": "neco-beauty-093-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Wash a mannequin hair swatch supplied with a visible washable styling residue. Under supervision, follow the training shampoo instructions and inspect the swatch before and after rinsing in the same light. Record what changed and one observation that would justify further rinsing.",
+      "answer": "Record the initial visible residue, wash and rinse as directed, then check under the same light. Describe the observed change. Visible lather or shampoo residue remaining on the hair would justify further rinsing.",
+      "explanation": "Keeping lighting constant improves the comparison. The observation is evidence about the swatch, with limits on what a visual check can detect.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Record the starting condition."
+        },
+        {
+          "marks": 1,
+          "description": "Follow the supplied wash and rinse instructions."
+        },
+        {
+          "marks": 1,
+          "description": "Record the observed change using comparable lighting."
+        },
+        {
+          "marks": 1,
+          "description": "Identify an observation that warrants more rinsing."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Hair care practical",
+      "subtopic": "Mannequin washing and handling",
+      "learningObjective": "Demonstrate and evaluate hair-care procedures on mannequin hair or training swatches.",
+      "specificationId": "neco-beauty-practical-reference-2026",
+      "id": "ndv-093-006",
+      "objectiveId": "neco-beauty-093-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Your teacher supplies two matched mannequin swatches and a rinse-out conditioner. Treat one swatch as directed and give the second the same water handling without conditioner. Use the same clean comb model on both and compare the number of catches over three gentle passes per swatch. Record the results and explain a limitation.",
+      "answer": "Keep wetting, rinsing and combing conditions comparable. Use separate clean combs of the same design or clean the comb between swatches. Record catches for each pass and compare totals. A difference is evidence about these swatches, while one pair and repeated passes on the same hair give limited evidence about other hair types.",
+      "explanation": "Controlling comb design and handling helps isolate the treatment. Passes may change tangling, so matching order and recording each pass matter.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Apply conditioner to only the treatment swatch according to directions."
+        },
+        {
+          "marks": 1,
+          "description": "Maintain comparable water and combing conditions."
+        },
+        {
+          "marks": 1,
+          "description": "Record and compare catches for both swatches."
+        },
+        {
+          "marks": 1,
+          "description": "State a relevant limitation."
+        }
+      ]
+    }
+  ]
+}

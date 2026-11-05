@@ -69,7 +69,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NCEE | Verbal Aptitude | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | NCEE | Verbal Reasoning | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Agricultural Science | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
-| NECO | Beauty and Cosmetology | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
+| NECO | Beauty and Cosmetology | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Biology | 1000 | 14 | 12 | 0 | 988 | partial_objective_register |
 | NECO | Catering Craft | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Chemistry | 1000 | 16 | 12 | 0 | 988 | partial_objective_register |
@@ -197,13 +197,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 374 | 339 | 0 | 26000 | 25661 |
+| NECO | 380 | 345 | 0 | 26000 | 25655 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3323, "validDrafts": 1644, "reviewed": 0, "registeredBanks": 179, "target": 161000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3329, "validDrafts": 1650, "reviewed": 0, "registeredBanks": 179, "target": 161000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

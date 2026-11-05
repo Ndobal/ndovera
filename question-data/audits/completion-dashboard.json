@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3323,
-    "validDrafts": 1644,
+    "raw": 3329,
+    "validDrafts": 1650,
     "reviewed": 0,
     "registeredBanks": 179,
     "target": 161000,
@@ -686,6 +686,12 @@
       "sha256": "05d99896b4411091210b0e2535b96e437dd8b31371c761cb754cf834eeb962d9",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-093.json",
+      "sha256": "e5c18181d4b2b66b401abfd795aa2e131e76bbd9aa7dc640376e381262cad704",
+      "declared": 6,
+      "actual": 6
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2252,21 +2258,21 @@
         "II": "5002",
         "III": "5003"
       },
-      "raw": 8,
-      "validDrafts": 8,
+      "raw": 14,
+      "validDrafts": 14,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 4,
-        "structured": 4
+        "structured": 10
       },
       "difficulty": {
-        "easy": 2,
-        "standard": 4,
-        "difficult": 2
+        "easy": 4,
+        "standard": 6,
+        "difficult": 4
       },
-      "remaining": 992,
-      "mappedObjectives": 2,
-      "representedObjectives": 2,
+      "remaining": 986,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -2825,12 +2831,14 @@
       "paperFormats": {
         "I": "practical",
         "II": "essay",
-        "III": "objective"
+        "III": "objective",
+        "IV": "progressive assessments"
       },
       "paperCodes": {
         "I": "5041",
         "II": "5042",
-        "III": "5043"
+        "III": "5043",
+        "IV": "5044"
       },
       "raw": 14,
       "validDrafts": 14,
@@ -4876,8 +4884,8 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
@@ -29325,6 +29333,42 @@
       "errors": []
     },
     {
+      "id": "ndv-093-001",
+      "file": "original-multisubject-batch-093.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-093-002",
+      "file": "original-multisubject-batch-093.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-093-003",
+      "file": "original-multisubject-batch-093.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-093-004",
+      "file": "original-multisubject-batch-093.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-093-005",
+      "file": "original-multisubject-batch-093.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-093-006",
+      "file": "original-multisubject-batch-093.json",
+      "index": 5,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -53011,6 +53055,70 @@
       },
       "tiers": {
         "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-beauty-093-1-v1",
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Salon practical",
+      "subtopic": "Hygiene and station workflow",
+      "learningObjective": "Demonstrate separation of clean and used tools and hygienic product handling.",
+      "specificationId": "neco-beauty-practical-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper I (format only)",
+        "WAEC Cosmetology examiner report, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-beauty-093-2-v1",
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Hair care practical",
+      "subtopic": "Mannequin washing and handling",
+      "learningObjective": "Demonstrate and evaluate hair-care procedures on mannequin hair or training swatches.",
+      "specificationId": "neco-beauty-practical-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper I (format only)",
+        "WAEC Cosmetology examiner report, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

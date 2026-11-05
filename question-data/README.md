@@ -490,3 +490,11 @@ on salon hygiene and hair care. The 2026 Internal timetable verifies
 practical (5001), essay (5002) and objective (5003) papers. Historical
 WAEC examiner evidence informs the provisional topic mapping. Official
 NECO subject objectives and practical marking remain unverified.
+
+Batch 093 adds six supervised Beauty and Cosmetology
+classroom practical drafts. The 2026 NECO timetable verifies Paper I
+as practical. Topic evidence is historical and cross-board. The tasks
+and marking guides are original and provisional.
+
+The Livestock Farming register also records Paper IV (5044) as
+progressive assessments. Assessment tasks and marks remain open.
