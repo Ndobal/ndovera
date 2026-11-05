@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Computer Hardware and GSM Repairs written practice",
+  "questionCount": 8,
+  "note": "Original written drafts. NECO 2026 Internal paper formats verified. Topic alignment provisional and independent review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "Computer hardware",
+      "subtopic": "Component roles and fault isolation",
+      "learningObjective": "Distinguish component roles and isolate faults by testing one variable at a time.",
+      "specificationId": "neco-computer-gsm-diagnostics-reference-2026",
+      "id": "ndv-088-001",
+      "objectiveId": "neco-computer-gsm-088-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A school computer loses the contents of its working memory when power goes off. Which component can retain a document that was saved locally before the outage?",
+      "answer": "The solid-state drive.",
+      "explanation": "A solid-state drive provides non-volatile storage. Ordinary working RAM needs power to retain its contents.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The solid-state drive.",
+        "A RAM module.",
+        "The processor cache.",
+        "The cooling fan."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "Computer hardware",
+      "subtopic": "Component roles and fault isolation",
+      "learningObjective": "Distinguish component roles and isolate faults by testing one variable at a time.",
+      "specificationId": "neco-computer-gsm-diagnostics-reference-2026",
+      "id": "ndv-088-002",
+      "objectiveId": "neco-computer-gsm-088-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A desktop monitor displays its own settings menu but reports no signal from the computer. Which initial action directly checks the external video connection?",
+      "answer": "Confirm the selected input matches the connected port, then check the cable at both ends.",
+      "explanation": "The settings menu shows the monitor can display its own image. Input selection and cable seating can be checked before replacing internal hardware.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Reinstall the operating system from a USB drive.",
+        "Replace the monitor power cable while leaving the video connection untouched.",
+        "Confirm the selected input matches the connected port, then check the cable at both ends.",
+        "Increase the computer’s storage capacity."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "Computer hardware",
+      "subtopic": "Component roles and fault isolation",
+      "learningObjective": "Distinguish component roles and isolate faults by testing one variable at a time.",
+      "specificationId": "neco-computer-gsm-diagnostics-reference-2026",
+      "id": "ndv-088-003",
+      "objectiveId": "neco-computer-gsm-088-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In an ICT lab, a USB keyboard fails on the front port of one desktop. The same keyboard works on a rear port of that desktop. A second working keyboard also fails on the same front port. Explain what the tests suggest and name one part of the front connection a technician could inspect with the computer shut down and unplugged.",
+      "answer": "The fault is more likely in the front USB connection than in either keyboard. Inspect the front socket for damage or check whether its internal cable is seated at the motherboard header.",
+      "explanation": "Testing two keyboards and an alternative port narrows the problem to what the failed trials share.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use the rear-port test to show the first keyboard works."
+        },
+        {
+          "marks": 1,
+          "description": "Use the second keyboard test to localise the likely fault to the front connection."
+        },
+        {
+          "marks": 1,
+          "description": "Name a relevant inspection with power disconnected."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "Computer hardware",
+      "subtopic": "Component roles and fault isolation",
+      "learningObjective": "Distinguish component roles and isolate faults by testing one variable at a time.",
+      "specificationId": "neco-computer-gsm-diagnostics-reference-2026",
+      "id": "ndv-088-004",
+      "objectiveId": "neco-computer-gsm-088-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A desktop begins failing to start after a RAM upgrade. A colleague suggests replacing both the power supply and the new memory immediately. The original memory is available and worked before the upgrade. Propose a more informative first test, explain what success would indicate, and state one further check before declaring the new module defective.",
+      "answer": "Shut down and unplug the machine, follow anti-static handling precautions, and reinstall the original RAM without changing the power supply. If the machine starts, the evidence points to the upgrade or installation. Check the new module’s compatibility or seating before concluding that it is defective.",
+      "explanation": "Restoring the known working configuration tests the change without introducing another variable. A failed upgrade can come from compatibility or seating as well as damage.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Specify a powered-off, unplugged test with safe component handling."
+        },
+        {
+          "marks": 1,
+          "description": "Restore the original memory while keeping other hardware the same."
+        },
+        {
+          "marks": 1,
+          "description": "Explain what a successful start would suggest."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a compatibility or seating check before declaring a defect."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "GSM repair",
+      "subtopic": "Charging-path checks and continuity",
+      "learningObjective": "Interpret controlled charging and continuity tests and explain the limits of their results.",
+      "specificationId": "neco-computer-gsm-diagnostics-reference-2026",
+      "id": "ndv-088-005",
+      "objectiveId": "neco-computer-gsm-088-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "An isolated, unpowered test lead should connect its two ends. What is a continuity test used to check in this case?",
+      "answer": "Whether there is a conducting path between the two ends.",
+      "explanation": "A continuity check establishes whether a low-resistance path exists. It does not establish charging performance under load.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Whether the lead produces a voltage on its own.",
+        "Whether there is a conducting path between the two ends.",
+        "Whether its insulation is the correct colour.",
+        "Whether a phone battery can hold a full charge."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "GSM repair",
+      "subtopic": "Charging-path checks and continuity",
+      "learningObjective": "Interpret controlled charging and continuity tests and explain the limits of their results.",
+      "specificationId": "neco-computer-gsm-diagnostics-reference-2026",
+      "id": "ndv-088-006",
+      "objectiveId": "neco-computer-gsm-088-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A phone charges from the same compatible adapter and outlet after its USB cable is swapped. With the original cable it repeatedly shows no charging. Which conclusion is best supported?",
+      "answer": "The original cable or its connector is the likely source of the fault.",
+      "explanation": "The cable is the changed part in this repeated comparison. Successful charging with the substitute makes the original cable or its connection the first suspect.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The battery is certainly worn out.",
+        "The wall outlet must be faulty.",
+        "The phone software must be reinstalled.",
+        "The original cable or its connector is the likely source of the fault."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "GSM repair",
+      "subtopic": "Charging-path checks and continuity",
+      "learningObjective": "Interpret controlled charging and continuity tests and explain the limits of their results.",
+      "specificationId": "neco-computer-gsm-diagnostics-reference-2026",
+      "id": "ndv-088-007",
+      "objectiveId": "neco-computer-gsm-088-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A teacher provides an isolated, unpowered two-terminal training link that should act as a plain conductor. A meter shows OL across it in resistance mode. The meter shows almost zero when the probes touch. Interpret the readings and give one check to rule out poor probe contact before replacing the link.",
+      "answer": "OL indicates an open path or resistance beyond the meter range. The probe-to-probe reading shows the meter and leads can register a low resistance. Reseat the probes on clean exposed terminals and repeat the measurement. A repeated OL supports an open link.",
+      "explanation": "A direct short of the test leads is a meter check. It does not confirm good contact between the probes and the training link.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Interpret OL as an open path or over-range resistance."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the significance of the probe-to-probe reading."
+        },
+        {
+          "marks": 1,
+          "description": "Describe a suitable contact check and repeat measurement."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "GSM repair",
+      "subtopic": "Charging-path checks and continuity",
+      "learningObjective": "Interpret controlled charging and continuity tests and explain the limits of their results.",
+      "specificationId": "neco-computer-gsm-diagnostics-reference-2026",
+      "id": "ndv-088-008",
+      "objectiveId": "neco-computer-gsm-088-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A handset displays its charging icon with two compatible, known-good chargers, but the recorded battery percentage falls during a demanding game. A learner concludes that the charging socket must be broken. Assess that conclusion and propose a test that separates heavy use from a charging problem.",
+      "answer": "The icon shows the phone detects a charger. A falling percentage under heavy use could occur if the phone draws more power than charging supplies. Use the same charger and cable, stop the game and compare the battery reading after a fixed idle period. A rise at idle supports a load-related explanation. Continued failure warrants further diagnosis.",
+      "explanation": "Holding charging equipment constant while changing device load tests whether the symptom depends on use. Neither the icon nor the falling reading identifies a specific defective part.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain why the symptom alone does not identify a socket fault."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the possible effect of heavy power use."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a fixed idle test keeping the charging equipment constant."
+        },
+        {
+          "marks": 1,
+          "description": "Interpret a rise or continued failure at idle without overclaiming."
+        }
+      ]
+    }
+  ]
+}

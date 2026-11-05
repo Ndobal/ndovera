@@ -461,3 +461,10 @@ Batch 087 adds six supervised Livestock Farming simulations on
 poultry records, traceability, equipment checks and litter management.
 The 2026 Internal timetable confirms Paper I as practical. The
 model tasks and classroom marking guides are provisional.
+
+Batch 088 registers NECO Computer Hardware and GSM Repairs and adds
+eight written drafts on component roles and fault isolation. The 2026
+Internal timetable verifies practical (5011), essay (5012) and
+objective (5013) formats. Historical WAEC examiner reports inform
+provisional topic mapping. Official NECO objectives and practical
+tasks remain unverified.
