@@ -1339,6 +1339,18 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO 2026 Internal timetable confirms practical Paper I (5021). Historical WAEC Garment Making reports provide topic evidence. Classroom tasks and marking guides are original and provisional. Official NECO task and marking details remain unverified."
+    },
+    {
+      "id": "neco-beauty-salon-reference-2026",
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/Cosmetology/Cosmet240ms.html"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "NECO confirms practical 5001, essay 5002 and objective 5003. Historical WAEC Cosmetology examiner material supports provisional hygiene and hair-care mapping. Official NECO learning objectives and practical marking remain unverified."
     }
   ],
   "banks": [
@@ -2741,6 +2753,24 @@
         "I": "5021",
         "II": "5022",
         "III": "5023"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "I": "practical",
+        "II": "essay",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "I": "5001",
+        "II": "5002",
+        "III": "5003"
       }
     }
   ],
@@ -9683,6 +9713,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Paper I (format only)",
         "WAEC Garment Making examiner report, 2019"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-beauty-092-1-v1",
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Salon hygiene",
+      "subtopic": "Personal hygiene and station workflow",
+      "learningObjective": "Apply salon hygiene principles to preparation, segregation and product dispensing.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Papers II and III (format only)",
+        "WAEC Cosmetology Paper 2 examiner report, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-beauty-092-2-v1",
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Hair care",
+      "subtopic": "Cleansing and product selection",
+      "learningObjective": "Distinguish cleansing from conditioning and use service information to select and evaluate hair-care products.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Papers II and III (format only)",
+        "WAEC Cosmetology Paper 2 examiner report, 2023"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

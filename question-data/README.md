@@ -484,3 +484,9 @@ Batch 091 adds six supervised Fashion Design and Garment Making
 classroom practical drafts. The 2026 NECO timetable verifies Paper I
 as practical. Topic evidence is historical and cross-board. The tasks
 and marking guides are original and provisional.
+
+Batch 092 opens NECO Beauty and Cosmetology with eight written drafts
+on salon hygiene and hair care. The 2026 Internal timetable verifies
+practical (5001), essay (5002) and objective (5003) papers. Historical
+WAEC examiner evidence informs the provisional topic mapping. Official
+NECO subject objectives and practical marking remain unverified.

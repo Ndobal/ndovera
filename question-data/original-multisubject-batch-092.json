@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Beauty and Cosmetology written practice",
+  "questionCount": 8,
+  "note": "Original written practice. NECO 2026 Internal formats verified. Topic mapping remains provisional and academic review is pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Salon hygiene",
+      "subtopic": "Personal hygiene and station workflow",
+      "learningObjective": "Apply salon hygiene principles to preparation, segregation and product dispensing.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "id": "ndv-092-001",
+      "objectiveId": "neco-beauty-092-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A salon trainee has finished sweeping loose hair from the floor and is about to handle a clean towel for the next client. Which action should come first?",
+      "answer": "Wash and dry their hands.",
+      "explanation": "Hand hygiene before touching clean supplies reduces transfer from the cleaning task.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Wash and dry their hands.",
+        "Shake the clean towel above the floor.",
+        "Set the clean towel on the broom handle.",
+        "Use the clean towel to wipe their hands."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Salon hygiene",
+      "subtopic": "Personal hygiene and station workflow",
+      "learningObjective": "Apply salon hygiene principles to preparation, segregation and product dispensing.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "id": "ndv-092-002",
+      "objectiveId": "neco-beauty-092-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A client needs a small amount of styling cream from a salon jar. Which method best keeps the remaining product separate from material used on that client?",
+      "answer": "Use a clean disposable spatula to put a portion into a clean dish.",
+      "explanation": "A separate portion prevents the applicator used during the service from going back into the shared product.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Apply from the jar with a comb already used on the client.",
+        "Use a clean disposable spatula to put a portion into a clean dish.",
+        "Return any cream left in the dish to the jar.",
+        "Dip fingers back into the jar whenever more is needed."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Salon hygiene",
+      "subtopic": "Personal hygiene and station workflow",
+      "learningObjective": "Apply salon hygiene principles to preparation, segregation and product dispensing.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "id": "ndv-092-003",
+      "objectiveId": "neco-beauty-092-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At an Abuja salon, combs prepared for service and combs just used on clients look alike. Both are lying on the same trolley. Explain the problem and design a simple one-way workflow for combs between clients.",
+      "answer": "The next worker cannot tell which combs are ready. Store processed combs in labelled clean storage, use them once before reprocessing, and place used combs in a separate labelled container. Clean and disinfect as required by the salon procedure and product instructions before returning them to clean storage.",
+      "explanation": "A one-way route makes tool status visible and prevents accidental reuse before reprocessing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain the loss of a reliable clean-versus-used distinction."
+        },
+        {
+          "marks": 1,
+          "description": "Describe separate labelled storage for used and ready combs."
+        },
+        {
+          "marks": 1,
+          "description": "Describe reprocessing before return to clean storage."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Salon hygiene",
+      "subtopic": "Personal hygiene and station workflow",
+      "learningObjective": "Apply salon hygiene principles to preparation, segregation and product dispensing.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "id": "ndv-092-004",
+      "objectiveId": "neco-beauty-092-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A trainee sprays disinfectant onto a reusable comb still holding visible hair and immediately wipes it dry. The label requires prior cleaning and a stated wet contact time. Assess the procedure and explain how to correct both departures from the label.",
+      "answer": "Remove debris and clean the comb as directed. Apply a compatible disinfectant and keep the relevant surfaces wet for the full labelled time. Complete any label-directed rinsing or drying before storing it with ready tools.",
+      "explanation": "Cleaning removes visible debris before disinfection. The required wet contact time allows the disinfectant to act under its stated conditions.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify visible debris and omitted prior cleaning."
+        },
+        {
+          "marks": 1,
+          "description": "Identify premature removal of the disinfectant."
+        },
+        {
+          "marks": 1,
+          "description": "Describe cleaning followed by use of a compatible product."
+        },
+        {
+          "marks": 1,
+          "description": "Keep the surfaces wet for the full labelled contact time."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Hair care",
+      "subtopic": "Cleansing and product selection",
+      "learningObjective": "Distinguish cleansing from conditioning and use service information to select and evaluate hair-care products.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "id": "ndv-092-005",
+      "objectiveId": "neco-beauty-092-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which purpose is primarily served by an ordinary cleansing shampoo during a salon wash?",
+      "answer": "Removing excess oil and styling residue from the hair and scalp.",
+      "explanation": "Shampoo contains cleansing agents that help lift oil and residue so they can be rinsed away.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Fixing the finished hair in a rigid shape.",
+        "Changing the natural pigment permanently.",
+        "Removing excess oil and styling residue from the hair and scalp.",
+        "Smoothing newly cut ends by trimming them."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Hair care",
+      "subtopic": "Cleansing and product selection",
+      "learningObjective": "Distinguish cleansing from conditioning and use service information to select and evaluate hair-care products.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "id": "ndv-092-006",
+      "objectiveId": "neco-beauty-092-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A client reports that a particular fragrance ingredient has previously caused irritation. Before opening a new shampoo, what is the most direct way to check whether it contains that ingredient?",
+      "answer": "Compare the ingredient the client names with the shampoo’s ingredient list.",
+      "explanation": "The ingredient list provides more specific evidence than the product name, colour or scent.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Judge from how mild the bottle looks.",
+        "Choose whichever product produces the most foam.",
+        "Choose any bottle described as luxurious.",
+        "Compare the ingredient the client names with the shampoo’s ingredient list."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Hair care",
+      "subtopic": "Cleansing and product selection",
+      "learningObjective": "Distinguish cleansing from conditioning and use service information to select and evaluate hair-care products.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "id": "ndv-092-007",
+      "objectiveId": "neco-beauty-092-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A trainee used a rinse-out conditioner as the only product during an ordinary wash. Its label describes it as a detangling product. The client says the hair combs more easily but still feels coated with styling wax. Explain both observations and propose a revised sequence.",
+      "answer": "The conditioner can improve slip and ease combing, while this detangling product is not intended to remove wax. Use an appropriate cleansing shampoo first, rinse it out, then use the rinse-out conditioner according to its label.",
+      "explanation": "Detangling and removing buildup are separate service goals and can require different products.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Link easier combing to improved slip."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why the specified conditioner may leave wax behind."
+        },
+        {
+          "marks": 1,
+          "description": "Place cleansing and rinsing before conditioning."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Beauty and Cosmetology",
+      "topic": "Hair care",
+      "subtopic": "Cleansing and product selection",
+      "learningObjective": "Distinguish cleansing from conditioning and use service information to select and evaluate hair-care products.",
+      "specificationId": "neco-beauty-salon-reference-2026",
+      "id": "ndv-092-008",
+      "objectiveId": "neco-beauty-092-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A trainer compares two shampoos for removing a styling product from matched mannequin hair swatches. The first trial uses twice as much Shampoo A and a longer wash than Shampoo B. The trainer says A cleans better because the swatch has less residue. Explain why the trial is inconclusive and design a fairer comparison using an observable outcome.",
+      "answer": "The amount and wash time changed along with the shampoo. Use matched swatches, equal starting amounts of styling product and comparable water, dose, wash and rinse conditions within both labels’ directions. Compare visible residue using the same lighting and scoring method, and repeat with fresh matched swatches.",
+      "explanation": "Controlling the other wash conditions makes the shampoo the main changed variable. A common scoring method and repeated trials make the comparison easier to evaluate.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify dose and washing time as confounding variables."
+        },
+        {
+          "marks": 1,
+          "description": "Keep initial residue and swatch conditions comparable."
+        },
+        {
+          "marks": 1,
+          "description": "Describe matched wash and rinse conditions."
+        },
+        {
+          "marks": 1,
+          "description": "Specify a consistent observable residue assessment."
+        }
+      ]
+    }
+  ]
+}

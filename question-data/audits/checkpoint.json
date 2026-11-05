@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_091_automated_validation_passed",
+  "phase": "batch_092_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-092.json",
+  "nextBatch": "original-multisubject-batch-093.json",
   "nextPriorities": [
-    "Verify NECO Beauty and Cosmetology paper codes and introductory topic evidence. Official NECO garment practical tasks and marking requirements remain unverified.",
+    "Retrieve NECO Beauty and Cosmetology practical task and marking requirements. Consider source-supported mannequin and salon-station simulations with provisional classroom rubrics.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-091.json",
-  "lastRemoteVerifiedCommit": "4e00b75d62416b2f28de93737c5ca180c058cc4d",
+  "lastValidatedBatch": "original-multisubject-batch-092.json",
+  "lastRemoteVerifiedCommit": "6779f44d0bfba6e4197b1f2a3396a737dfe0a065",
   "verifiedTotals": {
-    "raw": 3315,
-    "validDrafts": 1636,
+    "raw": 3323,
+    "validDrafts": 1644,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-091.json",
+  "lastPopulatedBatch": "original-multisubject-batch-092.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3315
+  "inventoryRaw": 3323
 }
