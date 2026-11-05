@@ -422,3 +422,8 @@ Batch 080 adds six NECO Health Education vector-control observation
 drafts using original mock inspection records. The 2026 timetable
 identifies Paper I as Test of Practical. The observation format uses
 historical cross-board evidence, with exact NECO requirements open.
+
+Batch 081 registers NECO Physical Education and adds eight written
+relay drafts. The 2026 timetable verifies practical, essay and objective
+papers. Topic alignment remains provisional. Rules questions use World
+Athletics' 2026 technical rules. Official practical tasks remain open.

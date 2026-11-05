@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Physical Education athletics relay practice",
+  "questionCount": 8,
+  "note": "Original written practice. NECO formats verified, topic mapping provisional. Rules questions use World Athletics 2026. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay exchange technique",
+      "learningObjective": "Compare visual and non-visual exchanges and analyse the coordination required for an effective handover.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "id": "ndv-081-001",
+      "objectiveId": "neco-physical-081-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school relay pair tries a non-visual exchange. The receiver turns to look back after every cue and slows down. Explain how this changes the intended technique and suggest one practice drill to improve coordination.",
+      "answer": "Looking back makes the handover visual and may interrupt acceleration. In a controlled drill, agree a cue and a hand position, practise the handover at walking pace, then increase speed after consistent transfers.",
+      "explanation": "The defining distinction is where the receiver looks. The drill lets the pair coordinate cue, hand position and timing before adding speed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain why the exchange has become visual."
+        },
+        {
+          "marks": 1,
+          "description": "Connect looking back or hesitation to speed or timing."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a feasible progressive drill with a cue or hand position."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay exchange technique",
+      "learningObjective": "Compare visual and non-visual exchanges and analyse the coordination required for an effective handover.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "id": "ndv-081-002",
+      "objectiveId": "neco-physical-081-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In three non-visual relay trials, the outgoing runner repeatedly accelerates out of reach before the incoming runner can place the baton in the waiting hand. The coach wants both athletes to sprint harder. Assess the proposal and suggest a controlled adjustment.",
+      "answer": "More speed alone may preserve or worsen the gap. Adjust the receiver’s departure cue or starting mark so the incoming runner can close the gap in time. Keep other conditions steady and observe where the pass is completed.",
+      "explanation": "The problem is relative timing. Altering one variable and observing the transfer lets the pair judge the effect.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the timing mismatch."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why greater speed alone is insufficient."
+        },
+        {
+          "marks": 1,
+          "description": "Suggest one controlled adjustment and an observation to check it."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay exchange technique",
+      "learningObjective": "Compare visual and non-visual exchanges and analyse the coordination required for an effective handover.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "id": "ndv-081-003",
+      "objectiveId": "neco-physical-081-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A relay receiver looks at the incoming runner and watches the baton enter the receiving hand. Which description fits this technique?",
+      "answer": "Visual exchange.",
+      "explanation": "In a visual exchange the receiver looks to locate the runner or baton during transfer.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Blind start.",
+        "Non-visual exchange.",
+        "Visual exchange.",
+        "Baton recovery."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay exchange technique",
+      "learningObjective": "Compare visual and non-visual exchanges and analyse the coordination required for an effective handover.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "id": "ndv-081-004",
+      "objectiveId": "neco-physical-081-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A relay coach wants to distinguish whether a change of verbal cue improves a pair’s exchanges. Which practice design best isolates the effect of the cue?",
+      "answer": "Use the same pair, approach speed and start marks, and compare several trials with each cue.",
+      "explanation": "Keeping the runners and starting conditions comparable makes it easier to attribute differences to the cue.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Change the cue and replace both runners after each trial.",
+        "Use the same pair, approach speed and start marks, and compare several trials with each cue.",
+        "Give the new cue only when the runners start from different marks.",
+        "Compare the fastest trial with the new cue against one slow warm-up trial."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay rules and officiating",
+      "learningObjective": "Apply World Athletics 2026 relay rules to evidence about baton position, recovery and transfer.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "id": "ndv-081-005",
+      "objectiveId": "neco-physical-081-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Under World Athletics relay rules, a receiver’s front foot is beyond the takeover zone when the incoming runner releases the baton. The baton remains entirely inside the zone from first contact to release. Explain whether the front-foot observation establishes an illegal exchange.",
+      "answer": "No. Baton position is decisive for the zone rule. It stayed within the zone throughout the transfer, so the foot position alone does not establish a zone infringement.",
+      "explanation": "The exchange begins at first contact and ends when only the receiver holds the baton. Body position is not the decisive evidence for this rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the baton as the decisive object."
+        },
+        {
+          "marks": 1,
+          "description": "Use the supplied start-to-finish transfer evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Conclude that foot position alone does not establish a zone infringement."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay rules and officiating",
+      "learningObjective": "Apply World Athletics 2026 relay rules to evidence about baton position, recovery and transfer.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "id": "ndv-081-006",
+      "objectiveId": "neco-physical-081-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "After a valid relay exchange, the receiver drops the baton. A nearby teammate retrieves it to save time. Under World Athletics relay rules, explain the problem and describe how the recovery should instead be handled.",
+      "answer": "The athlete who dropped the baton must recover it. Recovery must not shorten the distance to be covered or impede another athlete. A teammate’s retrieval fails the requirement about who recovers it.",
+      "explanation": "Dropping a baton and recovering it are separate from the takeover itself. The rule specifies the recovering athlete and conditions on the recovery.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify who should recover the baton."
+        },
+        {
+          "marks": 1,
+          "description": "State that recovery must not shorten the required distance."
+        },
+        {
+          "marks": 1,
+          "description": "State the restriction on impeding other athletes."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay rules and officiating",
+      "learningObjective": "Apply World Athletics 2026 relay rules to evidence about baton position, recovery and transfer.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "id": "ndv-081-007",
+      "objectiveId": "neco-physical-081-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Under World Athletics relay rules, which observation marks the start of a baton pass?",
+      "answer": "The receiving athlete first touches the baton.",
+      "explanation": "The pass begins with the receiver’s first touch and finishes when only the receiver holds the baton.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The receiving athlete first touches the baton.",
+        "The outgoing athlete first starts running.",
+        "The athletes first make eye contact.",
+        "The incoming athlete reaches the end of the zone."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay rules and officiating",
+      "learningObjective": "Apply World Athletics 2026 relay rules to evidence about baton position, recovery and transfer.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "id": "ndv-081-008",
+      "objectiveId": "neco-physical-081-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "During a relay, the receiver first touches the baton inside the takeover zone. The baton has moved entirely beyond the zone by the time the incoming runner lets go. Under World Athletics rules, how should the official judge the exchange?",
+      "answer": "The exchange infringes the zone rule because the pass is completed outside the zone.",
+      "explanation": "First contact alone does not complete a pass. Completion requires that the baton be held only by the receiving athlete.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "First contact inside the zone always makes the pass legal.",
+        "The pass ended when the first runner entered the zone.",
+        "Both runners holding the baton means the pass has already ended.",
+        "The exchange infringes the zone rule because the pass is completed outside the zone."
+      ],
+      "correctOption": "D"
+    }
+  ]
+}

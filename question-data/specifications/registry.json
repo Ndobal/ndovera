@@ -1194,6 +1194,20 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO identifies Paper I (2071) as Test of Practical. Historical WAEC Paper 3 provides cross-board evidence for observation-based vector-control questions. WHO supports malaria prevention content. Stimuli, objectives and mark allocations are original practice choices. Exact NECO Paper I tasks and marking remain unverified."
+    },
+    {
+      "id": "neco-physical-relay-reference-2026",
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/Physical/PhEd226mq1.html",
+        "https://www.waeconline.org.ng/e-learning/Physical/PhEd330aq3.html",
+        "https://worldathletics.org/download/download?filename=e7faf2e8-0385-4686-bbd0-acdb5d958e8f.pdf"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "NECO lists practical (2081), essay (2082) and objective (2083). WAEC examiner material supports provisional relay skills. For rules questions use World Athletics 2026 TR24; historical zone dimensions are not adopted. Official NECO objectives and practical requirements remain open."
     }
   ],
   "banks": [
@@ -2493,6 +2507,19 @@
       "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "I": "test of practical",
+        "III": "objective",
+        "II": "essay"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "I": "practical",
         "III": "objective",
         "II": "essay"
       }
@@ -9010,6 +9037,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Health Education Paper I (2071)",
         "WAEC Health Education Paper 3 examiner material, 2020; WHO malaria vector-control guidance"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-physical-081-1-v1",
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay exchange technique",
+      "learningObjective": "Compare visual and non-visual exchanges and analyse the coordination required for an effective handover.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Physical Education Papers II and III",
+        "WAEC Physical Education examiner materials, 2017 and 2020; World Athletics 2026 TR24"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-physical-081-2-v1",
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay rules and officiating",
+      "learningObjective": "Apply World Athletics 2026 relay rules to evidence about baton position, recovery and transfer.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Physical Education Papers II and III",
+        "WAEC Physical Education examiner materials, 2017 and 2020; World Athletics 2026 TR24"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3236,
-    "validDrafts": 1557,
+    "raw": 3244,
+    "validDrafts": 1565,
     "reviewed": 0,
-    "registeredBanks": 172,
-    "target": 154000,
+    "registeredBanks": 173,
+    "target": 155000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -614,6 +614,12 @@
       "sha256": "6eea24c2ff09425e27c93abfd5000312ae78fa4d14d444a69f119c3fe5452d15",
       "declared": 6,
       "actual": 6
+    },
+    {
+      "path": "original-multisubject-batch-081.json",
+      "sha256": "7441fc06d31f0405a3e56e2ab51cf3407a1f860da5eddac4de206bcebbdf694f",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2666,6 +2672,36 @@
     },
     {
       "exam": "NECO",
+      "subject": "Physical Education",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "I": "practical",
+        "III": "objective",
+        "II": "essay"
+      },
+      "raw": 8,
+      "validDrafts": 8,
+      "reviewed": 0,
+      "questionTypes": {
+        "structured": 4,
+        "mcq": 4
+      },
+      "difficulty": {
+        "standard": 5,
+        "difficult": 2,
+        "easy": 1
+      },
+      "remaining": 992,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NECO",
       "subject": "Physics",
       "level": "",
       "target": 1000,
@@ -4559,8 +4595,8 @@
   "errorCounts": {
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -28493,6 +28529,54 @@
       "errors": []
     },
     {
+      "id": "ndv-081-001",
+      "file": "original-multisubject-batch-081.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-081-002",
+      "file": "original-multisubject-batch-081.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-081-003",
+      "file": "original-multisubject-batch-081.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-081-004",
+      "file": "original-multisubject-batch-081.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-081-005",
+      "file": "original-multisubject-batch-081.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-081-006",
+      "file": "original-multisubject-batch-081.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-081-007",
+      "file": "original-multisubject-batch-081.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-081-008",
+      "file": "original-multisubject-batch-081.json",
+      "index": 7,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -51372,6 +51456,71 @@
       },
       "tiers": {
         "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-physical-081-1-v1",
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay exchange technique",
+      "learningObjective": "Compare visual and non-visual exchanges and analyse the coordination required for an effective handover.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "questionTypes": {
+        "structured": 2,
+        "mcq": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Physical Education Papers II and III",
+        "WAEC Physical Education examiner materials, 2017 and 2020; World Athletics 2026 TR24"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-physical-081-2-v1",
+      "exam": "NECO",
+      "subject": "Physical Education",
+      "topic": "Athletics",
+      "subtopic": "Relay rules and officiating",
+      "learningObjective": "Apply World Athletics 2026 relay rules to evidence about baton position, recovery and transfer.",
+      "specificationId": "neco-physical-relay-reference-2026",
+      "questionTypes": {
+        "structured": 2,
+        "mcq": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Physical Education Papers II and III",
+        "WAEC Physical Education examiner materials, 2017 and 2020; World Athletics 2026 TR24"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 4
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
