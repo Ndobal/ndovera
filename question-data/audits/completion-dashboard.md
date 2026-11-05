@@ -83,6 +83,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Government | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Islamic Studies | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Mathematics | 1000 | 38 | 24 | 0 | 976 | partial_objective_register |
+| NECO | Nigerian History | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Physics | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
 | NERDC | Basic Science / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Nursery | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -187,13 +188,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 251 | 216 | 0 | 16000 | 15784 |
+| NECO | 259 | 224 | 0 | 17000 | 16776 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3200, "validDrafts": 1521, "reviewed": 0, "registeredBanks": 169, "target": 151000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3208, "validDrafts": 1529, "reviewed": 0, "registeredBanks": 170, "target": 152000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

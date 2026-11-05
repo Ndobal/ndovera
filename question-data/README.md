@@ -397,3 +397,8 @@ Batch 075 opens NECO Islamic Studies with eight drafts on Al-Ikhlāṣ
 and An-Nās. NECO paper formats are verified from the 2026 timetable.
 Qur’anic text and historical WAEC examiner materials support provisional
 topic mapping. The James 2 registry links were also corrected.
+
+Batch 076 registers NECO Nigerian History and adds eight drafts on
+decolonisation. NECO's 2026 timetable verifies essay and objective
+formats. Historical WAEC material supports provisional topics. The
+Independence Act and UN records anchor the two distinct 1960 events.

@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Nigerian History decolonisation practice",
+  "questionCount": 8,
+  "note": "Original structured and objective practice. NECO formats verified; topic mapping provisional. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Nationalist methods and constitutional change",
+      "learningObjective": "Explain how mobilisation and negotiation contributed to constitutional change.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "id": "ndv-076-001",
+      "objectiveId": "neco-history-076-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Compare the role of a nationalist rally with that of a constitutional conference in Nigeria’s movement towards independence. Explain how the two methods could reinforce one another.",
+      "answer": "A rally publicised demands and mobilised supporters. A conference let representatives debate and negotiate institutional changes. Visible public support could strengthen a negotiator’s case, while conference proposals gave organisers concrete aims to explain.",
+      "explanation": "The methods operate in different settings and can complement each other. Neither method by itself automatically transfers legal authority.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain the function of a rally."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the function of a constitutional conference."
+        },
+        {
+          "marks": 1,
+          "description": "Explain a plausible link between the two."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Nationalist methods and constitutional change",
+      "learningObjective": "Explain how mobilisation and negotiation contributed to constitutional change.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "id": "ndv-076-002",
+      "objectiveId": "neco-history-076-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A timeline gives Nigeria’s federal constitutional reorganisation in 1954 and independence in 1960 the same label: end of British colonial rule. Explain why the label is misleading for the first event.",
+      "answer": "The 1954 changes reorganised government on a federal basis with regional institutions while colonial rule continued. The 1960 settlement brought independence. Constitutional reorganisation within a colony and the transfer of sovereign authority are different developments.",
+      "explanation": "Evaluate the label by identifying what changed in 1954 and what still remained to change in 1960.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify federal reorganisation in 1954."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that colonial authority continued after that reorganisation."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish the significance of independence in 1960."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Nationalist methods and constitutional change",
+      "learningObjective": "Explain how mobilisation and negotiation contributed to constitutional change.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "id": "ndv-076-003",
+      "objectiveId": "neco-history-076-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which activity most directly gave nationalist representatives a formal opportunity to debate the distribution of powers before independence?",
+      "answer": "Taking part in a constitutional conference.",
+      "explanation": "Conferences provided an institutional setting for representatives to discuss proposed constitutional arrangements.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Holding a cultural exhibition.",
+        "Taking part in a constitutional conference.",
+        "Reporting a demonstration in a newspaper.",
+        "Organising a public march."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Nationalist methods and constitutional change",
+      "learningObjective": "Explain how mobilisation and negotiation contributed to constitutional change.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "id": "ndv-076-004",
+      "objectiveId": "neco-history-076-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which chronology best shows constitutional change before Nigeria’s independence?",
+      "answer": "Macpherson Constitution, federal constitutional reorganisation, independence.",
+      "explanation": "The Macpherson Constitution dates to 1951, federal reorganisation to 1954, and independence to 1960.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Federal constitutional reorganisation, independence, Macpherson Constitution.",
+        "Independence, Macpherson Constitution, federal constitutional reorganisation.",
+        "Macpherson Constitution, federal constitutional reorganisation, independence.",
+        "Macpherson Constitution, independence, federal constitutional reorganisation."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Independence and international recognition",
+      "learningObjective": "Distinguish the 1960 independence settlement from admission to the United Nations.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "id": "ndv-076-005",
+      "objectiveId": "neco-history-076-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A student wants one source for the date specified in the independence legislation and another for the date of UN admission. Identify suitable sources and explain what each can establish.",
+      "answer": "The enacted Nigeria Independence Act identifies 1 October 1960 as the appointed day. A United Nations admission record establishes membership on 7 October 1960. Each source answers a different institutional question.",
+      "explanation": "Match the legal instrument to the independence settlement and the UN record to admission.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the Act and its appointed day."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a UN record and the admission date."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why the records establish different events."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Independence and international recognition",
+      "learningObjective": "Distinguish the 1960 independence settlement from admission to the United Nations.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "id": "ndv-076-006",
+      "objectiveId": "neco-history-076-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A caption claims that the United Nations granted Nigeria independence on 7 October 1960. Rewrite the caption and explain what institutional roles the original wording confuses.",
+      "answer": "Nigeria became independent on 1 October 1960 and was admitted to the United Nations on 7 October 1960. The independence settlement established Nigeria’s new status. UN admission was a separate decision about membership in an international organisation.",
+      "explanation": "Correct both the date and the action. Admission occurred after independence and did not confer it.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Give the correct independence event and date."
+        },
+        {
+          "marks": 1,
+          "description": "Give the correct UN event and date."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the difference in institutional roles."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Independence and international recognition",
+      "learningObjective": "Distinguish the 1960 independence settlement from admission to the United Nations.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "id": "ndv-076-007",
+      "objectiveId": "neco-history-076-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which date is the appointed day in the Nigeria Independence Act 1960?",
+      "answer": "1 October 1960",
+      "explanation": "Section 1 identifies 1 October 1960 as the appointed day.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "1 October 1960",
+        "7 October 1960",
+        "1 October 1963",
+        "1 January 1914"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Independence and international recognition",
+      "learningObjective": "Distinguish the 1960 independence settlement from admission to the United Nations.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "id": "ndv-076-008",
+      "objectiveId": "neco-history-076-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which claim is directly supported by a United Nations General Assembly record admitting Nigeria to membership?",
+      "answer": "Nigeria became a member of the United Nations.",
+      "explanation": "An admission record establishes entry into the organisation. Claims about domestic constitutional arrangements require different evidence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Nigeria adopted a republican constitution on the same day.",
+        "Nigeria’s regional legislatures were first created by the United Nations.",
+        "Britain chose the members of Nigeria’s delegation.",
+        "Nigeria became a member of the United Nations."
+      ],
+      "correctOption": "D"
+    }
+  ]
+}
