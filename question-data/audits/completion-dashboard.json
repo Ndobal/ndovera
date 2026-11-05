@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3216,
-    "validDrafts": 1537,
+    "raw": 3222,
+    "validDrafts": 1543,
     "reviewed": 0,
     "registeredBanks": 171,
     "target": 153000,
@@ -596,6 +596,12 @@
       "sha256": "89c91375a1e125c16b86f8575cd735b60b6f005d8ef54fd9040e39c794581286",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-078.json",
+      "sha256": "41c54ba8f8830a53ca0eb3773387e0998bdacd675edb4a5806d2ec162dc151b3",
+      "declared": 6,
+      "actual": 6
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2422,21 +2428,21 @@
         "II": "essay"
       },
       "timetableSubject": "Foods & Nutrition",
-      "raw": 8,
-      "validDrafts": 8,
+      "raw": 14,
+      "validDrafts": 14,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 4,
+        "structured": 10,
         "mcq": 4
       },
       "difficulty": {
-        "standard": 5,
+        "standard": 9,
         "easy": 2,
-        "difficult": 1
+        "difficult": 3
       },
-      "remaining": 992,
-      "mappedObjectives": 2,
-      "representedObjectives": 2,
+      "remaining": 986,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -4509,21 +4515,21 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 228,
+    "explicitArithmeticClaims": 229,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -28325,6 +28331,42 @@
       "errors": []
     },
     {
+      "id": "ndv-078-001",
+      "file": "original-multisubject-batch-078.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-078-002",
+      "file": "original-multisubject-batch-078.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-078-003",
+      "file": "original-multisubject-batch-078.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-078-004",
+      "file": "original-multisubject-batch-078.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-078-005",
+      "file": "original-multisubject-batch-078.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-078-006",
+      "file": "original-multisubject-batch-078.json",
+      "index": 5,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -51015,6 +51057,68 @@
       },
       "tiers": {
         "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-foods-078-1-v1",
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Kitchen practical",
+      "subtopic": "Preparation and service",
+      "learningObjective": "Prepare and present dishes using an observable work sequence and suitable equipment.",
+      "specificationId": "neco-foods-kitchen-practical-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Foods and Nutrition Paper I (2041)",
+        "Historical WAEC Foods and Nutrition examiner materials, 2009 and 2022; WHO safer food guidance"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-foods-078-2-v1",
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Kitchen practical",
+      "subtopic": "Portioning and quality checks",
+      "learningObjective": "Use measurable checks to control yield, consistency or recipe quality during practical work.",
+      "specificationId": "neco-foods-kitchen-practical-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Foods and Nutrition Paper I (2041)",
+        "Historical WAEC Foods and Nutrition examiner materials, 2009 and 2022; WHO safer food guidance"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

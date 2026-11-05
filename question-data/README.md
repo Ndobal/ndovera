@@ -407,3 +407,8 @@ Batch 077 registers NECO Foods and Nutrition and adds eight written
 drafts on meal planning and hygiene. The official 2026 timetable
 verifies practical, essay and objective papers. Topic alignment is
 provisional and official practical task requirements remain open.
+
+Batch 078 adds six supervised Foods and Nutrition kitchen practicals.
+They require prepared outputs and observed performance. NECO's 2026
+timetable confirms Paper I is practical. Specific NECO tasks and
+marking specifications remain unverified.

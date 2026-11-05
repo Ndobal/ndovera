@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Foods and Nutrition supervised kitchen practicals",
+  "questionCount": 6,
+  "note": "Original provisional Paper I classroom practice. Each task requires observed performance and a prepared output. Official NECO task and marking specifications remain open. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Kitchen practical",
+      "subtopic": "Preparation and service",
+      "learningObjective": "Prepare and present dishes using an observable work sequence and suitable equipment.",
+      "specificationId": "neco-foods-kitchen-practical-reference-2026",
+      "id": "ndv-078-001",
+      "objectiveId": "neco-foods-078-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a supervised kitchen, prepare two servings of boiled yam and a warm tomato-and-onion sauce. Use one burner. Before starting, write a short order of work. Present both dishes together and show the teacher how you kept the cooked component covered while preparing the other.",
+      "answer": "A feasible sequence is to prepare the ingredients first, cook the sauce and hold it safely in a covered container, then boil the evenly cut yam until tender and serve both promptly. A safe alternate sequence is acceptable.",
+      "explanation": "The single burner makes the order of work observable. Mark both the finished dishes and the handling and serving sequence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Present a workable one-burner sequence before cooking."
+        },
+        {
+          "marks": 1,
+          "description": "Prepare yam pieces of reasonably uniform size and cook until tender."
+        },
+        {
+          "marks": 1,
+          "description": "Prepare a cooked sauce with evenly distributed ingredients."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrate clean handling and safe covered holding."
+        },
+        {
+          "marks": 1,
+          "description": "Present two servings together."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Kitchen practical",
+      "subtopic": "Preparation and service",
+      "learningObjective": "Prepare and present dishes using an observable work sequence and suitable equipment.",
+      "specificationId": "neco-foods-kitchen-practical-reference-2026",
+      "id": "ndv-078-002",
+      "objectiveId": "neco-foods-078-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Under supervision, prepare two ready-to-eat portions from a banana, an orange and a cucumber supplied by the teacher. Demonstrate the order in which you clean the work area, wash the whole produce under safe running water, peel or trim it and portion the edible pieces. Present two covered bowls.",
+      "answer": "Start with clean hands, equipment and surfaces. Wash the produce before peeling or cutting, remove inedible parts without transferring peel dirt to the edible pieces, divide the pieces evenly and cover the bowls until immediate service.",
+      "explanation": "This performance assesses workflow as well as the plated result. A clean tool and work surface protect food that will receive no further cooking.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Prepare a clean work area and wash hands."
+        },
+        {
+          "marks": 1,
+          "description": "Wash the whole produce with safe water before cutting."
+        },
+        {
+          "marks": 1,
+          "description": "Keep waste and edible pieces separate."
+        },
+        {
+          "marks": 1,
+          "description": "Serve two similar portions in clean covered bowls."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Kitchen practical",
+      "subtopic": "Preparation and service",
+      "learningObjective": "Prepare and present dishes using an observable work sequence and suitable equipment.",
+      "specificationId": "neco-foods-kitchen-practical-reference-2026",
+      "id": "ndv-078-003",
+      "objectiveId": "neco-foods-078-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Under supervision, use cooked beans, fresh tomatoes, onions and safe drinking water to prepare a bean-and-tomato stew. Present a two-portion meal with plain boiled rice. Plan which component can be prepared while the other cooks. Demonstrate one check of the cooked rice and one check of the stew before service.",
+      "answer": "Prepare clean equipment and ingredients first. Start one component and use its supervised cooking time for the other component’s preparation. Check the rice for tenderness and the stew for a spoonable consistency and evenly heated beans. Serve two balanced portions promptly.",
+      "explanation": "This task asks learners to coordinate parallel preparation and apply distinct quality checks. Accept any sequence that is workable with the equipment provided.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Set out a feasible coordinated sequence."
+        },
+        {
+          "marks": 1,
+          "description": "Prepare and cook both components using clean equipment."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrate a suitable rice quality check."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrate a suitable stew quality check."
+        },
+        {
+          "marks": 1,
+          "description": "Serve both components promptly in two portions."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Kitchen practical",
+      "subtopic": "Portioning and quality checks",
+      "learningObjective": "Use measurable checks to control yield, consistency or recipe quality during practical work.",
+      "specificationId": "neco-foods-kitchen-practical-reference-2026",
+      "id": "ndv-078-004",
+      "objectiveId": "neco-foods-078-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Prepare a fruit drink in a supervised kitchen from 150 mL of unsweetened pineapple juice and 450 mL of safe drinking water. Use a measuring jug and serve three equal portions in clean cups. Record the expected volume per cup, then measure the portions and account for any small difference from the expected total.",
+      "answer": "The target is 200 mL per cup from a total of 600 mL. Small losses may occur from residue in the mixing jug or spillage, so report observed values and a plausible cause.",
+      "explanation": "The arithmetic predicts an ideal yield. Measuring the served output lets the learner compare the plan with the actual result.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Measure both liquid inputs correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Calculate the target per cup."
+        },
+        {
+          "marks": 1,
+          "description": "Serve and measure three approximately equal portions."
+        },
+        {
+          "marks": 1,
+          "description": "Record observed volume and explain any discrepancy."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(150+450)/3",
+          "expected": "200",
+          "purpose": "Ideal volume per cup in mL"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Kitchen practical",
+      "subtopic": "Portioning and quality checks",
+      "learningObjective": "Use measurable checks to control yield, consistency or recipe quality during practical work.",
+      "specificationId": "neco-foods-kitchen-practical-reference-2026",
+      "id": "ndv-078-005",
+      "objectiveId": "neco-foods-078-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Make two small samples of maize porridge under supervision. Use equal masses of flour and equal measured volumes of water. For the first sample, stir the flour into cool water before heating. For the second, add the flour gradually to hot water while stirring. Cook both thoroughly according to the teacher’s method. Compare the number of visible lumps in equal spoonfuls and explain what your comparison can establish.",
+      "answer": "The cool dispersion typically helps separate the particles before heating. Record the actual lump counts, even if they differ from that expectation. With quantities held equal, the observation compares these two mixing methods under the conditions used. A single pair of samples does not establish a universal result.",
+      "explanation": "Assess fair comparison and honest observation. Credit either observed result if it is recorded and interpreted within the limits of the procedure.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Keep the quantities equal and distinguish the two mixing methods."
+        },
+        {
+          "marks": 1,
+          "description": "Use teacher-supervised cooking and clean utensils."
+        },
+        {
+          "marks": 1,
+          "description": "Compare equal spoonfuls using the same criterion."
+        },
+        {
+          "marks": 1,
+          "description": "Report observations and a conclusion limited to the trial."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Foods and Nutrition",
+      "topic": "Kitchen practical",
+      "subtopic": "Portioning and quality checks",
+      "learningObjective": "Use measurable checks to control yield, consistency or recipe quality during practical work.",
+      "specificationId": "neco-foods-kitchen-practical-reference-2026",
+      "id": "ndv-078-006",
+      "objectiveId": "neco-foods-078-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "The teacher provides cooked, cooled beans kept chilled for a supervised practical. Drain them and weigh the usable beans. Make four equal portions by mass and place each in a clean container. Record the drained mass, your target per portion, the four actual masses and any remainder. Return the covered containers promptly to refrigeration.",
+      "answer": "Divide the drained mass by four to set the target. For example, 360 g yields a target of 90 g per portion. Record the actual masses and reconcile their sum and any remainder with the original drained mass, allowing for scale precision.",
+      "explanation": "The measured drained mass drives the calculation. Weighing each portion and reconciling the total makes portion control observable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Measure and record the drained mass."
+        },
+        {
+          "marks": 1,
+          "description": "Calculate a correct target from the measured mass."
+        },
+        {
+          "marks": 1,
+          "description": "Weigh the four portions and reconcile total and remainder."
+        },
+        {
+          "marks": 1,
+          "description": "Use clean covered containers and return them promptly to refrigeration."
+        }
+      ]
+    }
+  ]
+}
