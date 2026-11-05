@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3192,
-    "validDrafts": 1513,
+    "raw": 3200,
+    "validDrafts": 1521,
     "reviewed": 0,
-    "registeredBanks": 168,
-    "target": 150000,
+    "registeredBanks": 169,
+    "target": 151000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -576,6 +576,12 @@
     {
       "path": "original-multisubject-batch-074.json",
       "sha256": "f26ebf6f65414eb43dec397ef246b13e6f0f1765341ae16e734ffd9421ddc809",
+      "declared": 8,
+      "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-075.json",
+      "sha256": "25b128ea8b8b41dc0ab3fca6499c11c376957face9577ba709e9063d90ad3be3",
       "declared": 8,
       "actual": 8
     },
@@ -2472,6 +2478,35 @@
         "missing": 1
       },
       "remaining": 990,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "III": "objective",
+        "II": "essay"
+      },
+      "raw": 8,
+      "validDrafts": 8,
+      "reviewed": 0,
+      "questionTypes": {
+        "structured": 4,
+        "mcq": 4
+      },
+      "difficulty": {
+        "standard": 5,
+        "difficult": 1,
+        "easy": 2
+      },
+      "remaining": 992,
       "mappedObjectives": 2,
       "representedObjectives": 2,
       "coverage": "partial_objective_register",
@@ -4403,16 +4438,16 @@
   ],
   "errorCounts": {
     "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81
   },
   "mathematicalVerification": {
@@ -28074,6 +28109,54 @@
       "errors": []
     },
     {
+      "id": "ndv-075-001",
+      "file": "original-multisubject-batch-075.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-075-002",
+      "file": "original-multisubject-batch-075.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-075-003",
+      "file": "original-multisubject-batch-075.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-075-004",
+      "file": "original-multisubject-batch-075.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-075-005",
+      "file": "original-multisubject-batch-075.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-075-006",
+      "file": "original-multisubject-batch-075.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-075-007",
+      "file": "original-multisubject-batch-075.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-075-008",
+      "file": "original-multisubject-batch-075.json",
+      "index": 7,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -50563,6 +50646,71 @@
       "difficulty": {
         "standard": 2,
         "difficult": 1,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-islamic-075-1-v1",
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Ikhlāṣ (112)",
+      "learningObjective": "Interpret the surah’s affirmations of Allah’s oneness, self-sufficiency and incomparability.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "questionTypes": {
+        "structured": 2,
+        "mcq": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Islamic Studies Papers II and III",
+        "Historical WAEC Islamic Studies examiner observations, 2020 and 2023; Qur’an 112 and 114"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1,
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-islamic-075-2-v1",
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "An-Nās (114)",
+      "learningObjective": "Interpret the address, request for refuge and description of whispering in the surah.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "questionTypes": {
+        "structured": 2,
+        "mcq": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Islamic Studies Papers II and III",
+        "Historical WAEC Islamic Studies examiner observations, 2020 and 2023; Qur’an 112 and 114"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
         "easy": 1
       },
       "tiers": {

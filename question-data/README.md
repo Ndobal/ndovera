@@ -392,3 +392,8 @@ Batch 074 registers NECO Christian Religious Studies and adds eight
 original drafts on James 2. NECO's 2026 internal timetable confirms the
 essay and objective papers. The topic mapping remains provisional.
 The Further Mathematics binary-operations source URL was also corrected.
+
+Batch 075 opens NECO Islamic Studies with eight drafts on Al-Ikhlāṣ
+and An-Nās. NECO paper formats are verified from the 2026 timetable.
+Qur’anic text and historical WAEC examiner materials support provisional
+topic mapping. The James 2 registry links were also corrected.

@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_074_automated_validation_passed",
+  "phase": "batch_075_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-075.json",
+  "nextBatch": "original-multisubject-batch-076.json",
   "nextPriorities": [
-    "Verify NECO Islamic Studies paper formats and seek primary topic evidence for initial drafts. Obtain official NECO subject objectives and accessible primary text for WAEC African drama.",
+    "Verify NECO Nigerian History papers and locate primary or historical examiner evidence for initial objectives. Obtain official NECO subject objectives and accessible primary text for WAEC African drama.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-074.json",
-  "lastRemoteVerifiedCommit": "42495677a9389bfdadcea64e3e5845ed25a700c8",
+  "lastValidatedBatch": "original-multisubject-batch-075.json",
+  "lastRemoteVerifiedCommit": "0473a5c3f63f0fdd41acd56f5f2502848906c8e3",
   "verifiedTotals": {
-    "raw": 3192,
-    "validDrafts": 1513,
+    "raw": 3200,
+    "validDrafts": 1521,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-074.json",
+  "lastPopulatedBatch": "original-multisubject-batch-075.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3192
+  "inventoryRaw": 3200
 }

@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Islamic Studies Qur’an interpretation practice",
+  "questionCount": 8,
+  "note": "Original essay and objective practice. NECO formats verified; topic mapping provisional. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Ikhlāṣ (112)",
+      "learningObjective": "Interpret the surah’s affirmations of Allah’s oneness, self-sufficiency and incomparability.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-075-001",
+      "objectiveId": "neco-islamic-075-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A learner summarises Al-Ikhlāṣ as saying only that Allah is one. Explain two ways the later verses add to that summary.",
+      "answer": "The surah rejects both descent and parentage for Allah, and denies that anyone is comparable to Him.",
+      "explanation": "The opening affirms oneness. The later denials explain aspects of what that oneness means.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the denial of both directions of descent."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the denial of any comparable being."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how these qualify the opening affirmation."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Ikhlāṣ (112)",
+      "learningObjective": "Interpret the surah’s affirmations of Allah’s oneness, self-sufficiency and incomparability.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-075-002",
+      "objectiveId": "neco-islamic-075-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Compare the contribution of verse 2 of Al-Ikhlāṣ, which names Allah as Al-Ṣamad, with the contribution of its final verse.",
+      "answer": "Al-Ṣamad presents Allah as self-sufficient and the one on whom others depend. The closing verse denies that anyone is comparable to Him.",
+      "explanation": "The verses address related but distinct ideas: dependence and incomparability. Credit equivalent renderings of the divine name that explain the relationship.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain Al-Ṣamad in context."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the denial in the final verse."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish the contributions of the verses."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Ikhlāṣ (112)",
+      "learningObjective": "Interpret the surah’s affirmations of Allah’s oneness, self-sufficiency and incomparability.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-075-003",
+      "objectiveId": "neco-islamic-075-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which claim is directly rejected by the last verse of Al-Ikhlāṣ?",
+      "answer": "A being comparable to Allah exists.",
+      "explanation": "The closing verse denies that anyone is comparable to Allah.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "People depend on Allah.",
+        "A being comparable to Allah exists.",
+        "Allah is one.",
+        "Allah is self-sufficient."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Ikhlāṣ (112)",
+      "learningObjective": "Interpret the surah’s affirmations of Allah’s oneness, self-sufficiency and incomparability.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-075-004",
+      "objectiveId": "neco-islamic-075-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In Al-Ikhlāṣ, which verse most directly addresses claims that Allah has offspring or a parent?",
+      "answer": "Verse 3",
+      "explanation": "Verse 3 denies both begetting and being begotten.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Verse 1",
+        "Verse 2",
+        "Verse 3",
+        "Verse 4"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "An-Nās (114)",
+      "learningObjective": "Interpret the address, request for refuge and description of whispering in the surah.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-075-005",
+      "objectiveId": "neco-islamic-075-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Trace the movement of An-Nās from its opening titles to the danger described later. Explain how the order shapes the request for refuge.",
+      "answer": "The opening directs the request to Allah and names Him as Lord, King and God of humankind. The latter part specifies the danger of the retreating whisperer and its inward effect. The order identifies the protector before spelling out the danger.",
+      "explanation": "The surah moves from the person addressed to the harm from which protection is sought.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the recipient of the appeal."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the sequence from titles to danger."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the whispering and explain its place in the request."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "An-Nās (114)",
+      "learningObjective": "Interpret the address, request for refuge and description of whispering in the surah.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-075-006",
+      "objectiveId": "neco-islamic-075-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A learner takes An-Nās to mean that harmful suggestions must come from a source the listener can see. Use the last two verses to explain why that reading is too narrow.",
+      "answer": "The penultimate verse describes whispering directed inward, and the closing verse names both jinn and humankind. The focus is the harmful suggestion and its possible sources, not whether its source is visible.",
+      "explanation": "Both the place affected and the range of sources matter to the interpretation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the inward focus."
+        },
+        {
+          "marks": 1,
+          "description": "Identify both groups named at the close."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why the passage does not make visibility a condition."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "An-Nās (114)",
+      "learningObjective": "Interpret the address, request for refuge and description of whispering in the surah.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-075-007",
+      "objectiveId": "neco-islamic-075-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In An-Nās, to whom is the appeal for refuge directed?",
+      "answer": "Allah, described as Lord, King and God of humankind.",
+      "explanation": "The opening titles describe Allah, the one to whom the request is addressed.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Allah, described as Lord, King and God of humankind.",
+        "A human ruler who can hear every whisper.",
+        "A messenger appointed to replace the worshipper’s prayer.",
+        "A protector chosen from among the jinn."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "An-Nās (114)",
+      "learningObjective": "Interpret the address, request for refuge and description of whispering in the surah.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-075-008",
+      "objectiveId": "neco-islamic-075-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which observation best explains the role of the final verse of An-Nās?",
+      "answer": "It widens attention to the two groups from which the whispering may come.",
+      "explanation": "The close names jinn and humankind after describing the inward whispering.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "It introduces a new person to whom refuge is requested.",
+        "It limits the danger to publicly spoken words.",
+        "It changes the request for refuge into a request for material wealth.",
+        "It widens attention to the two groups from which the whispering may come."
+      ],
+      "correctOption": "D"
+    }
+  ]
+}
