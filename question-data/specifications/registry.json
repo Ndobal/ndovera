@@ -1326,6 +1326,19 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO verifies practical 5021, essay 5022 and objective 5023. Historical WAEC Garment Making examiner reports support provisional topic mapping for open seams and sleeve pattern development. Official NECO syllabus and detailed tasks remain unverified."
+    },
+    {
+      "id": "neco-fashion-practical-reference-2026",
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/GarmentMaking/Garm227mq5.html",
+        "https://www.waeconline.org.ng/e-learning/GarmentMaking/Garm228mq1.html"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "NECO 2026 Internal timetable confirms practical Paper I (5021). Historical WAEC Garment Making reports provide topic evidence. Classroom tasks and marking guides are original and provisional. Official NECO task and marking details remain unverified."
     }
   ],
   "banks": [
@@ -9633,6 +9646,42 @@
       ],
       "sourceSections": [
         "NECO 2026 SSCE Internal Papers II and III (format only)",
+        "WAEC Garment Making examiner report, 2019"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-fashion-091-1-v1",
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction practical",
+      "subtopic": "Open seam construction and quality checks",
+      "learningObjective": "Construct or inspect an open seam using workshop samples and verify the finished result.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper I (format only)",
+        "WAEC Garment Making examiner report, 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-fashion-091-2-v1",
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development practical",
+      "subtopic": "Sleeve fullness and pattern verification",
+      "learningObjective": "Alter or check paper sleeve patterns while controlling fullness and the cap seamline.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper I (format only)",
         "WAEC Garment Making examiner report, 2019"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",

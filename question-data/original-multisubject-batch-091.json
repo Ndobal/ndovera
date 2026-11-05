@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Fashion Design and Garment Making supervised practicals",
+  "questionCount": 6,
+  "note": "Original supervised classroom tasks. NECO Paper I format verified. Task mapping and marking are provisional and independent review is pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction practical",
+      "subtopic": "Open seam construction and quality checks",
+      "learningObjective": "Construct or inspect an open seam using workshop samples and verify the finished result.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "id": "ndv-091-001",
+      "objectiveId": "neco-fashion-091-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Under teacher supervision, join two woven cotton scraps with an open seam. Each scrap has a marked stitching line. Align the lines, sew along them and show the teacher the wrong side after pressing the allowances apart.",
+      "answer": "Place right sides together, align the marked lines, secure the layers, stitch along the marks and press each allowance flat on its own side.",
+      "explanation": "Alignment and pressing can be assessed directly on the finished sample.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Align the marked lines with right sides together."
+        },
+        {
+          "marks": 1,
+          "description": "Sew a continuous seam along the marks."
+        },
+        {
+          "marks": 1,
+          "description": "Press the allowances flat on opposite sides."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction practical",
+      "subtopic": "Open seam construction and quality checks",
+      "learningObjective": "Construct or inspect an open seam using workshop samples and verify the finished result.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "id": "ndv-091-002",
+      "objectiveId": "neco-fashion-091-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Your teacher provides an open-seam sample with loose threads at both raw edges. With a needle and thread, finish each raw edge separately. Show that the allowances still open out flat and explain how you avoided puckering.",
+      "answer": "Work spaced overcast stitches around each raw edge separately, with enough slack to avoid drawing the edge inward. Lay the allowances flat for inspection.",
+      "explanation": "Separate overcasting holds loose fibres while preserving the seam construction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finish both edges separately with overcast stitches."
+        },
+        {
+          "marks": 1,
+          "description": "Keep the fabric edge smooth without drawing it tight."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrate that the allowances still lie apart."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how thread tension affects puckering."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction practical",
+      "subtopic": "Open seam construction and quality checks",
+      "learningObjective": "Construct or inspect an open seam using workshop samples and verify the finished result.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "id": "ndv-091-003",
+      "objectiveId": "neco-fashion-091-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A supervised workbench has a seam sample, a ruler and a 12 mm seam-allowance specification. Measure the distance from the raw edge to the stitch line at three marked positions. If any reading is outside 11–13 mm inclusive, tag the relevant position and demonstrate how to mark a replacement stitching line on that section.",
+      "answer": "Record each actual reading and compare it with the allowed interval. Tag positions outside tolerance. If any section fails, mark a new line 12 mm from the raw edge through that section and blend into the adjoining line where needed. If all pass, record that no replacement line is required.",
+      "explanation": "Measuring the allowance at separate positions distinguishes local deviations from a consistently incorrect seam.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Take and record all three readings from edge to stitch line."
+        },
+        {
+          "marks": 1,
+          "description": "Apply the inclusive tolerance correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Tag every failing position or record that all pass."
+        },
+        {
+          "marks": 1,
+          "description": "Mark a feasible 12 mm replacement line if needed or justify leaving a passing seam intact."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development practical",
+      "subtopic": "Sleeve fullness and pattern verification",
+      "learningObjective": "Alter or check paper sleeve patterns while controlling fullness and the cap seamline.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "id": "ndv-091-004",
+      "objectiveId": "neco-fashion-091-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On a paper sleeve block provided by the teacher, make two slash lines from wrist to cap. Cut along each line leaving a small paper hinge at the cap stitching line. Spread both wrist openings evenly, secure them on backing paper and trace the altered lower stitching line.",
+      "answer": "Cut up to the cap stitching line without cutting through each hinge. Open the two gaps equally, tape the pattern to backing paper, and trace a smooth wrist line across the spread sections.",
+      "explanation": "The hinges keep the upper section connected while lower-edge openings introduce wrist fullness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Form both hinges at the cap stitching line."
+        },
+        {
+          "marks": 1,
+          "description": "Open both gaps evenly."
+        },
+        {
+          "marks": 1,
+          "description": "Secure the pattern on backing paper."
+        },
+        {
+          "marks": 1,
+          "description": "Trace a smooth wrist stitching line."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development practical",
+      "subtopic": "Sleeve fullness and pattern verification",
+      "learningObjective": "Alter or check paper sleeve patterns while controlling fullness and the cap seamline.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "id": "ndv-091-005",
+      "objectiveId": "neco-fashion-091-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two sleeve patterns have the same wrist-to-cap length and similar outlines. One has matching front and back notches and the other has the front and back notch labels reversed. Use the teacher’s master block to identify the faulty copy, mark the corrected notch labels and explain how the error could affect assembly.",
+      "answer": "Overlay each copy on the master with the cap and grainline aligned. Locate the reversed labels and transfer the correct front and back references to the faulty copy. Wrong labels can cause the sleeve to be matched to the wrong armhole positions.",
+      "explanation": "Matching construction points requires a common reference orientation. Similar outer outlines can hide a marking error.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Align each copy to the master using consistent references."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the copy with reversed labels."
+        },
+        {
+          "marks": 1,
+          "description": "Transfer the correct labels."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the assembly consequence."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development practical",
+      "subtopic": "Sleeve fullness and pattern verification",
+      "learningObjective": "Alter or check paper sleeve patterns while controlling fullness and the cap seamline.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "id": "ndv-091-006",
+      "objectiveId": "neco-fashion-091-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A teacher supplies a base sleeve pattern and two altered paper samples. Both give the required extra wrist fullness. Only one preserves the specified cap seam length within 2 mm of the base. Use a flexible tape to measure each cap stitching line from underarm to underarm. Record the readings and select the suitable pattern.",
+      "answer": "Measure each cap along its stitching line without stretching the tape, including the base. Compare the two absolute differences with the 2 mm tolerance and select the one within tolerance. Record the readings and your reason.",
+      "explanation": "Measuring along the same curved seamline on each pattern isolates cap length from wrist fullness.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Measure from matching underarm points on the stitching lines."
+        },
+        {
+          "marks": 1,
+          "description": "Record all three measurements with units."
+        },
+        {
+          "marks": 1,
+          "description": "Compare both alterations against the base and tolerance."
+        },
+        {
+          "marks": 1,
+          "description": "Select the passing pattern and justify it from the readings."
+        }
+      ]
+    }
+  ]
+}

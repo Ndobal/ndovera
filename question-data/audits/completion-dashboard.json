@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3309,
-    "validDrafts": 1630,
+    "raw": 3315,
+    "validDrafts": 1636,
     "reviewed": 0,
     "registeredBanks": 178,
     "target": 160000,
@@ -674,6 +674,12 @@
       "sha256": "f8676aa7bac34e6d5bea8849a0612abe45bb60fb81ad83f72e498fc016fd66c2",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-091.json",
+      "sha256": "e29e98d5f4fbba0c33534594feed24912386e69306a44833095b2ace26a05480",
+      "declared": 6,
+      "actual": 6
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2544,21 +2550,21 @@
         "II": "5022",
         "III": "5023"
       },
-      "raw": 8,
-      "validDrafts": 8,
+      "raw": 14,
+      "validDrafts": 14,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 4,
-        "structured": 4
+        "structured": 10
       },
       "difficulty": {
-        "easy": 2,
-        "standard": 4,
-        "difficult": 2
+        "easy": 3,
+        "standard": 7,
+        "difficult": 4
       },
-      "remaining": 992,
-      "mappedObjectives": 2,
-      "representedObjectives": 2,
+      "remaining": 986,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -4820,17 +4826,17 @@
     }
   ],
   "errorCounts": {
+    "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "explanation_missing": 81,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
@@ -29194,6 +29200,42 @@
       "errors": []
     },
     {
+      "id": "ndv-091-001",
+      "file": "original-multisubject-batch-091.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-091-002",
+      "file": "original-multisubject-batch-091.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-091-003",
+      "file": "original-multisubject-batch-091.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-091-004",
+      "file": "original-multisubject-batch-091.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-091-005",
+      "file": "original-multisubject-batch-091.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-091-006",
+      "file": "original-multisubject-batch-091.json",
+      "index": 5,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -52751,6 +52793,69 @@
       },
       "tiers": {
         "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-fashion-091-1-v1",
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction practical",
+      "subtopic": "Open seam construction and quality checks",
+      "learningObjective": "Construct or inspect an open seam using workshop samples and verify the finished result.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper I (format only)",
+        "WAEC Garment Making examiner report, 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-fashion-091-2-v1",
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development practical",
+      "subtopic": "Sleeve fullness and pattern verification",
+      "learningObjective": "Alter or check paper sleeve patterns while controlling fullness and the cap seamline.",
+      "specificationId": "neco-fashion-practical-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper I (format only)",
+        "WAEC Garment Making examiner report, 2019"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

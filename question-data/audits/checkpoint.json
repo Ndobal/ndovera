@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_090_automated_validation_passed",
+  "phase": "batch_091_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-091.json",
+  "nextBatch": "original-multisubject-batch-092.json",
   "nextPriorities": [
-    "Retrieve NECO Fashion Design and Garment Making practical task and marking requirements. Investigate source-supported seam construction and paper-pattern demonstrations for provisional classroom practice.",
+    "Verify NECO Beauty and Cosmetology paper codes and introductory topic evidence. Official NECO garment practical tasks and marking requirements remain unverified.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-090.json",
-  "lastRemoteVerifiedCommit": "d67be5d4e608edc508b4d6bfb50337e7cf9a9c98",
+  "lastValidatedBatch": "original-multisubject-batch-091.json",
+  "lastRemoteVerifiedCommit": "4e00b75d62416b2f28de93737c5ca180c058cc4d",
   "verifiedTotals": {
-    "raw": 3309,
-    "validDrafts": 1630,
+    "raw": 3315,
+    "validDrafts": 1636,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-090.json",
+  "lastPopulatedBatch": "original-multisubject-batch-091.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3309
+  "inventoryRaw": 3315
 }

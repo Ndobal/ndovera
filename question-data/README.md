@@ -479,3 +479,8 @@ written drafts on open seams, edge finishing and sleeve alterations.
 The 2026 Internal timetable verifies papers 5021, 5022 and 5023.
 Historical WAEC reports inform provisional topic mapping. Detailed
 NECO practical requirements and official objectives remain open.
+
+Batch 091 adds six supervised Fashion Design and Garment Making
+classroom practical drafts. The 2026 NECO timetable verifies Paper I
+as practical. Topic evidence is historical and cross-board. The tasks
+and marking guides are original and provisional.
