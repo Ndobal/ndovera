@@ -498,3 +498,7 @@ and marking guides are original and provisional.
 
 The Livestock Farming register also records Paper IV (5044) as
 progressive assessments. Assessment tasks and marks remain open.
+
+Batch 094 adds eight NECO Home Management written drafts on
+time planning and household budgeting. NECO paper formats are
+verified and topic mapping is provisional.

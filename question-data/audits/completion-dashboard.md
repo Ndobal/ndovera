@@ -90,7 +90,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Government | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Hausa | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Health Education | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
-| NECO | Home Management | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| NECO | Home Management | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Islamic Studies | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Literature in English | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -207,13 +207,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 380 | 345 | 0 | 36000 | 35655 |
+| NECO | 388 | 353 | 0 | 36000 | 35647 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3329, "validDrafts": 1650, "reviewed": 0, "registeredBanks": 189, "target": 171000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3337, "validDrafts": 1658, "reviewed": 0, "registeredBanks": 189, "target": 171000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

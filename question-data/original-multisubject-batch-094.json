@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Home Management written practice",
+  "questionCount": 8,
+  "note": "Original written drafts. NECO formats verified from the 2026 Internal timetable. Topic mapping is provisional and academic review is pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Time and energy management",
+      "learningObjective": "Sequence household work around dependencies, available time and shared resources.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "id": "ndv-094-001",
+      "objectiveId": "neco-home-094-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A family wants to know who will collect water, who will prepare breakfast, and when both tasks must be finished. Which record would best communicate those arrangements?",
+      "answer": "A shared time plan with tasks, names and deadlines.",
+      "explanation": "A time plan shows the work, who is responsible and when it is due.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "An inventory of cooking utensils.",
+        "A shared time plan with tasks, names and deadlines.",
+        "A receipt for the water containers.",
+        "A list of last month’s grocery prices."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Time and energy management",
+      "learningObjective": "Sequence household work around dependencies, available time and shared resources.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "id": "ndv-094-002",
+      "objectiveId": "neco-home-094-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Only one person is available to do laundry and sweep the veranda. A washing machine runs unattended after loading and signals when it is ready to unload. Which plan uses that cycle time effectively without interrupting either job?",
+      "answer": "Load and start the washer, sweep while it runs, then unload it when signalled.",
+      "explanation": "The unattended cycle allows the person to do an independent task while the machine is working.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Sweep, then start the machine and wait beside it.",
+        "Stop sweeping each time the washer changes cycle.",
+        "Load and start the washer, sweep while it runs, then unload it when signalled.",
+        "Unload the washing before the cycle has run."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Time and energy management",
+      "learningObjective": "Sequence household work around dependencies, available time and shared resources.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "id": "ndv-094-003",
+      "objectiveId": "neco-home-094-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At home in Minna, two people are preparing a room for visitors. Sweeping must precede mopping. The chairs must stay outside until the floor is dry. One person plans to wait beside the room throughout. Suggest a better division of work and show where the drying delay belongs in the plan.",
+      "answer": "One person sweeps and mops while the other wipes the chairs outside or prepares another area. Both can do independent work during drying. Return the chairs only after the floor is dry.",
+      "explanation": "A plan distinguishes tasks that depend on earlier steps from tasks that can run in parallel.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Keep sweeping before mopping."
+        },
+        {
+          "marks": 1,
+          "description": "Assign an independent job while floor work proceeds."
+        },
+        {
+          "marks": 1,
+          "description": "Place the drying interval before the chairs are returned."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Time and energy management",
+      "learningObjective": "Sequence household work around dependencies, available time and shared resources.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "id": "ndv-094-004",
+      "objectiveId": "neco-home-094-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A household planned to iron uniforms and organise a cupboard in the evening. Electricity will be available for only the first half hour. Ironing takes twenty minutes and sorting requires no electricity. Another family member needs the ironing board during the last fifteen minutes of the evening. Evaluate doing the cupboard first and propose a plan that meets both limits.",
+      "answer": "Iron during the first twenty minutes while electricity is available. Put the board aside for the other user and sort afterward. Doing the cupboard first could exhaust the power window because its duration is unspecified.",
+      "explanation": "The power-dependent task has the narrower workable window. Moving the flexible task preserves time and equipment access.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the power window as the binding limit."
+        },
+        {
+          "marks": 1,
+          "description": "Fit ironing into the available powered period."
+        },
+        {
+          "marks": 1,
+          "description": "Reserve the board for the other user in the stated window."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the weakness of sorting first."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Budgeting and expenditure control",
+      "learningObjective": "Interpret, adjust and evaluate household spending plans within stated constraints.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "id": "ndv-094-005",
+      "objectiveId": "neco-home-094-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A household buys cooking gas at uneven intervals. Which budgeting practice best prepares for the next refill?",
+      "answer": "Set aside part of each period’s available money for the refill.",
+      "explanation": "Regular provision spreads the expense across periods even though the purchase itself is irregular.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Record the refill only as income.",
+        "Set aside part of each period’s available money for the refill.",
+        "Count the same provision as money free for outings.",
+        "Remove the refill from all plans until the cylinder is empty."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Budgeting and expenditure control",
+      "learningObjective": "Interpret, adjust and evaluate household spending plans within stated constraints.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "id": "ndv-094-006",
+      "objectiveId": "neco-home-094-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A spending plan allows ₦12,000 for transport. After the first week, the household has spent ₦4,500 on travel. Which entry shows the remaining transport allowance?",
+      "answer": "₦7,500.",
+      "explanation": "Subtract the actual spending from the category limit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "₦4,500.",
+        "₦12,000.",
+        "₦16,500.",
+        "₦7,500."
+      ],
+      "correctOption": "D",
+      "verification": [
+        {
+          "expression": "12000-4500",
+          "expected": 7500,
+          "purpose": "Check remaining transport allowance."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Budgeting and expenditure control",
+      "learningObjective": "Interpret, adjust and evaluate household spending plans within stated constraints.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "id": "ndv-094-007",
+      "objectiveId": "neco-home-094-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A household has ₦48,000 available. It must keep ₦21,000 for food, ₦12,000 for transport and ₦5,000 for emergency savings. Two optional items cost ₦7,000 and ₦6,000. Determine whether both optional items fit and give one feasible revision that preserves the protected categories.",
+      "answer": "The protected amounts total ₦38,000, leaving ₦10,000. Both optional items total ₦13,000, exceeding the remainder by ₦3,000. Buy one and postpone the other, or reduce the combined optional spending to ₦10,000 or less.",
+      "explanation": "The optional purchases must fit the balance after protecting essentials and savings.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Find the ₦38,000 protected total."
+        },
+        {
+          "marks": 1,
+          "description": "Find the ₦10,000 balance and ₦3,000 shortfall."
+        },
+        {
+          "marks": 1,
+          "description": "Give a feasible revision preserving the protected amounts."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "48000-(21000+12000+5000)",
+          "expected": 10000,
+          "purpose": "Check available optional spending."
+        },
+        {
+          "expression": "7000+6000-10000",
+          "expected": 3000,
+          "purpose": "Check shortfall if both items are purchased."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Budgeting and expenditure control",
+      "learningObjective": "Interpret, adjust and evaluate household spending plans within stated constraints.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "id": "ndv-094-008",
+      "objectiveId": "neco-home-094-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A family sees that one grocery trip used half its food allowance. One shopper says the entire month’s food budget is already too small. The trip included a large bag of rice intended to last all month. Explain why the conclusion is premature and give two records that would help decide whether the allowance needs changing.",
+      "answer": "A bulk purchase can concentrate costs early while meeting needs later. Check the dated food spending record to see what the money bought, and check the remaining food stock or planned meals to estimate what still needs to be purchased. Compare the estimated remaining cost with the balance before revising the plan.",
+      "explanation": "Expenditure timing and consumption timing can differ. The review needs evidence about both money spent and food still available.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain why the bulk purchase can distort a first-trip comparison."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a relevant spending record."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a stock or meal requirement record."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how to use the records to decide whether to revise the allowance."
+        }
+      ]
+    }
+  ]
+}

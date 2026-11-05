@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "neco_ssce_internal_2026_timetable_reconciled",
+  "phase": "batch_094_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-094.json",
+  "nextBatch": "original-multisubject-batch-095.json",
   "nextPriorities": [
-    "Start batch 094 with NECO Home Management if primary topic evidence supports it. Prioritise the ten newly registered timetable subjects and retain unresolved content, texts, practical and oral specifications.",
+    "Retrieve official NECO Home Management practical instructions and marks. Use source-supported household planning tasks where appropriate and retain provisional mapping.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-093.json",
-  "lastRemoteVerifiedCommit": "f905b3601b06d45630c70179283712ce686742a6",
+  "lastValidatedBatch": "original-multisubject-batch-094.json",
+  "lastRemoteVerifiedCommit": "753d5c8909008bb9da1109aee3d4a0d3073946d9",
   "verifiedTotals": {
-    "raw": 3329,
-    "validDrafts": 1650,
+    "raw": 3337,
+    "validDrafts": 1658,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-093.json",
+  "lastPopulatedBatch": "original-multisubject-batch-094.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3329
+  "inventoryRaw": 3337
 }

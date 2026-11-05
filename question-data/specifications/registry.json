@@ -1363,6 +1363,19 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO 2026 timetable confirms Paper I (5001) as practical. Historical WAEC Cosmetology examiner material informs hygiene and hair-care topics. Classroom tasks and marks are provisional. NECO task and marking specifications remain unverified."
+    },
+    {
+      "id": "neco-home-resources-reference-2026",
+      "exam": "NECO",
+      "subject": "Home Management",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Home/Home218mq3.html",
+        "https://www.waeconline.org.ng/e-learning/Home/Home224mq3.html"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "NECO timetable confirms practical 4061, essay 4062 and objective 4063. Historical WAEC Home Management examiner materials inform provisional topic mapping. Official NECO objectives and practical specifications remain unverified."
     }
   ],
   "banks": [
@@ -2883,7 +2896,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "II": "essay",
         "III": "objective",
@@ -10069,6 +10082,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Paper I (format only)",
         "WAEC Cosmetology examiner report, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-home-094-1-v1",
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Time and energy management",
+      "learningObjective": "Sequence household work around dependencies, available time and shared resources.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Papers II and III (format only)",
+        "WAEC Home Management Paper 2 examiner material, 2009"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-home-094-2-v1",
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household resources",
+      "subtopic": "Budgeting and expenditure control",
+      "learningObjective": "Interpret, adjust and evaluate household spending plans within stated constraints.",
+      "specificationId": "neco-home-resources-reference-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Papers II and III (format only)",
+        "WAEC Home Management Paper 2 examiner material, 2015"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
