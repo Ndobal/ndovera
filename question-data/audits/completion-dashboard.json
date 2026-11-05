@@ -8,8 +8,8 @@
     "raw": 3329,
     "validDrafts": 1650,
     "reviewed": 0,
-    "registeredBanks": 179,
-    "target": 161000,
+    "registeredBanks": 189,
+    "target": 171000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -2224,6 +2224,11 @@
         "III": "objective",
         "II": "essay"
       },
+      "paperCodes": {
+        "I": "2001",
+        "III": "2003",
+        "II": "2002"
+      },
       "raw": 15,
       "validDrafts": 12,
       "reviewed": 0,
@@ -2240,6 +2245,34 @@
       "representedObjectives": 2,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay and literature (paired with Paper III)",
+        "III": "objective (paired with Paper II)",
+        "IV": "oral"
+      },
+      "paperCodes": {
+        "II": "4002",
+        "III": "4003",
+        "IV": "4004"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
     },
     {
       "exam": "NECO",
@@ -2287,6 +2320,11 @@
         "I": "practical",
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "I": "2011",
+        "III": "2013",
+        "II": "2012"
       },
       "raw": 14,
       "validDrafts": 12,
@@ -2353,6 +2391,11 @@
         "III": "objective",
         "II": "essay"
       },
+      "paperCodes": {
+        "I": "2021",
+        "III": "2023",
+        "II": "2022"
+      },
       "raw": 16,
       "validDrafts": 12,
       "reviewed": 0,
@@ -2381,6 +2424,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "4023",
+        "II": "4022"
       },
       "raw": 8,
       "validDrafts": 8,
@@ -2411,6 +2458,10 @@
         "III": "objective",
         "II": "essay"
       },
+      "paperCodes": {
+        "III": "1003",
+        "II": "1002"
+      },
       "raw": 12,
       "validDrafts": 10,
       "reviewed": 0,
@@ -2438,6 +2489,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "3013",
+        "II": "3012"
       },
       "raw": 12,
       "validDrafts": 10,
@@ -2503,6 +2558,11 @@
         "III": "objective",
         "II": "essay"
       },
+      "paperCodes": {
+        "I": "2031",
+        "III": "2033",
+        "II": "2032"
+      },
       "raw": 16,
       "validDrafts": 16,
       "reviewed": 0,
@@ -2531,6 +2591,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "3023",
+        "II": "3022"
       },
       "raw": 21,
       "validDrafts": 20,
@@ -2561,6 +2625,11 @@
         "III": "objective",
         "II": "essay",
         "IV": "test of orals"
+      },
+      "paperCodes": {
+        "III": "1013",
+        "II": "1012",
+        "IV": "1014"
       },
       "raw": 25,
       "validDrafts": 24,
@@ -2627,6 +2696,10 @@
         "II": "theory and practice"
       },
       "timetableSubject": "Accounting",
+      "paperCodes": {
+        "III": "3003",
+        "II": "3002"
+      },
       "raw": 21,
       "validDrafts": 20,
       "reviewed": 0,
@@ -2658,6 +2731,11 @@
         "II": "essay"
       },
       "timetableSubject": "Foods & Nutrition",
+      "paperCodes": {
+        "I": "2041",
+        "III": "2043",
+        "II": "2042"
+      },
       "raw": 14,
       "validDrafts": 14,
       "reviewed": 0,
@@ -2678,6 +2756,34 @@
     },
     {
       "exam": "NECO",
+      "subject": "French",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "I": "written comprehension",
+        "II": "written expression",
+        "IV": "oral"
+      },
+      "paperCodes": {
+        "I": "4031",
+        "II": "4032",
+        "IV": "4034"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "NECO",
       "subject": "Further Mathematics",
       "level": "",
       "target": 1000,
@@ -2686,6 +2792,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "2053",
+        "II": "2052"
       },
       "raw": 8,
       "validDrafts": 8,
@@ -2717,6 +2827,11 @@
         "I": "practical and physical geography",
         "II": "human and regional geography essay"
       },
+      "paperCodes": {
+        "III": "2063",
+        "I": "2061",
+        "II": "2062"
+      },
       "raw": 11,
       "validDrafts": 10,
       "reviewed": 0,
@@ -2745,6 +2860,10 @@
         "III": "objective",
         "II": "essay"
       },
+      "paperCodes": {
+        "III": "4043",
+        "II": "4042"
+      },
       "raw": 11,
       "validDrafts": 10,
       "reviewed": 0,
@@ -2764,6 +2883,32 @@
     },
     {
       "exam": "NECO",
+      "subject": "Hausa",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay including literature",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "II": "4052",
+        "III": "4053"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "NECO",
       "subject": "Health Education",
       "level": "",
       "target": 1000,
@@ -2773,6 +2918,11 @@
         "I": "test of practical",
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "I": "2071",
+        "III": "2073",
+        "II": "2072"
       },
       "raw": 14,
       "validDrafts": 14,
@@ -2794,6 +2944,60 @@
     },
     {
       "exam": "NECO",
+      "subject": "Home Management",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay",
+        "III": "objective",
+        "I": "practical"
+      },
+      "paperCodes": {
+        "II": "4062",
+        "III": "4063",
+        "I": "4061"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay including literature",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "II": "4072",
+        "III": "4073"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "NECO",
       "subject": "Islamic Studies",
       "level": "",
       "target": 1000,
@@ -2802,6 +3006,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "4083",
+        "II": "4082"
       },
       "raw": 8,
       "validDrafts": 8,
@@ -2820,6 +3028,34 @@
       "representedObjectives": 2,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Literature in English",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "drama and poetry",
+        "III": "objective",
+        "IV": "prose"
+      },
+      "paperCodes": {
+        "II": "4092",
+        "III": "4093",
+        "IV": "4094"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
     },
     {
       "exam": "NECO",
@@ -2903,6 +3139,10 @@
         "II": "essay"
       },
       "timetableSubject": "General Mathematics",
+      "paperCodes": {
+        "III": "1023",
+        "II": "1022"
+      },
       "raw": 38,
       "validDrafts": 24,
       "reviewed": 0,
@@ -2925,6 +3165,36 @@
     },
     {
       "exam": "NECO",
+      "subject": "Music",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay",
+        "III": "objective",
+        "I": "performance test, music technology and alternative to music technology",
+        "IV": "aural music"
+      },
+      "paperCodes": {
+        "II": "4102",
+        "III": "4103",
+        "I": "4101",
+        "IV": "4104"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "NECO",
       "subject": "Nigerian History",
       "level": "",
       "target": 1000,
@@ -2933,6 +3203,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "4113",
+        "II": "4112"
       },
       "raw": 8,
       "validDrafts": 8,
@@ -2964,6 +3238,11 @@
         "III": "objective",
         "II": "essay"
       },
+      "paperCodes": {
+        "I": "2081",
+        "III": "2083",
+        "II": "2082"
+      },
       "raw": 14,
       "validDrafts": 14,
       "reviewed": 0,
@@ -2994,6 +3273,11 @@
         "III": "objective",
         "II": "essay"
       },
+      "paperCodes": {
+        "I": "2091",
+        "III": "2093",
+        "II": "2092"
+      },
       "raw": 15,
       "validDrafts": 12,
       "reviewed": 0,
@@ -3011,6 +3295,90 @@
       "representedObjectives": 2,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "I": "practical",
+        "III": "objective",
+        "IV": "drawing"
+      },
+      "paperCodes": {
+        "I": "2101",
+        "III": "2103",
+        "IV": "2104"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay",
+        "III": "objective",
+        "I": "drawing",
+        "IV": "creative design"
+      },
+      "paperCodes": {
+        "II": "4122",
+        "III": "4123",
+        "I": "4121",
+        "IV": "4124"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay including literature",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "II": "4132",
+        "III": "4133"
+      },
+      "raw": 0,
+      "validDrafts": 0,
+      "reviewed": 0,
+      "questionTypes": {},
+      "difficulty": {},
+      "remaining": 1000,
+      "mappedObjectives": 0,
+      "representedObjectives": 0,
+      "coverage": "specification_unresolved",
+      "completionStatus": "blocked_or_unmapped"
     },
     {
       "exam": "NERDC",
@@ -4875,18 +5243,18 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 240,
@@ -53143,6 +53511,6 @@
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",
-    "NECO SSCE Internal 2026 timetable verifies formats for twelve existing subject banks. The separate NECO syllabus remains unverified. The timetable neither supplies topic objectives nor establishes SSCE External scope."
+    "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate."
   ]
 }

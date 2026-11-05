@@ -2437,6 +2437,11 @@
         "I": "practical",
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "I": "2001",
+        "III": "2003",
+        "II": "2002"
       }
     },
     {
@@ -2450,6 +2455,11 @@
         "I": "practical",
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "I": "2011",
+        "III": "2013",
+        "II": "2012"
       }
     },
     {
@@ -2463,6 +2473,11 @@
         "I": "practical",
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "I": "2021",
+        "III": "2023",
+        "II": "2022"
       }
     },
     {
@@ -2475,6 +2490,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "1003",
+        "II": "1002"
       }
     },
     {
@@ -2487,6 +2506,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "3013",
+        "II": "3012"
       }
     },
     {
@@ -2499,6 +2522,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "3023",
+        "II": "3022"
       }
     },
     {
@@ -2512,6 +2539,11 @@
         "III": "objective",
         "II": "essay",
         "IV": "test of orals"
+      },
+      "paperCodes": {
+        "III": "1013",
+        "II": "1012",
+        "IV": "1014"
       }
     },
     {
@@ -2525,7 +2557,11 @@
         "III": "objective",
         "II": "theory and practice"
       },
-      "timetableSubject": "Accounting"
+      "timetableSubject": "Accounting",
+      "paperCodes": {
+        "III": "3003",
+        "II": "3002"
+      }
     },
     {
       "exam": "NECO",
@@ -2538,6 +2574,11 @@
         "III": "objective",
         "I": "practical and physical geography",
         "II": "human and regional geography essay"
+      },
+      "paperCodes": {
+        "III": "2063",
+        "I": "2061",
+        "II": "2062"
       }
     },
     {
@@ -2550,6 +2591,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "4043",
+        "II": "4042"
       }
     },
     {
@@ -2563,7 +2608,11 @@
         "III": "objective",
         "II": "essay"
       },
-      "timetableSubject": "General Mathematics"
+      "timetableSubject": "General Mathematics",
+      "paperCodes": {
+        "III": "1023",
+        "II": "1022"
+      }
     },
     {
       "exam": "NECO",
@@ -2576,6 +2625,11 @@
         "I": "practical",
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "I": "2091",
+        "III": "2093",
+        "II": "2092"
       }
     },
     {
@@ -2589,6 +2643,11 @@
         "I": "practical",
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "I": "2031",
+        "III": "2033",
+        "II": "2032"
       }
     },
     {
@@ -2601,6 +2660,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "2053",
+        "II": "2052"
       }
     },
     {
@@ -2613,6 +2676,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "4023",
+        "II": "4022"
       }
     },
     {
@@ -2625,6 +2692,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "4083",
+        "II": "4082"
       }
     },
     {
@@ -2637,6 +2708,10 @@
       "paperFormats": {
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "III": "4113",
+        "II": "4112"
       }
     },
     {
@@ -2651,7 +2726,12 @@
         "III": "objective",
         "II": "essay"
       },
-      "timetableSubject": "Foods & Nutrition"
+      "timetableSubject": "Foods & Nutrition",
+      "paperCodes": {
+        "I": "2041",
+        "III": "2043",
+        "II": "2042"
+      }
     },
     {
       "exam": "NECO",
@@ -2664,6 +2744,11 @@
         "I": "test of practical",
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "I": "2071",
+        "III": "2073",
+        "II": "2072"
       }
     },
     {
@@ -2677,6 +2762,11 @@
         "I": "practical",
         "III": "objective",
         "II": "essay"
+      },
+      "paperCodes": {
+        "I": "2081",
+        "III": "2083",
+        "II": "2082"
       }
     },
     {
@@ -2785,6 +2875,184 @@
         "I": "5001",
         "II": "5002",
         "III": "5003"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay",
+        "III": "objective",
+        "I": "practical"
+      },
+      "paperCodes": {
+        "II": "4062",
+        "III": "4063",
+        "I": "4061"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Music",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay",
+        "III": "objective",
+        "I": "performance test, music technology and alternative to music technology",
+        "IV": "aural music"
+      },
+      "paperCodes": {
+        "II": "4102",
+        "III": "4103",
+        "I": "4101",
+        "IV": "4104"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "I": "written comprehension",
+        "II": "written expression",
+        "IV": "oral"
+      },
+      "paperCodes": {
+        "I": "4031",
+        "II": "4032",
+        "IV": "4034"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay and literature (paired with Paper III)",
+        "III": "objective (paired with Paper II)",
+        "IV": "oral"
+      },
+      "paperCodes": {
+        "II": "4002",
+        "III": "4003",
+        "IV": "4004"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay including literature",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "II": "4052",
+        "III": "4053"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay including literature",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "II": "4072",
+        "III": "4073"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay including literature",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "II": "4132",
+        "III": "4133"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Literature in English",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "drama and poetry",
+        "III": "objective",
+        "IV": "prose"
+      },
+      "paperCodes": {
+        "II": "4092",
+        "III": "4093",
+        "IV": "4094"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "II": "essay",
+        "III": "objective",
+        "I": "drawing",
+        "IV": "creative design"
+      },
+      "paperCodes": {
+        "II": "4122",
+        "III": "4123",
+        "I": "4121",
+        "IV": "4124"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "paperFormats": {
+        "I": "practical",
+        "III": "objective",
+        "IV": "drawing"
+      },
+      "paperCodes": {
+        "I": "2101",
+        "III": "2103",
+        "IV": "2104"
       }
     }
   ],
@@ -9823,6 +10091,6 @@
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",
-    "NECO SSCE Internal 2026 timetable verifies formats for twelve existing subject banks. The separate NECO syllabus remains unverified. The timetable neither supplies topic objectives nor establishes SSCE External scope."
+    "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate."
   ]
 }

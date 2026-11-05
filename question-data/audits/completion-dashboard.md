@@ -69,6 +69,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NCEE | Verbal Aptitude | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | NCEE | Verbal Reasoning | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Agricultural Science | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
+| NECO | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Beauty and Cosmetology | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Biology | 1000 | 14 | 12 | 0 | 988 | partial_objective_register |
 | NECO | Catering Craft | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
@@ -83,17 +84,26 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Fashion Design and Garment Making | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Financial Accounting | 1000 | 21 | 20 | 0 | 980 | partial_objective_register |
 | NECO | Foods and Nutrition | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
+| NECO | French | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Further Mathematics | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Geography | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Government | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
+| NECO | Hausa | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Health Education | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
+| NECO | Home Management | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| NECO | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Islamic Studies | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
+| NECO | Literature in English | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Livestock Farming | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Marketing | 1000 | 9 | 9 | 0 | 991 | partial_objective_register |
 | NECO | Mathematics | 1000 | 38 | 24 | 0 | 976 | partial_objective_register |
+| NECO | Music | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Nigerian History | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Physical Education | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Physics | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
+| NECO | Technical Drawing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| NECO | Visual Arts | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| NECO | Yoruba | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Nursery | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Primary | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -197,13 +207,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 380 | 345 | 0 | 26000 | 25655 |
+| NECO | 380 | 345 | 0 | 36000 | 35655 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3329, "validDrafts": 1650, "reviewed": 0, "registeredBanks": 179, "target": 161000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3329, "validDrafts": 1650, "reviewed": 0, "registeredBanks": 189, "target": 171000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -225,4 +235,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.
 - New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.
 - Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.
-- NECO SSCE Internal 2026 timetable verifies formats for twelve existing subject banks. The separate NECO syllabus remains unverified. The timetable neither supplies topic objectives nor establishes SSCE External scope.
+- The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.

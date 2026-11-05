@@ -2,19 +2,19 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_093_automated_validation_passed",
+  "phase": "neco_ssce_internal_2026_timetable_reconciled",
   "projectComplete": false,
   "academicReviewComplete": false,
   "nextBatch": "original-multisubject-batch-094.json",
   "nextPriorities": [
-    "Verify remaining NECO SSCE Internal subject and paper gaps against the timetable. Obtain the Livestock Farming progressive assessment requirements and Beauty and Cosmetology practical marking guidance.",
+    "Start batch 094 with NECO Home Management if primary topic evidence supports it. Prioritise the ten newly registered timetable subjects and retain unresolved content, texts, practical and oral specifications.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
   "lastValidatedBatch": "original-multisubject-batch-093.json",
-  "lastRemoteVerifiedCommit": "9aeee0760808ff33f5fa8aca4ea84b5b0a254ae1",
+  "lastRemoteVerifiedCommit": "f905b3601b06d45630c70179283712ce686742a6",
   "verifiedTotals": {
     "raw": 3329,
     "validDrafts": 1650,
