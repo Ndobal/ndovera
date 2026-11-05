@@ -1,4 +1,5 @@
 import { getApiUrl } from '../../config/apiBase';
+import { shrinkImage } from '../../shared/images/shrinkImage';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 import { currentUserKey, getItem, isOnline, setItem } from '../../shared/offline/offlineStore';
 import { enqueue, isRetryable, registerSender } from '../../shared/offline/outbox';
@@ -74,7 +75,7 @@ export const markWork = (clubId, submissionId, payload) => request(`/api/clubs/$
 
 export async function uploadClubFile(clubId, file) {
   const form = new FormData();
-  form.append('file', file);
+  form.append('file', await shrinkImage(file, 'document'));
   return (await request(`/api/clubs/${id(clubId)}/upload`, { method: 'POST', body: form })).file;
 }
 

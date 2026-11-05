@@ -1,4 +1,5 @@
 import { getApiUrl } from '../../config/apiBase';
+import { shrinkImage } from '../../shared/images/shrinkImage';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 
 // Teacher work submission and review (Worker: teacherSubmissions.ts).
@@ -47,7 +48,7 @@ export const runAiReview = id => request(`/api/teacher-submissions/${encodeURICo
 
 export async function uploadSubmissionFile(file) {
   const form = new FormData();
-  form.append('file', file);
+  form.append('file', await shrinkImage(file, 'document'));
   const response = await fetch(getApiUrl('/api/teacher-submissions/upload'), { method: 'POST', credentials: 'include', headers: headers(false), body: form });
   const data = await response.json().catch(() => ({}));
   if (!response.ok || !data.success) throw new Error(data.message || 'Could not upload that file.');

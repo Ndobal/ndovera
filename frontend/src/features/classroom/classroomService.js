@@ -1,4 +1,5 @@
 import { getApiUrl } from '../../config/apiBase';
+import { shrinkImage } from '../../shared/images/shrinkImage';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 import { enqueue, isRetryable, registerSender } from '../../shared/offline/outbox';
 import { currentUserKey, getItem, removeItem, setItem } from '../../shared/offline/offlineStore';
@@ -186,7 +187,7 @@ export async function publishDraftTopics(classId, subjectId) {
 export async function uploadAssignmentAsset(classId, payload) {
   const token = localStorage.getItem('token');
   const formData = new FormData();
-  formData.append('file', payload.file);
+  formData.append('file', await shrinkImage(payload.file, 'document'));
   if (payload.title) formData.append('title', payload.title);
   const res = await apiFetch(`/api/classrooms/${classId}/assignment-assets/upload`, {
     method: 'POST',
@@ -349,7 +350,7 @@ export async function uploadMaterial(classId, payload) {
   const token = localStorage.getItem('token');
   if (payload.file) {
     const fd = new FormData();
-    fd.append('file', payload.file);
+    fd.append('file', await shrinkImage(payload.file, 'document'));
     ['title', 'subjectId', 'description', 'type', 'topic', 'weekLabel', 'week', 'visibility', 'releaseAt', 'status'].forEach(key => {
       if (payload[key]) fd.append(key, payload[key]);
     });

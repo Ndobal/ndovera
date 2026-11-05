@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { shrinkImage } from '../../shared/images/shrinkImage';
 import { useNavigate } from 'react-router-dom';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import TeacherAssignmentsPanel from './TeacherAssignmentsPanel';
@@ -650,7 +651,8 @@ export default function TeacherClassroom({
     });
   }
 
-  function uploadFileWithProgress(file, overrides = {}) {
+  async function uploadFileWithProgress(file, overrides = {}) {
+    const shrunk = await shrinkImage(file, 'document');
     return new Promise((resolve, reject) => {
       const token = localStorage.getItem('token');
       const xhr = new XMLHttpRequest();
@@ -671,7 +673,7 @@ export default function TeacherClassroom({
         return;
       }
 
-      fd.append('file', file);
+      fd.append('file', shrunk);
       fd.append('title', nextTitle);
       fd.append('subjectId', nextSubject.id);
       if (nextDescription) fd.append('description', nextDescription);

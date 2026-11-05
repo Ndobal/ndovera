@@ -1,4 +1,5 @@
 import { getApiUrl } from '../../config/apiBase';
+import { shrinkImage } from '../../shared/images/shrinkImage';
 import { buildSelectedRoleHeader, getStoredAuth } from '../auth/services/authApi';
 
 function authHeaders(json = true) {
@@ -35,9 +36,9 @@ export const getStudentHealth = studentId => request(`/api/health/students/${id(
 export const saveHealthProfile = (studentId, body) => request(`/api/health/students/${id(studentId)}/profile`, { method: 'PUT', body });
 export const getMyChildrenHealth = () => request('/api/health/mine');
 
-export function uploadHealthPhoto(incidentId, file) {
+export async function uploadHealthPhoto(incidentId, file) {
   const form = new FormData();
-  form.append('file', file);
+  form.append('file', await shrinkImage(file, 'document'));
   return request(`/api/health/incidents/${id(incidentId)}/photos`, { method: 'POST', body: form });
 }
 

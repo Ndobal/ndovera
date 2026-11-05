@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { shrinkImage } from '../../shared/images/shrinkImage';
 
 const CATEGORIES = [
   { key: 'Document', label: 'Document', icon: '📄', accept: '.doc,.docx,.txt,.ppt,.pptx,.xls,.xlsx,image/*' },
@@ -94,7 +95,8 @@ export default function StaffSubmissionPanel({ role }) {
     try {
       const token = localStorage.getItem('token') || '';
       const formData = new FormData();
-      formData.append('file', file, file.name);
+      const shrunk = await shrinkImage(file, 'document');
+      formData.append('file', shrunk, shrunk.name);
       formData.append('title', title.trim());
       formData.append('description', note.trim());
       formData.append('category', category);

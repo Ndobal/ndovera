@@ -576,7 +576,7 @@ function MediaFrame({ url, title, className = 'h-full w-full object-cover rounde
     return <video src={url} controls className={className} />;
   }
 
-  return <img src={url} alt={title} className={className} />;
+  return <img src={url} alt={title} loading="lazy" decoding="async" className={className} />;
 }
 
 function MediaGallery({ section, eyebrow, title, description, tone = 'light' }) {
@@ -1147,7 +1147,7 @@ function PartnersPageBody({ section }) {
     <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
       {/* Brief explanation + image */}
       <Reveal className="space-y-5">
-        <img src={heroImage} alt="Become an NDOVERA Growth Partner" className="h-56 w-full rounded-[1.6rem] object-cover shadow-[0_18px_40px_rgba(25,25,112,0.18)]" />
+        <img src={heroImage} alt="Become an NDOVERA Growth Partner" loading="lazy" decoding="async" className="h-56 w-full rounded-[1.6rem] object-cover shadow-[0_18px_40px_rgba(25,25,112,0.18)]" />
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#c9a96e]">Growth Partners</p>
           <h2 className="mt-2 font-serif text-3xl font-black text-[#191970]">Introduce schools to NDOVERA and earn.</h2>

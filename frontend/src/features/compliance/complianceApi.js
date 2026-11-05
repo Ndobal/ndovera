@@ -1,4 +1,5 @@
 import { getApiUrl } from '../../config/apiBase';
+import { shrinkImage } from '../../shared/images/shrinkImage';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 
 // Teacher Submissions & Compliance (Worker: compliance.ts).
@@ -55,7 +56,7 @@ export const getClassReports = (params = {}) => request(`/api/compliance/class-r
 export async function uploadComplianceFile(file) {
   const token = localStorage.getItem('token');
   const form = new FormData();
-  form.append('file', file);
+  form.append('file', await shrinkImage(file, 'document'));
   const response = await fetch(getApiUrl('/api/teacher-submissions/upload'), {
     method: 'POST', credentials: 'include', body: form,
     headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}), ...buildSelectedRoleHeader() },

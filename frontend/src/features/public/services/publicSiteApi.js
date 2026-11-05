@@ -1,4 +1,5 @@
 import { getApiUrl } from '../../../config/apiBase';
+import { shrinkForUpload } from '../../../shared/images/shrinkImage';
 import { clearStoredAuth, getSignedOutRedirectPath, getStoredAuth, syncRefreshedToken } from '../../auth/services/authApi';
 
 function buildAuthHeaders(includeJson = true) {
@@ -51,7 +52,7 @@ async function authedRequest(path, { method = 'GET', body } = {}) {
 
 async function uploadAsset(path, file, extraFields = {}) {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', await shrinkForUpload(file, path));
   Object.entries(extraFields).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== '') {
       formData.append(key, value);

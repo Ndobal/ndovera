@@ -1,4 +1,5 @@
 import { getApiUrl } from '../../../config/apiBase';
+import { shrinkForUpload } from '../../../shared/images/shrinkImage';
 import { getStoredAuth, clearStoredAuth, getSignedOutRedirectPath, rememberTenantSiteUrl, syncRefreshedToken, buildSelectedRoleHeader } from '../../auth/services/authApi';
 import { storeTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
 import { registerSender } from '../../../shared/offline/outbox';
@@ -199,7 +200,7 @@ export const saveBranding = (data) => req('/api/school/branding', { method: 'POS
 async function uploadFile(path, file, extraFields = {}) {
   const auth = getStoredAuth();
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', await shrinkForUpload(file, path));
   for (const [k, v] of Object.entries(extraFields)) formData.append(k, v);
   const res = await fetch(getApiUrl(path), {
     method: 'POST',
@@ -220,7 +221,7 @@ async function uploadFile(path, file, extraFields = {}) {
 async function uploadFiles(path, files = [], extraFields = {}) {
   const auth = getStoredAuth();
   const formData = new FormData();
-  files.forEach(file => formData.append('files', file));
+  (await Promise.all(files.map(file => shrinkForUpload(file, path)))).forEach(file => formData.append('files', file));
   Object.entries(extraFields || {}).forEach(([key, value]) => {
     if (value === undefined || value === null || value === '') return;
     formData.append(key, String(value));
