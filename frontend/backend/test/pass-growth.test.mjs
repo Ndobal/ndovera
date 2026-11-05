@@ -47,7 +47,7 @@ async function setup() {
   const pair = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign'])
   const raw = new Uint8Array(await crypto.subtle.exportKey('raw', pair.publicKey))
   const d = (await crypto.subtle.exportKey('jwk', pair.privateKey)).d
-  const env = { APP_DB: db, JWT_SECRET: SECRET, FLUTTERWAVE_SECRET_KEY: 'x', ZOHO_MAIL_ACCOUNT_ID: 'a', ZOHO_MAIL_FROM_ADDRESS: 'f@n.test', ZOHO_MAIL_CLIENT_ID: 'a', ZOHO_MAIL_CLIENT_SECRET: 'b', ZOHO_MAIL_REFRESH_TOKEN: 'c', WEB_PUSH_VAPID_PUBLIC_KEY: Buffer.from(raw).toString('base64url'), WEB_PUSH_VAPID_PRIVATE_KEY: d }
+  const env = { BANK_CLAIMS_OPEN: '1', APP_DB: db, JWT_SECRET: SECRET, FLUTTERWAVE_SECRET_KEY: 'x', ZOHO_MAIL_ACCOUNT_ID: 'a', ZOHO_MAIL_FROM_ADDRESS: 'f@n.test', ZOHO_MAIL_CLIENT_ID: 'a', ZOHO_MAIL_CLIENT_SECRET: 'b', ZOHO_MAIL_REFRESH_TOKEN: 'c', WEB_PUSH_VAPID_PUBLIC_KEY: Buffer.from(raw).toString('base64url'), WEB_PUSH_VAPID_PRIVATE_KEY: d }
   const WHO = { ada: ['ada@a.test', 'student'], bola: ['bola@a.test', 'student'], mum: ['mum@a.test', 'parent'], owner: ['owner@a.test', 'owner'], ami: ['ami@n.test', 'ami'] }
   const hit = async (path, init = {}) => {
     const response = await worker.fetch(new Request(`https://ndovera.com${path}`, { headers: { 'Content-Type': 'application/json', 'X-Practice-Device': 'device-growth-01', ...(init.headers || {}) }, method: init.method, body: init.body }), env, { waitUntil() {}, passThroughOnException() {} })

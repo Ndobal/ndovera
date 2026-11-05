@@ -2,11 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import RedeemCode from './RedeemCode';
 import AskToPay from './AskToPay';
-import BankTransferPay from './BankTransferPay';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MODES, TYPE_LABELS, buildQuiz, estimateXp, levelForXp, newAttemptId } from './engine';
 import {
-  checkoutPass, checkoutPassByBank, chooseFreeSubject, getLeaderboard, loadHome, loadMock, loadPack, money, packSavedAt, pendingAttempts, saveAttempt, verifyPass,
+  checkoutPass, chooseFreeSubject, getLeaderboard, loadHome, loadMock, loadPack, money, packSavedAt, pendingAttempts, saveAttempt, verifyPass,
 } from './practiceApi';
 import { subscribe } from '../../shared/offline/outbox';
 import { isOnline, requestPersistentStorage } from '../../shared/offline/offlineStore';
@@ -278,7 +277,6 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
                   {owned ? 'You have this' : paying === bundle.key ? 'Opening payment…' : `Pay ${money(bundle.priceNaira)}`}
                 </button>
                 {!owned && bundle.ready ? <AskToPay className="mt-2" disabled={(bundle.key === 'subject' && !subjectKey) || (['jamb', 'super'].includes(bundle.key) && jamb.length !== 3)} payload={{ bundle: bundle.key, ...(bundle.key === 'subject' ? { subjectKey } : {}), ...(['jamb', 'super'].includes(bundle.key) ? { jambSubjects: jamb } : {}) }} /> : null}
-                {!owned && bundle.ready ? <BankTransferPay className="mt-2" disabled={(bundle.key === 'subject' && !subjectKey) || (['jamb', 'super'].includes(bundle.key) && jamb.length !== 3)} start={() => checkoutPassByBank({ bundle: bundle.key, ...(bundle.key === 'subject' ? { subjectKey } : {}), ...(['jamb', 'super'].includes(bundle.key) ? { jambSubjects: jamb } : {}) })} /> : null}
               </article>
             );
           })}

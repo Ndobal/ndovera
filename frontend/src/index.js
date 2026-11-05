@@ -32,12 +32,25 @@ function activateWaitingServiceWorker(registration) {
 
 if ('serviceWorker' in navigator && shouldEnablePwa()) {
   window.addEventListener('load', () => {
+    // A first visit installs the helper and must not load the whole page twice. After an update, the new version
+    // loads when the page is out of sight, never under someone's hands.
+    const hadHelper = Boolean(navigator.serviceWorker.controller);
     let didReloadForUpdate = false;
-    const handleControllerChange = () => {
-      if (didReloadForUpdate) return;
+    const reloadWhenHidden = () => {
+      if (didReloadForUpdate || document.visibilityState !== 'hidden') return;
       didReloadForUpdate = true;
       window.location.reload();
     };
+    const handleControllerChange = () => {
+      if (!hadHelper) return;
+      document.addEventListener('visibilitychange', reloadWhenHidden);
+    };
+    // Pages for offline use are kept quietly, well after the first screen, and never on a data-saver connection.
+    const keepPagesForOffline = () => {
+      const worker = navigator.serviceWorker.controller;
+      if (worker && !navigator.connection?.saveData) worker.postMessage({ type: 'KEEP_PAGES' });
+    };
+    window.setTimeout(keepPagesForOffline, 20000);
 
     navigator.serviceWorker.addEventListener('controllerchange', handleControllerChange);
 

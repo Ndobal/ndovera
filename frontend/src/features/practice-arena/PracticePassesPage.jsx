@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import AskToPay from './AskToPay';
-import BankTransferPay from './BankTransferPay';
-import { checkoutPass, checkoutPassByBank, clearStudentDevices, getFamilyPasses, getSchoolPassSubjects, getSchoolPasses, money, quotePass, verifyPass } from './practiceApi';
+import { checkoutPass, clearStudentDevices, getFamilyPasses, getSchoolPassSubjects, getSchoolPasses, money, quotePass, verifyPass } from './practiceApi';
 import { getPeople } from '../school/services/schoolApi';
 import RedeemCode from './RedeemCode';
 import { askConfirm } from '../../shared/components/AppDialog';
@@ -47,7 +46,6 @@ function BundlePicker({ bundles, subjects, onBuy, busy, school = false, subjects
       )}
       <button type="button" className={PRIMARY} disabled={busy || !bundle || (needsSubject && !subjectKey) || (needsJamb && jamb.length !== 3)}
         onClick={() => onBuy({ bundle, ...(needsSubject ? { subjectKey } : {}), ...(needsJamb ? { jambSubjects: jamb } : {}) })}>{busy ? 'Opening payment…' : 'Continue to payment'}</button>
-      <BankTransferPay disabled={busy || !bundle || (needsSubject && !subjectKey) || (needsJamb && jamb.length !== 3)} start={() => checkoutPassByBank({ bundle, ...(needsSubject ? { subjectKey } : {}), ...(needsJamb ? { jambSubjects: jamb } : {}), ...extra })} />
       {!school && bundle && (!needsSubject || subjectKey) && (!needsJamb || jamb.length === 3) ? <AskToPay payload={{ bundle, ...(needsSubject ? { subjectKey } : {}), ...(needsJamb ? { jambSubjects: jamb } : {}), ...extra }} /> : null}
     </div>
   );

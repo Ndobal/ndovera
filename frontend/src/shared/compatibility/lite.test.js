@@ -263,17 +263,15 @@ test('an invoice link opens without signing in', () => {
   expect(text()).toContain('₦10,000');
 });
 
-test('a card that will not open: bank transfer, "I have paid", then the receipt on WhatsApp', () => {
+test('a bank transfer already started can still be finished, but Lite no longer offers a new one', () => {
   const claim = { id: 'NB1', label: 'All Subjects', payNaira: 1500, bankName: 'Moniepoint', accountName: 'Ndovera Limited', accountNumber: '8064252542', status: 'opened' };
   net.reply = classroom({ ...PASSES,
-    '/api/practice-arena/passes/checkout?payBy=bank': () => ({ body: { checkoutUrl: 'https://ndovera.com/bank-pay/NB1' } }),
     '/api/public/bank-pay/NB1': () => ({ body: claim }),
     '/api/public/bank-pay/NB1/paid': () => ({ body: { ...claim, status: 'waiting', whatsappUrl: 'https://wa.me/2348128882800?text=x' } }) });
   start();
   press('Practice passes');
-  const select = app().querySelector('select');
-  select.value = 'all'; select.onchange();
-  press('Pay by bank transfer instead');
+  expect(document.body.textContent).not.toContain('bank transfer');
+  start('student', { hash: '#bank-pay=NB1' });
   expect(text()).toContain('8064252542');
   expect(text()).toContain('Ndovera Limited');
   app().querySelector('form').onsubmit({ preventDefault() {} });

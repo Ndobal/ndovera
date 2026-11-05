@@ -331,16 +331,50 @@ function keepShell(html) {
         }));
       });
     }).then(function () {
-      // Bundles from earlier deploys that this shell no longer names can go.
-      return cache.keys().then(function (requests) {
-        return Promise.all(requests.map(function (request) {
-          var path = new URL(request.url).pathname;
-          if (path.indexOf('/static/') === 0 && assets.indexOf(path) === -1) return cache.delete(request);
-          return null;
-        }));
+      // Bundles from earlier deploys can go. Pages of this version are kept even though the shell does not name them.
+      return currentBuildFiles().then(function (files) {
+        if (!files) return null;
+        return cache.keys().then(function (requests) {
+          return Promise.all(requests.map(function (request) {
+            var path = new URL(request.url).pathname;
+            if (path.indexOf('/static/') === 0 && assets.indexOf(path) === -1 && files.indexOf(path) === -1) return cache.delete(request);
+            return null;
+          }));
+        });
       });
     }).then(function () { return true; });
   }).catch(function () { return false; });
+}
+
+/** Every build file of the current version, or null when that cannot be told. */
+function currentBuildFiles() {
+  return fetch('/asset-manifest.json', { cache: 'no-store', credentials: 'same-origin' }).then(function (response) {
+    if (!response.ok) return null;
+    return response.json().then(function (manifest) {
+      return Object.keys(manifest.files || {}).map(function (name) { return manifest.files[name]; }).filter(function (path) {
+        return /^\/static\/.*\.(js|css)$/.test(path);
+      });
+    });
+  }).catch(function () { return null; });
+}
+
+/** Pages download when opened, so they are kept for offline use one at a time, after the first screen. */
+function keepPagesForOffline() {
+  return currentBuildFiles().then(function (files) {
+    if (!files) return null;
+    return caches.open(CACHE_NAME).then(function (cache) {
+      return files.reduce(function (done, path) {
+        return done.then(function () {
+          return cache.match(path).then(function (found) {
+            if (found) return null;
+            return fetch(path, { credentials: 'same-origin' }).then(function (response) {
+              return response.ok ? cache.put(path, response) : null;
+            }).catch(function () { return null; });
+          });
+        });
+      }, Promise.resolve());
+    });
+  });
 }
 
 /** The kept shell, if every asset it names is still kept. */
@@ -514,6 +548,10 @@ self.addEventListener('activate', function (event) {
 self.addEventListener('message', function (event) {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+    return;
+  }
+  if (event.data && event.data.type === 'KEEP_PAGES') {
+    event.waitUntil(keepPagesForOffline());
     return;
   }
 

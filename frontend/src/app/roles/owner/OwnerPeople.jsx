@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { localMoney } from '../../../shared/pricing/localPrice';
-import BankTransferPay from '../../../features/practice-arena/BankTransferPay';
 import { Link } from 'react-router-dom';
 import {
   getPeople, addPerson, deactivatePerson, setPersonRoles, changePersonEmail, getSchoolEmailFor, getContactChanges, buyContactChanges, confirmContactChanges, getPastStudents, restorePerson,
@@ -62,7 +61,6 @@ function ContactChangesNote() {
     <div className="mt-2 rounded-xl border border-amber-500 bg-amber-50 p-2 text-xs font-semibold text-amber-950">
       <p>Changes left this month: {left} ({status.freeLeft} free{status.extra ? `, ${status.extra} bought` : ''}).</p>
       {!left ? <button type="button" onClick={buy} className="mt-1 rounded-lg bg-[#191970] px-3 py-1.5 font-bold text-white">Buy {status.packSize} more for {localMoney(status.packNaira, status.pricing)}</button> : null}
-      {!left ? <BankTransferPay className="mt-1" start={() => buyContactChanges(true).then(result => result.checkoutUrl)} /> : null}
       {message ? <p role="alert">{message}</p> : null}
     </div>
   );

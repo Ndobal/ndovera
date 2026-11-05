@@ -156,6 +156,10 @@ test('every subject free at school level, 10 questions a day across subjects; pa
     const checkout = await call(db, 'ss2', 'POST', '/api/practice-arena/passes/checkout', { bundle: 'subject', subjectKey: 'mathematics', amountNaira: 1 })
     assert.equal(checkout.status, 200, JSON.stringify(checkout.body))
     assert.equal(flutterwave.created.at(-1).amount, 300, 'the request cannot set the price')
+    for (const way of ['card', 'banktransfer', 'ussd', 'account', 'opay', 'nqr']) assert.ok(flutterwave.created.at(-1).payment_options.includes(way), way)
+    const byHand = await call(db, 'ss2', 'POST', '/api/practice-arena/passes/checkout?payBy=bank', { bundle: 'subject', subjectKey: 'mathematics' })
+    assert.notEqual(byHand.status, 200, 'direct bank transfer is no longer offered')
+    assert.equal(byHand.body.checkoutUrl, undefined)
     assert.equal((await call(db, 'ss2', 'POST', '/api/practice-arena/passes/verify', { txRef: checkout.body.txRef })).status, 402, 'not paid yet')
     flutterwave.verify[checkout.body.txRef] = { status: 'successful', amount: 300 }
     const paid = await call(db, 'ss2', 'POST', '/api/practice-arena/passes/verify', { txRef: checkout.body.txRef })

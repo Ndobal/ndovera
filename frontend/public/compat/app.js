@@ -254,8 +254,6 @@
     select.onchange=function(){choice.show(select.value==='subject'?'subject':select.value==='jamb'||select.value==='super'?'jamb':'');};
     var pay=button('Continue to payment',function(){if(!select.value){message('Choose a pass first.',true,card);return;}pay.disabled=true;var body=choice.fill({bundle:select.value});if(studentId)body.studentId=studentId;
       request('POST','/api/practice-arena/passes/checkout',body,function(err,data){pay.disabled=false;if(err){message(err.message,true,card);return;}goPay(data.checkoutUrl,'Your pass opens as soon as the payment is confirmed.');});},card);
-    button('Pay by bank transfer instead',function(){if(!select.value){message('Choose a pass first.',true,card);return;}var body=choice.fill({bundle:select.value});if(studentId)body.studentId=studentId;
-      request('POST','/api/practice-arena/passes/checkout?payBy=bank',body,function(err,data){if(err){message(err.message,true,card);return;}bankPage(String(data.checkoutUrl||'').split('/').pop());});},card);
     var code=node('form',null,card),cl=node('label','Have a code for a free pass?',code),input=node('input',null,code);input.id='lite-code-'+(studentId||'me');cl.htmlFor=input.id;input.autocomplete='off';
     var codePicks=node('div',null,code),codeChoice=choices(codePicks,subjects),use=node('button','Use code',code);use.type='submit';
     code.onsubmit=function(e){e.preventDefault();use.disabled=true;var body=codeChoice.fill({code:input.value});if(studentId)body.studentId=studentId;
@@ -338,8 +336,7 @@
     clear();node('h1','Ndovera invoice',app);var status=message('Loading…'),path='/api/public/invoices/'+encodeURIComponent(token);
     function show(invoice){status.parentNode.removeChild(status);var card=node('article',null,app);card.className='card';node('h2',invoice.schoolName||'School',card);node('p','Invoice '+(invoice.invoiceNo||''),card);node('p',(invoice.term||'')+' '+(invoice.session||''),card);node('p','Amount: '+money(invoice.amountCents/100,invoice.pricing),card);
       if(invoice.status==='paid'){message('This invoice is paid. Thank you.',false,card);return;}
-      var pay=button('Continue to payment',function(){pay.disabled=true;request('POST',path+'/checkout',{},function(err,data){pay.disabled=false;if(err){message(err.message,true,card);return;}goPay(data.link,'Ndovera marks the invoice paid as soon as the payment is confirmed.');});},card);
-      button('Pay by bank transfer instead',function(){request('POST',path+'/checkout?payBy=bank',{},function(err,data){if(err){message(err.message,true,card);return;}bankPage(String(data.link||'').split('/').pop());});},card);}
+      var pay=button('Continue to payment',function(){pay.disabled=true;request('POST',path+'/checkout',{},function(err,data){pay.disabled=false;if(err){message(err.message,true,card);return;}goPay(data.link,'Ndovera marks the invoice paid as soon as the payment is confirmed.');});},card);}
     function read(){request('GET',path,null,function(err,data){if(err){status.parentNode.removeChild(status);message(err.message,true);return;}show(data.invoice);});}
     if(paymentRef)request('POST',path+'/confirm',{txRef:paymentRef},function(err,data){if(!err&&data.invoice&&data.paid){show(data.invoice);return;}read();});else read();
   }

@@ -4904,6 +4904,9 @@ function buildTenantWebsite(c: any, schoolId: string, tenant?: any) {
  * A naira checkout, in what this buyer pays: outside Nigeria the school's country (or, for a school
  * still registering, where the visitor is) sets the currency and the 20%. Nigeria is unchanged.
  */
+/** What a buyer in Nigeria can choose on Flutterwave's page. Flutterwave only shows those switched on for the account. */
+const NIGERIA_PAYMENT_OPTIONS = 'card, banktransfer, ussd, account, opay, nqr'
+
 async function priceForBuyer(c: any, payload: Record<string, any>) {
   if (String(payload.currency || '').toUpperCase() !== 'NGN') return payload
   const meta = payload.meta || {}
@@ -4912,7 +4915,7 @@ async function priceForBuyer(c: any, payload: Record<string, any>) {
   // Registration (meta.planKey) is the one checkout where a blank country means "not told us yet".
   const country = !tenant || (meta.planKey && !String(tenant.country || '').trim()) ? visitor : countryForTenant(tenant.country, visitor)
   const rule = await ruleFor(c.env.APP_DB, country)
-  if (!rule.foreign) return payload
+  if (!rule.foreign) return { ...payload, payment_options: NIGERIA_PAYMENT_OPTIONS }
   const charge = chargeFor(rule, Number(payload.amount), { discounted: Boolean(meta.discountCode || tenant?.discountCode) })
   await recordCharge(c.env.APP_DB, String(payload.tx_ref), rule.country, charge)
   return { ...payload, amount: charge.amount, currency: charge.currency, meta: { ...meta, nairaPrice: charge.nairaAmount } }
@@ -4947,7 +4950,11 @@ async function openBankCheckout(c: any, payload: Record<string, any>) {
 }
 
 async function createFlutterwavePayment(c: any, payload: Record<string, any>) {
-  if (c.req.query('payBy') === 'bank') return openBankCheckout(c, payload)
+  // Paying into Ndovera's account by hand is no longer offered. Payments already waiting can still be approved.
+  if (c.req.query('payBy') === 'bank') {
+    if (!(c.env as any).BANK_CLAIMS_OPEN) throw new Error('Paying by direct bank transfer is no longer offered. Please use the payment page, which has several ways to pay.')
+    return openBankCheckout(c, payload)
+  }
   if (!c.env.FLUTTERWAVE_SECRET_KEY) {
     throw new Error('Flutterwave secret is not configured.')
   }

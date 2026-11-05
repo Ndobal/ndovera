@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { localMoney } from '../../shared/pricing/localPrice';
-import BankTransferPay from '../practice-arena/BankTransferPay';
 import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 
@@ -74,7 +73,6 @@ export function BundlePicker({ onClose, canFundSchool }) {
               <button type="button" disabled={Boolean(busy)} onClick={() => buy(bundle)} className="mt-3 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 py-2.5 font-black text-white disabled:opacity-60">
                 {busy === bundle.key ? 'Opening checkout…' : `Buy for ${localMoney(bundle.priceNaira, priceRule)}`}
               </button>
-                <BankTransferPay className="mt-2" start={() => buyCreditBundle(bundle.key, bundle.schoolOnly ? 'school' : target, true).then(result => result.paymentLink)} />
             </div>
           ))}
         </div>

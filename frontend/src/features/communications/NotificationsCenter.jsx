@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import SchoolEmailPanel from './SchoolEmailPanel';
-import BankTransferPay from '../practice-arena/BankTransferPay';
 import * as api from './communicationsApi';
 import { askConfirm, showAlert } from '../../shared/components/AppDialog';
 
@@ -173,7 +172,6 @@ function BuyUnits({ data, run }) {
       </label>
       <p className="text-sm text-[#191970] dark:text-slate-200">Total: <b>{api.naira(total)}</b>. Units you buy never expire and carry over between terms. A message the provider accepts uses its units even if a phone is off or out of coverage; paying does not guarantee delivery to the handset.</p>
       <button type="button" className={PRIMARY} disabled={!units} onClick={buy}>Pay with Flutterwave</button>
-      <BankTransferPay disabled={!units} start={async () => { const { quote } = await api.quoteUnits({ channel, units: Number(units) }); return (await api.startPurchase(quote.id, true)).checkoutUrl; }} />
     </div>
   );
 }
