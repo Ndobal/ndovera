@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Health Education environmental health written practice",
+  "questionCount": 8,
+  "note": "Original structured and objective practice. Paper formats verified; topic mapping provisional. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Environmental health",
+      "subtopic": "Drinking-water contamination and protection",
+      "learningObjective": "Identify contamination pathways and evaluate preventive controls for drinking water.",
+      "specificationId": "neco-health-water-sanitation-reference-2026",
+      "id": "ndv-079-001",
+      "objectiveId": "neco-health-079-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school uses a verified safe water supply to fill a container for break time. Pupils scoop water using their own cups, and some cups touch the water inside. Explain how contamination can enter after filling and redesign the dispensing step.",
+      "answer": "Hands and used cups can introduce contamination. Use a clean covered container fitted with a tap so cups do not enter the stored water.",
+      "explanation": "The safe source addresses water quality at filling. The container and dispensing method protect it afterwards.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify a plausible contamination route."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a tap or another method that avoids dipping."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why the control protects water after filling."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Environmental health",
+      "subtopic": "Drinking-water contamination and protection",
+      "learningObjective": "Identify contamination pathways and evaluate preventive controls for drinking water.",
+      "specificationId": "neco-health-water-sanitation-reference-2026",
+      "id": "ndv-079-002",
+      "objectiveId": "neco-health-079-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A community committee plans to reopen a well immediately after floodwater entered it because the water now looks clear. Evaluate the evidence and specify what the committee should establish before resuming use for drinking.",
+      "answer": "Clarity does not show that microbial or chemical contamination is absent. Keep the well out of drinking use until appropriate assessment, corrective action and confirmation of safety by the responsible water or health authority. Use a verified safe supply meanwhile.",
+      "explanation": "Separate a visual observation from evidence of safety. Floodwater can introduce hazards that are invisible.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain why clarity is insufficient."
+        },
+        {
+          "marks": 1,
+          "description": "Describe a suitable assessment and confirmation step."
+        },
+        {
+          "marks": 1,
+          "description": "Provide a safe interim drinking-water option."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Environmental health",
+      "subtopic": "Drinking-water contamination and protection",
+      "learningObjective": "Identify contamination pathways and evaluate preventive controls for drinking water.",
+      "specificationId": "neco-health-water-sanitation-reference-2026",
+      "id": "ndv-079-003",
+      "objectiveId": "neco-health-079-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A school labels one pipe for drinking water and another for untreated irrigation water. Why should the two systems be kept separate?",
+      "answer": "A connection could allow untreated water to enter the drinking supply.",
+      "explanation": "Separating the systems prevents a route for contamination through a cross-connection.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The irrigation pipe would change the colour of the labels.",
+        "A connection could allow untreated water to enter the drinking supply.",
+        "The drinking water would prevent plants from growing.",
+        "Separate pipes make all water safe without further checks."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Environmental health",
+      "subtopic": "Drinking-water contamination and protection",
+      "learningObjective": "Identify contamination pathways and evaluate preventive controls for drinking water.",
+      "specificationId": "neco-health-water-sanitation-reference-2026",
+      "id": "ndv-079-004",
+      "objectiveId": "neco-health-079-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A caretaker suspects that fuel has leaked into a drinking-water tank. Which response is appropriate?",
+      "answer": "Stop using the tank for drinking and arrange a safe alternative while the suspected contamination is assessed.",
+      "explanation": "Fuel is a chemical hazard. Boiling, visual inspection and dilution are unsuitable ways to establish safety.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Boil the water and use it immediately.",
+        "Use the water if a sample looks clear.",
+        "Dilute it with more water and continue serving it.",
+        "Stop using the tank for drinking and arrange a safe alternative while the suspected contamination is assessed."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Environmental health",
+      "subtopic": "Sanitation and refuse management",
+      "learningObjective": "Explain how sanitation facilities and waste handling can reduce environmental exposure.",
+      "specificationId": "neco-health-water-sanitation-reference-2026",
+      "id": "ndv-079-005",
+      "objectiveId": "neco-health-079-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A market installs toilets, but the waste tank leaks into a nearby ditch. Explain why counting the toilets alone overstates the sanitation improvement. Give one corrective action.",
+      "answer": "The toilets provide a place to use, but leaking waste still exposes people and the environment to contamination. Repair or replace the leaking containment and arrange safe management of its contents.",
+      "explanation": "Effective sanitation includes what happens to waste after someone uses a toilet. A facility count measures only one part of the service.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify what the installation improved."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the remaining exposure pathway."
+        },
+        {
+          "marks": 1,
+          "description": "Give a corrective action that addresses waste containment or management."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Environmental health",
+      "subtopic": "Sanitation and refuse management",
+      "learningObjective": "Explain how sanitation facilities and waste handling can reduce environmental exposure.",
+      "specificationId": "neco-health-water-sanitation-reference-2026",
+      "id": "ndv-079-006",
+      "objectiveId": "neco-health-079-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school’s refuse bins overflow between weekly collections. Design a two-part plan that addresses both storage and removal, and give one observable measure for checking improvement.",
+      "answer": "Provide covered bins sized for the volume generated and arrange collection before the bins fill. Record the number of days with overflow each week and compare with the earlier situation.",
+      "explanation": "Storage and removal address different causes. The measure tests whether waste remains contained between collections.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Propose appropriate covered storage."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a collection change that reduces overflow."
+        },
+        {
+          "marks": 1,
+          "description": "Give a measurable check linked to the problem."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Environmental health",
+      "subtopic": "Sanitation and refuse management",
+      "learningObjective": "Explain how sanitation facilities and waste handling can reduce environmental exposure.",
+      "specificationId": "neco-health-water-sanitation-reference-2026",
+      "id": "ndv-079-007",
+      "objectiveId": "neco-health-079-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which finding best shows that a new public toilet has an incomplete sanitation service?",
+      "answer": "The facility is usable, but the operator cannot identify where the emptied waste goes.",
+      "explanation": "A working toilet is one stage. Safe removal, treatment and disposal must also be considered.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The facility is usable, but the operator cannot identify where the emptied waste goes.",
+        "The operator checks the handwashing station each morning.",
+        "The entrance has an accessible ramp.",
+        "Cleaning supplies are stored in a separate cupboard."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Environmental health",
+      "subtopic": "Sanitation and refuse management",
+      "learningObjective": "Explain how sanitation facilities and waste handling can reduce environmental exposure.",
+      "specificationId": "neco-health-water-sanitation-reference-2026",
+      "id": "ndv-079-008",
+      "objectiveId": "neco-health-079-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A class finds pieces of broken glass mixed with lunch scraps beside the school bins. What should pupils do first?",
+      "answer": "Keep others away from the glass and alert the supervising adult.",
+      "explanation": "Restricting access reduces immediate injury risk while an adult arranges safe handling.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Press the waste down by hand to make room.",
+        "Sweep the glass into a walkway so it is visible.",
+        "Keep others away from the glass and alert the supervising adult.",
+        "Ask another pupil to collect the pieces without equipment."
+      ],
+      "correctOption": "C"
+    }
+  ]
+}

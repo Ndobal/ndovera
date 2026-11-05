@@ -412,3 +412,8 @@ Batch 078 adds six supervised Foods and Nutrition kitchen practicals.
 They require prepared outputs and observed performance. NECO's 2026
 timetable confirms Paper I is practical. Specific NECO tasks and
 marking specifications remain unverified.
+
+Batch 079 registers NECO Health Education and adds eight written drafts
+on water protection, sanitation and refuse management. The 2026
+timetable confirms the objective and essay papers and Test of Practical.
+Official topic objectives and detailed practical requirements remain open.
