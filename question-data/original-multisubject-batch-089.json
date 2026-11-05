@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Computer Hardware and GSM Repairs supervised practicals",
+  "questionCount": 6,
+  "note": "Original classroom tasks using unpowered or low-voltage training equipment. Paper I format verified. Task alignment and marking are provisional, with independent review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "Computer hardware practical",
+      "subtopic": "Connector selection and inspection",
+      "learningObjective": "Demonstrate connector selection, inspection and labelling on unpowered training equipment.",
+      "specificationId": "neco-computer-gsm-practical-reference-2026",
+      "id": "ndv-089-001",
+      "objectiveId": "neco-computer-gsm-089-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a supervised bench, match an HDMI display cable, a USB-A keyboard plug and an Ethernet patch cable to ports on an unpowered desktop panel. Demonstrate insertion without forcing a connector, then label the purpose of each connection.",
+      "answer": "Match each plug to its corresponding port, align its shape and insert gently. Label HDMI as display, USB as keyboard input and Ethernet as wired networking.",
+      "explanation": "A successful fit and a correct use label test both recognition and handling.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Match and label HDMI for display."
+        },
+        {
+          "marks": 1,
+          "description": "Match and label USB-A for the keyboard."
+        },
+        {
+          "marks": 1,
+          "description": "Match and label Ethernet for wired networking."
+        },
+        {
+          "marks": 1,
+          "description": "Align connectors and avoid forcing them."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "Computer hardware practical",
+      "subtopic": "Connector selection and inspection",
+      "learningObjective": "Demonstrate connector selection, inspection and labelling on unpowered training equipment.",
+      "specificationId": "neco-computer-gsm-practical-reference-2026",
+      "id": "ndv-089-002",
+      "objectiveId": "neco-computer-gsm-089-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "With a training desktop unplugged and under supervision, trace the two leads attached to a SATA drive. The case is already open. Attach removable labels showing which lead carries data and which supplies power, and show where each lead ends. Leave both connections in place.",
+      "answer": "Follow the narrower SATA data lead to the motherboard and the wider SATA power lead to the power-supply harness. Label each and leave both seated.",
+      "explanation": "The two leads connect the same drive to different subsystems. Following their routes confirms the identification.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Trace the data lead to the motherboard."
+        },
+        {
+          "marks": 1,
+          "description": "Trace the power lead to the power-supply harness."
+        },
+        {
+          "marks": 1,
+          "description": "Label both leads correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Leave connections seated and the computer unplugged."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "Computer hardware practical",
+      "subtopic": "Connector selection and inspection",
+      "learningObjective": "Demonstrate connector selection, inspection and labelling on unpowered training equipment.",
+      "specificationId": "neco-computer-gsm-practical-reference-2026",
+      "id": "ndv-089-003",
+      "objectiveId": "neco-computer-gsm-089-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two retired, unplugged USB training panels are presented for inspection. One has a bent internal tongue and one has an intact socket with an obstructing removable paper tag across its opening. With a torch, inspect both without inserting anything, label the panel to hold for repair and show how you would make the other available for a supervised fit check.",
+      "answer": "Label the panel with the bent tongue for repair and keep it out of use. Remove the external paper tag from the intact panel and recheck its opening visually before referring it for a supervised fit check.",
+      "explanation": "A physical defect and an external obstruction require different actions. Visual inspection avoids worsening a damaged socket.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Find and label the damaged panel."
+        },
+        {
+          "marks": 1,
+          "description": "Keep tools and plugs out of the damaged socket."
+        },
+        {
+          "marks": 1,
+          "description": "Remove the external obstruction from the intact panel."
+        },
+        {
+          "marks": 1,
+          "description": "Reinspect visually before referring for a fit check."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "GSM repair practical",
+      "subtopic": "Multimeter setup and measurement",
+      "learningObjective": "Set up a meter, take controlled readings and distinguish observations from fault conclusions on isolated training equipment.",
+      "specificationId": "neco-computer-gsm-practical-reference-2026",
+      "id": "ndv-089-004",
+      "objectiveId": "neco-computer-gsm-089-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a supervised bench, prepare a digital multimeter for continuity testing on an isolated unpowered training link. Show the teacher your probe sockets, selected mode and a comparison with the probe tips touching and separated.",
+      "answer": "Connect black to COM and red to the socket marked for resistance or continuity. Select continuity. Touch the tips together for the closed-path indication and separate them for the open-path indication.",
+      "explanation": "The known open and closed conditions confirm the meter setup before it is used on the link.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use the COM and resistance or continuity sockets."
+        },
+        {
+          "marks": 1,
+          "description": "Select continuity mode."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrate the closed indication."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrate the open indication."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "GSM repair practical",
+      "subtopic": "Multimeter setup and measurement",
+      "learningObjective": "Set up a meter, take controlled readings and distinguish observations from fault conclusions on isolated training equipment.",
+      "specificationId": "neco-computer-gsm-practical-reference-2026",
+      "id": "ndv-089-005",
+      "objectiveId": "neco-computer-gsm-089-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Your teacher provides a disconnected, unpowered training cable with three separately labelled conductors and accessible endpoints. Using continuity mode, record the result for each matching pair, then check between the two adjacent conductors identified on the work card. Report any unexpected open or connection.",
+      "answer": "Confirm meter response with probes together and apart. Test each matching endpoint pair for a conducting path and test the specified adjacent conductors for isolation. Record the actual results and flag any matching pair that is open or adjacent pair that conducts.",
+      "explanation": "End-to-end and between-conductor tests detect different wiring faults.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Check meter response before testing."
+        },
+        {
+          "marks": 1,
+          "description": "Record all three matching-pair results."
+        },
+        {
+          "marks": 1,
+          "description": "Test and record the specified adjacent pair."
+        },
+        {
+          "marks": 1,
+          "description": "Interpret unexpected open or conducting paths correctly."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Computer Hardware and GSM Repairs",
+      "topic": "GSM repair practical",
+      "subtopic": "Multimeter setup and measurement",
+      "learningObjective": "Set up a meter, take controlled readings and distinguish observations from fault conclusions on isolated training equipment.",
+      "specificationId": "neco-computer-gsm-practical-reference-2026",
+      "id": "ndv-089-006",
+      "objectiveId": "neco-computer-gsm-089-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A supervised handset simulator has an enclosed current-limited low-voltage supply and two shrouded test points. The work card identifies a negative reference and a positive output. Set a digital multimeter to measure DC voltage, record the reading and polarity, and explain whether the unloaded reading alone confirms that the simulator can charge under load.",
+      "answer": "Use COM and the voltage input, select DC voltage on a suitable range, and place black at reference and red at output. Record the signed reading with units. The unloaded voltage does not establish that the supply will maintain its output under load.",
+      "explanation": "Measuring potential difference checks voltage at the test points. Charging also depends on performance when current is drawn.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use the COM and voltage sockets and a suitable DC range."
+        },
+        {
+          "marks": 1,
+          "description": "Connect to the labelled test points with correct polarity."
+        },
+        {
+          "marks": 1,
+          "description": "Record the signed reading and units."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the limitation of an unloaded reading."
+        }
+      ]
+    }
+  ]
+}

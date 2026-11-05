@@ -468,3 +468,8 @@ Internal timetable verifies practical (5011), essay (5012) and
 objective (5013) formats. Historical WAEC examiner reports inform
 provisional topic mapping. Official NECO objectives and practical
 tasks remain unverified.
+
+Batch 089 adds six supervised Computer Hardware and GSM Repairs
+classroom practical drafts. The 2026 NECO timetable verifies Paper I
+as practical. Topic evidence is historical and cross-board. The tasks
+and marking guides are original and provisional.
