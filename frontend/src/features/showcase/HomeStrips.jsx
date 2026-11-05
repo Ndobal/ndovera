@@ -10,6 +10,8 @@ const MIN_ITEMS = 10;
 
 function repeated(items) {
   let list = items;
+  // An empty list can never grow: one strip with nothing to show must not freeze the page.
+  if (!items.length) return list;
   while (list.length < MIN_ITEMS) list = [...list, ...items];
   return list;
 }
