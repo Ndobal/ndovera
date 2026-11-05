@@ -1,0 +1,19 @@
+name = "ndovera-reach-api"
+main = "worker/src/index.ts"
+compatibility_date = "2026-10-01"
+
+[vars]
+APP_ENV = "development"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ndovera-reach"
+database_id = "REPLACE_WITH_NEW_DATABASE_ID"
+
+[[queues.producers]]
+binding = "MESSAGE_QUEUE"
+queue = "ndovera-reach-messages"
+
+[[r2_buckets]]
+binding = "ASSETS"
+bucket_name = "ndovera-reach-assets"
