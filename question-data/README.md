@@ -456,3 +456,8 @@ The 2026 Internal timetable verifies papers I (5041, practical),
 II (5042, essay) and III (5043, objective). The written topics use
 historical WAEC Animal Husbandry reports provisionally. Official
 NECO content objectives and practical task details remain open.
+
+Batch 087 adds six supervised Livestock Farming simulations on
+poultry records, traceability, equipment checks and litter management.
+The 2026 Internal timetable confirms Paper I as practical. The
+model tasks and classroom marking guides are provisional.

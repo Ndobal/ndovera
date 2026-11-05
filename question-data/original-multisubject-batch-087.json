@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Livestock Farming supervised poultry simulations",
+  "questionCount": 6,
+  "note": "Original classroom simulations using model materials. Official NECO practical format verified; task and marking details provisional, with academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry practical",
+      "subtopic": "Recording and tracing production",
+      "learningObjective": "Demonstrate accurate recording and traceability using simulated poultry production materials.",
+      "specificationId": "neco-livestock-poultry-practical-reference-2026",
+      "id": "ndv-087-001",
+      "objectiveId": "neco-livestock-087-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a supervised model collection station, sort egg counters from trays marked Pen A and Pen B. Red stickers represent cracked eggs. For each pen, count and record intact and cracked eggs separately, then move only the intact counters to a collection tray and check its total against your sheet.",
+      "answer": "Keep the pens separate until counts are recorded. Enter both categories for each pen, transfer the intact counters only, then compare the collection count with the sum of the intact entries. Investigate any mismatch by recounting.",
+      "explanation": "Recording before pooling preserves the pen of origin. Reconciling the intact total checks for a transfer or recording error.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Keep pen groups separate during counting."
+        },
+        {
+          "marks": 1,
+          "description": "Record accurate intact and cracked counts for each pen."
+        },
+        {
+          "marks": 1,
+          "description": "Transfer only intact counters."
+        },
+        {
+          "marks": 1,
+          "description": "Reconcile the tray count with the intact entries."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry practical",
+      "subtopic": "Recording and tracing production",
+      "learningObjective": "Demonstrate accurate recording and traceability using simulated poultry production materials.",
+      "specificationId": "neco-livestock-poultry-practical-reference-2026",
+      "id": "ndv-087-002",
+      "objectiveId": "neco-livestock-087-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Your teacher supplies two mock flock transfer slips and a ledger with one of those transfers already entered. Match slips to the ledger by reference number, then make and label the missing entry. Show what you would do with the slip that is already represented.",
+      "answer": "Match each reference to the ledger. Enter only the missing transaction with its date, pen, movement direction and bird count. Mark the matched slip as checked and retain it without posting a second entry.",
+      "explanation": "The reference number connects the ledger entry to its evidence and prevents double posting.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Match the existing entry to its slip by reference."
+        },
+        {
+          "marks": 1,
+          "description": "Record the missing date and pen."
+        },
+        {
+          "marks": 1,
+          "description": "Record the correct movement direction and bird count."
+        },
+        {
+          "marks": 1,
+          "description": "Retain the matched slip without entering it again."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry practical",
+      "subtopic": "Recording and tracing production",
+      "learningObjective": "Demonstrate accurate recording and traceability using simulated poultry production materials.",
+      "specificationId": "neco-livestock-poultry-practical-reference-2026",
+      "id": "ndv-087-003",
+      "objectiveId": "neco-livestock-087-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a mock packing bench, the teacher gives you three egg cartons with tags and a dispatch sheet. Each tag shows a pen, collection date and carton number. One carton has a correct number and pen but a different date from the dispatch sheet. Inspect the cartons, set aside the affected one and complete a discrepancy note for the supervisor.",
+      "answer": "Match each carton to the sheet by number and compare pen and date. Set aside the carton with the date mismatch. Record the carton number, both dates and the need to verify the collection record before release.",
+      "explanation": "A matching carton number and pen do not resolve a date conflict. The note preserves both observations for verification.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Compare carton numbers, pens and dates."
+        },
+        {
+          "marks": 1,
+          "description": "Set aside the correct carton."
+        },
+        {
+          "marks": 1,
+          "description": "Record the carton number and both conflicting dates."
+        },
+        {
+          "marks": 1,
+          "description": "Refer the carton for verification before release."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry practical",
+      "subtopic": "Equipment and litter checks",
+      "learningObjective": "Demonstrate checks and corrective actions using a model poultry pen without live birds.",
+      "specificationId": "neco-livestock-poultry-practical-reference-2026",
+      "id": "ndv-087-004",
+      "objectiveId": "neco-livestock-087-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a supervised model pen, use a scoop and three clean simulated litter samples supplied by the teacher. Place each sample in the tray labelled dry and loose, damp and clumped, or wet and compacted. Leave the scoop at the cleaning station when finished.",
+      "answer": "Use the scoop to examine and separate the samples. Dry loose bedding falls apart easily. Damp bedding forms clumps, while wet compacted material holds together in a denser mat. Return the scoop for cleaning.",
+      "explanation": "Judgement is based on observable moisture and texture across the supplied samples.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use the scoop to handle samples."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly sort the dry and loose sample."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly distinguish the damp and wet samples."
+        },
+        {
+          "marks": 1,
+          "description": "Return the scoop to the cleaning station."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry practical",
+      "subtopic": "Equipment and litter checks",
+      "learningObjective": "Demonstrate checks and corrective actions using a model poultry pen without live birds.",
+      "specificationId": "neco-livestock-poultry-practical-reference-2026",
+      "id": "ndv-087-005",
+      "objectiveId": "neco-livestock-087-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a model pen with a drinker and two supports, test which support keeps the drinker steady. The teacher provides a flat platform, an uneven block and a shallow spill tray. Use a little clean water, demonstrate your chosen setup and check for drips before and after gently nudging the base.",
+      "answer": "Use the flat platform and centre the drinker on it over the spill tray. Observe for baseline drips, give the base a gentle nudge, and check for rocking, spillage or leakage. Record the result and flag any leakage that remains on the stable support.",
+      "explanation": "A stable support can reduce tipping. Observations before and after the nudge distinguish an existing drip from a spill caused by movement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Select the stable platform and position the drinker securely."
+        },
+        {
+          "marks": 1,
+          "description": "Observe for drips before the nudge."
+        },
+        {
+          "marks": 1,
+          "description": "Carry out the gentle test over the spill tray."
+        },
+        {
+          "marks": 1,
+          "description": "Record the result and distinguish any persistent drip from a movement-related spill."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry practical",
+      "subtopic": "Equipment and litter checks",
+      "learningObjective": "Demonstrate checks and corrective actions using a model poultry pen without live birds.",
+      "specificationId": "neco-livestock-poultry-practical-reference-2026",
+      "id": "ndv-087-006",
+      "objectiveId": "neco-livestock-087-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "The teacher supplies a model pen with a lidded feed container, an open feed scoop beside a wall gap, and a vent fitted with loose mesh. Without using chemicals, inspect the model, make two changes to reduce pest access and explain how your setup preserves ventilation.",
+      "answer": "Return the exposed feed to the lidded container and clean the simulated spill if present. Repair or cover the wall gap and secure mesh to the vent frame as needed. Accept two effective changes that address observed risks while leaving a screened path for airflow.",
+      "explanation": "Food access and openings are different risks. An effective repair secures entry points without blocking the planned airflow.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify at least two observed risks."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrate one effective change."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrate a second effective change."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how airflow is maintained."
+        }
+      ]
+    }
+  ]
+}
