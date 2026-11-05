@@ -58,6 +58,7 @@ import ExamRequestPage from '../../features/showcase/ExamRequestPage';
 import AmiExamRequests from '../../app/roles/ami/AmiExamRequests';
 import AmiBuilderControls from '../../app/roles/ami/AmiBuilderControls';
 import AmiNewQuestionsReport from '../../app/roles/ami/AmiNewQuestionsReport';
+import { HomeQuestions, PriceTeaser, RoleBenefits, StartSteps, Strengths } from '../../features/public/pages/HomeSections';
 import AmiPartnerUpdates from '../../app/roles/ami/AmiPartnerUpdates';
 import { ToolkitMessages, WhatsNewPage } from '../../app/roles/growthpartner/PartnerUpdatesPages';
 import * as publicSiteApi from '../../features/public/services/publicSiteApi';
@@ -607,6 +608,13 @@ describe('reviews, home strips, pass codes and country prices', () => {
     await inBothModes(() => <WhatsNewPage />, 'It needs no card.');
     await inBothModes(() => <ToolkitMessages link="https://ndovera.com/r/x" setupFee={50000} perUser={500} code="X" />, /Register here: https:\/\/ndovera.com\/r\/x/);
     await inBothModes(() => <AmiPartnerUpdates />, 'Bank transfer · Published');
+  });
+  test('the public home page sections', async () => {
+    await inBothModes(() => <RoleBenefits />, 'School owners and heads');
+    await inBothModes(() => <StartSteps />, 'Register your school');
+    await inBothModes(() => <PriceTeaser />, 'Simple pricing, with no surprises.');
+    await inBothModes(() => <Strengths />, 'Follows the Nigerian curriculum');
+    await inBothModes(() => <HomeQuestions />, 'Questions school owners ask.');
   });
   test('Ami reading new questions by subject', async () => {
     jest.spyOn(showcaseApi, 'getNewQuestionsReport').mockResolvedValue({ days: 7, total: 40, capped: true, subjects: [{ key: 'english', name: 'English', total: 40, checked: 12, waiting: 28, forExams: 8 }] });

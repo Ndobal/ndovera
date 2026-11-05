@@ -25,6 +25,9 @@ import {
 import { getPublicPlatformSite, getPublicOpportunities, submitGrowthPartnerApplication } from '../services/publicSiteApi';
 import { LEGAL_DOCUMENTS } from '../legalDocuments';
 import { getTenantPricing } from '../../tenants/services/tenantApi';
+import { HomeQuestions, PriceTeaser, RoleBenefits, StartSteps, Strengths } from './HomeSections';
+import { MARKETING_COPY } from './marketingCopy';
+import { STALE_WORDING } from './staleWording';
 import HomeStrips from '../../showcase/HomeStrips';
 import { FeaturesPageBody, HomeFeatures } from '../FeaturesSections';
 import { localMoney } from '../../../shared/pricing/localPrice';
@@ -56,6 +59,10 @@ const NAV_ITEMS = [
   { label: 'Events', path: '/events' },
   { label: 'Gallery', path: '/gallery' },
 ];
+
+const NAV_PRIMARY = ['/', '/features', '/pricing', '/about', '/growth-partners'];
+const NAV_MAIN = NAV_ITEMS.filter(item => NAV_PRIMARY.includes(item.path));
+const NAV_MORE = NAV_ITEMS.filter(item => !NAV_PRIMARY.includes(item.path)).concat({ label: 'Contact', path: '/contact' });
 
 const IMPACT_METRICS = [
   { label: 'School owners', value: 'Clear view' },
@@ -458,16 +465,34 @@ function mergeDecoratedItems(items, fallbackItems = []) {
   return source.map((item, index) => ({ ...(fallbackItems[index] || {}), ...(item || {}) }));
 }
 
+/** Text still as it was before the rewrite counts as not written. Text Ami changes always wins. */
+const written = text => (text && !STALE_WORDING.has(String(text).trim()) ? text : '');
+function withoutStaleWording(metadata) {
+  const out = { ...metadata };
+  for (const key of ['eyebrow', 'spotlightEyebrow', 'spotlightTitle', 'spotlightDescription', 'mediaEyebrow', 'mediaTitle', 'mediaDescription']) if (!written(out[key])) delete out[key];
+  if (Array.isArray(out.cards) && !out.cards.some(card => written(card?.title))) out.cards = [];
+  if (Array.isArray(out.stats) && !out.stats.some(stat => written(stat?.value))) out.stats = [];
+  return out;
+}
+
 function normalizeSection(sectionKey, rawSection) {
-  const fallback = DEFAULT_SECTION_DATA[sectionKey] || DEFAULT_SECTION_DATA.home;
-  const metadata = parseMeta(rawSection?.metadata);
-  const fallbackMetadata = fallback.metadata || {};
+  const base = DEFAULT_SECTION_DATA[sectionKey] || DEFAULT_SECTION_DATA.home;
+  const { cards: copyCards, stats: copyStats, spotlightEyebrow, spotlightTitle, spotlightDescription, mediaEyebrow, mediaTitle, mediaDescription, ...copy } = MARKETING_COPY[sectionKey] || {};
+  const fallback = { ...base, ...copy };
+  const metadata = withoutStaleWording(parseMeta(rawSection?.metadata));
+  const fallbackMetadata = {
+    ...(base.metadata || {}),
+    ...(spotlightTitle ? { spotlightEyebrow, spotlightTitle, spotlightDescription } : {}),
+    ...(mediaTitle ? { mediaEyebrow, mediaTitle, mediaDescription } : {}),
+    ...(copyCards ? { cards: copyCards } : {}),
+    ...(copyStats ? { stats: copyStats } : {}),
+  };
 
   return {
     key: sectionKey,
     eyebrow: metadata.eyebrow || fallback.eyebrow,
-    title: rawSection?.title || fallback.title,
-    description: rawSection?.content || fallback.description,
+    title: written(rawSection?.title) || fallback.title,
+    description: written(rawSection?.content) || fallback.description,
     imageUrl: rawSection?.image_url || fallback.imageUrl || '',
     metadata: {
       ...fallbackMetadata,
@@ -495,7 +520,7 @@ function getSectionMedia(section) {
     section?.imageUrl,
     ...(Array.isArray(section?.metadata?.mediaUrls) ? section.metadata.mediaUrls : []),
     section?.metadata?.youtubeUrl,
-  ].filter(Boolean);
+  ].filter(url => url && !/\/site-media\/[^/]+\.svg$/i.test(String(url)));
   return [...new Set(urls)];
 }
 
@@ -697,50 +722,25 @@ function FlierPopup({ flier }) {
 
 // Hero background carousel: images slide to the left, auto-advancing. The image
 // is held at ~30% visibility over a dark-green base so white hero text stays bold.
-function HeroSlides({ media }) {
-  const slides = Array.isArray(media) ? media.slice(0, 6) : [];
+/** The picture beside the headline. Only the one on show is downloaded, so a slideshow costs one picture at a time. */
+function HeroPicture({ media }) {
+  const slides = (Array.isArray(media) ? media : []).filter(url => !isVideoFile(url) && !getYouTubeEmbedUrl(url)).slice(0, 6);
   const [index, setIndex] = useState(0);
-
   useEffect(() => {
     if (slides.length < 2) return undefined;
     const timer = setInterval(() => setIndex(i => (i + 1) % slides.length), 6500);
     return () => clearInterval(timer);
   }, [slides.length]);
-
   if (!slides.length) return null;
-
-  return (
-    <div className="absolute inset-0 -z-10 overflow-hidden">
-      <div
-        className="flex h-full w-full transition-transform duration-[2200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-        style={{ transform: `translateX(-${index * 100}%)` }}
-      >
-        {slides.map((url, i) => (
-          <div key={`${url}-${i}`} className="relative h-full w-full shrink-0 grow-0 basis-full">
-            <MediaFrame
-              url={url}
-              title={`NDOVERA hero ${i + 1}`}
-              className={`absolute inset-0 h-full w-full object-cover opacity-30 transition-transform duration-[6000ms] ease-out ${i === index ? 'scale-110' : 'scale-100'}`}
-            />
-          </div>
-        ))}
-      </div>
-      {slides.length > 1 ? (
-        <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-2">
-          {slides.map((url, i) => (
-            <span key={`dot-${url}-${i}`} className={`h-1.5 rounded-full transition-all duration-500 ${i === index ? 'w-7 bg-[#e3c98b]' : 'w-1.5 bg-white/45'}`} />
-          ))}
-        </div>
-      ) : null}
-    </div>
-  );
+  const current = slides[index % slides.length];
+  return <img key={current} src={current} alt="" decoding="async" className="w-full rounded-3xl object-contain shadow-[0_24px_60px_rgba(0,0,0,0.45)] motion-safe:animate-[heroIn_.7s_ease-out]" />;
 }
 
 export function PublicShell({ section, notice, children, flier, hideHero = false, hideCta = false, design = 'executive' }) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const heroStats = Array.isArray(section.metadata.stats) ? section.metadata.stats : [];
-  const heroPreviewCards = Array.isArray(section.metadata.cards) ? section.metadata.cards.slice(0, 2) : [];
+  const heroPreviewCards = [];
   const heroMedia = getSectionMedia(section);
   const footerSplitIndex = Math.ceil(NAV_ITEMS.length / 2);
 
@@ -776,7 +776,7 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
           </Link>
 
           <nav className="hidden items-center gap-0.5 xl:flex">
-            {NAV_ITEMS.map(item => (
+            {NAV_MAIN.map(item => (
               <NavLink
                 key={item.path}
                 to={item.path}
@@ -786,6 +786,12 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
                 {item.label}
               </NavLink>
             ))}
+            <details className="relative">
+              <summary className="cursor-pointer list-none rounded-md px-3 py-2 text-[13px] font-semibold uppercase tracking-wide text-[#191970]">More ▾</summary>
+              <div className="absolute right-0 z-50 mt-1 grid w-56 gap-1 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
+                {NAV_MORE.map(item => <Link key={item.path} to={item.path} className="rounded-xl px-3 py-2 text-sm font-semibold text-[#191970] hover:bg-slate-100">{item.label}</Link>)}
+              </div>
+            </details>
           </nav>
 
           <div className="hidden items-center gap-2 lg:flex">
@@ -839,10 +845,10 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
       {/* Full-bleed hero with sliding background carousel */}
       {hideHero ? null : (
       <section className={`relative isolate overflow-hidden ${design === 'future' ? 'bg-[#102a43]' : 'bg-[#191970]'}`}>
-        <HeroSlides media={heroMedia} />
         <div className={`absolute inset-0 -z-10 ${design === 'future' ? 'bg-gradient-to-br from-[#061a31]/90 via-[#087f8c]/65 to-[#102a43]/85' : 'bg-gradient-to-br from-[#10133a]/85 via-[#191970]/65 to-[#681d36]/80'}`} />
         <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-black/70 to-transparent" />
         <div className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${design === 'future' ? 'py-24 sm:py-32 lg:py-44' : 'py-20 sm:py-28 lg:py-36'}`}>
+          <div className={heroMedia.length ? 'grid items-center gap-10 lg:grid-cols-2' : ''}>
           <div className="max-w-3xl motion-safe:animate-[heroIn_.7s_ease-out]">
             <p className={`inline-flex rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] ${design === 'future' ? 'border-[#9ee6ed] bg-[#102a43]/80 text-[#d7faff]' : 'border-[#e3c98b] bg-black/40 text-[#ffe8aa]'}`}>
               {section.eyebrow}
@@ -855,12 +861,14 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <ActionLink to="/register-school" className={`rounded-full px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide transition hover:bg-white ${design === 'future' ? 'bg-[#b9f0f5] text-[#102a43]' : 'bg-[#e3c98b] text-[#191970]'}`}>
-                Register School
+                Register your school
               </ActionLink>
-              <ActionLink to="/login" className="rounded-full border border-white/40 px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/10">
-                Login
+              <ActionLink to="/pricing" className="rounded-full border border-white/40 px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/10">
+                See pricing
               </ActionLink>
             </div>
+          </div>
+          {heroMedia.length ? <div><HeroPicture media={heroMedia} /></div> : null}
           </div>
         </div>
       </section>
@@ -872,8 +880,8 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
           <div className="mx-auto grid max-w-7xl grid-cols-2 px-4 sm:px-6 md:grid-cols-4 lg:px-8">
             {heroStats.slice(0, 4).map((metric, index) => (
               <div key={`${metric.label}-${index}`} className="border-b border-slate-200 px-4 py-7 text-center md:border-b-0 md:border-l md:first:border-l-0">
-                <p className="font-serif text-3xl font-black text-[#191970] sm:text-4xl">{metric.value}</p>
-                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7a5c1e]">{metric.label}</p>
+                <p className="font-serif text-2xl font-black text-[#191970] sm:text-3xl">{metric.value}</p>
+                <p className="mt-1 text-sm font-semibold text-[#5e4613]">{metric.label}</p>
               </div>
             ))}
           </div>
@@ -906,18 +914,18 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
           <Reveal as="section" className="rounded-[2.2rem] border border-[#c9a96e]/45 bg-[#191970] px-5 py-8 text-[#f8f3eb] shadow-[0_30px_80px_rgba(25,25,112,0.24)] sm:px-8 lg:px-10">
             <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#b5e3f4]">Stay In Motion</p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight !text-white">Move from public website to meaningful action.</h2>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#b5e3f4]">Ready when you are</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight !text-white">Bring your whole school onto one platform.</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-[#e4ddcf] sm:text-base">
-                  Read the story, explore the pages, open the portal, or start school registration. The website should be a real public front door, not a dead-end splash screen.
+                  Register your school today, or talk to us first: call +234 812 888 2800 or email support@ndovera.com.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 lg:justify-end">
-                <Link to="/login" className="rounded-full bg-[#b5e3f4] px-5 py-3 text-sm font-semibold text-[#191970] transition hover:bg-[#f8e5c3]">
-                  Open Portal Login
+                <Link to="/register-school" className="rounded-full bg-[#b5e3f4] px-5 py-3 text-sm font-semibold text-[#191970] transition hover:bg-[#f8e5c3]">
+                  Register your school
                 </Link>
-                <Link to="/register-school" className="rounded-full border border-[#b5e3f4]/35 px-5 py-3 text-sm font-semibold text-[#b5e3f4] transition hover:bg-white/10">
-                  Register A School
+                <Link to="/contact" className="rounded-full border border-[#b5e3f4]/35 px-5 py-3 text-sm font-semibold text-[#b5e3f4] transition hover:bg-white/10">
+                  Talk to us
                 </Link>
               </div>
             </div>
@@ -983,55 +991,16 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
   );
 }
 
-function HomePageBody({ section, featuresSection }) {
-  const strands = section.metadata.cards;
-
+function HomePageBody({ featuresSection }) {
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
+      <RoleBenefits />
       <HomeFeatures section={featuresSection} />
+      <StartSteps />
+      <PriceTeaser />
       <HomeStrips />
-      <section className="grid gap-4 lg:grid-cols-4">
-        {strands.map((item, index) => (
-          <PublicCard key={item.title} title={item.title} description={item.description} icon={item.icon} to={item.path} revealDelay={(index % 4) + 1} />
-        ))}
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-        <Reveal className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]" delay={1}>
-          <SectionHeading
-            eyebrow={section.metadata.spotlightEyebrow}
-            title={section.metadata.spotlightTitle}
-            description={section.metadata.spotlightDescription}
-          />
-        </Reveal>
-        <Reveal className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#800020] p-6 text-[#f8f3eb] shadow-[0_24px_60px_rgba(128,0,32,0.18)]" delay={2}>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#b5e3f4]">Public Website Structure</p>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            {NAV_ITEMS.map((item, index) => (
-              <Link key={item.path} to={item.path} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal rounded-2xl border border-[#b5e3f4]/20 bg-white/5 px-4 py-3 text-sm font-semibold transition hover:bg-white/10">
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-        <Reveal className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-6" delay={1}>
-          <SectionHeading
-            eyebrow="Platform Coverage"
-            title="From public trust to internal execution."
-            description="NDOVERA is not just a school dashboard. It is a layered system that can speak clearly in public and then execute deeply inside the platform."
-          />
-        </Reveal>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <PublicCard title="Story & Identity" description="Explain who NDOVERA is, what it stands for, and why the platform exists." icon={SparklesIcon} to="/about" revealDelay={1} />
-          <PublicCard title="Mission & Vision" description="State the commitments and long horizon clearly, without flattening them into marketing filler." icon={RocketLaunchIcon} to="/mission" revealDelay={2} />
-          <PublicCard title="Partners & Opportunities" description="Make collaboration paths visible for growth partners, schools, and implementation teams." icon={HandRaisedIcon} to="/growth-partners" revealDelay={3} />
-          <PublicCard title="Events & Gallery" description="Show movement, people, proof, and the public life of the NDOVERA ecosystem." icon={CalendarDaysIcon} to="/events" revealDelay={4} />
-        </div>
-      </section>
-
+      <Strengths />
+      <HomeQuestions />
     </div>
   );
 }
@@ -1055,9 +1024,9 @@ function AboutPageBody({ section }) {
 
       <MediaGallery
         section={section}
-        eyebrow="About In View"
-        title="Use images and video to strengthen the public story."
-        description="The About page can now carry R2-hosted visuals and YouTube embeds without giving up the existing NDOVERA page layout."
+        eyebrow={section.metadata.mediaEyebrow}
+        title={section.metadata.mediaTitle}
+        description={section.metadata.mediaDescription}
       />
     </div>
   );
@@ -1083,9 +1052,9 @@ function MissionPageBody({ section }) {
 
       <MediaGallery
         section={section}
-        eyebrow="Mission Media"
-        title="Document the mission with proof, not placeholders."
-        description="Uploaded visuals and embedded video can reinforce the mission page when NDOVERA wants to show real projects, briefings, or school transformation work."
+        eyebrow={section.metadata.mediaEyebrow}
+        title={section.metadata.mediaTitle}
+        description={section.metadata.mediaDescription}
       />
     </div>
   );
@@ -1110,9 +1079,9 @@ function VisionPageBody({ section }) {
 
       <MediaGallery
         section={section}
-        eyebrow="Vision Media"
-        title="Use visual direction to support the long-horizon message."
-        description="The public vision page can now carry launch visuals, event media, or YouTube explainers without needing a separate embed-only page."
+        eyebrow={section.metadata.mediaEyebrow}
+        title={section.metadata.mediaTitle}
+        description={section.metadata.mediaDescription}
       />
     </div>
   );
@@ -1220,9 +1189,9 @@ function TutorPageBody({ section }) {
 
       <MediaGallery
         section={section}
-        eyebrow="Tutor Media"
-        title="Embedded explainer video and uploaded screenshots live directly on the page."
-        description="Use YouTube and R2-hosted media to show how NDOVERA Tutor works without forcing visitors to leave the site."
+        eyebrow={section.metadata.mediaEyebrow}
+        title={section.metadata.mediaTitle}
+        description={section.metadata.mediaDescription}
         tone="dark"
       />
     </div>
@@ -1684,9 +1653,9 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
 
       <MediaGallery
         section={section}
-        eyebrow="See NDOVERA"
-        title="A closer look at onboarding and launch."
-        description="Screenshots and short videos of how schools get started on NDOVERA."
+        eyebrow={section.metadata.mediaEyebrow}
+        title={section.metadata.mediaTitle}
+        description={section.metadata.mediaDescription}
       />
     </div>
   );
@@ -1754,6 +1723,7 @@ function OpportunitiesPageBody() {
 function EventsPageBody({ section }) {
   return (
     <div className="space-y-8">
+      {!section.metadata.cards.length ? <p className="rounded-[1.6rem] border border-[#c9a96e]/45 bg-white px-5 py-4 text-sm font-semibold text-[#31416f]">No public events are scheduled right now. New dates will appear here.</p> : null}
       <section className="grid gap-4 lg:grid-cols-3">
         {section.metadata.cards.map((item, index) => (
           <article key={item.title} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-5 shadow-[0_18px_36px_rgba(25,25,112,0.08)] sm:p-6">
@@ -1774,9 +1744,9 @@ function EventsPageBody({ section }) {
 
       <MediaGallery
         section={section}
-        eyebrow="Event Media"
-        title="Event photos, short videos, and YouTube recaps stay inside the website."
-        description="Photos and YouTube clips from NDOVERA events, all on ndovera.com."
+        eyebrow={section.metadata.mediaEyebrow}
+        title={section.metadata.mediaTitle}
+        description={section.metadata.mediaDescription}
       />
     </div>
   );
@@ -1787,9 +1757,9 @@ function GalleryPageBody({ section }) {
     <div className="space-y-8">
       <MediaGallery
         section={section}
-        eyebrow="Events Gallery"
-        title="Uploaded NDOVERA media now lives in a real website gallery."
-        description="Gallery uploads go to R2 and YouTube links render as embedded video, so this page can hold both photos and playable video inside the site."
+        eyebrow={section.metadata.mediaEyebrow}
+        title={section.metadata.mediaTitle}
+        description={section.metadata.mediaDescription}
       />
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -1915,6 +1885,7 @@ function PublicSitePageContent({ pageKey = 'home' }) {
 
   useEffect(() => {
     const nodes = Array.from(document.querySelectorAll('[data-reveal]'));
+    const showAll = window.setTimeout(() => document.querySelectorAll('[data-reveal]').forEach(node => node.classList.add('is-visible')), 2500);
     if (!nodes.length) return undefined;
 
     if (typeof window.IntersectionObserver !== 'function' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1956,11 +1927,14 @@ function PublicSitePageContent({ pageKey = 'home' }) {
 
   useEffect(() => {
     document.title = pageKey === 'home'
-      ? 'NDOVERA | School platform and learning network'
-      : `NDOVERA | ${section.title}`;
-  }, [pageKey, section.title]);
+      ? 'Ndovera | Run your whole school from one place'
+      : `${section.title} | Ndovera`;
+    let description = document.querySelector('meta[name="description"]');
+    if (!description) { description = document.createElement('meta'); description.setAttribute('name', 'description'); document.head.appendChild(description); }
+    description.setAttribute('content', section.description);
+  }, [pageKey, section.title, section.description]);
 
-  let body = <HomePageBody section={section} featuresSection={sectionsByKey.features} />;
+  let body = <HomePageBody featuresSection={sectionsByKey.features} />;
   if (pageKey === 'features') body = <FeaturesPageBody section={sectionsByKey.features} />;
 
   if (pageKey === 'about') body = <AboutPageBody section={section} />;

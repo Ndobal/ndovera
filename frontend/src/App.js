@@ -121,6 +121,7 @@ const ChampionshipCentre = lazyPage(() => import('./features/championships/Champ
 const PUBLIC_ROUTE_PATHS = new Set([
   '/',
   '/about',
+  '/features',
   '/mission',
   '/vision',
   '/mission-vision',
@@ -157,7 +158,7 @@ function normalizePublicPath(pathname) {
 }
 
 // Public sections that have their own child pages, so an exact-path Set is not enough.
-const PUBLIC_ROUTE_PREFIXES = ['/championships/', '/invoice/'];
+const PUBLIC_ROUTE_PREFIXES = ['/championships/', '/invoice/', '/invite/', '/pay/', '/bank-pay/', '/c/'];
 
 function isPublicRoutePath(pathname) {
   const normalized = normalizePublicPath(pathname);
