@@ -5,7 +5,8 @@
 //   <tenantId> — parents asking a school about admission (managed by its Owner/HoS).
 // Every table carries the scope and every query filters on it; one scope never sees another.
 //
-// The virtual consultants (Rex, Zico, Vera, Nora) always say they are virtual, not people.
+// The virtual consultants (Rex, Zico, Vera, Nora) say they are automated when they hand a chat over to
+// people, and whenever a visitor asks. They never claim to be a person.
 // They answer only with the scope's approved, versioned knowledge — word for word, never
 // invented. A question with no approved answer goes to the gaps inbox and to a person.
 // Contact first: the visitor's question is kept, then their name, email and phone are taken
@@ -133,10 +134,15 @@ async function sha(text: string) {
 
 type Host = { scope: string, name: string, kind: 'ndovera' | 'school', registerUrl: string, privacyUrl: string }
 
+/** "Am I talking to a real person?" A visitor who asks is always told. */
+const ASKS_IF_PERSON = /\bare you real\b|\b(are you|is this|am i (?:talking|chatting|speaking) (?:to|with))\b.{0,25}\b(bot|robot|human|person|machine|automated|ai)\b/i
+export const asksIfPerson = (text: unknown) => ASKS_IF_PERSON.test(String(text || ''))
+const whoAmI = (host: Host) => `I'm an automated assistant, not a person. ${host.kind === 'ndovera' ? 'A member of the Ndovera team' : `A member of staff at ${host.name}`} can take over if you would prefer that.`
+
 export function greeting(consultant: string, host: Host) {
   return host.kind === 'ndovera'
-    ? `Hello, I'm ${consultant}, a virtual consultant for Ndovera — an automated assistant, not a person. Ask me anything about running your school on Ndovera. A member of the team can take over at any time.`
-    : `Hello, I'm ${consultant}, a virtual consultant for ${host.name} — an automated assistant, not a person. Ask me about admission and the school. A member of staff can take over at any time.`
+    ? `Hello, I'm ${consultant} from Ndovera. Ask me anything about running your school on Ndovera.`
+    : `Hello, I'm ${consultant} from ${host.name}. Ask me about admission and the school.`
 }
 
 async function addMessage(db: D1Database, conversation: { id: string, scope: string }, sender: string, senderName: string, body: string, source: string, knowledgeId: string | null = null) {
@@ -174,7 +180,7 @@ export async function visitorView(db: D1Database, scope: string, token: string) 
   const messages = ((await db.prepare(`SELECT sender, sender_name, body, created_at FROM gc_messages WHERE conversation_id = ? ORDER BY created_at LIMIT 300`).bind(row.id).all()).results || []) as any[]
   return {
     consultant: row.consultant, status: row.status, hasContact: Boolean(row.privacy_consent_at),
-    messages: messages.map(message => ({ from: message.sender, name: message.sender === 'consultant' ? `${message.sender_name} · virtual consultant` : message.sender === 'staff' ? `${message.sender_name} · staff` : 'You', text: message.body, at: message.created_at })),
+    messages: messages.map(message => ({ from: message.sender, name: message.sender === 'consultant' ? String(message.sender_name) : message.sender === 'staff' ? `${message.sender_name} · staff` : 'You', text: message.body, at: message.created_at })),
   }
 }
 
@@ -193,7 +199,7 @@ async function reply(db: D1Database, row: any, host: Host, question: string) {
       .bind(crypto.randomUUID(), host.scope, question.slice(0, 600), key, row.id, at, at),
     db.prepare(`UPDATE gc_conversations SET status = 'handover', handed_over_at = COALESCE(handed_over_at, ?), updated_at = ? WHERE id = ?`).bind(at, at, row.id),
   ])
-  await addMessage(db, row, 'consultant', row.consultant, `I don't have an approved answer to that yet, so I won't guess. I've passed your question to ${host.kind === 'ndovera' ? 'the Ndovera team' : `the staff at ${host.name}`}; someone will reply here and by email.`, 'handover')
+  await addMessage(db, row, 'consultant', row.consultant, `I'm an automated assistant and I don't have an approved answer to that yet, so I won't guess. I've passed your question to ${host.kind === 'ndovera' ? 'the Ndovera team' : `the staff at ${host.name}`}, who can take over from here; someone will reply here and by email.`, 'handover')
 }
 
 export async function visitorMessage(db: D1Database, host: Host, token: string, text: unknown) {
@@ -203,6 +209,10 @@ export async function visitorMessage(db: D1Database, host: Host, token: string, 
   const count = await db.prepare(`SELECT COUNT(*) AS n FROM gc_messages WHERE conversation_id = ? AND sender = 'visitor'`).bind(row.id).first() as any
   if (Number(count?.n || 0) >= 60) throw new GrowthError('This chat is long; the team will reply by email. You can start a new chat for another question.', 429)
   await addMessage(db, row, 'visitor', row.visitor_name || 'Visitor', body, 'visitor')
+  if (asksIfPerson(body) && row.status !== 'human' && row.status !== 'closed') {
+    await addMessage(db, row, 'consultant', row.consultant, whoAmI(host), 'system')
+    return visitorView(db, host.scope, token)
+  }
   if (!row.privacy_consent_at) {
     // Contact first: keep the question, ask who is asking before answering.
     if (!row.first_question) await db.prepare(`UPDATE gc_conversations SET first_question = ? WHERE id = ?`).bind(body, row.id).run()

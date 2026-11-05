@@ -101,7 +101,7 @@ export default function GrowthCentrePage() {
       <header className="rounded-2xl bg-[#191970] p-6 text-white">
         <p className="text-xs font-bold uppercase tracking-widest text-amber-200">Growth Centre</p>
         <h1 className="mt-1 text-2xl font-black">{ndovera ? 'Schools asking about Ndovera' : 'Admissions chat'}</h1>
-        <p className="mt-2 text-sm text-slate-100">Rex, Zico, Vera and Nora are virtual consultants: they always say they are automated, answer only with the approved answers below, and pass everything else to you. Visitors chat at {chatLink}.</p>
+        <p className="mt-2 text-sm text-slate-100">Rex, Zico, Vera and Nora are virtual consultants: they answer only with the approved answers below and pass everything else to you. They say they are automated when they hand a chat to you, and whenever a visitor asks. Visitors chat at {chatLink}.</p>
       </header>
       <div className="flex flex-wrap gap-2" role="tablist">
         {TABS.map(([key, label]) => <button key={key} type="button" role="tab" aria-selected={tab === key} className={tab === key ? PRIMARY : SECONDARY} onClick={() => setTab(key)}>{label}{key === 'gaps' && data?.gaps?.length ? ` (${data.gaps.length})` : ''}</button>)}

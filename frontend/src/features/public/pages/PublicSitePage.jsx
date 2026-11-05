@@ -1973,7 +1973,7 @@ function PublicSitePageContent({ pageKey = 'home' }) {
   );
 }
 
-// Every public Ndovera page carries the chat with the virtual consultants (who say they are virtual).
+// Every public Ndovera page carries the chat with the virtual consultants.
 export default function PublicSitePage(props) {
   return (
     <>

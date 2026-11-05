@@ -36,7 +36,7 @@ button.ghost{background:transparent;color:var(--text);border:1px solid var(--lin
 .err{color:var(--err);background:var(--errBg);padding:8px 10px;border-radius:10px;font-size:14px;margin-top:8px}
 .notice{font-size:12px;color:var(--muted);line-height:1.5}a{color:inherit}
 </style></head><body><main>
-<header>${host.logoUrl ? `<img src="${esc(host.logoUrl)}" alt="">` : ''}<div><h1>${esc(host.name)}</h1><p>Chat with a virtual consultant (an automated assistant). Staff can join at any time.</p></div></header>
+<header>${host.logoUrl ? `<img src="${esc(host.logoUrl)}" alt="">` : ''}<div><h1>${esc(host.name)}</h1><p>Ask us anything.</p></div></header>
 <div class="card"><div id="log" aria-live="polite"></div></div>
 <form id="contact" class="card" hidden>
   <p style="margin:0;font-weight:700">So we can reply properly:</p>

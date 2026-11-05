@@ -60,8 +60,9 @@ test('a school admissions chat: the consultant says it is virtual, takes contact
   const chat = await visitor('greenfield')
   assert.equal(chat.started.status, 200, chat.started.text)
   let view = (await chat.as('GET', '/conversation')).body
-  assert.match(view.messages[0].text, /a virtual consultant for Greenfield School — an automated assistant, not a person/)
-  assert.match(view.messages[0].name, /virtual consultant$/)
+  assert.match(view.messages[0].text, /from Greenfield School/)
+  assert.doesNotMatch(view.messages[0].text, /automated|virtual|not a person|take over/, 'the greeting does not announce it')
+  assert.doesNotMatch(view.messages[0].name, /virtual/)
 
   // Contact first: the question is kept, not answered yet.
   view = (await chat.as('POST', '/message', { text: 'How much are the fees for JSS 1?' })).body
@@ -78,7 +79,8 @@ test('a school admissions chat: the consultant says it is virtual, takes contact
 
   // No approved answer: no guess; it goes to the gaps inbox and to a person.
   view = (await chat.as('POST', '/message', { text: 'Do you run a school bus to Lekki?' })).body
-  assert.match(view.messages.at(-1).text, /I don't have an approved answer to that yet, so I won't guess/)
+  assert.match(view.messages.at(-1).text, /I'm an automated assistant and I don't have an approved answer to that yet, so I won't guess/)
+  assert.match(view.messages.at(-1).text, /can take over/)
   const centre = (await call('owner', 'GET', '/api/growth-centre')).body
   assert.equal(centre.gaps[0].question, 'Do you run a school bus to Lekki?')
   assert.equal(centre.conversations[0].status, 'handover')
@@ -145,9 +147,22 @@ test("Ndovera's chat: Ami's scope only; starting a chat stops cold outreach; mar
   // Schools never see Ndovera's chats; Ami never sees a school's.
   assert.deepEqual((await call('owner', 'GET', '/api/growth-centre')).body.conversations, [])
   assert.equal((await call('ami', 'GET', '/api/growth-centre')).body.conversations.length, 2)
-  // The chat page names the consultant as virtual and never asks for card details.
+  // The chat page does not announce the consultant, and never asks for card details.
   const page = await call(null, 'GET', '/api/growth/ndovera/chat')
-  assert.match(page.text, /virtual consultant \(an automated assistant\)/)
+  assert.doesNotMatch(page.text, /Chat with a virtual consultant|Staff can join at any time/)
   assert.match(page.text, /We never ask for card or bank details/)
   assert.ok(!/card number|cvv/i.test(page.text))
+})
+
+test('the consultant is not announced, but a visitor who asks is always told it is automated', async () => {
+  const { visitor } = await setup()
+  const chat = await visitor('greenfield')
+  for (const question of ['Am I talking to a real person?', 'are you a bot', 'Are you human?', 'Is this AI?', 'are you real?']) {
+    const view = (await chat.as('POST', '/message', { text: question })).body
+    assert.match(view.messages.at(-1).text, /automated assistant, not a person/, question)
+    assert.match(view.messages.at(-1).text, /can take over/, question)
+    assert.equal(view.status, 'open', 'asking this is not a handover')
+  }
+  const fees = (await chat.as('POST', '/message', { text: 'Is this fee real?' })).body
+  assert.doesNotMatch(fees.messages.at(-1).text, /not a person/, 'an ordinary question is not mistaken for it')
 })
