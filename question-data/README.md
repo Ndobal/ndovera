@@ -449,3 +449,10 @@ Learners demonstrate service, equipment selection and fault recovery.
 The 2026 NECO Internal timetable verifies the practical paper format.
 The simulations and marking guides are original classroom practice,
 with provisional topic alignment and official task details still open.
+
+Batch 086 registers NECO Livestock Farming and adds eight objective
+and structured drafts on poultry records and deep-litter housing.
+The 2026 Internal timetable verifies papers I (5041, practical),
+II (5042, essay) and III (5043, objective). The written topics use
+historical WAEC Animal Husbandry reports provisionally. Official
+NECO content objectives and practical task details remain open.

@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Livestock Farming written practice",
+  "questionCount": 8,
+  "note": "Original poultry practice. NECO 2026 Internal paper formats verified; topic alignment is provisional and academic review is pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry records",
+      "subtopic": "Record selection and interpretation",
+      "learningObjective": "Select and interpret poultry records for stock reconciliation and production comparisons.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "id": "ndv-086-001",
+      "objectiveId": "neco-livestock-086-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A poultry attendant is asked to establish how many birds died during the past week. Which record directly supplies that information?",
+      "answer": "The mortality register.",
+      "explanation": "The mortality register records deaths by date, so its daily entries can be added for the week.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The egg sales book.",
+        "The mortality register.",
+        "The feed purchase book.",
+        "The equipment inventory."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry records",
+      "subtopic": "Record selection and interpretation",
+      "learningObjective": "Select and interpret poultry records for stock reconciliation and production comparisons.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "id": "ndv-086-002",
+      "objectiveId": "neco-livestock-086-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A layer house starts the week with 64 hens. Two hens are transferred out, one dies, and three are transferred in. A physical count finds 63 hens. Is the count consistent with the register? Show your calculation and state the discrepancy, if any.",
+      "answer": "The register implies 64 − 2 − 1 + 3 = 64 hens. The count is one below the recorded closing stock.",
+      "explanation": "Both outward movements and deaths reduce the balance, while inward movements increase it. A difference calls for checking the count and entries.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculate closing stock as 64."
+        },
+        {
+          "marks": 1,
+          "description": "State that the physical count is one below the recorded stock."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "64-2-1+3",
+          "expected": 64,
+          "purpose": "Closing stock"
+        },
+        {
+          "expression": "64-63",
+          "expected": 1,
+          "purpose": "Stock discrepancy"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry records",
+      "subtopic": "Record selection and interpretation",
+      "learningObjective": "Select and interpret poultry records for stock reconciliation and production comparisons.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "id": "ndv-086-003",
+      "objectiveId": "neco-livestock-086-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On the same day, Pen A yields 36 eggs from 48 live hens and Pen B yields 30 eggs from 36 live hens. A supervisor says Pen A performed better because it produced more eggs. Compare eggs per live hen and explain what one day of records can establish.",
+      "answer": "Pen A produced 36/48 = 0.75 eggs per hen. Pen B produced 30/36 = 5/6, about 0.83 eggs per hen. Pen B had the higher per-hen output that day. Compare records over more days before judging sustained performance.",
+      "explanation": "Using the number of live hens as the denominator allows a fairer comparison of different flock sizes. A one-day comparison gives no trend.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculate Pen A output per hen."
+        },
+        {
+          "marks": 1,
+          "description": "Calculate Pen B output per hen."
+        },
+        {
+          "marks": 1,
+          "description": "Identify Pen B as higher per hen that day."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why more observations are needed to establish sustained performance."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "36/48",
+          "expected": "3/4",
+          "purpose": "Pen A rate"
+        },
+        {
+          "expression": "30/36",
+          "expected": "5/6",
+          "purpose": "Pen B rate"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry records",
+      "subtopic": "Record selection and interpretation",
+      "learningObjective": "Select and interpret poultry records for stock reconciliation and production comparisons.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "id": "ndv-086-004",
+      "objectiveId": "neco-livestock-086-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A farm collects eggs from two pens and sells them together. The owner wants to know which pen has falling output. Which change to the records would directly help?",
+      "answer": "Record eggs collected by pen and date before combining them.",
+      "explanation": "A daily count for each pen allows the owner to trace changes to the pen where they occurred.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Record only the combined weekly sales value.",
+        "Record the total number of trays bought.",
+        "Record eggs collected by pen and date before combining them.",
+        "Record the dates on which the sales cash is deposited."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry housing",
+      "subtopic": "Deep-litter management and pest exclusion",
+      "learningObjective": "Analyse litter conditions and choose measures to correct moisture or reduce rodent access.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "id": "ndv-086-005",
+      "objectiveId": "neco-livestock-086-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "In a deep-litter house, which observation most directly indicates that bedding around a drinker is becoming too wet?",
+      "answer": "The bedding is damp and clumps when lightly pressed with a tool.",
+      "explanation": "Local dampness and clumping indicate that moisture has accumulated in the bedding.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The feed trough has been refilled.",
+        "The drinker casts a shadow on the floor.",
+        "The litter is loose and dry around the drinker.",
+        "The bedding is damp and clumps when lightly pressed with a tool."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry housing",
+      "subtopic": "Deep-litter management and pest exclusion",
+      "learningObjective": "Analyse litter conditions and choose measures to correct moisture or reduce rodent access.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "id": "ndv-086-006",
+      "objectiveId": "neco-livestock-086-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Each morning a keeper replaces wet litter beneath one drinker. By afternoon the same patch is wet again, although the rest of the house is dry. Identify a likely source, describe one check, and state what to do if the check confirms it.",
+      "answer": "Check the drinker for leakage or overflow by observing whether water escapes when the birds are away from it. If it leaks, repair or replace it, then remove the wet litter and put in dry bedding. If it overflows, correct the fill level or setup before replacing the bedding.",
+      "explanation": "A recurring patch directly beneath one drinker suggests a local water source. Correcting that source prevents fresh bedding from becoming wet again.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify leakage or overflow as a plausible source."
+        },
+        {
+          "marks": 1,
+          "description": "Describe a relevant observation or test."
+        },
+        {
+          "marks": 1,
+          "description": "Give a corrective action consistent with the result."
+        },
+        {
+          "marks": 1,
+          "description": "Replace the affected bedding after controlling the source."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry housing",
+      "subtopic": "Deep-litter management and pest exclusion",
+      "learningObjective": "Analyse litter conditions and choose measures to correct moisture or reduce rodent access.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "id": "ndv-086-007",
+      "objectiveId": "neco-livestock-086-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "After closing a poultry house, an attendant finds grain spilled beside a door with a gap underneath. Which action addresses both conditions that encourage rats to enter?",
+      "answer": "Clear the spilled grain and fit a close-fitting, rodent-resistant barrier at the door gap.",
+      "explanation": "The grain attracts pests and the gap can let them enter. The action removes the attractant and blocks the route.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Clear the spilled grain and fit a close-fitting, rodent-resistant barrier at the door gap.",
+        "Move the grain into a pile just outside the door.",
+        "Add bedding over the grain and keep the gap open.",
+        "Sweep the entrance but leave the grain and the gap in place."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry housing",
+      "subtopic": "Deep-litter management and pest exclusion",
+      "learningObjective": "Analyse litter conditions and choose measures to correct moisture or reduce rodent access.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "id": "ndv-086-008",
+      "objectiveId": "neco-livestock-086-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A farm notices gnaw marks on feed sacks despite screening ventilation openings. The sacks are on the floor beside an unused pipe opening. Recommend a storage change and a building repair, and explain how the farm can check whether the changes are working.",
+      "answer": "Keep feed in closed, rodent-resistant containers and clear spills. Seal the unused opening with rodent-resistant material while retaining the screened ventilation. Log fresh gnaw marks or droppings at regular inspections and compare with earlier findings.",
+      "explanation": "Effective control addresses access to feed and entry to the building. Repeat observations show whether fresh evidence of activity continues.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Specify a storage change that reduces rodent access to feed."
+        },
+        {
+          "marks": 1,
+          "description": "Seal the unused opening while maintaining ventilation."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how the changes address food or entry."
+        },
+        {
+          "marks": 1,
+          "description": "Describe a repeatable check for fresh signs of activity."
+        }
+      ]
+    }
+  ]
+}

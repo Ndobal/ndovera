@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_085_automated_validation_passed",
+  "phase": "batch_086_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-086.json",
+  "nextBatch": "original-multisubject-batch-087.json",
   "nextPriorities": [
-    "Verify NECO Livestock Farming paper codes and source-supported introductory objectives. Official NECO Catering Craft practical task and marking specifications remain unverified, as do Marketing and Physical Education specifications.",
+    "Retrieve official NECO Livestock Farming practical tasks and marking guidance. Use verified evidence for any practical mapping. Official Catering Craft, Marketing and Physical Education specifications remain open.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-085.json",
-  "lastRemoteVerifiedCommit": "b3a3f316ab8ba10d67b21830585966bc7a1db2cb",
+  "lastValidatedBatch": "original-multisubject-batch-086.json",
+  "lastRemoteVerifiedCommit": "6523de52348655c9b961e7f294f5492145fffedc",
   "verifiedTotals": {
-    "raw": 3273,
-    "validDrafts": 1594,
+    "raw": 3281,
+    "validDrafts": 1602,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-085.json",
+  "lastPopulatedBatch": "original-multisubject-batch-086.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3273
+  "inventoryRaw": 3281
 }

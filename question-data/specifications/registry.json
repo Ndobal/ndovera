@@ -1261,6 +1261,19 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO verifies practical 4011, essay 4012 and objective 4013. Historical WAEC examiner material supports provisional table service and holloware topics. The observable tasks and marks are original classroom practice. NECO syllabus and detailed practical requirements remain unverified."
+    },
+    {
+      "id": "neco-livestock-poultry-reference-2026",
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/AHusbandry/AHusbandry235mq5.html",
+        "https://www.waeconline.org.ng/e-learning/AHusbandry/ahus329aq1.html"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "NECO verifies practical 5041, essay 5042 and objective 5043. Historical WAEC Animal Husbandry reports support provisional poultry topics only. Official NECO objectives, practical tasks and marking specifications remain unverified."
     }
   ],
   "banks": [
@@ -2609,6 +2622,24 @@
         "I": "4011",
         "II": "4012",
         "III": "4013"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "I": "practical",
+        "II": "essay",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "I": "5041",
+        "II": "5042",
+        "III": "5043"
       }
     }
   ],
@@ -9329,6 +9360,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Catering Craft Paper I (format only)",
         "WAEC Catering Craft Practice examiner materials, 2021 and 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-livestock-086-1-v1",
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry records",
+      "subtopic": "Record selection and interpretation",
+      "learningObjective": "Select and interpret poultry records for stock reconciliation and production comparisons.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Livestock Farming Papers II and III",
+        "WAEC Animal Husbandry examiner materials, 2019 and 2022"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-livestock-086-2-v1",
+      "exam": "NECO",
+      "subject": "Livestock Farming",
+      "topic": "Poultry housing",
+      "subtopic": "Deep-litter management and pest exclusion",
+      "learningObjective": "Analyse litter conditions and choose measures to correct moisture or reduce rodent access.",
+      "specificationId": "neco-livestock-poultry-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Livestock Farming Papers II and III",
+        "WAEC Animal Husbandry examiner materials, 2019 and 2022"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
