@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Marketing practice",
+  "questionCount": 9,
+  "note": "Original practice with draft marking guides. NECO 2026 Internal formats verified. Topic mapping is provisional and academic review is pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Marketing mix",
+      "subtopic": "Product and promotion",
+      "learningObjective": "Distinguish product decisions from promotion and use customer evidence to select a response.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "id": "ndv-083-001",
+      "objectiveId": "neco-marketing-083-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A maker keeps the same cassava flour, price and shops but replaces its paper bag with a resealable pouch. Which part of the marketing mix has changed?",
+      "answer": "Product.",
+      "explanation": "Packaging is part of what the customer receives and uses, so the change is a product decision.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Place.",
+        "Product.",
+        "Promotion.",
+        "Price."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Marketing mix",
+      "subtopic": "Product and promotion",
+      "learningObjective": "Distinguish product decisions from promotion and use customer evidence to select a response.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "id": "ndv-083-002",
+      "objectiveId": "neco-marketing-083-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A water-bottle maker has enough stock in several campus shops. Interviews show students who already know the brand doubt its leakproof claim. Which action directly addresses that concern?",
+      "answer": "Run a demonstration showing a filled bottle turned upside down.",
+      "explanation": "A demonstration gives prospective buyers direct evidence about the specific claim they doubt.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Replace the distributor serving an unrelated town.",
+        "Raise the price of the bottle at all outlets.",
+        "Add the same bottle to two more campus shops.",
+        "Run a demonstration showing a filled bottle turned upside down."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Marketing mix",
+      "subtopic": "Product and promotion",
+      "learningObjective": "Distinguish product decisions from promotion and use customer evidence to select a response.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "id": "ndv-083-003",
+      "objectiveId": "neco-marketing-083-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "An Enugu soap producer finds that most first-time buyers heard about the soap from market demonstrations. Follow-up interviews show many did not buy it again because the bar broke apart during normal use. With funds for one improvement, recommend a product change or more demonstrations. Explain your choice and propose a measure to check it.",
+      "answer": "Prioritise improving the bar so it holds together in normal use. Demonstrations already help attract first-time buyers, while the interviews point to a usage problem limiting repeat purchases. Compare repeat-purchase rates for similar groups who tried the original and revised bars, using the same follow-up period.",
+      "explanation": "The recommendation addresses retention and the evaluation measures actual repeat buying under comparable conditions.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recommend an improvement to product durability."
+        },
+        {
+          "marks": 1,
+          "description": "Use the evidence about normal use and explain why more demonstrations primarily address initial trial."
+        },
+        {
+          "marks": 1,
+          "description": "Give a comparable repeat-purchase measure."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Pricing",
+      "subtopic": "Pricing strategies",
+      "learningObjective": "Apply pricing strategies and assess their effect on contribution and customer trial.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "id": "ndv-083-004",
+      "objectiveId": "neco-marketing-083-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A uniform maker calculates a unit cost of ₦8,000 and sets a selling price by adding 25% of that cost. Which method and price are correct?",
+      "answer": "Cost-plus pricing at ₦10,000.",
+      "explanation": "The markup is 0.25 × ₦8,000 = ₦2,000, which is added to the unit cost.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Cost-plus pricing at ₦10,000.",
+        "Cost-plus pricing at ₦10,666.67.",
+        "Penetration pricing at ₦6,000.",
+        "Geographical pricing at ₦8,250."
+      ],
+      "correctOption": "A",
+      "verification": [
+        {
+          "expression": "8000 + 8000 * 25 / 100",
+          "expected": 10000,
+          "purpose": "Verify selling price after markup on cost."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Pricing",
+      "subtopic": "Pricing strategies",
+      "learningObjective": "Apply pricing strategies and assess their effect on contribution and customer trial.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "id": "ndv-083-005",
+      "objectiveId": "neco-marketing-083-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A new notebook brand launches below the prices of comparable notebooks to win buyers quickly. Another brand, already established, cuts its price for one weekend to attract visitors to its stand. Identify the two pricing approaches and distinguish their immediate aims.",
+      "answer": "The new brand uses penetration pricing to attract buyers and gain an initial foothold. The established brand uses temporary promotional pricing to stimulate purchases during the event.",
+      "explanation": "Both can involve low prices, but the launch and the short-lived sales event provide different evidence about purpose.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify penetration pricing for the launch."
+        },
+        {
+          "marks": 1,
+          "description": "Identify promotional pricing for the weekend."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish initial market entry from a short-term sales boost."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Pricing",
+      "subtopic": "Pricing strategies",
+      "learningObjective": "Apply pricing strategies and assess their effect on contribution and customer trial.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "id": "ndv-083-006",
+      "objectiveId": "neco-marketing-083-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "An Aba bag maker pays a variable cost of ₦2,000 per bag. Keeping the price at ₦3,000 is forecast to sell 40 bags this week. A temporary price of ₦2,700 is forecast to sell 50. Fixed costs are identical. Which option gives higher weekly contribution under the forecasts, and what assumption should be checked before changing price?",
+      "answer": "Keep ₦3,000. The forecast contributions are ₦40,000 at the regular price and ₦35,000 at the discounted price. Check whether the discount would sell more than 57 bags, since 58 bags would be needed to beat ₦40,000 at ₦700 contribution each.",
+      "explanation": "Contribution compares selling price minus variable cost per unit, multiplied by volume. A higher volume forecast can still yield lower contribution.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculate regular-price contribution of ₦40,000."
+        },
+        {
+          "marks": 1,
+          "description": "Calculate discount contribution of ₦35,000."
+        },
+        {
+          "marks": 1,
+          "description": "Recommend the regular price under the given forecasts."
+        },
+        {
+          "marks": 1,
+          "description": "Identify an assumption about likely sales response or variable cost that could alter the decision."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(3000 - 2000) * 40",
+          "expected": 40000,
+          "purpose": "Verify regular contribution."
+        },
+        {
+          "expression": "(2700 - 2000) * 50",
+          "expected": 35000,
+          "purpose": "Verify discount contribution."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Distribution",
+      "subtopic": "Channels and intermediaries",
+      "learningObjective": "Identify channel structures and evaluate their suitability against reach, costs and service requirements.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "id": "ndv-083-007",
+      "objectiveId": "neco-marketing-083-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A furniture maker sells desks from its own workshop directly to households. Which channel describes those transactions?",
+      "answer": "Producer → consumer.",
+      "explanation": "The workshop belongs to the maker and no independent reseller takes part.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Producer → agent → consumer.",
+        "Producer → retailer → consumer.",
+        "Producer → consumer.",
+        "Producer → wholesaler → retailer → consumer."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Distribution",
+      "subtopic": "Channels and intermediaries",
+      "learningObjective": "Identify channel structures and evaluate their suitability against reach, costs and service requirements.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "id": "ndv-083-008",
+      "objectiveId": "neco-marketing-083-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A beverage producer sells cases to a business that breaks large orders into smaller batches and resells them to several kiosks. The kiosks sell individual bottles to customers. What is the intermediary that buys cases from the producer?",
+      "answer": "A wholesaler.",
+      "explanation": "The business buys in bulk and resells to retailers. The kiosks perform the retail function.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A wholesaler.",
+        "A final consumer.",
+        "A retailer serving the final buyers.",
+        "An agent arranging sales without buying stock."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Distribution",
+      "subtopic": "Channels and intermediaries",
+      "learningObjective": "Identify channel structures and evaluate their suitability against reach, costs and service requirements.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "id": "ndv-083-009",
+      "objectiveId": "neco-marketing-083-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A Jos yoghurt producer can sell chilled cups directly from one outlet or supply a wholesaler that reaches fifteen kiosks. Only six kiosks can reliably refrigerate stock. Recommend how to test expansion while protecting product quality and state one measure for deciding whether to expand further.",
+      "answer": "Pilot wholesale supply to the six kiosks with reliable refrigeration. Verify chilled transport and storage before deliveries. Monitor the share of deliveries and displays that stay within the required storage conditions, alongside sales or spoilage, before widening distribution. The other kiosks should demonstrate reliable refrigeration first because inadequate chilling can compromise the product.",
+      "explanation": "The pilot gains reach while allowing the producer to verify cold-chain performance before selling through more outlets.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Choose a feasible limited channel trial."
+        },
+        {
+          "marks": 1,
+          "description": "Address refrigeration in storage and transport."
+        },
+        {
+          "marks": 1,
+          "description": "Specify a measurable decision criterion tied to safety or quality."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why the remaining kiosks should qualify before receiving stock."
+        }
+      ]
+    }
+  ]
+}

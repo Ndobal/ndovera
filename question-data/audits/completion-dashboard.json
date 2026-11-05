@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3250,
-    "validDrafts": 1571,
+    "raw": 3259,
+    "validDrafts": 1580,
     "reviewed": 0,
-    "registeredBanks": 173,
-    "target": 155000,
+    "registeredBanks": 174,
+    "target": 156000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -626,6 +626,12 @@
       "sha256": "61eb1b59aba255e6c4b2bb57ff2ef760d9e81e05bec485a55a45d4bbe4f558d5",
       "declared": 6,
       "actual": 6
+    },
+    {
+      "path": "original-multisubject-batch-083.json",
+      "sha256": "4541618d3c0e338e5cd80b20687e13f0560b316d9f1af75aea0b173cab10268f",
+      "declared": 9,
+      "actual": 9
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2612,6 +2618,39 @@
       "remaining": 992,
       "mappedObjectives": 2,
       "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "II": "essay",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "II": "3032",
+        "III": "3033"
+      },
+      "raw": 9,
+      "validDrafts": 9,
+      "reviewed": 0,
+      "questionTypes": {
+        "mcq": 5,
+        "structured": 4
+      },
+      "difficulty": {
+        "easy": 2,
+        "standard": 4,
+        "difficult": 3
+      },
+      "remaining": 991,
+      "mappedObjectives": 3,
+      "representedObjectives": 3,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -4609,11 +4648,11 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 232,
+    "explicitArithmeticClaims": 235,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -28619,6 +28658,60 @@
       "errors": []
     },
     {
+      "id": "ndv-083-001",
+      "file": "original-multisubject-batch-083.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-083-002",
+      "file": "original-multisubject-batch-083.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-083-003",
+      "file": "original-multisubject-batch-083.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-083-004",
+      "file": "original-multisubject-batch-083.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-083-005",
+      "file": "original-multisubject-batch-083.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-083-006",
+      "file": "original-multisubject-batch-083.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-083-007",
+      "file": "original-multisubject-batch-083.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-083-008",
+      "file": "original-multisubject-batch-083.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-083-009",
+      "file": "original-multisubject-batch-083.json",
+      "index": 8,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -51621,6 +51714,104 @@
       "validDrafts": 3,
       "difficulty": {
         "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-marketing-083-1-v1",
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Marketing mix",
+      "subtopic": "Product and promotion",
+      "learningObjective": "Distinguish product decisions from promotion and use customer evidence to select a response.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Marketing Papers II and III",
+        "WAEC Marketing examiner materials, 2014 and 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-marketing-083-2-v1",
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Pricing",
+      "subtopic": "Pricing strategies",
+      "learningObjective": "Apply pricing strategies and assess their effect on contribution and customer trial.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Marketing Papers II and III",
+        "WAEC Marketing examiner materials, 2014 and 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-marketing-083-3-v1",
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Distribution",
+      "subtopic": "Channels and intermediaries",
+      "learningObjective": "Identify channel structures and evaluate their suitability against reach, costs and service requirements.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Marketing Papers II and III",
+        "WAEC Marketing examiner materials, 2014 and 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 1,
         "difficult": 1
       },
       "tiers": {

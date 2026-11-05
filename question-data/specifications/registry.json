@@ -1222,6 +1222,19 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO lists practical (2081), essay (2082) and objective (2083). WAEC examiner material supports provisional relay skills. Teacher-marked drill boundaries and observation rubrics are classroom choices. World Athletics 2026 TR24 informs baton-position observation. Official NECO objectives and practical requirements remain open."
+    },
+    {
+      "id": "neco-marketing-mix-reference-2026",
+      "exam": "NECO",
+      "subject": "Marketing",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Marketing/Market123mq6.html",
+        "https://www.waeconline.org.ng/e-learning/Marketing/Market227mq3.html"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "The NECO timetable lists objective 3033 and essay 3032. WAEC examiner materials from 2014 and 2018 provide provisional topic references. Current NECO objectives, detailed paper specifications and SSCE External scope remain unverified."
     }
   ],
   "banks": [
@@ -2536,6 +2549,22 @@
         "I": "practical",
         "III": "objective",
         "II": "essay"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Marketing",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "II": "essay",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "II": "3032",
+        "III": "3033"
       }
     }
   ],
@@ -9125,6 +9154,63 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Physical Education Paper I (2081)",
         "WAEC Physical Education examiner materials, 2017 and 2020; World Athletics 2026 TR24"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-marketing-083-1-v1",
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Marketing mix",
+      "subtopic": "Product and promotion",
+      "learningObjective": "Distinguish product decisions from promotion and use customer evidence to select a response.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Marketing Papers II and III",
+        "WAEC Marketing examiner materials, 2014 and 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-marketing-083-2-v1",
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Pricing",
+      "subtopic": "Pricing strategies",
+      "learningObjective": "Apply pricing strategies and assess their effect on contribution and customer trial.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Marketing Papers II and III",
+        "WAEC Marketing examiner materials, 2014 and 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-marketing-083-3-v1",
+      "exam": "NECO",
+      "subject": "Marketing",
+      "topic": "Distribution",
+      "subtopic": "Channels and intermediaries",
+      "learningObjective": "Identify channel structures and evaluate their suitability against reach, costs and service requirements.",
+      "specificationId": "neco-marketing-mix-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Marketing Papers II and III",
+        "WAEC Marketing examiner materials, 2014 and 2018"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

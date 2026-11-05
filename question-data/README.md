@@ -431,3 +431,8 @@ Athletics' 2026 technical rules. Official practical tasks remain open.
 Batch 082 adds six supervised Physical Education relay drills with
 observable criteria for performance and feedback. NECO's timetable
 confirms Paper I as practical. Classroom tasks and marks are provisional.
+
+Batch 083 registers NECO SSCE Internal Marketing and adds nine
+original objective and structured drafts on the marketing mix, pricing
+and distribution. The 2026 timetable verifies paper codes and formats.
+The learning objectives use historical WAEC topic evidence provisionally.
