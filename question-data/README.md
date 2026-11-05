@@ -473,3 +473,9 @@ Batch 089 adds six supervised Computer Hardware and GSM Repairs
 classroom practical drafts. The 2026 NECO timetable verifies Paper I
 as practical. Topic evidence is historical and cross-board. The tasks
 and marking guides are original and provisional.
+
+Batch 090 opens NECO Fashion Design and Garment Making with eight
+written drafts on open seams, edge finishing and sleeve alterations.
+The 2026 Internal timetable verifies papers 5021, 5022 and 5023.
+Historical WAEC reports inform provisional topic mapping. Detailed
+NECO practical requirements and official objectives remain open.

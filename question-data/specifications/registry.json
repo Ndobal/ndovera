@@ -1313,6 +1313,19 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO 2026 SSCE Internal timetable confirms Paper I (5011) as practical. Historical WAEC reports support the connector and multimeter topics. Classroom tasks and marks are original. Official NECO task instructions and marking specifications remain unverified."
+    },
+    {
+      "id": "neco-fashion-construction-reference-2026",
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/GarmentMaking/Garm227mq5.html",
+        "https://www.waeconline.org.ng/e-learning/GarmentMaking/Garm228mq1.html"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "NECO verifies practical 5021, essay 5022 and objective 5023. Historical WAEC Garment Making examiner reports support provisional topic mapping for open seams and sleeve pattern development. Official NECO syllabus and detailed tasks remain unverified."
     }
   ],
   "banks": [
@@ -2697,6 +2710,24 @@
         "I": "5011",
         "II": "5012",
         "III": "5013"
+      }
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "level": "",
+      "target": 1000,
+      "specificationId": "neco-ssce-internal-timetable-2026",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
+      "paperFormats": {
+        "I": "practical",
+        "II": "essay",
+        "III": "objective"
+      },
+      "paperCodes": {
+        "I": "5021",
+        "II": "5022",
+        "III": "5023"
       }
     }
   ],
@@ -9565,6 +9596,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Paper I (format only)",
         "WAEC GSM Phone Maintenance and Repair examiner report, 2019"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-fashion-090-1-v1",
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction",
+      "subtopic": "Open seams and edge finishing",
+      "learningObjective": "Analyse open seam construction and select suitable edge finishing.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Papers II and III (format only)",
+        "WAEC Garment Making examiner report, 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-fashion-090-2-v1",
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development",
+      "subtopic": "Sleeve fullness and pattern alteration",
+      "learningObjective": "Interpret and evaluate sleeve pattern alterations that control fullness and fit.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Papers II and III (format only)",
+        "WAEC Garment Making examiner report, 2019"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

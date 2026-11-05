@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Fashion Design and Garment Making written practice",
+  "questionCount": 8,
+  "note": "Original written drafts. NECO 2026 Internal formats verified. Historical cross-board topic alignment is provisional and independent review is pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction",
+      "subtopic": "Open seams and edge finishing",
+      "learningObjective": "Analyse open seam construction and select suitable edge finishing.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "id": "ndv-090-001",
+      "objectiveId": "neco-fashion-090-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "When an open seam in a skirt has been pressed correctly, what should be visible on the inside?",
+      "answer": "The two seam allowances lie on opposite sides of the stitching.",
+      "explanation": "Pressing an open seam separates the allowances so each lies flat on its own side.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The two seam allowances lie on opposite sides of the stitching.",
+        "Both allowances are pressed towards the front panel.",
+        "Both allowances are rolled into the stitching line.",
+        "The two fabric panels are held together by pressing alone."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction",
+      "subtopic": "Open seams and edge finishing",
+      "learningObjective": "Analyse open seam construction and select suitable edge finishing.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "id": "ndv-090-002",
+      "objectiveId": "neco-fashion-090-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A loosely woven cotton uniform sample sheds threads at both raw edges of an open seam. The workshop has an overlocker and wants the allowances to stay flat on opposite sides. Which finish meets both requirements?",
+      "answer": "Overlock each raw edge separately without joining the allowances.",
+      "explanation": "Separate edge finishing secures the raw edges while preserving the open seam.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Overlock both allowances together and press them to one side.",
+        "Trim both raw edges right up to the seam stitching.",
+        "Overlock each raw edge separately without joining the allowances.",
+        "Press both edges under and join them to one another."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction",
+      "subtopic": "Open seams and edge finishing",
+      "learningObjective": "Analyse open seam construction and select suitable edge finishing.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "id": "ndv-090-003",
+      "objectiveId": "neco-fashion-090-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two identical pouch panels were cut with 1 cm side seam allowances. The maker stitched both sides 1.5 cm from the raw edges. Explain why the pouch is narrower than planned, and state how to recover the intended width if the fabric can be unpicked without damage.",
+      "answer": "Each side seam was sewn 0.5 cm too far in, reducing the flat width by 1 cm across the two sides. Unpick both seams and sew 1 cm from each raw edge.",
+      "explanation": "A seam allowance is the distance from the cut edge to the stitching line. Moving both stitching lines inward reduces the distance between them.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the extra 0.5 cm taken in at each side."
+        },
+        {
+          "marks": 1,
+          "description": "State that the total loss in flat width is 1 cm."
+        },
+        {
+          "marks": 1,
+          "description": "Unpick and resew at the intended 1 cm allowance."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "2*(1.5-1)",
+          "expected": 1,
+          "purpose": "Verify the loss in flat pouch width."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Garment construction",
+      "subtopic": "Open seams and edge finishing",
+      "learningObjective": "Analyse open seam construction and select suitable edge finishing.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "id": "ndv-090-004",
+      "objectiveId": "neco-fashion-090-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A tailor is choosing between two open-seam samples for a lightweight unlined jacket. Sample A lies flat but its raw edges fray after handling. Sample B has finished edges but leaves a ridge visible on the outside. Neither sample will be used as made. Recommend one change to either sample and describe two checks before approving it.",
+      "answer": "For example, finish Sample A’s allowances separately with a light edge finish and press them open again. Check that handling no longer frees loose threads and that the seam remains flat without a visible ridge. A lighter finish on Sample B is also acceptable if it passes both checks.",
+      "explanation": "The finish must control fraying without adding enough bulk to change the outside appearance.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recommend a specific change that addresses the chosen sample’s defect."
+        },
+        {
+          "marks": 1,
+          "description": "Keep the allowances separate or explain how the revision limits bulk."
+        },
+        {
+          "marks": 1,
+          "description": "Specify a fraying check."
+        },
+        {
+          "marks": 1,
+          "description": "Specify a flatness or outside appearance check."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development",
+      "subtopic": "Sleeve fullness and pattern alteration",
+      "learningObjective": "Interpret and evaluate sleeve pattern alterations that control fullness and fit.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "id": "ndv-090-005",
+      "objectiveId": "neco-fashion-090-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "On a sleeve pattern, which part is sewn to the garment’s armhole in a set-in sleeve?",
+      "answer": "The sleeve cap.",
+      "explanation": "The sleeve cap is the shaped upper edge that joins the armhole. The lower edge meets the hem or cuff.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The cuff edge.",
+        "The sleeve cap.",
+        "The grainline arrow.",
+        "The centre of the wrist opening."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development",
+      "subtopic": "Sleeve fullness and pattern alteration",
+      "learningObjective": "Interpret and evaluate sleeve pattern alterations that control fullness and fit.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "id": "ndv-090-006",
+      "objectiveId": "neco-fashion-090-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "A dressmaker wants more gathering at the wrist while keeping the existing armhole fit. Which paper-pattern alteration is suitable as a starting point?",
+      "answer": "Spread sections at the wrist edge while keeping their pivots at the sleeve-cap stitching line.",
+      "explanation": "Spreading the lower edge adds fullness there. Pivoting at the cap limits changes to the upper edge, which should still be checked.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Enlarge every edge of the sleeve by the same amount.",
+        "Shorten the cuff without changing the sleeve pattern.",
+        "Spread only at the cap and keep the wrist edge fixed.",
+        "Spread sections at the wrist edge while keeping their pivots at the sleeve-cap stitching line."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development",
+      "subtopic": "Sleeve fullness and pattern alteration",
+      "learningObjective": "Interpret and evaluate sleeve pattern alterations that control fullness and fit.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "id": "ndv-090-007",
+      "objectiveId": "neco-fashion-090-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A pattern maker spreads a sleeve block at the wrist edge and traces the new outline. The tracing has a stepped lower edge at the spread lines. Explain what to correct before cutting fabric and why the seam allowance should be checked afterward.",
+      "answer": "Blend the stepped wrist stitching line into a smooth curve, preserving the intended fullness. Add or check the specified seam allowance from the corrected stitching line.",
+      "explanation": "Truing removes unintended corners created by spreading. Measuring from the final stitching line keeps the cut edge at the planned offset.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the lower stitching line as the line to true."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how smoothing removes unintended steps."
+        },
+        {
+          "marks": 1,
+          "description": "Check the seam allowance from the corrected stitching line."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Fashion Design and Garment Making",
+      "topic": "Pattern development",
+      "subtopic": "Sleeve fullness and pattern alteration",
+      "learningObjective": "Interpret and evaluate sleeve pattern alterations that control fullness and fit.",
+      "specificationId": "neco-fashion-construction-reference-2026",
+      "id": "ndv-090-008",
+      "objectiveId": "neco-fashion-090-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A trial sleeve gathers evenly into its cuff but its cap seamline is now longer than the armhole by more than the design’s intended ease. A colleague suggests shortening the cuff. Explain whether that would solve the fitting problem and describe a pattern check and correction that preserves the wrist fullness.",
+      "answer": "Shortening the cuff changes wrist fit and gathering but leaves the excess at the armhole. Compare the cap and armhole stitching lengths between corresponding notches, allowing the intended ease. Restore or adjust the upper cap from the original block while retaining the expanded wrist edge, then verify the revised seam lengths.",
+      "explanation": "The measurements must be taken on stitching lines. The fitting fault is at the cap, so correcting that area can preserve the desired lower fullness.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain why shortening the cuff leaves the cap-length problem."
+        },
+        {
+          "marks": 1,
+          "description": "Compare corresponding stitching lengths with intended ease."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a feasible correction at the cap that preserves wrist fullness."
+        },
+        {
+          "marks": 1,
+          "description": "Recheck the corrected cap against the armhole."
+        }
+      ]
+    }
+  ]
+}
