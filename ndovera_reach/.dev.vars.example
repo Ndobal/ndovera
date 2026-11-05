@@ -1,0 +1,7 @@
+# Local development only. Never put real credentials in Git.
+WHATSAPP_ACCESS_TOKEN=
+WHATSAPP_PHONE_NUMBER_ID=
+WHATSAPP_VERIFY_TOKEN=
+WHATSAPP_APP_SECRET=
+EMAIL_API_KEY=
+APP_ORIGIN=http://localhost:5173
