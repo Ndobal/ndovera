@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Home Management supervised planning practicals",
+  "questionCount": 6,
+  "note": "Original classroom simulations. Paper I format verified; official practical tasks and marking remain unverified. Independent review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household planning practical",
+      "subtopic": "Task sequencing and resource coordination",
+      "learningObjective": "Construct and revise a household work plan using physical planning materials.",
+      "specificationId": "neco-home-practical-reference-2026",
+      "id": "ndv-095-001",
+      "objectiveId": "neco-home-095-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On a supervised planning board, arrange cards for clearing a dining table, wiping it and setting out clean place mats. Place the separate job of sorting dry laundry where a second person can do it without waiting. Assign a person to each row and show the resulting plan.",
+      "answer": "Sequence clearing, wiping and setting out mats after the surface dries. Put laundry sorting in a parallel row for the second person and label the rows.",
+      "explanation": "The board shows both the dependencies and the independent job.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Place clearing before wiping."
+        },
+        {
+          "marks": 1,
+          "description": "Place clean mats after wiping and drying."
+        },
+        {
+          "marks": 1,
+          "description": "Show laundry as parallel work assigned to the second person."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household planning practical",
+      "subtopic": "Task sequencing and resource coordination",
+      "learningObjective": "Construct and revise a household work plan using physical planning materials.",
+      "specificationId": "neco-home-practical-reference-2026",
+      "id": "ndv-095-002",
+      "objectiveId": "neco-home-095-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a work-planning station, place task cards into slots for two household members. Both need the same bucket, one to wash a veranda and one to wash gardening tools. A third card calls for folding dry towels and needs no bucket. Show a workable schedule, then revise it when the teacher moves the bucket availability to the second half of the work period.",
+      "answer": "Schedule bucket jobs one after the other in available slots and assign the independent folding job separately. In the revision, shift both bucket tasks into successive slots in the second half and use the earlier period for folding.",
+      "explanation": "A shared tool imposes an equipment constraint even when two people are free.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Avoid overlapping bucket use in the first plan."
+        },
+        {
+          "marks": 1,
+          "description": "Assign folding without using the bucket."
+        },
+        {
+          "marks": 1,
+          "description": "Move both bucket tasks into available time without overlap."
+        },
+        {
+          "marks": 1,
+          "description": "Show responsibility for every task on the revised board."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household planning practical",
+      "subtopic": "Task sequencing and resource coordination",
+      "learningObjective": "Construct and revise a household work plan using physical planning materials.",
+      "specificationId": "neco-home-practical-reference-2026",
+      "id": "ndv-095-003",
+      "objectiveId": "neco-home-095-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Your teacher provides three mock errands, a map and an opening-hours card. The water pickup point closes at 9:30 a.m., the stationery shop opens at 9:45 a.m., and dropping a parcel requires no fixed time. Mark a feasible route and arrival times using the travel times on the map. The teacher then adds a delay card. Update the route or explain which deadline cannot be met.",
+      "answer": "Use the supplied travel times to reach the water point before closure and the shop after opening. Fit the parcel stop around these constraints. After the delay, recalculate the affected arrivals and move the flexible stop if it restores feasibility. Flag an impossible deadline if the revised times cannot satisfy it.",
+      "explanation": "Written arrival times make it possible to test whether a planned order meets each constraint.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Record a feasible original route and arrival times."
+        },
+        {
+          "marks": 1,
+          "description": "Apply the opening and closing times correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Recalculate affected arrivals after the delay."
+        },
+        {
+          "marks": 1,
+          "description": "Show a feasible revision or justify the deadline that cannot be met."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household planning practical",
+      "subtopic": "Spending records and budget controls",
+      "learningObjective": "Demonstrate spending controls and reconcile a simulated household budget.",
+      "specificationId": "neco-home-practical-reference-2026",
+      "id": "ndv-095-004",
+      "objectiveId": "neco-home-095-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At a mock household spending station, the teacher gives you labelled food, transport and savings envelopes, token notes and a transport receipt. Pay the receipt using the correct envelope, attach the receipt to the matching ledger row and show the remaining tokens to the teacher.",
+      "answer": "Use the transport envelope. Record and match the receipt in the transport ledger, then count the remaining tokens and compare them with the recorded balance.",
+      "explanation": "Linking payment evidence to the category makes the transaction traceable.",
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use the transport envelope only."
+        },
+        {
+          "marks": 1,
+          "description": "Match the receipt to the transport ledger entry."
+        },
+        {
+          "marks": 1,
+          "description": "Check the remaining physical tokens against the balance."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household planning practical",
+      "subtopic": "Spending records and budget controls",
+      "learningObjective": "Demonstrate spending controls and reconcile a simulated household budget.",
+      "specificationId": "neco-home-practical-reference-2026",
+      "id": "ndv-095-005",
+      "objectiveId": "neco-home-095-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A mock market envelope has several receipts and a spending sheet. One receipt appears twice on the sheet and all other entries are correct. Match receipts to entries by reference number. Mark the duplicate for reversal, then reconcile the corrected balance with the token cash supplied by the teacher.",
+      "answer": "Match references, flag the repeated reference, and reverse one duplicate while keeping a visible record of the correction. Subtract the corrected spending total from the opening balance and compare the result with the token cash.",
+      "explanation": "A repeated entry lowers the recorded balance even when only one payment took place.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use references to identify the repeated entry."
+        },
+        {
+          "marks": 1,
+          "description": "Make a visible correction without removing the legitimate expense."
+        },
+        {
+          "marks": 1,
+          "description": "Compute the corrected balance."
+        },
+        {
+          "marks": 1,
+          "description": "Compare it with the token cash and report the result."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Home Management",
+      "topic": "Household planning practical",
+      "subtopic": "Spending records and budget controls",
+      "learningObjective": "Demonstrate spending controls and reconcile a simulated household budget.",
+      "specificationId": "neco-home-practical-reference-2026",
+      "id": "ndv-095-006",
+      "objectiveId": "neco-home-095-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Use a teacher-supplied household budget board with essential bills, protected savings and optional purchase cards. A new price card raises the cost of one essential item. Rearrange the optional cards to keep spending within available funds and show the balance before and after. Explain which optional purchase you delayed and why.",
+      "answer": "Update the essential cost and keep protected savings intact. Remove or replace optional items until the new total fits. Record both balances and justify the change using a stated household priority.",
+      "explanation": "The board makes the cost increase and the trade-off visible. More than one revision can satisfy the constraints.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Update the essential cost accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Preserve the protected categories."
+        },
+        {
+          "marks": 1,
+          "description": "Show both balances and a feasible revised total."
+        },
+        {
+          "marks": 1,
+          "description": "Justify the choice of optional purchase to delay."
+        }
+      ]
+    }
+  ]
+}

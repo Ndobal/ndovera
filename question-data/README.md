@@ -502,3 +502,8 @@ progressive assessments. Assessment tasks and marks remain open.
 Batch 094 adds eight NECO Home Management written drafts on
 time planning and household budgeting. NECO paper formats are
 verified and topic mapping is provisional.
+
+Batch 095 adds six supervised Home Management
+classroom practical drafts. The 2026 NECO timetable verifies Paper I
+as practical. Topic evidence is historical and cross-board. The tasks
+and marking guides are original and provisional.

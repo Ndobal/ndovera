@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_094_automated_validation_passed",
+  "phase": "batch_095_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-095.json",
+  "nextBatch": "original-multisubject-batch-096.json",
   "nextPriorities": [
-    "Retrieve official NECO Home Management practical instructions and marks. Use source-supported household planning tasks where appropriate and retain provisional mapping.",
+    "Verify topic evidence and paper-specific requirements for NECO Music. Official Home Management practical tasks and marking remain unverified.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-094.json",
-  "lastRemoteVerifiedCommit": "753d5c8909008bb9da1109aee3d4a0d3073946d9",
+  "lastValidatedBatch": "original-multisubject-batch-095.json",
+  "lastRemoteVerifiedCommit": "ec4475bde581d0ff4fe2954e3034138ff1c6c946",
   "verifiedTotals": {
-    "raw": 3337,
-    "validDrafts": 1658,
+    "raw": 3343,
+    "validDrafts": 1664,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-094.json",
+  "lastPopulatedBatch": "original-multisubject-batch-095.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3337
+  "inventoryRaw": 3343
 }
