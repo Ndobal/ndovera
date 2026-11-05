@@ -1389,6 +1389,19 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO 2026 SSCE Internal confirms Paper I (4061) as practical. Historical WAEC written examiner material supports the topics only. Tasks and marks are original supervised classroom simulations. Official NECO instructions and marking remain unverified."
+    },
+    {
+      "id": "neco-music-theory-reference-2026",
+      "exam": "NECO",
+      "subject": "Music",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-Learning/Music/music240mq1.html",
+        "https://www.waeconline.org.ng/e-learning/Music/Music219mq1.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "The NECO 2026 timetable confirms objective 4103 and essay 4102, with separate Papers I and IV. Historical WAEC Music examiner material informs provisional written topics. Official NECO objectives and detailed paper requirements remain unverified."
     }
   ],
   "banks": [
@@ -2927,7 +2940,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_format_provisional_cross_board_topic_reference",
       "paperFormats": {
         "II": "essay",
         "III": "objective",
@@ -10169,6 +10182,44 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Paper I (format only)",
         "WAEC Home Management examiner material, 2015"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-music-096-1-v1",
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Written music theory",
+      "subtopic": "Metre and rhythm",
+      "learningObjective": "Interpret metre, group rhythms and construct complete bars.",
+      "specificationId": "neco-music-theory-reference-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Papers II and III (format only)",
+        "WAEC Music Paper 2 examiner material, 2010 and 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-music-096-2-v1",
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Written music theory",
+      "subtopic": "Relative keys and cadences",
+      "learningObjective": "Relate key signatures to tonal centres and use cadence evidence to distinguish tonicisation or key changes.",
+      "specificationId": "neco-music-theory-reference-2026",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Papers II and III (format only)",
+        "WAEC Music Paper 2 examiner material, 2023"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

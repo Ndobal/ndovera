@@ -97,7 +97,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Livestock Farming | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Marketing | 1000 | 9 | 9 | 0 | 991 | partial_objective_register |
 | NECO | Mathematics | 1000 | 38 | 24 | 0 | 976 | partial_objective_register |
-| NECO | Music | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| NECO | Music | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Nigerian History | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Physical Education | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Physics | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
@@ -207,13 +207,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 394 | 359 | 0 | 36000 | 35641 |
+| NECO | 402 | 367 | 0 | 36000 | 35633 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3343, "validDrafts": 1664, "reviewed": 0, "registeredBanks": 189, "target": 171000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3351, "validDrafts": 1672, "reviewed": 0, "registeredBanks": 189, "target": 171000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

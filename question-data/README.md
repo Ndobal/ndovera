@@ -507,3 +507,7 @@ Batch 095 adds six supervised Home Management
 classroom practical drafts. The 2026 NECO timetable verifies Paper I
 as practical. Topic evidence is historical and cross-board. The tasks
 and marking guides are original and provisional.
+
+Batch 096 adds eight NECO Music written theory drafts on metre,
+rhythm, relative keys and cadences. Topic alignment is provisional.
+Performance, music technology and aural assessment remain open.
