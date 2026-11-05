@@ -417,3 +417,8 @@ Batch 079 registers NECO Health Education and adds eight written drafts
 on water protection, sanitation and refuse management. The 2026
 timetable confirms the objective and essay papers and Test of Practical.
 Official topic objectives and detailed practical requirements remain open.
+
+Batch 080 adds six NECO Health Education vector-control observation
+drafts using original mock inspection records. The 2026 timetable
+identifies Paper I as Test of Practical. The observation format uses
+historical cross-board evidence, with exact NECO requirements open.

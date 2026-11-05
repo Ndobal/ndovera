@@ -1181,6 +1181,19 @@
       ],
       "retrievedOn": "2026-11-05",
       "note": "NECO confirms Test of Practical (2071), essay (2072) and objective (2073). Historical WAEC evidence informs provisional written scope. WHO supports water and sanitation concepts. Official NECO objectives and practical requirements remain unverified."
+    },
+    {
+      "id": "neco-health-vector-observation-reference-2026",
+      "exam": "NECO",
+      "subject": "Health Education",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Health/HSc330mq1.html",
+        "https://www.who.int/teams/global-malaria-programme/prevention/vector-control/"
+      ],
+      "retrievedOn": "2026-11-05",
+      "note": "NECO identifies Paper I (2071) as Test of Practical. Historical WAEC Paper 3 provides cross-board evidence for observation-based vector-control questions. WHO supports malaria prevention content. Stimuli, objectives and mark allocations are original practice choices. Exact NECO Paper I tasks and marking remain unverified."
     }
   ],
   "banks": [
@@ -8961,6 +8974,42 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Health Education Papers II and III",
         "Historical WAEC Health Education examiner materials, 2017; WHO drinking-water and sanitation guidance"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-health-080-1-v1",
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Vector control",
+      "subtopic": "Bite-prevention observations",
+      "learningObjective": "Interpret mock inspection observations and explain how barrier and vector-control measures differ.",
+      "specificationId": "neco-health-vector-observation-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Health Education Paper I (2071)",
+        "WAEC Health Education Paper 3 examiner material, 2020; WHO malaria vector-control guidance"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-health-080-2-v1",
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Vector control",
+      "subtopic": "Environmental surveillance",
+      "learningObjective": "Interpret observation records, assess sampling limitations and propose checks for breeding-site controls.",
+      "specificationId": "neco-health-vector-observation-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Health Education Paper I (2071)",
+        "WAEC Health Education Paper 3 examiner material, 2020; WHO malaria vector-control guidance"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

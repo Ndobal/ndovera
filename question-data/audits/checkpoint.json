@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_079_automated_validation_passed",
+  "phase": "batch_080_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-080.json",
+  "nextBatch": "original-multisubject-batch-081.json",
   "nextPriorities": [
-    "Verify the official NECO Health Education Test of Practical requirements and expand written coverage where supported. WAEC African drama still needs accessible primary text.",
+    "Verify NECO Physical Education paper formats and find topic evidence for an initial written batch. Official Health Education practical tasks and accessible WAEC African drama primary text remain open.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-079.json",
-  "lastRemoteVerifiedCommit": "d67e41e05a03bded1e57246848a71eef1024b839",
+  "lastValidatedBatch": "original-multisubject-batch-080.json",
+  "lastRemoteVerifiedCommit": "b63eef9cfdade0a04149a72d8883cea1d3f4d575",
   "verifiedTotals": {
-    "raw": 3230,
-    "validDrafts": 1551,
+    "raw": 3236,
+    "validDrafts": 1557,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-079.json",
+  "lastPopulatedBatch": "original-multisubject-batch-080.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3230
+  "inventoryRaw": 3236
 }

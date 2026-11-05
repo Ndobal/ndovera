@@ -82,7 +82,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Further Mathematics | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Geography | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Government | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
-| NECO | Health Education | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
+| NECO | Health Education | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Islamic Studies | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Mathematics | 1000 | 38 | 24 | 0 | 976 | partial_objective_register |
 | NECO | Nigerian History | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
@@ -190,13 +190,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 281 | 246 | 0 | 19000 | 18754 |
+| NECO | 287 | 252 | 0 | 19000 | 18748 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3230, "validDrafts": 1551, "reviewed": 0, "registeredBanks": 172, "target": 154000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3236, "validDrafts": 1557, "reviewed": 0, "registeredBanks": 172, "target": 154000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

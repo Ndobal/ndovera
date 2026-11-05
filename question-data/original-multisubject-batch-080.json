@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Health Education vector-control observation practice",
+  "questionCount": 6,
+  "note": "Original structured practice using mock inspection records. NECO lists Test of Practical; exact task specifications remain open. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Vector control",
+      "subtopic": "Bite-prevention observations",
+      "learningObjective": "Interpret mock inspection observations and explain how barrier and vector-control measures differ.",
+      "specificationId": "neco-health-vector-observation-reference-2026",
+      "id": "ndv-080-001",
+      "objectiveId": "neco-health-080-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A mock dormitory inspection records two sleeping spaces. Space A has an insecticide-treated net hanging over the bed, with one edge raised above the mattress. Space B has an intact net enclosing the bed, but its label is missing. Identify a barrier fault at A and explain what the observer can and cannot conclude about B.",
+      "answer": "A has an opening that can let mosquitoes enter the sleeping space. B appears to have a continuous physical barrier, but the inspection does not establish whether it is insecticide-treated.",
+      "explanation": "Barrier condition can be observed directly. Treatment status needs other evidence, such as a label or supply record.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the opening at A."
+        },
+        {
+          "marks": 1,
+          "description": "Explain what can be observed about B."
+        },
+        {
+          "marks": 1,
+          "description": "Identify treatment status as unverified and give suitable confirming evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Vector control",
+      "subtopic": "Bite-prevention observations",
+      "learningObjective": "Interpret mock inspection observations and explain how barrier and vector-control measures differ.",
+      "specificationId": "neco-health-vector-observation-reference-2026",
+      "id": "ndv-080-002",
+      "objectiveId": "neco-health-080-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A display labels specimen A as an insecticide-treated bed net and specimen B as a drawing of a trained team applying indoor residual spray to interior walls. For each, identify where the intervention acts and describe one difference in how protection is delivered.",
+      "answer": "A is used around a sleeping space and provides a barrier with insecticide on the net. B treats indoor resting surfaces so susceptible mosquitoes contacting those surfaces are exposed.",
+      "explanation": "Compare a personal sleeping-space intervention with a professionally applied treatment of indoor surfaces.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify where the net is used."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the treated surfaces in B."
+        },
+        {
+          "marks": 1,
+          "description": "Explain one mechanism difference between the methods."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Vector control",
+      "subtopic": "Bite-prevention observations",
+      "learningObjective": "Interpret mock inspection observations and explain how barrier and vector-control measures differ.",
+      "specificationId": "neco-health-vector-observation-reference-2026",
+      "id": "ndv-080-003",
+      "objectiveId": "neco-health-080-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a simulated inspection of 24 sleeping places, 20 had nets assigned, 16 of the assigned nets were hung and 12 of the hung nets were recorded as closed around the bed. A report claims 20 sleeping places were observed with a closed net. Correct the claim and give one further observation needed to assess actual use.",
+      "answer": "Only 12 of 24 were recorded with closed nets. Allocation is an inventory measure. To assess use, record whether people actually sleep under the nets during the period being assessed.",
+      "explanation": "Use the count for the reported condition. An observed setup is different from verified use.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use 12 as the count meeting the observed condition."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish allocation, setup and observed closure."
+        },
+        {
+          "marks": 1,
+          "description": "Specify an observation that would help assess use."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "12/24",
+          "expected": "1/2",
+          "purpose": "Proportion observed with closed nets"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Vector control",
+      "subtopic": "Environmental surveillance",
+      "learningObjective": "Interpret observation records, assess sampling limitations and propose checks for breeding-site controls.",
+      "specificationId": "neco-health-vector-observation-reference-2026",
+      "id": "ndv-080-004",
+      "objectiveId": "neco-health-080-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A mock grounds survey records rainwater in an old tyre, an empty dry bucket and a sealed water-storage drum. Identify which location has the clearest immediate sign of a potential breeding site. Give a control measure for that location and an observation that would verify the measure afterwards.",
+      "answer": "The tyre contains standing water. Empty it safely and store it under cover or remove it through an appropriate disposal route. Recheck after rain to see whether water still collects.",
+      "explanation": "The observation identifies a potential site. The follow-up checks whether the intervention prevents water from accumulating again.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Select the tyre using the observed water."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a feasible way to stop repeat accumulation."
+        },
+        {
+          "marks": 1,
+          "description": "Give a follow-up observation tied to that control."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Vector control",
+      "subtopic": "Environmental surveillance",
+      "learningObjective": "Interpret observation records, assess sampling limitations and propose checks for breeding-site controls.",
+      "specificationId": "neco-health-vector-observation-reference-2026",
+      "id": "ndv-080-005",
+      "objectiveId": "neco-health-080-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two student teams report potential breeding sites. Team A found six water-holding containers after inspecting 12 compounds. Team B found eight after inspecting 40. Compare the rates per inspected compound and explain why these figures alone cannot establish which area has more mosquito breeding.",
+      "answer": "Team A found 0.5 containers per compound and Team B found 0.2. The inspection counted water-holding containers, without confirming larvae or establishing that the inspected compounds represent their areas.",
+      "explanation": "Compare rates using each team’s denominator. Separate a potential-site indicator from direct evidence of breeding.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculate both rates."
+        },
+        {
+          "marks": 1,
+          "description": "Compare the rates in the correct direction."
+        },
+        {
+          "marks": 1,
+          "description": "Explain an evidence limitation and name an observation or sampling improvement."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "6/12",
+          "expected": "1/2",
+          "purpose": "Rate for Team A"
+        },
+        {
+          "expression": "8/40",
+          "expected": "1/5",
+          "purpose": "Rate for Team B"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Health Education",
+      "topic": "Vector control",
+      "subtopic": "Environmental surveillance",
+      "learningObjective": "Interpret observation records, assess sampling limitations and propose checks for breeding-site controls.",
+      "specificationId": "neco-health-vector-observation-reference-2026",
+      "id": "ndv-080-006",
+      "objectiveId": "neco-health-080-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school introduces covered lids for its water drums. Design a four-week observation sheet to check whether the lids stay in place. Identify what would count as a failed inspection and how you would keep results comparable across weeks.",
+      "answer": "Use one row per drum per inspection, with drum ID, date, lid condition and whether it fits securely. Count missing, open or ill-fitting lids as failures. Revisit the same drums on a consistent schedule and apply the same scoring rules.",
+      "explanation": "A useful observation sheet identifies the units checked, defines failures consistently and lets the school compare results over time.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Include an identifier and observation date."
+        },
+        {
+          "marks": 1,
+          "description": "Record the condition or fit of the lid."
+        },
+        {
+          "marks": 1,
+          "description": "Define a failed inspection clearly."
+        },
+        {
+          "marks": 1,
+          "description": "Use the same drums and rules or explain how changes are recorded."
+        }
+      ]
+    }
+  ]
+}
