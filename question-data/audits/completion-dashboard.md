@@ -103,7 +103,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Physics | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
 | NECO | Technical Drawing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Visual Arts | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| NECO | Yoruba | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| NECO | Yoruba | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | NERDC | Basic Science / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Nursery | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Primary | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -207,13 +207,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 143 | 122 | 0 | 4000 | 3878 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
-| NECO | 432 | 397 | 0 | 36000 | 35603 |
+| NECO | 436 | 401 | 0 | 36000 | 35599 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1282 | 483 | 0 | 42000 | 41517 |
 
-Overall: {"raw": 3381, "validDrafts": 1702, "reviewed": 0, "registeredBanks": 189, "target": 171000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3385, "validDrafts": 1706, "reviewed": 0, "registeredBanks": 189, "target": 171000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

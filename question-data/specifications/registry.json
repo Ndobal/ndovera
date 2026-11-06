@@ -1488,6 +1488,18 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "NECO 2026 SSCE Internal timetable lists essay (4072) and objective (4073) papers and confirms a literature component. Historical WAEC Igbo Paper 2 examiner observations support provisional writing genres. NECO registration guidelines section 7 describes access to the syllabus (https://neco.gov.ng/2026%20GUIDELINES.pdf). Current NECO objectives, marking and prescribed texts remain unverified. The WAEC 2026–2030 text list applies to WASSCE."
+    },
+    {
+      "id": "neco-yoruba-written-reference-2026",
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Yoruba/Yor240mq1.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "The 2026 NECO SSCE Internal timetable lists Yoruba essay (4132) and objective (4133) papers and confirms a literature component. WAEC Yoruba Paper 2 examiner observations from 2023 inform provisional composition genres. Current NECO objectives, prescribed texts and marking guidance remain unverified."
     }
   ],
   "banks": [
@@ -3114,7 +3126,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_formats_provisional_composition_objectives",
       "paperFormats": {
         "II": "essay including literature",
         "III": "objective"
@@ -10580,6 +10592,74 @@
       ],
       "sourceSections": [
         "NECO Paper II (format only); WAEC Igbo Paper 2, May/June 2014, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Àròkọ ìtàn",
+      "learningObjective": "Kọ ìtàn tí ìṣẹ̀lẹ̀ inú rẹ̀ tẹ̀ lé ara wọn, kí ìpinnu ẹni inú ìtàn sì ní àbájáde.",
+      "specificationId": "neco-yoruba-written-reference-2026",
+      "id": "neco-yoruba-104-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Àròkọ àpèjúwe",
+      "learningObjective": "Lo àlàyé nípa ipò àti ohun tí a lè rí tàbí gbọ́ láti ṣàpèjúwe ibi kan.",
+      "specificationId": "neco-yoruba-written-reference-2026",
+      "id": "neco-yoruba-104-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Àròkọ àlàyé",
+      "learningObjective": "Ṣàlàyé bí ètò kan ṣe ń ṣiṣẹ́ nípasẹ̀ títẹ̀lé ìgbésẹ̀ rẹ̀ àti sísọ ìdí wọn.",
+      "specificationId": "neco-yoruba-written-reference-2026",
+      "id": "neco-yoruba-104-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Àròkọ àríyànjiyàn",
+      "learningObjective": "Gbé èrò kan kalẹ̀, kí o sì dáhùn sí àtakò pẹ̀lú ìdí tí ó bá ọ̀rọ̀ mu.",
+      "specificationId": "neco-yoruba-written-reference-2026",
+      "id": "neco-yoruba-104-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

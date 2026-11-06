@@ -538,3 +538,8 @@ correspondence, dialogue, argument and advice. The 2026 timetable
 confirms paper formats and a literature component. Historical WAEC
 examiner observations inform provisional genre mapping. NECO's official
 content objectives, prescribed texts and marking remain unverified.
+
+Batch 104 adds four original NECO Yoruba composition drafts on
+narrative, description, exposition and argument. The 2026 timetable
+verifies paper formats. Historical WAEC examiner observations support
+provisional genre mapping. NECO prescribed texts and marking remain open.
