@@ -721,15 +721,16 @@
       "kind": "official_syllabus",
       "source": "https://www.cambridgeinternational.org/Images/697209-2026-2028-syllabus.pdf",
       "syllabusUpdate": "https://www.cambridgeinternational.org/Images/748914-2026-2028-syllabus-update.pdf",
-      "retrievedOn": "2026-11-04",
-      "note": "Retrieved syllabus rendering is version 1. Official version 2 notice identifies a weblink change only.",
+      "retrievedOn": "2026-11-06",
+      "note": "The official downloaded PDF is version 2. The December 2025 update notice records a weblink change. Core candidates take Papers 1 and 3, Extended candidates take Papers 2 and 4, and either tier takes Paper 5 or 6. Batch 112 maps selected Space physics objectives only.",
       "qualificationCode": "0625",
       "syllabusVersion": "2",
       "examinationYears": [
         2026,
         2027,
         2028
-      ]
+      ],
+      "sha256": "baaf59f84543beb133ea87cbf8cfb0e8bf105a360cce5009cf57d3ae0a357075"
     },
     {
       "id": "ncee-mathematics-primary-six-reference-2026",
@@ -11503,6 +11504,218 @@
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Daily solar motion",
+      "learningObjective": "Relate apparent daily solar motion to Earth’s rotation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-space-112-1-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "6.1.1 Core 1, p. 37"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Moon phases",
+      "learningObjective": "Explain the repeating lunar phase cycle through changing viewing geometry.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-space-112-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "6.1.1 Core 3, p. 37"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Average orbital speed",
+      "learningObjective": "Compare average orbital speeds using radius and period ratios.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-space-112-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "6.1.1 Supplement 4, p. 37"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Light travel time",
+      "learningObjective": "Calculate the travel time of an electromagnetic signal over a solar-system distance.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-space-112-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "6.1.2 Core 4, p. 39"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Planetary gravity",
+      "learningObjective": "Predict how gravitational field strength changes with distance from one planet.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-space-112-5-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "6.1.2 Core 3(b), p. 39"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Speed in elliptical orbits",
+      "learningObjective": "Use conservation of energy to explain orbital speed changes.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-space-112-6-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "6.1.2 Supplement 10, p. 39"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Fusion in a stable star",
+      "learningObjective": "Identify the nuclear process that releases energy in a stable star.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-space-112-7-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "6.2.1 Supplement 2, p. 39"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Stellar remnants",
+      "learningObjective": "Compare possible endpoints of lower- and higher-mass stars.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-space-112-8-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "6.2.2 Supplement 3(e)–(g), p. 40"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
     }
   ],
   "scopeGaps": [
@@ -11518,7 +11731,7 @@
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
-    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 and Economics 0455 official PDF downloads timed out; do not treat their syllabus contents as retrieved.",
+    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 version 2 has been retrieved and selected mechanics and space physics objectives are mapped. Full Physics coverage and independent review remain open. The official Economics 0455 syllabus has not been verified in this register.",
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",

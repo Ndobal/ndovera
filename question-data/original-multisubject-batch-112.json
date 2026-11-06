@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Physics 0625 Space physics drafts",
+  "questionCount": 8,
+  "note": "Original Core and Extended MCQ and theory practice. Selected 2026–2028 syllabus objectives only. Academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Daily solar motion",
+      "learningObjective": "Relate apparent daily solar motion to Earth’s rotation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-112-001",
+      "objectiveId": "igcse-0625-space-112-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A school astronomy club models the Sun with a fixed lamp and places a marker on a globe to represent the school. Which action models the change from daytime to night at the marker?",
+      "answer": "Rotate the globe on its axis until the marker faces away from the lamp.",
+      "explanation": "Earth’s rotation carries a location from the illuminated side to the side facing away from the Sun.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Carry the globe once around the lamp without turning it.",
+        "Rotate the globe on its axis until the marker faces away from the lamp.",
+        "Tilt the globe slightly without rotating it.",
+        "Increase the distance between the lamp and the globe."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Moon phases",
+      "learningObjective": "Explain the repeating lunar phase cycle through changing viewing geometry.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-112-002",
+      "objectiveId": "igcse-0625-space-112-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "An observer sees different fractions of the Moon’s bright face on successive clear evenings. Explain why the visible bright fraction changes and give the approximate period over which the phase pattern repeats.",
+      "answer": "Sunlight illuminates roughly half the Moon. As the Moon orbits Earth, we see different fractions of that illuminated half. The pattern repeats roughly monthly.",
+      "explanation": "The changing relative positions of Sun, Earth and Moon change our view of the sunlit side.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "State that sunlight lights approximately half the Moon."
+        },
+        {
+          "marks": 1,
+          "description": "Link the changing visible fraction to the Moon’s orbit around Earth."
+        },
+        {
+          "marks": 1,
+          "description": "Give a period of roughly one month."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Average orbital speed",
+      "learningObjective": "Compare average orbital speeds using radius and period ratios.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-112-003",
+      "objectiveId": "igcse-0625-space-112-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "Two model satellites have nearly circular orbits. Satellite B has twice the orbital radius of satellite A and three times its orbital period. Using v = 2πr/T, find the ratio of B’s average speed to A’s and explain which is faster.",
+      "answer": "vB/vA = 2/3, so A is faster.",
+      "explanation": "The distance for one orbit doubles but the time triples. The common factor 2π cancels.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Set up the ratio using the given radii and periods."
+        },
+        {
+          "marks": 1,
+          "description": "Obtain 2/3 or 2:3 for B to A."
+        },
+        {
+          "marks": 1,
+          "description": "Conclude that A is faster."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "2/3",
+          "expected": "2/3",
+          "purpose": "Check the orbital speed ratio."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Light travel time",
+      "learningObjective": "Calculate the travel time of an electromagnetic signal over a solar-system distance.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-112-004",
+      "objectiveId": "igcse-0625-space-112-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A probe is 3.6 × 10⁹ m from a receiving antenna. A radio pulse travels at 3.0 × 10⁸ m/s. Ignore motion during transmission. How long does the pulse take to reach the antenna?",
+      "answer": "12 s.",
+      "explanation": "Divide distance by speed. 3.6 × 10⁹ divided by 3.0 × 10⁸ gives 12 s.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use time = distance ÷ speed."
+        },
+        {
+          "marks": 1,
+          "description": "Obtain 12 s."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "3600000000/300000000",
+          "expected": 12,
+          "purpose": "Check one-way radio travel time in seconds."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Planetary gravity",
+      "learningObjective": "Predict how gravitational field strength changes with distance from one planet.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-112-005",
+      "objectiveId": "igcse-0625-space-112-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "Two identical sensors are at different distances from the centre of the same isolated planet. Both are outside the atmosphere. Sensor X is closer to the planet than sensor Y. Which reading should be larger?",
+      "answer": "Sensor X’s gravitational field strength reading.",
+      "explanation": "For the same planet, the gravitational field becomes weaker with increasing distance.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Sensor Y’s gravitational field strength reading.",
+        "Both readings are necessarily equal.",
+        "Sensor X’s gravitational field strength reading.",
+        "Both readings are zero outside the atmosphere."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Speed in elliptical orbits",
+      "learningObjective": "Use conservation of energy to explain orbital speed changes.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-112-006",
+      "objectiveId": "igcse-0625-space-112-6-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A comet travels towards the Sun along part of an elliptical orbit. Ignore energy losses and forces other than the Sun’s gravity. Describe what happens to its gravitational potential energy, kinetic energy and speed.",
+      "answer": "Gravitational potential energy decreases. Kinetic energy increases, so speed increases.",
+      "explanation": "Total mechanical energy is conserved. As the comet approaches the Sun its gravitational potential energy becomes more negative and kinetic energy increases by the same amount.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "State that gravitational potential energy decreases."
+        },
+        {
+          "marks": 1,
+          "description": "State that kinetic energy increases by conservation of mechanical energy."
+        },
+        {
+          "marks": 1,
+          "description": "Conclude that speed increases."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Fusion in a stable star",
+      "learningObjective": "Identify the nuclear process that releases energy in a stable star.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-112-007",
+      "objectiveId": "igcse-0625-space-112-7-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 2,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "prompt": "A display claims that the Sun shines because its hydrogen reacts chemically with oxygen. Which replacement correctly identifies the main process in its core?",
+      "answer": "Hydrogen nuclei fuse to form helium, releasing energy.",
+      "explanation": "The energy source is nuclear fusion, in which light nuclei combine.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Helium nuclei split into hydrogen in nuclear fission.",
+        "Hydrogen gas burns in oxygen in the core.",
+        "Helium condenses and releases latent heat as the main energy source.",
+        "Hydrogen nuclei fuse to form helium, releasing energy."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Space physics",
+      "subtopic": "Stellar remnants",
+      "learningObjective": "Compare possible endpoints of lower- and higher-mass stars.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-112-008",
+      "objectiveId": "igcse-0625-space-112-8-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "prompt": "Star L is a lower-mass star that has become a red giant. Star H is a much more massive star that has become a red supergiant. For each star, describe the next major event or structure and name the possible compact remnant or remnants.",
+      "answer": "L sheds its outer layers as a planetary nebula, leaving a white dwarf. H can explode as a supernova, leaving a neutron star or black hole.",
+      "explanation": "The two paths differ with mass. The lower-mass path leaves a white dwarf. The massive-star path can leave one of two compact remnants after a supernova.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify a planetary nebula for L."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a white dwarf for L."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a supernova for H."
+        },
+        {
+          "marks": 1,
+          "description": "Name both a neutron star and a black hole as possible remnants for H."
+        }
+      ]
+    }
+  ]
+}

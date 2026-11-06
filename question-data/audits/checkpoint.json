@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_111_automated_validation_passed",
+  "phase": "batch_112_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-112.json",
+  "nextBatch": "original-multisubject-batch-113.json",
   "nextPriorities": [
-    "Retrieve the current Cambridge IGCSE Physics 0625 syllabus and verify year, tier and paper requirements before expanding mapped physics objectives. Current WAEC language paper rules, marking and prescribed editions remain open.",
+    "Extend Cambridge IGCSE Physics 0625 to underrepresented electricity and waves objectives using the verified 2026\u20132028 version 2 syllabus. Keep WAEC language paper rules and prescribed editions open.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-111.json",
-  "lastRemoteVerifiedCommit": "1e56d85867fd3b0aa2fe2c66134cc6044adbe256",
+  "lastValidatedBatch": "original-multisubject-batch-112.json",
+  "lastRemoteVerifiedCommit": "243eec5d8a7c610474ac884aa83ad8e5675d13c1",
   "verifiedTotals": {
-    "raw": 3412,
-    "validDrafts": 1733,
+    "raw": 3420,
+    "validDrafts": 1741,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-111.json",
+  "lastPopulatedBatch": "original-multisubject-batch-112.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3412
+  "inventoryRaw": 3420
 }

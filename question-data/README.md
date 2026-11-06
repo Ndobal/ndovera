@@ -589,3 +589,8 @@ provisional mappings. Current paper rules and editions remain open.
 Batch 111 adds three WAEC Ibibio drafts on consonant articulation,
 tone patterns and lexical borrowing. Historical Paper 2 observations
 support provisional mappings. Current paper rules and editions remain open.
+
+Batch 112 uses the downloaded Cambridge Physics 0625 version 2
+syllabus for 2026–2028. Eight original Core and Extended drafts
+cover selected Space physics objectives in multiple-choice and
+theory formats. Full objective coverage remains open.
