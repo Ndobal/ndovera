@@ -1826,6 +1826,20 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "2023 WASSCE school-candidate Paper 2 examiner reports document vowel and consonant identification, numeral spelling and paired verb forms. Original classroom tasks use English instructions and Edo response targets. Current paper instructions, objectives and marking remain unverified."
+    },
+    {
+      "id": "waec-efik-paper-2-language-evidence-2023",
+      "exam": "WAEC",
+      "subject": "Efik",
+      "kind": "official_historical_examiner_reference",
+      "source": "https://waeconline.org.ng/e-learning/Efik/Efik240mq2.html",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/Efik/Efik240mq3.html",
+        "https://waeconline.org.ng/e-learning/Efik/Efik240mq4.html",
+        "https://waeconline.org.ng/e-learning/Efik/Efik240mq5.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "2023 WASSCE school-candidate Paper 2 observations support consonant articulation, tone, adjective function and imperatives. These drafts use English instructions with Efik where the task requires it. Current paper rules, marking and prescribed editions remain unverified."
     }
   ],
   "banks": [
@@ -11354,6 +11368,74 @@
       ],
       "sourceSections": [
         "WAEC Edo Paper 2, school candidates 2023, Question 5 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Sound system",
+      "subtopic": "Airflow in consonants",
+      "learningObjective": "Use articulatory clues to distinguish an oral stop from a nasal consonant.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "waec-efik-110-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Efik Paper 2, school candidates 2023, Question 2 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Sound system",
+      "subtopic": "Writing low tone",
+      "learningObjective": "Restore low-tone marks using a verified pronunciation note.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "waec-efik-110-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Efik Paper 2, school candidates 2023, Question 3 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Grammar",
+      "subtopic": "Adjective and noun",
+      "learningObjective": "Build an Efik noun phrase and identify its modifier.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "waec-efik-110-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Efik Paper 2, school candidates 2023, Question 4 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Grammar",
+      "subtopic": "Writing a direction",
+      "learningObjective": "Combine an imperative verb and a noun phrase in a short Efik instruction.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "waec-efik-110-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Efik Paper 2, school candidates 2023, Question 5 examiner observations"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null

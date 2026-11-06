@@ -581,3 +581,7 @@ written numerals and paired verb forms. Original classroom tasks use
 English instructions and Edo response targets. Historical Paper 2
 observations support provisional mappings. Current paper rules,
 marking and primary editions remain open.
+
+Batch 110 adds four WAEC Efik drafts on articulation, low-tone spelling,
+adjectives and imperatives. Historical Paper 2 observations support the
+provisional mappings. Current paper rules and editions remain open.

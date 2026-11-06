@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Efik language practice",
+  "questionCount": 4,
+  "note": "Original classroom tasks with English instructions and Efik response targets where appropriate. Current exam scheme and prescribed editions remain unverified.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Sound system",
+      "subtopic": "Airflow in consonants",
+      "learningObjective": "Use articulatory clues to distinguish an oral stop from a nasal consonant.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "ndv-110-001",
+      "objectiveId": "waec-efik-110-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "Two diagrams in an Efik language workbook have lost their labels. Diagram A shows both lips closing and then opening with a brief release of air through the mouth. Diagram B shows the tongue tip closing off the mouth just behind the upper teeth while air continues through the nose. Label the diagrams /n/ and /p/, then explain which consonant could be sustained without reopening the mouth.",
+      "answer": "A is /p/. B is /n/. The /n/ can be sustained while the tongue closure stays in place because air can continue escaping through the nose.",
+      "explanation": "The lip closure and oral release identify the stop /p/. Tongue-tip closure with nasal airflow identifies /n/.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Label A /p/."
+        },
+        {
+          "marks": 1,
+          "description": "Label B /n/."
+        },
+        {
+          "marks": 1,
+          "description": "Choose /n/ as the sound that can be sustained with the closure in place."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that nasal airflow continues."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Sound system",
+      "subtopic": "Writing low tone",
+      "learningObjective": "Restore low-tone marks using a verified pronunciation note.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "ndv-110-002",
+      "objectiveId": "waec-efik-110-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "An Efik vocabulary card lost its accent marks when it was printed. It reads Dep, Sin, and Nok. The recording log confirms that the first two entries are Dèp and Sìn, but the third recording is missing. Copy the verified spellings onto the card, name the tone shown by their accents, and explain what to do about the third entry before publishing the card.",
+      "answer": "Dèp and Sìn use grave accents to mark low tone. Leave the third entry flagged for verification with a reliable Efik source or speaker before assigning a tone.",
+      "explanation": "The grave accent marks the verified pitch category in the first two entries. An unmarked spelling without independent tone information cannot establish the tone of the remaining entry.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Retain the grave accent in Dèp."
+        },
+        {
+          "marks": 1,
+          "description": "Retain the grave accent in Sìn."
+        },
+        {
+          "marks": 1,
+          "description": "Identify low tone."
+        },
+        {
+          "marks": 1,
+          "description": "Propose verifying the third entry before assigning its tone."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Grammar",
+      "subtopic": "Adjective and noun",
+      "learningObjective": "Build an Efik noun phrase and identify its modifier.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "ndv-110-003",
+      "objectiveId": "waec-efik-110-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A classroom display labels an old book with the two words ñwed (book) and akani (old). Arrange the words as an Efik noun phrase meaning “old book”. Identify which word is the adjective and what information it adds.",
+      "answer": "akani ñwed. Akani is the adjective. It describes the age of the book.",
+      "explanation": "In this noun phrase akani comes before ñwed and specifies a property of the book.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Write akani ñwed in that order."
+        },
+        {
+          "marks": 1,
+          "description": "Identify akani as the adjective."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that it describes the book as old."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Grammar",
+      "subtopic": "Writing a direction",
+      "learningObjective": "Combine an imperative verb and a noun phrase in a short Efik instruction.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "ndv-110-004",
+      "objectiveId": "waec-efik-110-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "prompt": "A Calabar reading-club leader asks a new member to write the name of their friend. Use wet (write), enyịñ (name), ufan (friend) and fo (your) to write one short Efik instruction. Identify the verb that makes it a direction.",
+      "answer": "Wet enyịñ ufan fo. Wet is the imperative verb.",
+      "explanation": "Wet directs the listener to write. Enyịñ ufan fo specifies what the listener should write.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Begin with the imperative Wet."
+        },
+        {
+          "marks": 1,
+          "description": "Use enyịñ ufan fo to identify the friend’s name."
+        },
+        {
+          "marks": 1,
+          "description": "Identify Wet as the verb giving the instruction."
+        }
+      ]
+    }
+  ]
+}

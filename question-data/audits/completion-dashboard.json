@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3405,
-    "validDrafts": 1726,
+    "raw": 3409,
+    "validDrafts": 1730,
     "reviewed": 0,
     "registeredBanks": 192,
     "target": 174000,
@@ -786,6 +786,12 @@
     {
       "path": "original-multisubject-batch-109.json",
       "sha256": "e3b7b7c8251bd65cf66aafac6dee175cda876bc0ffbd8797fa2973f01390a9d3",
+      "declared": 4,
+      "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-110.json",
+      "sha256": "5273747527115f11e0217dcd0e6f1b68d715ba58943df6265c04be952c34e472",
       "declared": 4,
       "actual": 4
     },
@@ -4869,16 +4875,20 @@
       "target": 1000,
       "specificationId": "waec-efik-prescribed-texts-2026-2030",
       "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 4,
+      "validDrafts": 4,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "structured": 4
+      },
+      "difficulty": {
+        "standard": 4
+      },
+      "remaining": 996,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -5457,9 +5467,9 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
@@ -5467,8 +5477,8 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 243,
@@ -30403,6 +30413,30 @@
     {
       "id": "ndv-109-004",
       "file": "original-multisubject-batch-109.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-110-001",
+      "file": "original-multisubject-batch-110.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-110-002",
+      "file": "original-multisubject-batch-110.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-110-003",
+      "file": "original-multisubject-batch-110.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-110-004",
+      "file": "original-multisubject-batch-110.json",
       "index": 3,
       "errors": []
     },
@@ -55511,6 +55545,122 @@
       },
       "sourceSections": [
         "WAEC Edo Paper 2, school candidates 2023, Question 5 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Sound system",
+      "subtopic": "Airflow in consonants",
+      "learningObjective": "Use articulatory clues to distinguish an oral stop from a nasal consonant.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "waec-efik-110-1-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Efik Paper 2, school candidates 2023, Question 2 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Sound system",
+      "subtopic": "Writing low tone",
+      "learningObjective": "Restore low-tone marks using a verified pronunciation note.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "waec-efik-110-2-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Efik Paper 2, school candidates 2023, Question 3 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Grammar",
+      "subtopic": "Adjective and noun",
+      "learningObjective": "Build an Efik noun phrase and identify its modifier.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "waec-efik-110-3-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Efik Paper 2, school candidates 2023, Question 4 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "topic": "Grammar",
+      "subtopic": "Writing a direction",
+      "learningObjective": "Combine an imperative verb and a noun phrase in a short Efik instruction.",
+      "specificationId": "waec-efik-paper-2-language-evidence-2023",
+      "id": "waec-efik-110-4-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Efik Paper 2, school candidates 2023, Question 5 examiner observations"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null,
