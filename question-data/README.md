@@ -524,3 +524,7 @@ Official NECO oral delivery and marking remain unverified.
 
 Batch 100 adds four original NECO Arabic composition drafts.
 Official oral tasks, prescribed texts and marking remain unverified.
+
+Batch 101 adds four NECO Arabic oral interaction drafts. The
+classroom scripts and rubrics are provisional. NECO oral delivery,
+marking and prescribed literature remain unverified.

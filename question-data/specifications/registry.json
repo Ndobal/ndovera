@@ -1452,6 +1452,18 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "The NECO 2026 Internal timetable lists combined objective, essay and literature papers 4003 and 4002, plus oral 4004. Historical WAEC composition evidence informs original classroom rubrics provisionally. NECO detailed component distribution, set texts and marking remain unverified."
+    },
+    {
+      "id": "neco-arabic-oral-reference-2026",
+      "exam": "NECO",
+      "subject": "Arabic",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://rm.coe.int/cefr-companion-volume-with-new-descriptors-2020/16809ea0d4"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "NECO timetable confirms Oral Arabic Paper IV (4004). Council of Europe oral interaction descriptors inform original classroom tasks. No NECO adoption of CEFR levels or task types is asserted. Official task instructions and marking remain unverified."
     }
   ],
   "banks": [
@@ -10408,6 +10420,40 @@
       ],
       "sourceSections": [
         "NECO combined Papers II and III (format only); WAEC Arabic Paper 2 examiner report, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-arabic-101-1-v1",
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التفاعل الشفهي",
+      "subtopic": "تبادل المعلومات",
+      "learningObjective": "طرح أسئلة مناسبة واستعمال المعلومات الشفهية لإتمام مهمة يومية.",
+      "specificationId": "neco-arabic-oral-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper IV (format only); CEFR Companion Volume, information exchange"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-arabic-101-2-v1",
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التفاعل الشفهي",
+      "subtopic": "التعاون وتوضيح المقصود",
+      "learningObjective": "توضيح المقصود أثناء الحوار والتوصل إلى ترتيب عملي.",
+      "specificationId": "neco-arabic-oral-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper IV (format only); CEFR Companion Volume, goal-oriented co-operation"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

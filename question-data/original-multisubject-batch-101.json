@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Arabic oral interaction practice",
+  "questionCount": 4,
+  "note": "Original live-examiner practice with separate candidate and examiner material. Official tasks, prescribed texts and marking remain unverified.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التفاعل الشفهي",
+      "subtopic": "تبادل المعلومات",
+      "learningObjective": "طرح أسئلة مناسبة واستعمال المعلومات الشفهية لإتمام مهمة يومية.",
+      "specificationId": "neco-arabic-oral-reference-2026",
+      "id": "ndv-101-001",
+      "objectiveId": "neco-arabic-101-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "أنت في معرض مدرسي وتريد حضور عرض عن الزراعة. اسأل الممتحن، وهو مسؤول الاستقبال، عن وقت العرض وما يلزم للدخول. أخبر زميلك شفهيا بما عليه أن يفعله قبل العرض.",
+      "answer": "متى يبدأ عرض الزراعة؟ وهل أحتاج إلى بطاقة للدخول؟ يا زميلي، يبدأ العرض في الساعة الحادية عشرة. علينا أن نأخذ بطاقة مجانية من مكتب الاستقبال قبل الدخول.",
+      "explanation": "تقاس القدرة على طرح سؤالين ونقل المعلومات المستمع إليها بدقة. تقبل صياغات أخرى تؤدي المعنى.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "يسأل عن وقت العرض."
+        },
+        {
+          "marks": 1,
+          "description": "يسأل عما يلزم للدخول."
+        },
+        {
+          "marks": 1,
+          "description": "ينقل الوقت وإجراء الحصول على البطاقة."
+        },
+        {
+          "marks": 1,
+          "description": "يتحدث بوضوح."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "examinerScript": "للممتحن فقط. أجب عن السؤالين عند طرحهما: «يبدأ العرض في الساعة الحادية عشرة.» و«خذ بطاقة مجانية من مكتب الاستقبال قبل الدخول.» ثم قل: «أخبر زميلك بما عليه أن يفعله.»"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التفاعل الشفهي",
+      "subtopic": "تبادل المعلومات",
+      "learningObjective": "طرح أسئلة مناسبة واستعمال المعلومات الشفهية لإتمام مهمة يومية.",
+      "specificationId": "neco-arabic-oral-reference-2026",
+      "id": "ndv-101-002",
+      "objectiveId": "neco-arabic-101-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "تركت حقيبتك في حافلة المدرسة. تحدث إلى الممتحن، وهو مسؤول المفقودات. صِف الحقيبة بميزتين، واسأل أين تستلمها ومتى. أكد الترتيب شفهيا قبل إنهاء الحوار.",
+      "answer": "حقيبتي خضراء ولها جيب أمامي. أين أستلمها، ومتى يمكنني الحضور؟ إذن سأحضر إلى مكتب النقل بعد الساعة الثانية اليوم. شكرا لك.",
+      "explanation": "لا يشترط لون أو وصف معين. يجب أن يطابق الترتيب النهائي المكان والوقت اللذين يذكرهما الممتحن.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "يذكر ميزتين تساعدان على التعرف على الحقيبة."
+        },
+        {
+          "marks": 1,
+          "description": "يسأل عن المكان والوقت."
+        },
+        {
+          "marks": 1,
+          "description": "يؤكد المكان والوقت بدقة."
+        },
+        {
+          "marks": 1,
+          "description": "يتحدث بعبارات مفهومة."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "examinerScript": "للممتحن فقط. اسأل «كيف تبدو حقيبتك؟» وبعد أسئلة المرشح قل «يمكنك استلامها من مكتب النقل بعد الساعة الثانية اليوم.» اطلب منه تأكيد الترتيب."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التفاعل الشفهي",
+      "subtopic": "التعاون وتوضيح المقصود",
+      "learningObjective": "توضيح المقصود أثناء الحوار والتوصل إلى ترتيب عملي.",
+      "specificationId": "neco-arabic-oral-reference-2026",
+      "id": "ndv-101-003",
+      "objectiveId": "neco-arabic-101-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "تنظم مجموعتك مقابلة مع أحد الحرفيين بعد الدروس. اقترح إجراء المقابلة في الورشة. استمع إلى اعتراض الممتحن، ثم اقترح مكانا آخر وبيّن كيف سيحقق هدف المقابلة.",
+      "answer": "أقترح أن نقابله في الورشة لنرى أدواته. إذا كانت الآلات ستعمل ولن نسمع كلامه جيدا، يمكن أن نلتقي في قاعة المدرسة الهادئة ونطلب منه أن يحضر أداة صغيرة أو صورة لعمله.",
+      "explanation": "المطلوب معالجة مشكلة الضوضاء مع الحفاظ على فرصة التعرف إلى عمل الحرفي.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "يقدم الاقتراح الأول ويبين فائدته."
+        },
+        {
+          "marks": 1,
+          "description": "يستجيب لمشكلة الضوضاء."
+        },
+        {
+          "marks": 1,
+          "description": "يقترح مكانا ملائما ويبين كيف يخدم الهدف."
+        },
+        {
+          "marks": 1,
+          "description": "يربط أفكاره في كلام واضح."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "examinerScript": "للممتحن فقط. بعد اقتراح الورشة قل «ستعمل الآلات طوال الوقت، وقد لا نسمع كلام الحرفي.» ثم اسأل «أين نلتقي وكيف نتعرف إلى عمله؟»"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التفاعل الشفهي",
+      "subtopic": "التعاون وتوضيح المقصود",
+      "learningObjective": "توضيح المقصود أثناء الحوار والتوصل إلى ترتيب عملي.",
+      "specificationId": "neco-arabic-oral-reference-2026",
+      "id": "ndv-101-004",
+      "objectiveId": "neco-arabic-101-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "اتفقت مع زميلك على أن تحضرا نسخا مطبوعة لعرض الصف غدا. يخبرك الممتحن، وهو زميلك، بأن الطابعة تعطلت. اسأله عما يمكن استعماله، ثم اتفق معه على بديل وحدد مسؤولية كل واحد منكما. تحدث بالعربية.",
+      "answer": "هل يمكننا استعمال السبورة؟ إذا كانت متاحة فسأكتب عليها العناوين قبل العرض. هل يمكنك إعداد مثال قصير لكل عنوان؟ إذن أنا أكتب العناوين وأنت تشرح الأمثلة.",
+      "explanation": "تقبل خطة أخرى إذا اعتمدت على الوسائل المتاحة وحددت دور كل شخص.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "يستفسر عن وسيلة بديلة."
+        },
+        {
+          "marks": 1,
+          "description": "يقترح ترتيبا يناسب الوسائل المتاحة."
+        },
+        {
+          "marks": 1,
+          "description": "يحدد دور كل شخص ويؤكد الاتفاق."
+        },
+        {
+          "marks": 1,
+          "description": "يحافظ على تفاعل شفهي مفهوم."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "examinerScript": "للممتحن فقط. قل «تعطلت الطابعة.» إذا سأل المرشح عن البدائل قل «توجد سبورة وأقلام، لكن جهاز العرض غير متاح.» اطلب منه تحديد دور كل شخص."
+    }
+  ]
+}
