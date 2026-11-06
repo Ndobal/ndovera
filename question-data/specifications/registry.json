@@ -1776,6 +1776,18 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "2023 WASSCE school-candidate Paper 2 examiner observations establish historical formal correspondence and lexical tone tasks. Current paper scheme, marks and objectives are unverified. Draft tasks and classroom rubrics are original."
+    },
+    {
+      "id": "waec-igbo-paper-2-grammar-evidence-2020",
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "kind": "official_historical_examiner_reference",
+      "source": "https://www.waeconline.org.ng/e-Learning/Igbo/Igbo230ms.html",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-Learning/Igbo/Igbo230mq4.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "School-candidate 2020 Paper 2 examiner evidence supports word classes and word formation historically. Current scheme, objectives and marking are unverified."
     }
   ],
   "banks": [
@@ -11032,6 +11044,74 @@
       ],
       "sourceSections": [
         "WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Aha na ngwaa",
+      "learningObjective": "Chọpụta aha na ngwaa site n’ọrụ ha n’ahịrịokwu.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "waec-igbo-106-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Igbo Paper 2, school candidates 2020, candidate strengths, word classes"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Nnọchiaha",
+      "learningObjective": "Jiri nnọchiaha dochie aha mmadụ mgbe ihe ọ na-anọchi doro anya.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "waec-igbo-106-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Igbo Paper 2, school candidates 2020, candidate strengths, word classes"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Isi ngwaa na aha omume",
+      "learningObjective": "Tụnyere isi ngwaa na aha e si na ya nweta.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "waec-igbo-106-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Igbo Paper 2, school candidates 2020, Question 4, word formation"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Njikọ okwu",
+      "learningObjective": "Kọwaa otú okwu abụọ si jikọta nye otu aha.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "waec-igbo-106-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Igbo Paper 2, school candidates 2020, Question 4, word formation"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null

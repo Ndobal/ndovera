@@ -562,3 +562,7 @@ Batch 105 adds four WAEC Yoruba language drafts on lexical tone and
 formal correspondence. Historical Paper 2 examiner observations inform
 the provisional mappings. Current Paper 2 rules and primary editions
 of prescribed works remain unverified.
+
+Batch 106 adds four WAEC Igbo grammar drafts on word classes and word
+formation. Historical Paper 2 examiner material supports provisional
+topic mappings. Current paper rules and prescribed editions remain open.

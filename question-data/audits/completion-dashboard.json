@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3389,
-    "validDrafts": 1710,
+    "raw": 3393,
+    "validDrafts": 1714,
     "reviewed": 0,
     "registeredBanks": 192,
     "target": 174000,
@@ -762,6 +762,12 @@
     {
       "path": "original-multisubject-batch-105.json",
       "sha256": "165c6d734bdad0e8ccc13b95da7f4fe147e38d46e9b5518d407b9ace608ed1e8",
+      "declared": 4,
+      "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-106.json",
+      "sha256": "bbf9da515c747fbb65c6b5fcdef65c25c38919ad982862016f8c9aaa511ef40f",
       "declared": 4,
       "actual": 4
     },
@@ -5144,16 +5150,20 @@
       "target": 1000,
       "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending",
       "specificationId": "waec-igbo-prescribed-texts-2026-2030",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 4,
+      "validDrafts": 4,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "structured": 4
+      },
+      "difficulty": {
+        "standard": 4
+      },
+      "remaining": 996,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -5417,8 +5427,8 @@
   ],
   "errorCounts": {
     "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
@@ -5426,8 +5436,8 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 243,
@@ -30270,6 +30280,30 @@
       "errors": []
     },
     {
+      "id": "ndv-106-001",
+      "file": "original-multisubject-batch-106.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-106-002",
+      "file": "original-multisubject-batch-106.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-106-003",
+      "file": "original-multisubject-batch-106.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-106-004",
+      "file": "original-multisubject-batch-106.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -54910,6 +54944,122 @@
       },
       "sourceSections": [
         "WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Aha na ngwaa",
+      "learningObjective": "Chọpụta aha na ngwaa site n’ọrụ ha n’ahịrịokwu.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "waec-igbo-106-1-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Igbo Paper 2, school candidates 2020, candidate strengths, word classes"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Nnọchiaha",
+      "learningObjective": "Jiri nnọchiaha dochie aha mmadụ mgbe ihe ọ na-anọchi doro anya.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "waec-igbo-106-2-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Igbo Paper 2, school candidates 2020, candidate strengths, word classes"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Isi ngwaa na aha omume",
+      "learningObjective": "Tụnyere isi ngwaa na aha e si na ya nweta.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "waec-igbo-106-3-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Igbo Paper 2, school candidates 2020, Question 4, word formation"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Njikọ okwu",
+      "learningObjective": "Kọwaa otú okwu abụọ si jikọta nye otu aha.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "waec-igbo-106-4-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Igbo Paper 2, school candidates 2020, Question 4, word formation"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null,

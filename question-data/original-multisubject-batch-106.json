@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Igbo grammar practice",
+  "questionCount": 4,
+  "note": "Original written grammar tasks with classroom rubrics. Current WAEC paper scheme and prescribed editions remain unverified.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Aha na ngwaa",
+      "learningObjective": "Chọpụta aha na ngwaa site n’ọrụ ha n’ahịrịokwu.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "ndv-106-001",
+      "objectiveId": "waec-igbo-106-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "Gụọ ahịrịokwu a: “Nneka sachara ite ahụ.” Kewaa okwu ndị a n’òtù okwu ha: Nneka, sachara, ite. Kọwaa ọrụ okwu nke abụọ n’ahịrịokwu ahụ.",
+      "answer": "Nneka bụ aha mmadụ. Sachara bụ ngwaa. Ite bụ aha ihe. Sachara na-egosi ihe Nneka mere ite ahụ.",
+      "explanation": "Aha ndị ahụ na-akpọ mmadụ na ihe. Ngwaa ahụ na-egosi omume e mere.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Mata Nneka dị ka aha mmadụ."
+        },
+        {
+          "marks": 1,
+          "description": "Mata sachara dị ka ngwaa."
+        },
+        {
+          "marks": 1,
+          "description": "Mata ite dị ka aha ihe."
+        },
+        {
+          "marks": 1,
+          "description": "Kọwaa na sachara na-egosi omume Nneka."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Nnọchiaha",
+      "learningObjective": "Jiri nnọchiaha dochie aha mmadụ mgbe ihe ọ na-anọchi doro anya.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "ndv-106-002",
+      "objectiveId": "waec-igbo-106-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "Gụọ: “Chika gara ahịa. Chika zụtara ji.” Dee ahịrịokwu nke abụọ ọzọ ka e jiri nnọchiaha dochie Chika. Kwuo onye nnọchiaha ahụ na-anọchi.",
+      "answer": "Ọ zụtara ji. Ọ na-anọchi Chika.",
+      "explanation": "Ahịrịokwu mbụ ekwupụtala onye a na-ekwu maka ya. N’ahịrịokwu nke abụọ, “Ọ” na-anọchi aha Chika.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Jiri Ọ dochie Chika."
+        },
+        {
+          "marks": 1,
+          "description": "Debe ihe Chika zụtara na omume ahụ."
+        },
+        {
+          "marks": 1,
+          "description": "Kwuo na Ọ na-anọchi Chika."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Isi ngwaa na aha omume",
+      "learningObjective": "Tụnyere isi ngwaa na aha e si na ya nweta.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "ndv-106-003",
+      "objectiveId": "waec-igbo-106-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "Tụlee “gụọ” n’ahịrịokwu “Gụọ akwụkwọ a” na “ọgụgụ” n’ahịrịokwu “Ọgụgụ na-atọ Ada ụtọ.” Kedu nke bụ aha omume? Kedu isi ngwaa e ji mepụta aha ahụ? Kọwaa ọdịiche dị n’ọrụ okwu abụọ ahụ.",
+      "answer": "Ọgụgụ bụ aha omume. Isi ngwaa ya bụ gụ. N’ahịrịokwu mbụ, gụọ na-enye iwu ka mmadụ gụọ akwụkwọ. N’ahịrịokwu nke abụọ, ọgụgụ bụ aha ihe na-atọ Ada ụtọ.",
+      "explanation": "Okwu abụọ ahụ metụtara otu omume. Ụdị ngwaa na-enye iwu, ebe aha ahụ na-akpọ omume ahụ aha.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Mata ọgụgụ dị ka aha omume."
+        },
+        {
+          "marks": 1,
+          "description": "Nye gụ dị ka isi ngwaa."
+        },
+        {
+          "marks": 1,
+          "description": "Kọwaa ọrụ gụọ dị ka iwu."
+        },
+        {
+          "marks": 1,
+          "description": "Kọwaa ọrụ ọgụgụ dị ka aha omume Ada nwere mmasị na ya."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "topic": "Ụtọasụsụ Igbo",
+      "subtopic": "Njikọ okwu",
+      "learningObjective": "Kọwaa otú okwu abụọ si jikọta nye otu aha.",
+      "specificationId": "waec-igbo-paper-2-grammar-evidence-2020",
+      "id": "ndv-106-004",
+      "objectiveId": "waec-igbo-106-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "N’ahịrịokwu “Ụgbọelu rutere n’Enugwu,” kewaa ụgbọelu ụzọ abụọ. Kọwaa otú akụkụ abụọ ahụ si enye aka n’ịghọta ihe okwu ahụ pụtara.",
+      "answer": "Ụgbọelu sitere n’ụgbọ na elu. Ụgbọ na-egosi ihe e ji eme njem. Elu na-egosi ebe ọ na-aga. Mgbe e jikọtara ha, ụgbọelu bụ ụgbọ na-efe n’elu ikuku.",
+      "explanation": "Akụkụ abụọ ahụ na-enye ihe ngosi banyere ihe e ji eme njem na ebe ọ na-agagharị.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Nye ụgbọ dị ka akụkụ mbụ."
+        },
+        {
+          "marks": 1,
+          "description": "Nye elu dị ka akụkụ nke abụọ."
+        },
+        {
+          "marks": 1,
+          "description": "Kọwaa ọrụ ụgbọ n’ịpụta ihe e ji eme njem."
+        },
+        {
+          "marks": 1,
+          "description": "Jikọta elu na njem n’ikuku."
+        }
+      ]
+    }
+  ]
+}
