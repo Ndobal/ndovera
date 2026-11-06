@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Hausa composition practice",
+  "questionCount": 4,
+  "note": "Original Hausa writing tasks with provisional classroom rubrics. Official NECO prescribed texts and detailed marking remain unverified.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Wasiƙu",
+      "learningObjective": "Rubuta wasiƙa mai maƙasudi da salo da ya dace da wanda zai karanta ta.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-102-001",
+      "objectiveId": "neco-hausa-102-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Rubuta gajeriyar wasiƙa zuwa ga yayarka game da baje kolin kimiyya da aka yi a makarantarku. Faɗi abin da ƙungiyarku ta nuna, matsalar da kuka fuskanta da yadda kuka magance ta.",
+      "answer": "Tudun Wada, Kano.\n6 ga Nuwamba, 2026.\n\nYa ke yayata Amina,\nIna fatan kina lafiya. A baje kolin kimiyya na makarantarmu mun nuna yadda ruwa ke ratsa yashi. Da farko kwalbar da muka yi amfani da ita ta zubar da ruwa a kan tebur. Sai muka sa kwano a ƙarƙashinta muka sake gwajin. Baƙi sun ga yadda yashin ya tare wasu ƙazanta. Mun kuma bayyana musu cewa wannan kaɗai ba ya tabbatar da cewa ruwan ya dace da sha.\nKi gai da kowa.\nƘanwarki,\nRabi.",
+      "explanation": "Amince da wani bayani idan ya dace da tambayar. A duba tsarin wasiƙar da jerin abubuwan da suka faru.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Yi amfani da gaisuwa da rufewa da suka dace da wasiƙar zumunci."
+        },
+        {
+          "marks": 1,
+          "description": "Faɗi abin da ƙungiyar ta nuna."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana matsalar da ta taso."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana yadda aka magance ta cikin Hausa mai fahimta."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Wasiƙu",
+      "learningObjective": "Rubuta wasiƙa mai maƙasudi da salo da ya dace da wanda zai karanta ta.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-102-002",
+      "objectiveId": "neco-hausa-102-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Kuna son kulob ɗinku ya yi amfani da ɗakin karatu bayan an tashi daga makaranta. Rubuta wa shugaban makaranta wasiƙar neman izini. Bayyana manufar taron, lokacin da kuke so da yadda za ku kula da ɗakin.",
+      "answer": "Makarantar Sakandare ta Gari, Kaduna.\n6 ga Nuwamba, 2026.\n\nZuwa ga Shugaban Makaranta,\n\nNeman izinin amfani da ɗakin karatu\n\nIna rubuto wannan wasiƙa a madadin kulob ɗin muhawara. Muna neman izinin amfani da ɗakin karatu ranar Alhamis daga ƙarfe uku zuwa huɗu na yamma domin shirya muhawarar makarantarmu. Malamin da ke kula da kulob zai kasance tare da mu. Za mu mayar da littattafai da kujeru inda muka same su, sannan mu sanar da mai kula da ɗakin kafin mu tafi.\nNa gode da kulawarku.\nNaku mai biyayya,\nAliyu Musa, Sakataren Kulob.",
+      "explanation": "Wasiƙar hukuma tana bayyana buƙata, dalili da matakin kula da kayan makaranta. Sunaye da lokuta na iya bambanta.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Yi amfani da salo da tsarin wasiƙar hukuma."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana dalilin neman izini."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana ranar taro da lokacinsa."
+        },
+        {
+          "marks": 1,
+          "description": "Faɗi mataki mai yiwuwa na kula da ɗakin."
+        },
+        {
+          "marks": 1,
+          "description": "Rubuta cikin Hausa mai tsari da fahimta."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Muƙalar ra’ayi",
+      "learningObjective": "Bayyana ra’ayi tare da dalilai da tsari mai ma’ana.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-102-003",
+      "objectiveId": "neco-hausa-102-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Kwamitin ɗalibai yana son rage yawan shara a filin makaranta. Wasu sun ba da shawarar ƙara kwandunan shara, wasu kuma sun ce a fara da wayar da kan ɗalibai. Kwatanta shawarar biyu ta fuskar kuɗi da yadda ɗalibai za su shiga, sannan ka ba da shawara mai dalili.",
+      "answer": "Ƙara kwanduna zai sa wurin zubar da shara ya fi kusa, amma saye da kula da su na buƙatar kuɗi. Wayar da kai za ta iya farawa da sanarwa da tattaunawa a aji ba tare da kashe kuɗi mai yawa ba. Tana kuma ba ɗalibai damar tsara yadda za su kula da filin. Sai dai idan babu kwando a kusa, ilimi kaɗai ba zai kawar da matsalar ba. Ina ba da shawarar a fara da wayar da kai da binciken wuraren da shara ta fi taruwa. Daga nan a ƙara kwanduna a wuraren da ake buƙatarsu.",
+      "explanation": "Za a iya amincewa da shawara dabam idan an kwatanta hanyoyin bisa ma’aunan da aka bayar kuma an ba da dalili.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Kwatanta hanyoyin ta fuskar kuɗi."
+        },
+        {
+          "marks": 1,
+          "description": "Kwatanta yadda ɗalibai za su shiga."
+        },
+        {
+          "marks": 1,
+          "description": "Ba da shawara mai yiwuwa."
+        },
+        {
+          "marks": 1,
+          "description": "Haɗa shawarar da dalili cikin Hausa mai fahimta."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Muƙalar ra’ayi",
+      "learningObjective": "Bayyana ra’ayi tare da dalilai da tsari mai ma’ana.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-102-004",
+      "objectiveId": "neco-hausa-102-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Wani ɗalibi ya ce ya fi kyau a yi duk aikin rukuni a ranar ƙarshe saboda kowa zai tuna abin da zai yi. Rubuta sakin layi da ya bayyana fa’ida ɗaya da haɗari ɗaya na wannan tsari, sannan ka ba da wata hanya da za ta rage haɗarin.",
+      "answer": "Yin aikin a rana ɗaya yana iya sa kowa ya tattauna matsalar a lokaci guda. Amma idan wani bai zo ba ko kayan aiki suka lalace, lokaci zai yi kaɗan a gyara. Zai fi kyau a raba ayyuka tun da wuri, a haɗu kafin ranar ƙarshe don duba abin da aka yi, sannan a bar ranar ƙarshe don gyara.",
+      "explanation": "A duba ko an bayyana fa’ida da haɗari da kuma hanyar da za ta magance haɗarin.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Bayyana fa’ida ɗaya."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana haɗari ɗaya."
+        },
+        {
+          "marks": 1,
+          "description": "Ba da hanyar da za ta rage haɗarin da aka ambata."
+        },
+        {
+          "marks": 1,
+          "description": "Tsara ra’ayin cikin sakin layi mai ma’ana."
+        }
+      ]
+    }
+  ]
+}

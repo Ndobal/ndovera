@@ -528,3 +528,7 @@ Official oral tasks, prescribed texts and marking remain unverified.
 Batch 101 adds four NECO Arabic oral interaction drafts. The
 classroom scripts and rubrics are provisional. NECO oral delivery,
 marking and prescribed literature remain unverified.
+
+Batch 102 adds four original NECO Hausa composition drafts on
+letter writing and reasoned argument. Official prescribed texts and
+marking remain unverified.

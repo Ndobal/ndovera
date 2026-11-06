@@ -1464,6 +1464,18 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "NECO timetable confirms Oral Arabic Paper IV (4004). Council of Europe oral interaction descriptors inform original classroom tasks. No NECO adoption of CEFR levels or task types is asserted. Official task instructions and marking remain unverified."
+    },
+    {
+      "id": "neco-hausa-written-reference-2026",
+      "exam": "NECO",
+      "subject": "Hausa",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Hausa/Hausa221mq1.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "NECO 2026 Internal timetable confirms Hausa objective and essay papers 4053 and 4052, and notes a literature component. Historical WAEC Hausa Paper 2 provides provisional composition evidence. Official NECO prescribed texts and marking remain unverified."
     }
   ],
   "banks": [
@@ -3058,7 +3070,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_formats_provisional_composition_objectives",
       "paperFormats": {
         "II": "essay including literature",
         "III": "objective"
@@ -10454,6 +10466,40 @@
       ],
       "sourceSections": [
         "NECO Paper IV (format only); CEFR Companion Volume, goal-oriented co-operation"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-hausa-102-1-v1",
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Wasiƙu",
+      "learningObjective": "Rubuta wasiƙa mai maƙasudi da salo da ya dace da wanda zai karanta ta.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Hausa Paper 2 examiner material, 2012"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-hausa-102-2-v1",
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Muƙalar ra’ayi",
+      "learningObjective": "Bayyana ra’ayi tare da dalilai da tsari mai ma’ana.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Hausa Paper 2 examiner material, 2012"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
