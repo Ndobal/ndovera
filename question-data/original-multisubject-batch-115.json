@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Economics 0455 resource allocation",
+  "questionCount": 7,
+  "note": "Original untiered 2026 practice. Structured items are standalone practice, not complete Paper 2 sections. Academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Substitutes",
+      "learningObjective": "Distinguish an own-price movement from a demand shift due to a substitute price.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-115-001",
+      "objectiveId": "igcse-0455-115-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "Minibus fares on a route rise while the price of a shared taxi trip on the same route stays fixed. If these services are substitutes, what happens in the shared taxi market initially?",
+      "answer": "Demand shifts right.",
+      "explanation": "Some passengers switch from the minibus at the unchanged taxi price.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Demand shifts right.",
+        "Supply shifts right.",
+        "Quantity demanded moves down the existing demand curve.",
+        "Demand shifts left."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Input cost shock",
+      "learningObjective": "Trace a fall in input costs to equilibrium price and quantity.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-115-002",
+      "objectiveId": "igcse-0455-115-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "Several competing bakeries in a town face a lasting fall in flour costs. Assume demand is unchanged and both curves have their usual slopes. Explain the likely changes in the market price and quantity of bread.",
+      "answer": "Supply increases. Equilibrium price falls and equilibrium quantity rises.",
+      "explanation": "A lower input cost makes producing bread more profitable at each price. The supply curve shifts right along the unchanged demand curve.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connect lower flour costs to greater supply at each price."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a rightward supply shift."
+        },
+        {
+          "marks": 1,
+          "description": "Predict a lower equilibrium price."
+        },
+        {
+          "marks": 1,
+          "description": "Predict a higher equilibrium quantity."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Excess demand",
+      "learningObjective": "Use a schedule to identify and quantify a shortage.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-115-003",
+      "objectiveId": "igcse-0455-115-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "At ₦400 per tray, buyers want 95 trays of seedlings per week and sellers offer 75. At ₦500 both quantities are 84. What is the market imbalance at ₦400?",
+      "answer": "A shortage of 20 trays per week.",
+      "explanation": "Compare the two quantities at ₦400. Demand exceeds supply by 95 − 75 = 20.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A surplus of 20 trays per week.",
+        "A shortage of 11 trays per week.",
+        "A shortage of 20 trays per week.",
+        "No imbalance because equilibrium exists at ₦500."
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "95-75",
+          "expected": 20,
+          "purpose": "Verify the worked calculation."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Elasticity and revenue",
+      "learningObjective": "Infer the direction of revenue change from price and quantity data.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-115-004",
+      "objectiveId": "igcse-0455-115-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A bicycle hire operator raises its daily fee from ₦1,000 to ₦1,200. Daily hires fall from 100 to 90 with other conditions unchanged. Calculate the change in daily revenue and explain what the price and quantity responses imply about demand over this change.",
+      "answer": "Daily revenue rises by ₦8,000, from ₦100,000 to ₦108,000. The percentage fall in hires is smaller than the percentage rise in price, so demand is price inelastic over this change.",
+      "explanation": "The revenue gain per hire outweighs the revenue lost on fewer hires. Using initial values, price rises by 20% and quantity falls by 10%.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Compute initial revenue of ₦100,000."
+        },
+        {
+          "marks": 1,
+          "description": "Compute new revenue of ₦108,000."
+        },
+        {
+          "marks": 1,
+          "description": "Identify an increase of ₦8,000."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that the smaller proportional quantity response indicates inelastic demand."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "1200*90-1000*100",
+          "expected": 8000,
+          "purpose": "Verify the worked calculation."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Supply response time",
+      "learningObjective": "Explain why the ability to expand output affects supply elasticity.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-115-005",
+      "objectiveId": "igcse-0455-115-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A pepper grower receives a higher selling price during harvest week. Why is supply likely to be more price elastic next growing season than during harvest week?",
+      "answer": "There is time to plant more peppers for the next harvest.",
+      "explanation": "The existing crop limits immediate output. The grower can change planting decisions over a longer period.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "There is time to plant more peppers for the next harvest.",
+        "Buyers will always buy less pepper next season.",
+        "The existing crop can be expanded instantly during harvest week.",
+        "A higher price eliminates all production costs."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "External costs",
+      "learningObjective": "Explain how an unpriced external cost can cause overproduction.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-115-006",
+      "objectiveId": "igcse-0455-115-6-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A dyeing workshop discharges waste into a stream. People downstream pay extra to clean their water, and the workshop pays none of those costs. Explain how this can lead to more dyeing output than is socially desirable.",
+      "answer": "The clean-up cost is external to the workshop. Its private production costs are lower than the social costs, so the market price omits part of the cost and output can exceed the socially efficient level.",
+      "explanation": "The downstream households bear a cost without taking part in the transaction.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify a cost imposed on downstream households."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish private and social costs."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how an omitted cost can lead to excess output."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Positive externalities and subsidy",
+      "learningObjective": "Evaluate a subsidy when benefits extend beyond paying customers.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-115-007",
+      "objectiveId": "igcse-0455-115-7-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "A local council considers subsidising training for shop owners in safe battery collection. Trained shops accept used batteries from residents. Discuss whether the subsidy is likely to improve resource allocation.",
+      "answer": "A subsidy could lower training fees and increase participation, reducing unsafe disposal that harms people beyond the shops. Its effectiveness depends on training leading to accessible collection and actual returns. It also uses public funds that could support other services. A targeted subsidy is most defensible if the extra benefits outweigh those costs.",
+      "explanation": "The case for intervention depends on the spillover benefit and whether subsidising training changes behaviour enough to justify the cost.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify a benefit to third parties."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how a subsidy could increase participation."
+        },
+        {
+          "marks": 1,
+          "description": "Explain a limitation or opportunity cost."
+        },
+        {
+          "marks": 1,
+          "description": "Give a judgement tied to the expected benefits and costs."
+        }
+      ]
+    }
+  ]
+}

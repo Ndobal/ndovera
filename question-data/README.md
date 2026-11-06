@@ -603,3 +603,8 @@ coverage and independent review remain open.
 Batch 114 adds eight Cambridge IGCSE Physics 0625 thermal and nuclear
 physics drafts. Core and Extended items use the verified 2026–2028
 version 2 syllabus. Full coverage and independent review remain open.
+
+Batch 115 opens Cambridge IGCSE Economics 0455 with seven original
+2026 resource allocation drafts. The untiered questions cover both
+papers. Structured items are standalone practice. The distinct
+2027–2029 syllabus requires separate mapping.

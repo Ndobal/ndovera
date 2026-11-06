@@ -1854,6 +1854,21 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "Historical school-candidate Paper 2 observations support articulation, lexical tone and borrowing. The page headings for questions 2 and 5 identify 2022 while their HTML titles say 2018. Tasks use English instructions with Ibibio response targets where appropriate. Current paper rules, marking and editions are unverified."
+    },
+    {
+      "id": "cambridge-0455-2026-v2",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "kind": "official_syllabus",
+      "source": "https://www.cambridgeinternational.org/Images/697154-2026-syllabus.pdf",
+      "syllabusUpdate": "https://www.cambridgeinternational.org/Images/748848-2026-syllabus-update.pdf",
+      "retrievedOn": "2026-11-06",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026
+      ],
+      "note": "Cambridge 2026 version 2. Untiered. Paper 1: 30 MCQs, 45 minutes, AO1/AO2. Paper 2: structured questions, 90 marks, 135 minutes, AO1/AO2/AO3. Separate 2027–2029 syllabus requires its own mapping."
     }
   ],
   "banks": [
@@ -3573,6 +3588,15 @@
       "target": 1000,
       "specificationId": "waec-ibibio-prescribed-texts-2026-2030",
       "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "level": "",
+      "target": 1000,
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "scopeStatus": "official_2026_syllabus_partial_objective_register"
     }
   ],
   "objectives": [
@@ -12193,6 +12217,174 @@
         "Extended"
       ],
       "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Substitutes",
+      "learningObjective": "Distinguish an own-price movement from a demand shift due to a substitute price.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "igcse-0455-115-1-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2.3.2 and 2.3.4"
+      ],
+      "examinationYears": [
+        2026
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Input cost shock",
+      "learningObjective": "Trace a fall in input costs to equilibrium price and quantity.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "igcse-0455-115-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "2.4.4 and 2.6.1–2.6.2"
+      ],
+      "examinationYears": [
+        2026
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Excess demand",
+      "learningObjective": "Use a schedule to identify and quantify a shortage.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "igcse-0455-115-3-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2.5.1–2.5.2"
+      ],
+      "examinationYears": [
+        2026
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Elasticity and revenue",
+      "learningObjective": "Infer the direction of revenue change from price and quantity data.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "igcse-0455-115-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "2.7.4"
+      ],
+      "examinationYears": [
+        2026
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Supply response time",
+      "learningObjective": "Explain why the ability to expand output affects supply elasticity.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "igcse-0455-115-5-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2.8.3"
+      ],
+      "examinationYears": [
+        2026
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "External costs",
+      "learningObjective": "Explain how an unpriced external cost can cause overproduction.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "igcse-0455-115-6-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "2.10.1–2.10.3"
+      ],
+      "examinationYears": [
+        2026
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Resource allocation",
+      "subtopic": "Positive externalities and subsidy",
+      "learningObjective": "Evaluate a subsidy when benefits extend beyond paying customers.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "igcse-0455-115-7-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "2.10.2 and 2.11"
+      ],
+      "examinationYears": [
+        2026
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
     }
   ],
   "scopeGaps": [
@@ -12208,7 +12400,7 @@
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
-    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 version 2 has been retrieved and selected mechanics and space physics objectives are mapped. Full Physics coverage and independent review remain open. The official Economics 0455 syllabus has not been verified in this register.",
+    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 version 2 has been retrieved and selected mechanics and space physics objectives are mapped. Full Physics coverage and independent review remain open. The Economics 0455 version 2 syllabus is verified for 2026 and selected microeconomics objectives are mapped. The distinct 2027–2029 syllabus requires separate mapping.",
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",
