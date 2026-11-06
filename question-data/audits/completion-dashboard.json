@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3451,
-    "validDrafts": 1772,
+    "raw": 3463,
+    "validDrafts": 1784,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -830,6 +830,12 @@
       "sha256": "fad38e02790f8c2e8a89907184edd19cfc29d130c262535e5ac4c6df48e82bc5",
       "declared": 6,
       "actual": 6
+    },
+    {
+      "path": "original-multisubject-batch-117.json",
+      "sha256": "68e1470a569e02ae858dd6e970c8147a8f01d211e2b569a72ec69fd637510f68",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2278,18 +2284,19 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_2026_component_with_provisional_primary_six_reference",
-      "raw": 12,
-      "validDrafts": 12,
+      "raw": 24,
+      "validDrafts": 24,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 12
+        "mcq": 24
       },
       "difficulty": {
-        "standard": 12
+        "standard": 23,
+        "difficult": 1
       },
-      "remaining": 988,
-      "mappedObjectives": 3,
-      "representedObjectives": 3,
+      "remaining": 976,
+      "mappedObjectives": 7,
+      "representedObjectives": 7,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5537,17 +5544,17 @@
   ],
   "errorCounts": {
     "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 256,
@@ -30759,6 +30766,78 @@
       "id": "ndv-116-006",
       "file": "original-multisubject-batch-116.json",
       "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-001",
+      "file": "original-multisubject-batch-117.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-002",
+      "file": "original-multisubject-batch-117.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-003",
+      "file": "original-multisubject-batch-117.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-004",
+      "file": "original-multisubject-batch-117.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-005",
+      "file": "original-multisubject-batch-117.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-006",
+      "file": "original-multisubject-batch-117.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-007",
+      "file": "original-multisubject-batch-117.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-008",
+      "file": "original-multisubject-batch-117.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-009",
+      "file": "original-multisubject-batch-117.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-010",
+      "file": "original-multisubject-batch-117.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-011",
+      "file": "original-multisubject-batch-117.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-117-012",
+      "file": "original-multisubject-batch-117.json",
+      "index": 11,
       "errors": []
     },
     {
@@ -57510,6 +57589,131 @@
       "assessmentObjectives": {
         "AO2": 1
       },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Honesty",
+      "subtopic": "Truthfulness and accountable records",
+      "learningObjective": "Choose honest and accountable responses when a record or claim is misleading.",
+      "id": "ncee-nve-p6-honesty-v1",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "ICPC teaching guide: Primary Six English Studies, dialogue on national values (honesty)"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Justice",
+      "subtopic": "Gender discrimination and equal opportunity",
+      "learningObjective": "Recognise and correct unfair exclusion based on gender.",
+      "id": "ncee-nve-p6-justice-v1",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "ICPC teaching guide: Primary Six Social Studies, gender discrimination"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Contentment",
+      "subtopic": "Greed and fair use of shared resources",
+      "learningObjective": "Apply contentment and recognise when taking extra deprives other people.",
+      "id": "ncee-nve-p6-contentment-v1",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "ICPC teaching guide: Primary Six, contentment and rejection of greed"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Service",
+      "subtopic": "Community service and consideration",
+      "learningObjective": "Select community service actions that respond to a shared need responsibly.",
+      "id": "ncee-nve-p6-community-service-v1",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "ICPC teaching guide: Primary Six, consideration for others and service to the community"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"

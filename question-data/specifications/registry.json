@@ -12561,6 +12561,82 @@
         "Untiered"
       ],
       "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Honesty",
+      "subtopic": "Truthfulness and accountable records",
+      "learningObjective": "Choose honest and accountable responses when a record or claim is misleading.",
+      "id": "ncee-nve-p6-honesty-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "ICPC teaching guide: Primary Six English Studies, dialogue on national values (honesty)"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Justice",
+      "subtopic": "Gender discrimination and equal opportunity",
+      "learningObjective": "Recognise and correct unfair exclusion based on gender.",
+      "id": "ncee-nve-p6-justice-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "ICPC teaching guide: Primary Six Social Studies, gender discrimination"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Contentment",
+      "subtopic": "Greed and fair use of shared resources",
+      "learningObjective": "Apply contentment and recognise when taking extra deprives other people.",
+      "id": "ncee-nve-p6-contentment-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "ICPC teaching guide: Primary Six, contentment and rejection of greed"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Service",
+      "subtopic": "Community service and consideration",
+      "learningObjective": "Select community service actions that respond to a shared need responsibly.",
+      "id": "ncee-nve-p6-community-service-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "ICPC teaching guide: Primary Six, consideration for others and service to the community"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [

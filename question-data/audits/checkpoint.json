@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_116_automated_validation_passed",
+  "phase": "batch_117_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-117.json",
+  "nextBatch": "original-multisubject-batch-118.json",
   "nextPriorities": [
-    "Inspect current NCEE evidence and expand underrepresented, source-supported Primary Six National Values Education skills. Continue Cambridge Economics and Physics objective coverage in later batches.",
+    "Verify NCEE Paper II vocational aptitude evidence and expand underrepresented Primary Six skills where supported. Keep official NCEE topic specifications and option counts open.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-116.json",
-  "lastRemoteVerifiedCommit": "92dedfd070bb16f51add2e89d6c6f566f9699c6f",
+  "lastValidatedBatch": "original-multisubject-batch-117.json",
+  "lastRemoteVerifiedCommit": "203e6f8842c0a8953426298b4d411f583e9d0d6e",
   "verifiedTotals": {
-    "raw": 3451,
-    "validDrafts": 1772,
+    "raw": 3463,
+    "validDrafts": 1784,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-116.json",
+  "lastPopulatedBatch": "original-multisubject-batch-117.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3451
+  "inventoryRaw": 3463
 }

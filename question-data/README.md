@@ -612,3 +612,8 @@ papers. Structured items are standalone practice. The distinct
 Batch 116 adds six original Economics 0455 drafts using the separate
 2027–2029 version 1 syllabus. The bank retains distinct source mappings
 for the 2026 and 2027–2029 paper schemes.
+
+Batch 117 adds twelve Primary 6 NCEE National Values Education drafts
+on honesty, justice, contentment and community service. NECO confirms
+Paper I Part B. Historical ICPC teaching guidance supports provisional
+topic mapping. The official topic specification and option count remain open.
