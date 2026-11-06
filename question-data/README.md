@@ -543,3 +543,10 @@ Batch 104 adds four original NECO Yoruba composition drafts on
 narrative, description, exposition and argument. The 2026 timetable
 verifies paper formats. Historical WAEC examiner observations support
 provisional genre mapping. NECO prescribed texts and marking remain open.
+
+The WAEC 2026–2030 selected-text register now links seven official
+language PDFs and records their checksums. The Yoruba source also
+records the five year-specific written poetry page ranges. Edo, Efik
+and Ibibio have provisional target rows backed by their WAEC lists.
+Full objectives, work editions, paper requirements and NECO adoption
+still require separate evidence.

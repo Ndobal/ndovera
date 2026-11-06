@@ -170,6 +170,8 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Data Processing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Digital Technologies | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | WAEC | Economics | 1000 | 29 | 25 | 0 | 975 | partial_objective_register |
+| WAEC | Edo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Efik | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | English Language | 1000 | 28 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Fashion Design and Garment Making | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Financial Accounting | 1000 | 29 | 25 | 0 | 975 | partial_objective_register |
@@ -183,6 +185,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | History | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Home Management | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Horticulture and Crop Production | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Ibibio | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Igbo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Insurance | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Islamic Religious Knowledge (IRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
@@ -211,9 +214,9 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
-| WAEC | 1282 | 483 | 0 | 42000 | 41517 |
+| WAEC | 1282 | 483 | 0 | 45000 | 44517 |
 
-Overall: {"raw": 3385, "validDrafts": 1706, "reviewed": 0, "registeredBanks": 189, "target": 171000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3385, "validDrafts": 1706, "reviewed": 0, "registeredBanks": 192, "target": 174000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -236,3 +239,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.
 - Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.
 - The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.
+- WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence.

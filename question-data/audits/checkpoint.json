@@ -2,19 +2,19 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_104_automated_validation_passed",
+  "phase": "waec_language_prescribed_text_sources_verified",
   "projectComplete": false,
   "academicReviewComplete": false,
   "nextBatch": "original-multisubject-batch-105.json",
   "nextPriorities": [
-    "Verify and register WAEC Nigerian-language prescribed texts for 2026\u20132030 where supported by official board publications. Keep NECO Yoruba, Igbo and Hausa prescribed texts, detailed objectives and marking unresolved pending NECO sources.",
+    "Transcribe and verify the WAEC Yoruba 2026\u20132030 bibliography, obtain primary text and verify the applicable edition and Paper 2 format before writing text-dependent drafts. Keep NECO adoption unresolved pending NECO sources.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
   "lastValidatedBatch": "original-multisubject-batch-104.json",
-  "lastRemoteVerifiedCommit": "41f4be83e4da1152b90c2e09cc9fb1251527d942",
+  "lastRemoteVerifiedCommit": "14cc2c6230a7bc7fc3765b247d6686517ca63492",
   "verifiedTotals": {
     "raw": 3385,
     "validDrafts": 1706,

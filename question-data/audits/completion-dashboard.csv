@@ -146,7 +146,7 @@ TOEFL,Speaking,,,1000,16,16,0,984,4,4,partial_objective_register,post_january_20
 TOEFL,Writing,,,1000,13,10,0,990,3,3,partial_objective_register,official_skill_structure_seen_version_or_variant_mapping_pending
 WAEC,Agricultural Science,,,1000,25,25,0,975,8,7,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Animal Husbandry,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
-WAEC,Arabic,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
+WAEC,Arabic,,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_2030_prescribed_text_source_full_specification_pending
 WAEC,Beauty and Cosmetology,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,Biology,,,1000,23,20,0,980,8,8,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Book Keeping,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
@@ -161,6 +161,8 @@ WAEC,Computer Studies,,,1000,25,25,0,975,6,6,partial_objective_register,candidat
 WAEC,Data Processing,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Digital Technologies,,,,0,0,0,,0,0,specification_unresolved,future_2028_not_current_exam_target
 WAEC,Economics,,,1000,29,25,0,975,11,11,partial_objective_register,candidate_from_supplied_compilation
+WAEC,Edo,,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_2030_prescribed_text_source_full_specification_pending
+WAEC,Efik,,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_2030_prescribed_text_source_full_specification_pending
 WAEC,English Language,,,1000,28,25,0,975,7,7,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Fashion Design and Garment Making,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,Financial Accounting,,,1000,29,25,0,975,8,7,partial_objective_register,candidate_from_supplied_compilation
@@ -169,12 +171,13 @@ WAEC,French,,,1000,25,25,0,975,4,3,partial_objective_register,candidate_from_sup
 WAEC,Further Mathematics,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Geography,,,1000,27,25,0,975,7,7,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Government,,,1000,27,25,0,975,7,7,partial_objective_register,candidate_from_supplied_compilation
-WAEC,Hausa,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Hausa,,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_2030_prescribed_text_source_full_specification_pending
 WAEC,Health Education,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,History,,,1000,25,25,0,975,5,5,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Home Management,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Horticulture and Crop Production,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
-WAEC,Igbo,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Ibibio,,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_2030_prescribed_text_source_full_specification_pending
+WAEC,Igbo,,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_2030_prescribed_text_source_full_specification_pending
 WAEC,Insurance,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Islamic Religious Knowledge (IRK),,,1000,25,25,0,975,6,6,partial_objective_register,candidate_from_supplied_compilation
 WAEC,Literature in English,,,1000,133,133,0,867,30,29,partial_objective_register,candidate_from_supplied_compilation
@@ -187,4 +190,4 @@ WAEC,Physics,,,1000,21,15,0,985,8,8,partial_objective_register,candidate_from_su
 WAEC,Solar Photovoltaic Installation and Maintenance,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
 WAEC,Technical Drawing,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 WAEC,Visual Art,,,1000,0,0,0,1000,0,0,specification_unresolved,official_catalogue_seen_subject_specification_pending
-WAEC,Yoruba,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
+WAEC,Yoruba,,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_2030_prescribed_text_source_full_specification_pending

@@ -1500,6 +1500,171 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "The 2026 NECO SSCE Internal timetable lists Yoruba essay (4132) and objective (4133) papers and confirms a literature component. WAEC Yoruba Paper 2 examiner observations from 2023 inform provisional composition genres. Current NECO objectives, prescribed texts and marking guidance remain unverified."
+    },
+    {
+      "id": "waec-arabic-prescribed-texts-2026-2030",
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "kind": "official_prescribed_text_list",
+      "source": "https://www.waecnigeria.org/sites/default/files/2023-06/ARABIC%202026-2030.pdf",
+      "officialLandingPage": "https://www.waecnigeria.org/article/list-selected-texts-wassce-arabic-edo-efik-hausa-ibibio-igbo-literature-english-and-yoruba",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "retrievedOn": "2026-11-06",
+      "pageCount": 8,
+      "sha256": "10a6f94fe040aa7428fe0ba887ac21dcade797abf33a7b4e69e3b3169cb185ad",
+      "status": "official_selected_text_list_retrieved_full_scheme_and_editions_pending",
+      "note": "WAEC Nigeria attachment. The PDF is an image scan. Scope is recorded for WASSCE. Detailed paper scheme, objectives, marking, work editions and NECO adoption require separate evidence."
+    },
+    {
+      "id": "waec-edo-prescribed-texts-2026-2030",
+      "exam": "WAEC",
+      "subject": "Edo",
+      "kind": "official_prescribed_text_list",
+      "source": "https://www.waecnigeria.org/sites/default/files/2023-06/EDO%202026-2030.pdf",
+      "officialLandingPage": "https://www.waecnigeria.org/article/list-selected-texts-wassce-arabic-edo-efik-hausa-ibibio-igbo-literature-english-and-yoruba",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "retrievedOn": "2026-11-06",
+      "pageCount": 2,
+      "sha256": "ba79e871f784e32709c3360dd29b9696282a0f4d30afe368d8fc530ce38e9f56",
+      "status": "official_selected_text_list_retrieved_full_scheme_and_editions_pending",
+      "note": "WAEC Nigeria attachment. The PDF is an image scan. Scope is recorded for WASSCE. Detailed paper scheme, objectives, marking, work editions and NECO adoption require separate evidence."
+    },
+    {
+      "id": "waec-efik-prescribed-texts-2026-2030",
+      "exam": "WAEC",
+      "subject": "Efik",
+      "kind": "official_prescribed_text_list",
+      "source": "https://www.waecnigeria.org/sites/default/files/2023-06/EFIK%202026-2030.pdf",
+      "officialLandingPage": "https://www.waecnigeria.org/article/list-selected-texts-wassce-arabic-edo-efik-hausa-ibibio-igbo-literature-english-and-yoruba",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "retrievedOn": "2026-11-06",
+      "pageCount": 1,
+      "sha256": "c3a25b5f5d680c8f036393b3d2c41f1c2ceffd1cbb07fd93615f27b0507c11a4",
+      "status": "official_selected_text_list_retrieved_full_scheme_and_editions_pending",
+      "note": "WAEC Nigeria attachment. The PDF is an image scan. Scope is recorded for WASSCE. Detailed paper scheme, objectives, marking, work editions and NECO adoption require separate evidence."
+    },
+    {
+      "id": "waec-hausa-prescribed-texts-2026-2030",
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "kind": "official_prescribed_text_list",
+      "source": "https://www.waecnigeria.org/sites/default/files/2023-06/HAUSA%202026-2030.pdf",
+      "officialLandingPage": "https://www.waecnigeria.org/article/list-selected-texts-wassce-arabic-edo-efik-hausa-ibibio-igbo-literature-english-and-yoruba",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "retrievedOn": "2026-11-06",
+      "pageCount": 2,
+      "sha256": "b38dc16e6fc2dd581f857f8fa153a4f67947bc398431b516d2dbc138d68878f6",
+      "status": "official_selected_text_list_retrieved_full_scheme_and_editions_pending",
+      "note": "WAEC Nigeria attachment. The PDF is an image scan. Scope is recorded for WASSCE. Detailed paper scheme, objectives, marking, work editions and NECO adoption require separate evidence."
+    },
+    {
+      "id": "waec-ibibio-prescribed-texts-2026-2030",
+      "exam": "WAEC",
+      "subject": "Ibibio",
+      "kind": "official_prescribed_text_list",
+      "source": "https://www.waecnigeria.org/sites/default/files/2023-06/IBIBIO%202026-2030.pdf",
+      "officialLandingPage": "https://www.waecnigeria.org/article/list-selected-texts-wassce-arabic-edo-efik-hausa-ibibio-igbo-literature-english-and-0",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "retrievedOn": "2026-11-06",
+      "pageCount": 1,
+      "sha256": "d0f346a80f0f8eebca23bc823c1f6dcb315463a12211b08567f2f2097beb4d4d",
+      "status": "official_selected_text_list_retrieved_full_scheme_and_editions_pending",
+      "note": "WAEC Nigeria attachment. The PDF is an image scan. Scope is recorded for WASSCE. Detailed paper scheme, objectives, marking, work editions and NECO adoption require separate evidence."
+    },
+    {
+      "id": "waec-igbo-prescribed-texts-2026-2030",
+      "exam": "WAEC",
+      "subject": "Igbo",
+      "kind": "official_prescribed_text_list",
+      "source": "https://www.waecnigeria.org/sites/default/files/2023-06/IGBO%202026-2030.pdf",
+      "officialLandingPage": "https://www.waecnigeria.org/article/list-selected-texts-wassce-arabic-edo-efik-hausa-ibibio-igbo-literature-english-and-0",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "retrievedOn": "2026-11-06",
+      "pageCount": 2,
+      "sha256": "a3fa24c71df48af19d4e905a237f20ea2213a741acf673dbd7ebcffb66bc88a2",
+      "status": "official_selected_text_list_retrieved_full_scheme_and_editions_pending",
+      "note": "WAEC Nigeria attachment. The PDF is an image scan. Scope is recorded for WASSCE. Detailed paper scheme, objectives, marking, work editions and NECO adoption require separate evidence."
+    },
+    {
+      "id": "waec-yoruba-prescribed-texts-2026-2030",
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "kind": "official_prescribed_text_list",
+      "source": "https://www.waecnigeria.org/sites/default/files/2023-06/YORUBA%202026-2030.pdf",
+      "officialLandingPage": "https://www.waecnigeria.org/article/list-selected-texts-wassce-arabic-edo-efik-hausa-ibibio-igbo-literature-english-and-0",
+      "examinationYears": [
+        2026,
+        2027,
+        2028,
+        2029,
+        2030
+      ],
+      "retrievedOn": "2026-11-06",
+      "pageCount": 2,
+      "sha256": "6f8208572531e6f095ac3c35c4373f9691e31bbcb66872110152d8b330bd6746",
+      "status": "official_selected_text_list_retrieved_full_scheme_and_editions_pending",
+      "note": "WAEC Nigeria attachment. The PDF is an image scan. Scope is recorded for WASSCE. Detailed paper scheme, objectives, marking, work editions and NECO adoption require separate evidence.",
+      "sourceSections": [
+        "Page 1: written literature and annual poetry page allocations"
+      ],
+      "writtenPoetryPageRanges": {
+        "2026": [
+          1,
+          50
+        ],
+        "2027": [
+          51,
+          83
+        ],
+        "2028": [
+          84,
+          116
+        ],
+        "2029": [
+          117,
+          152
+        ],
+        "2030": [
+          153,
+          216
+        ]
+      }
     }
   ],
   "banks": [
@@ -1660,21 +1825,24 @@
       "subject": "Yoruba",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending",
+      "specificationId": "waec-yoruba-prescribed-texts-2026-2030"
     },
     {
       "exam": "WAEC",
       "subject": "Igbo",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending",
+      "specificationId": "waec-igbo-prescribed-texts-2026-2030"
     },
     {
       "exam": "WAEC",
       "subject": "Hausa",
       "level": "",
       "target": 1000,
-      "scopeStatus": "candidate_from_supplied_compilation"
+      "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending",
+      "specificationId": "waec-hausa-prescribed-texts-2026-2030"
     },
     {
       "exam": "WAEC",
@@ -1938,7 +2106,8 @@
       "subject": "Arabic",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_catalogue_seen_subject_specification_pending"
+      "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending",
+      "specificationId": "waec-arabic-prescribed-texts-2026-2030"
     },
     {
       "exam": "WAEC",
@@ -3191,6 +3360,30 @@
         "III": "2103",
         "IV": "2104"
       }
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "level": "",
+      "target": 1000,
+      "specificationId": "waec-edo-prescribed-texts-2026-2030",
+      "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Efik",
+      "level": "",
+      "target": 1000,
+      "specificationId": "waec-efik-prescribed-texts-2026-2030",
+      "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Ibibio",
+      "level": "",
+      "target": 1000,
+      "specificationId": "waec-ibibio-prescribed-texts-2026-2030",
+      "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending"
     }
   ],
   "objectives": [
@@ -10682,6 +10875,7 @@
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",
-    "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate."
+    "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.",
+    "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence."
   ]
 }
