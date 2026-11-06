@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_113_automated_validation_passed",
+  "phase": "batch_114_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-114.json",
+  "nextBatch": "original-multisubject-batch-115.json",
   "nextPriorities": [
-    "Map and draft underrepresented Cambridge IGCSE Physics 0625 thermal physics and nuclear physics objectives using the verified 2026\u20132028 version 2 syllabus. Keep WAEC language paper rules and prescribed editions open.",
+    "Retrieve the official Cambridge IGCSE Economics 0455 syllabus and verify the examination years and paper requirements before mapping drafts. Continue filling Physics 0625 objectives in later batches.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-113.json",
-  "lastRemoteVerifiedCommit": "0c4d7150e548c0f6760ccf343ec1da42a4cebf72",
+  "lastValidatedBatch": "original-multisubject-batch-114.json",
+  "lastRemoteVerifiedCommit": "155f244f55bb0c3df0223e18d45f393f8ca9a471",
   "verifiedTotals": {
-    "raw": 3430,
-    "validDrafts": 1751,
+    "raw": 3438,
+    "validDrafts": 1759,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-113.json",
+  "lastPopulatedBatch": "original-multisubject-batch-114.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3430
+  "inventoryRaw": 3438
 }

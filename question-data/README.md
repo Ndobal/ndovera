@@ -599,3 +599,7 @@ Batch 113 adds ten Cambridge IGCSE Physics 0625 waves and electricity
 drafts mapped to selected 2026–2028 version 2 objectives. It includes
 Core and Extended multiple-choice and theory practice. Full syllabus
 coverage and independent review remain open.
+
+Batch 114 adds eight Cambridge IGCSE Physics 0625 thermal and nuclear
+physics drafts. Core and Extended items use the verified 2026–2028
+version 2 syllabus. Full coverage and independent review remain open.

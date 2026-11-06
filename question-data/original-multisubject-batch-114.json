@@ -1,0 +1,404 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Physics 0625 thermal and nuclear physics",
+  "questionCount": 8,
+  "note": "Original Core and Extended practice mapped to selected 2026–2028 version 2 objectives. Academic review pending.",
+  "questions": [
+    {
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "examinationYear": 2026,
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Thermal physics",
+      "subtopic": "Expansion allowance",
+      "learningObjective": "Explain an everyday design that accommodates expansion of a solid.",
+      "id": "ndv-114-001",
+      "objectiveId": "igcse-0625-114-1-v1",
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A workshop fits a long metal sunshade with one end fixed and the other free to slide a short distance. Why is the sliding end useful on a hot afternoon?",
+      "answer": "It lets the metal lengthen without building up as much compressive stress.",
+      "explanation": "Heating makes the metal expand. The free end can move, reducing the tendency to buckle.",
+      "score": 1,
+      "options": [
+        "It keeps the metal at its morning temperature.",
+        "It lets the metal lengthen without building up as much compressive stress.",
+        "It stops the metal conducting thermal energy.",
+        "It makes the metal shorten when heated."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "examinationYear": 2026,
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Thermal physics",
+      "subtopic": "Gas pressure at constant volume",
+      "learningObjective": "Explain the effect of heating a gas at fixed volume using particle collisions.",
+      "id": "ndv-114-002",
+      "objectiveId": "igcse-0625-114-2-v1",
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A sealed rigid container of air warms in sunlight. Use the particle model to explain why the pressure rises while the container volume stays fixed.",
+      "answer": "The air particles gain kinetic energy, move faster, and strike the walls more frequently and with greater momentum changes. The greater force per unit area increases pressure.",
+      "explanation": "The container keeps the same gas and wall area. Faster particles transfer more momentum to the walls per unit time.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain that the particles move faster."
+        },
+        {
+          "marks": 1,
+          "description": "Link faster motion to more frequent or more forceful wall collisions."
+        },
+        {
+          "marks": 1,
+          "description": "Link the increased force on the same wall area to greater pressure."
+        }
+      ]
+    },
+    {
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "examinationYear": 2026,
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Thermal physics",
+      "subtopic": "Comparing heat capacities",
+      "learningObjective": "Infer a specific heat capacity ratio from unequal masses and equal temperature rises.",
+      "id": "ndv-114-003",
+      "objectiveId": "igcse-0625-114-3-v1",
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "Two insulated blocks receive equal amounts of energy and each warms by 12 °C. Block A has mass 0.30 kg and block B has mass 0.45 kg. Assume the supplied energy goes only into the blocks. Find the ratio of the specific heat capacity of A to that of B.",
+      "answer": "3:2.",
+      "explanation": "With the same energy and temperature rise, mc is the same for both blocks. Therefore cA/cB = mB/mA = 0.45/0.30 = 1.5.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use E = mcΔT."
+        },
+        {
+          "marks": 1,
+          "description": "Infer that the ratio of specific heat capacities is the inverse mass ratio."
+        },
+        {
+          "marks": 1,
+          "description": "Give 3:2 or 1.5:1."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "0.45/0.30",
+          "expected": "1.5",
+          "purpose": "Verify the worked calculation."
+        }
+      ]
+    },
+    {
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "examinationYear": 2026,
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Thermal physics",
+      "subtopic": "Evaporative cooling",
+      "learningObjective": "Connect the escape of higher-energy particles to cooling.",
+      "id": "ndv-114-004",
+      "objectiveId": "igcse-0625-114-4-v1",
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A pupil places a damp cloth over a sealed bottle. As water leaves the cloth by evaporation, the bottle cools. Which particle-level explanation describes the cooling of the water remaining in the cloth?",
+      "answer": "Faster particles escape, lowering the average kinetic energy of the remaining water particles.",
+      "explanation": "Evaporation preferentially removes more energetic particles from the surface, reducing the mean kinetic energy of those left.",
+      "score": 1,
+      "options": [
+        "The escaping particles make the remaining particles move faster.",
+        "Every remaining particle stops moving at once.",
+        "Water particles cool because they get smaller.",
+        "Faster particles escape, lowering the average kinetic energy of the remaining water particles."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "examinationYear": 2026,
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Nuclear physics",
+      "subtopic": "Shielding test",
+      "learningObjective": "Interpret absorption evidence to distinguish alpha, beta and gamma radiation.",
+      "id": "ndv-114-005",
+      "objectiveId": "igcse-0625-114-5-v1",
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "In a simulated shielding test, thin paper has little effect on the count from a source. A few millimetres of aluminium reduce it to background. Which single radiation type best fits the result?",
+      "answer": "Beta radiation.",
+      "explanation": "Paper would stop alpha radiation. The aluminium stopping the detected radiation is consistent with beta radiation and is less consistent with penetrating gamma radiation.",
+      "score": 1,
+      "options": [
+        "Alpha radiation.",
+        "Gamma radiation.",
+        "Beta radiation.",
+        "All three types are equally consistent with the result."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "examinationYear": 2026,
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Nuclear physics",
+      "subtopic": "Background-corrected half-life",
+      "learningObjective": "Subtract background count rate before identifying a half-life.",
+      "id": "ndv-114-006",
+      "objectiveId": "igcse-0625-114-6-v1",
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A simulated counter records 104 counts/min at 0 min, 64 at 6 min and 44 at 12 min. The steady background is 24 counts/min. Determine the half-life and explain why halving the first uncorrected count rate would be misleading.",
+      "answer": "6 min. The corrected rates are 80, 40 and 20 counts/min.",
+      "explanation": "Subtract 24 counts/min at each time. The source contribution halves every 6 min, while the background contribution stays constant.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Subtract the background and give the corrected rates."
+        },
+        {
+          "marks": 1,
+          "description": "Identify 6 min as the time for one halving."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that the raw readings include a steady contribution."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "(104-24)/(64-24)",
+          "expected": 2,
+          "purpose": "Verify the worked calculation."
+        }
+      ]
+    },
+    {
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "examinationYear": 2026,
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Nuclear physics",
+      "subtopic": "Beta-minus decay notation",
+      "learningObjective": "Apply conservation of nucleon number and charge to a beta-minus equation.",
+      "id": "ndv-114-007",
+      "objectiveId": "igcse-0625-114-7-v1",
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A sodium-24 nucleus (atomic number 11) emits a beta-minus particle. Give the mass number and atomic number of the daughter nucleus and explain the changes using the neutron-to-proton conversion.",
+      "answer": "Mass number 24 and atomic number 12. A neutron changes to a proton and an electron is emitted.",
+      "explanation": "Replacing one neutron with a proton keeps the total number of nucleons constant and adds one to the proton number.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Give mass number 24."
+        },
+        {
+          "marks": 1,
+          "description": "Give atomic number 12."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that one neutron becomes a proton in beta-minus decay."
+        }
+      ]
+    },
+    {
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "examinationYear": 2026,
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Nuclear physics",
+      "subtopic": "Spontaneous and random decay",
+      "learningObjective": "Distinguish random individual decays from a predictable trend across many nuclei.",
+      "id": "ndv-114-008",
+      "objectiveId": "igcse-0625-114-8-v1",
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "prompt": "A class simulation shows the number of undecayed nuclei dropping over time. A learner claims the curve can identify the exact next nucleus to decay. Explain what the curve can and cannot tell the learner.",
+      "answer": "The curve describes the overall decline in the number of undecayed nuclei. It cannot identify the next nucleus because individual decay is random.",
+      "explanation": "A large sample can show a reproducible trend even though individual nuclei decay spontaneously and unpredictably.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognise that the curve describes a sample-level trend."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that individual decay is random, so the next nucleus cannot be identified."
+        }
+      ]
+    }
+  ]
+}

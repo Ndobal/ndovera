@@ -722,7 +722,7 @@
       "source": "https://www.cambridgeinternational.org/Images/697209-2026-2028-syllabus.pdf",
       "syllabusUpdate": "https://www.cambridgeinternational.org/Images/748914-2026-2028-syllabus-update.pdf",
       "retrievedOn": "2026-11-06",
-      "note": "The official downloaded PDF is version 2. The December 2025 update notice records a weblink change. Core candidates take Papers 1 and 3, Extended candidates take Papers 2 and 4, and either tier takes Paper 5 or 6. Batch 112 maps selected Space physics objectives only.",
+      "note": "The official downloaded PDF is version 2. The December 2025 update notice records a weblink change. Core candidates take Papers 1 and 3, Extended candidates take Papers 2 and 4, and either tier takes Paper 5 or 6. The bank maps selected objectives across multiple syllabus topics.",
       "qualificationCode": "0625",
       "syllabusVersion": "2",
       "examinationYears": [
@@ -11977,6 +11977,219 @@
         2028
       ],
       "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Thermal physics",
+      "subtopic": "Expansion allowance",
+      "learningObjective": "Explain an everyday design that accommodates expansion of a solid.",
+      "id": "igcse-0625-114-1-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2.2.1 Core 1–2, p. 20"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Thermal physics",
+      "subtopic": "Gas pressure at constant volume",
+      "learningObjective": "Explain the effect of heating a gas at fixed volume using particle collisions.",
+      "id": "igcse-0625-114-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "2.1.3 Core 1(a), p. 19"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Thermal physics",
+      "subtopic": "Comparing heat capacities",
+      "learningObjective": "Infer a specific heat capacity ratio from unequal masses and equal temperature rises.",
+      "id": "igcse-0625-114-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "2.2.2 Supplement 3, p. 20"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Thermal physics",
+      "subtopic": "Evaporative cooling",
+      "learningObjective": "Connect the escape of higher-energy particles to cooling.",
+      "id": "igcse-0625-114-4-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2.2.3 Core 4–5, p. 20"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Nuclear physics",
+      "subtopic": "Shielding test",
+      "learningObjective": "Interpret absorption evidence to distinguish alpha, beta and gamma radiation.",
+      "id": "igcse-0625-114-5-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "5.2.2 Core 2(c), p. 35"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Nuclear physics",
+      "subtopic": "Background-corrected half-life",
+      "learningObjective": "Subtract background count rate before identifying a half-life.",
+      "id": "igcse-0625-114-6-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "5.2.4 Supplement 2, p. 36"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Nuclear physics",
+      "subtopic": "Beta-minus decay notation",
+      "learningObjective": "Apply conservation of nucleon number and charge to a beta-minus equation.",
+      "id": "igcse-0625-114-7-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "5.2.3 Supplement 4–5, p. 36"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "topic": "Nuclear physics",
+      "subtopic": "Spontaneous and random decay",
+      "learningObjective": "Distinguish random individual decays from a predictable trend across many nuclei.",
+      "id": "igcse-0625-114-8-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "5.2.3 Core 1, p. 36"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
         "Extended"
       ],
       "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
