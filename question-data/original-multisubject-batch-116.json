@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Economics 0455 macroeconomic policy and trade",
+  "questionCount": 6,
+  "note": "Original untiered 2027–2029 practice. Structured items are standalone practice. Academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Government and the macroeconomy",
+      "subtopic": "Government budget",
+      "learningObjective": "Distinguish a budget deficit from its financing.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-116-001",
+      "objectiveId": "igcse-0455-116-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "In one financial year a government raises ₦800 billion in revenue and spends ₦950 billion. It borrows the difference. How should the budget outcome be classified?",
+      "answer": "A budget deficit of ₦150 billion.",
+      "explanation": "Spending exceeds revenue by ₦150 billion. Borrowing finances the gap without turning it into a surplus.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A balanced budget because borrowing covers the gap.",
+        "A budget deficit of ₦150 billion.",
+        "A budget surplus of ₦150 billion.",
+        "A budget deficit of ₦950 billion."
+      ],
+      "correctOption": "B",
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "950-800",
+          "expected": 150,
+          "purpose": "Verify the deficit in billions of naira."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Government and the macroeconomy",
+      "subtopic": "Tax and sustainability",
+      "learningObjective": "Evaluate a tax intended to discourage a polluting activity.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-116-002",
+      "objectiveId": "igcse-0455-116-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "A government taxes new diesel generators to encourage firms to switch to cleaner power. Some firms have reliable alternatives, but others operate where the grid is unreliable. Discuss whether the tax is likely to reduce pollution.",
+      "answer": "The tax raises the purchase price if passed on. Firms with affordable alternatives may switch, reducing emissions. Firms without substitutes may keep buying diesel units or keep older units running longer, limiting the gain. The tax is more likely to work where cleaner alternatives are dependable and affordable.",
+      "explanation": "The environmental effect depends on the response to the relative price change and on what firms use in place of new generators.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain the price incentive."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how switching could reduce emissions."
+        },
+        {
+          "marks": 1,
+          "description": "Analyse one reason emissions may fall by less than expected."
+        },
+        {
+          "marks": 1,
+          "description": "Give a judgement linked to access to alternatives."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Government and the macroeconomy",
+      "subtopic": "Interest rates and demand",
+      "learningObjective": "Trace an interest rate rise to spending and demand-pull inflation.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-116-003",
+      "objectiveId": "igcse-0455-116-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "An economy is experiencing inflation because total spending is growing faster than output. The central bank raises its policy interest rate. Explain how this may reduce inflation through household borrowing and spending.",
+      "answer": "Lenders may raise their loan rates, making new borrowing more expensive. Households may postpone credit-financed purchases. Slower spending growth reduces excess demand and can ease upward pressure on prices.",
+      "explanation": "The mechanism acts on aggregate demand. A lower rate of inflation means prices rise more slowly.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Link a policy rate rise to higher borrowing costs."
+        },
+        {
+          "marks": 1,
+          "description": "Explain a fall in credit-financed spending relative to what it would otherwise be."
+        },
+        {
+          "marks": 1,
+          "description": "Connect reduced demand pressure to slower price increases."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "International trade and globalisation",
+      "subtopic": "Import quotas",
+      "learningObjective": "Identify a direct quantitative restriction on imports.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-116-004",
+      "objectiveId": "igcse-0455-116-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "prompt": "A country allows importers to bring in no more than 12,000 solar lanterns in a year. It imposes no new charge on each lantern. Which trade restriction is this?",
+      "answer": "An import quota.",
+      "explanation": "A quota directly limits the quantity imported. A tariff would impose a charge.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A tariff.",
+        "An export subsidy.",
+        "An import quota.",
+        "An exchange rate appreciation."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "International trade and globalisation",
+      "subtopic": "Multinational production",
+      "learningObjective": "Evaluate local gains and costs from an MNC investment.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-116-005",
+      "objectiveId": "igcse-0455-116-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "A multinational company proposes a fruit-processing plant near a farming district. It plans to buy locally and train workers, but its waste treatment system has yet to be installed. Discuss whether the investment is likely to benefit the district.",
+      "answer": "Local sourcing may raise demand for fruit and training can give workers skills useful beyond the plant. Poorly treated waste could impose costs on nearby households and farms. The net benefit is more likely to be positive if the local purchasing and training plans materialise and effective treatment operates before production begins.",
+      "explanation": "The judgement weighs gains to workers and suppliers against costs to other residents, conditional on how the plant operates.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain a gain for local suppliers."
+        },
+        {
+          "marks": 1,
+          "description": "Explain a gain from worker training."
+        },
+        {
+          "marks": 1,
+          "description": "Explain a possible external cost."
+        },
+        {
+          "marks": 1,
+          "description": "Give a conditional judgement weighing gains and costs."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "International trade and globalisation",
+      "subtopic": "Protection and environmental outcomes",
+      "learningObjective": "Analyse how a trade restriction can shift production and emissions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-116-006",
+      "objectiveId": "igcse-0455-116-6-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A government restricts imports of a product because overseas factories emit more pollution per unit than local factories. Local output is expected to rise. Explain why the information given is insufficient to conclude that total pollution from making the product will fall.",
+      "answer": "Emissions per unit are lower locally, but total emissions also depend on quantities. We need to know how much foreign production falls and how much local production rises. Foreign factories might also redirect output to other buyers.",
+      "explanation": "Total emissions are emissions per unit multiplied by output in each location. The restriction can change both the location and quantity of production.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguish emissions per unit from total emissions."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the need for changes in both local and foreign production."
+        },
+        {
+          "marks": 1,
+          "description": "Explain one reason overseas production might fall by less than imports."
+        }
+      ]
+    }
+  ]
+}

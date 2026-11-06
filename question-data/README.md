@@ -608,3 +608,7 @@ Batch 115 opens Cambridge IGCSE Economics 0455 with seven original
 2026 resource allocation drafts. The untiered questions cover both
 papers. Structured items are standalone practice. The distinct
 2027–2029 syllabus requires separate mapping.
+
+Batch 116 adds six original Economics 0455 drafts using the separate
+2027–2029 version 1 syllabus. The bank retains distinct source mappings
+for the 2026 and 2027–2029 paper schemes.

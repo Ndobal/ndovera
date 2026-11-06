@@ -1869,6 +1869,23 @@
         2026
       ],
       "note": "Cambridge 2026 version 2. Untiered. Paper 1: 30 MCQs, 45 minutes, AO1/AO2. Paper 2: structured questions, 90 marks, 135 minutes, AO1/AO2/AO3. Separate 2027–2029 syllabus requires its own mapping."
+    },
+    {
+      "id": "cambridge-0455-2027-2029-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "kind": "official_syllabus",
+      "source": "https://www.cambridgeinternational.org/Images/718148-2027-2029-syllabus.pdf",
+      "retrievedOn": "2026-11-06",
+      "sha256": "5f9ea8fc630b3fa3e53d16dee53b739b1d8353836eae1aaeca751f6554cd6744",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "note": "Untiered. Paper 1 has 40 multiple-choice questions in 60 minutes and assesses AO1/AO2. Paper 2 has 80 marks in 120 minutes and assesses AO1/AO2/AO3. The 2026 syllabus remains separately mapped."
     }
   ],
   "banks": [
@@ -3596,7 +3613,10 @@
       "target": 1000,
       "specificationId": "cambridge-0455-2026-v2",
       "qualificationCode": "0455",
-      "scopeStatus": "official_2026_syllabus_partial_objective_register"
+      "scopeStatus": "official_2026_and_2027_2029_syllabuses_partial_objective_register",
+      "additionalSpecificationIds": [
+        "cambridge-0455-2027-2029-v1"
+      ]
     }
   ],
   "objectives": [
@@ -12385,6 +12405,162 @@
         "Untiered"
       ],
       "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Government and the macroeconomy",
+      "subtopic": "Government budget",
+      "learningObjective": "Distinguish a budget deficit from its financing.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-1-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "4.2.1"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Government and the macroeconomy",
+      "subtopic": "Tax and sustainability",
+      "learningObjective": "Evaluate a tax intended to discourage a polluting activity.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "4.2.3 and 4.2.6"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Government and the macroeconomy",
+      "subtopic": "Interest rates and demand",
+      "learningObjective": "Trace an interest rate rise to spending and demand-pull inflation.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "4.3.2–4.3.3"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "International trade and globalisation",
+      "subtopic": "Import quotas",
+      "learningObjective": "Identify a direct quantitative restriction on imports.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-4-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "6.2.4"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "International trade and globalisation",
+      "subtopic": "Multinational production",
+      "learningObjective": "Evaluate local gains and costs from an MNC investment.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-5-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "6.2.2–6.2.3"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "International trade and globalisation",
+      "subtopic": "Protection and environmental outcomes",
+      "learningObjective": "Analyse how a trade restriction can shift production and emissions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-6-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "6.2.5–6.2.6"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
     }
   ],
   "scopeGaps": [
@@ -12400,7 +12576,7 @@
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
-    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 version 2 has been retrieved and selected mechanics and space physics objectives are mapped. Full Physics coverage and independent review remain open. The Economics 0455 version 2 syllabus is verified for 2026 and selected microeconomics objectives are mapped. The distinct 2027–2029 syllabus requires separate mapping.",
+    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 version 2 has been retrieved and selected mechanics and space physics objectives are mapped. Full Physics coverage and independent review remain open. The Economics 0455 version 2 syllabus is verified for 2026 and selected microeconomics objectives are mapped. The 2027–2029 version 1 syllabus is separately verified, with selected macroeconomics and trade objectives mapped. Full coverage for both Economics cycles remains open.",
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",

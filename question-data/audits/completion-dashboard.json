@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3445,
-    "validDrafts": 1766,
+    "raw": 3451,
+    "validDrafts": 1772,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -826,6 +826,12 @@
       "actual": 7
     },
     {
+      "path": "original-multisubject-batch-116.json",
+      "sha256": "fad38e02790f8c2e8a89907184edd19cfc29d130c262535e5ac4c6df48e82bc5",
+      "declared": 6,
+      "actual": 6
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1577,21 +1583,24 @@
       "target": 1000,
       "specificationId": "cambridge-0455-2026-v2",
       "qualificationCode": "0455",
-      "scopeStatus": "official_2026_syllabus_partial_objective_register",
-      "raw": 7,
-      "validDrafts": 7,
+      "scopeStatus": "official_2026_and_2027_2029_syllabuses_partial_objective_register",
+      "additionalSpecificationIds": [
+        "cambridge-0455-2027-2029-v1"
+      ],
+      "raw": 13,
+      "validDrafts": 13,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 3,
-        "structured": 4
+        "mcq": 5,
+        "structured": 8
       },
       "difficulty": {
-        "standard": 3,
-        "difficult": 4
+        "standard": 5,
+        "difficult": 8
       },
-      "remaining": 993,
-      "mappedObjectives": 7,
-      "representedObjectives": 7,
+      "remaining": 987,
+      "mappedObjectives": 13,
+      "representedObjectives": 13,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5527,21 +5536,21 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
-    "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 255,
+    "explicitArithmeticClaims": 256,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -30714,6 +30723,42 @@
       "id": "ndv-115-007",
       "file": "original-multisubject-batch-115.json",
       "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-116-001",
+      "file": "original-multisubject-batch-116.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-116-002",
+      "file": "original-multisubject-batch-116.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-116-003",
+      "file": "original-multisubject-batch-116.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-116-004",
+      "file": "original-multisubject-batch-116.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-116-005",
+      "file": "original-multisubject-batch-116.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-116-006",
+      "file": "original-multisubject-batch-116.json",
+      "index": 5,
       "errors": []
     },
     {
@@ -57246,6 +57291,228 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Government and the macroeconomy",
+      "subtopic": "Government budget",
+      "learningObjective": "Distinguish a budget deficit from its financing.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-1-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "4.2.1"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review",
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Government and the macroeconomy",
+      "subtopic": "Tax and sustainability",
+      "learningObjective": "Evaluate a tax intended to discourage a polluting activity.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-2-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "4.2.3 and 4.2.6"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review",
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Government and the macroeconomy",
+      "subtopic": "Interest rates and demand",
+      "learningObjective": "Trace an interest rate rise to spending and demand-pull inflation.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-3-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "4.3.2–4.3.3"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review",
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "International trade and globalisation",
+      "subtopic": "Import quotas",
+      "learningObjective": "Identify a direct quantitative restriction on imports.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-4-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "6.2.4"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review",
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO1": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "International trade and globalisation",
+      "subtopic": "Multinational production",
+      "learningObjective": "Evaluate local gains and costs from an MNC investment.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-5-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "6.2.2–6.2.3"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review",
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "International trade and globalisation",
+      "subtopic": "Protection and environmental outcomes",
+      "learningObjective": "Analyse how a trade restriction can shift production and emissions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "igcse-0455-116-6-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "6.2.5–6.2.6"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review",
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -57261,7 +57528,7 @@
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",
     "All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.",
-    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 version 2 has been retrieved and selected mechanics and space physics objectives are mapped. Full Physics coverage and independent review remain open. The Economics 0455 version 2 syllabus is verified for 2026 and selected microeconomics objectives are mapped. The distinct 2027–2029 syllabus requires separate mapping.",
+    "Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 version 2 has been retrieved and selected mechanics and space physics objectives are mapped. Full Physics coverage and independent review remain open. The Economics 0455 version 2 syllabus is verified for 2026 and selected microeconomics objectives are mapped. The 2027–2029 version 1 syllabus is separately verified, with selected macroeconomics and trade objectives mapped. Full coverage for both Economics cycles remains open.",
     "NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.",
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",

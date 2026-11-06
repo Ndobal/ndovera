@@ -32,7 +32,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IELTS | Writing | 1000 | 9 | 6 | 0 | 994 | partial_objective_register |
 | IGCSE | Biology [0610] | 1000 | 54 | 50 | 0 | 950 | partial_objective_register |
 | IGCSE | Chemistry [0620] | 1000 | 52 | 50 | 0 | 950 | partial_objective_register |
-| IGCSE | Economics [0455] | 1000 | 7 | 7 | 0 | 993 | partial_objective_register |
+| IGCSE | Economics [0455] | 1000 | 13 | 13 | 0 | 987 | partial_objective_register |
 | IGCSE | Mathematics | 1000 | 26 | 12 | 0 | 988 | partial_objective_register |
 | IGCSE | Physics | 1000 | 37 | 36 | 0 | 964 | partial_objective_register |
 | JAMB | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
@@ -208,7 +208,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 |---|---:|---:|---:|---:|---:|
 | BECE | 0 | 0 | 0 | 18000 | 18000 |
 | IELTS | 81 | 72 | 0 | 4000 | 3928 |
-| IGCSE | 176 | 155 | 0 | 5000 | 4845 |
+| IGCSE | 182 | 161 | 0 | 5000 | 4839 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 135 | 106 | 0 | 9000 | 8894 |
 | NECO | 436 | 401 | 0 | 36000 | 35599 |
@@ -217,7 +217,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3445, "validDrafts": 1766, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3451, "validDrafts": 1772, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -235,7 +235,7 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.
 - Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.
 - All targets are provisional until scope, originality, format variety and age-appropriate curriculum capacity are academically justified. No bank has independent academic sign-off.
-- Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 version 2 has been retrieved and selected mechanics and space physics objectives are mapped. Full Physics coverage and independent review remain open. The Economics 0455 version 2 syllabus is verified for 2026 and selected microeconomics objectives are mapped. The distinct 2027–2029 syllabus requires separate mapping.
+- Biology 0610 v3 and Chemistry 0620 v2 official 2026–2028 sources have been retrieved. Selected topics are mapped; complete objective transcription and independent alignment review remain pending. Physics 0625 version 2 has been retrieved and selected mechanics and space physics objectives are mapped. Full Physics coverage and independent review remain open. The Economics 0455 version 2 syllabus is verified for 2026 and selected microeconomics objectives are mapped. The 2027–2029 version 1 syllabus is separately verified, with selected macroeconomics and trade objectives mapped. Full coverage for both Economics cycles remains open.
 - NECO BECE 2026 timetable now establishes 18 subject/route entries and observed objective, essay, practical and drawing formats. Full content objectives and state-exam variants remain unresolved; no BECE questions added from the timetable alone.
 - New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.
 - Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.
