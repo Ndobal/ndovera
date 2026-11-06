@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3377,
-    "validDrafts": 1698,
+    "raw": 3381,
+    "validDrafts": 1702,
     "reviewed": 0,
     "registeredBanks": 189,
     "target": 171000,
@@ -744,6 +744,12 @@
     {
       "path": "original-multisubject-batch-102.json",
       "sha256": "53f80dff42233ed51fc7e4c0093883a91029b2f228a2b0e48eeba2458f2cb182",
+      "declared": 4,
+      "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-103.json",
+      "sha256": "3b3cac98bf94df3d3b63691cee28f699d4299b413cd7c1dd29c9f5945df32131",
       "declared": 4,
       "actual": 4
     },
@@ -3052,7 +3058,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_formats_provisional_composition_objectives",
       "paperFormats": {
         "II": "essay including literature",
         "III": "objective"
@@ -3061,16 +3067,21 @@
         "II": "4072",
         "III": "4073"
       },
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 4,
+      "validDrafts": 4,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "structured": 4
+      },
+      "difficulty": {
+        "standard": 2,
+        "difficult": 2
+      },
+      "remaining": 996,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "NECO",
@@ -5326,18 +5337,18 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 243,
@@ -30108,6 +30119,30 @@
       "errors": []
     },
     {
+      "id": "ndv-103-001",
+      "file": "original-multisubject-batch-103.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-103-002",
+      "file": "original-multisubject-batch-103.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-103-003",
+      "file": "original-multisubject-batch-103.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-103-004",
+      "file": "original-multisubject-batch-103.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -54410,6 +54445,122 @@
       },
       "tiers": {
         "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Akwụkwọ ozi gọọmenti",
+      "learningObjective": "Dee akwụkwọ ozi gọọmenti nke kọwara nsogbu ma rịọ ka e mee ihe gbasara ya.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "id": "neco-igbo-103-1-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Igbo Paper 2, May/June 2014, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Mkparịta ụka",
+      "learningObjective": "Dee mkparịta ụka nke na-egosi echiche mmadụ abụọ na otu ha si kwekọrịta.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "id": "neco-igbo-103-2-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Igbo Paper 2, May/June 2014, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Edemede arụmụka",
+      "learningObjective": "Kwado otu echiche n’edemede, tụlee echiche megidere ya ma zaa ya.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "id": "neco-igbo-103-3-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Igbo Paper 2, May/June 2014, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Edemede ndụmọdụ",
+      "learningObjective": "Hazie ndụmọdụ a pụrụ iso n’usoro ma kọwaa ihe kpatara usoro ahụ.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "id": "neco-igbo-103-4-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Igbo Paper 2, May/June 2014, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

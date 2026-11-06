@@ -532,3 +532,9 @@ marking and prescribed literature remain unverified.
 Batch 102 adds four original NECO Hausa composition drafts on
 letter writing and reasoned argument. Official prescribed texts and
 marking remain unverified.
+
+Batch 103 adds four original NECO Igbo composition drafts on formal
+correspondence, dialogue, argument and advice. The 2026 timetable
+confirms paper formats and a literature component. Historical WAEC
+examiner observations inform provisional genre mapping. NECO's official
+content objectives, prescribed texts and marking remain unverified.

@@ -1476,6 +1476,18 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "NECO 2026 Internal timetable confirms Hausa objective and essay papers 4053 and 4052, and notes a literature component. Historical WAEC Hausa Paper 2 provides provisional composition evidence. Official NECO prescribed texts and marking remain unverified."
+    },
+    {
+      "id": "neco-igbo-written-reference-2026",
+      "exam": "NECO",
+      "subject": "Igbo",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Igbo/Igbo223mq1.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "NECO 2026 SSCE Internal timetable lists essay (4072) and objective (4073) papers and confirms a literature component. Historical WAEC Igbo Paper 2 examiner observations support provisional writing genres. NECO registration guidelines section 7 describes access to the syllabus (https://neco.gov.ng/2026%20GUIDELINES.pdf). Current NECO objectives, marking and prescribed texts remain unverified. The WAEC 2026–2030 text list applies to WASSCE."
     }
   ],
   "banks": [
@@ -3086,7 +3098,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_formats_provisional_composition_objectives",
       "paperFormats": {
         "II": "essay including literature",
         "III": "objective"
@@ -10500,6 +10512,74 @@
       ],
       "sourceSections": [
         "NECO Paper II (format only); WAEC Hausa Paper 2 examiner material, 2012"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Akwụkwọ ozi gọọmenti",
+      "learningObjective": "Dee akwụkwọ ozi gọọmenti nke kọwara nsogbu ma rịọ ka e mee ihe gbasara ya.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "id": "neco-igbo-103-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Igbo Paper 2, May/June 2014, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Mkparịta ụka",
+      "learningObjective": "Dee mkparịta ụka nke na-egosi echiche mmadụ abụọ na otu ha si kwekọrịta.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "id": "neco-igbo-103-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Igbo Paper 2, May/June 2014, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Edemede arụmụka",
+      "learningObjective": "Kwado otu echiche n’edemede, tụlee echiche megidere ya ma zaa ya.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "id": "neco-igbo-103-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Igbo Paper 2, May/June 2014, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Edemede ndụmọdụ",
+      "learningObjective": "Hazie ndụmọdụ a pụrụ iso n’usoro ma kọwaa ihe kpatara usoro ahụ.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "id": "neco-igbo-103-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC Igbo Paper 2, May/June 2014, Question 1 examiner observations"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

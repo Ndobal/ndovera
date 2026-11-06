@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Igbo composition practice",
+  "questionCount": 4,
+  "note": "Original Igbo writing tasks with provisional classroom rubrics. Official NECO prescribed texts and detailed marking remain unverified.",
+  "questions": [
+    {
+      "id": "ndv-103-001",
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Akwụkwọ ozi gọọmenti",
+      "learningObjective": "Dee akwụkwọ ozi gọọmenti nke kọwara nsogbu ma rịọ ka e mee ihe gbasara ya.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "objectiveId": "neco-igbo-103-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Ọkụ dị n’ụlọ akwụkwọ unu anaghị arụ ọrụ n’ụlọ ebe ụmụ akwụkwọ na-agụ akwụkwọ mgbe chi jiri. Dee onye isi ụlọ akwụkwọ ozi. Kọwaa otú nsogbu ahụ si emetụta ọmụmụ ihe, rịọ ka e nyochaa ọkụ ahụ ma tụpụta ebe ụmụ akwụkwọ ga-eji ruo mgbe a rụziri ya.",
+      "answer": "Ụlọ Akwụkwọ Sekọndrị Udo,\nNsukka.\n6 Nọvemba 2026.\n\nOnye Isi Ụlọ Akwụkwọ,\nỤlọ Akwụkwọ Sekọndrị Udo,\nNsukka.\n\nNna anyị,\n\nArịrịọ ka e nyochaa ọkụ n’ụlọ ọgụgụ\n\nAna m ede akwụkwọ ozi a n’aha ụmụ akwụkwọ na-eji ụlọ ọgụgụ eme ihe mgbe chi jiri. Ọkụ anaghị enwu n’ụlọ ahụ, nke mere na ọ na-esiri anyị ike ịgụ ihe e dere n’akwụkwọ. Biko, kpọọ onye ọrụ ọkụ ka ọ nyochaa nsogbu ahụ. Ka anyị na-eche ka a rụzie ya, anyị na-arịọ ka e kwe ka anyị jiri klaasị dị nso n’ụlọ ọrụ ndị nkuzi gụọ akwụkwọ.\n\nDaalụ maka ilebara arịrịọ anyị anya.\n\nOnye nke gị n’ikwesị ntụkwasị obi,\nAdaeze Okafor",
+      "explanation": "Usoro akwụkwọ ozi gọọmenti na-egosi onye natara ozi na isiokwu ya. Nabata ebe ọzọ e nwere ike iji ma ọ bụrụ na onye dere ozi kọwara ya nke ọma.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Jiri adreesị abụọ, ụbọchị, ekele, isiokwu na mmechi dabara adaba."
+        },
+        {
+          "marks": 1,
+          "description": "Kọwaa otu nsogbu ọkụ ahụ si emetụta ọmụmụ ihe."
+        },
+        {
+          "marks": 1,
+          "description": "Rịọ ka e nyochaa nsogbu ahụ."
+        },
+        {
+          "marks": 1,
+          "description": "Tụpụta ebe a ga-eji nwa oge."
+        },
+        {
+          "marks": 1,
+          "description": "Jiri asụsụ doro anya ma kwanyere onye natara ozi ahụ ùgwù."
+        }
+      ]
+    },
+    {
+      "id": "ndv-103-002",
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Mkparịta ụka",
+      "learningObjective": "Dee mkparịta ụka nke na-egosi echiche mmadụ abụọ na otu ha si kwekọrịta.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "objectiveId": "neco-igbo-103-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Amaka chọrọ ibuga ihe ngosi ndị otu ya n’ogige ụlọ akwụkwọ ka ọtụtụ mmadụ hụ ya. Obinna na-atụ egwu na mmiri ozuzo ga-emebi ya. Dee mkparịta ụka ha. Ka onye ọ bụla kwuo ihe kpatara echiche ya, ka ha kwekọrịta n’ihe ha ga-eme ma mmiri zoo.",
+      "answer": "Amaka: Ka anyị debe ihe ngosi anyị n’ogige. Ndị ọbịa ga-ahụ ya ozugbo ha batara.\nObinna: Ma ọ bụrụ na mmiri zoo, akwụkwọ anyị ji mee ihe ngosi ga-amị mmiri.\nAmaka: Anyị nwere ike idowe tebụl nso ọnụ ụzọ ụlọ nzukọ ka ọ dịrị anyị mfe ibuga ya n’ime.\nObinna: Ọ dị mma. Ka anyị buru ụzọ jụọ onye na-elekọta ụlọ nzukọ ma anyị nwere ike iji ya.\nAmaka: Ọ bụrụ na o kwere, anyị ga-ebuga ihe ngosi n’ime ozugbo mmiri malitere, deekwa akara ga-egosi ndị ọbịa ebe anyị nọ.\nObinna: Ekwetara m. Aga m ajụ onye na-elekọta ụlọ ahụ ugbu a.",
+      "explanation": "Mkparịta ụka a na-egosi ihe mere onye ọ bụla ji nwee echiche nke ya. Nabata nkwekọrịta ọzọ ma ọ bụrụ na ọ na-edozi nsogbu mmiri ozuzo.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gosi nke ọma onye na-ekwu okwu n’ahịrị ọ bụla."
+        },
+        {
+          "marks": 1,
+          "description": "Kọwaa uru Amaka hụrụ n’iji ogige ahụ."
+        },
+        {
+          "marks": 1,
+          "description": "Kọwaa ihe Obinna na-atụ egwu."
+        },
+        {
+          "marks": 1,
+          "description": "Gosi nkwekọrịta a pụrụ ime ma mmiri zoo."
+        },
+        {
+          "marks": 1,
+          "description": "Mee ka okwu onye ọ bụla zaa ma ọ bụ kwalite okwu nke onye ọzọ."
+        }
+      ]
+    },
+    {
+      "id": "ndv-103-003",
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Edemede arụmụka",
+      "learningObjective": "Kwado otu echiche n’edemede, tụlee echiche megidere ya ma zaa ya.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "objectiveId": "neco-igbo-103-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Ụlọ akwụkwọ unu nwere obere ego. Ụfọdụ chọrọ ka e jiri ya zụta akwụkwọ ọgụgụ ụmụ akwụkwọ ga-agbazite. Ndị ọzọ chọrọ ka e jiri ya hazie otu ụbọchị asọmpi ịgụ akwụkwọ. Họrọ otu ụzọ. Nye ihe abụọ mere i ji họrọ ya, kwuo otu uru ụzọ nke ọzọ nwere, kọwaakwa ihe mere nhọrọ gị ji ka mma.",
+      "answer": "A ga m eji ego ahụ zụta akwụkwọ ụmụ akwụkwọ ga-agbazite. Nke mbụ, ọtụtụ klaasị nwere ike iji otu akwụkwọ n’oge dị iche iche. Nke abụọ, ụmụ akwụkwọ nwere ike ịhọrọ akwụkwọ dabara n’ogo ha ma gụọ ya n’oge ga-adịrị ha mma. Asọmpi nwere ike ime ka ọtụtụ mmadụ nwee mmasị n’ịgụ akwụkwọ n’otu ụbọchị. Ma ọ bụrụ na ego ahụ zuru naanị otu ihe, ịzụ akwụkwọ ga-enye ụmụ akwụkwọ ohere ịnọgide na-agụ ihe mgbe ụbọchị asọmpi ahụ gafere.",
+      "explanation": "A pụrụ ịhọrọ ụzọ ọ bụla. Leba anya n’ihe abụọ dị iche iche e ji kwado nhọrọ ahụ, uru e nyere ụzọ nke ọzọ na ntụnyere dị na mmechi.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Kwuo ụzọ ị họọrọ."
+        },
+        {
+          "marks": 1,
+          "description": "Nye ihe mbụ mere i ji họrọ ya."
+        },
+        {
+          "marks": 1,
+          "description": "Nye ihe ọzọ dị iche na nke mbụ."
+        },
+        {
+          "marks": 1,
+          "description": "Kọwaa otu uru ụzọ nke ọzọ nwere."
+        },
+        {
+          "marks": 1,
+          "description": "Jiri ntụnyere mechie arụmụka ahụ."
+        }
+      ]
+    },
+    {
+      "id": "ndv-103-004",
+      "exam": "NECO",
+      "subject": "Igbo",
+      "topic": "Edemede Igbo",
+      "subtopic": "Edemede ndụmọdụ",
+      "learningObjective": "Hazie ndụmọdụ a pụrụ iso n’usoro ma kọwaa ihe kpatara usoro ahụ.",
+      "specificationId": "neco-igbo-written-reference-2026",
+      "objectiveId": "neco-igbo-103-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Enyi gị chọrọ ịjụ nne nne ya ajụjụ banyere otú ahịa obodo ha dị n’oge gara aga. Dee ndụmọdụ n’otu paragraf. Gosi ihe enyi gị ga-eme tupu mkparịta ụka ahụ, mgbe ọ na-ajụ ajụjụ, nakwa mgbe ha kwuchara. Kọwaa ihe mere otu n’ime ndụmọdụ ndị ahụ ji baa uru.",
+      "answer": "Tupu unu amalite, gwa nne nne gị ihe mere i ji chọọ ịmụta banyere ahịa ahụ ma jụọ ya oge ga-adịrị ya mma. Mgbe unu na-ekwu okwu, jụọ ya ka ọ kọwaa ihe ọ na-echeta, dịka ihe a na-ere n’ahịa na otú ndị mmadụ si aga ebe ahụ. Gee ya ntị ma dee isi ihe ma ọ bụrụ na o kwere. Mgbe unu kwuchara, gụghachiri ya isi ihe ndị i dere ka o nwee ike imezi ebe ị ghọtaghị nke ọma.",
+      "explanation": "Ndụmọdụ ndị ahụ na-esochi usoro mkparịta ụka. Nabata ụzọ ọzọ e si akwadebe, e si ege ntị ma ọ bụ e si enyocha ihe e dere.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Nye ndụmọdụ gbasara ihe a ga-eme tupu mkparịta ụka ahụ."
+        },
+        {
+          "marks": 1,
+          "description": "Nye ndụmọdụ gbasara ihe a ga-eme mgbe a na-ajụ ajụjụ."
+        },
+        {
+          "marks": 1,
+          "description": "Nye ndụmọdụ gbasara ihe a ga-eme mgbe ha kwuchara."
+        },
+        {
+          "marks": 1,
+          "description": "Kọwaa uru otu ndụmọdụ bara."
+        },
+        {
+          "marks": 1,
+          "description": "Hazie ndụmọdụ ahụ n’otu paragraf doro anya."
+        }
+      ]
+    }
+  ]
+}

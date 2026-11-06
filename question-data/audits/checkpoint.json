@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_102_automated_validation_passed",
+  "phase": "batch_103_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-103.json",
+  "nextBatch": "original-multisubject-batch-104.json",
   "nextPriorities": [
-    "Verify NECO Igbo written formats, topic evidence and prescribed texts. Official Hausa prescribed texts and marking remain unverified.",
+    "Verify NECO Yoruba written topics and prescribed texts for the next language batch. Obtain the current NECO syllabus and marking guidance for Hausa and Igbo before mapping prescribed texts.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-102.json",
-  "lastRemoteVerifiedCommit": "c607165ccc3d22a20028786bb1aff9b73692e0d0",
+  "lastValidatedBatch": "original-multisubject-batch-103.json",
+  "lastRemoteVerifiedCommit": "aec3f424a034764b1db3235ea2de0e17b0af7be7",
   "verifiedTotals": {
-    "raw": 3377,
-    "validDrafts": 1698,
+    "raw": 3381,
+    "validDrafts": 1702,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-102.json",
+  "lastPopulatedBatch": "original-multisubject-batch-103.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3377
+  "inventoryRaw": 3381
 }
