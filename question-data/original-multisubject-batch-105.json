@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Yoruba language practice",
+  "questionCount": 4,
+  "note": "Original written language practice. Historical WAEC evidence supports provisional mappings. Current scheme and primary editions remain unverified.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "topic": "Àmì ohùn",
+      "subtopic": "Yíyan ọ̀rọ̀ nínú gbólóhùn",
+      "learningObjective": "Lo ìtumọ̀ gbólóhùn láti yan àmì ohùn tó yẹ fún ọ̀rọ̀.",
+      "specificationId": "waec-yoruba-paper-2-language-evidence-2023",
+      "id": "ndv-105-001",
+      "objectiveId": "waec-yoruba-105-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "Fi àmì ohùn sí ọ̀rọ̀ inú àkámọ́ nìkan. (a) Ìyá mi fi (owo) ra ìrẹsì. (b) Bàbá rẹ̀ ń ṣe (owo) aṣọ ní ọjà. Lẹ́yìn náà, sọ ìtumọ̀ ọ̀rọ̀ méjèèjì.",
+      "answer": "(a) owó: ohun tí a fi ń san owó ọjà. (b) òwò: iṣẹ́ ríra àti títà ọjà.",
+      "explanation": "Owó ni ohun tí a fi ra ìrẹsì. Òwò ni iṣẹ́ tí ẹni tí ń ra tàbí ta ọjà ń ṣe.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Kọ owó pẹ̀lú àmì ohùn tó yẹ."
+        },
+        {
+          "marks": 1,
+          "description": "Kọ òwò pẹ̀lú àmì ohùn tó yẹ."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé ìtumọ̀ owó níbí."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé ìtumọ̀ òwò níbí."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "topic": "Àmì ohùn",
+      "subtopic": "Àtúnṣe àmì ohùn",
+      "learningObjective": "Ṣe àtúnṣe àmì ohùn tí kò bá ìtumọ̀ gbólóhùn mu.",
+      "specificationId": "waec-yoruba-paper-2-language-evidence-2023",
+      "id": "ndv-105-002",
+      "objectiveId": "waec-yoruba-105-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "Wo ọ̀rọ̀ inú àkámọ́ méjèèjì. “Nígbà tí a dé (ìlù) Ọ̀yọ́, a gbọ́ ohùn (ìlú) ní ààfin.” Kọ ọ̀rọ̀ méjèèjì pẹ̀lú àmì ohùn tó yẹ, kí o sì ṣàlàyé ohun tí ọ̀kọ̀ọ̀kan dúró fún.",
+      "answer": "Ọ̀rọ̀ àkọ́kọ́ ni ìlú, ibi tí a dé. Ọ̀rọ̀ kejì ni ìlù, ohun èlò orin tí a gbọ́ ohùn rẹ̀.",
+      "explanation": "Ọ̀yọ́ jẹ́ orúkọ ìlú nínú gbólóhùn yìí. Ohùn tí a gbọ́ ní ààfin jẹ́ ti ohun èlò orin.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Ṣàtúnṣe ọ̀rọ̀ àkọ́kọ́ sí ìlú."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàtúnṣe ọ̀rọ̀ kejì sí ìlù."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé pé ìlú ni ibi tí wọ́n dé."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé pé ìlù jẹ́ ohun èlò orin."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "topic": "Àmì ohùn",
+      "subtopic": "Ìyàtọ̀ ìtumọ̀ nípasẹ̀ ohùn",
+      "learningObjective": "Fi àpẹẹrẹ gbólóhùn hàn pé àmì ohùn lè yí ìtumọ̀ ọ̀rọ̀ padà.",
+      "specificationId": "waec-yoruba-paper-2-language-evidence-2023",
+      "id": "ndv-105-003",
+      "objectiveId": "waec-yoruba-105-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "Lo àpá àti apá nínú gbólóhùn méjì tí ìwọ fúnra rẹ dá. Jẹ́ kí gbólóhùn àkọ́kọ́ sọ̀rọ̀ nípa àbájáde ọgbẹ́, kí èkejì sì sọ̀rọ̀ nípa ẹ̀yà ara. Ṣàlàyé ìyàtọ̀ àmì ohùn wọn.",
+      "answer": "Ọgbẹ́ náà ti sàn, ṣùgbọ́n àpá rẹ̀ ṣì hàn. Mo gbé apá ọ̀tún mi sókè. Nínú àpá, ohùn ìsàlẹ̀ wà lórí fáwẹ́lì àkọ́kọ́, ohùn òkè sì wà lórí èkejì. Nínú apá, fáwẹ́lì àkọ́kọ́ ní ohùn àárín, èkejì sì ní ohùn òkè.",
+      "explanation": "Àpá ni àmì tí ọgbẹ́ fi sílẹ̀. Apá ni ẹ̀yà ara nínú gbólóhùn kejì. Ìyàtọ̀ wà lórí ohùn fáwẹ́lì àkọ́kọ́.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Lo àpá lọ́nà tó fi ìtumọ̀ rẹ̀ hàn."
+        },
+        {
+          "marks": 1,
+          "description": "Lo apá lọ́nà tó fi ìtumọ̀ rẹ̀ hàn."
+        },
+        {
+          "marks": 1,
+          "description": "Dá ohùn ìsàlẹ̀ àti ohùn àárín mọ̀ lórí fáwẹ́lì àkọ́kọ́."
+        },
+        {
+          "marks": 1,
+          "description": "Dá ohùn òkè mọ̀ lórí fáwẹ́lì kejì nínú ọ̀rọ̀ méjèèjì."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Lẹ́tà sí alábàáṣiṣẹ́",
+      "learningObjective": "Kọ lẹ́tà oníṣẹ́ tó jẹ́rìí sí àṣìṣe tí ó sì ṣètò bí a ó ṣe tún un ṣe.",
+      "specificationId": "waec-yoruba-paper-2-language-evidence-2023",
+      "id": "ndv-105-004",
+      "objectiveId": "waec-yoruba-105-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "prompt": "Ilé ìtẹ̀wé kan fi ìwé mẹ́wàá tí kò ní ojú ìwé tó pé ránṣẹ́ sí ẹgbẹ́ akẹ́kọ̀ọ́ rẹ. Kọ lẹ́tà sí alákòóso ilé ìtẹ̀wé. Ṣàlàyé ohun tí ẹ rí, ohun tí ẹ fẹ́ kí ilé ìtẹ̀wé ṣe àti ìdí tí ọjọ́ tí ẹ yàn fi ṣe pàtàkì.",
+      "answer": "Ẹgbẹ́ Akẹ́kọ̀ọ́ Ilé Ẹ̀kọ́ Ìmọ̀lẹ̀, Ìbàdàn.\n6 Oṣù kọkànlá, 2026.\n\nAlákòóso Ilé Ìtẹ̀wé Ìdàgbàsókè, Ìbàdàn.\n\nẸ kú iṣẹ́,\n\nÀtúnṣe àwọn ìwé tí ojú ìwé wọn kò pé\n\nMo ń kọ lẹ́tà yìí ní orúkọ ẹgbẹ́ wa. Nínú àwọn ìwé tí ẹ fi ránṣẹ́ sí wa, a rí ìwé mẹ́wàá tí ojú ìwé kẹjọ kò sí. A ń béèrè pé kí ẹ fi ìwé mẹ́wàá tí ojú ìwé wọn pé rọ́pò wọn kí ọjọ́ Ajé tó dé. Ọjọ́ Ajé ni a ó pín ìwé náà fún àwọn tó forúkọ sílẹ̀ fún ìdánilẹ́kọ̀ọ́ wa. Ẹ jọ̀wọ́, ẹ jẹ́ ká mọ ìgbà tí ẹ ó lè fi wọn ránṣẹ́.\n\nẸ ṣé.\nAdéọlá Adéyẹmí, Akọ̀wé Ẹgbẹ́.",
+      "explanation": "Lẹ́tà náà sọ ohun tí a rí, ó béèrè fún àtúnṣe pàtó, ó sì so ọjọ́ tí a yàn mọ́ ètò pípín ìwé. Gba ọjọ́ tàbí ètò àtúnṣe mìíràn tí ó bá ìdí rẹ̀ mu.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Lo adirẹ́sì, ọjọ́, ìkíni, àkọlé àti ìparí tó yẹ."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé àṣìṣe tó wà nínú ìwé mẹ́wàá."
+        },
+        {
+          "marks": 1,
+          "description": "Béèrè fún àtúnṣe tó ṣeé ṣe."
+        },
+        {
+          "marks": 1,
+          "description": "Sọ ọjọ́ tí a nílò ìwé àti ìdí rẹ̀."
+        },
+        {
+          "marks": 1,
+          "description": "Lo ọ̀rọ̀ tó ṣe kedere tí ó sì bọ̀wọ̀ fún ẹni tí yóò ka lẹ́tà náà."
+        }
+      ]
+    }
+  ]
+}

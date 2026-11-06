@@ -1764,6 +1764,18 @@
           "note": "2023 school-candidate Paper 2 examiner material demonstrates a written explanation of poetic language in a particular poem. Current format, section counts and marks are unverified."
         }
       ]
+    },
+    {
+      "id": "waec-yoruba-paper-2-language-evidence-2023",
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "kind": "official_historical_examiner_reference",
+      "source": "https://www.waeconline.org.ng/e-learning/Yoruba/Yor240mq1.html",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Yoruba/Yor240mq2.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "2023 WASSCE school-candidate Paper 2 examiner observations establish historical formal correspondence and lexical tone tasks. Current paper scheme, marks and objectives are unverified. Draft tasks and classroom rubrics are original."
     }
   ],
   "banks": [
@@ -10954,6 +10966,74 @@
         "NECO Paper II (format only); WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "topic": "Àmì ohùn",
+      "subtopic": "Yíyan ọ̀rọ̀ nínú gbólóhùn",
+      "learningObjective": "Lo ìtumọ̀ gbólóhùn láti yan àmì ohùn tó yẹ fún ọ̀rọ̀.",
+      "specificationId": "waec-yoruba-paper-2-language-evidence-2023",
+      "id": "waec-yoruba-105-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Yoruba Paper 2, school candidates 2023, Question 2 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "topic": "Àmì ohùn",
+      "subtopic": "Àtúnṣe àmì ohùn",
+      "learningObjective": "Ṣe àtúnṣe àmì ohùn tí kò bá ìtumọ̀ gbólóhùn mu.",
+      "specificationId": "waec-yoruba-paper-2-language-evidence-2023",
+      "id": "waec-yoruba-105-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Yoruba Paper 2, school candidates 2023, Question 2 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "topic": "Àmì ohùn",
+      "subtopic": "Ìyàtọ̀ ìtumọ̀ nípasẹ̀ ohùn",
+      "learningObjective": "Fi àpẹẹrẹ gbólóhùn hàn pé àmì ohùn lè yí ìtumọ̀ ọ̀rọ̀ padà.",
+      "specificationId": "waec-yoruba-paper-2-language-evidence-2023",
+      "id": "waec-yoruba-105-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Yoruba Paper 2, school candidates 2023, Question 2 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Lẹ́tà sí alábàáṣiṣẹ́",
+      "learningObjective": "Kọ lẹ́tà oníṣẹ́ tó jẹ́rìí sí àṣìṣe tí ó sì ṣètò bí a ó ṣe tún un ṣe.",
+      "specificationId": "waec-yoruba-paper-2-language-evidence-2023",
+      "id": "waec-yoruba-105-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null
     }
   ],

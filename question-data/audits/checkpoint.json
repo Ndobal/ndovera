@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "waec_yoruba_bibliography_verified",
+  "phase": "batch_105_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-105.json",
+  "nextBatch": "original-multisubject-batch-106.json",
   "nextPriorities": [
-    "Seek listed WAEC Yoruba primary editions and current Paper 2 guidance. If these remain inaccessible, develop original Yoruba language-skill drafts with provisional, explicitly historical WAEC format evidence while holding text-dependent drafting.",
+    "Verify WAEC Igbo written language evidence and develop original drafts on supported skills. Keep WAEC Yoruba and Igbo text-dependent work pending access to primary editions and current paper rules.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-104.json",
-  "lastRemoteVerifiedCommit": "04a9a3def3ed79c6484279876754438e786144a7",
+  "lastValidatedBatch": "original-multisubject-batch-105.json",
+  "lastRemoteVerifiedCommit": "1e6bf444cd29e64c9cf7803bc630c83bbb678302",
   "verifiedTotals": {
-    "raw": 3385,
-    "validDrafts": 1706,
+    "raw": 3389,
+    "validDrafts": 1710,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-104.json",
+  "lastPopulatedBatch": "original-multisubject-batch-105.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3385
+  "inventoryRaw": 3389
 }

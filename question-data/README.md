@@ -557,3 +557,8 @@ includes commentary on each year's oral poetry selections. Historical
 Paper 2 examiner guidance and a catalogue cross-check are recorded
 separately. The primary texts, edition equivalence and current Paper 2
 scheme remain open.
+
+Batch 105 adds four WAEC Yoruba language drafts on lexical tone and
+formal correspondence. Historical Paper 2 examiner observations inform
+the provisional mappings. Current Paper 2 rules and primary editions
+of prescribed works remain unverified.
