@@ -1427,6 +1427,18 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "NECO 2026 SSCE Internal timetable confirms written comprehension 4031, written expression 4032 and oral 4034. Historical WAEC French examiner guidance informs general written-expression criteria only. Original task lengths and rubrics are provisional. Official NECO objectives and marking remain unverified."
+    },
+    {
+      "id": "neco-french-oral-reference-2026",
+      "exam": "NECO",
+      "subject": "French",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://rm.coe.int/cefr-companion-volume-with-new-descriptors-2020/16809ea0d4"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "NECO timetable confirms Oral French Paper IV (4034). Council of Europe oral interaction descriptors inform original classroom tasks. No NECO adoption of CEFR levels or task types is asserted. Official task instructions and marking remain unverified."
     }
   ],
   "banks": [
@@ -10315,6 +10327,40 @@
       ],
       "sourceSections": [
         "NECO Paper II (format only); WAEC French examiner guidance, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-french-099-1-v1",
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Interaction orale",
+      "subtopic": "Échange de renseignements",
+      "learningObjective": "Demander, clarifier et confirmer des renseignements pratiques lors d’un échange oral.",
+      "specificationId": "neco-french-oral-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper IV (format only); CEFR Companion Volume, oral interaction and information exchange"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-french-099-2-v1",
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Interaction orale",
+      "subtopic": "Discussion et prise de décision",
+      "learningObjective": "Négocier une solution et justifier une décision en répondant à une contrainte imprévue.",
+      "specificationId": "neco-french-oral-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper IV (format only); CEFR Companion Volume, goal-oriented co-operation"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

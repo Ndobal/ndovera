@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO French oral interaction practice",
+  "questionCount": 4,
+  "note": "Original live-examiner practice. Keep examiner scripts and model answers separate from candidate prompts. Official NECO tasks and rubrics remain unverified.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Interaction orale",
+      "subtopic": "Échange de renseignements",
+      "learningObjective": "Demander, clarifier et confirmer des renseignements pratiques lors d’un échange oral.",
+      "specificationId": "neco-french-oral-reference-2026",
+      "id": "ndv-099-001",
+      "objectiveId": "neco-french-099-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Vous voulez emprunter un livre à la bibliothèque municipale. Demandez à l’examinateur, qui joue le rôle du bibliothécaire, quand rendre le livre et comment prolonger le prêt. Reformulez les renseignements pour vérifier que vous avez bien compris. Répondez à l’oral.",
+      "answer": "Quand dois-je rendre le livre ? Et comment puis-je prolonger le prêt ? Si j’ai bien compris, je dois le rapporter vendredi ou demander la prolongation au guichet avant vendredi.",
+      "explanation": "Le candidat doit poser les deux questions, puis confirmer les renseignements réellement fournis. Le modèle illustre une réponse possible.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Demander la date de retour."
+        },
+        {
+          "marks": 1,
+          "description": "Demander comment prolonger le prêt."
+        },
+        {
+          "marks": 1,
+          "description": "Reformuler correctement les deux renseignements donnés."
+        },
+        {
+          "marks": 1,
+          "description": "Parler de manière intelligible et adaptée à la situation."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "examinerScript": "Ne pas montrer au candidat. Répondre aux questions à mesure qu’elles sont posées : « Le livre est à rendre vendredi. Pour prolonger le prêt, venez au guichet avant vendredi. » Demander : « Pouvez-vous me redire ce que vous allez faire ? »"
+    },
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Interaction orale",
+      "subtopic": "Échange de renseignements",
+      "learningObjective": "Demander, clarifier et confirmer des renseignements pratiques lors d’un échange oral.",
+      "specificationId": "neco-french-oral-reference-2026",
+      "id": "ndv-099-002",
+      "objectiveId": "neco-french-099-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Vous accompagnez un nouvel élève à un atelier. L’examinateur joue le rôle de la personne à l’accueil. Demandez où se trouve la salle. Si les indications vous semblent ambiguës, posez une question précise, puis expliquez à l’élève le trajet que vous avez compris. Répondez à l’oral.",
+      "answer": "Où se trouve la salle de l’atelier ? Quand vous dites après l’escalier, faut-il monter ? Merci. On monte au premier étage, puis on tourne à gauche. La salle est au bout du couloir.",
+      "explanation": "La question de clarification doit résoudre l’ambiguïté. Le trajet final doit respecter les renseignements reçus.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Demander où se trouve la salle."
+        },
+        {
+          "marks": 1,
+          "description": "Poser une question qui clarifie l’indication."
+        },
+        {
+          "marks": 1,
+          "description": "Restituer le trajet dans le bon ordre."
+        },
+        {
+          "marks": 1,
+          "description": "Rendre les indications intelligibles."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "examinerScript": "Ne pas montrer au candidat. Dire d’abord « C’est après l’escalier. » Si le candidat demande une précision, dire « Montez au premier étage, tournez à gauche. La salle est au bout du couloir. » Inviter le candidat à expliquer le trajet au nouvel élève."
+    },
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Interaction orale",
+      "subtopic": "Discussion et prise de décision",
+      "learningObjective": "Négocier une solution et justifier une décision en répondant à une contrainte imprévue.",
+      "specificationId": "neco-french-oral-reference-2026",
+      "id": "ndv-099-003",
+      "objectiveId": "neco-french-099-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Votre club veut répéter jeudi. Vous préférez la cour parce qu’elle est plus grande. Discutez avec l’examinateur, qui représente le club. Répondez à son objection et proposez une solution précise en expliquant son avantage. Répondez à l’oral.",
+      "answer": "La cour est plus grande, mais s’il doit pleuvoir, réservons plutôt la salle 3. On peut répéter en deux groupes pour avoir assez de place. Est-ce que cette solution vous convient ?",
+      "explanation": "Plusieurs solutions sont possibles si elles tiennent compte de la contrainte annoncée et restent réalisables.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Exprimer une préférence avec une raison."
+        },
+        {
+          "marks": 1,
+          "description": "Répondre à la contrainte annoncée."
+        },
+        {
+          "marks": 1,
+          "description": "Proposer une solution concrète et expliquer son intérêt."
+        },
+        {
+          "marks": 1,
+          "description": "Maintenir un échange oral intelligible."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "examinerScript": "Ne pas montrer au candidat. Après sa proposition, dire « On annonce de la pluie jeudi. La salle 3 est libre, mais elle est petite. » Demander « Comment organiseriez-vous la répétition ? »"
+    },
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Interaction orale",
+      "subtopic": "Discussion et prise de décision",
+      "learningObjective": "Négocier une solution et justifier une décision en répondant à une contrainte imprévue.",
+      "specificationId": "neco-french-oral-reference-2026",
+      "id": "ndv-099-004",
+      "objectiveId": "neco-french-099-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Vous avez accepté de présenter les résultats d’un projet vendredi, mais votre partenaire est absent. Parlez avec l’examinateur, qui joue le rôle de l’enseignante. Proposez un plan, adaptez-le quand elle annonce une nouvelle contrainte et confirmez ce que vous ferez. Répondez à l’oral.",
+      "answer": "Je pourrais présenter la partie que j’ai préparée et laisser les graphiques pour lundi. Si la présentation doit se terminer vendredi, je peux demander à mon partenaire de m’envoyer les graphiques aujourd’hui et préparer un résumé de sa partie. Je vous montrerai le résumé demain matin.",
+      "explanation": "La proposition initiale peut varier. La réponse finale doit tenir compte de la date limite et préciser la prochaine action.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposer un plan initial."
+        },
+        {
+          "marks": 1,
+          "description": "Modifier le plan en fonction de la date limite."
+        },
+        {
+          "marks": 1,
+          "description": "Confirmer une action précise."
+        },
+        {
+          "marks": 1,
+          "description": "Répondre de manière intelligible et adaptée à une enseignante."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "examinerScript": "Ne pas montrer au candidat. Après sa proposition, dire « Tout doit être présenté vendredi. Vous pouvez contacter votre partenaire, mais il ne viendra pas à l’école. » Demander « Que ferez-vous avant vendredi ? »"
+    }
+  ]
+}

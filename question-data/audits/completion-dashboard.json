@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3361,
-    "validDrafts": 1682,
+    "raw": 3365,
+    "validDrafts": 1686,
     "reviewed": 0,
     "registeredBanks": 189,
     "target": 171000,
@@ -722,6 +722,12 @@
       "sha256": "2d4f74374bbcb0459abd3c2217c3ae227161d8d734f39ee7591c6bc02d5eac05",
       "declared": 6,
       "actual": 6
+    },
+    {
+      "path": "original-multisubject-batch-099.json",
+      "sha256": "de15de149d524fb6ba3be1f0e7bf25b3ebf5b4131bca044f1ea445e283681dae",
+      "declared": 4,
+      "actual": 4
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2801,19 +2807,19 @@
         "II": "4032",
         "IV": "4034"
       },
-      "raw": 6,
-      "validDrafts": 6,
+      "raw": 10,
+      "validDrafts": 10,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 6
+        "structured": 10
       },
       "difficulty": {
-        "standard": 3,
-        "difficult": 3
+        "standard": 5,
+        "difficult": 5
       },
-      "remaining": 994,
-      "mappedObjectives": 2,
-      "representedObjectives": 2,
+      "remaining": 990,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5292,10 +5298,10 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -29978,6 +29984,30 @@
       "errors": []
     },
     {
+      "id": "ndv-099-001",
+      "file": "original-multisubject-batch-099.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-099-002",
+      "file": "original-multisubject-batch-099.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-099-003",
+      "file": "original-multisubject-batch-099.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-099-004",
+      "file": "original-multisubject-batch-099.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -54046,6 +54076,64 @@
       },
       "tiers": {
         "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-french-099-1-v1",
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Interaction orale",
+      "subtopic": "Échange de renseignements",
+      "learningObjective": "Demander, clarifier et confirmer des renseignements pratiques lors d’un échange oral.",
+      "specificationId": "neco-french-oral-reference-2026",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "NECO Paper IV (format only); CEFR Companion Volume, oral interaction and information exchange"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-french-099-2-v1",
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Interaction orale",
+      "subtopic": "Discussion et prise de décision",
+      "learningObjective": "Négocier une solution et justifier une décision en répondant à une contrainte imprévue.",
+      "specificationId": "neco-french-oral-reference-2026",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "NECO Paper IV (format only); CEFR Companion Volume, goal-oriented co-operation"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

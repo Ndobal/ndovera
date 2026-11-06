@@ -517,3 +517,7 @@ Batch 097 adds four provisional NECO Music aural tasks with original examiner-on
 Batch 098 adds six NECO French written drafts with original French
 passages and production prompts. Official marking and oral delivery
 requirements remain unverified, as do Music Paper I instructions.
+
+Batch 099 adds four supervised NECO French oral interaction tasks
+with separate examiner scripts and provisional marking guides.
+Official NECO oral delivery and marking remain unverified.
