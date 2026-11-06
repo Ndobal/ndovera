@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3393,
-    "validDrafts": 1714,
+    "raw": 3397,
+    "validDrafts": 1718,
     "reviewed": 0,
     "registeredBanks": 192,
     "target": 174000,
@@ -768,6 +768,12 @@
     {
       "path": "original-multisubject-batch-106.json",
       "sha256": "bbf9da515c747fbb65c6b5fcdef65c25c38919ad982862016f8c9aaa511ef40f",
+      "declared": 4,
+      "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-107.json",
+      "sha256": "50ca54a3200838a3446358baa8def4eeb3a352dc2361506fd13ced781c8ada9e",
       "declared": 4,
       "actual": 4
     },
@@ -5038,16 +5044,21 @@
       "target": 1000,
       "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending",
       "specificationId": "waec-hausa-prescribed-texts-2026-2030",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 4,
+      "validDrafts": 4,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "structured": 4
+      },
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "remaining": 996,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -5426,18 +5437,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
-    "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 243,
@@ -30304,6 +30315,30 @@
       "errors": []
     },
     {
+      "id": "ndv-107-001",
+      "file": "original-multisubject-batch-107.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-107-002",
+      "file": "original-multisubject-batch-107.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-107-003",
+      "file": "original-multisubject-batch-107.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-107-004",
+      "file": "original-multisubject-batch-107.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -55060,6 +55095,122 @@
       },
       "sourceSections": [
         "WAEC Igbo Paper 2, school candidates 2020, Question 4, word formation"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Haɗin jumla na saɓani",
+      "learningObjective": "Haɗa zantuka biyu ta yadda saɓanin da ke tsakaninsu zai fito fili.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "waec-hausa-107-1-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 5 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Zaɓi a jumla",
+      "learningObjective": "Gina tambaya mai ba da hanyoyi biyu a matsayin zaɓi.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "waec-hausa-107-2-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 5 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Jerin ayyuka a jumla",
+      "learningObjective": "Gano ayyukan da aka jera da kuma mai yin su a cikin jumla.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "waec-hausa-107-3-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 5 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Bayanau nanatau",
+      "learningObjective": "Rarrabe bayanau nanatau masu bayyana lokaci da wuri cikin zance.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "waec-hausa-107-4-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 4 examiner observations"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null,

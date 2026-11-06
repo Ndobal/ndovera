@@ -1788,6 +1788,18 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "School-candidate 2020 Paper 2 examiner evidence supports word classes and word formation historically. Current scheme, objectives and marking are unverified."
+    },
+    {
+      "id": "waec-hausa-paper-2-grammar-evidence-2023",
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "kind": "official_historical_examiner_reference",
+      "source": "https://www.waeconline.org.ng/e-learning/Hausa/Hausa240jq5.html",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Hausa/Hausa240jq4.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "2023 private-candidate Paper 2 examiner reports support historical clause linkage and adverbial reduplication. Current school/private candidate scheme, marks and prescribed editions are unverified."
     }
   ],
   "banks": [
@@ -11112,6 +11124,74 @@
       ],
       "sourceSections": [
         "WAEC Igbo Paper 2, school candidates 2020, Question 4, word formation"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Haɗin jumla na saɓani",
+      "learningObjective": "Haɗa zantuka biyu ta yadda saɓanin da ke tsakaninsu zai fito fili.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "waec-hausa-107-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 5 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Zaɓi a jumla",
+      "learningObjective": "Gina tambaya mai ba da hanyoyi biyu a matsayin zaɓi.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "waec-hausa-107-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 5 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Jerin ayyuka a jumla",
+      "learningObjective": "Gano ayyukan da aka jera da kuma mai yin su a cikin jumla.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "waec-hausa-107-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 5 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Bayanau nanatau",
+      "learningObjective": "Rarrabe bayanau nanatau masu bayyana lokaci da wuri cikin zance.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "waec-hausa-107-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 4 examiner observations"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null

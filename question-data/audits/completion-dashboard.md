@@ -180,7 +180,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Further Mathematics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Geography | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Government | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
-| WAEC | Hausa | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Hausa | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | WAEC | Health Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | History | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Home Management | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -214,9 +214,9 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
-| WAEC | 1290 | 491 | 0 | 45000 | 44509 |
+| WAEC | 1294 | 495 | 0 | 45000 | 44505 |
 
-Overall: {"raw": 3393, "validDrafts": 1714, "reviewed": 0, "registeredBanks": 192, "target": 174000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3397, "validDrafts": 1718, "reviewed": 0, "registeredBanks": 192, "target": 174000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

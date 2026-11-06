@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Hausa grammar practice",
+  "questionCount": 4,
+  "note": "Original written grammar practice with classroom marking. The current WAEC scheme and prescribed editions remain unverified.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Haɗin jumla na saɓani",
+      "learningObjective": "Haɗa zantuka biyu ta yadda saɓanin da ke tsakaninsu zai fito fili.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "ndv-107-001",
+      "objectiveId": "waec-hausa-107-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A haɗa zantukan nan cikin jumla ɗaya mai nuna saɓani: “An buɗe ɗakin karatu.” “Ba a kunna fitilun ɗakin ba.” A ja layi a ƙarƙashin kalmar haɗi sannan a bayyana abin da ta nuna.",
+      "answer": "An buɗe ɗakin karatu, amma ba a kunna fitilun ɗakin ba. Kalmar haɗi ita ce “amma”. Tana nuna saɓani tsakanin buɗe ɗakin da rashin kunna fitilunsa.",
+      "explanation": "“Amma” ta haɗa zantukan biyu tare da nuna cewa buɗe ɗakin bai zo da kunna fitilu ba.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "A kiyaye bayanin cewa an buɗe ɗakin."
+        },
+        {
+          "marks": 1,
+          "description": "A kiyaye korewar kunna fitilu."
+        },
+        {
+          "marks": 1,
+          "description": "A yi amfani da amma a matsayin kalmar haɗi kuma a nuna ta."
+        },
+        {
+          "marks": 1,
+          "description": "A bayyana saɓanin da haɗin ya nuna."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Zaɓi a jumla",
+      "learningObjective": "Gina tambaya mai ba da hanyoyi biyu a matsayin zaɓi.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "ndv-107-002",
+      "objectiveId": "waec-hausa-107-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "prompt": "Kwamitin aji yana son zaɓar wurin baje kolin littattafai. Wuri na farko shi ne harabar makaranta, na biyu kuma zauren taro. A rubuta tambaya guda da ke gabatar da wuraren biyu a matsayin zaɓi. A bayyana aikin “ko” a tambayar.",
+      "answer": "Za mu yi baje kolin littattafan a harabar makaranta ko a zauren taro? “Ko” ta raba wuraren biyu a matsayin hanyoyin da kwamitin zai zaɓa daga cikinsu.",
+      "explanation": "Tambayar tana gabatar da wurare biyu don a zaɓi ɗaya. Za a karɓi wata tambaya mai ma’ana wadda ta kiyaye wuraren biyu.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "A rubuta tambaya guda mai ma’ana."
+        },
+        {
+          "marks": 1,
+          "description": "A ambaci harabar makaranta da zauren taro."
+        },
+        {
+          "marks": 1,
+          "description": "A yi amfani da ko don nuna zaɓi kuma a bayyana aikinta."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Jerin ayyuka a jumla",
+      "learningObjective": "Gano ayyukan da aka jera da kuma mai yin su a cikin jumla.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "ndv-107-003",
+      "objectiveId": "waec-hausa-107-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "Karanta: “Hauwa ta wanke kwanon, ta goge shi, ta ajiye shi a kan teburi.” A ware ayyukan uku bisa jerinsu. Wace kalma ce ta nuna cewa Hauwa ce ta ci gaba da aikata sauran ayyukan?",
+      "answer": "Da farko Hauwa ta wanke kwanon. Sai ta goge shi. Daga baya ta ajiye shi a kan teburi. “Ta” a gaban “goge” da “ajiye” tana komawa ga Hauwa.",
+      "explanation": "Ba a sake rubuta sunan Hauwa a kowane sashe ba. Wakilin suna “ta” ya nuna cewa mai yin ayyukan ɗaya ce.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "A ba da wanke kwano a matsayin aiki na farko."
+        },
+        {
+          "marks": 1,
+          "description": "A ba da goge kwano a matsayin aiki na biyu."
+        },
+        {
+          "marks": 1,
+          "description": "A ba da ajiye kwano a kan teburi a matsayin aiki na uku."
+        },
+        {
+          "marks": 1,
+          "description": "A nuna cewa ta tana komawa ga Hauwa."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Hausa",
+      "topic": "Nahawun Hausa",
+      "subtopic": "Bayanau nanatau",
+      "learningObjective": "Rarrabe bayanau nanatau masu bayyana lokaci da wuri cikin zance.",
+      "specificationId": "waec-hausa-paper-2-grammar-evidence-2023",
+      "id": "ndv-107-004",
+      "objectiveId": "waec-hausa-107-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "Duba jimlolin nan: “Mai gadi ya buɗe ƙofa sassafe.” “Yara sun ajiye kujerunsu kusa-kusa a ƙarƙashin inuwa.” A fitar da bayanau nanatau daga kowace jumla. Wanne ya bayyana lokaci, wanne kuma ya bayyana wuri?",
+      "answer": "“Sassafe” ya bayyana lokacin da aka buɗe ƙofar. “Kusa-kusa” ya nuna matsayin kujerun dangane da juna.",
+      "explanation": "Sassafe yana amsa tambayar yaushe. Kusa-kusa yana bayyana kusancin kujerun da aka ajiye.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "A gano sassafe."
+        },
+        {
+          "marks": 1,
+          "description": "A haɗa sassafe da lokacin buɗe ƙofa."
+        },
+        {
+          "marks": 1,
+          "description": "A gano kusa-kusa."
+        },
+        {
+          "marks": 1,
+          "description": "A bayyana matsayin kujerun dangane da juna."
+        }
+      ]
+    }
+  ]
+}

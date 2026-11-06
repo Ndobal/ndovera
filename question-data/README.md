@@ -566,3 +566,7 @@ of prescribed works remain unverified.
 Batch 106 adds four WAEC Igbo grammar drafts on word classes and word
 formation. Historical Paper 2 examiner material supports provisional
 topic mappings. Current paper rules and prescribed editions remain open.
+
+Batch 107 adds four WAEC Hausa grammar drafts on clause linkage and
+adverbial reduplication. Historical private-candidate Paper 2 reports
+support provisional mapping. Current paper rules and editions remain open.
