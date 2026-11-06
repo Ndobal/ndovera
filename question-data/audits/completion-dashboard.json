@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3355,
-    "validDrafts": 1676,
+    "raw": 3361,
+    "validDrafts": 1682,
     "reviewed": 0,
     "registeredBanks": 189,
     "target": 171000,
@@ -716,6 +716,12 @@
       "sha256": "32ea4e4c32130480fbe419990f18b246649c0868b72ad243782492c8169ba9e2",
       "declared": 4,
       "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-098.json",
+      "sha256": "2d4f74374bbcb0459abd3c2217c3ae227161d8d734f39ee7591c6bc02d5eac05",
+      "declared": 6,
+      "actual": 6
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2784,7 +2790,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_formats_provisional_written_objectives",
       "paperFormats": {
         "I": "written comprehension",
         "II": "written expression",
@@ -2795,16 +2801,21 @@
         "II": "4032",
         "IV": "4034"
       },
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 6,
+      "validDrafts": 6,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "structured": 6
+      },
+      "difficulty": {
+        "standard": 3,
+        "difficult": 3
+      },
+      "remaining": 994,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "NECO",
@@ -5282,17 +5293,17 @@
   ],
   "errorCounts": {
     "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 243,
@@ -29931,6 +29942,42 @@
       "errors": []
     },
     {
+      "id": "ndv-098-001",
+      "file": "original-multisubject-batch-098.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-098-002",
+      "file": "original-multisubject-batch-098.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-098-003",
+      "file": "original-multisubject-batch-098.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-098-004",
+      "file": "original-multisubject-batch-098.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-098-005",
+      "file": "original-multisubject-batch-098.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-098-006",
+      "file": "original-multisubject-batch-098.json",
+      "index": 5,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -53939,6 +53986,66 @@
       },
       "tiers": {
         "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-french-098-1-v1",
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Compréhension écrite",
+      "subtopic": "Informations pratiques et inférences",
+      "learningObjective": "Repérer des informations explicites et justifier une décision à partir d’un texte bref.",
+      "specificationId": "neco-french-written-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO Paper I (format only)"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-french-098-2-v1",
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Expression écrite",
+      "subtopic": "Messages et lettres fonctionnels",
+      "learningObjective": "Rédiger un message adapté à son destinataire et traiter les consignes avec clarté.",
+      "specificationId": "neco-french-written-reference-2026",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC French examiner guidance, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 1,
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

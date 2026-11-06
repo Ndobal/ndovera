@@ -513,3 +513,7 @@ rhythm, relative keys and cadences. Topic alignment is provisional.
 Performance, music technology and aural assessment remain open.
 
 Batch 097 adds four provisional NECO Music aural tasks with original examiner-only playback scripts. The official Paper IV delivery and marks and Paper I specifications remain unresolved.
+
+Batch 098 adds six NECO French written drafts with original French
+passages and production prompts. Official marking and oral delivery
+requirements remain unverified, as do Music Paper I instructions.

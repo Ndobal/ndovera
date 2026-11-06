@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO French written practice",
+  "questionCount": 6,
+  "note": "Original French reading and writing drafts. Paper formats verified. Classroom rubrics and topic mapping are provisional. Academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Compréhension écrite",
+      "subtopic": "Informations pratiques et inférences",
+      "learningObjective": "Repérer des informations explicites et justifier une décision à partir d’un texte bref.",
+      "specificationId": "neco-french-written-reference-2026",
+      "id": "ndv-098-001",
+      "objectiveId": "neco-french-098-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Lisez cet avis. « Samedi, la bibliothèque de l’école de Jos ouvrira à dix heures au lieu de huit heures. Les élèves peuvent rendre leurs livres à l’accueil dès neuf heures, mais ils ne pourront en emprunter qu’après l’ouverture de la salle. L’atelier de lecture, prévu à onze heures, est déplacé dans la salle 4. » À neuf heures quinze, que peut faire Amina avec son ancien livre ? Peut-elle déjà en emprunter un autre ? Où doit-elle aller pour l’atelier ?",
+      "answer": "Elle peut rendre son livre à l’accueil, mais elle doit attendre dix heures pour en emprunter un autre. L’atelier se tient dans la salle 4.",
+      "explanation": "L’avis distingue le retour des livres de l’emprunt. Le changement de salle concerne uniquement l’atelier.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Indiquer que le retour est possible à l’accueil."
+        },
+        {
+          "marks": 1,
+          "description": "Indiquer que l’emprunt doit attendre dix heures."
+        },
+        {
+          "marks": 1,
+          "description": "Identifier la salle 4."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Compréhension écrite",
+      "subtopic": "Informations pratiques et inférences",
+      "learningObjective": "Repérer des informations explicites et justifier une décision à partir d’un texte bref.",
+      "specificationId": "neco-french-written-reference-2026",
+      "id": "ndv-098-002",
+      "objectiveId": "neco-french-098-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Lisez le message. « Le car pour le musée part à 8 h 20. Les participants doivent passer au bureau avant 8 h 10 pour faire vérifier leur autorisation. Si le formulaire manque, ils restent à l’école, même si le car est encore là. » Chidi arrive au bureau à 8 h 05 sans formulaire. Fatou arrive à 8 h 12 avec son formulaire. Expliquez pourquoi chacun risque de manquer la visite.",
+      "answer": "Chidi arrive à temps, mais il n’a pas le formulaire obligatoire. Fatou a son formulaire, mais elle arrive après l’heure limite de vérification. La présence du car ne supprime pas ces conditions.",
+      "explanation": "Il faut distinguer l’heure du départ des conditions à remplir avant le départ.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifier le formulaire manquant de Chidi."
+        },
+        {
+          "marks": 1,
+          "description": "Identifier le retard de Fatou au bureau."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguer l’heure limite de vérification de l’heure de départ."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Compréhension écrite",
+      "subtopic": "Informations pratiques et inférences",
+      "learningObjective": "Repérer des informations explicites et justifier une décision à partir d’un texte bref.",
+      "specificationId": "neco-french-written-reference-2026",
+      "id": "ndv-098-003",
+      "objectiveId": "neco-french-098-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Lisez ce compte rendu. « Pour la collecte de cahiers à Kano, la classe de Mariam avait prévu une boîte près du portail. Comme le portail était fermé pendant les cours, les élèves déposaient surtout leurs cahiers après la sonnerie. La semaine suivante, la boîte a été placée devant le secrétariat, ouvert toute la journée. Les dons sont arrivés plus régulièrement. » Quel obstacle le changement d’emplacement a-t-il réduit ? Quelle observation appuie cette réponse ?",
+      "answer": "Le nouvel emplacement a réduit le problème d’accès à la boîte pendant les cours. Le secrétariat est ouvert toute la journée et les dons sont devenus plus réguliers après le déplacement.",
+      "explanation": "Le texte renseigne sur la répartition des dons dans le temps. Il ne donne pas le nombre total de cahiers collectés.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifier la difficulté d’accès au premier emplacement."
+        },
+        {
+          "marks": 1,
+          "description": "Relier le secrétariat à un accès plus régulier."
+        },
+        {
+          "marks": 1,
+          "description": "Citer la régularité des dépôts comme observation."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Expression écrite",
+      "subtopic": "Messages et lettres fonctionnels",
+      "learningObjective": "Rédiger un message adapté à son destinataire et traiter les consignes avec clarté.",
+      "specificationId": "neco-french-written-reference-2026",
+      "id": "ndv-098-004",
+      "objectiveId": "neco-french-098-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Votre groupe devait préparer une affiche vendredi après les cours, mais vous devez rentrer plus tôt. Écrivez un court message à un camarade. Expliquez votre absence, proposez un autre moment et précisez ce que vous apporterez.",
+      "answer": "Salut Aïcha, je dois rentrer tôt vendredi pour accompagner mon petit frère, alors je ne pourrai pas rester après les cours. Est-ce que nous pouvons préparer l’affiche lundi pendant la pause ? J’apporterai le papier et les feutres. À bientôt, Sani.",
+      "explanation": "Le message donne la raison, propose un moment précis et indique une contribution utile. Un autre motif ou horaire cohérent est acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Expliquer l’absence."
+        },
+        {
+          "marks": 1,
+          "description": "Proposer un nouveau moment précis."
+        },
+        {
+          "marks": 1,
+          "description": "Préciser le matériel apporté."
+        },
+        {
+          "marks": 1,
+          "description": "Employer un registre amical et un français compréhensible."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Expression écrite",
+      "subtopic": "Messages et lettres fonctionnels",
+      "learningObjective": "Rédiger un message adapté à son destinataire et traiter les consignes avec clarté.",
+      "specificationId": "neco-french-written-reference-2026",
+      "id": "ndv-098-005",
+      "objectiveId": "neco-french-098-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Vous représentez le club de français. Écrivez un bref courriel à la responsable de la bibliothèque municipale pour demander une visite. Indiquez le but de la visite, proposez un jour et demandez si le groupe doit apporter quelque chose.",
+      "answer": "Madame, notre club de français souhaiterait visiter votre bibliothèque pour découvrir les livres destinés aux jeunes lecteurs. Seriez-vous disponible jeudi matin ? Pourriez-vous nous dire si les élèves doivent apporter une carte ou une autorisation ? Je vous remercie de votre aide. Cordialement, Ifeoma, représentante du club.",
+      "explanation": "Un courriel formel indique clairement le motif, la date proposée et la demande d’information. Les détails peuvent varier.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Préciser le but de la visite."
+        },
+        {
+          "marks": 1,
+          "description": "Proposer un jour."
+        },
+        {
+          "marks": 1,
+          "description": "Poser la question sur les documents ou le matériel à apporter."
+        },
+        {
+          "marks": 1,
+          "description": "Respecter un registre formel."
+        },
+        {
+          "marks": 1,
+          "description": "Rédiger un message cohérent et compréhensible."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Expression écrite",
+      "subtopic": "Messages et lettres fonctionnels",
+      "learningObjective": "Rédiger un message adapté à son destinataire et traiter les consignes avec clarté.",
+      "specificationId": "neco-french-written-reference-2026",
+      "id": "ndv-098-006",
+      "objectiveId": "neco-french-098-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Une coupure d’électricité empêche la projection prévue au club cet après-midi. Rédigez un avis à afficher au tableau de l’école. Annoncez le changement, donnez la raison et proposez une activité de remplacement avec un lieu et une heure.",
+      "answer": "Avis aux membres du club. La projection de cet après-midi est annulée en raison d’une coupure d’électricité. À la place, nous organiserons un échange de livres à 15 heures dans la cour couverte. Vous pouvez apporter un livre à présenter au groupe.",
+      "explanation": "L’avis doit permettre à un lecteur de comprendre le changement et de rejoindre la nouvelle activité sans demander de précision.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Annoncer clairement l’annulation ou le report de la projection."
+        },
+        {
+          "marks": 1,
+          "description": "Donner la raison."
+        },
+        {
+          "marks": 1,
+          "description": "Proposer une activité de remplacement réalisable."
+        },
+        {
+          "marks": 1,
+          "description": "Indiquer l’heure et le lieu."
+        },
+        {
+          "marks": 1,
+          "description": "Présenter un avis clair et compréhensible."
+        }
+      ]
+    }
+  ]
+}

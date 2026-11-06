@@ -1415,6 +1415,18 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "NECO timetable confirms Aural Music Paper IV (4104). Historical WAEC reports provide rhythm and melodic dictation topic evidence. Stimuli, delivery and marks are original provisional classroom material. Official NECO instructions remain unverified."
+    },
+    {
+      "id": "neco-french-written-reference-2026",
+      "exam": "NECO",
+      "subject": "French",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/French/Frech240mw.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "NECO 2026 SSCE Internal timetable confirms written comprehension 4031, written expression 4032 and oral 4034. Historical WAEC French examiner guidance informs general written-expression criteria only. Original task lengths and rubrics are provisional. Official NECO objectives and marking remain unverified."
     }
   ],
   "banks": [
@@ -2973,7 +2985,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_formats_provisional_written_objectives",
       "paperFormats": {
         "I": "written comprehension",
         "II": "written expression",
@@ -10269,6 +10281,40 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Paper IV (format only)",
         "WAEC Music aural examiner report, 2022"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-french-098-1-v1",
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Compréhension écrite",
+      "subtopic": "Informations pratiques et inférences",
+      "learningObjective": "Repérer des informations explicites et justifier une décision à partir d’un texte bref.",
+      "specificationId": "neco-french-written-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper I (format only)"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-french-098-2-v1",
+      "exam": "NECO",
+      "subject": "French",
+      "topic": "Expression écrite",
+      "subtopic": "Messages et lettres fonctionnels",
+      "learningObjective": "Rédiger un message adapté à son destinataire et traiter les consignes avec clarté.",
+      "specificationId": "neco-french-written-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO Paper II (format only); WAEC French examiner guidance, 2023"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
