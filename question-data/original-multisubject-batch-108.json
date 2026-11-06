@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Arabic writing and editing practice",
+  "questionCount": 4,
+  "note": "Original classroom writing and editing tasks informed by historical examiner evidence. The current WAEC scheme and prescribed editions remain unverified.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "مطابقة الصفة للموصوف",
+      "learningObjective": "تصحيح المطابقة في التعريف والجنس في وصف مدرسي.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "ndv-108-001",
+      "objectiveId": "waec-arabic-108-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "في وصف لمعرض مدرسي وردت الجملة الآتية: «وضعنا الخريطة كبير على الطاولة الخشبي». صحح الصفتين واذكر سبب اختيار الصيغة في كل موضع.",
+      "answer": "وضعنا الخريطة الكبيرة على الطاولة الخشبية. «الكبيرة» مؤنثة ومعرفة مثل الخريطة، و«الخشبية» مؤنثة ومعرفة مثل الطاولة.",
+      "explanation": "تتبع الصفة الاسم الذي تصفه في الجنس والتعريف. الحركات الإعرابية اختيارية في هذه الإجابة.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "تصحيح كبير إلى الكبيرة."
+        },
+        {
+          "marks": 1,
+          "description": "تصحيح الخشبي إلى الخشبية."
+        },
+        {
+          "marks": 1,
+          "description": "بيان المطابقة في الجنس."
+        },
+        {
+          "marks": 1,
+          "description": "بيان المطابقة في التعريف."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "اتساق الزمن",
+      "learningObjective": "تحرير سرد قصير بحيث تدل أفعاله على أحداث مكتملة.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "ndv-108-002",
+      "objectiveId": "waec-arabic-108-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "بدأ طالب تقريره هكذا: «أمس نصل إلى المكتبة، ثم نختار ثلاثة كتب، وبعد ذلك نسجل أسماءها». أعد كتابة التقرير بأفعال ماضية مع الحفاظ على ترتيب الأعمال.",
+      "answer": "أمس وصلنا إلى المكتبة، ثم اخترنا ثلاثة كتب، وبعد ذلك سجلنا أسماءها.",
+      "explanation": "يدل «أمس» والسياق على أحداث انتهت. أبقينا المتكلم الجمع في الأفعال الثلاثة وحافظنا على ترتيبها.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "كتابة وصلنا."
+        },
+        {
+          "marks": 1,
+          "description": "كتابة اخترنا."
+        },
+        {
+          "marks": 1,
+          "description": "كتابة سجلنا."
+        },
+        {
+          "marks": 1,
+          "description": "الحفاظ على ترتيب الأحداث ومضمونها."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "وضوح الإحالة",
+      "learningObjective": "إزالة اللبس في ضمير يحتمل مرجعين في رسالة قصيرة.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "ndv-108-003",
+      "objectiveId": "waec-arabic-108-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "كتب طالب: «أعطى موسى عليا دفتره قبل الحصة». كان الدفتر ملكا لموسى. وضح سبب اللبس ثم أعد كتابة الجملة بحيث يعرف القارئ صاحب الدفتر دون تغيير من أعطاه أو من تسلمه.",
+      "answer": "قد تعود الهاء في «دفتره» على موسى أو على علي. صياغة واضحة: «قبل الحصة، أعطى موسى عليا الدفتر الذي يملكه موسى».",
+      "explanation": "ذكر اسم المالك صراحة يزيل الاحتمالين. تقبل كل صياغة تحدد أن موسى هو المالك والمعطي وأن عليا هو المتلقي.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "تحديد الهاء في دفتره بوصفها موضع اللبس."
+        },
+        {
+          "marks": 1,
+          "description": "ذكر المرجعين المحتملين."
+        },
+        {
+          "marks": 1,
+          "description": "التصريح بأن الدفتر ملك لموسى."
+        },
+        {
+          "marks": 1,
+          "description": "الحفاظ على المعطي والمتلقي ووقت التسليم."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "رسالة شخصية",
+      "learningObjective": "كتابة رسالة شخصية تتضمن اعتذارا وتوضح ترتيباً بديلاً.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "ndv-108-004",
+      "objectiveId": "waec-arabic-108-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "prompt": "وعدت صديقك بإعادة كتابه يوم الثلاثاء لكنك ستتغيب عن المدرسة ذلك اليوم. اكتب إليه رسالة قصيرة تعتذر فيها، وتوضح كيف ومتى سيستعيد الكتاب، وتطلب منه تأكيد أن الخطة تناسبه.",
+      "answer": "صديقي العزيز حامد،\nأعتذر لأنني لن أتمكن من إعادة كتابك يوم الثلاثاء. سأغيب عن المدرسة في ذلك اليوم لأنني سأرافق أخي إلى موعده. سأحضر الكتاب يوم الأربعاء وأسلمه لك عند باب المكتبة بعد الحصة الأخيرة. هل يناسبك هذا الموعد؟ أخبرني من فضلك إن كنت تحتاج إلى الكتاب قبل ذلك.\nمع تحياتي،\nصديقك يوسف",
+      "explanation": "تصل الرسالة بين الاعتذار وسبب الغياب، وتعرض موعدا ومكانا واضحين وتطلب ردا. تقبل خطة بديلة قابلة للتنفيذ.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "استخدام افتتاح وخاتمة مناسبين لصديق."
+        },
+        {
+          "marks": 1,
+          "description": "تقديم اعتذار وسبب واضح."
+        },
+        {
+          "marks": 1,
+          "description": "تحديد كيفية إعادة الكتاب وموعدها."
+        },
+        {
+          "marks": 1,
+          "description": "طلب تأكيد ملاءمة الترتيب."
+        },
+        {
+          "marks": 1,
+          "description": "ترتيب الأفكار بلغة واضحة."
+        }
+      ]
+    }
+  ]
+}

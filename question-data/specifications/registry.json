@@ -1800,6 +1800,18 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "2023 private-candidate Paper 2 examiner reports support historical clause linkage and adverbial reduplication. Current school/private candidate scheme, marks and prescribed editions are unverified."
+    },
+    {
+      "id": "waec-arabic-paper-2-writing-evidence-2023",
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "kind": "official_historical_examiner_reference",
+      "source": "https://www.waeconline.org.ng/e-learning/Arabic/Arab240mw.html",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Arabic/Arab240mp1q4.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "2023 school-candidate Paper 2 examiner material documents grammatical accuracy in writing and informal correspondence. Specific editing exercises are author-designed classroom practice. Current scheme and prescribed editions remain unverified."
     }
   ],
   "banks": [
@@ -11192,6 +11204,74 @@
       ],
       "sourceSections": [
         "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 4 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "مطابقة الصفة للموصوف",
+      "learningObjective": "تصحيح المطابقة في التعريف والجنس في وصف مدرسي.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "waec-arabic-108-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Arabic Paper 2, school candidates 2023, candidate weaknesses, grammatical accuracy"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "اتساق الزمن",
+      "learningObjective": "تحرير سرد قصير بحيث تدل أفعاله على أحداث مكتملة.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "waec-arabic-108-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Arabic Paper 2, school candidates 2023, candidate weaknesses, grammatical accuracy"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "وضوح الإحالة",
+      "learningObjective": "إزالة اللبس في ضمير يحتمل مرجعين في رسالة قصيرة.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "waec-arabic-108-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Arabic Paper 2, school candidates 2023, candidate weaknesses and remedies, clear writing"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "رسالة شخصية",
+      "learningObjective": "كتابة رسالة شخصية تتضمن اعتذارا وتوضح ترتيباً بديلاً.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "waec-arabic-108-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Arabic Paper 2, school candidates 2023, Part I Question 4, informal correspondence"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null

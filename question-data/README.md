@@ -570,3 +570,8 @@ topic mappings. Current paper rules and prescribed editions remain open.
 Batch 107 adds four WAEC Hausa grammar drafts on clause linkage and
 adverbial reduplication. Historical private-candidate Paper 2 reports
 support provisional mapping. Current paper rules and editions remain open.
+
+Batch 108 adds four WAEC Arabic writing drafts on adjective agreement,
+tense consistency, pronoun clarity and informal correspondence.
+Historical Paper 2 evidence supports provisional mapping. Editing tasks
+use original classroom formats. Current paper rules and editions remain open.

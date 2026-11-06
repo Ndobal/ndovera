@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3397,
-    "validDrafts": 1718,
+    "raw": 3401,
+    "validDrafts": 1722,
     "reviewed": 0,
     "registeredBanks": 192,
     "target": 174000,
@@ -774,6 +774,12 @@
     {
       "path": "original-multisubject-batch-107.json",
       "sha256": "50ca54a3200838a3446358baa8def4eeb3a352dc2361506fd13ced781c8ada9e",
+      "declared": 4,
+      "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-108.json",
+      "sha256": "ef943f7509c5eb5b6b631290247013a95bb37c8c8d39e4aa563f13f5e771844d",
       "declared": 4,
       "actual": 4
     },
@@ -4528,16 +4534,20 @@
       "target": 1000,
       "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending",
       "specificationId": "waec-arabic-prescribed-texts-2026-2030",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 4,
+      "validDrafts": 4,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "structured": 4
+      },
+      "difficulty": {
+        "standard": 4
+      },
+      "remaining": 996,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -5437,17 +5447,17 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81
   },
   "mathematicalVerification": {
@@ -30339,6 +30349,30 @@
       "errors": []
     },
     {
+      "id": "ndv-108-001",
+      "file": "original-multisubject-batch-108.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-108-002",
+      "file": "original-multisubject-batch-108.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-108-003",
+      "file": "original-multisubject-batch-108.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-108-004",
+      "file": "original-multisubject-batch-108.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -55211,6 +55245,122 @@
       },
       "sourceSections": [
         "WAEC Hausa Paper 2, private candidates, Jan/Feb 2023, Question 4 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "مطابقة الصفة للموصوف",
+      "learningObjective": "تصحيح المطابقة في التعريف والجنس في وصف مدرسي.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "waec-arabic-108-1-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Arabic Paper 2, school candidates 2023, candidate weaknesses, grammatical accuracy"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "اتساق الزمن",
+      "learningObjective": "تحرير سرد قصير بحيث تدل أفعاله على أحداث مكتملة.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "waec-arabic-108-2-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Arabic Paper 2, school candidates 2023, candidate weaknesses, grammatical accuracy"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "وضوح الإحالة",
+      "learningObjective": "إزالة اللبس في ضمير يحتمل مرجعين في رسالة قصيرة.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "waec-arabic-108-3-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Arabic Paper 2, school candidates 2023, candidate weaknesses and remedies, clear writing"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Arabic",
+      "topic": "الكتابة العربية",
+      "subtopic": "رسالة شخصية",
+      "learningObjective": "كتابة رسالة شخصية تتضمن اعتذارا وتوضح ترتيباً بديلاً.",
+      "specificationId": "waec-arabic-paper-2-writing-evidence-2023",
+      "id": "waec-arabic-108-4-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Arabic Paper 2, school candidates 2023, Part I Question 4, informal correspondence"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null,

@@ -155,7 +155,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | Writing | 1000 | 13 | 10 | 0 | 990 | partial_objective_register |
 | WAEC | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Animal Husbandry | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Arabic | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | WAEC | Beauty and Cosmetology | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Biology | 1000 | 23 | 20 | 0 | 980 | partial_objective_register |
 | WAEC | Book Keeping | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -214,9 +214,9 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
-| WAEC | 1294 | 495 | 0 | 45000 | 44505 |
+| WAEC | 1298 | 499 | 0 | 45000 | 44501 |
 
-Overall: {"raw": 3397, "validDrafts": 1718, "reviewed": 0, "registeredBanks": 192, "target": 174000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3401, "validDrafts": 1722, "reviewed": 0, "registeredBanks": 192, "target": 174000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
