@@ -12637,6 +12637,63 @@
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Cleaning tools and sequence",
+      "learningObjective": "Choose tools and an order of work suited to a cleaning job.",
+      "id": "ncee-qva-p6-cleaning-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical Primary Six Pre-Vocational Studies, Healthy Home Environment, p. 20"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Meal planning and menu cards",
+      "learningObjective": "Select meals or menu descriptions that meet stated needs and constraints.",
+      "id": "ncee-qva-p6-meal-planning-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical Primary Six Pre-Vocational Studies, Meal Planning, p. 23"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Kitchen accident prevention",
+      "learningObjective": "Identify a kitchen hazard and select a practical way to reduce it.",
+      "id": "ncee-qva-p6-kitchen-safety-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical Primary Six Pre-Vocational Studies, Kitchen and home accidents, p. 24"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [

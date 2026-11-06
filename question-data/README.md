@@ -617,3 +617,8 @@ Batch 117 adds twelve Primary 6 NCEE National Values Education drafts
 on honesty, justice, contentment and community service. NECO confirms
 Paper I Part B. Historical ICPC teaching guidance supports provisional
 topic mapping. The official topic specification and option count remain open.
+
+Batch 118 adds eight NCEE Quantitative and Vocational Aptitude drafts
+on cleaning, meal planning and kitchen safety. Historical Primary Six
+Pre-Vocational Studies guides provisional mapping. The current NECO
+topic blueprint and option count remain unverified.

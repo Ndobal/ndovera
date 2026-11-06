@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3463,
-    "validDrafts": 1784,
+    "raw": 3471,
+    "validDrafts": 1792,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -836,6 +836,12 @@
       "sha256": "68e1470a569e02ae858dd6e970c8147a8f01d211e2b569a72ec69fd637510f68",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-118.json",
+      "sha256": "9d4cef0a9b3814e3dd149ca5f5b1049f4d958cd04fdd65135e4debf6f923bac7",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2328,18 +2334,18 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_2026_component_with_provisional_primary_six_reference",
-      "raw": 12,
-      "validDrafts": 12,
+      "raw": 20,
+      "validDrafts": 20,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 12
+        "mcq": 20
       },
       "difficulty": {
-        "standard": 12
+        "standard": 20
       },
-      "remaining": 988,
-      "mappedObjectives": 2,
-      "representedObjectives": 2,
+      "remaining": 980,
+      "mappedObjectives": 5,
+      "representedObjectives": 5,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5553,8 +5559,8 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 256,
@@ -30838,6 +30844,54 @@
       "id": "ndv-117-012",
       "file": "original-multisubject-batch-117.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-118-001",
+      "file": "original-multisubject-batch-118.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-118-002",
+      "file": "original-multisubject-batch-118.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-118-003",
+      "file": "original-multisubject-batch-118.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-118-004",
+      "file": "original-multisubject-batch-118.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-118-005",
+      "file": "original-multisubject-batch-118.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-118-006",
+      "file": "original-multisubject-batch-118.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-118-007",
+      "file": "original-multisubject-batch-118.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-118-008",
+      "file": "original-multisubject-batch-118.json",
+      "index": 7,
       "errors": []
     },
     {
@@ -57712,6 +57766,99 @@
       },
       "tiers": {
         "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Cleaning tools and sequence",
+      "learningObjective": "Choose tools and an order of work suited to a cleaning job.",
+      "id": "ncee-qva-p6-cleaning-v1",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical Primary Six Pre-Vocational Studies, Healthy Home Environment, p. 20"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Meal planning and menu cards",
+      "learningObjective": "Select meals or menu descriptions that meet stated needs and constraints.",
+      "id": "ncee-qva-p6-meal-planning-v1",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical Primary Six Pre-Vocational Studies, Meal Planning, p. 23"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Kitchen accident prevention",
+      "learningObjective": "Identify a kitchen hazard and select a practical way to reduce it.",
+      "id": "ncee-qva-p6-kitchen-safety-v1",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical Primary Six Pre-Vocational Studies, Kitchen and home accidents, p. 24"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

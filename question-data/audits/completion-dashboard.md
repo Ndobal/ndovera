@@ -66,7 +66,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NCEE | Mathematics | 1000 | 35 | 20 | 0 | 980 | partial_objective_register |
 | NCEE | National Values Education | 1000 | 24 | 24 | 0 | 976 | partial_objective_register |
 | NCEE | Quantitative Reasoning | 1000 | 5 | 0 | 0 | 1000 | specification_unresolved |
-| NCEE | Quantitative and Vocational Aptitude | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
+| NCEE | Quantitative and Vocational Aptitude | 1000 | 20 | 20 | 0 | 980 | partial_objective_register |
 | NCEE | Verbal Aptitude | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | NCEE | Verbal Reasoning | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Agricultural Science | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
@@ -210,14 +210,14 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IELTS | 81 | 72 | 0 | 4000 | 3928 |
 | IGCSE | 182 | 161 | 0 | 5000 | 4839 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
-| NCEE | 147 | 118 | 0 | 9000 | 8882 |
+| NCEE | 155 | 126 | 0 | 9000 | 8874 |
 | NECO | 436 | 401 | 0 | 36000 | 35599 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3463, "validDrafts": 1784, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3471, "validDrafts": 1792, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
