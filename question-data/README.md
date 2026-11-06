@@ -550,3 +550,10 @@ records the five year-specific written poetry page ranges. Edo, Efik
 and Ibibio have provisional target rows backed by their WAEC lists.
 Full objectives, work editions, paper requirements and NECO adoption
 still require separate evidence.
+
+The Yoruba selected-text source now indexes the three written and three
+oral literature works, plus the annual oral poetry selections. The list
+includes commentary on each year's oral poetry selections. Historical
+Paper 2 examiner guidance and a catalogue cross-check are recorded
+separately. The primary texts, edition equivalence and current Paper 2
+scheme remain open.

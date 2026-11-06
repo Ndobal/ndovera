@@ -5406,18 +5406,18 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 243,
@@ -54795,6 +54795,7 @@
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",
     "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.",
-    "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence."
+    "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence.",
+    "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open."
   ]
 }

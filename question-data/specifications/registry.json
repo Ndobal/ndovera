@@ -1641,7 +1641,8 @@
       "status": "official_selected_text_list_retrieved_full_scheme_and_editions_pending",
       "note": "WAEC Nigeria attachment. The PDF is an image scan. Scope is recorded for WASSCE. Detailed paper scheme, objectives, marking, work editions and NECO adoption require separate evidence.",
       "sourceSections": [
-        "Page 1: written literature and annual poetry page allocations"
+        "Page 1: written prose, poetry and drama with annual written poetry page ranges",
+        "Page 2: oral prose, drama and poetry with annual oral poetry selections"
       ],
       "writtenPoetryPageRanges": {
         "2026": [
@@ -1664,7 +1665,105 @@
           153,
           216
         ]
-      }
+      },
+      "selectedWorks": [
+        {
+          "literatureCategory": "written",
+          "genre": "prose",
+          "title": "Ogún Ọmọdé",
+          "author": "Akínwùmí Ìṣọlá",
+          "publisher": "University Press Plc",
+          "listedPublicationYear": 1990,
+          "listPage": 1
+        },
+        {
+          "literatureCategory": "written",
+          "genre": "poetry",
+          "title": "Èdè Abínibí àti Àwọn Àròfọ̀ Míìràn",
+          "author": "Olúfẹ́mi Adéwọlé",
+          "publisher": "Krownkom Publishers",
+          "listedPublicationYear": 2019,
+          "listPage": 1
+        },
+        {
+          "literatureCategory": "written",
+          "genre": "drama",
+          "title": "Ọ̀tẹ̀ Oyè",
+          "author": "Olúṣọlá Fádíyà",
+          "publisher": "Genius Books Publishers",
+          "listedPublicationYear": 2020,
+          "listPage": 1
+        },
+        {
+          "literatureCategory": "oral",
+          "genre": "prose",
+          "title": "Àkójọpọ̀ Àlọ́ Ìjàpá (Apá Kejì)",
+          "author": "Adébóyè Babalọlá",
+          "publisher": "University Press Plc",
+          "listedPublicationYear": 2021,
+          "listPage": 2
+        },
+        {
+          "literatureCategory": "oral",
+          "genre": "drama",
+          "title": "Eégún Aláré",
+          "author": "Láwuyì Ògúnníran",
+          "publisher": "Golden Pen Publishers",
+          "listedPublicationYear": 2022,
+          "listPage": 2
+        },
+        {
+          "literatureCategory": "oral",
+          "genre": "poetry",
+          "title": "Ojúlówó Oríkì Ifá (Apá Kìnnì)",
+          "author": "Àkànó Fáṣínà Agboọlá",
+          "publisher": "Project Publications Limited",
+          "listedPublicationYear": 1989,
+          "listPage": 2
+        }
+      ],
+      "oralPoetrySelections": {
+        "2026": [
+          "Èjì Ogbè",
+          "Ọ̀yẹ̀kú Méjì",
+          "Ìwòrì Méjì"
+        ],
+        "2027": [
+          "Òdí Méjì",
+          "Ìrosùn Méjì",
+          "Ọ̀wọ́nrín Méjì"
+        ],
+        "2028": [
+          "Ọ̀bàrà Méjì",
+          "Ọ̀kànràn Méjì",
+          "Ògúndá Méjì"
+        ],
+        "2029": [
+          "Ọ̀sá Méjì",
+          "Ìká Méjì",
+          "Òtúrúpọn Méjì"
+        ],
+        "2030": [
+          "Òtúrá Méjì",
+          "Ìrẹtẹ̀ Méjì",
+          "Ọ̀ṣẹ́ Méjì",
+          "Òfún Méjì"
+        ]
+      },
+      "oralPoetrySelectionNote": "The list also assigns commentary on the named selections for each year. Verify diacritics and pagination against the listed print work before writing text-specific items.",
+      "retrievalNote": "Both pages were read from a checksum-matched WAEC scan. Listed publication years describe the source bibliography. The corresponding primary works and exam-edition equivalence have yet to be verified.",
+      "bibliographicCrossChecks": [
+        {
+          "source": "https://koha.nou.edu.ng/cgi-bin/koha/opac-MARCdetail.pl?biblionumber=11229",
+          "note": "National Open University catalogue corroborates the oral prose title family and publisher. Catalogue access does not establish Part Two, the 2021 printing or full-text access."
+        }
+      ],
+      "historicalFormatReferences": [
+        {
+          "source": "https://www.waeconline.org.ng/e-learning/Yoruba/Yor240mq10.html",
+          "note": "2023 school-candidate Paper 2 examiner material demonstrates a written explanation of poetic language in a particular poem. Current format, section counts and marks are unverified."
+        }
+      ]
     }
   ],
   "banks": [
@@ -10876,6 +10975,7 @@
     "New NERDC Primary 1 and JSS 1 class links returned 403. Older public mathematics and English introduction PDFs were found; current adoption is not verified, so no current class-objective coverage is inferred.",
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",
     "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.",
-    "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence."
+    "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence.",
+    "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open."
   ]
 }
