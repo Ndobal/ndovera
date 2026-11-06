@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Edo language practice",
+  "questionCount": 4,
+  "note": "Original classroom tasks with English instructions and Edo response targets. Current WAEC paper rules and marking remain unverified.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Sound and spelling",
+      "subtopic": "The Edo vowels o and ọ",
+      "learningObjective": "Distinguish /o/ and /ɔ/ through their spellings in Edo vocabulary.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "ndv-109-001",
+      "objectiveId": "waec-edo-109-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A learner files the Edo words ako, gbọ, ukpo and kọ on cards labelled o and ọ. Put the words on the correct cards by inspecting their final vowel letters. Give the IPA symbol for the sound on each card.",
+      "answer": "o card: ako, ukpo. Sound /o/. ọ card: gbọ, kọ. Sound /ɔ/.",
+      "explanation": "The final vowel letter in ako and ukpo is undotted o, whereas in gbọ and kọ it is dotted ọ. The dot distinguishes the vowel letter and its associated sound.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Group ako and ukpo under o."
+        },
+        {
+          "marks": 1,
+          "description": "Group gbọ and kọ under ọ."
+        },
+        {
+          "marks": 1,
+          "description": "Match o with /o/."
+        },
+        {
+          "marks": 1,
+          "description": "Match ọ with /ɔ/."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Sound and spelling",
+      "subtopic": "Consonant digraph kh",
+      "learningObjective": "Locate the spelling kh for /x/ in Edo words and distinguish letters from sounds.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "ndv-109-002",
+      "objectiveId": "waec-edo-109-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "On a classroom word wall, the target is the Edo consonant /x/. Which of okha, ize, akhe and udu should go on that part of the wall? In each word you select, identify the letters that represent the target consonant.",
+      "answer": "okha and akhe. In both words, kh represents /x/.",
+      "explanation": "Each selected word contains the adjacent letters k and h. They spell one consonant in these examples. The other entries do not contain kh.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Select okha."
+        },
+        {
+          "marks": 1,
+          "description": "Select akhe without adding distractors."
+        },
+        {
+          "marks": 1,
+          "description": "Identify kh as the spelling of one consonant /x/ in the selected words."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Numerals",
+      "subtopic": "Reading and correcting stock labels",
+      "learningObjective": "Interpret and spell selected Edo numerals in a written record.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "ndv-109-003",
+      "objectiveId": "waec-edo-109-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "Two crates in a Benin City school storeroom have word labels. Crate A says Iweva and crate B says Eha-yan-ugie. Write the two quantities in digits. The stock check confirms crate A is correct and crate B actually contains 21 items. Write the corrected Edo word label for crate B.",
+      "answer": "Crate A: 12. Crate B’s old label: 23. Crate B’s corrected label: Ọkpa-yan-ugie.",
+      "explanation": "Iweva denotes twelve. In the listed forms for 21 and 23, ọkpa contributes one and eha contributes three to ugie, twenty.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Read Iweva as 12."
+        },
+        {
+          "marks": 1,
+          "description": "Read Eha-yan-ugie as 23."
+        },
+        {
+          "marks": 1,
+          "description": "Write Ọkpa-yan-ugie for 21, retaining the dotted vowel."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Word forms",
+      "subtopic": "Paired verb forms",
+      "learningObjective": "Recognise a mismatched singular and plural verb pair and restore its counterpart.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "ndv-109-004",
+      "objectiveId": "waec-edo-109-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "An Edo verb glossary pairs singular and plural forms. A typesetter left these rows: bọ → bọlọ, dẹ → dele, de → dẹlẹ. Identify the two rows that need correction and write their corrected pairs. Explain why the dots matter when checking the pairs.",
+      "answer": "Correct dẹ → dẹlẹ and de → dele. The bọ → bọlọ row is already correct. The dotted vowel ẹ belongs in dẹ and dẹlẹ, whereas undotted e occurs in de and dele.",
+      "explanation": "The two plural forms were interchanged. Preserving the vowel letters keeps each singular form matched with its own plural counterpart.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correct dẹ to the pair dẹ → dẹlẹ."
+        },
+        {
+          "marks": 1,
+          "description": "Correct de to the pair de → dele."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that ẹ and e distinguish the paired forms."
+        }
+      ]
+    }
+  ]
+}

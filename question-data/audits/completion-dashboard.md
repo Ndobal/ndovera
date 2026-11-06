@@ -170,7 +170,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Data Processing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Digital Technologies | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | WAEC | Economics | 1000 | 29 | 25 | 0 | 975 | partial_objective_register |
-| WAEC | Edo | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| WAEC | Edo | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | WAEC | Efik | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | English Language | 1000 | 28 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Fashion Design and Garment Making | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -214,9 +214,9 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
-| WAEC | 1298 | 499 | 0 | 45000 | 44501 |
+| WAEC | 1302 | 503 | 0 | 45000 | 44497 |
 
-Overall: {"raw": 3401, "validDrafts": 1722, "reviewed": 0, "registeredBanks": 192, "target": 174000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3405, "validDrafts": 1726, "reviewed": 0, "registeredBanks": 192, "target": 174000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

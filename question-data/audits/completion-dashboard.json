@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3401,
-    "validDrafts": 1722,
+    "raw": 3405,
+    "validDrafts": 1726,
     "reviewed": 0,
     "registeredBanks": 192,
     "target": 174000,
@@ -780,6 +780,12 @@
     {
       "path": "original-multisubject-batch-108.json",
       "sha256": "ef943f7509c5eb5b6b631290247013a95bb37c8c8d39e4aa563f13f5e771844d",
+      "declared": 4,
+      "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-109.json",
+      "sha256": "e3b7b7c8251bd65cf66aafac6dee175cda876bc0ffbd8797fa2973f01390a9d3",
       "declared": 4,
       "actual": 4
     },
@@ -4841,16 +4847,20 @@
       "target": 1000,
       "specificationId": "waec-edo-prescribed-texts-2026-2030",
       "scopeStatus": "official_2026_2030_prescribed_text_source_full_specification_pending",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 4,
+      "validDrafts": 4,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "structured": 4
+      },
+      "difficulty": {
+        "standard": 4
+      },
+      "remaining": 996,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "WAEC",
@@ -5447,10 +5457,10 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -30369,6 +30379,30 @@
     {
       "id": "ndv-108-004",
       "file": "original-multisubject-batch-108.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-109-001",
+      "file": "original-multisubject-batch-109.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-109-002",
+      "file": "original-multisubject-batch-109.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-109-003",
+      "file": "original-multisubject-batch-109.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-109-004",
+      "file": "original-multisubject-batch-109.json",
       "index": 3,
       "errors": []
     },
@@ -55361,6 +55395,122 @@
       },
       "sourceSections": [
         "WAEC Arabic Paper 2, school candidates 2023, Part I Question 4, informal correspondence"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Sound and spelling",
+      "subtopic": "The Edo vowels o and ọ",
+      "learningObjective": "Distinguish /o/ and /ɔ/ through their spellings in Edo vocabulary.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "waec-edo-109-1-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Edo Paper 2, school candidates 2023, Question 2 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Sound and spelling",
+      "subtopic": "Consonant digraph kh",
+      "learningObjective": "Locate the spelling kh for /x/ in Edo words and distinguish letters from sounds.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "waec-edo-109-2-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Edo Paper 2, school candidates 2023, Question 3 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Numerals",
+      "subtopic": "Reading and correcting stock labels",
+      "learningObjective": "Interpret and spell selected Edo numerals in a written record.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "waec-edo-109-3-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Edo Paper 2, school candidates 2023, Question 4 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Word forms",
+      "subtopic": "Paired verb forms",
+      "learningObjective": "Recognise a mismatched singular and plural verb pair and restore its counterpart.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "waec-edo-109-4-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC Edo Paper 2, school candidates 2023, Question 5 examiner observations"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null,

@@ -575,3 +575,9 @@ Batch 108 adds four WAEC Arabic writing drafts on adjective agreement,
 tense consistency, pronoun clarity and informal correspondence.
 Historical Paper 2 evidence supports provisional mapping. Editing tasks
 use original classroom formats. Current paper rules and editions remain open.
+
+Batch 109 adds four WAEC Edo drafts on vowel and consonant spelling,
+written numerals and paired verb forms. Original classroom tasks use
+English instructions and Edo response targets. Historical Paper 2
+observations support provisional mappings. Current paper rules,
+marking and primary editions remain open.

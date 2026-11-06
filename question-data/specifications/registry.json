@@ -1812,6 +1812,20 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "2023 school-candidate Paper 2 examiner material documents grammatical accuracy in writing and informal correspondence. Specific editing exercises are author-designed classroom practice. Current scheme and prescribed editions remain unverified."
+    },
+    {
+      "id": "waec-edo-paper-2-language-evidence-2023",
+      "exam": "WAEC",
+      "subject": "Edo",
+      "kind": "official_historical_examiner_reference",
+      "source": "https://www.waeconline.org.ng/e-learning/Edo/Edo240mq2.html",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Edo/Edo240mq3.html",
+        "https://www.waeconline.org.ng/e-learning/Edo/Edo240mq4.html",
+        "https://www.waeconline.org.ng/e-learning/Edo/Edo240mq5.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "2023 WASSCE school-candidate Paper 2 examiner reports document vowel and consonant identification, numeral spelling and paired verb forms. Original classroom tasks use English instructions and Edo response targets. Current paper instructions, objectives and marking remain unverified."
     }
   ],
   "banks": [
@@ -11272,6 +11286,74 @@
       ],
       "sourceSections": [
         "WAEC Arabic Paper 2, school candidates 2023, Part I Question 4, informal correspondence"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Sound and spelling",
+      "subtopic": "The Edo vowels o and ọ",
+      "learningObjective": "Distinguish /o/ and /ɔ/ through their spellings in Edo vocabulary.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "waec-edo-109-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Edo Paper 2, school candidates 2023, Question 2 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Sound and spelling",
+      "subtopic": "Consonant digraph kh",
+      "learningObjective": "Locate the spelling kh for /x/ in Edo words and distinguish letters from sounds.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "waec-edo-109-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Edo Paper 2, school candidates 2023, Question 3 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Numerals",
+      "subtopic": "Reading and correcting stock labels",
+      "learningObjective": "Interpret and spell selected Edo numerals in a written record.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "waec-edo-109-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Edo Paper 2, school candidates 2023, Question 4 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Edo",
+      "topic": "Word forms",
+      "subtopic": "Paired verb forms",
+      "learningObjective": "Recognise a mismatched singular and plural verb pair and restore its counterpart.",
+      "specificationId": "waec-edo-paper-2-language-evidence-2023",
+      "id": "waec-edo-109-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Edo Paper 2, school candidates 2023, Question 5 examiner observations"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null
