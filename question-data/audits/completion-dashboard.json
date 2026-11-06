@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3365,
-    "validDrafts": 1686,
+    "raw": 3369,
+    "validDrafts": 1690,
     "reviewed": 0,
     "registeredBanks": 189,
     "target": 171000,
@@ -726,6 +726,12 @@
     {
       "path": "original-multisubject-batch-099.json",
       "sha256": "de15de149d524fb6ba3be1f0e7bf25b3ebf5b4131bca044f1ea445e283681dae",
+      "declared": 4,
+      "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-100.json",
+      "sha256": "22901a63da62ef6c88e499e43c7335154fd9e1ff9f3a724139380af4892517e7",
       "declared": 4,
       "actual": 4
     },
@@ -2288,7 +2294,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_formats_provisional_composition_objectives",
       "paperFormats": {
         "II": "essay and literature (paired with Paper III)",
         "III": "objective (paired with Paper II)",
@@ -2299,16 +2305,21 @@
         "III": "4003",
         "IV": "4004"
       },
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 4,
+      "validDrafts": 4,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "structured": 4
+      },
+      "difficulty": {
+        "standard": 2,
+        "difficult": 2
+      },
+      "remaining": 996,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "NECO",
@@ -5298,18 +5309,18 @@
     }
   ],
   "errorCounts": {
+    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 243,
@@ -30008,6 +30019,30 @@
       "errors": []
     },
     {
+      "id": "ndv-100-001",
+      "file": "original-multisubject-batch-100.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-100-002",
+      "file": "original-multisubject-batch-100.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-100-003",
+      "file": "original-multisubject-batch-100.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-100-004",
+      "file": "original-multisubject-batch-100.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -54124,6 +54159,64 @@
       },
       "sourceSections": [
         "NECO Paper IV (format only); CEFR Companion Volume, goal-oriented co-operation"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "difficult": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-arabic-100-1-v1",
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التعبير الكتابي",
+      "subtopic": "السرد والوصف",
+      "learningObjective": "كتابة نص مترابط يوضح تسلسل الأحداث أو يصف مكانا بتفاصيل مناسبة.",
+      "specificationId": "neco-arabic-written-reference-2026",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "NECO combined Papers II and III (format only); WAEC Arabic Paper 2 examiner report, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-arabic-100-2-v1",
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التعبير الكتابي",
+      "subtopic": "التعليل والمقارنة",
+      "learningObjective": "بناء رأي معلل ومقارنة بدائل في سياق مدرسي.",
+      "specificationId": "neco-arabic-written-reference-2026",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "NECO combined Papers II and III (format only); WAEC Arabic Paper 2 examiner report, 2023"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,

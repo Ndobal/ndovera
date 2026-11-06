@@ -1439,6 +1439,19 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "NECO timetable confirms Oral French Paper IV (4034). Council of Europe oral interaction descriptors inform original classroom tasks. No NECO adoption of CEFR levels or task types is asserted. Official task instructions and marking remain unverified."
+    },
+    {
+      "id": "neco-arabic-written-reference-2026",
+      "exam": "NECO",
+      "subject": "Arabic",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Arabic/Arab240mp1q1.html",
+        "https://www.waeconline.org.ng/e-learning/Arabic/Arab240mw.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "The NECO 2026 Internal timetable lists combined objective, essay and literature papers 4003 and 4002, plus oral 4004. Historical WAEC composition evidence informs original classroom rubrics provisionally. NECO detailed component distribution, set texts and marking remain unverified."
     }
   ],
   "banks": [
@@ -3015,7 +3028,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_2026_internal_formats_provisional_composition_objectives",
       "paperFormats": {
         "II": "essay and literature (paired with Paper III)",
         "III": "objective (paired with Paper II)",
@@ -10361,6 +10374,40 @@
       ],
       "sourceSections": [
         "NECO Paper IV (format only); CEFR Companion Volume, goal-oriented co-operation"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-arabic-100-1-v1",
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التعبير الكتابي",
+      "subtopic": "السرد والوصف",
+      "learningObjective": "كتابة نص مترابط يوضح تسلسل الأحداث أو يصف مكانا بتفاصيل مناسبة.",
+      "specificationId": "neco-arabic-written-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO combined Papers II and III (format only); WAEC Arabic Paper 2 examiner report, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-arabic-100-2-v1",
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التعبير الكتابي",
+      "subtopic": "التعليل والمقارنة",
+      "learningObjective": "بناء رأي معلل ومقارنة بدائل في سياق مدرسي.",
+      "specificationId": "neco-arabic-written-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO combined Papers II and III (format only); WAEC Arabic Paper 2 examiner report, 2023"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

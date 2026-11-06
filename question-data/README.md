@@ -521,3 +521,6 @@ requirements remain unverified, as do Music Paper I instructions.
 Batch 099 adds four supervised NECO French oral interaction tasks
 with separate examiner scripts and provisional marking guides.
 Official NECO oral delivery and marking remain unverified.
+
+Batch 100 adds four original NECO Arabic composition drafts.
+Official oral tasks, prescribed texts and marking remain unverified.

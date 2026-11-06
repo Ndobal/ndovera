@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Arabic composition practice",
+  "questionCount": 4,
+  "note": "Original short Arabic composition practice. Classroom length and rubrics are provisional. Official NECO prescribed texts and marking remain unverified.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التعبير الكتابي",
+      "subtopic": "السرد والوصف",
+      "learningObjective": "كتابة نص مترابط يوضح تسلسل الأحداث أو يصف مكانا بتفاصيل مناسبة.",
+      "specificationId": "neco-arabic-written-reference-2026",
+      "id": "ndv-100-001",
+      "objectiveId": "neco-arabic-100-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "اكتب فقرة عن يوم تغيّر فيه برنامج نشاط مدرسي فجأة. اذكر ما كان مقررا، وسبب التغيير، وما فعله الطلاب بعد ذلك.",
+      "answer": "كان نادي القراءة في مدرستنا يعتزم عقد لقاء في الساحة بعد الظهر. وقبل بدء اللقاء هطل مطر غزير، فلم يعد الجلوس في الخارج ممكنا. اقترحت إحدى الطالبات نقل اللقاء إلى المكتبة، فحملنا الكتب إليها ورتبنا المقاعد في دائرة. بدأ اللقاء متأخرا قليلا، لكن كل مجموعة استطاعت أن تعرض كتابها.",
+      "explanation": "المطلوب سرد مترابط يبين الخطة الأولى والسبب والاستجابة. تقبل أحداث مختلفة إذا استوفت المطلوب.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "ذكر النشاط الذي كان مقررا."
+        },
+        {
+          "marks": 1,
+          "description": "بيان سبب التغيير."
+        },
+        {
+          "marks": 1,
+          "description": "سرد استجابة الطلاب بترتيب واضح."
+        },
+        {
+          "marks": 1,
+          "description": "استعمال لغة عربية مفهومة وروابط مناسبة."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التعبير الكتابي",
+      "subtopic": "السرد والوصف",
+      "learningObjective": "كتابة نص مترابط يوضح تسلسل الأحداث أو يصف مكانا بتفاصيل مناسبة.",
+      "specificationId": "neco-arabic-written-reference-2026",
+      "id": "ndv-100-002",
+      "objectiveId": "neco-arabic-100-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "صف لزميل جديد ركن القراءة في مدرستك أو في مدرسة تتخيلها. اذكر موقعه، وصِف شيئين يراهما عند الدخول، وبيّن ما يستطيع فعله هناك.",
+      "answer": "يقع ركن القراءة بجوار غرفة المعلمين. عند الدخول يرى الزائر رفوفا منخفضة على اليمين وطاولة مستديرة قرب النافذة. على كل رف بطاقة تدل على نوع الكتب الموجودة فيه. يستطيع الطالب أن يختار قصة ويقرأها في هدوء، أو أن يسجل اسم الكتاب لدى المسؤول إذا أراد استعارته.",
+      "explanation": "ينظم النموذج الوصف من الموقع إلى تفاصيل المكان ثم إلى استخدامه. تقبل تفاصيل أخرى ملائمة.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "تحديد موقع الركن."
+        },
+        {
+          "marks": 1,
+          "description": "وصف شيئين يمكن رؤيتهما."
+        },
+        {
+          "marks": 1,
+          "description": "توضيح نشاط يستطيع الزائر القيام به."
+        },
+        {
+          "marks": 1,
+          "description": "ترتيب الوصف واستعمال لغة مفهومة."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التعبير الكتابي",
+      "subtopic": "التعليل والمقارنة",
+      "learningObjective": "بناء رأي معلل ومقارنة بدائل في سياق مدرسي.",
+      "specificationId": "neco-arabic-written-reference-2026",
+      "id": "ndv-100-003",
+      "objectiveId": "neco-arabic-100-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "أمام نادي المدرسة خياران لتشجيع القراءة: عرض كتاب كل أسبوع أو تنظيم لقاء شهري لمناقشة كتاب. قارن بين الخيارين من حيث الوقت والمشاركة، ثم اختر أحدهما وعلّل اختيارك.",
+      "answer": "يتيح العرض الأسبوعي التعرف إلى كتب كثيرة في وقت قصير، لكن عددا قليلا من الطلاب قد يتحدث في كل مرة. أما اللقاء الشهري فيحتاج إلى وقت أطول في يوم انعقاده، لكنه يمنح الأعضاء فرصة لتبادل الآراء بعد قراءة الكتاب. أختار اللقاء الشهري لأن هدف النادي أن يشارك أكبر عدد من الأعضاء في المناقشة، ويمكن توزيعهم على مجموعات صغيرة.",
+      "explanation": "تقبل أي توصية تقارن الخيارين وفق المعيارين وتربط الاختيار بسبب واضح.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "مقارنة الخيارين من حيث الوقت."
+        },
+        {
+          "marks": 1,
+          "description": "مقارنتهما من حيث فرص المشاركة."
+        },
+        {
+          "marks": 1,
+          "description": "اختيار بديل واضح وتعليله."
+        },
+        {
+          "marks": 1,
+          "description": "ربط الأفكار بلغة عربية مفهومة."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Arabic",
+      "topic": "التعبير الكتابي",
+      "subtopic": "التعليل والمقارنة",
+      "learningObjective": "بناء رأي معلل ومقارنة بدائل في سياق مدرسي.",
+      "specificationId": "neco-arabic-written-reference-2026",
+      "id": "ndv-100-004",
+      "objectiveId": "neco-arabic-100-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "يقترح أحد الطلاب منع إعارة أدوات النادي حتى لا تضيع. اكتب فقرة تبين فائدة محتملة لهذا الاقتراح وعيبا فيه، ثم اقترح طريقة تحافظ على الأدوات وتسمح باستعمالها.",
+      "answer": "قد يقل فقدان الأدوات إذا بقيت في الخزانة، لكن منع إعارتها سيحرم الطلاب من استعمالها في الأنشطة التي تقام خارج غرفة النادي. أقترح أن يسجل المسؤول اسم المستعير والأداة وموعد إعادتها، وأن يفحص الأداة عند تسلمها. وبهذا يمكن متابعة الأدوات مع استمرار الاستفادة منها.",
+      "explanation": "الإجابة توازن بين الحماية وإتاحة الاستعمال وتقدم إجراء قابلا للتنفيذ.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "ذكر فائدة محتملة للمنع."
+        },
+        {
+          "marks": 1,
+          "description": "شرح عيب ذي صلة."
+        },
+        {
+          "marks": 1,
+          "description": "اقتراح بديل يحقق الحماية وإتاحة الاستعمال."
+        },
+        {
+          "marks": 1,
+          "description": "عرض الأفكار في فقرة مترابطة."
+        }
+      ]
+    }
+  ]
+}
