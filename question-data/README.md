@@ -585,3 +585,7 @@ marking and primary editions remain open.
 Batch 110 adds four WAEC Efik drafts on articulation, low-tone spelling,
 adjectives and imperatives. Historical Paper 2 observations support the
 provisional mappings. Current paper rules and editions remain open.
+
+Batch 111 adds three WAEC Ibibio drafts on consonant articulation,
+tone patterns and lexical borrowing. Historical Paper 2 observations
+support provisional mappings. Current paper rules and editions remain open.

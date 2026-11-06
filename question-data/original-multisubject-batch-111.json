@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Ibibio language practice",
+  "questionCount": 3,
+  "note": "Original written classroom tasks using historical examiner evidence. Current exam scheme and prescribed editions remain unverified.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Ibibio",
+      "topic": "Sound system",
+      "subtopic": "Place of articulation",
+      "learningObjective": "Diagnose an incorrect explanation of the closure for /k/.",
+      "specificationId": "waec-ibibio-paper-2-language-evidence-2022",
+      "id": "ndv-111-001",
+      "objectiveId": "waec-ibibio-111-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A student writing an Ibibio pronunciation guide says that /k/ is made by closing both lips before releasing the air. Identify the consonant this instruction would describe instead and rewrite the instruction for /k/.",
+      "answer": "The instruction describes /p/. For /k/, raise the back of the tongue to the soft palate, block the airflow briefly, then release the closure.",
+      "explanation": "Both sounds involve a temporary closure and release. The articulators differ. The lips make the closure for /p/ and the back of the tongue and soft palate make it for /k/.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify /p/."
+        },
+        {
+          "marks": 1,
+          "description": "Name the back of the tongue and soft palate for /k/."
+        },
+        {
+          "marks": 1,
+          "description": "Describe a brief closure followed by release."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Ibibio",
+      "topic": "Sound system",
+      "subtopic": "Tone patterns across syllables",
+      "learningObjective": "Read written high and low tone marks in an Ibibio word.",
+      "specificationId": "waec-ibibio-paper-2-language-evidence-2022",
+      "id": "ndv-111-002",
+      "objectiveId": "waec-ibibio-111-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A learner transcribes the tone pattern of Èkámbá as high–high–high and the pattern of Údómó as high–high–high. Which entry needs a correction? Write the corrected pattern and identify the mark that supports the change.",
+      "answer": "Èkámbá needs correction. Its pattern is low–high–high. The grave accent on È marks low tone.",
+      "explanation": "The grave accent on the first vowel of Èkámbá marks a low tone, while the acute accents mark high tones. Údómó has three acute accents.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Select Èkámbá."
+        },
+        {
+          "marks": 1,
+          "description": "Give low–high–high in order."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the grave accent on È as evidence."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Ibibio",
+      "topic": "Vocabulary",
+      "subtopic": "Borrowing and sound adaptation",
+      "learningObjective": "Use an attested Ibibio loanword to explain adaptation of a borrowed form.",
+      "specificationId": "waec-ibibio-paper-2-language-evidence-2022",
+      "id": "ndv-111-003",
+      "objectiveId": "waec-ibibio-111-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "In an Ibibio school glossary, a pupil pairs the English subject name “chemistry” with Kemistri. Another pupil argues that a borrowed word must have exactly the same spelling as its source. Use this pair to explain why the rule is wrong and point out one spelling change.",
+      "answer": "Kemistri is an Ibibio borrowing from English chemistry. Borrowed vocabulary can be adapted to the receiving language. For example, the initial English ch is written k in Kemistri.",
+      "explanation": "In this pair the name of the school subject is retained while the spelling is adapted. The pair supplies concrete evidence that borrowing does not require copying every letter.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify Kemistri as the Ibibio borrowing."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that the receiving language may adapt the form."
+        },
+        {
+          "marks": 1,
+          "description": "Give an accurate spelling comparison, such as initial ch becoming k."
+        }
+      ]
+    }
+  ]
+}

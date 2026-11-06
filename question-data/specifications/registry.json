@@ -1840,6 +1840,19 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "2023 WASSCE school-candidate Paper 2 observations support consonant articulation, tone, adjective function and imperatives. These drafts use English instructions with Efik where the task requires it. Current paper rules, marking and prescribed editions remain unverified."
+    },
+    {
+      "id": "waec-ibibio-paper-2-language-evidence-2022",
+      "exam": "WAEC",
+      "subject": "Ibibio",
+      "kind": "official_historical_examiner_reference",
+      "source": "https://waeconline.org.ng/e-learning/Ibibio/Ibibio235mq3.html",
+      "topicReferences": [
+        "https://waeconline.org.ng/e-learning/Ibibio/Ibibio235mq2.html",
+        "https://waeconline.org.ng/e-learning/Ibibio/Ibibio235mq5.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "Historical school-candidate Paper 2 observations support articulation, lexical tone and borrowing. The page headings for questions 2 and 5 identify 2022 while their HTML titles say 2018. Tasks use English instructions with Ibibio response targets where appropriate. Current paper rules, marking and editions are unverified."
     }
   ],
   "banks": [
@@ -11436,6 +11449,57 @@
       ],
       "sourceSections": [
         "WAEC Efik Paper 2, school candidates 2023, Question 5 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Ibibio",
+      "topic": "Sound system",
+      "subtopic": "Place of articulation",
+      "learningObjective": "Diagnose an incorrect explanation of the closure for /k/.",
+      "specificationId": "waec-ibibio-paper-2-language-evidence-2022",
+      "id": "waec-ibibio-111-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Ibibio Paper 2, school candidates, Question 2 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Ibibio",
+      "topic": "Sound system",
+      "subtopic": "Tone patterns across syllables",
+      "learningObjective": "Read written high and low tone marks in an Ibibio word.",
+      "specificationId": "waec-ibibio-paper-2-language-evidence-2022",
+      "id": "waec-ibibio-111-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Ibibio Paper 2, school candidates, Question 3 examiner observations"
+      ],
+      "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Ibibio",
+      "topic": "Vocabulary",
+      "subtopic": "Borrowing and sound adaptation",
+      "learningObjective": "Use an attested Ibibio loanword to explain adaptation of a borrowed form.",
+      "specificationId": "waec-ibibio-paper-2-language-evidence-2022",
+      "id": "waec-ibibio-111-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC Ibibio Paper 2, school candidates, Question 5 examiner observations"
       ],
       "mappingStatus": "provisional_historical_examiner_reference_pending_academic_review",
       "officialObjectiveCode": null
