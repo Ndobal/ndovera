@@ -1,0 +1,538 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Physics 0625 waves and electricity",
+  "questionCount": 10,
+  "note": "Original Core and Extended theory and multiple-choice drafts mapped to selected 2026–2028 version 2 objectives. Academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Energy and motion",
+      "learningObjective": "Distinguish energy transfer from net motion of a medium.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-001",
+      "objectiveId": "igcse-0625-113-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A pulse travels along a horizontal rope and rings a small bell attached at the far end. A ribbon tied halfway along the rope moves up and down as the pulse passes. What does the observation show?",
+      "answer": "The pulse transfers energy to the bell while the ribbon oscillates locally.",
+      "explanation": "The disturbance travels along the rope. The ribbon is attached to one part of the medium and does not travel to the bell.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "The ribbon transfers matter to the bell.",
+        "The bell can ring only if the ribbon reaches it.",
+        "The pulse transfers energy to the bell while the ribbon oscillates locally.",
+        "The rope carries neither energy nor a disturbance."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Wave speed from crest spacing",
+      "learningObjective": "Infer wavelength from a span of crests and calculate wave speed.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-002",
+      "objectiveId": "igcse-0625-113-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A still image shows five consecutive ripple crests. Along the direction of travel, the distance from the first crest to the fifth is 0.72 m. The ripple source produces 2.5 cycles per second. Calculate the speed.",
+      "answer": "0.45 m/s.",
+      "explanation": "Five crests enclose four wavelengths. One wavelength is 0.72/4 = 0.18 m. Multiply by 2.5 Hz.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognise four wavelength intervals."
+        },
+        {
+          "marks": 1,
+          "description": "Obtain 0.18 m for one wavelength."
+        },
+        {
+          "marks": 1,
+          "description": "Use v = fλ and obtain 0.45 m/s."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "0.72/4*2.5",
+          "expected": "0.45",
+          "purpose": "Verify the calculation in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Diffraction at an opening",
+      "learningObjective": "Compare diffraction by relating wavelength to gap width.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-003",
+      "objectiveId": "igcse-0625-113-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A harbour model has an opening 8 cm wide. In separate trials, incoming water waves have wavelengths 1 cm and 8 cm. Which trial should show greater spreading beyond the opening, and why?",
+      "answer": "The 8 cm waves spread more because the wavelength is comparable with the opening width.",
+      "explanation": "The 1 cm waves encounter an opening many wavelengths wide and spread less. Diffraction is more pronounced when the opening is comparable to the wavelength.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Choose the 8 cm waves."
+        },
+        {
+          "marks": 1,
+          "description": "Compare each wavelength with the same opening width."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why a comparable wavelength gives more pronounced spreading."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Pitch and loudness",
+      "learningObjective": "Predict sound changes when frequency and amplitude vary independently.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-004",
+      "objectiveId": "igcse-0625-113-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A loudspeaker produces a steady tone. Its controller raises the frequency and reduces the vibration amplitude. What does a listener at the same position hear, assuming the amplitude of the sound at the listener also falls?",
+      "answer": "A higher-pitched and quieter sound.",
+      "explanation": "Pitch rises with frequency. Lower sound-wave amplitude makes the sound quieter, all else equal.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "A higher-pitched and louder sound.",
+        "A higher-pitched and quieter sound.",
+        "A lower-pitched and quieter sound.",
+        "A lower-pitched and louder sound."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Echo sounding",
+      "learningObjective": "Use a round-trip ultrasonic travel time to determine depth.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-005",
+      "objectiveId": "igcse-0625-113-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A survey boat over a level riverbed receives an ultrasound echo 0.024 s after sending a vertical pulse. Sound travels at 1500 m/s in the water. How deep is the river at the boat? Explain why the measured time is not the one-way time.",
+      "answer": "18 m. The pulse travels down to the riverbed and back up.",
+      "explanation": "The total path is 1500 × 0.024 = 36 m. Divide by two for depth.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the two legs of the pulse path."
+        },
+        {
+          "marks": 1,
+          "description": "Calculate the total distance as 36 m."
+        },
+        {
+          "marks": 1,
+          "description": "Obtain a depth of 18 m."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "1500*0.024/2",
+          "expected": 18,
+          "purpose": "Verify the calculation in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Charge passing a point",
+      "learningObjective": "Use current as rate of flow to compare charge transfers.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-006",
+      "objectiveId": "igcse-0625-113-6-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "Two test lamps run separately. Lamp A takes 0.30 A for 80 s, while lamp B takes 0.50 A for 40 s. Through which lamp does more charge pass, and by how much?",
+      "answer": "Lamp A, by 4 C.",
+      "explanation": "Q = It gives 24 C for A and 20 C for B. The larger current in B does not offset its shorter running time.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use Q = It."
+        },
+        {
+          "marks": 1,
+          "description": "Find 24 C and 20 C."
+        },
+        {
+          "marks": 1,
+          "description": "Identify A and the difference of 4 C."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "0.30*80-0.50*40",
+          "expected": 4,
+          "purpose": "Verify the calculation in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Wire resistance",
+      "learningObjective": "Combine the effects of length and cross-sectional area.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-007",
+      "objectiveId": "igcse-0625-113-7-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 2,
+      "type": "mcq",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A replacement metal wire has three times the length and twice the cross-sectional area of the original wire. Both wires are of the same material and at the same temperature. What is the resistance of the replacement relative to the original?",
+      "answer": "1.5 times the original resistance.",
+      "explanation": "Resistance is proportional to length and inversely proportional to area, so the scale factor is 3/2.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "2/3 of the original resistance.",
+        "Unchanged.",
+        "1.5 times the original resistance.",
+        "6 times the original resistance."
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "3/2",
+          "expected": "1.5",
+          "purpose": "Verify the calculation in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Parallel lighting",
+      "learningObjective": "Explain the operational advantage of parallel lighting branches.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-008",
+      "objectiveId": "igcse-0625-113-8-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Core",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "prompt": "A school display cabinet uses two lamps. Each lamp must stay lit when the other lamp is removed. Describe how to connect the lamps to a low-voltage supply and explain why the arrangement meets the requirement.",
+      "answer": "Connect the lamps in parallel, with each lamp across the supply on a separate branch. Removing one lamp opens only its branch, leaving a complete path through the other.",
+      "explanation": "Each parallel branch provides its own current path. A single series path would be interrupted by removing either lamp.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Specify parallel branches across the supply."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that the other branch remains a complete circuit."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Current at a junction",
+      "learningObjective": "Use conservation of charge to diagnose a junction reading.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-009",
+      "objectiveId": "igcse-0625-113-9-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A technician claims steady currents of 1.20 A and 0.45 A flow into a junction, while 0.90 A and 0.55 A flow out. Assume those are the only four wires and the first three readings are correct. Determine the corrected fourth reading and explain the rule.",
+      "answer": "0.75 A out.",
+      "explanation": "Charge does not accumulate at a steady junction, so 1.20 + 0.45 = 0.90 + I. Thus I = 0.75 A.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Equate incoming and outgoing currents."
+        },
+        {
+          "marks": 1,
+          "description": "Calculate 0.75 A out."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that charge does not accumulate at a steady junction."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "1.20+0.45-0.90",
+          "expected": "0.75",
+          "purpose": "Verify the calculation in the worked answer."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Filament lamp resistance",
+      "learningObjective": "Use measured voltage and current to explain a filament’s nonconstant resistance.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-113-010",
+      "objectiveId": "igcse-0625-113-10-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "tier": "Extended",
+      "examinationYear": 2026,
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A filament lamp takes 0.20 A at 2.0 V and 0.30 A at 6.0 V. Is it behaving as a constant resistor? Use both readings and explain the observed change.",
+      "answer": "No. Its resistance rises from 10 Ω to 20 Ω because the filament heats as current rises.",
+      "explanation": "Use R = V/I at each operating point. The hotter metal filament has a greater resistance, so current does not increase in direct proportion to voltage.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Obtain 10 Ω and 20 Ω."
+        },
+        {
+          "marks": 1,
+          "description": "Conclude that resistance increases."
+        },
+        {
+          "marks": 1,
+          "description": "Link the increase to the filament heating."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "6/0.30-2/0.20",
+          "expected": 10,
+          "purpose": "Verify the calculation in the worked answer."
+        }
+      ]
+    }
+  ]
+}

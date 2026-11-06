@@ -11716,6 +11716,270 @@
         "Extended"
       ],
       "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Energy and motion",
+      "learningObjective": "Distinguish energy transfer from net motion of a medium.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-1-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "3.1 Core 1–2, p. 22"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Wave speed from crest spacing",
+      "learningObjective": "Infer wavelength from a span of crests and calculate wave speed.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "3.1 Core 3–4, p. 22"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Diffraction at an opening",
+      "learningObjective": "Compare diffraction by relating wavelength to gap width.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "3.1 Supplement 9, p. 23"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Pitch and loudness",
+      "learningObjective": "Predict sound changes when frequency and amplitude vary independently.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-4-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "3.4 Core 7, p. 27"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Waves",
+      "subtopic": "Echo sounding",
+      "learningObjective": "Use a round-trip ultrasonic travel time to determine depth.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-5-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "3.4 Supplement 12, p. 27"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Charge passing a point",
+      "learningObjective": "Use current as rate of flow to compare charge transfers.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-6-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "4.2.2 Supplement 5, p. 28"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Wire resistance",
+      "learningObjective": "Combine the effects of length and cross-sectional area.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-7-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "4.2.4 Supplement 5(a)–(b), p. 29"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Parallel lighting",
+      "learningObjective": "Explain the operational advantage of parallel lighting branches.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-8-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "4.3.2 Core 7, p. 30"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Current at a junction",
+      "learningObjective": "Use conservation of charge to diagnose a junction reading.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-9-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "4.3.2 Supplement 8(a) and 9, p. 30"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electricity and magnetism",
+      "subtopic": "Filament lamp resistance",
+      "learningObjective": "Use measured voltage and current to explain a filament’s nonconstant resistance.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-113-10-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "4.2.4 Supplement 4, p. 29"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "mapped_to_official_syllabus_pending_academic_review"
     }
   ],
   "scopeGaps": [

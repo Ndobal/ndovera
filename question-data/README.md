@@ -594,3 +594,8 @@ Batch 112 uses the downloaded Cambridge Physics 0625 version 2
 syllabus for 2026–2028. Eight original Core and Extended drafts
 cover selected Space physics objectives in multiple-choice and
 theory formats. Full objective coverage remains open.
+
+Batch 113 adds ten Cambridge IGCSE Physics 0625 waves and electricity
+drafts mapped to selected 2026–2028 version 2 objectives. It includes
+Core and Extended multiple-choice and theory practice. Full syllabus
+coverage and independent review remain open.
