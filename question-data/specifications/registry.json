@@ -1402,6 +1402,19 @@
       ],
       "retrievedOn": "2026-11-06",
       "note": "The NECO 2026 timetable confirms objective 4103 and essay 4102, with separate Papers I and IV. Historical WAEC Music examiner material informs provisional written topics. Official NECO objectives and detailed paper requirements remain unverified."
+    },
+    {
+      "id": "neco-music-aural-reference-2026",
+      "exam": "NECO",
+      "subject": "Music",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/Music/music327aq1A.html",
+        "https://www.waeconline.org.ng/e-Learning/Music/music335aq2A.html"
+      ],
+      "retrievedOn": "2026-11-06",
+      "note": "NECO timetable confirms Aural Music Paper IV (4104). Historical WAEC reports provide rhythm and melodic dictation topic evidence. Stimuli, delivery and marks are original provisional classroom material. Official NECO instructions remain unverified."
     }
   ],
   "banks": [
@@ -10220,6 +10233,42 @@
       "sourceSections": [
         "NECO 2026 SSCE Internal Papers II and III (format only)",
         "WAEC Music Paper 2 examiner material, 2023"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-music-097-1-v1",
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Aural music",
+      "subtopic": "Rhythmic dictation",
+      "learningObjective": "Transcribe and interpret heard rhythms in a stated metre.",
+      "specificationId": "neco-music-aural-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper IV (format only)",
+        "WAEC Music aural examiner report, 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-music-097-2-v1",
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Aural music",
+      "subtopic": "Melodic dictation",
+      "learningObjective": "Transcribe and compare heard melodic material with a supplied tonic.",
+      "specificationId": "neco-music-aural-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper IV (format only)",
+        "WAEC Music aural examiner report, 2022"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null

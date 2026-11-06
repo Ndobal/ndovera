@@ -511,3 +511,5 @@ and marking guides are original and provisional.
 Batch 096 adds eight NECO Music written theory drafts on metre,
 rhythm, relative keys and cadences. Topic alignment is provisional.
 Performance, music technology and aural assessment remain open.
+
+Batch 097 adds four provisional NECO Music aural tasks with original examiner-only playback scripts. The official Paper IV delivery and marks and Paper I specifications remain unresolved.

@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Music supervised aural practice",
+  "questionCount": 4,
+  "note": "Original live examiner stimuli. Do not show examinerScript or answer to learners during playback. Mapping and marking provisional; independent review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Aural music",
+      "subtopic": "Rhythmic dictation",
+      "learningObjective": "Transcribe and interpret heard rhythms in a stated metre.",
+      "specificationId": "neco-music-aural-reference-2026",
+      "id": "ndv-097-001",
+      "objectiveId": "neco-music-097-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Listen to a two-bar rhythm in 2/4. After the count-in, write its note and rest values on a single line with a barline between the measures.",
+      "answer": "Bar 1: crotchet, quaver, quaver. Bar 2: crotchet rest, crotchet.",
+      "explanation": "Each bar spans two crotchet beats. The silent first beat of bar 2 must be represented by a rest.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Notate the three values of bar 1 in order."
+        },
+        {
+          "marks": 1,
+          "description": "Place a crotchet rest at the start of bar 2."
+        },
+        {
+          "marks": 1,
+          "description": "Complete bar 2 with a crotchet and place the barline correctly."
+        }
+      ],
+      "examinerScript": "Keep this script out of view. At crotchet = 72, give two spoken count-in beats and play the following rhythm on a single sustained keyboard pitch, using the full written lengths: bar 1 crotchet, quaver, quaver; bar 2 crotchet rest, crotchet. Repeat twice with a fresh count-in and a pause for notation between playings."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Aural music",
+      "subtopic": "Rhythmic dictation",
+      "learningObjective": "Transcribe and interpret heard rhythms in a stated metre.",
+      "specificationId": "neco-music-aural-reference-2026",
+      "id": "ndv-097-002",
+      "objectiveId": "neco-music-097-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "You will hear a rhythm in 4/4. Write the rhythm with standard notation and indicate which sound continues across beat three without being struck again.",
+      "answer": "Crotchet on beat 1, quaver on beat 2, quaver beginning on the second half of beat 2 tied to a crotchet on beat 3, then crotchet on beat 4. The tied sound starts halfway through beat 2.",
+      "explanation": "The sound crosses a beat boundary without a new attack. A tie preserves that boundary in the notation.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Place the first two attacks on beats 1 and 2."
+        },
+        {
+          "marks": 1,
+          "description": "Place the next attack on the second half of beat 2 and tie across beat 3."
+        },
+        {
+          "marks": 1,
+          "description": "End with a crotchet on beat 4."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the onset of the sound that crosses beat 3."
+        }
+      ],
+      "examinerScript": "Keep this script out of view. At crotchet = 64, count four beats aloud and play one sustained pitch with note lengths of 1, 1/2, 1 1/2 and 1 crotchet beats, with no break in the third sound as it crosses beat 3. Repeat twice with the same count-in and tempo."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Aural music",
+      "subtopic": "Melodic dictation",
+      "learningObjective": "Transcribe and compare heard melodic material with a supplied tonic.",
+      "specificationId": "neco-music-aural-reference-2026",
+      "id": "ndv-097-003",
+      "objectiveId": "neco-music-097-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Listen to a one-bar melody in D major, 3/4. The examiner will sound D4 as a reference. Write the melody in treble clef with its key signature and note values.",
+      "answer": "D4 crotchet, F-sharp4 quaver, E4 quaver, D4 crotchet. Use the two-sharp key signature.",
+      "explanation": "The melody starts on the reference, rises to the third degree and descends by step back to the tonic.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use treble clef and the two-sharp signature."
+        },
+        {
+          "marks": 1,
+          "description": "Notate the four pitches in order."
+        },
+        {
+          "marks": 1,
+          "description": "Notate the four durations correctly."
+        }
+      ],
+      "examinerScript": "Keep this script out of view. Sound D4 as reference, pause, and count three beats at crotchet = 70. Play D4 crotchet, F-sharp4 quaver, E4 quaver, D4 crotchet at the same tempo. Repeat twice with the reference and count-in."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Aural music",
+      "subtopic": "Melodic dictation",
+      "learningObjective": "Transcribe and compare heard melodic material with a supplied tonic.",
+      "specificationId": "neco-music-aural-reference-2026",
+      "id": "ndv-097-004",
+      "objectiveId": "neco-music-097-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Listen to two short phrases with the same rhythm. The examiner gives G4 as the starting pitch for both. Write the pitch names of the last two notes in each phrase and say which phrase returns to the starting pitch.",
+      "answer": "Phrase A ends A4–G4 and returns to its starting pitch. Phrase B ends B4–D5 and finishes above its starting pitch.",
+      "explanation": "The shared beginning and rhythm make pitch the feature to compare. The closing notes determine which phrase returns to G4.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify both closing pitches of phrase A."
+        },
+        {
+          "marks": 1,
+          "description": "Identify both closing pitches of phrase B."
+        },
+        {
+          "marks": 1,
+          "description": "Identify phrase A as returning to G4."
+        }
+      ],
+      "examinerScript": "Keep this script out of view. Sound G4 as reference. At crotchet = 76, play four crotchets for phrase A (G4, B4, A4, G4), pause, then four crotchets for phrase B (G4, B4, B4, D5). Repeat the pair twice, keeping pitch register and tempo constant."
+    }
+  ]
+}

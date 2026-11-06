@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3351,
-    "validDrafts": 1672,
+    "raw": 3355,
+    "validDrafts": 1676,
     "reviewed": 0,
     "registeredBanks": 189,
     "target": 171000,
@@ -710,6 +710,12 @@
       "sha256": "30cdaa8490196656240e9555d7d23fe4b9bdd85c171b813ab12fe038f83f1ca5",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-097.json",
+      "sha256": "32ea4e4c32130480fbe419990f18b246649c0868b72ad243782492c8169ba9e2",
+      "declared": 4,
+      "actual": 4
     },
     {
       "path": "original-practice-batch-001.json",
@@ -3207,21 +3213,21 @@
         "I": "4101",
         "IV": "4104"
       },
-      "raw": 8,
-      "validDrafts": 8,
+      "raw": 12,
+      "validDrafts": 12,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 4,
-        "structured": 4
+        "structured": 8
       },
       "difficulty": {
         "easy": 2,
-        "standard": 4,
-        "difficult": 2
+        "standard": 6,
+        "difficult": 4
       },
-      "remaining": 992,
-      "mappedObjectives": 2,
-      "representedObjectives": 2,
+      "remaining": 988,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5275,18 +5281,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 243,
@@ -29901,6 +29907,30 @@
       "errors": []
     },
     {
+      "id": "ndv-097-001",
+      "file": "original-multisubject-batch-097.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-097-002",
+      "file": "original-multisubject-batch-097.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-097-003",
+      "file": "original-multisubject-batch-097.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-097-004",
+      "file": "original-multisubject-batch-097.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -53847,6 +53877,68 @@
       },
       "tiers": {
         "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-music-097-1-v1",
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Aural music",
+      "subtopic": "Rhythmic dictation",
+      "learningObjective": "Transcribe and interpret heard rhythms in a stated metre.",
+      "specificationId": "neco-music-aural-reference-2026",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper IV (format only)",
+        "WAEC Music aural examiner report, 2018"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-music-097-2-v1",
+      "exam": "NECO",
+      "subject": "Music",
+      "topic": "Aural music",
+      "subtopic": "Melodic dictation",
+      "learningObjective": "Transcribe and compare heard melodic material with a supplied tonic.",
+      "specificationId": "neco-music-aural-reference-2026",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "NECO 2026 SSCE Internal Paper IV (format only)",
+        "WAEC Music aural examiner report, 2022"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 1,
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
