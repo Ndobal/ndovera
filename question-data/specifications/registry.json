@@ -2022,6 +2022,33 @@
       "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_history.pdf",
       "retrievedOn": "2026-11-07",
       "note": "NECO lists objective papers 8341 and 8342. Historical NERDC JSS III pp. 16, 18 and 19 support provisional topics. The historical document has name errors and a problematic claim that a Berlin treaty awarded Nigerian territories to Britain; those details are not adopted in drafts. Current curriculum adoption, NECO topic allocation and official option count remain unverified."
+    },
+    {
+      "id": "neco-bece-history-verified-facts-2026",
+      "exam": "BECE",
+      "subject": "History",
+      "kind": "historical_curriculum_scope_with_authoritative_fact_checks",
+      "source": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_history.pdf",
+      "retrievedOn": "2026-11-07",
+      "factReferences": [
+        {
+          "url": "https://cdn.nationalarchives.gov.uk/documents/migrated-archives-5-guidance.pdf",
+          "supports": "Northern/Southern amalgamation in 1914, independence in 1960 and republic in 1963."
+        },
+        {
+          "url": "https://www.legislation.gov.uk/ukpga/Eliz2/8-9/55/body/enacted?view=plain",
+          "supports": "Section 1 sets 1 October 1960 and ends UK governmental responsibility for Nigeria."
+        },
+        {
+          "url": "https://nigeriareposit.nln.gov.ng/items/ba9c8bba-e14a-4a2a-8da2-7bb3e10c815c",
+          "supports": "National Library catalogue identifies Sir Frederick Lugard and documentary records of the 1914 amalgamation. Catalogue metadata only; full book not retrieved."
+        },
+        {
+          "url": "https://archiv.diplo.de/arc-en/the-political-archive/general-act-2684414",
+          "supports": "Berlin Conference dates, trade/navigation and colonial-claim rules, no specific borders drawn and no African representation."
+        }
+      ],
+      "note": "Correct the historical curriculum spelling Lord Laggard to Frederick Lugard. Its claim that a Berlin treaty awarded Nigerian territories to Britain is not an adequate account of the conference. The German archival explanation describes a framework for colonial claims, followed by further processes of conquest and administration. Fact checks do not establish current curriculum adoption or official NECO paper-level scope."
     }
   ],
   "banks": [
@@ -2860,7 +2887,8 @@
         "8342"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-history-2026-historical-reference"
+        "neco-bece-history-2026-historical-reference",
+        "neco-bece-history-verified-facts-2026"
       ]
     },
     {
@@ -15105,6 +15133,120 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Amalgamation",
+      "subtopic": "Date of administrative union",
+      "learningObjective": "Identify when Northern and Southern Nigeria were amalgamated.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Amalgamation, p. 18",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Independence date",
+      "learningObjective": "Identify the date on which Nigeria attained independence.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Independence Movement, p. 19",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Independence and republican status",
+      "learningObjective": "Distinguish independence from the later adoption of republican status.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Independence Movement, p. 19",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Amalgamation",
+      "subtopic": "Verified historical name",
+      "learningObjective": "Identify Frederick Lugard in the history of amalgamation.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Amalgamation, p. 18",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Evolution of the Nigerian State",
+      "subtopic": "Berlin Conference scope",
+      "learningObjective": "Describe the Berlin Conference as establishing a colonial framework rather than drawing all borders.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Evolution of the Nigerian State, p. 17; fact correction recorded",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Evolution of the Nigerian State",
+      "subtopic": "Representation and consent",
+      "learningObjective": "Distinguish a colonial-powers agreement from African political consent.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Evolution of the Nigerian State, p. 17; fact correction recorded",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -15133,6 +15275,6 @@
     "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.",
     "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
     "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
-    "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. Historical NERDC name errors and its Berlin treaty claim require independent correction against authoritative historical sources before those details inform drafts."
+    "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding."
   ]
 }

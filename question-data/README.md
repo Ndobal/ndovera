@@ -722,3 +722,9 @@ drafts on colonial rule, amalgamation and nationalism. Historical
 NERDC topic mapping is provisional. Name errors and a problematic
 Berlin treaty claim in that source are recorded for verification.
 Current adoption, NECO topic allocation and option counts remain open.
+
+Batch 134 adds six BECE History drafts with authoritative checks on
+amalgamation, independence, republican status, Lugard and the Berlin
+Conference. The source register corrects the Lugard spelling and
+qualifies the curriculum's Berlin treaty claim. Current syllabus
+adoption, paper-level scope and independent review remain open.

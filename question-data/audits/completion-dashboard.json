@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3600,
-    "validDrafts": 1921,
+    "raw": 3606,
+    "validDrafts": 1927,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -934,6 +934,12 @@
       "actual": 6
     },
     {
+      "path": "original-multisubject-batch-134.json",
+      "sha256": "fe30acacdd9685ebb4a079036a693655dd59d5571fbdcce9d640783159d31c31",
+      "declared": 6,
+      "actual": 6
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1329,20 +1335,21 @@
         "8342"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-history-2026-historical-reference"
+        "neco-bece-history-2026-historical-reference",
+        "neco-bece-history-verified-facts-2026"
       ],
-      "raw": 6,
-      "validDrafts": 6,
+      "raw": 12,
+      "validDrafts": 12,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 6
+        "mcq": 12
       },
       "difficulty": {
-        "standard": 6
+        "standard": 12
       },
-      "remaining": 994,
-      "mappedObjectives": 6,
-      "representedObjectives": 6,
+      "remaining": 988,
+      "mappedObjectives": 12,
+      "representedObjectives": 12,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5689,17 +5696,17 @@
   ],
   "errorCounts": {
     "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81,
-    "explanation_missing": 81
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -31804,6 +31811,42 @@
     {
       "id": "ndv-133-006",
       "file": "original-multisubject-batch-133.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-134-001",
+      "file": "original-multisubject-batch-134.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-134-002",
+      "file": "original-multisubject-batch-134.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-134-003",
+      "file": "original-multisubject-batch-134.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-134-004",
+      "file": "original-multisubject-batch-134.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-134-005",
+      "file": "original-multisubject-batch-134.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-134-006",
+      "file": "original-multisubject-batch-134.json",
       "index": 5,
       "errors": []
     },
@@ -62532,6 +62575,192 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Amalgamation",
+      "subtopic": "Date of administrative union",
+      "learningObjective": "Identify when Northern and Southern Nigeria were amalgamated.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-01-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Amalgamation, p. 18",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Independence date",
+      "learningObjective": "Identify the date on which Nigeria attained independence.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-02-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Independence Movement, p. 19",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Independence and republican status",
+      "learningObjective": "Distinguish independence from the later adoption of republican status.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-03-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Independence Movement, p. 19",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Amalgamation",
+      "subtopic": "Verified historical name",
+      "learningObjective": "Identify Frederick Lugard in the history of amalgamation.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-04-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Amalgamation, p. 18",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Evolution of the Nigerian State",
+      "subtopic": "Berlin Conference scope",
+      "learningObjective": "Describe the Berlin Conference as establishing a colonial framework rather than drawing all borders.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-05-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Evolution of the Nigerian State, p. 17; fact correction recorded",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Evolution of the Nigerian State",
+      "subtopic": "Representation and consent",
+      "learningObjective": "Distinguish a colonial-powers agreement from African political consent.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "bece-history-134-06-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "Historical NERDC History, JSS III, Evolution of the Nigerian State, p. 17; fact correction recorded",
+        "Authoritative fact references in source register"
+      ],
+      "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -62560,6 +62789,6 @@
     "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.",
     "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
     "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
-    "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. Historical NERDC name errors and its Berlin treaty claim require independent correction against authoritative historical sources before those details inform drafts."
+    "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding."
   ]
 }

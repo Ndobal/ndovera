@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO BECE History JSS 3 fact-checked original practice",
+  "questionCount": 6,
+  "note": "Original drafts with historical curriculum scope and separately registered authoritative fact checks. Current adoption, paper-level scope and four-option convention remain provisional.",
+  "questions": [
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Amalgamation",
+      "subtopic": "Date of administrative union",
+      "learningObjective": "Identify when Northern and Southern Nigeria were amalgamated.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "ndv-134-001",
+      "objectiveId": "bece-history-134-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A museum timeline has a space for the joining of Northern and Southern Nigeria into the Colony and Protectorate of Nigeria. Which year belongs in that space?",
+      "options": [
+        "1914",
+        "1960",
+        "1963",
+        "1999"
+      ],
+      "correctOption": "A",
+      "answer": "1914",
+      "explanation": "The National Archives dates the amalgamation of the Northern and Southern protectorates to 1914.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Independence date",
+      "learningObjective": "Identify the date on which Nigeria attained independence.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "ndv-134-002",
+      "objectiveId": "bece-history-134-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A class is preparing a display about the end of British governmental responsibility for Nigeria. Which date marks Nigeria’s independence?",
+      "options": [
+        "1 January 1914",
+        "1 October 1960",
+        "1 October 1963",
+        "29 May 1999"
+      ],
+      "correctOption": "B",
+      "answer": "1 October 1960",
+      "explanation": "Section 1 of the Nigeria Independence Act 1960 specifies 1 October 1960 as the appointed day.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Independence and republican status",
+      "learningObjective": "Distinguish independence from the later adoption of republican status.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "ndv-134-003",
+      "objectiveId": "bece-history-134-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A learner writes that Nigeria first became independent when it became a republic in 1963. Which correction is accurate?",
+      "options": [
+        "Nigeria became a republic before amalgamation.",
+        "Nigeria remained under British governmental control until 1999.",
+        "Nigeria became independent in 1960 and a republic in 1963.",
+        "Independence and republican status both began in 1914."
+      ],
+      "correctOption": "C",
+      "answer": "Nigeria became independent in 1960 and a republic in 1963.",
+      "explanation": "The National Archives distinguishes independence in 1960 from the Federal Republic in 1963.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Amalgamation",
+      "subtopic": "Verified historical name",
+      "learningObjective": "Identify Frederick Lugard in the history of amalgamation.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "ndv-134-004",
+      "objectiveId": "bece-history-134-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "The National Library of Nigeria catalogues a documentary record containing a report by Sir Frederick Lugard on the amalgamation of Northern and Southern Nigeria. Which name should a pupil use when identifying this administrator?",
+      "options": [
+        "Herbert Macaulay",
+        "Anthony Enahoro",
+        "Nnamdi Azikiwe",
+        "Frederick Lugard"
+      ],
+      "correctOption": "D",
+      "answer": "Frederick Lugard",
+      "explanation": "The National Library catalogue identifies Sir Frederick Lugard. The historical curriculum’s spelling Lord Laggard is erroneous.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Evolution of the Nigerian State",
+      "subtopic": "Berlin Conference scope",
+      "learningObjective": "Describe the Berlin Conference as establishing a colonial framework rather than drawing all borders.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "ndv-134-005",
+      "objectiveId": "bece-history-134-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Which statement best matches the German Foreign Office archive’s account of the Berlin Conference of 1884–1885?",
+      "options": [
+        "It established rules for trade, navigation and colonial claims without drawing specific borders.",
+        "It granted Nigeria independence from Britain.",
+        "It drew every present-day African national boundary.",
+        "It elected Nigerian representatives to a new parliament."
+      ],
+      "correctOption": "A",
+      "answer": "It established rules for trade, navigation and colonial claims without drawing specific borders.",
+      "explanation": "The archival explanation distinguishes the framework agreed at Berlin from subsequent territorial developments.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Evolution of the Nigerian State",
+      "subtopic": "Representation and consent",
+      "learningObjective": "Distinguish a colonial-powers agreement from African political consent.",
+      "specificationId": "neco-bece-history-verified-facts-2026",
+      "id": "ndv-134-006",
+      "objectiveId": "bece-history-134-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Why would it be misleading to describe the Berlin Conference agreements as decisions freely made by African peoples?",
+      "options": [
+        "The conference occurred after Nigerian independence.",
+        "African representatives were not consulted in the conference process.",
+        "The conference took place in Nigeria.",
+        "All participating states were African kingdoms."
+      ],
+      "correctOption": "B",
+      "answer": "African representatives were not consulted in the conference process.",
+      "explanation": "The German Foreign Office archive states that African representatives were not consulted. Agreement among colonial powers cannot establish African consent.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

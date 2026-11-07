@@ -17,7 +17,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | French Language / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Hausa (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Hausa (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| BECE | History / JSS 3 | 1000 | 6 | 6 | 0 | 994 | partial_objective_register |
+| BECE | History / JSS 3 | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | BECE | Igbo (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Igbo (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Islamic Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -206,7 +206,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
-| BECE | 41 | 41 | 0 | 18000 | 17959 |
+| BECE | 47 | 47 | 0 | 18000 | 17953 |
 | IELTS | 121 | 112 | 0 | 4000 | 3888 |
 | IGCSE | 182 | 161 | 0 | 5000 | 4839 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
@@ -217,7 +217,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 104 | 95 | 0 | 4000 | 3905 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3600, "validDrafts": 1921, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3606, "validDrafts": 1927, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -248,4 +248,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.
 - NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.
 - NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.
-- NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. Historical NERDC name errors and its Berlin treaty claim require independent correction against authoritative historical sources before those details inform drafts.
+- NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding.
