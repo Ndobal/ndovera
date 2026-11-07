@@ -26,7 +26,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | Pre-Vocational Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Yoruba (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Yoruba (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| IELTS | Listening | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| IELTS | Listening | 1000 | 10 | 10 | 0 | 990 | partial_objective_register |
 | IELTS | Reading | 1000 | 68 | 62 | 0 | 938 | partial_objective_register |
 | IELTS | Speaking | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | IELTS | Writing | 1000 | 9 | 6 | 0 | 994 | partial_objective_register |
@@ -207,7 +207,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
 | BECE | 11 | 11 | 0 | 18000 | 17989 |
-| IELTS | 81 | 72 | 0 | 4000 | 3928 |
+| IELTS | 91 | 82 | 0 | 4000 | 3918 |
 | IGCSE | 182 | 161 | 0 | 5000 | 4839 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 155 | 126 | 0 | 9000 | 8874 |
@@ -217,7 +217,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3482, "validDrafts": 1803, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3492, "validDrafts": 1813, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -230,7 +230,7 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - NERDC supports 16 application class labels; many existing drafts say only Nursery, Primary, JSS or SS. Exact class, adopted curriculum version, term and objectives require source evidence.
 - NCEE official 2026 components include National Values Education and vocational aptitude. Existing Basic Science, Quantitative Reasoning and Verbal Reasoning labels need component mapping.
 - IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.
-- IELTS Reading/Writing require Academic versus General Training variants. Listening/Speaking need original audio assets and performance rubrics; MCQ writing advice is not a writing task.
+- IELTS Listening has one Academic Part 1 set for live delivery. Recorded audio, Parts 2–4 and remaining task formats are outstanding. IELTS Reading and Writing require separate Academic and General Training coverage. Speaking coverage and independent review remain incomplete.
 - TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.
 - Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.
 - Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.

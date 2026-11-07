@@ -1935,6 +1935,15 @@
       ],
       "acquisitionStatus": "official_syllabus_copy_not_retrieved",
       "note": "NECO identifies a separate syllabus for SSCE Internal. The guideline confirms availability only; it supplies no subject objectives and does not establish the SSCE External syllabus."
+    },
+    {
+      "id": "ielts-academic-listening-official-format",
+      "exam": "IELTS",
+      "subject": "Listening",
+      "kind": "official_test_format",
+      "source": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-listening",
+      "retrievedOn": "2026-11-07",
+      "note": "Part 1 uses a two-speaker conversation in an everyday context. Ten questions follow the information order. The recording is heard once and each correct response receives one mark. The format permits form completion with an explicit response limit."
     }
   ],
   "banks": [
@@ -2503,7 +2512,8 @@
       "subject": "Listening",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+      "scopeStatus": "official_part_1_format_mapped_live_delivery",
+      "specificationId": "ielts-academic-listening-official-format"
     },
     {
       "exam": "IELTS",
@@ -12956,6 +12966,186 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Start time",
+      "learningObjective": "Select the confirmed time after a proposed time is ruled out.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-01-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Participant surname",
+      "learningObjective": "Transcribe a surname spelled aloud.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-02-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Booking size",
+      "learningObjective": "Distinguish the number of places booked from an earlier estimate.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-03-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Workshop fee",
+      "learningObjective": "Select the fee for the requested activity.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-04-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Location landmark",
+      "learningObjective": "Identify a landmark from a paraphrased direction.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-05-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Item to bring",
+      "learningObjective": "Identify the item attendees must supply.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-06-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Loan equipment",
+      "learningObjective": "Identify the tool available to borrow.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-07-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Refreshment provided",
+      "learningObjective": "Distinguish a provided refreshment from one sold separately.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-08-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Confirmation channel",
+      "learningObjective": "Identify the agreed way the booking confirmation will be sent.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-09-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Arrival deadline",
+      "learningObjective": "Distinguish the registration deadline from the workshop start time.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-10-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -12966,7 +13156,7 @@
     "NERDC supports 16 application class labels; many existing drafts say only Nursery, Primary, JSS or SS. Exact class, adopted curriculum version, term and objectives require source evidence.",
     "NCEE official 2026 components include National Values Education and vocational aptitude. Existing Basic Science, Quantitative Reasoning and Verbal Reasoning labels need component mapping.",
     "IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.",
-    "IELTS Reading/Writing require Academic versus General Training variants. Listening/Speaking need original audio assets and performance rubrics; MCQ writing advice is not a writing task.",
+    "IELTS Listening has one Academic Part 1 set for live delivery. Recorded audio, Parts 2–4 and remaining task formats are outstanding. IELTS Reading and Writing require separate Academic and General Training coverage. Speaking coverage and independent review remain incomplete.",
     "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",

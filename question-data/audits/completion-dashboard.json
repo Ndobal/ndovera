@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3482,
-    "validDrafts": 1803,
+    "raw": 3492,
+    "validDrafts": 1813,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -856,6 +856,12 @@
       "actual": 5
     },
     {
+      "path": "original-multisubject-batch-121.json",
+      "sha256": "aafcb6a6dda37646c3822278958c2aa09b020dc8dfe29787ec9e27e65678b282",
+      "declared": 10,
+      "actual": 10
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1464,17 +1470,23 @@
       "subject": "Listening",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 0,
-      "validDrafts": 0,
+      "scopeStatus": "official_part_1_format_mapped_live_delivery",
+      "specificationId": "ielts-academic-listening-official-format",
+      "raw": 10,
+      "validDrafts": 10,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "shortanswer": 10
+      },
+      "difficulty": {
+        "standard": 7,
+        "easy": 3
+      },
+      "remaining": 990,
+      "mappedObjectives": 10,
+      "representedObjectives": 10,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "IELTS",
@@ -5571,18 +5583,18 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81,
     "invalid_score": 81,
-    "explanation_missing": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -30980,6 +30992,66 @@
       "id": "ndv-120-005",
       "file": "original-multisubject-batch-120.json",
       "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-001",
+      "file": "original-multisubject-batch-121.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-002",
+      "file": "original-multisubject-batch-121.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-003",
+      "file": "original-multisubject-batch-121.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-004",
+      "file": "original-multisubject-batch-121.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-005",
+      "file": "original-multisubject-batch-121.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-006",
+      "file": "original-multisubject-batch-121.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-007",
+      "file": "original-multisubject-batch-121.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-008",
+      "file": "original-multisubject-batch-121.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-009",
+      "file": "original-multisubject-batch-121.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-121-010",
+      "file": "original-multisubject-batch-121.json",
+      "index": 9,
       "errors": []
     },
     {
@@ -58293,6 +58365,306 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Start time",
+      "learningObjective": "Select the confirmed time after a proposed time is ruled out.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-01-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Participant surname",
+      "learningObjective": "Transcribe a surname spelled aloud.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-02-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Booking size",
+      "learningObjective": "Distinguish the number of places booked from an earlier estimate.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-03-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Workshop fee",
+      "learningObjective": "Select the fee for the requested activity.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-04-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Location landmark",
+      "learningObjective": "Identify a landmark from a paraphrased direction.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-05-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Item to bring",
+      "learningObjective": "Identify the item attendees must supply.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-06-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Loan equipment",
+      "learningObjective": "Identify the tool available to borrow.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-07-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Refreshment provided",
+      "learningObjective": "Distinguish a provided refreshment from one sold separately.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-08-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Confirmation channel",
+      "learningObjective": "Identify the agreed way the booking confirmation will be sent.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-09-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Arrival deadline",
+      "learningObjective": "Distinguish the registration deadline from the workshop start time.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p1-10-v1",
+      "questionTypes": {
+        "shortanswer": 1
+      },
+      "sourceSections": [
+        "Listening paper, Part 1",
+        "Form completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -58303,7 +58675,7 @@
     "NERDC supports 16 application class labels; many existing drafts say only Nursery, Primary, JSS or SS. Exact class, adopted curriculum version, term and objectives require source evidence.",
     "NCEE official 2026 components include National Values Education and vocational aptitude. Existing Basic Science, Quantitative Reasoning and Verbal Reasoning labels need component mapping.",
     "IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.",
-    "IELTS Reading/Writing require Academic versus General Training variants. Listening/Speaking need original audio assets and performance rubrics; MCQ writing advice is not a writing task.",
+    "IELTS Listening has one Academic Part 1 set for live delivery. Recorded audio, Parts 2–4 and remaining task formats are outstanding. IELTS Reading and Writing require separate Academic and General Training coverage. Speaking coverage and independent review remain incomplete.",
     "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",

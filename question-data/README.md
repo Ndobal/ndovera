@@ -641,3 +641,8 @@ notices and the missing copies. For BECE Basic Science and Technology,
 the official topic allocation, practical instructions, equipment and
 marking rules still require primary documents. The existing classroom
 drafts retain their provisional mappings.
+
+Batch 121 opens IELTS Academic Listening with a ten-item Part 1 form
+completion set. For supervised use, show only the learner instructions
+and question prompts. Two readers perform the separate examiner dialogue
+once. Recorded audio and the other Listening parts remain open.

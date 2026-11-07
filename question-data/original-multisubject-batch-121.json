@@ -1,0 +1,393 @@
+{
+  "schemaVersion": 2,
+  "collection": "IELTS Academic Listening Part 1 original practice",
+  "questionCount": 10,
+  "note": "For supervised listening practice. Read the examiner script once with two speakers and hide the script, explanations and answers from learners.",
+  "listeningSet": {
+    "id": "ielts-listening-part-1-lamp-repair",
+    "title": "Lamp repair workshop booking",
+    "learnerInstructions": "Complete the booking form. Use one word or one number in each blank.",
+    "examinerInstructions": "Show the form and allow time to read it. Read the dialogue once at a natural pace with two speakers. Award one mark per correct response; ignore letter case and accept the listed numerical variants.",
+    "examinerScript": [
+      {
+        "speaker": "Coordinator",
+        "line": "Hello, Ridge Community Centre. How can I help?"
+      },
+      {
+        "speaker": "Caller",
+        "line": "I’m calling about Saturday’s lamp repair workshop. Is there space in the nine o’clock group?"
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "That group is full, but the half-past-ten group still has room."
+      },
+      {
+        "speaker": "Caller",
+        "line": "Half past ten is fine. Please book under Teni Balogun. That’s B-A-L-O-G-U-N."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "How many places shall I reserve?"
+      },
+      {
+        "speaker": "Caller",
+        "line": "I thought there might be three of us, but my cousin still hasn’t confirmed. Just two places for now."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "Certainly. The repair workshop costs three thousand five hundred naira per person. The four-thousand-naira price on our website is for a separate course."
+      },
+      {
+        "speaker": "Caller",
+        "line": "Thanks. Where exactly is the entrance?"
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "On Market Road, use the gate directly across the road from the library."
+      },
+      {
+        "speaker": "Caller",
+        "line": "Do we need to bring any materials?"
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "We’ll provide wire and batteries. Bring a torch so you can see inside the lamp housing. If you don’t have a screwdriver, you can borrow one from us."
+      },
+      {
+        "speaker": "Caller",
+        "line": "Will there be anything to drink?"
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "We provide drinking water free of charge. The kiosk sells tea if you prefer that."
+      },
+      {
+        "speaker": "Caller",
+        "line": "Could you email the booking confirmation? Text messages haven’t been reaching me reliably."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "Email it is. One last thing: please arrive by quarter past ten at the latest so we can register everyone before the workshop starts."
+      },
+      {
+        "speaker": "Caller",
+        "line": "I’ll make sure we’re there in time. Thanks."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Start time",
+      "learningObjective": "Select the confirmed time after a proposed time is ruled out.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-001",
+      "objectiveId": "ielts-listening-p1-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Workshop begins at _____ a.m.",
+      "answer": "10:30",
+      "acceptedAnswers": [
+        "10:30",
+        "10.30"
+      ],
+      "explanation": "The nine o’clock group is full. The caller accepts the half-past-ten group.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Participant surname",
+      "learningObjective": "Transcribe a surname spelled aloud.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-002",
+      "objectiveId": "ielts-listening-p1-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Surname of participant: _____",
+      "answer": "Balogun",
+      "acceptedAnswers": [
+        "Balogun"
+      ],
+      "explanation": "The caller spells the surname B-A-L-O-G-U-N.",
+      "score": 1,
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Booking size",
+      "learningObjective": "Distinguish the number of places booked from an earlier estimate.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-003",
+      "objectiveId": "ielts-listening-p1-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Number of places reserved: _____",
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanation": "The caller books two places because the cousin has yet to confirm.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Workshop fee",
+      "learningObjective": "Select the fee for the requested activity.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-004",
+      "objectiveId": "ielts-listening-p1-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Repair workshop fee per person: ₦_____",
+      "answer": "3500",
+      "acceptedAnswers": [
+        "3500",
+        "3,500"
+      ],
+      "explanation": "The repair workshop costs three thousand five hundred naira. Four thousand is the price of the separate course.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Location landmark",
+      "learningObjective": "Identify a landmark from a paraphrased direction.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-005",
+      "objectiveId": "ielts-listening-p1-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Entrance is opposite the _____",
+      "answer": "library",
+      "acceptedAnswers": [
+        "library"
+      ],
+      "explanation": "The speaker describes the gate as directly across the road from the library.",
+      "score": 1,
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Item to bring",
+      "learningObjective": "Identify the item attendees must supply.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-006",
+      "objectiveId": "ielts-listening-p1-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Each participant should bring a _____",
+      "answer": "torch",
+      "acceptedAnswers": [
+        "torch"
+      ],
+      "explanation": "The organiser provides batteries and wire but asks participants to bring a torch.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Loan equipment",
+      "learningObjective": "Identify the tool available to borrow.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-007",
+      "objectiveId": "ielts-listening-p1-07-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Tool available to borrow: _____",
+      "answer": "screwdriver",
+      "acceptedAnswers": [
+        "screwdriver"
+      ],
+      "explanation": "The organiser explicitly offers to lend a screwdriver.",
+      "score": 1,
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Refreshment provided",
+      "learningObjective": "Distinguish a provided refreshment from one sold separately.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-008",
+      "objectiveId": "ielts-listening-p1-08-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Free drink: _____",
+      "answer": "water",
+      "acceptedAnswers": [
+        "water"
+      ],
+      "explanation": "Drinking water is provided, while tea is sold at the kiosk.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Confirmation channel",
+      "learningObjective": "Identify the agreed way the booking confirmation will be sent.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-009",
+      "objectiveId": "ielts-listening-p1-09-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Booking confirmation sent by _____",
+      "answer": "email",
+      "acceptedAnswers": [
+        "email"
+      ],
+      "explanation": "The caller chooses email because the text messages have been unreliable.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 1",
+      "subtopic": "Arrival deadline",
+      "learningObjective": "Distinguish the registration deadline from the workshop start time.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-121-010",
+      "objectiveId": "ielts-listening-p1-10-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Latest arrival for registration: _____ a.m.",
+      "answer": "10:15",
+      "acceptedAnswers": [
+        "10:15",
+        "10.15"
+      ],
+      "explanation": "The organiser gives quarter past ten as the latest time to arrive for registration.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-1-lamp-repair"
+    }
+  ]
+}
