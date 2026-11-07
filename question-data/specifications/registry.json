@@ -1886,6 +1886,16 @@
         2029
       ],
       "note": "Untiered. Paper 1 has 40 multiple-choice questions in 60 minutes and assesses AO1/AO2. Paper 2 has 80 marks in 120 minutes and assesses AO1/AO2/AO3. The 2026 syllabus remains separately mapped."
+    },
+    {
+      "id": "neco-bece-bst-2026-historical-nerdc-reference",
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_basic_science_technology.pdf",
+      "retrievedOn": "2026-11-07",
+      "note": "NECO confirms objective papers 8301 and 8302, computer practical 8303 and drawing 8304. Historical NERDC JSS 3 Basic Science material supports provisional practice only. Current curriculum adoption, official NECO topic allocation and option counts are unverified. Drafts are not assigned to an individual objective paper."
     }
   ],
   "banks": [
@@ -2664,7 +2674,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective",
@@ -2676,6 +2686,9 @@
         "8302",
         "8303",
         "8304"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-bst-2026-historical-nerdc-reference"
       ]
     },
     {
@@ -12694,6 +12707,120 @@
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Sound production",
+      "learningObjective": "Use evidence to link the production of sound to vibration.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "bece-neco-bst-119-1-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable (objective format only)",
+        "Historical NERDC JSS 3, You and Energy, Sound Energy"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Sound reflection",
+      "learningObjective": "Predict which surface treatment will reduce reflected sound.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "bece-neco-bst-119-2-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable (objective format only)",
+        "Historical NERDC JSS 3, You and Energy, Sound Energy"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Hearing",
+      "learningObjective": "Identify the part of the ear that starts vibrating when sound reaches the end of the ear canal.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "bece-neco-bst-119-3-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable (objective format only)",
+        "Historical NERDC JSS 3, You and Energy, Sound Energy"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Series connections",
+      "learningObjective": "Diagnose the effect of an open switch in a single circuit path.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "bece-neco-bst-119-4-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable (objective format only)",
+        "Historical NERDC JSS 3, You and Energy, Electrical Energy"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Fuses",
+      "learningObjective": "Explain how a fuse responds to excessive current.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "bece-neco-bst-119-5-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable (objective format only)",
+        "Historical NERDC JSS 3, You and Energy, Electrical Energy"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Meter reading",
+      "learningObjective": "Use successive cumulative meter readings to find energy used.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "bece-neco-bst-119-6-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable (objective format only)",
+        "Historical NERDC JSS 3, You and Energy, Electrical Energy"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -12715,6 +12842,7 @@
     "Literature batch 035 covers original general-knowledge and unseen-appreciation MCQs only. WAEC official 2026–2030 prescribed-work list is now retrieved (21 works), with an unstarted text coverage inventory. Editions, text-specific objectives, WAEC essays, Shakespeare contexts and current JAMB set-text adoption remain unresolved. Original scenes and poems are not extracts from prescribed authors.",
     "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.",
     "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence.",
-    "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open."
+    "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.",
+    "NECO BECE Basic Science and Technology has provisional objective practice grounded in historical JSS 3 references. Current NECO objectives, allocation between papers 8301/8302, option count, practical and drawing task rules, and current NERDC adoption remain unresolved."
   ]
 }

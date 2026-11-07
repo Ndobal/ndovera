@@ -622,3 +622,9 @@ Batch 118 adds eight NCEE Quantitative and Vocational Aptitude drafts
 on cleaning, meal planning and kitchen safety. Historical Primary Six
 Pre-Vocational Studies guides provisional mapping. The current NECO
 topic blueprint and option count remain unverified.
+
+Batch 119 adds six original NECO BECE Basic Science and Technology
+drafts on sound and electrical energy. NECO verifies objective formats.
+Historical NERDC JSS 3 content provides provisional topic evidence.
+Current adoption, paper-level objectives, practical and drawing rules
+and official option counts remain open.

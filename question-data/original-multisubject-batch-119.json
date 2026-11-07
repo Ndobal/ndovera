@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO BECE Basic Science and Technology JSS 3 practice",
+  "questionCount": 6,
+  "note": "Original objective practice. Historical JSS 3 topic mapping and four-option classroom format are provisional. Current NECO objectives and NERDC adoption remain unverified.",
+  "questions": [
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Sound production",
+      "learningObjective": "Use evidence to link the production of sound to vibration.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "ndv-119-001",
+      "objectiveId": "bece-neco-bst-119-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "After tapping a metal tray, Halima hears it ring. When she presses her palm gently against it, the sound stops sooner. Which explanation best fits the result?",
+      "options": [
+        "Her palm makes sound travel faster through the room.",
+        "Her palm reduces the tray’s vibration.",
+        "Her palm increases the tray’s vibration.",
+        "Her palm makes the air denser throughout the room."
+      ],
+      "correctOption": "B",
+      "answer": "Her palm reduces the tray’s vibration.",
+      "explanation": "Contact with the hand damps the tray’s vibration, so it produces less sound.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Sound reflection",
+      "learningObjective": "Predict which surface treatment will reduce reflected sound.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "ndv-119-002",
+      "objectiveId": "bece-neco-bst-119-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "People hear repeated sound clearly in an empty hall. The school can cover part of a hard wall. Which covering is most likely to reduce the reflected sound?",
+      "options": [
+        "Smooth metal panels.",
+        "Flat glass sheets.",
+        "Polished ceramic tiles.",
+        "Thick fabric curtains."
+      ],
+      "correctOption": "D",
+      "answer": "Thick fabric curtains.",
+      "explanation": "Thick fabric absorbs more of the sound than the hard, smooth surfaces, leaving less energy to reflect.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Hearing",
+      "learningObjective": "Identify the part of the ear that starts vibrating when sound reaches the end of the ear canal.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "ndv-119-003",
+      "objectiveId": "bece-neco-bst-119-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A learner traces sound through a model of the ear. Which part at the inner end of the ear canal vibrates when sound arrives?",
+      "options": [
+        "The eardrum.",
+        "The outer ear flap.",
+        "The auditory nerve.",
+        "The cochlea."
+      ],
+      "correctOption": "A",
+      "answer": "The eardrum.",
+      "explanation": "Changes in air pressure travel along the ear canal and cause the eardrum to vibrate.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Series connections",
+      "learningObjective": "Diagnose the effect of an open switch in a single circuit path.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "ndv-119-004",
+      "objectiveId": "bece-neco-bst-119-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Two working lamps and a switch are connected to a battery in one loop. The switch is opened between the lamps. What happens?",
+      "options": [
+        "Only the lamp nearest the positive terminal goes out.",
+        "The other lamp becomes brighter.",
+        "Both lamps go out.",
+        "Only the lamp nearest the negative terminal goes out."
+      ],
+      "correctOption": "C",
+      "answer": "Both lamps go out.",
+      "explanation": "Opening the switch breaks the only conducting path, so neither lamp receives current.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Fuses",
+      "learningObjective": "Explain how a fuse responds to excessive current.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "ndv-119-005",
+      "objectiveId": "bece-neco-bst-119-5-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A pupil examines a diagram of a circuit that includes a fuse. What is the purpose of the thin metal element inside the fuse?",
+      "options": [
+        "To store charge for later use.",
+        "To melt if the current is too large and break the circuit.",
+        "To cool the circuit whenever the current rises.",
+        "To reverse the direction of the current."
+      ],
+      "correctOption": "B",
+      "answer": "To melt if the current is too large and break the circuit.",
+      "explanation": "Excessive current heats the fuse element until it melts, opening the circuit.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Science: You and Energy",
+      "subtopic": "Meter reading",
+      "learningObjective": "Use successive cumulative meter readings to find energy used.",
+      "specificationId": "neco-bece-bst-2026-historical-nerdc-reference",
+      "id": "ndv-119-006",
+      "objectiveId": "bece-neco-bst-119-6-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A school electricity meter reads 2,540 kWh on Monday and 2,587 kWh the next Monday. The meter was not reset. How much electrical energy was used between the readings?",
+      "options": [
+        "2,587 kWh.",
+        "5,127 kWh.",
+        "54 kWh.",
+        "47 kWh."
+      ],
+      "correctOption": "D",
+      "answer": "47 kWh.",
+      "explanation": "A cumulative meter records energy used so far. Subtract the earlier reading from the later reading.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "2587-2540",
+          "expected": 47,
+          "purpose": "Check energy used in kWh."
+        }
+      ]
+    }
+  ]
+}

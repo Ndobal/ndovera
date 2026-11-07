@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_118_automated_validation_passed",
+  "phase": "batch_119_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-119.json",
+  "nextBatch": "original-multisubject-batch-120.json",
   "nextPriorities": [
-    "Investigate current NECO BECE subject-level content specifications, starting with Basic Science and Technology. Continue source-supported NCEE coverage while keeping the official topic blueprint and option counts open.",
+    "Seek NECO BECE Basic Science and Technology computer practical and drawing instructions and current content objectives. Expand objective coverage only where defensible and distinguish historical NERDC evidence from current adoption.",
     "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-118.json",
-  "lastRemoteVerifiedCommit": "a1d4089772a26a7553b78a8a9c899a184c25298c",
+  "lastValidatedBatch": "original-multisubject-batch-119.json",
+  "lastRemoteVerifiedCommit": "333e8466e55a013dd5f566d3e1fccdceb2f7904b",
   "verifiedTotals": {
-    "raw": 3471,
-    "validDrafts": 1792,
+    "raw": 3477,
+    "validDrafts": 1798,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-118.json",
+  "lastPopulatedBatch": "original-multisubject-batch-119.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3471
+  "inventoryRaw": 3477
 }
