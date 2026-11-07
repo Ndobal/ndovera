@@ -2081,6 +2081,16 @@
       "retrievedOn": "2026-11-07",
       "revisedClassPage": "https://lmis.nerdcportals.com.ng/jss_3",
       "note": "NECO confirms objective papers 8331 and 8332, each one hour. The July 2018 NERDC National Values curriculum explicitly labels JSS Three topics on pp. 41, 45, 49 and 51. These support provisional classroom practice only. Current curriculum adoption, NECO paper-level topic allocation and official option count remain unverified. The revised JSS 3 page was inaccessible through public retrieval on this date. Four options are an author practice choice; no objective-paper assignment is inferred."
+    },
+    {
+      "id": "neco-bece-french-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "French Language",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_french.pdf",
+      "retrievedOn": "2026-11-07",
+      "note": "NECO lists 2051 and 2052 as objective papers, one hour each. Historical NERDC French JSS Three printed pp. 12, 16, 17 and 18 support professions, daily activities, narration and correspondence topics. Edition date and current adoption are not verified. Author-proposed receptive objectives are written precursors to the communicative topics, not full achievement of their production objectives. Four-option format is an author practice choice. Official paper-level content, option count, and any listening/oral administration remain unverified. Revised JSS 3 page public retrieval was inaccessible. The historical health page contains a questionable cold/influenza causal statement; it is not used as factual teaching evidence."
     }
   ],
   "banks": [
@@ -3166,7 +3176,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -3174,6 +3184,9 @@
       "paperCodes": [
         "2051",
         "2052"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-french-2026-historical-reference"
       ]
     },
     {
@@ -15590,6 +15603,82 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "French Language",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-french-2026-historical-reference",
+      "topic": "Professions",
+      "subtopic": "Functions and qualities",
+      "learningObjective": "Interpret a short written description of professional roles and personal qualities.",
+      "id": "bece-french-138-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC French Language Curriculum, JSS Three, printed p. 12 (PDF page 12)"
+      ],
+      "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "French Language",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-french-2026-historical-reference",
+      "topic": "Daily activities",
+      "subtopic": "Routine and frequency",
+      "learningObjective": "Interpret present-tense descriptions of habitual activities.",
+      "id": "bece-french-138-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC French Language Curriculum, JSS Three, printed p. 16 (PDF page 16)"
+      ],
+      "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "French Language",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-french-2026-historical-reference",
+      "topic": "Narration",
+      "subtopic": "Past actions and sequence",
+      "learningObjective": "Interpret completed past actions and event sequence in a short account.",
+      "id": "bece-french-138-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC French Language Curriculum, JSS Three, printed p. 17 (PDF page 17)"
+      ],
+      "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "French Language",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-french-2026-historical-reference",
+      "topic": "Correspondence",
+      "subtopic": "Informal invitation",
+      "learningObjective": "Identify purpose, arrangements and a suitable response in an informal message.",
+      "id": "bece-french-138-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC French Language Curriculum, JSS Three, printed p. 18 (PDF page 18)"
+      ],
+      "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -15620,6 +15709,7 @@
     "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
     "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding.",
     "NECO BECE Cultural and Creative Arts has provisional written and supervised classroom practical practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified.",
-    "NECO BECE National Values Education has initial provisional JSS 3 practice on work attitudes, family support, peaceful living and conflict resolution using the July 2018 historical NERDC document. Current adoption, full topic scope, allocation between 8331/8332 and official option counts remain unverified. The revised JSS 3 page was inaccessible on 2026-11-07."
+    "NECO BECE National Values Education has initial provisional JSS 3 practice on work attitudes, family support, peaceful living and conflict resolution using the July 2018 historical NERDC document. Current adoption, full topic scope, allocation between 8331/8332 and official option counts remain unverified. The revised JSS 3 page was inaccessible on 2026-11-07.",
+    "NECO BECE French Language has initial original written-comprehension practice grounded provisionally in historical JSS Three themes. Receptive drills do not establish oral or written production competence. Current curriculum adoption, full content specification, allocation between 2051/2052, option counts and listening/oral requirements remain unverified. No Ghana BECE or NECO SSCE format has been substituted."
   ]
 }

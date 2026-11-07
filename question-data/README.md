@@ -747,3 +747,10 @@ peaceful living and conflict resolution. The retrieved NERDC source is
 explicitly dated July 2018. Mappings and four-option practice remain
 provisional; current adoption, full scope and NECO paper allocation
 remain unverified. No religious-route mapping is inferred.
+
+Batch 138 opens NECO BECE French Language with twelve original
+written-comprehension drafts across four original texts on professions,
+routines, a past visit and an informal invitation. Historical JSS Three
+topic mapping is provisional. These receptive drills do not assess
+speaking, listening or written production. Current adoption, official
+2051/2052 content allocation and option counts remain unverified.
