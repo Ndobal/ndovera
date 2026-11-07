@@ -674,3 +674,9 @@ two-speaker conversations, with two questions per conversation.
 They cover intent, detail, inference and likely next actions.
 Supervised live delivery is required. Recorded audio, announcements,
 academic talks and adaptive delivery remain outstanding.
+
+Batch 127 adds twelve TOEFL Listening drafts across six original
+campus announcements of 40–85 words. Two questions per announcement
+are an author choice; the retrieved overview does not specify a fixed
+count. Supervised live delivery is required. Recorded audio,
+academic talks and adaptive delivery remain outstanding.

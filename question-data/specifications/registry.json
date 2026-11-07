@@ -1954,9 +1954,10 @@
       "formatGuide": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-specifications-2026.pdf",
       "retrievedOn": "2026-11-07",
       "effectiveFrom": "2026-01-21",
-      "note": "The 2026 blueprint identifies Listen and Choose a Response, Listen to a Conversation, Listen to an Announcement and Listen to an Academic Talk. The Listening webpage lists all four despite its introductory phrase saying two task types. This batch uses original single-exchange response practice with four written response choices, as illustrated in the official Updated Test Overview p. 9. Adaptive assembly, recorded delivery and scaled scores remain outside the draft batch. The official Updated Test Overview p. 9 specifies a short two-speaker conversation with two questions, including inference, intent and likely next actions. The regional mirror was used after the German mirror exceeded the retrieval size limit.",
+      "note": "The 2026 blueprint identifies Listen and Choose a Response, Listen to a Conversation, Listen to an Announcement and Listen to an Academic Talk. The Listening webpage lists all four despite its introductory phrase saying two task types. This batch uses original single-exchange response practice with four written response choices, as illustrated in the official Updated Test Overview p. 9. Adaptive assembly, recorded delivery and scaled scores remain outside the draft batch. The official Updated Test Overview p. 9 specifies a short two-speaker conversation with two questions, including inference, intent and likely next actions. The regional mirror was used after the German mirror exceeded the retrieval size limit. Updated Test Overview p. 11 describes announcements of about 40–85 words and shows four answer choices. It does not specify a fixed question count per announcement in the retrieved passage. Two practice questions per original announcement are an author choice.",
       "sampleGuide": "https://www.de.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-overview.pdf",
-      "conversationGuide": "https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-test-overview.pdf"
+      "conversationGuide": "https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-test-overview.pdf",
+      "announcementGuide": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-at-a-glance.pdf"
     }
   ],
   "banks": [
@@ -2554,7 +2555,7 @@
       "subject": "Listening",
       "level": "",
       "target": 1000,
-      "scopeStatus": "post_january_2026_response_and_conversation_practice_live_delivery",
+      "scopeStatus": "post_january_2026_response_conversation_announcement_practice_live_delivery",
       "specificationId": "toefl-ibt-listening-2026"
     },
     {
@@ -14048,6 +14049,210 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Purpose",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Required preparation",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Reason",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Conditional action",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Organisation",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Handling uncertainty",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Focus",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-07-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Feedback purpose",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-08-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "New rule",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-09-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Alternative route",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-10-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Recording permission",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-11-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Announcement",
+      "subtopic": "Reason for restriction",
+      "learningObjective": "Identify the purpose, important details, conditions or likely actions in a short campus announcement.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-announcement-127-12-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Announcement, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -14072,6 +14277,6 @@
     "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.",
     "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.",
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
-    "TOEFL Listening 2026 has original single-exchange and short-conversation practice for supervised live delivery. Recorded audio, announcements, academic talks, adaptive delivery and independent review remain outstanding."
+    "TOEFL Listening 2026 has original single-exchange, short-conversation and announcement practice for supervised live delivery. Recorded audio, academic talks, adaptive delivery and independent review remain outstanding."
   ]
 }
