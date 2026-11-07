@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO BECE Business Studies JSS 3 classroom practical practice",
+  "questionCount": 4,
+  "note": "Original supervised keyboarding, tabulation and printing tasks. Topic alignment and marking guides are provisional. Official practical instructions and current adoption remain unverified.",
+  "questions": [
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Business letters",
+      "subtopic": "Block layout",
+      "learningObjective": "Keyboard a supplied business letter in consistent block layout.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "ndv-130-001",
+      "objectiveId": "bece-business-practical-130-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "structured",
+      "prompt": "At a supervised computer, type the supplied letter in block layout. Place every component at the left margin, leave clear space between components, and save it as Enquiry in the assigned folder. Use the following copy. Sender address: Cedar Supplies, 14 Lake Road, Abuja. Date: 7 November 2026. Recipient: The Sales Manager, Plain Paper Ltd, 8 Hill Street, Abuja. Salutation: Dear Sir or Madam. Subject: Enquiry about A4 paper. Body: Please send your current prices for A4 paper and state the minimum order quantity. Kindly include your delivery terms. Closing: Yours faithfully. Signatory: Ada Musa, Purchasing Assistant.",
+      "answer": "The saved Enquiry document contains all supplied components in order, aligned to the left margin, with clear spacing. The body accurately asks for prices, minimum order quantity and delivery terms.",
+      "explanation": "Block layout uses consistent left alignment. Accurate keyboarding must preserve the business request and identifying details.",
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Type the supplied addresses, date, names and body accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Place the components in the supplied order with a suitable salutation and closing."
+        },
+        {
+          "marks": 1,
+          "description": "Align all components at the left margin with clear spacing."
+        },
+        {
+          "marks": 1,
+          "description": "Save Enquiry in the assigned folder and reopen it for inspection."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Business letters",
+      "subtopic": "Proofreading before output",
+      "learningObjective": "Correct an error in a typed letter and verify the saved final version.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "ndv-130-002",
+      "objectiveId": "bece-business-practical-130-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "structured",
+      "prompt": "Using a word processor, type this short business letter body exactly as supplied: “Please deliver 18 chairs to our branch at 6 Palm Road. The order reference is CR-41. We require delivery on 12 November 2026.” The supervisor then gives two corrections: the quantity is 16 chairs and the order reference is CR-14. Apply only those corrections, save the final version as Delivery, close it and reopen it. Show the supervisor the reopened text.",
+      "answer": "The reopened Delivery file reads: “Please deliver 16 chairs to our branch at 6 Palm Road. The order reference is CR-14. We require delivery on 12 November 2026.”",
+      "explanation": "Checking the saved version confirms that the changes were retained while the address and delivery date were preserved.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Enter the supplied text accurately before correction."
+        },
+        {
+          "marks": 1,
+          "description": "Correct the quantity to 16 and reference to CR-14."
+        },
+        {
+          "marks": 1,
+          "description": "Preserve the address and delivery date."
+        },
+        {
+          "marks": 1,
+          "description": "Save, close and reopen Delivery with the final corrected text."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Simple tabulation",
+      "subtopic": "Creating a table",
+      "learningObjective": "Create a simple table and enter items in the appropriate cells.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "ndv-130-003",
+      "objectiveId": "bece-business-practical-130-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "structured",
+      "prompt": "Create a word-processing document with the title Equipment Register. Below it, insert a table with four rows and three columns. Use the headings Item, Location and Condition. Enter these records in separate rows: Stapler / Front desk / Working; Perforator / Store / Working; Paper tray / Office / Cracked. Make the heading row bold and adjust column widths so that all entries are readable. Save the document as Register.",
+      "answer": "Equipment Register appears above a four-row, three-column table. The heading row is bold. Each item is paired with its correct location and condition, and all text is readable in the saved Register document.",
+      "explanation": "A table keeps related information aligned by row and separates the categories into columns.",
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Create the title and a table with the required dimensions."
+        },
+        {
+          "marks": 2,
+          "description": "Enter the headings and all three records in the correct cells."
+        },
+        {
+          "marks": 1,
+          "description": "Bold the heading row and set readable column widths."
+        },
+        {
+          "marks": 1,
+          "description": "Save the completed document as Register."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Printing documents",
+      "subtopic": "Selecting the intended output",
+      "learningObjective": "Print only the required page of a document and inspect the result.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "ndv-130-004",
+      "objectiveId": "bece-business-practical-130-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "structured",
+      "prompt": "The supervisor supplies a two-page business document on a computer connected to a working classroom printer. The first page is the final customer letter. The second is an internal checklist that must stay in the office. Demonstrate printing one copy of the customer letter only. Before printing, check the preview, page selection and copy count. After printing, inspect the output and explain whether it meets the request. Use the supervisor-approved printer.",
+      "answer": "Preview the customer letter, select page 1 only and one copy, confirm the approved printer, then print. Inspect the sheet for complete, legible text and confirm that the internal checklist has not been printed.",
+      "explanation": "Page selection protects the internal checklist from being included, while preview and inspection help identify layout or output problems.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the customer letter as page 1 and select that page only."
+        },
+        {
+          "marks": 1,
+          "description": "Set one copy and the approved printer."
+        },
+        {
+          "marks": 1,
+          "description": "Check preview for complete content before printing."
+        },
+        {
+          "marks": 1,
+          "description": "Produce the customer letter and inspect its completeness and legibility."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

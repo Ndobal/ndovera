@@ -692,3 +692,9 @@ objective drafts on business analysis and trial balances. Historical
 NERDC objectives inform provisional mapping. The 2026 timetable
 verifies paper formats. Current adoption, NECO topic allocation,
 option counts and practical requirements remain outstanding.
+
+Batch 130 adds four supervised BECE Business Studies classroom tasks
+on letter layout, correction, tabulation and printing. Historical
+NERDC JSS 3 objectives support provisional alignment. The tasks and
+marking guides are original. Official NECO practical requirements
+and current curriculum adoption remain outstanding.

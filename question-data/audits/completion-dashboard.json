@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3578,
-    "validDrafts": 1899,
+    "raw": 3582,
+    "validDrafts": 1903,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -910,6 +910,12 @@
       "actual": 8
     },
     {
+      "path": "original-multisubject-batch-130.json",
+      "sha256": "871f0a2760f977fa1675a86fdbdc6f397cca7d955259f089e480d8395aa63bc8",
+      "declared": 4,
+      "actual": 4
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1095,20 +1101,22 @@
         "3113"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-business-2026-historical-reference"
+        "neco-bece-business-2026-historical-reference",
+        "neco-bece-business-practical-2026-historical-reference"
       ],
-      "raw": 8,
-      "validDrafts": 8,
+      "raw": 12,
+      "validDrafts": 12,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 8
+        "mcq": 8,
+        "structured": 4
       },
       "difficulty": {
-        "standard": 8
+        "standard": 12
       },
-      "remaining": 992,
-      "mappedObjectives": 8,
-      "representedObjectives": 8,
+      "remaining": 988,
+      "mappedObjectives": 12,
+      "representedObjectives": 12,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5643,8 +5651,8 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
@@ -5652,9 +5660,9 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -31628,6 +31636,30 @@
       "id": "ndv-129-008",
       "file": "original-multisubject-batch-129.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-130-001",
+      "file": "original-multisubject-batch-130.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-130-002",
+      "file": "original-multisubject-batch-130.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-130-003",
+      "file": "original-multisubject-batch-130.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-130-004",
+      "file": "original-multisubject-batch-130.json",
+      "index": 3,
       "errors": []
     },
     {
@@ -61673,6 +61705,130 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Business letters",
+      "subtopic": "Block layout",
+      "learningObjective": "Keyboard a supplied business letter in consistent block layout.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "bece-business-practical-130-01-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Business Studies, JSS 3, p. 62"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Business letters",
+      "subtopic": "Proofreading before output",
+      "learningObjective": "Correct an error in a typed letter and verify the saved final version.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "bece-business-practical-130-02-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Business Studies, JSS 3, p. 62"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Simple tabulation",
+      "subtopic": "Creating a table",
+      "learningObjective": "Create a simple table and enter items in the appropriate cells.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "bece-business-practical-130-03-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Business Studies, JSS 3, p. 63"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Printing documents",
+      "subtopic": "Selecting the intended output",
+      "learningObjective": "Print only the required page of a document and inspect the result.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "bece-business-practical-130-04-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Business Studies, JSS 3, p. 62"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -61698,6 +61854,6 @@
     "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.",
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
     "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding.",
-    "NECO BECE Business Studies now has provisional written objective practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved."
+    "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved."
   ]
 }

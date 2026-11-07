@@ -1969,6 +1969,16 @@
       "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_business_studies.pdf",
       "retrievedOn": "2026-11-07",
       "note": "The NECO timetable verifies objective papers 3111/3112 and practical 3113 (20 minutes). Note 3 permits computers for Business Studies and sets where equipment is limited. Historical NERDC JSS 3 pp. 52 and 59 support provisional topics. Current adoption, NECO paper-level content, option counts and practical tasks/marking remain unverified."
+    },
+    {
+      "id": "neco-bece-business-practical-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_business_studies.pdf",
+      "retrievedOn": "2026-11-07",
+      "note": "NECO lists practical 3113 and permits computers. Historical JSS 3 pp. 62–63 cover business-letter keyboarding, printing and simple tabulation. These tasks and marks are original classroom practice. Official NECO practical task, duration per exercise, scoring and current curriculum adoption remain unverified."
     }
   ],
   "banks": [
@@ -2742,7 +2752,8 @@
         "3113"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-business-2026-historical-reference"
+        "neco-bece-business-2026-historical-reference",
+        "neco-bece-business-practical-2026-historical-reference"
       ]
     },
     {
@@ -14623,6 +14634,82 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Business letters",
+      "subtopic": "Block layout",
+      "learningObjective": "Keyboard a supplied business letter in consistent block layout.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "bece-business-practical-130-01-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Business Studies, JSS 3, p. 62"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Business letters",
+      "subtopic": "Proofreading before output",
+      "learningObjective": "Correct an error in a typed letter and verify the saved final version.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "bece-business-practical-130-02-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Business Studies, JSS 3, p. 62"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Simple tabulation",
+      "subtopic": "Creating a table",
+      "learningObjective": "Create a simple table and enter items in the appropriate cells.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "bece-business-practical-130-03-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Business Studies, JSS 3, p. 63"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Printing documents",
+      "subtopic": "Selecting the intended output",
+      "learningObjective": "Print only the required page of a document and inspect the result.",
+      "specificationId": "neco-bece-business-practical-2026-historical-reference",
+      "id": "bece-business-practical-130-04-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Business Studies, JSS 3, p. 62"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -14648,6 +14735,6 @@
     "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.",
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
     "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding.",
-    "NECO BECE Business Studies now has provisional written objective practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved."
+    "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved."
   ]
 }
