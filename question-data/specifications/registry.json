@@ -2069,6 +2069,18 @@
       "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_cca.pdf",
       "retrievedOn": "2026-11-07",
       "note": "NECO confirms practical paper 7293. Historical JS 3 pp. 28, 29 and 33 support provisional display, lettering and drama tasks. Materials, tasks and marking guides here are author-designed classroom practice. Official task instructions, material lists, scoring and current adoption remain unverified."
+    },
+    {
+      "id": "neco-bece-nve-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_nvc.pdf",
+      "curriculumDocumentDate": "July 2018",
+      "retrievedOn": "2026-11-07",
+      "revisedClassPage": "https://lmis.nerdcportals.com.ng/jss_3",
+      "note": "NECO confirms objective papers 8331 and 8332, each one hour. The July 2018 NERDC National Values curriculum explicitly labels JSS Three topics on pp. 41, 45, 49 and 51. These support provisional classroom practice only. Current curriculum adoption, NECO paper-level topic allocation and official option count remain unverified. The revised JSS 3 page was inaccessible through public retrieval on this date. Four options are an author practice choice; no objective-paper assignment is inferred."
     }
   ],
   "banks": [
@@ -3134,7 +3146,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -3142,6 +3154,9 @@
       "paperCodes": [
         "8331",
         "8332"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-nve-2026-historical-reference"
       ]
     },
     {
@@ -15499,6 +15514,82 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-nve-2026-historical-reference",
+      "topic": "Work attitudes",
+      "subtopic": "Responsibility",
+      "learningObjective": "Identify responsible conduct and its consequences in a work setting.",
+      "id": "bece-nve-137-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC National Values Curriculum, July 2018, JSS Three, p. 41"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-nve-2026-historical-reference",
+      "topic": "Family",
+      "subtopic": "Extended-family support",
+      "learningObjective": "Recognise ways extended-family members can support a child's development.",
+      "id": "bece-nve-137-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC National Values Curriculum, July 2018, JSS Three, p. 45"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-nve-2026-historical-reference",
+      "topic": "Peaceful living",
+      "subtopic": "Cooperation and fairness",
+      "learningObjective": "Explain how fair treatment and cooperation promote peaceful living.",
+      "id": "bece-nve-137-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC National Values Curriculum, July 2018, JSS Three, p. 49"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-nve-2026-historical-reference",
+      "topic": "Conflict resolution",
+      "subtopic": "Non-violent methods",
+      "learningObjective": "Select dialogue, compromise or mediation appropriate to a conflict.",
+      "id": "bece-nve-137-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC National Values Curriculum, July 2018, JSS Three, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -15528,6 +15619,7 @@
     "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
     "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
     "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding.",
-    "NECO BECE Cultural and Creative Arts has provisional written and supervised classroom practical practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified."
+    "NECO BECE Cultural and Creative Arts has provisional written and supervised classroom practical practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified.",
+    "NECO BECE National Values Education has initial provisional JSS 3 practice on work attitudes, family support, peaceful living and conflict resolution using the July 2018 historical NERDC document. Current adoption, full topic scope, allocation between 8331/8332 and official option counts remain unverified. The revised JSS 3 page was inaccessible on 2026-11-07."
   ]
 }

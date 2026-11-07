@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_136_automated_validation_passed",
+  "phase": "batch_137_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-137.json",
+  "nextBatch": "original-multisubject-batch-138.json",
   "nextPriorities": [
-    "Investigate NECO BECE National Values Education current content and paper requirements before opening its empty bank. Preserve exact-class historical mappings as provisional. CCA official practical tasks, materials and marking remain outstanding.",
+    "Investigate NECO BECE French Language current content, written-paper and oral/listening requirements before opening its empty bank. National Values Education current adoption, full scope, security topics, official option counts and allocation between 8331/8332 remain unresolved.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-136.json",
-  "lastRemoteVerifiedCommit": "935cb59bf8bab1f05b00d9bf27d97204a5943a7c",
+  "lastValidatedBatch": "original-multisubject-batch-137.json",
+  "lastRemoteVerifiedCommit": "79abd43487a52658afec730880264fd011874939",
   "verifiedTotals": {
-    "raw": 3618,
-    "validDrafts": 1939,
+    "raw": 3630,
+    "validDrafts": 1951,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-136.json",
+  "lastPopulatedBatch": "original-multisubject-batch-137.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3618
+  "inventoryRaw": 3630
 }

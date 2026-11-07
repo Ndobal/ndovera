@@ -22,7 +22,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | Igbo (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Islamic Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Mathematics / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| BECE | National Values Education / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | National Values Education / JSS 3 | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | BECE | Pre-Vocational Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Yoruba (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Yoruba (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -206,7 +206,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
-| BECE | 59 | 59 | 0 | 18000 | 17941 |
+| BECE | 71 | 71 | 0 | 18000 | 17929 |
 | IELTS | 121 | 112 | 0 | 4000 | 3888 |
 | IGCSE | 182 | 161 | 0 | 5000 | 4839 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
@@ -217,7 +217,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 104 | 95 | 0 | 4000 | 3905 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3618, "validDrafts": 1939, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3630, "validDrafts": 1951, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -250,3 +250,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.
 - NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding.
 - NECO BECE Cultural and Creative Arts has provisional written and supervised classroom practical practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified.
+- NECO BECE National Values Education has initial provisional JSS 3 practice on work attitudes, family support, peaceful living and conflict resolution using the July 2018 historical NERDC document. Current adoption, full topic scope, allocation between 8331/8332 and official option counts remain unverified. The revised JSS 3 page was inaccessible on 2026-11-07.

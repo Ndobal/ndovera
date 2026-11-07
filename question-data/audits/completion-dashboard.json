@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3618,
-    "validDrafts": 1939,
+    "raw": 3630,
+    "validDrafts": 1951,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -952,6 +952,12 @@
       "actual": 4
     },
     {
+      "path": "original-multisubject-batch-137.json",
+      "sha256": "948d510ebe25c3da3e7376a1a73e8de349f360ff782e34c56c6920a4501c96a3",
+      "declared": 12,
+      "actual": 12
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1490,7 +1496,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -1499,16 +1505,23 @@
         "8331",
         "8332"
       ],
-      "raw": 0,
-      "validDrafts": 0,
+      "additionalSpecificationIds": [
+        "neco-bece-nve-2026-historical-reference"
+      ],
+      "raw": 12,
+      "validDrafts": 12,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 12
+      },
+      "difficulty": {
+        "standard": 12
+      },
+      "remaining": 988,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "BECE",
@@ -5726,8 +5739,8 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -31941,6 +31954,78 @@
       "id": "ndv-136-004",
       "file": "original-multisubject-batch-136.json",
       "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-001",
+      "file": "original-multisubject-batch-137.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-002",
+      "file": "original-multisubject-batch-137.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-003",
+      "file": "original-multisubject-batch-137.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-004",
+      "file": "original-multisubject-batch-137.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-005",
+      "file": "original-multisubject-batch-137.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-006",
+      "file": "original-multisubject-batch-137.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-007",
+      "file": "original-multisubject-batch-137.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-008",
+      "file": "original-multisubject-batch-137.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-009",
+      "file": "original-multisubject-batch-137.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-010",
+      "file": "original-multisubject-batch-137.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-011",
+      "file": "original-multisubject-batch-137.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-137-012",
+      "file": "original-multisubject-batch-137.json",
+      "index": 11,
       "errors": []
     },
     {
@@ -63226,6 +63311,130 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-nve-2026-historical-reference",
+      "topic": "Work attitudes",
+      "subtopic": "Responsibility",
+      "learningObjective": "Identify responsible conduct and its consequences in a work setting.",
+      "id": "bece-nve-137-01-v1",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC National Values Curriculum, July 2018, JSS Three, p. 41"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-nve-2026-historical-reference",
+      "topic": "Family",
+      "subtopic": "Extended-family support",
+      "learningObjective": "Recognise ways extended-family members can support a child's development.",
+      "id": "bece-nve-137-02-v1",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC National Values Curriculum, July 2018, JSS Three, p. 45"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-nve-2026-historical-reference",
+      "topic": "Peaceful living",
+      "subtopic": "Cooperation and fairness",
+      "learningObjective": "Explain how fair treatment and cooperation promote peaceful living.",
+      "id": "bece-nve-137-03-v1",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC National Values Curriculum, July 2018, JSS Three, p. 49"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "National Values Education",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-nve-2026-historical-reference",
+      "topic": "Conflict resolution",
+      "subtopic": "Non-violent methods",
+      "learningObjective": "Select dialogue, compromise or mediation appropriate to a conflict.",
+      "id": "bece-nve-137-04-v1",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC National Values Curriculum, July 2018, JSS Three, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -63255,6 +63464,7 @@
     "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
     "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
     "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding.",
-    "NECO BECE Cultural and Creative Arts has provisional written and supervised classroom practical practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified."
+    "NECO BECE Cultural and Creative Arts has provisional written and supervised classroom practical practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified.",
+    "NECO BECE National Values Education has initial provisional JSS 3 practice on work attitudes, family support, peaceful living and conflict resolution using the July 2018 historical NERDC document. Current adoption, full topic scope, allocation between 8331/8332 and official option counts remain unverified. The revised JSS 3 page was inaccessible on 2026-11-07."
   ]
 }

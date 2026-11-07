@@ -740,3 +740,10 @@ practical drafts on lettering, mounting, display arrangement and
 community drama. Each includes a model outcome and practice marking
 guide. Historical topic mapping is provisional. Official practical
 tasks, materials, marking and current adoption remain outstanding.
+
+Batch 137 opens NECO BECE National Values Education with twelve
+original JSS 3 objective drafts on work attitudes, family support,
+peaceful living and conflict resolution. The retrieved NERDC source is
+explicitly dated July 2018. Mappings and four-option practice remain
+provisional; current adoption, full scope and NECO paper allocation
+remain unverified. No religious-route mapping is inferred.
