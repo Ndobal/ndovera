@@ -2,19 +2,19 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_132_automated_validation_passed",
+  "phase": "bece_pre_vocational_source_access_checked",
   "projectComplete": false,
   "academicReviewComplete": false,
   "nextBatch": "original-multisubject-batch-133.json",
   "nextPriorities": [
-    "Investigate NECO BECE Pre-Vocational Studies current content and paper requirements before opening its empty bank. Keep historical exact-class curriculum references provisional. English Studies official Paper III choices, word limits and marking remain outstanding.",
+    "Investigate NECO BECE History current objectives and exact-class historical curriculum evidence before opening its empty bank. Pre-Vocational Studies content remains blocked pending an accessible official syllabus or exact-class curriculum. Next question batch remains 133.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
   "lastValidatedBatch": "original-multisubject-batch-132.json",
-  "lastRemoteVerifiedCommit": "be39a4adfb9429dcca6a712db71dd682da55afde",
+  "lastRemoteVerifiedCommit": "d9e779c022f63b0122305cbe96ec1d06ca4698ef",
   "verifiedTotals": {
     "raw": 3594,
     "validDrafts": 1915,

@@ -1999,6 +1999,19 @@
       "curriculumReference": "https://nerdc.gov.ng/content_manager/jss/jss1-3_english_studies.pdf",
       "retrievedOn": "2026-11-07",
       "note": "NECO confirms essay paper 1013. Historical NERDC JSS 3 composition p. 52 covers narrative, descriptive, expository and argumentative writing. Tasks, model responses and ten-mark rubrics are original classroom practice. Official NECO word limits, task choices, timing per task and marking remain unverified, as does current curriculum adoption."
+    },
+    {
+      "id": "neco-bece-pvs-source-access-2026",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "kind": "official_format_with_unresolved_content_access",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumIndex": "https://www.nerdc.gov.ng/content_manager/jss1-3.html",
+      "revisedCurriculumIndex": "https://www.nerdc.gov.ng/content_manager/new_curriculum_home.html",
+      "revisedClassPage": "https://lmis.nerdcportals.com.ng/jss_3",
+      "retrievedOn": "2026-11-07",
+      "status": "content_objectives_not_retrieved",
+      "note": "The 2026 timetable confirms objective papers 8311 and 8312. The historical index names Pre Vocational Studies, but the retrieved index exposes no usable subject PDF link. Searches and candidate legacy PDF paths did not retrieve the content. The revised index links JSS 3 to a page whose fetch returned 404. No class-topic mapping or current adoption is established."
     }
   ],
   "banks": [
@@ -3004,6 +3017,9 @@
       "paperCodes": [
         "8311",
         "8312"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-pvs-source-access-2026"
       ]
     },
     {
@@ -14988,6 +15004,7 @@
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
     "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding.",
     "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.",
-    "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified."
+    "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
+    "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts."
   ]
 }

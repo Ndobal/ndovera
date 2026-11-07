@@ -710,3 +710,9 @@ narrative, descriptive, expository and argumentative writing. Each
 includes an illustrative model response and an original classroom
 rubric. Historical topic alignment remains provisional. Official
 Paper III choices, word limits and marking remain outstanding.
+
+Pre-Vocational Studies source retrieval was rechecked on 7 November
+2026. NECO confirms objective papers 8311/8312. NERDC's historical
+index names the subject, but no usable content document was retrieved.
+The revised JSS 3 link returned 404. The bank remains empty and its
+content objectives, option count and current adoption remain open.
