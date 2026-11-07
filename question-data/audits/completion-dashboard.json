@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3594,
-    "validDrafts": 1915,
+    "raw": 3600,
+    "validDrafts": 1921,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -928,6 +928,12 @@
       "actual": 4
     },
     {
+      "path": "original-multisubject-batch-133.json",
+      "sha256": "11e17fe2f6954626c9eed49b7243992bc6ab42cbf393911a9244fadfbfbf791e",
+      "declared": 6,
+      "actual": 6
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1313,7 +1319,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -1322,16 +1328,23 @@
         "8341",
         "8342"
       ],
-      "raw": 0,
-      "validDrafts": 0,
+      "additionalSpecificationIds": [
+        "neco-bece-history-2026-historical-reference"
+      ],
+      "raw": 6,
+      "validDrafts": 6,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 6
+      },
+      "difficulty": {
+        "standard": 6
+      },
+      "remaining": 994,
+      "mappedObjectives": 6,
+      "representedObjectives": 6,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "BECE",
@@ -5676,17 +5689,17 @@
   ],
   "errorCounts": {
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -31756,6 +31769,42 @@
       "id": "ndv-132-004",
       "file": "original-multisubject-batch-132.json",
       "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-133-001",
+      "file": "original-multisubject-batch-133.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-133-002",
+      "file": "original-multisubject-batch-133.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-133-003",
+      "file": "original-multisubject-batch-133.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-133-004",
+      "file": "original-multisubject-batch-133.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-133-005",
+      "file": "original-multisubject-batch-133.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-133-006",
+      "file": "original-multisubject-batch-133.json",
+      "index": 5,
       "errors": []
     },
     {
@@ -62297,6 +62346,192 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "British colonisation",
+      "subtopic": "Indirect rule",
+      "learningObjective": "Recognise administration through existing local authorities.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-01-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 16"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "British colonisation",
+      "subtopic": "Forms of contact",
+      "learningObjective": "Distinguish commercial contact from other forms of contact.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-02-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 16"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "British colonisation",
+      "subtopic": "Conquest and consent",
+      "learningObjective": "Distinguish military conquest from voluntary political agreement.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-03-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 16"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Amalgamation",
+      "subtopic": "Administrative union",
+      "learningObjective": "Explain amalgamation as an administrative joining rather than independence.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-04-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 18"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Nationalist purpose",
+      "learningObjective": "Identify the political aim of anti-colonial nationalism.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-05-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 19"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Collective action",
+      "learningObjective": "Recognise independence movements as involving multiple participants.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-06-v1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 19"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -62324,6 +62559,7 @@
     "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding.",
     "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.",
     "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
-    "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts."
+    "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
+    "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. Historical NERDC name errors and its Berlin treaty claim require independent correction against authoritative historical sources before those details inform drafts."
   ]
 }

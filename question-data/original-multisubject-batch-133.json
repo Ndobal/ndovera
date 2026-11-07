@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO BECE History JSS 3 original conceptual practice",
+  "questionCount": 6,
+  "note": "Original objective practice with provisional historical topic mapping and four-option classroom format. Current NECO objectives and curriculum adoption remain unverified. Source errors are recorded in the registry.",
+  "questions": [
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "British colonisation",
+      "subtopic": "Indirect rule",
+      "learningObjective": "Recognise administration through existing local authorities.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "ndv-133-001",
+      "objectiveId": "bece-history-133-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "In a classroom description of colonial administration, an official gives instructions through an existing local ruler, who carries them out under colonial supervision. Which system is being illustrated?",
+      "options": [
+        "Indirect rule.",
+        "Complete political independence.",
+        "A government without local authorities.",
+        "An elected national republic."
+      ],
+      "correctOption": "A",
+      "answer": "Indirect rule.",
+      "explanation": "Indirect rule used local authorities within a system controlled by the colonial administration.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "British colonisation",
+      "subtopic": "Forms of contact",
+      "learningObjective": "Distinguish commercial contact from other forms of contact.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "ndv-133-002",
+      "objectiveId": "bece-history-133-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Which activity is the clearest example of commercial contact between British visitors and Nigerian communities?",
+      "options": [
+        "A missionary teaching a religious lesson.",
+        "Merchants negotiating purchases of local produce.",
+        "An explorer recording the course of a river.",
+        "A teacher explaining a map in class."
+      ],
+      "correctOption": "B",
+      "answer": "Merchants negotiating purchases of local produce.",
+      "explanation": "Purchasing produce is a trading activity. The other activities have different immediate purposes.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "British colonisation",
+      "subtopic": "Conquest and consent",
+      "learningObjective": "Distinguish military conquest from voluntary political agreement.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "ndv-133-003",
+      "objectiveId": "bece-history-133-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A learner says that a territory brought under colonial control after military defeat must have freely chosen the new government. Which response best evaluates the claim?",
+      "options": [
+        "Military defeat always proves popular approval.",
+        "Colonial control could occur only after an election.",
+        "Control gained through force does not establish free consent.",
+        "The use of force makes historical evidence unnecessary."
+      ],
+      "correctOption": "C",
+      "answer": "Control gained through force does not establish free consent.",
+      "explanation": "Military defeat can impose control. It does not demonstrate that the population freely agreed.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Amalgamation",
+      "subtopic": "Administrative union",
+      "learningObjective": "Explain amalgamation as an administrative joining rather than independence.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "ndv-133-004",
+      "objectiveId": "bece-history-133-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Which description best explains amalgamation in the historical development of Nigeria?",
+      "options": [
+        "The immediate end of all British colonial authority.",
+        "The replacement of every local language by one language.",
+        "The disappearance of all differences among communities.",
+        "The joining of previously separate colonial administrations."
+      ],
+      "correctOption": "D",
+      "answer": "The joining of previously separate colonial administrations.",
+      "explanation": "Amalgamation joined administrations. It did not itself end colonial rule or erase social differences.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Nationalist purpose",
+      "learningObjective": "Identify the political aim of anti-colonial nationalism.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "ndv-133-005",
+      "objectiveId": "bece-history-133-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A study group examines demands for Nigerians to have greater control over their own government. In the independence movement, these demands are best associated with which aim?",
+      "options": [
+        "Self-government and an end to colonial domination.",
+        "Permanent exclusion of Nigerians from public decisions.",
+        "The extension of overseas rule without local participation.",
+        "The ending of all communication between communities."
+      ],
+      "correctOption": "A",
+      "answer": "Self-government and an end to colonial domination.",
+      "explanation": "Anti-colonial nationalism sought political control and self-government rather than continued external domination.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Collective action",
+      "learningObjective": "Recognise independence movements as involving multiple participants.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "ndv-133-006",
+      "objectiveId": "bece-history-133-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Why would an account of Nigeria’s independence movement be incomplete if it discussed only one prominent leader?",
+      "options": [
+        "Only one person could take part in political activity.",
+        "The movement involved several leaders, organisations and supporters.",
+        "The identity of every participant is irrelevant to History.",
+        "All participants always used identical methods."
+      ],
+      "correctOption": "B",
+      "answer": "The movement involved several leaders, organisations and supporters.",
+      "explanation": "A broad movement includes multiple contributors. Studying only one person can hide their roles and differing approaches.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

@@ -2012,6 +2012,16 @@
       "retrievedOn": "2026-11-07",
       "status": "content_objectives_not_retrieved",
       "note": "The 2026 timetable confirms objective papers 8311 and 8312. The historical index names Pre Vocational Studies, but the retrieved index exposes no usable subject PDF link. Searches and candidate legacy PDF paths did not retrieve the content. The revised index links JSS 3 to a page whose fetch returned 404. No class-topic mapping or current adoption is established."
+    },
+    {
+      "id": "neco-bece-history-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "History",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_history.pdf",
+      "retrievedOn": "2026-11-07",
+      "note": "NECO lists objective papers 8341 and 8342. Historical NERDC JSS III pp. 16, 18 and 19 support provisional topics. The historical document has name errors and a problematic claim that a Berlin treaty awarded Nigerian territories to Britain; those details are not adopted in drafts. Current curriculum adoption, NECO topic allocation and official option count remain unverified."
     }
   ],
   "banks": [
@@ -2840,7 +2850,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -2848,6 +2858,9 @@
       "paperCodes": [
         "8341",
         "8342"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-history-2026-historical-reference"
       ]
     },
     {
@@ -14978,6 +14991,120 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "British colonisation",
+      "subtopic": "Indirect rule",
+      "learningObjective": "Recognise administration through existing local authorities.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 16"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "British colonisation",
+      "subtopic": "Forms of contact",
+      "learningObjective": "Distinguish commercial contact from other forms of contact.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 16"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "British colonisation",
+      "subtopic": "Conquest and consent",
+      "learningObjective": "Distinguish military conquest from voluntary political agreement.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 16"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Amalgamation",
+      "subtopic": "Administrative union",
+      "learningObjective": "Explain amalgamation as an administrative joining rather than independence.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 18"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Nationalist purpose",
+      "learningObjective": "Identify the political aim of anti-colonial nationalism.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 19"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "History",
+      "level": "JSS 3",
+      "topic": "Independence movement",
+      "subtopic": "Collective action",
+      "learningObjective": "Recognise independence movements as involving multiple participants.",
+      "specificationId": "neco-bece-history-2026-historical-reference",
+      "id": "bece-history-133-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC History, JSS III, p. 19"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -15005,6 +15132,7 @@
     "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding.",
     "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.",
     "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
-    "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts."
+    "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
+    "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. Historical NERDC name errors and its Berlin treaty claim require independent correction against authoritative historical sources before those details inform drafts."
   ]
 }

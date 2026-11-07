@@ -716,3 +716,9 @@ Pre-Vocational Studies source retrieval was rechecked on 7 November
 index names the subject, but no usable content document was retrieved.
 The revised JSS 3 link returned 404. The bank remains empty and its
 content objectives, option count and current adoption remain open.
+
+Batch 133 opens NECO BECE History with six original JSS 3 conceptual
+drafts on colonial rule, amalgamation and nationalism. Historical
+NERDC topic mapping is provisional. Name errors and a problematic
+Berlin treaty claim in that source are recorded for verification.
+Current adoption, NECO topic allocation and option counts remain open.

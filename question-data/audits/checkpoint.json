@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "bece_pre_vocational_source_access_checked",
+  "phase": "batch_133_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-133.json",
+  "nextBatch": "original-multisubject-batch-134.json",
   "nextPriorities": [
-    "Investigate NECO BECE History current objectives and exact-class historical curriculum evidence before opening its empty bank. Pre-Vocational Studies content remains blocked pending an accessible official syllabus or exact-class curriculum. Next question batch remains 133.",
+    "Verify History dates, personalities and colonial-transition claims against authoritative historical sources before adding factual depth to BECE History. Resolve source errors and distinguish historical curriculum mapping from current adoption. Pre-Vocational Studies content remains blocked.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-132.json",
-  "lastRemoteVerifiedCommit": "d9e779c022f63b0122305cbe96ec1d06ca4698ef",
+  "lastValidatedBatch": "original-multisubject-batch-133.json",
+  "lastRemoteVerifiedCommit": "42a646b7ba63b84b0a229bb9a722355b558eac20",
   "verifiedTotals": {
-    "raw": 3594,
-    "validDrafts": 1915,
+    "raw": 3600,
+    "validDrafts": 1921,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-132.json",
+  "lastPopulatedBatch": "original-multisubject-batch-133.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3594
+  "inventoryRaw": 3600
 }
