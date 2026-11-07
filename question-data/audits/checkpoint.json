@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_127_automated_validation_passed",
+  "phase": "batch_128_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-128.json",
+  "nextBatch": "original-multisubject-batch-129.json",
   "nextPriorities": [
-    "Open TOEFL Listen to an Academic Talk with original 100\u2013250-word stimuli and four questions per talk, verifying the current official guide first. Recorded audio and adaptive delivery remain outstanding.",
+    "Investigate NECO BECE Business Studies official content and practical requirements before opening its empty bank. Distinguish 2026 timetable format evidence from historical NERDC topic references. Listening banks retain recorded-audio and delivery-validation gaps.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-127.json",
-  "lastRemoteVerifiedCommit": "7989baf27f65539d13c2772a83d1ef29a3618d10",
+  "lastValidatedBatch": "original-multisubject-batch-128.json",
+  "lastRemoteVerifiedCommit": "0285951f72bd01be0c7ba4798ea02426f615ffae",
   "verifiedTotals": {
-    "raw": 3558,
-    "validDrafts": 1879,
+    "raw": 3570,
+    "validDrafts": 1891,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-127.json",
+  "lastPopulatedBatch": "original-multisubject-batch-128.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3558
+  "inventoryRaw": 3570
 }

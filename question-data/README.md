@@ -680,3 +680,9 @@ campus announcements of 40–85 words. Two questions per announcement
 are an author choice; the retrieved overview does not specify a fixed
 count. Supervised live delivery is required. Recorded audio,
 academic talks and adaptive delivery remain outstanding.
+
+Batch 128 adds twelve TOEFL Listening drafts across three original
+academic talks on opportunity cost, map simplification and controlled
+comparisons. Each 100–250-word talk has four questions. Initial live
+practice now spans all four Listening task families. Recorded audio,
+delivery validation and broader coverage remain outstanding.

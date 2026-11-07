@@ -1954,10 +1954,11 @@
       "formatGuide": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-specifications-2026.pdf",
       "retrievedOn": "2026-11-07",
       "effectiveFrom": "2026-01-21",
-      "note": "The 2026 blueprint identifies Listen and Choose a Response, Listen to a Conversation, Listen to an Announcement and Listen to an Academic Talk. The Listening webpage lists all four despite its introductory phrase saying two task types. This batch uses original single-exchange response practice with four written response choices, as illustrated in the official Updated Test Overview p. 9. Adaptive assembly, recorded delivery and scaled scores remain outside the draft batch. The official Updated Test Overview p. 9 specifies a short two-speaker conversation with two questions, including inference, intent and likely next actions. The regional mirror was used after the German mirror exceeded the retrieval size limit. Updated Test Overview p. 11 describes announcements of about 40–85 words and shows four answer choices. It does not specify a fixed question count per announcement in the retrieved passage. Two practice questions per original announcement are an author choice.",
+      "note": "The 2026 blueprint identifies Listen and Choose a Response, Listen to a Conversation, Listen to an Announcement and Listen to an Academic Talk. The Listening webpage lists all four despite its introductory phrase saying two task types. This batch uses original single-exchange response practice with four written response choices, as illustrated in the official Updated Test Overview p. 9. Adaptive assembly, recorded delivery and scaled scores remain outside the draft batch. The official Updated Test Overview p. 9 specifies a short two-speaker conversation with two questions, including inference, intent and likely next actions. The regional mirror was used after the German mirror exceeded the retrieval size limit. Updated Test Overview p. 11 describes announcements of about 40–85 words and shows four answer choices. It does not specify a fixed question count per announcement in the retrieved passage. Two practice questions per original announcement are an author choice. Updated Test Overview p. 12 specifies academic talks of about 100–250 words with four questions and no required background knowledge.",
       "sampleGuide": "https://www.de.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-overview.pdf",
       "conversationGuide": "https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-test-overview.pdf",
-      "announcementGuide": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-at-a-glance.pdf"
+      "announcementGuide": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-at-a-glance.pdf",
+      "academicTalkGuide": "https://www.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-at-a-glance.pdf"
     }
   ],
   "banks": [
@@ -2555,7 +2556,7 @@
       "subject": "Listening",
       "level": "",
       "target": 1000,
-      "scopeStatus": "post_january_2026_response_conversation_announcement_practice_live_delivery",
+      "scopeStatus": "post_january_2026_all_four_task_families_initial_live_practice",
       "specificationId": "toefl-ibt-listening-2026"
     },
     {
@@ -14253,6 +14254,210 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Main idea",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Example function",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Definition detail",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Inference",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Central claim",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Supporting detail",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Contrast purpose",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-07-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Practical inference",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-08-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Purpose",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-09-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Experimental control",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-10-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Repetition rationale",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-11-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to an Academic Talk",
+      "subtopic": "Conclusion limit",
+      "learningObjective": "Interpret main ideas, details, organisation and inferences in a short academic talk.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-talk-128-12-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to an Academic Talk, p. 12"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -14277,6 +14482,6 @@
     "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.",
     "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.",
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
-    "TOEFL Listening 2026 has original single-exchange, short-conversation and announcement practice for supervised live delivery. Recorded audio, academic talks, adaptive delivery and independent review remain outstanding."
+    "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding."
   ]
 }
