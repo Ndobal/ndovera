@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_122_automated_validation_passed",
+  "phase": "batch_123_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-123.json",
+  "nextBatch": "original-multisubject-batch-124.json",
   "nextPriorities": [
-    "Add IELTS Listening Part 3 educational discussion with multiple speakers and defensible task mapping. Recorded audio, delivery validation and Part 4 remain outstanding.",
+    "Add an IELTS Listening Part 4 academic monologue with original notes and source-supported task mapping. Recorded audio, delivery validation and wider objective coverage remain outstanding.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-122.json",
-  "lastRemoteVerifiedCommit": "408dce33880e803871ed63000025ec79727ad459",
+  "lastValidatedBatch": "original-multisubject-batch-123.json",
+  "lastRemoteVerifiedCommit": "bff8e98016c60c31c156b9df8aac7efd34748a8e",
   "verifiedTotals": {
-    "raw": 3502,
-    "validDrafts": 1823,
+    "raw": 3512,
+    "validDrafts": 1833,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-122.json",
+  "lastPopulatedBatch": "original-multisubject-batch-123.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3502
+  "inventoryRaw": 3512
 }

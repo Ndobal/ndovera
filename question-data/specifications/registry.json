@@ -1943,7 +1943,7 @@
       "kind": "official_test_format",
       "source": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-listening",
       "retrievedOn": "2026-11-07",
-      "note": "Parts 1 and 2 use everyday social contexts, with two speakers in Part 1 and one main speaker in Part 2. Ten questions per part follow information order. Recordings are heard once. Matching and sentence completion are permitted task types. Each correct response receives one mark. Original scripts currently require supervised live delivery."
+      "note": "Parts 1 and 2 use everyday contexts. Part 3 uses an educational or training discussion between two main speakers, sometimes guided by a tutor. Part 4 is an academic monologue. Ten questions per part follow information order and the recording is heard once. Matching, note completion and sentence completion are permitted. Each correct answer receives one mark. Original scripts currently require supervised live delivery."
     }
   ],
   "banks": [
@@ -13254,6 +13254,186 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Research focus",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-01-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Busy site",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-02-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Quiet site",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-03-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Instrument choice",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-04-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Controlled position",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-05-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Sampling duration",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-06-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Explanatory record",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-07-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Photography condition",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-08-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Results display",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-09-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Sampling limitation",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p3-note-10-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 3",
+        "Question type 4, Note completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -13264,7 +13444,7 @@
     "NERDC supports 16 application class labels; many existing drafts say only Nursery, Primary, JSS or SS. Exact class, adopted curriculum version, term and objectives require source evidence.",
     "NCEE official 2026 components include National Values Education and vocational aptitude. Existing Basic Science, Quantitative Reasoning and Verbal Reasoning labels need component mapping.",
     "IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.",
-    "IELTS Listening has Academic Parts 1 and 2 sets for live delivery. Recorded audio, Parts 3–4 and remaining task formats are outstanding. IELTS Reading and Writing require separate Academic and General Training coverage. Speaking coverage and independent review remain incomplete.",
+    "IELTS Listening has Academic Parts 1–3 sets for live delivery. Recorded audio, Part 4 and remaining task formats are outstanding. IELTS Reading and Writing require separate Academic and General Training coverage. Speaking coverage and independent review remain incomplete.",
     "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",

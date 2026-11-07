@@ -1,0 +1,442 @@
+{
+  "schemaVersion": 2,
+  "collection": "IELTS Academic Listening Part 3 student research discussion",
+  "questionCount": 10,
+  "note": "Original listening practice for supervised live delivery. Keep the script, answers and explanations out of learner view. Recorded audio remains outstanding.",
+  "listeningSet": {
+    "id": "ielts-listening-part-3-campus-noise-study",
+    "title": "Planning a campus sound study",
+    "learnerInstructions": "Complete the project notes. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.",
+    "examinerInstructions": "Allow time to read the notes. Two readers perform the full discussion once at a natural pace. Award one mark for each correct answer. Ignore letter case and accept the listed numerical alternatives. Require correct spelling and compliance with the response limit.",
+    "examinerScript": [
+      {
+        "speaker": "Amara",
+        "line": "We need to finalise our campus sound study before sending the plan to our tutor. I originally wanted to compare how noise changes over a full day, but that would mean returning to every location several times."
+      },
+      {
+        "speaker": "David",
+        "line": "That is too much for our timetable. Let’s compare locations instead. Then we can explain differences between parts of the campus without claiming to describe changes throughout the day."
+      },
+      {
+        "speaker": "Amara",
+        "line": "Agreed. I suggested measuring near the main road, but traffic could dominate every reading. The courtyard gives us a busy location where most sounds come from people moving between classes. Shall we use that as our first site?"
+      },
+      {
+        "speaker": "David",
+        "line": "Yes, the courtyard works. For a quieter comparison, I thought of the library entrance. There’s building work there this week, though. The garden is further away from it, so let’s use the garden as our second site."
+      },
+      {
+        "speaker": "Amara",
+        "line": "How should we measure the sound? A phone application would be convenient, but our phones might give different results even in the same place."
+      },
+      {
+        "speaker": "David",
+        "line": "The department can lend us a sound meter. We should use that same instrument at both sites, with the same settings. We can mention in our report that this makes the measurements more comparable."
+      },
+      {
+        "speaker": "Amara",
+        "line": "And we must keep its position consistent. If one reading is beside a wall and another is out in the open, the setting could affect the result."
+      },
+      {
+        "speaker": "David",
+        "line": "True. We can choose an open spot at each site. For the instrument itself, let’s place it at a height of one metre each time. I’ll take a stand so we aren’t relying on holding it at roughly the same level."
+      },
+      {
+        "speaker": "Amara",
+        "line": "How long should each measurement last? A single glance at the display would be too easily affected by one sudden shout."
+      },
+      {
+        "speaker": "David",
+        "line": "Let’s record for five minutes at each site and keep the instrument’s average reading for that period. That is manageable for us and gives a more useful picture than an instant reading. It still won’t tell us what happens at other times of day."
+      },
+      {
+        "speaker": "Amara",
+        "line": "We also need notes about unusual events. Suppose someone drops a metal trolley while we are recording. That might explain a result that seems surprising."
+      },
+      {
+        "speaker": "David",
+        "line": "Exactly. Let’s keep an event log beside the measurement table. We can use it to note what happened and when, without trying to identify the people involved."
+      },
+      {
+        "speaker": "Amara",
+        "line": "Would photographs help? A picture of the instrument position could show how we set it up, but we might accidentally include faces."
+      },
+      {
+        "speaker": "David",
+        "line": "We can photograph just the equipment and the ground around it. If any people could be recognised in a photograph, we must ask for their consent before including it in the project. We can avoid that problem by framing the pictures carefully."
+      },
+      {
+        "speaker": "Amara",
+        "line": "For the results, I was thinking of a line graph, but our two sites are separate categories. Joining them with a line would suggest a continuous sequence."
+      },
+      {
+        "speaker": "David",
+        "line": "I agree. A bar chart will make the comparison clearer. We should label each site and the measurement units, then explain what our small sample can and cannot support."
+      },
+      {
+        "speaker": "Amara",
+        "line": "There is one limitation we should be explicit about. We are taking measurements on a weekday when most students are attending classes. We can’t assume the campus sounds the same at the weekend."
+      },
+      {
+        "speaker": "David",
+        "line": "Yes. Let’s list that as a limitation and suggest repeating the study on a weekend in future. We should avoid turning a small class project into a general claim about every day on campus."
+      },
+      {
+        "speaker": "Amara",
+        "line": "Who will check the table after we enter the numbers? If we each enter our own notes, errors could slip through."
+      },
+      {
+        "speaker": "David",
+        "line": "I’ll enter both sets of readings, and you can compare the table with the original field notes. Then I’ll check the chart against the corrected table."
+      },
+      {
+        "speaker": "Amara",
+        "line": "Good. I’ll check the table before you make the final chart. That gives us a clear order for the work and a chance to catch transcription mistakes."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Research focus",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-001",
+      "objectiveId": "ielts-listening-p3-note-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Main comparison: different _____ on campus",
+      "answer": "locations",
+      "acceptedAnswers": [
+        "locations"
+      ],
+      "explanation": "They reject studying change across a whole day and agree to compare campus locations.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 1
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Busy site",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-002",
+      "objectiveId": "ielts-listening-p3-note-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Busier sampling site: the _____",
+      "answer": "courtyard",
+      "acceptedAnswers": [
+        "courtyard"
+      ],
+      "explanation": "They select the courtyard because it is busy with people moving between classes.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 2
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Quiet site",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-003",
+      "objectiveId": "ielts-listening-p3-note-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Quieter sampling site: the _____",
+      "answer": "garden",
+      "acceptedAnswers": [
+        "garden"
+      ],
+      "explanation": "Building work rules out the library entrance; they agree on the garden.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 3
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Instrument choice",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-004",
+      "objectiveId": "ielts-listening-p3-note-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Measurement instrument: one departmental _____",
+      "answer": "sound meter",
+      "acceptedAnswers": [
+        "sound meter"
+      ],
+      "explanation": "They choose one borrowed sound meter because separate phones could produce different results.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 5
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Controlled position",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-005",
+      "objectiveId": "ielts-listening-p3-note-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Instrument height at both sites: _____ metre",
+      "answer": "one",
+      "acceptedAnswers": [
+        "one",
+        "1"
+      ],
+      "explanation": "David fixes the height at one metre and proposes a stand.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 7
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Sampling duration",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-006",
+      "objectiveId": "ielts-listening-p3-note-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Duration at each site: _____ minutes",
+      "answer": "five",
+      "acceptedAnswers": [
+        "five",
+        "5"
+      ],
+      "explanation": "The students settle on a five-minute recording period at each site.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 9
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Explanatory record",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-007",
+      "objectiveId": "ielts-listening-p3-note-07-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Unusual sounds recorded in an _____",
+      "answer": "event log",
+      "acceptedAnswers": [
+        "event log"
+      ],
+      "explanation": "An event log will help explain unexpected readings.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 11
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Photography condition",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-008",
+      "objectiveId": "ielts-listening-p3-note-08-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Identifiable people in included photographs must give _____",
+      "answer": "consent",
+      "acceptedAnswers": [
+        "consent"
+      ],
+      "explanation": "David explicitly requires consent when someone could be recognised in an included photograph.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 13
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Results display",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-009",
+      "objectiveId": "ielts-listening-p3-note-09-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Chosen visual display: a _____",
+      "answer": "bar chart",
+      "acceptedAnswers": [
+        "bar chart"
+      ],
+      "explanation": "They choose a bar chart because the two sites are separate categories.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 15
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 3",
+      "subtopic": "Sampling limitation",
+      "learningObjective": "Complete project notes by following students’ reasoning and agreed research decisions.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-123-010",
+      "objectiveId": "ielts-listening-p3-note-10-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Future repeat suggested at the _____",
+      "answer": "weekend",
+      "acceptedAnswers": [
+        "weekend"
+      ],
+      "explanation": "The weekday observations cannot establish weekend conditions.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-3-campus-noise-study",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 17
+    }
+  ]
+}

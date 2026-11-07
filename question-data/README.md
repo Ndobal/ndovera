@@ -651,3 +651,8 @@ Batch 122 adds a ten-item IELTS Academic Listening Part 2 set on a
 community garden. It uses five matching items and five sentence
 completions with an original monologue for supervised live delivery.
 Recorded audio, Parts 3–4 and wider task coverage remain outstanding.
+
+Batch 123 adds ten IELTS Academic Listening Part 3 note-completion
+items using an original discussion between two students planning a
+campus sound study. It requires two readers for supervised live
+delivery. Recorded audio and Part 4 remain outstanding.
