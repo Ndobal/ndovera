@@ -2123,13 +2123,15 @@
       "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/7.pdf",
       "documentDate": "September 2025",
       "retrievedOn": "2026-11-07",
-      "status": "exact_class_document_and_initial_outcomes_mapped_national_rollout_evidenced",
-      "note": "30-page September 2025 revised CRS JSS 1 document. Sixteen topic entries inventoried from its contents; first three topics have ten paraphrased performance-objective mappings. Remaining topic outcomes, competencies and assessment detail are not fully mapped. National rollout is evidenced separately; individual school adoption is unverified. No JSS 3 mapping is inferred. Singing and modelling remain performance tasks. The marriage/health causal claim on printed p. 3 is flagged and not adopted as factual teaching content.",
+      "status": "nine_topics_initially_mapped_source_pagination_checked",
+      "note": "September 2025 revised CRS JSS 1, 30-page PDF. Sixteen distinct topics inventoried; nine topics have 34 initial objective mappings. PDF pages 22 and 23 repeat the obedience table with different footer numbers; subsequent direct locators supersede contents arithmetic. Seven topic mappings, complete competency/evaluation reconciliation and academic review remain outstanding. National rollout evidence is registered separately; individual school adoption remains unverified. Actual drawing and worship tasks are not converted to MCQ. Source discrepancies and the marriage/health claim remain flagged.",
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "inventoryFile": "question-data/specifications/nerdc-crs-jss1-revised-2025-inventory.json"
+      "inventoryFile": "question-data/specifications/nerdc-crs-jss1-revised-2025-inventory.json",
+      "checkedOn": "2026-11-08",
+      "sourceSha256": "6c465aa9d01935c6956ac897fd91066aa112a6e94b9e926e9e6c3a91b2995f2b"
     },
     {
       "id": "nerdc-revised-bec-rollout-2025",
@@ -16009,6 +16011,484 @@
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 4
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t04-po01-v1",
+      "topic": "Disobeying God",
+      "subtopic": "Obedience",
+      "learningObjective": "Explain obedience.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t04-po02-v1",
+      "topic": "Disobeying God",
+      "subtopic": "Categories",
+      "learningObjective": "Classify disobedience.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t04-po03-v1",
+      "topic": "Disobeying God",
+      "subtopic": "Genesis narrative",
+      "learningObjective": "Recount Genesis 3.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t04-po04-v1",
+      "topic": "Disobeying God",
+      "subtopic": "Civic consequences",
+      "learningObjective": "Explain consequences of lawbreaking.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t04-po05-v1",
+      "topic": "Disobeying God",
+      "subtopic": "Conduct",
+      "learningObjective": "Relate disobedience to consequences.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 5"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 5
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t05-po01-v1",
+      "topic": "Restoring relationships",
+      "subtopic": "Meaning and conditions",
+      "learningObjective": "Explain reconciliation and prerequisites.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t05-po02-v1",
+      "topic": "Restoring relationships",
+      "subtopic": "Parable",
+      "learningObjective": "Recount the returning son.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t05-po03-v1",
+      "topic": "Restoring relationships",
+      "subtopic": "Methods",
+      "learningObjective": "Describe reconciliation methods.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t05-po04-v1",
+      "topic": "Restoring relationships",
+      "subtopic": "Jacob and Esau",
+      "learningObjective": "Recount the brothers' reconciliation.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t06-po01-v1",
+      "topic": "Family relationships",
+      "subtopic": "Family forms",
+      "learningObjective": "Describe family types.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t06-po02-v1",
+      "topic": "Family relationships",
+      "subtopic": "Family tree",
+      "learningObjective": "Draw and label a family tree.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t06-po03-v1",
+      "topic": "Family relationships",
+      "subtopic": "Responsibilities",
+      "learningObjective": "Identify family responsibilities.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t06-po04-v1",
+      "topic": "Family relationships",
+      "subtopic": "Healthy relationships",
+      "learningObjective": "Describe positive family qualities.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t07-po01-v1",
+      "topic": "School relationships",
+      "subtopic": "School community",
+      "learningObjective": "Identify school community members.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t07-po02-v1",
+      "topic": "School relationships",
+      "subtopic": "Friendship choices",
+      "learningObjective": "Explain friendship selection.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t07-po03-v1",
+      "topic": "School relationships",
+      "subtopic": "Positive friendships",
+      "learningObjective": "Illustrate constructive friendships.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t07-po04-v1",
+      "topic": "School relationships",
+      "subtopic": "Harmful friendships",
+      "learningObjective": "Explain harmful friendship outcomes.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t08-po01-v1",
+      "topic": "Community and church relationships",
+      "subtopic": "Community leadership",
+      "learningObjective": "Identify community leaders.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 8, PDF page 20, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t08-po02-v1",
+      "topic": "Community and church relationships",
+      "subtopic": "Community cooperation",
+      "learningObjective": "Describe community relationship-building.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 8, PDF page 20, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t08-po03-v1",
+      "topic": "Community and church relationships",
+      "subtopic": "Church cooperation",
+      "learningObjective": "Describe church relationship-building.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 8, PDF page 20, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t09-po01-v1",
+      "topic": "Relating to God",
+      "subtopic": "Relating to God",
+      "learningObjective": "Describe relating to God.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t09-po02-v1",
+      "topic": "Relating to God",
+      "subtopic": "Divine communication",
+      "learningObjective": "Identify Christian understandings of divine communication.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t09-po03-v1",
+      "topic": "Relating to God",
+      "subtopic": "Continuity",
+      "learningObjective": "Explain sustaining that relationship.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t09-po04-v1",
+      "topic": "Relating to God",
+      "subtopic": "Worship performance",
+      "learningObjective": "Demonstrate prayer, worship and praise.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4
     }
   ],
   "scopeGaps": [
@@ -16043,6 +16523,7 @@
     "NECO BECE French Language has initial original written-comprehension practice grounded provisionally in historical JSS Three themes. Receptive drills do not establish oral or written production competence. Current curriculum adoption, full content specification, allocation between 2051/2052, option counts and listening/oral requirements remain unverified. No Ghana BECE or NECO SSCE format has been substituted.",
     "NECO BECE Christian Religious Studies has initial original JSS 3 practice on Paul's trials using historical July 2018 topic mapping and directly checked Acts 23-25 text. Current curriculum adoption, full objectives, official 5161/5162 allocation and option counts remain unverified. Malformed curriculum verse references and the description of Agrippa as governor are flagged; drafts use checked references and identify him as king. No JSS 1 revised topic mapping is transferred to JSS 3.",
     "On 2026-11-07 an official September 2025 revised CRS JSS 1 PDF was successfully retrieved at the LMIS direct PDF URL. This is an exact-class access advance, not verified cohort adoption or complete objective coverage. Reconcile it with the unresolved NERDC bank register and map its outcomes before adding exact-class drafts. Other current class/subject access gaps remain.",
-    "Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled."
+    "Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled.",
+    "CRS JSS 1 mapping now covers nine topics and 34 initial objectives, with verified PDF locators. A duplicated obedience table and shifted later pagination were found. Seven topics and complete competency/evaluation reconciliation remain open; none of the mapping work adds questions or confers academic approval."
   ]
 }

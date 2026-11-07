@@ -772,3 +772,9 @@ initial performance-objective mappings for the first three topics.
 No questions were added. The 1,000-item target remains provisional.
 School adoption, other outcomes, performance assessment and capacity
 remain open. No terms, ages or legacy class assignments were inferred.
+
+The next CRS JSS 1 mapping pass adds 24 objective mappings across
+topics 4–9, reaching 34 initial mappings in nine topics. Direct PDF
+inspection corrects later page locators after a repeated obedience
+table. Evaluation wording conflicts remain flagged. Seven topics and
+full assessment reconciliation are still open. No questions added.

@@ -2,19 +2,19 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "crs_jss1_revised_source_mapping_automated_validation_passed",
+  "phase": "crs_jss1_nine_topics_mapping_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
   "nextBatch": "original-multisubject-batch-140.json",
   "nextPriorities": [
-    "Continue the revised September 2025 NERDC CRS JSS 1 inventory: map remaining thirteen topics' performance objectives, focal competencies and evaluation requirements before writing batch 140. National rollout evidence is registered; verify school adoption separately and preserve actual singing/modelling tasks. Then investigate BECE Islamic Studies.",
+    "Map revised CRS JSS 1 topics 10-16 and finish competency/evaluation reconciliation before writing batch 140. Nine topics now have 34 initial objective mappings. Use direct PDF locators: PDF pages 22/23 repeat obedience; freedom begins PDF page 24 (printed 12), not the contents-derived location. Keep source wording conflicts explicit and verify biblical references before drafting. Then investigate BECE Islamic Studies.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
   "lastValidatedBatch": "original-multisubject-batch-139.json",
-  "lastRemoteVerifiedCommit": "f29f5028874e1e7133ddf5c493d3743f4baf4b7e",
+  "lastRemoteVerifiedCommit": "471167cc1664e395d4f91bc1e8f31ec8a47198ff",
   "verifiedTotals": {
     "raw": 3654,
     "validDrafts": 1975,

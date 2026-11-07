@@ -27,49 +27,49 @@
     "National rollout evidence does not verify each school's implementation.",
     "No term or learner-age allocation inferred.",
     "Topic index is not a full performance-objective denominator.",
-    "Topics 1-3 have initial objective mappings only; learning activities, focal competencies and evaluation guides still need complete reconciliation.",
     "Singing and making a model require actual performance and original practice rubrics, not MCQ substitutes.",
     "Language-name spellings need specialist verification.",
-    "Printed p. 3 links marriage with prevention of infections; that causal claim is flagged, not used as factual teaching evidence."
+    "Printed p. 3 links marriage with prevention of infections; that causal claim is flagged, not used as factual teaching evidence.",
+    "Topics 1-9 now have initial objective mappings. Topics 10-16 remain unmapped. Competencies and evaluation detail are partial; no full syllabus denominator or marking scheme is claimed."
   ],
   "topics": [
     {
       "topicNumber": 1,
       "topic": "Understanding God",
       "themeNumber": 1,
-      "printedPage": 1,
-      "expectedPdfPageFromContents": 13,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [
         "nerdc-crs-jss1-2025-t01-po01-v1",
         "nerdc-crs-jss1-2025-t01-po02-v1",
         "nerdc-crs-jss1-2025-t01-po03-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 1,
+      "verifiedPrintedPage": 1,
+      "verifiedPdfPage": 13
     },
     {
       "topicNumber": 2,
       "topic": "Creation",
       "themeNumber": 1,
-      "printedPage": 2,
-      "expectedPdfPageFromContents": 14,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [
         "nerdc-crs-jss1-2025-t02-po01-v1",
         "nerdc-crs-jss1-2025-t02-po02-v1",
         "nerdc-crs-jss1-2025-t02-po03-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 2,
+      "verifiedPrintedPage": 2,
+      "verifiedPdfPage": 14
     },
     {
       "topicNumber": 3,
       "topic": "Human creativity",
       "themeNumber": 1,
-      "printedPage": 3,
-      "expectedPdfPageFromContents": 15,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [
         "nerdc-crs-jss1-2025-t03-po01-v1",
         "nerdc-crs-jss1-2025-t03-po02-v1",
@@ -77,150 +77,255 @@
         "nerdc-crs-jss1-2025-t03-po04-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 3,
+      "verifiedPrintedPage": 3,
+      "verifiedPdfPage": 15
     },
     {
       "topicNumber": 4,
       "topic": "Disobeying God",
       "themeNumber": 1,
-      "printedPage": 4,
-      "expectedPdfPageFromContents": 16,
-      "sourceLocatorStatus": "contents_reference",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "sourceLocatorStatus": "direct_pdf_page_verified",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t04-po01-v1",
+        "nerdc-crs-jss1-2025-t04-po02-v1",
+        "nerdc-crs-jss1-2025-t04-po03-v1",
+        "nerdc-crs-jss1-2025-t04-po04-v1",
+        "nerdc-crs-jss1-2025-t04-po05-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": [],
+      "focalCompetenceSummary": "Avoid disobedience.",
+      "assessmentModeSummary": "Discussion and reflective writing.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
+      "contentsPrintedPage": 4,
+      "verifiedPrintedPage": 4,
+      "verifiedPdfPage": 16
     },
     {
       "topicNumber": 5,
       "topic": "Restoring relationships",
       "themeNumber": 1,
-      "printedPage": 5,
-      "expectedPdfPageFromContents": 17,
-      "sourceLocatorStatus": "contents_reference",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "sourceLocatorStatus": "direct_pdf_page_verified",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t05-po01-v1",
+        "nerdc-crs-jss1-2025-t05-po02-v1",
+        "nerdc-crs-jss1-2025-t05-po03-v1",
+        "nerdc-crs-jss1-2025-t05-po04-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": [],
+      "focalCompetenceSummary": "Acknowledge wrongdoing honestly.",
+      "assessmentModeSummary": "Discussion and role-play.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
+      "contentsPrintedPage": 5,
+      "verifiedPrintedPage": 5,
+      "verifiedPdfPage": 17
     },
     {
       "topicNumber": 6,
       "topic": "Family relationships",
       "themeNumber": 2,
-      "printedPage": 6,
-      "expectedPdfPageFromContents": 18,
-      "sourceLocatorStatus": "contents_reference",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "sourceLocatorStatus": "direct_pdf_page_verified",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t06-po01-v1",
+        "nerdc-crs-jss1-2025-t06-po02-v1",
+        "nerdc-crs-jss1-2025-t06-po03-v1",
+        "nerdc-crs-jss1-2025-t06-po04-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": [],
+      "focalCompetenceSummary": "Support family members.",
+      "assessmentModeSummary": "Discussion and family-tree drawing.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
+      "contentsPrintedPage": 6,
+      "verifiedPrintedPage": 6,
+      "verifiedPdfPage": 18
     },
     {
       "topicNumber": 7,
       "topic": "School relationships",
       "themeNumber": 2,
-      "printedPage": 7,
-      "expectedPdfPageFromContents": 19,
-      "sourceLocatorStatus": "contents_reference",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "sourceLocatorStatus": "direct_pdf_page_verified",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t07-po01-v1",
+        "nerdc-crs-jss1-2025-t07-po02-v1",
+        "nerdc-crs-jss1-2025-t07-po03-v1",
+        "nerdc-crs-jss1-2025-t07-po04-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": [],
+      "focalCompetenceSummary": "Cooperate at school.",
+      "assessmentModeSummary": "Discussion and friendship evaluation.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
+      "contentsPrintedPage": 7,
+      "verifiedPrintedPage": 7,
+      "verifiedPdfPage": 19
     },
     {
       "topicNumber": 8,
       "topic": "Community and church relationships",
       "themeNumber": 2,
-      "printedPage": 8,
-      "expectedPdfPageFromContents": 20,
-      "sourceLocatorStatus": "contents_reference",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "sourceLocatorStatus": "direct_pdf_page_verified",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t08-po01-v1",
+        "nerdc-crs-jss1-2025-t08-po02-v1",
+        "nerdc-crs-jss1-2025-t08-po03-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": [],
+      "focalCompetenceSummary": "Participate in community service.",
+      "assessmentModeSummary": "Community and church participation.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
+      "contentsPrintedPage": 8,
+      "verifiedPrintedPage": 8,
+      "verifiedPdfPage": 20
     },
     {
       "topicNumber": 9,
       "topic": "Relating to God",
       "themeNumber": 2,
-      "printedPage": 9,
-      "expectedPdfPageFromContents": 21,
-      "sourceLocatorStatus": "contents_reference",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "sourceLocatorStatus": "direct_pdf_page_verified",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t09-po01-v1",
+        "nerdc-crs-jss1-2025-t09-po02-v1",
+        "nerdc-crs-jss1-2025-t09-po03-v1",
+        "nerdc-crs-jss1-2025-t09-po04-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": [],
+      "focalCompetenceSummary": "Trust and obey God.",
+      "assessmentModeSummary": "Discussion and worship performance.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
+      "contentsPrintedPage": 9,
+      "verifiedPrintedPage": 9,
+      "verifiedPdfPage": 21
     },
     {
       "topicNumber": 10,
       "topic": "Responding with obedience",
       "themeNumber": 3,
-      "printedPage": 10,
-      "expectedPdfPageFromContents": 22,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [],
       "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 10,
+      "verifiedPrintedPage": 10,
+      "verifiedPdfPage": 22
     },
     {
       "topicNumber": 11,
       "topic": "Responding to freedom",
       "themeNumber": 3,
-      "printedPage": 11,
-      "expectedPdfPageFromContents": 23,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [],
       "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 11,
+      "verifiedPrintedPage": 12,
+      "verifiedPdfPage": 24
     },
     {
       "topicNumber": 12,
       "topic": "Responding through service",
       "themeNumber": 3,
-      "printedPage": 12,
-      "expectedPdfPageFromContents": 24,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [],
       "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 12,
+      "verifiedPrintedPage": 13,
+      "verifiedPdfPage": 25
     },
     {
       "topicNumber": 13,
       "topic": "Responding with repentance",
       "themeNumber": 3,
-      "printedPage": 13,
-      "expectedPdfPageFromContents": 25,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [],
       "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 13,
+      "verifiedPrintedPage": 14,
+      "verifiedPdfPage": 26
     },
     {
       "topicNumber": 14,
       "topic": "Jesus' birth",
       "themeNumber": 4,
-      "printedPage": 14,
-      "expectedPdfPageFromContents": 26,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [],
       "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 14,
+      "verifiedPrintedPage": 15,
+      "verifiedPdfPage": 27
     },
     {
       "topicNumber": 15,
       "topic": "Jesus' temple presentation",
       "themeNumber": 4,
-      "printedPage": 15,
-      "expectedPdfPageFromContents": 27,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [],
       "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 15,
+      "verifiedPrintedPage": 16,
+      "verifiedPdfPage": 28
     },
     {
       "topicNumber": 16,
       "topic": "Jesus' family life",
       "themeNumber": 4,
-      "printedPage": 16,
-      "expectedPdfPageFromContents": 28,
-      "sourceLocatorStatus": "contents_reference",
+      "sourceLocatorStatus": "direct_pdf_page_verified",
       "objectiveIds": [],
       "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": []
+      "draftQuestionIds": [],
+      "contentsPrintedPage": 16,
+      "verifiedPrintedPage": 17,
+      "verifiedPdfPage": 29
+    }
+  ],
+  "lastCheckedOn": "2026-11-08",
+  "sourceSha256": "6c465aa9d01935c6956ac897fd91066aa112a6e94b9e926e9e6c3a91b2995f2b",
+  "sourceBytes": 2189817,
+  "sourcePdfPages": 30,
+  "mappedTopicCount": 9,
+  "initialObjectiveCount": 34,
+  "sourceIssues": [
+    {
+      "pdfPages": [
+        22,
+        23
+      ],
+      "printedPages": [
+        10,
+        11
+      ],
+      "issue": "Repeated obedience table; source table text repeats while footer changes.",
+      "treatment": "Map topic 10 once; do not create a seventeenth topic. Use verified page locators for subsequent topics."
+    },
+    {
+      "pdfPages": [
+        16
+      ],
+      "issue": "Performance objective 2 classifies disobedience, while evaluation item 2 refers to obedience.",
+      "treatment": "Keep source-specific objective mapping and flag evaluation discrepancy for academic review."
+    },
+    {
+      "pdfPages": [
+        17
+      ],
+      "issue": "Content cell describes the returning son reconciling with his son.",
+      "treatment": "Flag apparent wording error; verify Luke 15 before drafting."
+    },
+    {
+      "pdfPages": [
+        15
+      ],
+      "issue": "Marriage/health causal claim requires specialist verification.",
+      "treatment": "Not adopted as factual teaching content."
     }
   ]
 }
