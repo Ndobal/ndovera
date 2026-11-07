@@ -704,3 +704,9 @@ reading-for-summary drafts using two original passages. Historical
 JSS 3 objectives inform provisional mapping. Current NECO paper-level
 content, option counts, essay requirements and curriculum adoption
 remain outstanding.
+
+Batch 132 adds four BECE English Studies composition drafts covering
+narrative, descriptive, expository and argumentative writing. Each
+includes an illustrative model response and an original classroom
+rubric. Historical topic alignment remains provisional. Official
+Paper III choices, word limits and marking remain outstanding.

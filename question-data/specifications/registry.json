@@ -1989,6 +1989,16 @@
       "curriculumReference": "https://nerdc.gov.ng/content_manager/jss/jss1-3_english_studies.pdf",
       "retrievedOn": "2026-11-07",
       "note": "NECO lists objective papers 1011/1012 and essay 1013. Historical NERDC JSS 3 Reading for Summary p. 51 supports provisional main-idea and summary practice. The non-www source was accessible after the www URL failed. Current adoption, NECO paper-level objectives, option counts, prescribed texts and essay marking remain unverified."
+    },
+    {
+      "id": "neco-bece-english-writing-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "English Studies",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://nerdc.gov.ng/content_manager/jss/jss1-3_english_studies.pdf",
+      "retrievedOn": "2026-11-07",
+      "note": "NECO confirms essay paper 1013. Historical NERDC JSS 3 composition p. 52 covers narrative, descriptive, expository and argumentative writing. Tasks, model responses and ten-mark rubrics are original classroom practice. Official NECO word limits, task choices, timing per task and marking remain unverified, as does current curriculum adoption."
     }
   ],
   "banks": [
@@ -3015,7 +3025,8 @@
         "1013"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-english-2026-historical-reference"
+        "neco-bece-english-2026-historical-reference",
+        "neco-bece-english-writing-2026-historical-reference"
       ]
     },
     {
@@ -14875,6 +14886,82 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Narrative",
+      "learningObjective": "Produce a coherent narrative composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "bece-english-writing-132-01-v1",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, essay format only",
+        "Historical NERDC English Studies, JSS 3, Composition Writing, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Descriptive",
+      "learningObjective": "Produce a coherent descriptive composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "bece-english-writing-132-02-v1",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, essay format only",
+        "Historical NERDC English Studies, JSS 3, Composition Writing, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Expository",
+      "learningObjective": "Produce a coherent expository composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "bece-english-writing-132-03-v1",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, essay format only",
+        "Historical NERDC English Studies, JSS 3, Composition Writing, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Argumentative",
+      "learningObjective": "Produce a coherent argumentative composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "bece-english-writing-132-04-v1",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, essay format only",
+        "Historical NERDC English Studies, JSS 3, Composition Writing, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -14901,6 +14988,6 @@
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
     "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding.",
     "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.",
-    "NECO BECE English Studies has initial original reading-for-summary practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified."
+    "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified."
   ]
 }

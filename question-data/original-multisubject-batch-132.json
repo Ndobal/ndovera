@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO BECE English Studies JSS 3 original composition practice",
+  "questionCount": 4,
+  "note": "Original classroom writing tasks with illustrative model responses and ten-mark practice rubrics. Historical topic alignment is provisional. Official NECO task choices, word limits and marking remain unverified.",
+  "questions": [
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Narrative",
+      "learningObjective": "Produce a coherent narrative composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "ndv-132-001",
+      "objectiveId": "bece-english-writing-132-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "essay",
+      "prompt": "Write a story for your class magazine about a time a small mistake led to a useful discovery. Show the mistake, the response to it and the eventual outcome. You may invent the events.",
+      "answer": "I was responsible for the labels on our exhibition boxes. In my hurry, I put the label for recycled toys on the box containing photographs. By the time I noticed, visitors had already begun arriving.\n\nI reached for the label, but a younger pupil stopped me. She was studying a photograph of a toy maker working beside a heap of discarded cartons. “Where is the toy he made?” she asked. I showed her the next box. Soon, several visitors were moving between the photographs and the finished toys, asking how each object had been produced.\n\nOur original plan had placed the photographs at the far end of the room. Now we realised that they made more sense beside the toys. I corrected the labels, and we moved the boxes together.\n\nAt the end of the day, our teacher thanked us for showing both the process and the result. I still checked my labels twice after that, but I no longer thought a mistake had to end in failure.",
+      "explanation": "The model develops one connected incident, uses dialogue at a turning point and links the outcome to the original mistake.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 4,
+          "description": "Develop a connected sequence with a clear mistake, response and outcome. Award credit for relevant, developed content; accept different original responses."
+        },
+        {
+          "marks": 2,
+          "description": "Organise ideas into linked paragraphs with an effective opening and ending."
+        },
+        {
+          "marks": 2,
+          "description": "Use clear, appropriate vocabulary and largely accurate sentence structures."
+        },
+        {
+          "marks": 2,
+          "description": "Control spelling, punctuation and grammar so meaning is clear."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Descriptive",
+      "learningObjective": "Produce a coherent descriptive composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "ndv-132-002",
+      "objectiveId": "bece-english-writing-132-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "essay",
+      "prompt": "Describe a familiar place just before it becomes busy. Help the reader imagine its appearance, sounds and atmosphere. Give your composition a suitable title.",
+      "answer": "The Market Before Sunrise\n\nBefore the first customers arrive, the market seems to be holding its breath. Closed umbrellas lean against wooden stalls, and narrow paths lie almost empty between them. A single lamp glows above the bread seller’s table, lighting the pale steam rising from a covered basket.\n\nNear the entrance, a trader sweeps yesterday’s dust into a small pile. The scrape of her broom is louder than the few voices around her. Somewhere behind the stalls, a metal shutter rattles upwards. A bicycle bell answers it from the road.\n\nThe air carries the smell of warm bread and damp earth. As the sky grows lighter, colours emerge from the shadows: red tomatoes in a shallow tray, green leaves tied in bundles and a yellow basin balanced on a stool.\n\nThen a bus stops outside. Footsteps multiply, greetings cross the paths, and the quiet begins to disappear. For a few minutes, however, I can still see the market before the crowd fills it.",
+      "explanation": "The description follows a clear viewpoint and uses selected sensory details to create the changing atmosphere.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 4,
+          "description": "Create a coherent impression through relevant sensory details and a consistent viewpoint. Award credit for relevant, developed content; accept different original responses."
+        },
+        {
+          "marks": 2,
+          "description": "Organise ideas into linked paragraphs with an effective opening and ending."
+        },
+        {
+          "marks": 2,
+          "description": "Use clear, appropriate vocabulary and largely accurate sentence structures."
+        },
+        {
+          "marks": 2,
+          "description": "Control spelling, punctuation and grammar so meaning is clear."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Expository",
+      "learningObjective": "Produce a coherent expository composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "ndv-132-003",
+      "objectiveId": "bece-english-writing-132-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "essay",
+      "prompt": "Explain to younger pupils how to organise a small class exhibition. Arrange the stages logically and explain why the important steps are needed.",
+      "answer": "A class exhibition is easier to organise when everyone understands its purpose. Begin by choosing a clear theme, such as local crafts or inventions made from reused materials. The theme helps the class decide what belongs in the display.\n\nNext, make a list of tasks. Some pupils can prepare exhibits, while others write labels, arrange tables or welcome visitors. Give each task a deadline and check progress before the final day. This prevents one pupil from having to solve every problem at once.\n\nBefore arranging the room, decide how visitors will move through it. Leave the entrance and paths clear. Place labels where they can be read without touching delicate objects. If an exhibit needs a demonstration, practise it and decide who will supervise.\n\nFinally, walk through the display as if you were a visitor. Check missing labels and unclear instructions. After the exhibition, return borrowed items and discuss what worked well. These steps help the class learn from the event.",
+      "explanation": "The model organises preparation, responsibilities, layout, checking and follow-up in sequence, explaining their purposes.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 4,
+          "description": "Explain a practical sequence and give reasons for important steps. Award credit for relevant, developed content; accept different original responses."
+        },
+        {
+          "marks": 2,
+          "description": "Organise ideas into linked paragraphs with an effective opening and ending."
+        },
+        {
+          "marks": 2,
+          "description": "Use clear, appropriate vocabulary and largely accurate sentence structures."
+        },
+        {
+          "marks": 2,
+          "description": "Control spelling, punctuation and grammar so meaning is clear."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Argumentative",
+      "learningObjective": "Produce a coherent argumentative composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "ndv-132-004",
+      "objectiveId": "bece-english-writing-132-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "essay",
+      "prompt": "Should pupils help decide how a shared reading corner is organised? Write a composition giving your view, supporting reasons and a response to one reasonable objection.",
+      "answer": "Pupils should help decide how a shared reading corner is organised because they are its daily users. Their suggestions can reveal problems that an adult may not immediately notice, such as labels that are hard to understand or shelves that younger children cannot reach.\n\nInvolving pupils can also encourage responsibility. A class that helps choose a borrowing system is more likely to understand why records matter. Pupils can test an arrangement, report difficulties and suggest improvements instead of simply complaining when something goes wrong.\n\nSome people may argue that involving everyone will take too much time. That concern is reasonable, but participation does not require a long discussion about every book. The class can collect suggestions, choose representatives and review a short trial after two weeks. The teacher can guide decisions about safety and fairness.\n\nPupils should therefore have a real voice within clear limits. Shared decisions can make the corner easier to use and help the class care for it.",
+      "explanation": "The model states a position, develops two reasons, responds to an objection and reaches a consistent conclusion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "marks": 4,
+          "description": "State and support a position, consider an objection and reach a consistent conclusion. Award credit for relevant, developed content; accept different original responses."
+        },
+        {
+          "marks": 2,
+          "description": "Organise ideas into linked paragraphs with an effective opening and ending."
+        },
+        {
+          "marks": 2,
+          "description": "Use clear, appropriate vocabulary and largely accurate sentence structures."
+        },
+        {
+          "marks": 2,
+          "description": "Control spelling, punctuation and grammar so meaning is clear."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

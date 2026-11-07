@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3590,
-    "validDrafts": 1911,
+    "raw": 3594,
+    "validDrafts": 1915,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -922,6 +922,12 @@
       "actual": 8
     },
     {
+      "path": "original-multisubject-batch-132.json",
+      "sha256": "e479ce168238c4c4c78282c65e3a6c64f989b617d83342199e98135f269d05dd",
+      "declared": 4,
+      "actual": 4
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1201,20 +1207,22 @@
         "1013"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-english-2026-historical-reference"
+        "neco-bece-english-2026-historical-reference",
+        "neco-bece-english-writing-2026-historical-reference"
       ],
-      "raw": 8,
-      "validDrafts": 8,
+      "raw": 12,
+      "validDrafts": 12,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 8
+        "mcq": 8,
+        "essay": 4
       },
       "difficulty": {
-        "standard": 8
+        "standard": 12
       },
-      "remaining": 992,
-      "mappedObjectives": 8,
-      "representedObjectives": 8,
+      "remaining": 988,
+      "mappedObjectives": 12,
+      "representedObjectives": 12,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5664,18 +5672,18 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -31721,6 +31729,30 @@
       "id": "ndv-131-008",
       "file": "original-multisubject-batch-131.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-132-001",
+      "file": "original-multisubject-batch-132.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-132-002",
+      "file": "original-multisubject-batch-132.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-132-003",
+      "file": "original-multisubject-batch-132.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-132-004",
+      "file": "original-multisubject-batch-132.json",
+      "index": 3,
       "errors": []
     },
     {
@@ -62138,6 +62170,130 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Narrative",
+      "learningObjective": "Produce a coherent narrative composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "bece-english-writing-132-01-v1",
+      "questionTypes": {
+        "essay": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, essay format only",
+        "Historical NERDC English Studies, JSS 3, Composition Writing, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Descriptive",
+      "learningObjective": "Produce a coherent descriptive composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "bece-english-writing-132-02-v1",
+      "questionTypes": {
+        "essay": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, essay format only",
+        "Historical NERDC English Studies, JSS 3, Composition Writing, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Expository",
+      "learningObjective": "Produce a coherent expository composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "bece-english-writing-132-03-v1",
+      "questionTypes": {
+        "essay": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, essay format only",
+        "Historical NERDC English Studies, JSS 3, Composition Writing, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Composition Writing",
+      "subtopic": "Argumentative",
+      "learningObjective": "Produce a coherent argumentative composition with relevant development and logical organisation.",
+      "specificationId": "neco-bece-english-writing-2026-historical-reference",
+      "id": "bece-english-writing-132-04-v1",
+      "questionTypes": {
+        "essay": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, essay format only",
+        "Historical NERDC English Studies, JSS 3, Composition Writing, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -62164,6 +62320,6 @@
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
     "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding.",
     "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.",
-    "NECO BECE English Studies has initial original reading-for-summary practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified."
+    "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified."
   ]
 }
