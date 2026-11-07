@@ -1943,7 +1943,7 @@
       "kind": "official_test_format",
       "source": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-listening",
       "retrievedOn": "2026-11-07",
-      "note": "Part 1 uses a two-speaker conversation in an everyday context. Ten questions follow the information order. The recording is heard once and each correct response receives one mark. The format permits form completion with an explicit response limit."
+      "note": "Parts 1 and 2 use everyday social contexts, with two speakers in Part 1 and one main speaker in Part 2. Ten questions per part follow information order. Recordings are heard once. Matching and sentence completion are permitted task types. Each correct response receives one mark. Original scripts currently require supervised live delivery."
     }
   ],
   "banks": [
@@ -13146,6 +13146,114 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Matching activity features",
+      "learningObjective": "Match spoken descriptions of community activities to their distinguishing features.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p2-matching-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 2",
+        "Question type 2, Matching"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Welcome identification",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p2-completion-06-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 2",
+        "Question type 5, Sentence completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Safe storage",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p2-completion-07-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 2",
+        "Question type 5, Sentence completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Damaged tools",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p2-completion-08-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 2",
+        "Question type 5, Sentence completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Handwashing provision",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p2-completion-09-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 2",
+        "Question type 5, Sentence completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Written feedback",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ielts-listening-p2-completion-10-v1",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "sourceSections": [
+        "Listening paper, Part 2",
+        "Question type 5, Sentence completion"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -13156,7 +13264,7 @@
     "NERDC supports 16 application class labels; many existing drafts say only Nursery, Primary, JSS or SS. Exact class, adopted curriculum version, term and objectives require source evidence.",
     "NCEE official 2026 components include National Values Education and vocational aptitude. Existing Basic Science, Quantitative Reasoning and Verbal Reasoning labels need component mapping.",
     "IGCSE requires qualification code, examination year, tier and assessment objectives. Four observed subject names do not establish the entire intended Cambridge portfolio.",
-    "IELTS Listening has one Academic Part 1 set for live delivery. Recorded audio, Parts 2–4 and remaining task formats are outstanding. IELTS Reading and Writing require separate Academic and General Training coverage. Speaking coverage and independent review remain incomplete.",
+    "IELTS Listening has Academic Parts 1 and 2 sets for live delivery. Recorded audio, Parts 3–4 and remaining task formats are outstanding. IELTS Reading and Writing require separate Academic and General Training coverage. Speaking coverage and independent review remain incomplete.",
     "TOEFL must follow the post-21-January-2026 task structure; legacy writing MCQs are not production tasks. SAT has two sections, not historical SAT Subject Tests.",
     "Objective register covers selected English, Economics, science, NCEE, SAT and language-production objectives only, with paraphrased author proposals. It is not a full syllabus denominator. No coverage percentages or completed banks claimed.",
     "Runtime verbal/quantitative generators and Flutter worksheet engines are separate assets, not independently reviewed original exam questions. Their generated counts are excluded.",

@@ -1,0 +1,439 @@
+{
+  "schemaVersion": 2,
+  "collection": "IELTS Academic Listening Part 2 community garden practice",
+  "questionCount": 10,
+  "note": "Original supervised listening practice. Keep examiner script, explanations and answers out of learner view. Recorded audio remains outstanding.",
+  "listeningSet": {
+    "id": "ielts-listening-part-2-garden-volunteers",
+    "title": "Welcome to Willow Garden",
+    "learnerInstructions": "Questions 1–5. Match each activity to a feature. Choose one letter A–G for each activity. You may use a letter more than once. Questions 6–10. Complete each sentence with ONE WORD ONLY.",
+    "matchingOptions": {
+      "A": "Work is carried out in pairs.",
+      "B": "No reservation is needed.",
+      "C": "Take an item away afterwards.",
+      "D": "Sessions take place indoors.",
+      "E": "An adult must accompany children.",
+      "F": "Bring your own equipment.",
+      "G": "Activities depend on the weather."
+    },
+    "examinerInstructions": "Allow learners to read the prompts and matching list first. One reader delivers the complete monologue once at a natural pace. Award one mark per correct response. Accept letter case variations, but require correct spelling for sentence completions.",
+    "examinerScript": [
+      {
+        "speaker": "Coordinator",
+        "line": "Good morning, and welcome to Willow Garden. I’m Mariam, the volunteer coordinator. This garden began as a patch of unused land behind the community hall. Local residents have gradually turned it into a place to grow food and learn practical skills. We now have several activities for new volunteers, so I’ll explain what each involves and then cover a few arrangements for your first visit."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "First, seed sowing takes place beside the greenhouse. You will learn how deeply to plant different seeds and how to label them. We provide all the materials, and at the end you can take your planted pot home. We hope watching it grow will encourage you to try the same method on a balcony or windowsill."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "Compost care is more physical. Volunteers turn the material and check its moisture. This session cannot go ahead when heavy rain has made the working area too wet; in that case we move it to the following week. Please check our notice before leaving home."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "The pond survey is suitable for anyone who enjoys noticing small details. You won’t work alone. I allocate a partner to each volunteer so that two people can compare what they see and check the record together. You remain on the bank throughout."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "Garden stories is our quietest activity. Although the name might suggest sitting under a tree, we hold it inside the old store building. There are chairs and a collection of photographs there. Long-standing residents share memories of how this neighbourhood has changed."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "Finally, family planting is designed for children and the adults who bring them. We have short tools and raised beds. A parent or another responsible adult must stay with each child throughout the session. Our volunteers demonstrate the tasks but do not take over supervision."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "Now for the practical arrangements. On your first visit, report to the reception desk rather than going directly to an activity. The receptionist will give you a green badge. Please keep it visible, as it tells our team that you have completed the welcome check."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "Leave bags and any valuables in the lockers near reception. A bag on a path can easily be knocked over or become a tripping hazard. You keep the locker key with you while you work."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "At the tool station, someone will show you how to carry and return each tool. Tell the supervisor immediately if you notice damage. A damaged tool must have a red label attached and be put aside, so that nobody else picks it up before it is repaired."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "Before leaving, use the handwashing point. We supply soap as well as running water. A quick wipe with a tissue is not enough after handling soil, so allow time to wash properly."
+      },
+      {
+        "speaker": "Coordinator",
+        "line": "We value your comments, too. There is a suggestion box by the exit. Put any written feedback in that box, even if it is only a few words. We read it at the weekly planning meeting and use it to improve future sessions. Thank you for giving your time to the garden."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Matching activity features",
+      "learningObjective": "Match spoken descriptions of community activities to their distinguishing features.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-001",
+      "objectiveId": "ielts-listening-p2-matching-v1",
+      "prompt": "Which feature applies to Seed sowing? Choose one letter from A–G.",
+      "answer": "C",
+      "acceptedAnswers": [
+        "C"
+      ],
+      "matchingOptions": {
+        "A": "Work is carried out in pairs.",
+        "B": "No reservation is needed.",
+        "C": "Take an item away afterwards.",
+        "D": "Sessions take place indoors.",
+        "E": "An adult must accompany children.",
+        "F": "Bring your own equipment.",
+        "G": "Activities depend on the weather."
+      },
+      "explanation": "Participants leave with the pot they have sown.",
+      "taskFormat": "matching",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Matching activity features",
+      "learningObjective": "Match spoken descriptions of community activities to their distinguishing features.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-002",
+      "objectiveId": "ielts-listening-p2-matching-v1",
+      "prompt": "Which feature applies to Compost care? Choose one letter from A–G.",
+      "answer": "G",
+      "acceptedAnswers": [
+        "G"
+      ],
+      "matchingOptions": {
+        "A": "Work is carried out in pairs.",
+        "B": "No reservation is needed.",
+        "C": "Take an item away afterwards.",
+        "D": "Sessions take place indoors.",
+        "E": "An adult must accompany children.",
+        "F": "Bring your own equipment.",
+        "G": "Activities depend on the weather."
+      },
+      "explanation": "The session moves to another week if heavy rain makes the compost area too wet.",
+      "taskFormat": "matching",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Matching activity features",
+      "learningObjective": "Match spoken descriptions of community activities to their distinguishing features.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-003",
+      "objectiveId": "ielts-listening-p2-matching-v1",
+      "prompt": "Which feature applies to Pond survey? Choose one letter from A–G.",
+      "answer": "A",
+      "acceptedAnswers": [
+        "A"
+      ],
+      "matchingOptions": {
+        "A": "Work is carried out in pairs.",
+        "B": "No reservation is needed.",
+        "C": "Take an item away afterwards.",
+        "D": "Sessions take place indoors.",
+        "E": "An adult must accompany children.",
+        "F": "Bring your own equipment.",
+        "G": "Activities depend on the weather."
+      },
+      "explanation": "The organiser allocates partners to check observations together.",
+      "taskFormat": "matching",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Matching activity features",
+      "learningObjective": "Match spoken descriptions of community activities to their distinguishing features.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-004",
+      "objectiveId": "ielts-listening-p2-matching-v1",
+      "prompt": "Which feature applies to Garden stories? Choose one letter from A–G.",
+      "answer": "D",
+      "acceptedAnswers": [
+        "D"
+      ],
+      "matchingOptions": {
+        "A": "Work is carried out in pairs.",
+        "B": "No reservation is needed.",
+        "C": "Take an item away afterwards.",
+        "D": "Sessions take place indoors.",
+        "E": "An adult must accompany children.",
+        "F": "Bring your own equipment.",
+        "G": "Activities depend on the weather."
+      },
+      "explanation": "The storytelling session takes place inside the old store building.",
+      "taskFormat": "matching",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Matching activity features",
+      "learningObjective": "Match spoken descriptions of community activities to their distinguishing features.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-005",
+      "objectiveId": "ielts-listening-p2-matching-v1",
+      "prompt": "Which feature applies to Family planting? Choose one letter from A–G.",
+      "answer": "E",
+      "acceptedAnswers": [
+        "E"
+      ],
+      "matchingOptions": {
+        "A": "Work is carried out in pairs.",
+        "B": "No reservation is needed.",
+        "C": "Take an item away afterwards.",
+        "D": "Sessions take place indoors.",
+        "E": "An adult must accompany children.",
+        "F": "Bring your own equipment.",
+        "G": "Activities depend on the weather."
+      },
+      "explanation": "A parent or another responsible adult must remain with each child.",
+      "taskFormat": "matching",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Welcome identification",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-006",
+      "objectiveId": "ielts-listening-p2-completion-06-v1",
+      "prompt": "New volunteers receive a green _____ at reception.",
+      "answer": "badge",
+      "acceptedAnswers": [
+        "badge"
+      ],
+      "explanation": "The coordinator says the green badge shows that the welcome check has been completed.",
+      "taskFormat": "sentence-completion",
+      "maximumResponseWords": 1,
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Safe storage",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-007",
+      "objectiveId": "ielts-listening-p2-completion-07-v1",
+      "prompt": "Volunteers should leave bags and valuables in the _____.",
+      "answer": "lockers",
+      "acceptedAnswers": [
+        "lockers"
+      ],
+      "explanation": "The lockers keep belongings off the paths while the key stays with the volunteer.",
+      "taskFormat": "sentence-completion",
+      "maximumResponseWords": 1,
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Damaged tools",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-008",
+      "objectiveId": "ielts-listening-p2-completion-08-v1",
+      "prompt": "A damaged tool must be marked with a red _____.",
+      "answer": "label",
+      "acceptedAnswers": [
+        "label"
+      ],
+      "explanation": "A red label identifies a tool that must be put aside for repair.",
+      "taskFormat": "sentence-completion",
+      "maximumResponseWords": 1,
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Handwashing provision",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-009",
+      "objectiveId": "ielts-listening-p2-completion-09-v1",
+      "prompt": "The handwashing point provides running water and _____.",
+      "answer": "soap",
+      "acceptedAnswers": [
+        "soap"
+      ],
+      "explanation": "The coordinator specifies soap and running water for washing after handling soil.",
+      "taskFormat": "sentence-completion",
+      "maximumResponseWords": 1,
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 2",
+      "subtopic": "Written feedback",
+      "learningObjective": "Complete a sentence with a specific detail from a spoken volunteer briefing.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-122-010",
+      "objectiveId": "ielts-listening-p2-completion-10-v1",
+      "prompt": "Written comments should be placed in the suggestion _____ near the exit.",
+      "answer": "box",
+      "acceptedAnswers": [
+        "box"
+      ],
+      "explanation": "The box at the exit collects feedback for the weekly meeting.",
+      "taskFormat": "sentence-completion",
+      "maximumResponseWords": 1,
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-2-garden-volunteers"
+    }
+  ]
+}

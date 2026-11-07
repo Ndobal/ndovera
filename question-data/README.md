@@ -646,3 +646,8 @@ Batch 121 opens IELTS Academic Listening with a ten-item Part 1 form
 completion set. For supervised use, show only the learner instructions
 and question prompts. Two readers perform the separate examiner dialogue
 once. Recorded audio and the other Listening parts remain open.
+
+Batch 122 adds a ten-item IELTS Academic Listening Part 2 set on a
+community garden. It uses five matching items and five sentence
+completions with an original monologue for supervised live delivery.
+Recorded audio, Parts 3–4 and wider task coverage remain outstanding.
