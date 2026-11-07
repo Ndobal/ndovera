@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 2,
+  "collection": "IELTS Academic Listening Part 4 oral history lecture",
+  "questionCount": 10,
+  "note": "Original hypothetical teaching example. Requires supervised live delivery. Keep examiner script, answers and explanations out of learner view. Recorded audio remains outstanding.",
+  "listeningSet": {
+    "id": "ielts-listening-part-4-oral-history",
+    "title": "Studying neighbourhood change through oral history",
+    "learnerInstructions": "Complete the lecture notes. Write NO MORE THAN TWO WORDS for each answer.",
+    "examinerInstructions": "Allow time to read the notes. One reader delivers the complete lecture once at a natural pace. Award one mark per correct answer. Ignore letter case but require correct spelling and compliance with the response limit.",
+    "examinerScript": [
+      {
+        "speaker": "Lecturer",
+        "line": "Today we will examine how oral history can contribute to the study of a neighbourhood. By oral history I mean the collection and interpretation of spoken accounts of past experience. Our focus is a hypothetical student project about the changing uses of a local market. The example is designed to illustrate research decisions; it is not a report of a completed investigation."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "Before choosing whom to interview, the students need a clear research question. They could ask how traders remember changes in the market’s opening hours. A question about every aspect of market life would be too broad for a short project. A focused question helps the team decide which accounts will be relevant and which topics must be left for another study."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "Next comes recruitment. It might be convenient to speak only to people whom the students already know. That approach could leave out experiences that differ from their own. The team should therefore seek a range of perspectives, perhaps including long-established traders, recent arrivals and people who use the market at different times. Seeking variety does not mean the resulting group represents everyone."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "Before an interview, participants should understand what the project involves. They should know whether their voices will be recorded, who will hear the material and how it may be used. The team must obtain consent for the agreed uses. A person’s willingness to have a conversation does not automatically settle whether that conversation may later be placed in a public archive."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "The wording of interview questions matters too. If a researcher asks whether a new road ruined the market, the question already suggests a judgement. An open question invites the participant to describe the change in their own terms. For example, the interviewer could ask what changed after the road opened and then request an example. The aim is to explore an account without supplying the desired conclusion."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "While recording, the interviewer should avoid interrupting every pause. A pause can give the participant time to recall an event or decide how to describe it. Later, when producing a transcript, the team should preserve the meaning of the speech. A transcript is a written version of the recording, not an opportunity to replace a participant’s uncertainty with a more confident statement."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "Each recording also needs metadata. Here that means descriptive information such as the interview date, the interviewer’s name and the recording conditions. Suppose a sudden burst of traffic makes a passage difficult to hear. A note about the background noise may help a future user understand why part of the transcript is marked unclear. Describing the recording makes it easier to interpret and manage."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "We then come to interpretation. Memory is selective, and two people may describe the same period differently. One trader may connect longer opening hours with improved sales, while another remembers increased exhaustion. These accounts need not be forced into a single story. A disagreement can itself reveal something about how position and experience shape recollection."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "Spoken accounts can also be compared with other evidence. In our example, dated photographs might help establish when a roof was added to a particular row of stalls. They would not, by themselves, explain how a trader felt about that alteration. Comparing different kinds of evidence can clarify a claim while preserving the distinctive contribution of each source."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "In the final report, quotations should retain enough context to avoid changing the speaker’s meaning. A sentence expressing relief after a difficult period should not be presented as praise for the whole period. The researcher needs to show what question prompted the remark and, where relevant, what came before it. This also allows readers to examine the interpretation rather than simply accept it."
+      },
+      {
+        "speaker": "Lecturer",
+        "line": "Finally, the team should explain the study’s limitations. A small group of interviewees and a narrow question will support some conclusions but leave others open. The report should describe whose experiences were included and whose were absent. Recognising those boundaries makes the argument more precise and gives later researchers a useful starting point."
+      }
+    ]
+  },
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Research focus",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-001",
+      "objectiveId": "ielts-listening-p4-note-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Initial task: define a clear _____",
+      "answer": "research question",
+      "acceptedAnswers": [
+        "research question"
+      ],
+      "explanation": "A focused research question determines which accounts are relevant.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 1
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Recruitment breadth",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-002",
+      "objectiveId": "ielts-listening-p4-note-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Recruitment should seek a range of _____",
+      "answer": "perspectives",
+      "acceptedAnswers": [
+        "perspectives"
+      ],
+      "explanation": "The lecturer advises recruiting beyond familiar contacts to include varied perspectives.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 2
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Participant agreement",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-003",
+      "objectiveId": "ielts-listening-p4-note-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Permission for agreed recording uses: _____",
+      "answer": "consent",
+      "acceptedAnswers": [
+        "consent"
+      ],
+      "explanation": "The lecturer distinguishes consent for specified uses from merely agreeing to converse.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 3
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Interview wording",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-004",
+      "objectiveId": "ielts-listening-p4-note-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Suggested approach: an _____ rather than a question that supplies a judgement",
+      "answer": "open question",
+      "acceptedAnswers": [
+        "open question"
+      ],
+      "explanation": "The lecturer recommends an open question so participants describe changes in their own terms.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Written record",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-005",
+      "objectiveId": "ielts-listening-p4-note-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Written version of a recording: a _____",
+      "answer": "transcript",
+      "acceptedAnswers": [
+        "transcript"
+      ],
+      "explanation": "The lecture defines a transcript and warns against changing a speaker’s meaning.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 5
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Recording description",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-006",
+      "objectiveId": "ielts-listening-p4-note-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Descriptive information about a recording: _____",
+      "answer": "metadata",
+      "acceptedAnswers": [
+        "metadata"
+      ],
+      "explanation": "The lecturer uses metadata for dates, names and recording conditions.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 6
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Interpreting recall",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-007",
+      "objectiveId": "ielts-listening-p4-note-07-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "A reason accounts can differ: _____ is selective",
+      "answer": "memory",
+      "acceptedAnswers": [
+        "memory"
+      ],
+      "explanation": "The lecturer explains that memory is selective and experiences can differ.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 7
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Supporting evidence",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-008",
+      "objectiveId": "ielts-listening-p4-note-08-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Possible evidence for the date of a roof addition: dated _____",
+      "answer": "photographs",
+      "acceptedAnswers": [
+        "photographs"
+      ],
+      "explanation": "Dated photographs may help establish when the physical alteration occurred.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 8
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Quotation interpretation",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-009",
+      "objectiveId": "ielts-listening-p4-note-09-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "To protect meaning, quotations need sufficient _____",
+      "answer": "context",
+      "acceptedAnswers": [
+        "context"
+      ],
+      "explanation": "The lecturer explains how missing context can change the meaning of a quotation.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 9
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Listening",
+      "topic": "Listening Part 4",
+      "subtopic": "Study boundaries",
+      "learningObjective": "Complete academic lecture notes by identifying research concepts and relationships between ideas.",
+      "specificationId": "ielts-academic-listening-official-format",
+      "id": "ndv-124-010",
+      "objectiveId": "ielts-listening-p4-note-10-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Final report must explain the study’s _____",
+      "answer": "limitations",
+      "acceptedAnswers": [
+        "limitations"
+      ],
+      "explanation": "The final paragraph requires an account of the study’s boundaries and missing experiences.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "ielts-listening-part-4-oral-history",
+      "taskFormat": "note-completion",
+      "maximumResponseWords": 2,
+      "evidenceTurnIndex": 10
+    }
+  ]
+}

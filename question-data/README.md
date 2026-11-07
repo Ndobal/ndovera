@@ -656,3 +656,9 @@ Batch 123 adds ten IELTS Academic Listening Part 3 note-completion
 items using an original discussion between two students planning a
 campus sound study. It requires two readers for supervised live
 delivery. Recorded audio and Part 4 remain outstanding.
+
+Batch 124 adds ten IELTS Academic Listening Part 4 note-completion
+items with an original lecture on oral history research. The lecture
+uses an explicitly hypothetical teaching example. All four Listening
+parts now have an initial set for supervised live delivery. Recorded
+audio, delivery validation and broader skill coverage remain open.
