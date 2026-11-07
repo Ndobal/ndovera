@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_124_automated_validation_passed",
+  "phase": "batch_125_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-125.json",
+  "nextBatch": "original-multisubject-batch-126.json",
   "nextPriorities": [
-    "Verify the current post-January-2026 TOEFL Listening task structure and delivery requirements before opening its empty bank. IELTS has initial scripts for Parts 1\u20134; recorded audio, delivery validation and broader coverage remain outstanding.",
+    "Expand TOEFL Listening into Listen to a Conversation using the official 2026 overview, including two questions per short conversation. Recorded audio, announcements, academic talks and adaptive delivery remain outstanding.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-124.json",
-  "lastRemoteVerifiedCommit": "0940db858996d3abd5ed94d1624e352585e1cbbe",
+  "lastValidatedBatch": "original-multisubject-batch-125.json",
+  "lastRemoteVerifiedCommit": "a6bd039bbd6ef021129feeafbe9d4eb7b74e0189",
   "verifiedTotals": {
-    "raw": 3522,
-    "validDrafts": 1843,
+    "raw": 3534,
+    "validDrafts": 1855,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-124.json",
+  "lastPopulatedBatch": "original-multisubject-batch-125.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3522
+  "inventoryRaw": 3534
 }

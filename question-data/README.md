@@ -662,3 +662,9 @@ items with an original lecture on oral history research. The lecture
 uses an explicitly hypothetical teaching example. All four Listening
 parts now have an initial set for supervised live delivery. Recorded
 audio, delivery validation and broader skill coverage remain open.
+
+Batch 125 opens TOEFL Listening with twelve original single-exchange
+response-selection drafts mapped to the 2026 task family. Scripts
+support supervised live delivery. The official Updated Test Overview illustrates
+four written response choices. Recorded audio,
+other Listening task families and adaptive delivery remain open.

@@ -1944,6 +1944,18 @@
       "source": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-listening",
       "retrievedOn": "2026-11-07",
       "note": "Parts 1 and 2 use everyday contexts. Part 3 uses an educational or training discussion between two main speakers, sometimes guided by a tutor. Part 4 is an academic monologue. Ten questions per part follow information order and the recording is heard once. Matching, note completion and sentence completion are permitted. Each correct answer receives one mark. Original scripts currently require supervised live delivery."
+    },
+    {
+      "id": "toefl-ibt-listening-2026",
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "kind": "official_format",
+      "source": "https://www.ets.org/toefl/test-takers/ibt/about/content/listening.html",
+      "formatGuide": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-specifications-2026.pdf",
+      "retrievedOn": "2026-11-07",
+      "effectiveFrom": "2026-01-21",
+      "note": "The 2026 blueprint identifies Listen and Choose a Response, Listen to a Conversation, Listen to an Announcement and Listen to an Academic Talk. The Listening webpage lists all four despite its introductory phrase saying two task types. This batch uses original single-exchange response practice with four written response choices, as illustrated in the official Updated Test Overview p. 9. Adaptive assembly, recorded delivery and scaled scores remain outside the draft batch.",
+      "sampleGuide": "https://www.de.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-overview.pdf"
     }
   ],
   "banks": [
@@ -2541,7 +2553,8 @@
       "subject": "Listening",
       "level": "",
       "target": 1000,
-      "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending"
+      "scopeStatus": "post_january_2026_single_exchange_practice_live_delivery",
+      "specificationId": "toefl-ibt-listening-2026"
     },
     {
       "exam": "TOEFL",
@@ -13614,6 +13627,222 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Polite request",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Invitation",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Indirect suggestion",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Offer of help",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Clarification request",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Apology and repair",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Refusal with alternative",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-07-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Reassurance",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-08-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Tentative disagreement",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-09-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Idiomatic encouragement",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-10-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Checking understanding",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-11-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen and Choose a Response",
+      "subtopic": "Conditional permission",
+      "learningObjective": "Identify speaker intent and select a pragmatically appropriate reply in a single exchange.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-response-12-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "2026 blueprint, Listening, p. 5",
+        "Listening claim and evidence, p. 11"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -13637,6 +13866,7 @@
     "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence.",
     "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.",
     "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.",
-    "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional."
+    "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
+    "TOEFL Listening 2026 now has original single-exchange response practice for supervised live delivery. recorded audio, conversation, announcement and academic talk coverage, adaptive delivery and independent review remain outstanding."
   ]
 }
