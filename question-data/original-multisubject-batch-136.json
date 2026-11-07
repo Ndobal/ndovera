@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO BECE Cultural and Creative Arts JSS 3 classroom practicals",
+  "questionCount": 4,
+  "note": "Original supervised classroom tasks with model outcomes and practice marking guides. Historical topic alignment is provisional. Official NECO practical task and material requirements remain unverified.",
+  "questions": [
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Lettering",
+      "subtopic": "Exhibition notice",
+      "learningObjective": "Construct clear letters with consistent spacing for a stated audience.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "ndv-136-001",
+      "objectiveId": "bece-cca-practical-136-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "structured",
+      "prompt": "On plain paper, design a notice reading “CLASS ART SHOW” with “Friday, 2 p.m., School Hall” below it. Use pencil, ruler and coloured pencils. Make the title larger than the details, use simple uppercase letters for the title, and keep all words legible from the classroom doorway. Show the finished notice to the supervisor and explain one spacing choice.",
+      "answer": "A suitable notice has a clearly dominant CLASS ART SHOW title, accurate event details, consistent letter construction and readable word spaces. The learner may explain that wider gaps separate words while smaller gaps keep letters within each word together. Accept varied original layouts meeting the brief.",
+      "explanation": "The task assesses construction and visual hierarchy through an actual notice, with an explanation linked to the learner’s choices.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Include the exact title and all event details."
+        },
+        {
+          "marks": 1,
+          "description": "Construct simple, consistent uppercase title letters."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguish letter spaces from word spaces and keep the layout readable."
+        },
+        {
+          "marks": 1,
+          "description": "Make the title visually dominant and explain a relevant spacing choice."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Preparing displays",
+      "subtopic": "Mounting a drawing",
+      "learningObjective": "Prepare an artwork for display with suitable support and a visible border.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "ndv-136-002",
+      "objectiveId": "bece-cca-practical-136-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "structured",
+      "prompt": "The supervisor provides an original classroom drawing on thin paper, a larger sheet of card, removable paper corners and a pencil. Mount the drawing on the card so that it lies flat with a balanced visible border. Use the paper corners to hold it without marking the drawing. Add a separate small label showing the title and artist, then explain how your mounting supports the work.",
+      "answer": "The drawing lies flat on the backing card, held by paper corners with a balanced border. The separate label gives the supplied title and artist. The learner explains that the card supports the thin paper and the corners retain it while preserving the visible surface.",
+      "explanation": "Mounting combines support, presentation and care. The artwork remains the visual focus.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Position the drawing with a balanced visible border."
+        },
+        {
+          "marks": 1,
+          "description": "Secure it with the supplied corners so it lies flat."
+        },
+        {
+          "marks": 1,
+          "description": "Keep the drawing unmarked and provide the separate title/artist label."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how the backing and corners support the display."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Arranging displays",
+      "subtopic": "Viewer sequence",
+      "learningObjective": "Arrange related works so an audience can follow an intended sequence.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "ndv-136-003",
+      "objectiveId": "bece-cca-practical-136-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "structured",
+      "prompt": "Using three teacher-supplied cards labelled Sketch, Trial Print and Final Print, arrange a small tabletop display that shows a design process. Place the cards in a clear viewing sequence, add arrows or numbered labels, and keep every card visible. Invite a classmate to follow the sequence without your explanation. Adjust one feature if needed and tell the supervisor what you checked.",
+      "answer": "Place Sketch first, Trial Print second and Final Print last, with clear arrows or numbers and readable labels. Check that the classmate can identify the order and see each card. A suitable adjustment could enlarge an arrow or separate overlapping cards. If no adjustment is needed, explain the successful check.",
+      "explanation": "An exhibition arrangement can communicate a process through order, visibility and clear guidance.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Arrange the cards in the stated design-process order."
+        },
+        {
+          "marks": 1,
+          "description": "Provide clear arrows or numbered labels."
+        },
+        {
+          "marks": 1,
+          "description": "Keep every card visible and readable."
+        },
+        {
+          "marks": 1,
+          "description": "Test the sequence with a classmate and explain any adjustment or why none was needed."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Drama for community development",
+      "subtopic": "Scene performance",
+      "learningObjective": "Turn a community problem into a short performed scene with a plausible response.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "ndv-136-004",
+      "objectiveId": "bece-cca-practical-136-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "structured",
+      "prompt": "In a supervised group of three, create and perform a short scene about a shared community noticeboard that has become unreadable because old notices cover new ones. Show the problem, a disagreement between users and an agreed practical response. Use spoken dialogue and simple actions. After the performance, each learner explains their character’s contribution. The assessor awards marks to each learner using the criteria below.",
+      "answer": "A possible scene shows a resident missing a meeting notice, another defending an old poster and a volunteer suggesting dated sections with an agreed removal schedule. Characters discuss and accept a workable arrangement. Each performer explains their own contribution. Accept other original solutions that address the stated problem.",
+      "explanation": "The scene uses conflict and dialogue to connect a recognisable community issue with collective action. Individual explanation supports assessment of each learner.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Make an identifiable individual contribution to showing the noticeboard problem."
+        },
+        {
+          "marks": 1,
+          "description": "Use relevant dialogue or action to develop the disagreement."
+        },
+        {
+          "marks": 1,
+          "description": "Contribute to an agreed practical response within the scene."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the character’s role and perform clearly enough for the audience to follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

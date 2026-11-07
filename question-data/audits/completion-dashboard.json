@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3614,
-    "validDrafts": 1935,
+    "raw": 3618,
+    "validDrafts": 1939,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -946,6 +946,12 @@
       "actual": 8
     },
     {
+      "path": "original-multisubject-batch-136.json",
+      "sha256": "fd848ba4d647bb458fe7ed3bdc2adb14db502a0a13da919b88c51f20b16f0771",
+      "declared": 4,
+      "actual": 4
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1196,20 +1202,22 @@
         "7293"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-cca-2026-historical-reference"
+        "neco-bece-cca-2026-historical-reference",
+        "neco-bece-cca-practical-2026-historical-reference"
       ],
-      "raw": 8,
-      "validDrafts": 8,
+      "raw": 12,
+      "validDrafts": 12,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 8
+        "mcq": 8,
+        "structured": 4
       },
       "difficulty": {
-        "standard": 8
+        "standard": 12
       },
-      "remaining": 992,
-      "mappedObjectives": 8,
-      "representedObjectives": 8,
+      "remaining": 988,
+      "mappedObjectives": 12,
+      "representedObjectives": 12,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5709,17 +5717,17 @@
   ],
   "errorCounts": {
     "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -31909,6 +31917,30 @@
       "id": "ndv-135-008",
       "file": "original-multisubject-batch-135.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-136-001",
+      "file": "original-multisubject-batch-136.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-136-002",
+      "file": "original-multisubject-batch-136.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-136-003",
+      "file": "original-multisubject-batch-136.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-136-004",
+      "file": "original-multisubject-batch-136.json",
+      "index": 3,
       "errors": []
     },
     {
@@ -63070,6 +63102,130 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Lettering",
+      "subtopic": "Exhibition notice",
+      "learningObjective": "Construct clear letters with consistent spacing for a stated audience.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "bece-cca-practical-136-01-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 29"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Preparing displays",
+      "subtopic": "Mounting a drawing",
+      "learningObjective": "Prepare an artwork for display with suitable support and a visible border.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "bece-cca-practical-136-02-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 28"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Arranging displays",
+      "subtopic": "Viewer sequence",
+      "learningObjective": "Arrange related works so an audience can follow an intended sequence.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "bece-cca-practical-136-03-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 28"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Drama for community development",
+      "subtopic": "Scene performance",
+      "learningObjective": "Turn a community problem into a short performed scene with a plausible response.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "bece-cca-practical-136-04-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 33"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -63099,6 +63255,6 @@
     "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
     "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
     "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding.",
-    "NECO BECE Cultural and Creative Arts has provisional written practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified."
+    "NECO BECE Cultural and Creative Arts has provisional written and supervised classroom practical practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified."
   ]
 }

@@ -2059,6 +2059,16 @@
       "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_cca.pdf",
       "retrievedOn": "2026-11-07",
       "note": "NECO lists objective papers 7291/7292 and practical 7293. Historical NERDC JS 3 material supports provisional lettering, display, music and drama topics. Current adoption, paper-level content, option count and practical tasks/marking remain unverified."
+    },
+    {
+      "id": "neco-bece-cca-practical-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_cca.pdf",
+      "retrievedOn": "2026-11-07",
+      "note": "NECO confirms practical paper 7293. Historical JS 3 pp. 28, 29 and 33 support provisional display, lettering and drama tasks. Materials, tasks and marking guides here are author-designed classroom practice. Official task instructions, material lists, scoring and current adoption remain unverified."
     }
   ],
   "banks": [
@@ -2880,7 +2890,8 @@
         "7293"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-cca-2026-historical-reference"
+        "neco-bece-cca-2026-historical-reference",
+        "neco-bece-cca-practical-2026-historical-reference"
       ]
     },
     {
@@ -15412,6 +15423,82 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Lettering",
+      "subtopic": "Exhibition notice",
+      "learningObjective": "Construct clear letters with consistent spacing for a stated audience.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "bece-cca-practical-136-01-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 29"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Preparing displays",
+      "subtopic": "Mounting a drawing",
+      "learningObjective": "Prepare an artwork for display with suitable support and a visible border.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "bece-cca-practical-136-02-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 28"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Arranging displays",
+      "subtopic": "Viewer sequence",
+      "learningObjective": "Arrange related works so an audience can follow an intended sequence.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "bece-cca-practical-136-03-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 28"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Drama for community development",
+      "subtopic": "Scene performance",
+      "learningObjective": "Turn a community problem into a short performed scene with a plausible response.",
+      "specificationId": "neco-bece-cca-practical-2026-historical-reference",
+      "id": "bece-cca-practical-136-04-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, practical format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 33"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -15441,6 +15528,6 @@
     "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
     "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
     "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding.",
-    "NECO BECE Cultural and Creative Arts has provisional written practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified."
+    "NECO BECE Cultural and Creative Arts has provisional written and supervised classroom practical practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified."
   ]
 }

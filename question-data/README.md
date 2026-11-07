@@ -734,3 +734,9 @@ original JSS 3 objective drafts on lettering, display, uses of music
 and community drama. Historical topic mapping remains provisional.
 Current adoption, NECO topic allocation, option counts and practical
 task requirements remain outstanding.
+
+Batch 136 adds four BECE Cultural and Creative Arts classroom
+practical drafts on lettering, mounting, display arrangement and
+community drama. Each includes a model outcome and practice marking
+guide. Historical topic mapping is provisional. Official practical
+tasks, materials, marking and current adoption remain outstanding.
