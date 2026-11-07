@@ -5580,9 +5580,9 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -58315,6 +58315,7 @@
     "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.",
     "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence.",
     "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.",
-    "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved."
+    "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.",
+    "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional."
   ]
 }

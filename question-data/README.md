@@ -634,3 +634,10 @@ drawing tasks for JSS 3 BECE Basic Science and Technology. The 2026 NECO
 timetable confirms both formats. Historical NERDC objectives support
 provisional classroom practice. Official task instructions, marking,
 and current curriculum adoption remain open.
+
+The 2026 NECO BECE and SSCE Internal registration guidelines identify
+separately available syllabuses. The source register records both access
+notices and the missing copies. For BECE Basic Science and Technology,
+the official topic allocation, practical instructions, equipment and
+marking rules still require primary documents. The existing classroom
+drafts retain their provisional mappings.

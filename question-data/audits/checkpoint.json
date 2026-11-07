@@ -2,19 +2,19 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_120_automated_validation_passed",
+  "phase": "neco_syllabus_access_sources_verified",
   "projectComplete": false,
   "academicReviewComplete": false,
   "nextBatch": "original-multisubject-batch-121.json",
   "nextPriorities": [
-    "Seek the official NECO 2026 BECE BST computer practical and drawing instructions, marking and equipment requirements, plus current class objectives. Historical practice now covers worksheets and orthographic drawing. Verify revised curriculum adoption by examination cohort before extending official mappings.",
-    "Retrieve full NECO SSCE/BECE content objectives; the 2026 BECE timetable establishes subjects/routes and paper formats only.",
+    "Open IELTS Listening with an original Part 1 listening set. Use the official IELTS format, separate the examiner playback script from learner prompts, and verify delivery and answer constraints before adding items.",
+    "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
   "lastValidatedBatch": "original-multisubject-batch-120.json",
-  "lastRemoteVerifiedCommit": "4b713de4f5214ef788f1f91e1390600ad4fc652e",
+  "lastRemoteVerifiedCommit": "4e7b388dc8bce7eeb66f69b85eced69ae2192a46",
   "verifiedTotals": {
     "raw": 3482,
     "validDrafts": 1803,
