@@ -2,19 +2,19 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_139_automated_validation_passed",
+  "phase": "crs_jss1_revised_source_mapping_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
   "nextBatch": "original-multisubject-batch-140.json",
   "nextPriorities": [
-    "Inspect and map the newly retrieved September 2025 NERDC CRS JSS 1 curriculum, verify cohort adoption where possible, and reconcile its exact-class bank before adding drafts. Then investigate NECO BECE Islamic Studies. BECE CRS current adoption, full scope, 5161/5162 allocation and official option count remain unresolved.",
+    "Continue the revised September 2025 NERDC CRS JSS 1 inventory: map remaining thirteen topics' performance objectives, focal competencies and evaluation requirements before writing batch 140. National rollout evidence is registered; verify school adoption separately and preserve actual singing/modelling tasks. Then investigate BECE Islamic Studies.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
   "lastValidatedBatch": "original-multisubject-batch-139.json",
-  "lastRemoteVerifiedCommit": "9968f821c3c77d7db671874caa27a6fd3951aa1c",
+  "lastRemoteVerifiedCommit": "f29f5028874e1e7133ddf5c493d3743f4baf4b7e",
   "verifiedTotals": {
     "raw": 3654,
     "validDrafts": 1975,
@@ -23,5 +23,6 @@
   "lastRunTestCount": 46,
   "lastPopulatedBatch": "original-multisubject-batch-139.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3654
+  "inventoryRaw": 3654,
+  "lastSourceUpdate": "nerdc-crs-jss1-revised-2025-inventory.json"
 }

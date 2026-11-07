@@ -2123,8 +2123,29 @@
       "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/7.pdf",
       "documentDate": "September 2025",
       "retrievedOn": "2026-11-07",
-      "status": "document_retrieved_adoption_and_objective_mapping_pending",
-      "note": "30-page PDF explicitly identifies New Revised Basic Education Curriculum, Christian Religious Studies, JSS 1, September 2025. Its retrieval resolves access for this exact document only. Cohort/school adoption, complete outcome transcription, source audit and bank reconciliation remain pending. No JSS 3 or other class mapping is inferred. No questions or extra target have been added from the cover alone."
+      "status": "exact_class_document_and_initial_outcomes_mapped_national_rollout_evidenced",
+      "note": "30-page September 2025 revised CRS JSS 1 document. Sixteen topic entries inventoried from its contents; first three topics have ten paraphrased performance-objective mappings. Remaining topic outcomes, competencies and assessment detail are not fully mapped. National rollout is evidenced separately; individual school adoption is unverified. No JSS 3 mapping is inferred. Singing and modelling remain performance tasks. The marriage/health causal claim on printed p. 3 is flagged and not adopted as factual teaching content.",
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "inventoryFile": "question-data/specifications/nerdc-crs-jss1-revised-2025-inventory.json"
+    },
+    {
+      "id": "nerdc-revised-bec-rollout-2025",
+      "kind": "official_rollout_notice",
+      "source": "https://www.nerdc.gov.ng/content_manager/Press%20Release%20On%20New%20FG%20Curriculum.pdf",
+      "documentDate": "2025-09-08",
+      "retrievedOn": "2026-11-07",
+      "note": "Page 3 places implementation at the start of each three-year cycle, including JSS 1, as revised curricula are unveiled. It is national policy evidence; it is not a school-specific adoption record or an exam topic specification."
+    },
+    {
+      "id": "fme-curriculum-review-implementation-2026",
+      "kind": "official_implementation_summary",
+      "source": "https://education.gov.ng/national-curriculum-review/",
+      "documentDate": "2026-10-04",
+      "retrievedOn": "2026-11-07",
+      "note": "FME states that the review went into effect at the start of academic year 2025/2026. Read with the more specific NERDC cycle-entry notice; do not infer simultaneous adoption by every class or examination cohort."
     }
   ],
   "banks": [
@@ -3890,6 +3911,20 @@
       "additionalSpecificationIds": [
         "cambridge-0455-2027-2029-v1"
       ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "documentDate": "September 2025",
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
     }
   ],
   "objectives": [
@@ -15776,6 +15811,204 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t01-po01-v1",
+      "topic": "Understanding God",
+      "subtopic": "Identity",
+      "learningObjective": "Explain the Christian understanding of God.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 1, PDF page 13, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t01-po02-v1",
+      "topic": "Understanding God",
+      "subtopic": "Attributes",
+      "learningObjective": "Identify divine attributes in Christian teaching.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 1, PDF page 13, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t01-po03-v1",
+      "topic": "Understanding God",
+      "subtopic": "Local-language names",
+      "learningObjective": "Recognise names used for God across Nigerian languages.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 1, PDF page 13, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t02-po01-v1",
+      "topic": "Creation",
+      "subtopic": "Biblical sequence",
+      "learningObjective": "Outline the order of creation in the biblical account.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 2, PDF page 14, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t02-po02-v1",
+      "topic": "Creation",
+      "subtopic": "Human purpose",
+      "learningObjective": "Explain the purposes assigned to human creation in the curriculum.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 2, PDF page 14, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t02-po03-v1",
+      "topic": "Creation",
+      "subtopic": "Song performance",
+      "learningObjective": "Perform a song about creation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 2, PDF page 14, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t03-po01-v1",
+      "topic": "Human creativity",
+      "subtopic": "Marriage",
+      "learningObjective": "Explain marriage within the curriculum's Christian framework.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 3, PDF page 15, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t03-po02-v1",
+      "topic": "Human creativity",
+      "subtopic": "Purposes of marriage",
+      "learningObjective": "Describe the curriculum's purposes of marriage, with disputed health claims excluded.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 3, PDF page 15, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t03-po03-v1",
+      "topic": "Human creativity",
+      "subtopic": "Human-made objects",
+      "learningObjective": "Distinguish objects produced through human activity.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 3, PDF page 15, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t03-po04-v1",
+      "topic": "Human creativity",
+      "subtopic": "Modelling",
+      "learningObjective": "Make a model from clay or paper pulp.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 3, PDF page 15, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4
     }
   ],
   "scopeGaps": [
@@ -15809,6 +16042,7 @@
     "NECO BECE National Values Education has initial provisional JSS 3 practice on work attitudes, family support, peaceful living and conflict resolution using the July 2018 historical NERDC document. Current adoption, full topic scope, allocation between 8331/8332 and official option counts remain unverified. The revised JSS 3 page was inaccessible on 2026-11-07.",
     "NECO BECE French Language has initial original written-comprehension practice grounded provisionally in historical JSS Three themes. Receptive drills do not establish oral or written production competence. Current curriculum adoption, full content specification, allocation between 2051/2052, option counts and listening/oral requirements remain unverified. No Ghana BECE or NECO SSCE format has been substituted.",
     "NECO BECE Christian Religious Studies has initial original JSS 3 practice on Paul's trials using historical July 2018 topic mapping and directly checked Acts 23-25 text. Current curriculum adoption, full objectives, official 5161/5162 allocation and option counts remain unverified. Malformed curriculum verse references and the description of Agrippa as governor are flagged; drafts use checked references and identify him as king. No JSS 1 revised topic mapping is transferred to JSS 3.",
-    "On 2026-11-07 an official September 2025 revised CRS JSS 1 PDF was successfully retrieved at the LMIS direct PDF URL. This is an exact-class access advance, not verified cohort adoption or complete objective coverage. Reconcile it with the unresolved NERDC bank register and map its outcomes before adding exact-class drafts. Other current class/subject access gaps remain."
+    "On 2026-11-07 an official September 2025 revised CRS JSS 1 PDF was successfully retrieved at the LMIS direct PDF URL. This is an exact-class access advance, not verified cohort adoption or complete objective coverage. Reconcile it with the unresolved NERDC bank register and map its outcomes before adding exact-class drafts. Other current class/subject access gaps remain.",
+    "Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled."
   ]
 }

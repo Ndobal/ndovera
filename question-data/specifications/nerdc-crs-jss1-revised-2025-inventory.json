@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+  "exam": "NERDC",
+  "subject": "Christian Religious Studies",
+  "level": "JSS 1",
+  "documentDate": "September 2025",
+  "retrievedOn": "2026-11-07",
+  "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/7.pdf",
+  "tableOfContentsPdfPage": 12,
+  "topicCount": 16,
+  "topicLabels": "Author-normalised paraphrases, not verbatim source headings.",
+  "themes": {
+    "1": "God and creation",
+    "2": "Relationships with God and other people",
+    "3": "Divine calling",
+    "4": "Jesus' early years"
+  },
+  "adoptionEvidence": [
+    "nerdc-revised-bec-rollout-2025",
+    "fme-curriculum-review-implementation-2026"
+  ],
+  "mappingComplete": false,
+  "academicReviewStatus": "pending",
+  "questionsAdded": 0,
+  "scopeNotes": [
+    "National rollout evidence does not verify each school's implementation.",
+    "No term or learner-age allocation inferred.",
+    "Topic index is not a full performance-objective denominator.",
+    "Topics 1-3 have initial objective mappings only; learning activities, focal competencies and evaluation guides still need complete reconciliation.",
+    "Singing and making a model require actual performance and original practice rubrics, not MCQ substitutes.",
+    "Language-name spellings need specialist verification.",
+    "Printed p. 3 links marriage with prevention of infections; that causal claim is flagged, not used as factual teaching evidence."
+  ],
+  "topics": [
+    {
+      "topicNumber": 1,
+      "topic": "Understanding God",
+      "themeNumber": 1,
+      "printedPage": 1,
+      "expectedPdfPageFromContents": 13,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t01-po01-v1",
+        "nerdc-crs-jss1-2025-t01-po02-v1",
+        "nerdc-crs-jss1-2025-t01-po03-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 2,
+      "topic": "Creation",
+      "themeNumber": 1,
+      "printedPage": 2,
+      "expectedPdfPageFromContents": 14,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t02-po01-v1",
+        "nerdc-crs-jss1-2025-t02-po02-v1",
+        "nerdc-crs-jss1-2025-t02-po03-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 3,
+      "topic": "Human creativity",
+      "themeNumber": 1,
+      "printedPage": 3,
+      "expectedPdfPageFromContents": 15,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t03-po01-v1",
+        "nerdc-crs-jss1-2025-t03-po02-v1",
+        "nerdc-crs-jss1-2025-t03-po03-v1",
+        "nerdc-crs-jss1-2025-t03-po04-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 4,
+      "topic": "Disobeying God",
+      "themeNumber": 1,
+      "printedPage": 4,
+      "expectedPdfPageFromContents": 16,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 5,
+      "topic": "Restoring relationships",
+      "themeNumber": 1,
+      "printedPage": 5,
+      "expectedPdfPageFromContents": 17,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 6,
+      "topic": "Family relationships",
+      "themeNumber": 2,
+      "printedPage": 6,
+      "expectedPdfPageFromContents": 18,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 7,
+      "topic": "School relationships",
+      "themeNumber": 2,
+      "printedPage": 7,
+      "expectedPdfPageFromContents": 19,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 8,
+      "topic": "Community and church relationships",
+      "themeNumber": 2,
+      "printedPage": 8,
+      "expectedPdfPageFromContents": 20,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 9,
+      "topic": "Relating to God",
+      "themeNumber": 2,
+      "printedPage": 9,
+      "expectedPdfPageFromContents": 21,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 10,
+      "topic": "Responding with obedience",
+      "themeNumber": 3,
+      "printedPage": 10,
+      "expectedPdfPageFromContents": 22,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 11,
+      "topic": "Responding to freedom",
+      "themeNumber": 3,
+      "printedPage": 11,
+      "expectedPdfPageFromContents": 23,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 12,
+      "topic": "Responding through service",
+      "themeNumber": 3,
+      "printedPage": 12,
+      "expectedPdfPageFromContents": 24,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 13,
+      "topic": "Responding with repentance",
+      "themeNumber": 3,
+      "printedPage": 13,
+      "expectedPdfPageFromContents": 25,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 14,
+      "topic": "Jesus' birth",
+      "themeNumber": 4,
+      "printedPage": 14,
+      "expectedPdfPageFromContents": 26,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 15,
+      "topic": "Jesus' temple presentation",
+      "themeNumber": 4,
+      "printedPage": 15,
+      "expectedPdfPageFromContents": 27,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 16,
+      "topic": "Jesus' family life",
+      "themeNumber": 4,
+      "printedPage": 16,
+      "expectedPdfPageFromContents": 28,
+      "sourceLocatorStatus": "contents_reference",
+      "objectiveIds": [],
+      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "draftQuestionIds": []
+    }
+  ]
+}

@@ -112,6 +112,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Basic Science / Primary 5 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Technology / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Chemistry / SS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
+| NERDC | Christian Religious Studies / JSS 1 | 1000 | 0 | 0 | 0 | 1000 | partial_objective_register |
 | NERDC | Computer Studies / JSS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Economics / SS 1 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English / Primary | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -212,12 +213,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 155 | 126 | 0 | 9000 | 8874 |
 | NECO | 436 | 401 | 0 | 36000 | 35599 |
-| NERDC | 65 | 0 | 0 | 27000 | 27000 |
+| NERDC | 65 | 0 | 0 | 28000 | 28000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 104 | 95 | 0 | 4000 | 3905 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3654, "validDrafts": 1975, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3654, "validDrafts": 1975, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -254,3 +255,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - NECO BECE French Language has initial original written-comprehension practice grounded provisionally in historical JSS Three themes. Receptive drills do not establish oral or written production competence. Current curriculum adoption, full content specification, allocation between 2051/2052, option counts and listening/oral requirements remain unverified. No Ghana BECE or NECO SSCE format has been substituted.
 - NECO BECE Christian Religious Studies has initial original JSS 3 practice on Paul's trials using historical July 2018 topic mapping and directly checked Acts 23-25 text. Current curriculum adoption, full objectives, official 5161/5162 allocation and option counts remain unverified. Malformed curriculum verse references and the description of Agrippa as governor are flagged; drafts use checked references and identify him as king. No JSS 1 revised topic mapping is transferred to JSS 3.
 - On 2026-11-07 an official September 2025 revised CRS JSS 1 PDF was successfully retrieved at the LMIS direct PDF URL. This is an exact-class access advance, not verified cohort adoption or complete objective coverage. Reconcile it with the unresolved NERDC bank register and map its outcomes before adding exact-class drafts. Other current class/subject access gaps remain.
+- Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled.

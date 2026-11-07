@@ -765,3 +765,10 @@ The official September 2025 revised CRS JSS 1 PDF was also retrieved
 from its direct LMIS URL and registered separately. Exact outcome
 mapping, cohort adoption and bank reconciliation are pending. This
 access advance does not resolve JSS 3 or other class-subject gaps.
+
+The CRS JSS 1 source-mapping run registers national rollout evidence,
+a separate exact-class bank, a sixteen-topic contents inventory and ten
+initial performance-objective mappings for the first three topics.
+No questions were added. The 1,000-item target remains provisional.
+School adoption, other outcomes, performance assessment and capacity
+remain open. No terms, ages or legacy class assignments were inferred.
