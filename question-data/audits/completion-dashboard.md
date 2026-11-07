@@ -150,7 +150,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | [subject list unresolved] / SS 3 | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | SAT | Mathematics | 1000 | 31 | 25 | 0 | 975 | partial_objective_register |
 | SAT | Reading and Writing | 1000 | 28 | 25 | 0 | 975 | partial_objective_register |
-| TOEFL | Listening | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
+| TOEFL | Listening | 1000 | 24 | 24 | 0 | 976 | partial_objective_register |
 | TOEFL | Reading | 1000 | 27 | 21 | 0 | 979 | partial_objective_register |
 | TOEFL | Speaking | 1000 | 16 | 16 | 0 | 984 | partial_objective_register |
 | TOEFL | Writing | 1000 | 13 | 10 | 0 | 990 | partial_objective_register |
@@ -214,10 +214,10 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | 436 | 401 | 0 | 36000 | 35599 |
 | NERDC | 65 | 0 | 0 | 27000 | 27000 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
-| TOEFL | 68 | 59 | 0 | 4000 | 3941 |
+| TOEFL | 80 | 71 | 0 | 4000 | 3929 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3534, "validDrafts": 1855, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3546, "validDrafts": 1867, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -244,4 +244,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.
 - NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.
 - NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.
-- TOEFL Listening 2026 now has original single-exchange response practice for supervised live delivery. recorded audio, conversation, announcement and academic talk coverage, adaptive delivery and independent review remain outstanding.
+- TOEFL Listening 2026 has original single-exchange and short-conversation practice for supervised live delivery. Recorded audio, announcements, academic talks, adaptive delivery and independent review remain outstanding.

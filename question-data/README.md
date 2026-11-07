@@ -668,3 +668,9 @@ response-selection drafts mapped to the 2026 task family. Scripts
 support supervised live delivery. The official Updated Test Overview illustrates
 four written response choices. Recorded audio,
 other Listening task families and adaptive delivery remain open.
+
+Batch 126 adds twelve TOEFL Listening drafts across six original
+two-speaker conversations, with two questions per conversation.
+They cover intent, detail, inference and likely next actions.
+Supervised live delivery is required. Recorded audio, announcements,
+academic talks and adaptive delivery remain outstanding.

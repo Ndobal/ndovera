@@ -1954,8 +1954,9 @@
       "formatGuide": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-specifications-2026.pdf",
       "retrievedOn": "2026-11-07",
       "effectiveFrom": "2026-01-21",
-      "note": "The 2026 blueprint identifies Listen and Choose a Response, Listen to a Conversation, Listen to an Announcement and Listen to an Academic Talk. The Listening webpage lists all four despite its introductory phrase saying two task types. This batch uses original single-exchange response practice with four written response choices, as illustrated in the official Updated Test Overview p. 9. Adaptive assembly, recorded delivery and scaled scores remain outside the draft batch.",
-      "sampleGuide": "https://www.de.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-overview.pdf"
+      "note": "The 2026 blueprint identifies Listen and Choose a Response, Listen to a Conversation, Listen to an Announcement and Listen to an Academic Talk. The Listening webpage lists all four despite its introductory phrase saying two task types. This batch uses original single-exchange response practice with four written response choices, as illustrated in the official Updated Test Overview p. 9. Adaptive assembly, recorded delivery and scaled scores remain outside the draft batch. The official Updated Test Overview p. 9 specifies a short two-speaker conversation with two questions, including inference, intent and likely next actions. The regional mirror was used after the German mirror exceeded the retrieval size limit.",
+      "sampleGuide": "https://www.de.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-overview.pdf",
+      "conversationGuide": "https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-test-overview.pdf"
     }
   ],
   "banks": [
@@ -2553,7 +2554,7 @@
       "subject": "Listening",
       "level": "",
       "target": 1000,
-      "scopeStatus": "post_january_2026_single_exchange_practice_live_delivery",
+      "scopeStatus": "post_january_2026_response_and_conversation_practice_live_delivery",
       "specificationId": "toefl-ibt-listening-2026"
     },
     {
@@ -13843,6 +13844,210 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Main purpose",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Next action",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Problem recognition",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Conditional decision",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Cause",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Advice",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Suggested improvement",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-07-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Speaker attitude",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-08-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Preferred solution",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-09-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Reason for refusal",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-10-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Search difficulty",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-11-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Implied lesson",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "toefl-listening-conversation-126-12-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Updated Test Overview, Listen to a Conversation, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -13867,6 +14072,6 @@
     "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.",
     "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.",
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
-    "TOEFL Listening 2026 now has original single-exchange response practice for supervised live delivery. recorded audio, conversation, announcement and academic talk coverage, adaptive delivery and independent review remain outstanding."
+    "TOEFL Listening 2026 has original single-exchange and short-conversation practice for supervised live delivery. Recorded audio, announcements, academic talks, adaptive delivery and independent review remain outstanding."
   ]
 }

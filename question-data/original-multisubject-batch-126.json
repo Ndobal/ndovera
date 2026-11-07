@@ -1,0 +1,635 @@
+{
+  "schemaVersion": 2,
+  "collection": "TOEFL iBT 2026 original short conversation practice",
+  "questionCount": 12,
+  "note": "Six original conversations with two questions each. Requires supervised live delivery; recorded audio remains outstanding. Keep scripts, answers and explanations out of learner view.",
+  "examinerInstructions": "Two readers perform each conversation at a natural pace. Then present its two questions and four written choices per question. Award one classroom practice point for each correct answer. These points have no TOEFL scale conversion.",
+  "listeningSets": [
+    {
+      "id": "toefl-conversation-126-01",
+      "title": "Equipment loan",
+      "examinerScript": [
+        {
+          "speaker": "Student",
+          "line": "I booked a camera for our field project, but the desk says it is still with another group. We leave tomorrow."
+        },
+        {
+          "speaker": "Assistant",
+          "line": "Their return is due this afternoon. I can put your name first on the waiting list."
+        },
+        {
+          "speaker": "Student",
+          "line": "I’m worried about leaving this until the last minute. Is there anything I can use if it doesn’t come back?"
+        },
+        {
+          "speaker": "Assistant",
+          "line": "There is a simpler model available now. It has fewer controls, but it will take the still photographs you described."
+        },
+        {
+          "speaker": "Student",
+          "line": "That would cover our needs. Could you show me how to use it?"
+        },
+        {
+          "speaker": "Assistant",
+          "line": "Of course. We can sort out the loan form after the demonstration."
+        }
+      ]
+    },
+    {
+      "id": "toefl-conversation-126-02",
+      "title": "Study room",
+      "examinerScript": [
+        {
+          "speaker": "Nneka",
+          "line": "We reserved Room Four for our practice debate, but I’ve just seen a notice saying it is a silent study room."
+        },
+        {
+          "speaker": "Jonah",
+          "line": "Then our booking won’t help much. We need to speak at normal volume."
+        },
+        {
+          "speaker": "Nneka",
+          "line": "The group room in the library is free later, though it only holds six people."
+        },
+        {
+          "speaker": "Jonah",
+          "line": "There are five of us. Could we move the practice back an hour?"
+        },
+        {
+          "speaker": "Nneka",
+          "line": "I can, but I should check with everyone else before changing anything."
+        },
+        {
+          "speaker": "Jonah",
+          "line": "Send the group a message. If they agree, I’ll reserve the library room."
+        }
+      ]
+    },
+    {
+      "id": "toefl-conversation-126-03",
+      "title": "Bus disruption",
+      "examinerScript": [
+        {
+          "speaker": "Student",
+          "line": "The campus bus hasn’t arrived, and I’m supposed to be at the museum for my placement this morning."
+        },
+        {
+          "speaker": "Friend",
+          "line": "There’s road work near the south gate. The bus is using the east gate today."
+        },
+        {
+          "speaker": "Student",
+          "line": "I didn’t see the notice. If I walk over there now, I might still be late."
+        },
+        {
+          "speaker": "Friend",
+          "line": "Call your placement supervisor while you walk. At least they’ll know what has happened."
+        },
+        {
+          "speaker": "Student",
+          "line": "Good point. I have the number in my confirmation email."
+        },
+        {
+          "speaker": "Friend",
+          "line": "And check the transport page later. It says the change may continue tomorrow."
+        }
+      ]
+    },
+    {
+      "id": "toefl-conversation-126-04",
+      "title": "Poster preparation",
+      "examinerScript": [
+        {
+          "speaker": "Amara",
+          "line": "Our poster has all the results, but I can hardly read the labels from a few steps away."
+        },
+        {
+          "speaker": "David",
+          "line": "I was trying to fit every measurement onto one page."
+        },
+        {
+          "speaker": "Amara",
+          "line": "Do we need that much detail on the poster itself? We could put the full table in a handout."
+        },
+        {
+          "speaker": "David",
+          "line": "That would leave room for larger charts. I’m reluctant to lose information, though."
+        },
+        {
+          "speaker": "Amara",
+          "line": "We wouldn’t lose it. Visitors who want the details could take a handout, and everyone else could see the main pattern clearly."
+        },
+        {
+          "speaker": "David",
+          "line": "All right. I’ll simplify the poster and keep the complete table in a separate sheet."
+        }
+      ]
+    },
+    {
+      "id": "toefl-conversation-126-05",
+      "title": "Workshop attendance",
+      "examinerScript": [
+        {
+          "speaker": "Student",
+          "line": "I’ve signed up for the writing workshop, but it overlaps with the first half of my laboratory session."
+        },
+        {
+          "speaker": "Tutor",
+          "line": "The workshop is repeated next week. Would that session fit?"
+        },
+        {
+          "speaker": "Student",
+          "line": "Yes, but the registration page says it is full."
+        },
+        {
+          "speaker": "Tutor",
+          "line": "Ask the organiser whether there is a waiting list. People sometimes cancel."
+        },
+        {
+          "speaker": "Student",
+          "line": "Would you advise skipping the first part of the laboratory session instead?"
+        },
+        {
+          "speaker": "Tutor",
+          "line": "No. That is when the safety briefing takes place. Try the waiting list first."
+        }
+      ]
+    },
+    {
+      "id": "toefl-conversation-126-06",
+      "title": "Archive search",
+      "examinerScript": [
+        {
+          "speaker": "Researcher",
+          "line": "The catalogue lists the town plan under its old name. I searched using the current name and found nothing."
+        },
+        {
+          "speaker": "Librarian",
+          "line": "That happens with historical records. The catalogue keeps the name printed on the original document."
+        },
+        {
+          "speaker": "Researcher",
+          "line": "So I shouldn’t assume that an empty search means we have no material?"
+        },
+        {
+          "speaker": "Librarian",
+          "line": "Exactly. Try earlier names and alternative spellings. I can show you the place-name index."
+        },
+        {
+          "speaker": "Researcher",
+          "line": "That would help. I need maps from before the boundary change."
+        },
+        {
+          "speaker": "Librarian",
+          "line": "The index notes those changes too. Let’s begin there before searching the map collection again."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Main purpose",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-001",
+      "objectiveId": "toefl-listening-conversation-126-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "Why does the student speak to the assistant?",
+      "options": [
+        "To find an alternative camera for a trip.",
+        "To complain about the quality of some photographs.",
+        "To ask for extra time to return equipment.",
+        "To join another group’s field project."
+      ],
+      "correctOption": "A",
+      "answer": "To find an alternative camera for a trip.",
+      "explanation": "The booked camera is unavailable and the student needs equipment before departure.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-01",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Next action",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-002",
+      "objectiveId": "toefl-listening-conversation-126-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "What will the assistant most likely do next?",
+      "options": [
+        "Call the group that has the booked camera.",
+        "Cancel the student’s field trip.",
+        "Demonstrate the simpler camera.",
+        "Process a repair request."
+      ],
+      "correctOption": "C",
+      "answer": "Demonstrate the simpler camera.",
+      "explanation": "The student asks for a demonstration, and the assistant agrees to give it before the paperwork.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-01",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Problem recognition",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-003",
+      "objectiveId": "toefl-listening-conversation-126-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "What problem do Nneka and Jonah identify?",
+      "options": [
+        "Their group is too large for the library room.",
+        "Their reserved room is unsuitable for discussion.",
+        "They have forgotten the date of the debate.",
+        "They cannot find their booking confirmation."
+      ],
+      "correctOption": "B",
+      "answer": "Their reserved room is unsuitable for discussion.",
+      "explanation": "A silent study room is unsuitable for a spoken debate.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-02",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Conditional decision",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-004",
+      "objectiveId": "toefl-listening-conversation-126-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "What must happen before Jonah reserves the library room?",
+      "options": [
+        "The debate topic must be approved.",
+        "Room Four must be repaired.",
+        "More students must join the group.",
+        "The other group members must agree to the later time."
+      ],
+      "correctOption": "D",
+      "answer": "The other group members must agree to the later time.",
+      "explanation": "Jonah offers to reserve the alternative only if the group agrees to the time change.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-02",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Cause",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-005",
+      "objectiveId": "toefl-listening-conversation-126-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "Why has the student missed the bus at the usual stop?",
+      "options": [
+        "The museum has changed its opening hours.",
+        "The student has the wrong placement date.",
+        "Road work has changed the bus route.",
+        "The bus service has ended for the term."
+      ],
+      "correctOption": "C",
+      "answer": "Road work has changed the bus route.",
+      "explanation": "Road work has moved the bus route to the east gate.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-03",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Advice",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-006",
+      "objectiveId": "toefl-listening-conversation-126-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "What does the friend advise the student to do immediately?",
+      "options": [
+        "Tell the placement supervisor about the delay.",
+        "Wait at the south gate for another bus.",
+        "Ask the museum to cancel the placement.",
+        "Walk the entire way to the museum."
+      ],
+      "correctOption": "A",
+      "answer": "Tell the placement supervisor about the delay.",
+      "explanation": "The friend recommends calling the supervisor while walking to the correct gate.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-03",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Suggested improvement",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-007",
+      "objectiveId": "toefl-listening-conversation-126-07-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "What change does Amara suggest for the poster?",
+      "options": [
+        "Add more measurements to the main chart.",
+        "Print a smaller version of the same layout.",
+        "Remove the results from the presentation.",
+        "Move detailed data to a separate handout."
+      ],
+      "correctOption": "D",
+      "answer": "Move detailed data to a separate handout.",
+      "explanation": "Amara proposes a handout for the full table so the poster can be clearer.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-04",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Speaker attitude",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-008",
+      "objectiveId": "toefl-listening-conversation-126-08-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "Why is David initially reluctant to change the poster?",
+      "options": [
+        "He thinks handouts are forbidden.",
+        "He does not want to omit information.",
+        "He has not finished collecting the data.",
+        "He prefers speaking without visual aids."
+      ],
+      "correctOption": "B",
+      "answer": "He does not want to omit information.",
+      "explanation": "David explicitly says he is reluctant to lose information.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-04",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Preferred solution",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-009",
+      "objectiveId": "toefl-listening-conversation-126-09-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "Which solution does the tutor recommend?",
+      "options": [
+        "Miss the laboratory safety briefing.",
+        "Attend the workshop without registering.",
+        "Ask about a waiting list for the later workshop.",
+        "Drop the laboratory course entirely."
+      ],
+      "correctOption": "C",
+      "answer": "Ask about a waiting list for the later workshop.",
+      "explanation": "The tutor recommends seeking a place in the repeated workshop.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-05",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Reason for refusal",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-010",
+      "objectiveId": "toefl-listening-conversation-126-10-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "Why does the tutor reject arriving late to the laboratory session?",
+      "options": [
+        "The opening includes essential safety information.",
+        "The writing workshop finishes too early.",
+        "The laboratory closes before the workshop begins.",
+        "The student has already attended the workshop."
+      ],
+      "correctOption": "A",
+      "answer": "The opening includes essential safety information.",
+      "explanation": "The tutor identifies the safety briefing as the reason not to miss the beginning.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-05",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Search difficulty",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-011",
+      "objectiveId": "toefl-listening-conversation-126-11-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "Why did the researcher’s initial catalogue search fail?",
+      "options": [
+        "The maps had all been borrowed.",
+        "The catalogue used a historical place name.",
+        "The archive contained only photographs.",
+        "The researcher searched the wrong century."
+      ],
+      "correctOption": "B",
+      "answer": "The catalogue used a historical place name.",
+      "explanation": "The catalogue retains the name on the original plan.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-06",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Listening",
+      "topic": "Listen to a Conversation",
+      "subtopic": "Implied lesson",
+      "learningObjective": "Interpret the purpose, details, intent or implied meaning of a short two-speaker conversation.",
+      "specificationId": "toefl-ibt-listening-2026",
+      "id": "ndv-126-012",
+      "objectiveId": "toefl-listening-conversation-126-12-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "TOEFL iBT 2026",
+      "type": "mcq",
+      "prompt": "What does the librarian imply about a search with no results?",
+      "options": [
+        "The archive should discard older catalogues.",
+        "The requested material is definitely missing.",
+        "Only staff may search the map collection.",
+        "A different search term may reveal relevant material."
+      ],
+      "correctOption": "D",
+      "answer": "A different search term may reveal relevant material.",
+      "explanation": "The librarian suggests earlier names and alternative spellings rather than treating an empty search as proof of absence.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "stimulusId": "toefl-conversation-126-06",
+      "deliveryMode": "supervised-live-listening",
+      "taskFormat": "listen-to-a-conversation"
+    }
+  ]
+}
