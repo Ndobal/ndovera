@@ -1979,6 +1979,16 @@
       "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_business_studies.pdf",
       "retrievedOn": "2026-11-07",
       "note": "NECO lists practical 3113 and permits computers. Historical JSS 3 pp. 62–63 cover business-letter keyboarding, printing and simple tabulation. These tasks and marks are original classroom practice. Official NECO practical task, duration per exercise, scoring and current curriculum adoption remain unverified."
+    },
+    {
+      "id": "neco-bece-english-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "English Studies",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://nerdc.gov.ng/content_manager/jss/jss1-3_english_studies.pdf",
+      "retrievedOn": "2026-11-07",
+      "note": "NECO lists objective papers 1011/1012 and essay 1013. Historical NERDC JSS 3 Reading for Summary p. 51 supports provisional main-idea and summary practice. The non-www source was accessible after the www URL failed. Current adoption, NECO paper-level objectives, option counts, prescribed texts and essay marking remain unverified."
     }
   ],
   "banks": [
@@ -2993,7 +3003,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective",
@@ -3003,6 +3013,9 @@
         "1011",
         "1012",
         "1013"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-english-2026-historical-reference"
       ]
     },
     {
@@ -14710,6 +14723,158 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Reading for Summary",
+      "subtopic": "Central idea",
+      "learningObjective": "Identify main ideas, supporting information and an accurate summary of an original passage.",
+      "specificationId": "neco-bece-english-2026-historical-reference",
+      "id": "bece-english-reading-131-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC English Studies, JSS 3, Reading for Summary, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Reading for Summary",
+      "subtopic": "Paragraph focus",
+      "learningObjective": "Identify main ideas, supporting information and an accurate summary of an original passage.",
+      "specificationId": "neco-bece-english-2026-historical-reference",
+      "id": "bece-english-reading-131-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC English Studies, JSS 3, Reading for Summary, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Reading for Summary",
+      "subtopic": "Supporting evidence",
+      "learningObjective": "Identify main ideas, supporting information and an accurate summary of an original passage.",
+      "specificationId": "neco-bece-english-2026-historical-reference",
+      "id": "bece-english-reading-131-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC English Studies, JSS 3, Reading for Summary, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Reading for Summary",
+      "subtopic": "Summary selection",
+      "learningObjective": "Identify main ideas, supporting information and an accurate summary of an original passage.",
+      "specificationId": "neco-bece-english-2026-historical-reference",
+      "id": "bece-english-reading-131-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC English Studies, JSS 3, Reading for Summary, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Reading for Summary",
+      "subtopic": "Topic sentence",
+      "learningObjective": "Identify main ideas, supporting information and an accurate summary of an original passage.",
+      "specificationId": "neco-bece-english-2026-historical-reference",
+      "id": "bece-english-reading-131-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC English Studies, JSS 3, Reading for Summary, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Reading for Summary",
+      "subtopic": "Key action",
+      "learningObjective": "Identify main ideas, supporting information and an accurate summary of an original passage.",
+      "specificationId": "neco-bece-english-2026-historical-reference",
+      "id": "bece-english-reading-131-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC English Studies, JSS 3, Reading for Summary, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Reading for Summary",
+      "subtopic": "Summary relevance",
+      "learningObjective": "Identify main ideas, supporting information and an accurate summary of an original passage.",
+      "specificationId": "neco-bece-english-2026-historical-reference",
+      "id": "bece-english-reading-131-07-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC English Studies, JSS 3, Reading for Summary, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "English Studies",
+      "level": "JSS 3",
+      "topic": "Reading for Summary",
+      "subtopic": "Conclusion",
+      "learningObjective": "Identify main ideas, supporting information and an accurate summary of an original passage.",
+      "specificationId": "neco-bece-english-2026-historical-reference",
+      "id": "bece-english-reading-131-08-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC English Studies, JSS 3, Reading for Summary, p. 51"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -14735,6 +14900,7 @@
     "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.",
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
     "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding.",
-    "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved."
+    "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.",
+    "NECO BECE English Studies has initial original reading-for-summary practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified."
   ]
 }

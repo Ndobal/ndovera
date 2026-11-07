@@ -698,3 +698,9 @@ on letter layout, correction, tabulation and printing. Historical
 NERDC JSS 3 objectives support provisional alignment. The tasks and
 marking guides are original. Official NECO practical requirements
 and current curriculum adoption remain outstanding.
+
+Batch 131 opens NECO BECE English Studies with eight original
+reading-for-summary drafts using two original passages. Historical
+JSS 3 objectives inform provisional mapping. Current NECO paper-level
+content, option counts, essay requirements and curriculum adoption
+remain outstanding.
