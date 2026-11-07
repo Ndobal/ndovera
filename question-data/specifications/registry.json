@@ -2049,6 +2049,16 @@
         }
       ],
       "note": "Correct the historical curriculum spelling Lord Laggard to Frederick Lugard. Its claim that a Berlin treaty awarded Nigerian territories to Britain is not an adequate account of the conference. The German archival explanation describes a framework for colonial claims, followed by further processes of conquest and administration. Fact checks do not establish current curriculum adoption or official NECO paper-level scope."
+    },
+    {
+      "id": "neco-bece-cca-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_cca.pdf",
+      "retrievedOn": "2026-11-07",
+      "note": "NECO lists objective papers 7291/7292 and practical 7293. Historical NERDC JS 3 material supports provisional lettering, display, music and drama topics. Current adoption, paper-level content, option count and practical tasks/marking remain unverified."
     }
   ],
   "banks": [
@@ -2858,7 +2868,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective",
@@ -2868,6 +2878,9 @@
         "7291",
         "7292",
         "7293"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-cca-2026-historical-reference"
       ]
     },
     {
@@ -15247,6 +15260,158 @@
       ],
       "mappingStatus": "provisional_historical_scope_facts_cross_checked_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Arts and crafts",
+      "subtopic": "Legibility",
+      "learningObjective": "Choose lettering that supports clear communication.",
+      "specificationId": "neco-bece-cca-2026-historical-reference",
+      "id": "bece-cca-135-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 29"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Arts and crafts",
+      "subtopic": "Letter spacing",
+      "learningObjective": "Recognise how spacing affects the reading of a caption.",
+      "specificationId": "neco-bece-cca-2026-historical-reference",
+      "id": "bece-cca-135-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 29"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Arts and crafts",
+      "subtopic": "Mounting work",
+      "learningObjective": "Select a display method that supports and protects an artwork.",
+      "specificationId": "neco-bece-cca-2026-historical-reference",
+      "id": "bece-cca-135-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 28"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Arts and crafts",
+      "subtopic": "Placement",
+      "learningObjective": "Choose placement that makes an artwork accessible to viewers.",
+      "specificationId": "neco-bece-cca-2026-historical-reference",
+      "id": "bece-cca-135-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 28"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Music in society",
+      "subtopic": "Educational use",
+      "learningObjective": "Identify music used to support learning.",
+      "specificationId": "neco-bece-cca-2026-historical-reference",
+      "id": "bece-cca-135-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 32"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Music in society",
+      "subtopic": "Advertising purpose",
+      "learningObjective": "Recognise the persuasive use of a musical message.",
+      "specificationId": "neco-bece-cca-2026-historical-reference",
+      "id": "bece-cca-135-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 32"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Drama for community development",
+      "subtopic": "Community issue",
+      "learningObjective": "Connect a dramatic story to a specific community concern.",
+      "specificationId": "neco-bece-cca-2026-historical-reference",
+      "id": "bece-cca-135-07-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 33"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 3",
+      "topic": "Drama for community development",
+      "subtopic": "Audience participation",
+      "learningObjective": "Choose follow-up that connects a performance to practical discussion.",
+      "specificationId": "neco-bece-cca-2026-historical-reference",
+      "id": "bece-cca-135-08-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Cultural and Creative Arts, JS 3, p. 33"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -15275,6 +15440,7 @@
     "NECO BECE Business Studies now has provisional written objective and supervised classroom practical practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved.",
     "NECO BECE English Studies has initial original reading-for-summary and composition practice with historical JSS 3 topic mapping. Current NECO paper-level objectives, option counts, prescribed texts, essay rules and marking, and NERDC curriculum adoption remain unverified.",
     "NECO BECE Pre-Vocational Studies remains empty. Objective paper codes 8311/8312 are verified, but content objectives and official option count are unavailable. On 2026-11-07 the NERDC revised JSS 3 link returned 404, and historical subject content was not retrieved. Obtain the official NECO syllabus or an accessible exact-class curriculum before mapping drafts.",
-    "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding."
+    "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding.",
+    "NECO BECE Cultural and Creative Arts has provisional written practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified."
   ]
 }

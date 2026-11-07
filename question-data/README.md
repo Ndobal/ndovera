@@ -728,3 +728,9 @@ amalgamation, independence, republican status, Lugard and the Berlin
 Conference. The source register corrects the Lugard spelling and
 qualifies the curriculum's Berlin treaty claim. Current syllabus
 adoption, paper-level scope and independent review remain open.
+
+Batch 135 opens NECO BECE Cultural and Creative Arts with eight
+original JSS 3 objective drafts on lettering, display, uses of music
+and community drama. Historical topic mapping remains provisional.
+Current adoption, NECO topic allocation, option counts and practical
+task requirements remain outstanding.

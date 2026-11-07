@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_134_automated_validation_passed",
+  "phase": "batch_135_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-135.json",
+  "nextBatch": "original-multisubject-batch-136.json",
   "nextPriorities": [
-    "Investigate NECO BECE Cultural and Creative Arts current content and practical requirements before opening its empty bank. History has authoritative checks for selected transition facts, while current syllabus adoption and full coverage remain open. Pre-Vocational Studies content remains blocked.",
+    "Seek NECO BECE Cultural and Creative Arts practical 7293 instructions, material lists and current objectives. Historical JS 3 display, lettering and drama evidence can support explicitly provisional classroom tasks; official task and marking alignment remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-134.json",
-  "lastRemoteVerifiedCommit": "423bfde7dc0a6690d06016e552ee921ad4c8de1b",
+  "lastValidatedBatch": "original-multisubject-batch-135.json",
+  "lastRemoteVerifiedCommit": "30b598b95d0adac3f418fed6b8c85e909f057978",
   "verifiedTotals": {
-    "raw": 3606,
-    "validDrafts": 1927,
+    "raw": 3614,
+    "validDrafts": 1935,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-134.json",
+  "lastPopulatedBatch": "original-multisubject-batch-135.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3606
+  "inventoryRaw": 3614
 }
