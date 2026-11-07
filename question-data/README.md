@@ -686,3 +686,9 @@ academic talks on opportunity cost, map simplification and controlled
 comparisons. Each 100–250-word talk has four questions. Initial live
 practice now spans all four Listening task families. Recorded audio,
 delivery validation and broader coverage remain outstanding.
+
+Batch 129 opens NECO BECE Business Studies with eight original JSS 3
+objective drafts on business analysis and trial balances. Historical
+NERDC objectives inform provisional mapping. The 2026 timetable
+verifies paper formats. Current adoption, NECO topic allocation,
+option counts and practical requirements remain outstanding.

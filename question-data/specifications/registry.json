@@ -1959,6 +1959,16 @@
       "conversationGuide": "https://www.in.ets.org/content/dam/ets-india/pdfs/toefl/toefl-ibt-test-overview.pdf",
       "announcementGuide": "https://www.ets.org/pdfs/toefl/toefl-ibt-test-at-a-glance.pdf",
       "academicTalkGuide": "https://www.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-at-a-glance.pdf"
+    },
+    {
+      "id": "neco-bece-business-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_business_studies.pdf",
+      "retrievedOn": "2026-11-07",
+      "note": "The NECO timetable verifies objective papers 3111/3112 and practical 3113 (20 minutes). Note 3 permits computers for Business Studies and sets where equipment is limited. Historical NERDC JSS 3 pp. 52 and 59 support provisional topics. Current adoption, NECO paper-level content, option counts and practical tasks/marking remain unverified."
     }
   ],
   "banks": [
@@ -2720,7 +2730,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective",
@@ -2730,6 +2740,9 @@
         "3111",
         "3112",
         "3113"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-business-2026-historical-reference"
       ]
     },
     {
@@ -14458,6 +14471,158 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Entrepreneurial skill",
+      "subtopic": "Internal strength",
+      "learningObjective": "Identify an internal resource that gives a small business an advantage.",
+      "specificationId": "neco-bece-business-2026-historical-reference",
+      "id": "bece-business-129-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Business Studies, JSS 3, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Entrepreneurial skill",
+      "subtopic": "Internal weakness",
+      "learningObjective": "Distinguish an internal limitation from an external business condition.",
+      "specificationId": "neco-bece-business-2026-historical-reference",
+      "id": "bece-business-129-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Business Studies, JSS 3, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Entrepreneurial skill",
+      "subtopic": "External opportunity",
+      "learningObjective": "Recognise an external development that could create demand.",
+      "specificationId": "neco-bece-business-2026-historical-reference",
+      "id": "bece-business-129-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Business Studies, JSS 3, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Entrepreneurial skill",
+      "subtopic": "External threat",
+      "learningObjective": "Identify an external risk and a relevant business response.",
+      "specificationId": "neco-bece-business-2026-historical-reference",
+      "id": "bece-business-129-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Business Studies, JSS 3, p. 52"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Book-keeping application",
+      "subtopic": "Purpose of trial balance",
+      "learningObjective": "Explain what comparing debit and credit totals can test.",
+      "specificationId": "neco-bece-business-2026-historical-reference",
+      "id": "bece-business-129-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Business Studies, JSS 3, p. 59"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Book-keeping application",
+      "subtopic": "Limits of agreement",
+      "learningObjective": "Recognise that trial balance agreement does not detect every error.",
+      "specificationId": "neco-bece-business-2026-historical-reference",
+      "id": "bece-business-129-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Business Studies, JSS 3, p. 59"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Book-keeping application",
+      "subtopic": "Account classification",
+      "learningObjective": "Identify an asset balance among trial balance items.",
+      "specificationId": "neco-bece-business-2026-historical-reference",
+      "id": "bece-business-129-07-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Business Studies, JSS 3, p. 59"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Business Studies",
+      "level": "JSS 3",
+      "topic": "Book-keeping application",
+      "subtopic": "Extracting balances",
+      "learningObjective": "Use the closing balance rather than total movement when preparing a trial balance.",
+      "specificationId": "neco-bece-business-2026-historical-reference",
+      "id": "bece-business-129-08-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Business Studies, JSS 3, p. 59"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -14482,6 +14647,7 @@
     "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.",
     "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.",
     "NECO 2026 registration guidelines identify separate BECE and SSCE Internal syllabuses available to schools. The official copies and any separate practical instructions have not been retrieved. Timetables remain format evidence only, and historical NERDC mappings remain provisional.",
-    "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding."
+    "TOEFL Listening 2026 has initial original practice in all four task families for supervised live delivery. Recorded audio, delivery validation, breadth of skills and topics, adaptive assembly and independent review remain outstanding.",
+    "NECO BECE Business Studies now has provisional written objective practice using historical JSS 3 curriculum references. Current curriculum adoption, official NECO topic allocation between 3111/3112, option count, and practical 3113 tasks and marking remain unresolved."
   ]
 }
