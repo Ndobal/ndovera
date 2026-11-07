@@ -2,26 +2,26 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_138_automated_validation_passed",
+  "phase": "batch_139_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-139.json",
+  "nextBatch": "original-multisubject-batch-140.json",
   "nextPriorities": [
-    "Investigate NECO BECE Christian Religious Studies current content and exact-class curriculum before opening its empty bank. French current adoption, full scope, official 2051/2052 allocation, option counts and listening/oral requirements remain unresolved; written receptive drills do not establish production competence.",
+    "Inspect and map the newly retrieved September 2025 NERDC CRS JSS 1 curriculum, verify cohort adoption where possible, and reconcile its exact-class bank before adding drafts. Then investigate NECO BECE Islamic Studies. BECE CRS current adoption, full scope, 5161/5162 allocation and official option count remain unresolved.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-138.json",
-  "lastRemoteVerifiedCommit": "9fc04106aa5825edc94d021ed43addbc6d44acbc",
+  "lastValidatedBatch": "original-multisubject-batch-139.json",
+  "lastRemoteVerifiedCommit": "9968f821c3c77d7db671874caa27a6fd3951aa1c",
   "verifiedTotals": {
-    "raw": 3642,
-    "validDrafts": 1963,
+    "raw": 3654,
+    "validDrafts": 1975,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-138.json",
+  "lastPopulatedBatch": "original-multisubject-batch-139.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3642
+  "inventoryRaw": 3654
 }

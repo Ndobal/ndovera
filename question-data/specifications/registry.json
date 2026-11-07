@@ -2091,6 +2091,40 @@
       "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_french.pdf",
       "retrievedOn": "2026-11-07",
       "note": "NECO lists 2051 and 2052 as objective papers, one hour each. Historical NERDC French JSS Three printed pp. 12, 16, 17 and 18 support professions, daily activities, narration and correspondence topics. Edition date and current adoption are not verified. Author-proposed receptive objectives are written precursors to the communicative topics, not full achievement of their production objectives. Four-option format is an author practice choice. Official paper-level content, option count, and any listening/oral administration remain unverified. Revised JSS 3 page public retrieval was inaccessible. The historical health page contains a questionable cold/influenza causal statement; it is not used as factual teaching evidence."
+    },
+    {
+      "id": "neco-bece-crs-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "Christian Religious Studies",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_crs.pdf",
+      "curriculumDocumentDate": "July 2018",
+      "retrievedOn": "2026-11-07",
+      "note": "NECO confirms objective papers 5161/5162, each one hour. Historical JSS Three p. 35 supports Paul's trials. Current adoption, full scope, official option count and paper allocation remain unverified. Four options are an author practice choice. The revised JSS 3 page was inaccessible. Do not transfer the accessible September 2025 JSS 1 revised CRS document to JSS 3. Historical p. 35 has malformed Acts references (22:30-33;35) and calls Agrippa a Roman governor. The council and plot are in Acts 23; Felix is in Acts 24, Festus and King Agrippa in Acts 25. These checks inform the drafts, not proof of current curriculum adoption."
+    },
+    {
+      "id": "bible-acts-23-25-kjv-reference-2026",
+      "kind": "primary_biblical_text_reference",
+      "source": "https://www.biblegateway.com/passage/?search=Acts%2023&version=KJV",
+      "additionalReferences": [
+        "https://www.biblegateway.com/passage/?search=Acts%2024&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Acts%2025&version=KJV"
+      ],
+      "retrievedOn": "2026-11-07",
+      "note": "KJV text of Acts 23-25 retrieved to check narrative details, roles and verse references. Questions are original paraphrases. No NECO translation prescription or academic approval is inferred. USCCB chapter fetches returned 403; these Bible Gateway chapter texts were accessible."
+    },
+    {
+      "id": "nerdc-crs-jss1-revised-2025-retrieved",
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum_retrieved",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/7.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-07",
+      "status": "document_retrieved_adoption_and_objective_mapping_pending",
+      "note": "30-page PDF explicitly identifies New Revised Basic Education Curriculum, Christian Religious Studies, JSS 1, September 2025. Its retrieval resolves access for this exact document only. Cohort/school adoption, complete outcome transcription, source audit and bank reconciliation remain pending. No JSS 3 or other class mapping is inferred. No questions or extra target have been added from the cover alone."
     }
   ],
   "banks": [
@@ -3043,7 +3077,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -3051,6 +3085,9 @@
       "paperCodes": [
         "5161",
         "5162"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-crs-2026-historical-reference"
       ]
     },
     {
@@ -15679,6 +15716,66 @@
       ],
       "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 3",
+      "topic": "The life and teachings of Paul",
+      "specificationId": "neco-bece-crs-2026-historical-reference",
+      "id": "bece-crs-139-01-v1",
+      "subtopic": "Council and protection",
+      "learningObjective": "Explain the disagreement in the council and the response to the plot against Paul.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC CRS, July 2018, JSS Three, p. 35",
+        "Acts 23"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 3",
+      "topic": "The life and teachings of Paul",
+      "specificationId": "neco-bece-crs-2026-historical-reference",
+      "id": "bece-crs-139-02-v1",
+      "subtopic": "Hearing before Felix",
+      "learningObjective": "Distinguish accusation, defence and the governor's motives in Paul's hearing.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC CRS, July 2018, JSS Three, p. 35",
+        "Acts 24"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 3",
+      "topic": "The life and teachings of Paul",
+      "specificationId": "neco-bece-crs-2026-historical-reference",
+      "id": "bece-crs-139-03-v1",
+      "subtopic": "Appeal and further hearing",
+      "learningObjective": "Explain Paul's appeal and the roles of Festus and King Agrippa.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC CRS, July 2018, JSS Three, p. 35",
+        "Acts 25"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -15710,6 +15807,8 @@
     "NECO BECE History has initial provisional JSS 3 conceptual practice. Current adoption, official paper-level objectives and option counts remain unverified. The Lugard spelling and Berlin Conference claim now have authoritative fact-check references. Independent academic review, other source errors and full factual coverage remain outstanding.",
     "NECO BECE Cultural and Creative Arts has provisional written and supervised classroom practical practice mapped to historical JS 3 topics. Current curriculum adoption, objective-paper allocation, option count, and practical 7293 tasks, materials and marking remain unverified.",
     "NECO BECE National Values Education has initial provisional JSS 3 practice on work attitudes, family support, peaceful living and conflict resolution using the July 2018 historical NERDC document. Current adoption, full topic scope, allocation between 8331/8332 and official option counts remain unverified. The revised JSS 3 page was inaccessible on 2026-11-07.",
-    "NECO BECE French Language has initial original written-comprehension practice grounded provisionally in historical JSS Three themes. Receptive drills do not establish oral or written production competence. Current curriculum adoption, full content specification, allocation between 2051/2052, option counts and listening/oral requirements remain unverified. No Ghana BECE or NECO SSCE format has been substituted."
+    "NECO BECE French Language has initial original written-comprehension practice grounded provisionally in historical JSS Three themes. Receptive drills do not establish oral or written production competence. Current curriculum adoption, full content specification, allocation between 2051/2052, option counts and listening/oral requirements remain unverified. No Ghana BECE or NECO SSCE format has been substituted.",
+    "NECO BECE Christian Religious Studies has initial original JSS 3 practice on Paul's trials using historical July 2018 topic mapping and directly checked Acts 23-25 text. Current curriculum adoption, full objectives, official 5161/5162 allocation and option counts remain unverified. Malformed curriculum verse references and the description of Agrippa as governor are flagged; drafts use checked references and identify him as king. No JSS 1 revised topic mapping is transferred to JSS 3.",
+    "On 2026-11-07 an official September 2025 revised CRS JSS 1 PDF was successfully retrieved at the LMIS direct PDF URL. This is an exact-class access advance, not verified cohort adoption or complete objective coverage. Reconcile it with the unresolved NERDC bank register and map its outcomes before adding exact-class drafts. Other current class/subject access gaps remain."
   ]
 }

@@ -754,3 +754,14 @@ routines, a past visit and an informal invitation. Historical JSS Three
 topic mapping is provisional. These receptive drills do not assess
 speaking, listening or written production. Current adoption, official
 2051/2052 content allocation and option counts remain unverified.
+
+Batch 139 opens NECO BECE Christian Religious Studies with twelve
+original JSS 3 drafts on Paul before the council, Felix, Festus and
+King Agrippa. Acts 23–25 were checked directly. The source register
+flags malformed historical references and the description of Agrippa
+as a governor. Current adoption and paper-level scope remain open.
+
+The official September 2025 revised CRS JSS 1 PDF was also retrieved
+from its direct LMIS URL and registered separately. Exact outcome
+mapping, cohort adoption and bank reconciliation are pending. This
+access advance does not resolve JSS 3 or other class-subject gaps.
