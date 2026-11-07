@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3477,
-    "validDrafts": 1798,
+    "raw": 3482,
+    "validDrafts": 1803,
     "reviewed": 0,
     "registeredBanks": 193,
     "target": 175000,
@@ -850,6 +850,12 @@
       "actual": 6
     },
     {
+      "path": "original-multisubject-batch-120.json",
+      "sha256": "406f7458023bad0d13b9904db967b9f68eeed899b05ed29cde89092e651ebd00",
+      "declared": 5,
+      "actual": 5
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -996,20 +1002,23 @@
         "8304"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-bst-2026-historical-nerdc-reference"
+        "neco-bece-bst-2026-historical-nerdc-reference",
+        "neco-bece-bst-2026-historical-practical-reference"
       ],
-      "raw": 6,
-      "validDrafts": 6,
+      "raw": 11,
+      "validDrafts": 11,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 6
+        "mcq": 6,
+        "structured": 5
       },
       "difficulty": {
-        "standard": 6
+        "standard": 10,
+        "easy": 1
       },
-      "remaining": 994,
-      "mappedObjectives": 6,
-      "representedObjectives": 6,
+      "remaining": 989,
+      "mappedObjectives": 11,
+      "representedObjectives": 11,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5562,10 +5571,10 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -5576,7 +5585,7 @@
     "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 257,
+    "explicitArithmeticClaims": 259,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -30941,6 +30950,36 @@
       "id": "ndv-119-006",
       "file": "original-multisubject-batch-119.json",
       "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-120-001",
+      "file": "original-multisubject-batch-120.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-120-002",
+      "file": "original-multisubject-batch-120.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-120-003",
+      "file": "original-multisubject-batch-120.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-120-004",
+      "file": "original-multisubject-batch-120.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-120-005",
+      "file": "original-multisubject-batch-120.json",
+      "index": 4,
       "errors": []
     },
     {
@@ -58099,6 +58138,161 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Information Technology: Computer Application Packages",
+      "subtopic": "Worksheet entry and correction",
+      "learningObjective": "Enter, correct and save a worksheet with accurately labelled data.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-1-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, 8303 computer practical (format only)",
+        "Historical NERDC JSS 3, Worksheets, p. 107"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Information Technology: Computer Application Packages",
+      "subtopic": "Numeric formatting",
+      "learningObjective": "Format numeric cells without changing their underlying values.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-2-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, 8303 computer practical (format only)",
+        "Historical NERDC JSS 3, Worksheets, p. 107"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Information Technology: Computer Application Packages",
+      "subtopic": "Formula recalculation",
+      "learningObjective": "Use cell references to calculate a total that updates when source data change.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-3-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, 8303 computer practical (format only)",
+        "Historical NERDC JSS 3, Worksheets, p. 107"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Technology: Drawing Practice",
+      "subtopic": "First-angle view layout",
+      "learningObjective": "Construct and arrange the front, plan and right-side views of a rectangular solid in first-angle projection.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-4-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, 8304 drawing (format only)",
+        "Historical NERDC JSS 3, Orthographic Projection, p. 82"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Technology: Drawing Practice",
+      "subtopic": "Third-angle views of a stepped block",
+      "learningObjective": "Project a visible change in height consistently between the front and plan views.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-5-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, 8304 drawing (format only)",
+        "Historical NERDC JSS 3, Orthographic Projection, p. 82"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -58121,6 +58315,6 @@
     "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.",
     "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence.",
     "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.",
-    "NECO BECE Basic Science and Technology has provisional objective practice grounded in historical JSS 3 references. Current NECO objectives, allocation between papers 8301/8302, option count, practical and drawing task rules, and current NERDC adoption remain unresolved."
+    "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved."
   ]
 }

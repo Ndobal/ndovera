@@ -628,3 +628,9 @@ drafts on sound and electrical energy. NECO verifies objective formats.
 Historical NERDC JSS 3 content provides provisional topic evidence.
 Current adoption, paper-level objectives, practical and drawing rules
 and official option counts remain open.
+
+Batch 120 adds three supervised spreadsheet tasks and two orthographic
+drawing tasks for JSS 3 BECE Basic Science and Technology. The 2026 NECO
+timetable confirms both formats. Historical NERDC objectives support
+provisional classroom practice. Official task instructions, marking,
+and current curriculum adoption remain open.

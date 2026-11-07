@@ -9,7 +9,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | Examination | Subject / class | Target | Raw | Valid drafts | Reviewed | Remaining | Coverage |
 |---|---|---:|---:|---:|---:|---:|---|
 | BECE | Arabic Language / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| BECE | Basic Science and Technology / JSS 3 | 1000 | 6 | 6 | 0 | 994 | partial_objective_register |
+| BECE | Basic Science and Technology / JSS 3 | 1000 | 11 | 11 | 0 | 989 | partial_objective_register |
 | BECE | Business Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Christian Religious Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Cultural and Creative Arts / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -206,7 +206,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
-| BECE | 6 | 6 | 0 | 18000 | 17994 |
+| BECE | 11 | 11 | 0 | 18000 | 17989 |
 | IELTS | 81 | 72 | 0 | 4000 | 3928 |
 | IGCSE | 182 | 161 | 0 | 5000 | 4839 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
@@ -217,7 +217,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 56 | 47 | 0 | 4000 | 3953 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3477, "validDrafts": 1798, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3482, "validDrafts": 1803, "reviewed": 0, "registeredBanks": 193, "target": 175000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -242,4 +242,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.
 - WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence.
 - WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.
-- NECO BECE Basic Science and Technology has provisional objective practice grounded in historical JSS 3 references. Current NECO objectives, allocation between papers 8301/8302, option count, practical and drawing task rules, and current NERDC adoption remain unresolved.
+- NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved.

@@ -1896,6 +1896,19 @@
       "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_basic_science_technology.pdf",
       "retrievedOn": "2026-11-07",
       "note": "NECO confirms objective papers 8301 and 8302, computer practical 8303 and drawing 8304. Historical NERDC JSS 3 Basic Science material supports provisional practice only. Current curriculum adoption, official NECO topic allocation and option counts are unverified. Drafts are not assigned to an individual objective paper."
+    },
+    {
+      "id": "neco-bece-bst-2026-historical-practical-reference",
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_basic_science_technology.pdf",
+      "registrationReference": "https://neco.gov.ng/2026%20BECE%20REGISTRATION%20GUIDELINES.d.pdf",
+      "revisedOfferingsReference": "https://www.nerdc.gov.ng/content_manager/Basic%20and%20Senior%20Secondary%20Education%20Curriculum%20Offerings.pdf",
+      "revisedClassPage": "https://lmis.nerdcportals.com.ng/jss_3",
+      "retrievedOn": "2026-11-07",
+      "note": "Timetable lists 8303 and 8304 at 45 minutes each; note 3 covers running practicals in sets when equipment is limited. Registration guidelines verify final-year junior school eligibility and dual-mode delivery in general. Historical pages 82 and 107 support classroom topics. The revised offerings name Intermediate Science and Digital Technologies separately for JSS 1–3, but the revised class-page fetch returned 404. Official BST practical content, equipment lists, software, projection conventions and marks were not verified."
     }
   ],
   "banks": [
@@ -2688,7 +2701,8 @@
         "8304"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-bst-2026-historical-nerdc-reference"
+        "neco-bece-bst-2026-historical-nerdc-reference",
+        "neco-bece-bst-2026-historical-practical-reference"
       ]
     },
     {
@@ -12821,6 +12835,101 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Information Technology: Computer Application Packages",
+      "subtopic": "Worksheet entry and correction",
+      "learningObjective": "Enter, correct and save a worksheet with accurately labelled data.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-1-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, 8303 computer practical (format only)",
+        "Historical NERDC JSS 3, Worksheets, p. 107"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Information Technology: Computer Application Packages",
+      "subtopic": "Numeric formatting",
+      "learningObjective": "Format numeric cells without changing their underlying values.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-2-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, 8303 computer practical (format only)",
+        "Historical NERDC JSS 3, Worksheets, p. 107"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Information Technology: Computer Application Packages",
+      "subtopic": "Formula recalculation",
+      "learningObjective": "Use cell references to calculate a total that updates when source data change.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-3-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, 8303 computer practical (format only)",
+        "Historical NERDC JSS 3, Worksheets, p. 107"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Technology: Drawing Practice",
+      "subtopic": "First-angle view layout",
+      "learningObjective": "Construct and arrange the front, plan and right-side views of a rectangular solid in first-angle projection.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-4-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, 8304 drawing (format only)",
+        "Historical NERDC JSS 3, Orthographic Projection, p. 82"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Basic Science and Technology",
+      "level": "JSS 3",
+      "topic": "Basic Technology: Drawing Practice",
+      "subtopic": "Third-angle views of a stepped block",
+      "learningObjective": "Project a visible change in height consistently between the front and plan views.",
+      "specificationId": "neco-bece-bst-2026-historical-practical-reference",
+      "id": "bece-neco-bst-120-5-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, 8304 drawing (format only)",
+        "Historical NERDC JSS 3, Orthographic Projection, p. 82"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -12843,6 +12952,6 @@
     "The NECO SSCE Internal 2026 register records the 36 subjects and 97 paper codes observed in the timetable. Detailed syllabus objectives, paper instructions, marking requirements and prescribed texts remain unresolved where separate evidence is unavailable. SSCE External scope is separate.",
     "WAEC Nigeria 2026–2030 selected-text PDFs are registered for Arabic, Edo, Efik, Hausa, Ibibio, Igbo and Yoruba. Yoruba written poetry page ranges are verified by year. Bibliographic transcription, primary works, full objectives, formats and marking remain open. NECO adoption requires separate evidence.",
     "WAEC Yoruba 2026–2030 has six bibliographic entries and year-specific written poetry pages and oral poetry selections. Primary text access, edition equivalence and current Paper 2 rules remain open.",
-    "NECO BECE Basic Science and Technology has provisional objective practice grounded in historical JSS 3 references. Current NECO objectives, allocation between papers 8301/8302, option count, practical and drawing task rules, and current NERDC adoption remain unresolved."
+    "NECO BECE Basic Science and Technology has provisional objective, computer practical and drawing practice grounded in historical JSS 3 references. Current NECO objectives, allocation between objective papers, option count, official practical and drawing instructions and marks, and current NERDC adoption remain unresolved."
   ]
 }
