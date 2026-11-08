@@ -778,3 +778,10 @@ topics 4–9, reaching 34 initial mappings in nine topics. Direct PDF
 inspection corrects later page locators after a repeated obedience
 table. Evaluation wording conflicts remain flagged. Seven topics and
 full assessment reconciliation are still open. No questions added.
+
+Batch 140 opens revised CRS JSS 1 with eight classroom drafts,
+including actual singing, modelling, family-tree drawing and role-play.
+Each has an original four-mark guide. The initial map now records
+61 objective entries across sixteen topics; source overlap and wording
+issues remain flagged. Full competency/evaluation reconciliation,
+school adoption and independent review remain incomplete.

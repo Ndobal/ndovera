@@ -22,7 +22,7 @@
   ],
   "mappingComplete": false,
   "academicReviewStatus": "pending",
-  "questionsAdded": 0,
+  "questionsAdded": 8,
   "scopeNotes": [
     "National rollout evidence does not verify each school's implementation.",
     "No term or learner-age allocation inferred.",
@@ -30,7 +30,7 @@
     "Singing and making a model require actual performance and original practice rubrics, not MCQ substitutes.",
     "Language-name spellings need specialist verification.",
     "Printed p. 3 links marriage with prevention of infections; that causal claim is flagged, not used as factual teaching evidence.",
-    "Topics 1-9 now have initial objective mappings. Topics 10-16 remain unmapped. Competencies and evaluation detail are partial; no full syllabus denominator or marking scheme is claimed."
+    "All sixteen distinct topics have initial mappings for 61 printed objective entries. This is an initial location/paraphrase map, not an academically verified full syllabus. Detailed competency/evaluation reconciliation, source-text checks and school adoption remain open; performance criteria below are original classroom practice."
   ],
   "topics": [
     {
@@ -47,7 +47,10 @@
       "draftQuestionIds": [],
       "contentsPrintedPage": 1,
       "verifiedPrintedPage": 1,
-      "verifiedPdfPage": 13
+      "verifiedPdfPage": 13,
+      "focalCompetenceSummary": "Follow divine guidance.",
+      "assessmentModeSummary": "Discussion and presentation.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     },
     {
       "topicNumber": 2,
@@ -60,10 +63,15 @@
         "nerdc-crs-jss1-2025-t02-po03-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-140-001"
+      ],
       "contentsPrintedPage": 2,
       "verifiedPrintedPage": 2,
-      "verifiedPdfPage": 14
+      "verifiedPdfPage": 14,
+      "focalCompetenceSummary": "Care for natural resources.",
+      "assessmentModeSummary": "Narrative, song and drawing.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     },
     {
       "topicNumber": 3,
@@ -77,10 +85,15 @@
         "nerdc-crs-jss1-2025-t03-po04-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-140-002"
+      ],
       "contentsPrintedPage": 3,
       "verifiedPrintedPage": 3,
-      "verifiedPdfPage": 15
+      "verifiedPdfPage": 15,
+      "focalCompetenceSummary": "Express creative abilities.",
+      "assessmentModeSummary": "Discussion and physical modelling.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     },
     {
       "topicNumber": 4,
@@ -115,7 +128,9 @@
         "nerdc-crs-jss1-2025-t05-po04-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-140-008"
+      ],
       "focalCompetenceSummary": "Acknowledge wrongdoing honestly.",
       "assessmentModeSummary": "Discussion and role-play.",
       "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
@@ -135,7 +150,10 @@
         "nerdc-crs-jss1-2025-t06-po04-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-140-003",
+        "ndv-140-004"
+      ],
       "focalCompetenceSummary": "Support family members.",
       "assessmentModeSummary": "Discussion and family-tree drawing.",
       "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
@@ -155,7 +173,9 @@
         "nerdc-crs-jss1-2025-t07-po04-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-140-005"
+      ],
       "focalCompetenceSummary": "Cooperate at school.",
       "assessmentModeSummary": "Discussion and friendship evaluation.",
       "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
@@ -174,7 +194,9 @@
         "nerdc-crs-jss1-2025-t08-po03-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-140-006"
+      ],
       "focalCompetenceSummary": "Participate in community service.",
       "assessmentModeSummary": "Community and church participation.",
       "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
@@ -207,92 +229,149 @@
       "topic": "Responding with obedience",
       "themeNumber": 3,
       "sourceLocatorStatus": "direct_pdf_page_verified",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t10-po01-v1",
+        "nerdc-crs-jss1-2025-t10-po02-v1",
+        "nerdc-crs-jss1-2025-t10-po03-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [],
       "contentsPrintedPage": 10,
       "verifiedPrintedPage": 10,
-      "verifiedPdfPage": 22
+      "verifiedPdfPage": 22,
+      "focalCompetenceSummary": "Practise Christian obedience.",
+      "assessmentModeSummary": "Narrative and discussion.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     },
     {
       "topicNumber": 11,
       "topic": "Responding to freedom",
       "themeNumber": 3,
       "sourceLocatorStatus": "direct_pdf_page_verified",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t11-po01-v1",
+        "nerdc-crs-jss1-2025-t11-po02-v1",
+        "nerdc-crs-jss1-2025-t11-po03-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [],
       "contentsPrintedPage": 11,
       "verifiedPrintedPage": 12,
-      "verifiedPdfPage": 24
+      "verifiedPdfPage": 24,
+      "focalCompetenceSummary": "Express faith with courage.",
+      "assessmentModeSummary": "Narrative and discussion.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     },
     {
       "topicNumber": 12,
       "topic": "Responding through service",
       "themeNumber": 3,
       "sourceLocatorStatus": "direct_pdf_page_verified",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
-      "draftQuestionIds": [],
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t12-po01-v1",
+        "nerdc-crs-jss1-2025-t12-po02-v1",
+        "nerdc-crs-jss1-2025-t12-po03-v1",
+        "nerdc-crs-jss1-2025-t12-po04-v1",
+        "nerdc-crs-jss1-2025-t12-po05-v1",
+        "nerdc-crs-jss1-2025-t12-po06-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
+      "draftQuestionIds": [
+        "ndv-140-007"
+      ],
       "contentsPrintedPage": 12,
       "verifiedPrintedPage": 13,
-      "verifiedPdfPage": 25
+      "verifiedPdfPage": 25,
+      "focalCompetenceSummary": "Volunteer in everyday settings.",
+      "assessmentModeSummary": "Comparison and applied service.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     },
     {
       "topicNumber": 13,
       "topic": "Responding with repentance",
       "themeNumber": 3,
       "sourceLocatorStatus": "direct_pdf_page_verified",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t13-po01-v1",
+        "nerdc-crs-jss1-2025-t13-po02-v1",
+        "nerdc-crs-jss1-2025-t13-po03-v1",
+        "nerdc-crs-jss1-2025-t13-po04-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [],
       "contentsPrintedPage": 13,
       "verifiedPrintedPage": 14,
-      "verifiedPdfPage": 26
+      "verifiedPdfPage": 26,
+      "focalCompetenceSummary": "Honour God through conduct.",
+      "assessmentModeSummary": "Comparison and interpretation.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     },
     {
       "topicNumber": 14,
       "topic": "Jesus' birth",
       "themeNumber": 4,
       "sourceLocatorStatus": "direct_pdf_page_verified",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t14-po01-v1",
+        "nerdc-crs-jss1-2025-t14-po02-v1",
+        "nerdc-crs-jss1-2025-t14-po03-v1",
+        "nerdc-crs-jss1-2025-t14-po04-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [],
       "contentsPrintedPage": 14,
       "verifiedPrintedPage": 15,
-      "verifiedPdfPage": 27
+      "verifiedPdfPage": 27,
+      "focalCompetenceSummary": "Learn from Jesus.",
+      "assessmentModeSummary": "Narrative and values discussion.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     },
     {
       "topicNumber": 15,
       "topic": "Jesus' temple presentation",
       "themeNumber": 4,
       "sourceLocatorStatus": "direct_pdf_page_verified",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t15-po01-v1",
+        "nerdc-crs-jss1-2025-t15-po02-v1",
+        "nerdc-crs-jss1-2025-t15-po03-v1",
+        "nerdc-crs-jss1-2025-t15-po04-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [],
       "contentsPrintedPage": 15,
       "verifiedPrintedPage": 16,
-      "verifiedPdfPage": 28
+      "verifiedPdfPage": 28,
+      "focalCompetenceSummary": "Recognise Christian messianic teaching.",
+      "assessmentModeSummary": "Narrative and interpretation.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     },
     {
       "topicNumber": 16,
       "topic": "Jesus' family life",
       "themeNumber": 4,
       "sourceLocatorStatus": "direct_pdf_page_verified",
-      "objectiveIds": [],
-      "mappingStatus": "performance_objectives_not_yet_mapped",
+      "objectiveIds": [
+        "nerdc-crs-jss1-2025-t16-po01-v1",
+        "nerdc-crs-jss1-2025-t16-po02-v1",
+        "nerdc-crs-jss1-2025-t16-po03-v1"
+      ],
+      "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [],
       "contentsPrintedPage": 16,
       "verifiedPrintedPage": 17,
-      "verifiedPdfPage": 29
+      "verifiedPdfPage": 29,
+      "focalCompetenceSummary": "Respect parents and siblings.",
+      "assessmentModeSummary": "Discussion and practical examples.",
+      "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme"
     }
   ],
   "lastCheckedOn": "2026-11-08",
   "sourceSha256": "6c465aa9d01935c6956ac897fd91066aa112a6e94b9e926e9e6c3a91b2995f2b",
   "sourceBytes": 2189817,
   "sourcePdfPages": 30,
-  "mappedTopicCount": 9,
-  "initialObjectiveCount": 34,
+  "mappedTopicCount": 16,
+  "initialObjectiveCount": 61,
   "sourceIssues": [
     {
       "pdfPages": [
@@ -326,6 +405,14 @@
       ],
       "issue": "Marriage/health causal claim requires specialist verification.",
       "treatment": "Not adopted as factual teaching content."
+    },
+    {
+      "pdfPages": [
+        25
+      ],
+      "issue": "Service objectives 3 and 4 address the same challenges at different response demands.",
+      "treatment": "Preserve both source ordinals; do not treat them as two unrelated content objectives or inflate novelty."
     }
-  ]
+  ],
+  "performanceObjectiveMappingComplete": true
 }

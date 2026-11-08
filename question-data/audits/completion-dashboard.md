@@ -112,7 +112,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Basic Science / Primary 5 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Technology / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Chemistry / SS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
-| NERDC | Christian Religious Studies / JSS 1 | 1000 | 0 | 0 | 0 | 1000 | partial_objective_register |
+| NERDC | Christian Religious Studies / JSS 1 | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NERDC | Computer Studies / JSS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Economics / SS 1 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English / Primary | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -213,12 +213,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 155 | 126 | 0 | 9000 | 8874 |
 | NECO | 436 | 401 | 0 | 36000 | 35599 |
-| NERDC | 65 | 0 | 0 | 28000 | 28000 |
+| NERDC | 73 | 8 | 0 | 28000 | 27992 |
 | SAT | 59 | 50 | 0 | 2000 | 1950 |
 | TOEFL | 104 | 95 | 0 | 4000 | 3905 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3654, "validDrafts": 1975, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3662, "validDrafts": 1983, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -257,3 +257,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - On 2026-11-07 an official September 2025 revised CRS JSS 1 PDF was successfully retrieved at the LMIS direct PDF URL. This is an exact-class access advance, not verified cohort adoption or complete objective coverage. Reconcile it with the unresolved NERDC bank register and map its outcomes before adding exact-class drafts. Other current class/subject access gaps remain.
 - Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled.
 - CRS JSS 1 mapping now covers nine topics and 34 initial objectives, with verified PDF locators. A duplicated obedience table and shifted later pagination were found. Seven topics and complete competency/evaluation reconciliation remain open; none of the mapping work adds questions or confers academic approval.
+- CRS JSS 1 now has 61 initial objective entries across all sixteen distinct topics and eight classroom drafts. Detailed competency/evaluation reconciliation and academic review are unfinished. Original four-mark rubrics do not reproduce an official marking scheme; actual performance is required for singing, modelling, drawing and role-play. School adoption and full coverage remain unverified.

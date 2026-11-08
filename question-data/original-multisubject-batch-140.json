@@ -1,0 +1,396 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC revised 2025 CRS JSS 1 original classroom practice",
+  "questionCount": 8,
+  "note": "Initial exact-class practice with original four-mark rubrics. Performance tasks require actual supervised delivery. National rollout evidence does not establish every school's adoption. All drafts await independent academic review; no claim of full curriculum coverage.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Creation",
+      "subtopic": "Song performance",
+      "learningObjective": "Perform a song about creation.",
+      "id": "ndv-140-001",
+      "objectiveId": "nerdc-crs-jss1-2025-t02-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Perform a short creation song for the class. Use the four original practice lines below, or four lines of your own about the Christian creation theme. Choose a simple melody and keep a steady pulse. Sing the complete song; submitting words alone does not complete the task.\n\nMorning light across the land,\nSeeds and rivers, gifts we see;\nWith our voices joined in thanks,\nWe will care for field and tree.",
+      "answer": "Illustrative performance: sing all four lines in order to a simple melody with an audible voice and a steady pulse. A learner may perform an original alternative that keeps the creation theme.",
+      "explanation": "The objective requires a sung performance. The guide assesses communication and musical completion, not a learner's personal religious conviction or vocal virtuosity.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Sings a complete four-line song rather than only reading or submitting it.",
+          "marks": 1
+        },
+        {
+          "description": "Communicates a relevant creation theme through intelligible words.",
+          "marks": 1
+        },
+        {
+          "description": "Maintains a reasonably steady pulse through most of the performance.",
+          "marks": 1
+        },
+        {
+          "description": "Uses a simple melody consistently enough for the song to be followed.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Human creativity",
+      "subtopic": "Modelling",
+      "learningObjective": "Make a model from clay or paper pulp.",
+      "id": "ndv-140-002",
+      "objectiveId": "nerdc-crs-jss1-2025-t03-po04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using reusable clay supplied by your teacher, make two small models: a car and a chair. Give each a stable base. Show the finished models and explain one shaping or joining decision. Do not use cutting tools.",
+      "answer": "Illustrative outcome: the car has a body and recognisable wheels; the chair has a seat and back. Both rest without being held. The learner explains, for example, that a wider clay base helps the chair remain upright.",
+      "explanation": "Making the objects demonstrates modelling. The explanation links a construction decision to the result; decorative polish is not required.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Produces a recognisable car model.",
+          "marks": 1
+        },
+        {
+          "description": "Produces a recognisable chair model.",
+          "marks": 1
+        },
+        {
+          "description": "Both models remain upright or rest stably without being held.",
+          "marks": 1
+        },
+        {
+          "description": "Explains a shaping or joining decision that relates to a model's function or stability.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Family relationships",
+      "subtopic": "Family tree",
+      "learningObjective": "Draw and label a family tree.",
+      "id": "ndv-140-003",
+      "objectiveId": "nerdc-crs-jss1-2025-t06-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Draw a family tree for this fictional household. Ayo and Bisi are parents of Tomi and Dara. Label all four people and use lines to show the parent-child relationships. Below the drawing, state how Tomi and Dara are related. Use only the fictional names.",
+      "answer": "Model arrangement: Ayo and Bisi appear on the parent level, with lines linking both parents to Tomi and Dara on the child level. Tomi and Dara are siblings. Any clear equivalent layout is acceptable.",
+      "explanation": "The evidence is a drawn and labelled relationship chart. A particular family-tree graphic style is not required.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Labels Ayo and Bisi as the parents.",
+          "marks": 1
+        },
+        {
+          "description": "Labels Tomi and Dara as the children.",
+          "marks": 1
+        },
+        {
+          "description": "Draws clear parent-child links with the two generations distinguished.",
+          "marks": 1
+        },
+        {
+          "description": "Correctly identifies Tomi and Dara as siblings.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Family relationships",
+      "subtopic": "Responsibilities",
+      "learningObjective": "Identify family responsibilities.",
+      "id": "ndv-140-004",
+      "objectiveId": "nerdc-crs-jss1-2025-t06-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional family, one adult is temporarily unable to do the usual household tasks. Another adult and a JSS 1 learner want to help while the learner continues schoolwork. Describe one responsibility for each helper and explain how their roles support the family without transferring adult responsibilities to the child.",
+      "answer": "The other adult could organise shopping and transport. The learner could put away personal belongings or help set the table after homework. Sharing suitable tasks reduces pressure on the family while the adult retains responsibility for major decisions and care.",
+      "explanation": "Family support can be shared while responsibilities remain suitable for age and capacity. Equivalent examples are acceptable.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Describes a suitable responsibility retained by an adult.",
+          "marks": 1
+        },
+        {
+          "description": "Describes an age-appropriate contribution by the learner.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how the contributions support the household.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how schoolwork or other age-appropriate limits are protected.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "School relationships",
+      "subtopic": "Harmful friendships",
+      "learningObjective": "Explain harmful friendship outcomes.",
+      "id": "ndv-140-005",
+      "objectiveId": "nerdc-crs-jss1-2025-t07-po04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classmate forwards a private photograph from a friendship group to other pupils without asking. Explain two possible consequences for the friendship, then propose one respectful response and explain why it could help. Do not name real pupils.",
+      "answer": "Sharing without permission may damage trust and cause embarrassment or conflict. A respectful response is to ask the classmate to stop sharing and remove the image, explain the concern, and seek a trusted teacher's help if needed. This addresses the harm without public retaliation.",
+      "explanation": "The task examines consequences of harmful friendship behaviour and a constructive response. Credit other reasoned, non-retaliatory responses.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains damage to trust.",
+          "marks": 1
+        },
+        {
+          "description": "Explains a distinct consequence such as embarrassment, exclusion or conflict.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a respectful response addressing the sharing.",
+          "marks": 1
+        },
+        {
+          "description": "Connects the response to reducing harm or rebuilding appropriate boundaries.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Community and church relationships",
+      "subtopic": "Community cooperation",
+      "learningObjective": "Describe community relationship-building.",
+      "id": "ndv-140-006",
+      "objectiveId": "nerdc-crs-jss1-2025-t08-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A community reading corner receives donated books, but arguments arise over who may borrow them. Propose two arrangements that would help neighbours use the books fairly. Explain how each arrangement could improve relationships.",
+      "answer": "Use a simple borrowing record and a return date so books are available to others. Agree on clear opening times and borrowing rules after hearing from different users, so people understand the arrangements and feel included.",
+      "explanation": "Shared resources can support relationships when people can access them fairly and understand their responsibilities. Accept other practical arrangements with distinct explanations.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Proposes a workable arrangement for borrowing or returning books.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how it promotes fair access or accountability.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a distinct arrangement involving communication or participation.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how it reduces misunderstanding or exclusion.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding through service",
+      "subtopic": "Listing difficulties",
+      "learningObjective": "Identify service challenges.",
+      "id": "ndv-140-007",
+      "objectiveId": "nerdc-crs-jss1-2025-t12-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A school reading-support team has two problems: volunteers promise more sessions than they can attend, and beginners cannot always follow the chosen books. Identify the two different service challenges and suggest a practical response to each.",
+      "answer": "The first challenge is unreliable attendance or overcommitment; volunteers could agree to a realistic rota and notify a coordinator about absences. The second is a mismatch between materials and learners' needs; the team could select easier books and check understanding.",
+      "explanation": "The scenario provides evidence for two challenges. The responses should address their causes rather than merely blame volunteers or learners.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies attendance reliability or overcommitment as one challenge.",
+          "marks": 1
+        },
+        {
+          "description": "Suggests a response that makes commitments more realistic or dependable.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies unsuitable materials or difficulty as a separate challenge.",
+          "marks": 1
+        },
+        {
+          "description": "Suggests adapting materials or support to beginners' needs.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Restoring relationships",
+      "subtopic": "Methods",
+      "learningObjective": "Describe reconciliation methods.",
+      "id": "ndv-140-008",
+      "objectiveId": "nerdc-crs-jss1-2025-t05-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Perform a short reconciliation scene. You play a learner who borrowed a notebook and accidentally damaged its cover. A partner or teacher plays its owner. In your own words, acknowledge what happened, recognise the owner's concern, offer a reasonable repair and listen to the reply. Use a fictional situation; no personal confession is required.",
+      "answer": "Illustrative response: I borrowed your notebook and damaged its cover. I understand why you are upset. I am sorry. May I help replace the cover or agree another suitable repair with you? The learner then listens and responds respectfully to the owner's answer.",
+      "explanation": "Reconciliation involves acknowledgement, concern and a possible way forward. A partner does not have to accept the proposed repair immediately. Marks assess the learner's own contribution.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Acknowledges the damage and responsibility clearly.",
+          "marks": 1
+        },
+        {
+          "description": "Recognises the owner's concern and offers an appropriate apology.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a reasonable repair and invites agreement.",
+          "marks": 1
+        },
+        {
+          "description": "Listens and responds respectfully to the partner's reply.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true
+    }
+  ]
+}

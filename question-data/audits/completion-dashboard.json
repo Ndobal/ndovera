@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3654,
-    "validDrafts": 1975,
+    "raw": 3662,
+    "validDrafts": 1983,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -968,6 +968,12 @@
       "sha256": "da1bdcf86b1f06fa04df8e01292134a514ac413c6ffdf6fa6b932731f7c4cde0",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-140.json",
+      "sha256": "bdee14888cc81a9a98ec57f24625b9d453a71d4b8dda7c7c48bc1ece9a469821",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -3960,16 +3966,20 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 0,
-      "validDrafts": 0,
+      "raw": 8,
+      "validDrafts": 8,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 34,
-      "representedObjectives": 0,
+      "questionTypes": {
+        "structured": 8
+      },
+      "difficulty": {
+        "standard": 8
+      },
+      "remaining": 992,
+      "mappedObjectives": 61,
+      "representedObjectives": 8,
       "coverage": "partial_objective_register",
-      "completionStatus": "blocked_or_unmapped"
+      "completionStatus": "in_progress"
     },
     {
       "exam": "NERDC",
@@ -5779,18 +5789,18 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -32220,6 +32230,54 @@
       "id": "ndv-139-012",
       "file": "original-multisubject-batch-139.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-140-001",
+      "file": "original-multisubject-batch-140.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-140-002",
+      "file": "original-multisubject-batch-140.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-140-003",
+      "file": "original-multisubject-batch-140.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-140-004",
+      "file": "original-multisubject-batch-140.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-140-005",
+      "file": "original-multisubject-batch-140.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-140-006",
+      "file": "original-multisubject-batch-140.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-140-007",
+      "file": "original-multisubject-batch-140.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-140-008",
+      "file": "original-multisubject-batch-140.json",
+      "index": 7,
       "errors": []
     },
     {
@@ -63984,20 +64042,26 @@
       "topic": "Creation",
       "subtopic": "Song performance",
       "learningObjective": "Perform a song about creation.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 2, PDF page 14, performance objective 3"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 3,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -64084,20 +64148,26 @@
       "topic": "Human creativity",
       "subtopic": "Modelling",
       "learningObjective": "Make a model from clay or paper pulp.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 3, PDF page 15, performance objective 4"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 4,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -64284,20 +64354,26 @@
       "topic": "Restoring relationships",
       "subtopic": "Methods",
       "learningObjective": "Describe reconciliation methods.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 3"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 3,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -64359,20 +64435,26 @@
       "topic": "Family relationships",
       "subtopic": "Family tree",
       "learningObjective": "Draw and label a family tree.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 2"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 2,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -64384,20 +64466,26 @@
       "topic": "Family relationships",
       "subtopic": "Responsibilities",
       "learningObjective": "Identify family responsibilities.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 3"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 3,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -64509,20 +64597,26 @@
       "topic": "School relationships",
       "subtopic": "Harmful friendships",
       "learningObjective": "Explain harmful friendship outcomes.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 4"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 4,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -64559,20 +64653,26 @@
       "topic": "Community and church relationships",
       "subtopic": "Community cooperation",
       "learningObjective": "Describe community relationship-building.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 8, PDF page 20, performance objective 2"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 2,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -64699,6 +64799,687 @@
       "coverageStatus": "missing",
       "validationStatus": "no_valid_drafts",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t10-po01-v1",
+      "topic": "Responding with obedience",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain obedience.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 10, PDF page 22, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t10-po02-v1",
+      "topic": "Responding with obedience",
+      "subtopic": "Abraham",
+      "learningObjective": "Recount Abraham's calling.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 10, PDF page 22, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t10-po03-v1",
+      "topic": "Responding with obedience",
+      "subtopic": "Blessings",
+      "learningObjective": "Identify blessings following Abraham's obedience.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 10, PDF page 22, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t11-po01-v1",
+      "topic": "Responding to freedom",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain freedom.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 12, PDF page 24, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t11-po02-v1",
+      "topic": "Responding to freedom",
+      "subtopic": "Moses",
+      "learningObjective": "Recount liberation under Moses.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 12, PDF page 24, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t11-po03-v1",
+      "topic": "Responding to freedom",
+      "subtopic": "Deborah and Barak",
+      "learningObjective": "Explain their liberation narrative.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 12, PDF page 24, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t12-po01-v1",
+      "topic": "Responding through service",
+      "subtopic": "Meaning and types",
+      "learningObjective": "Describe service categories.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t12-po02-v1",
+      "topic": "Responding through service",
+      "subtopic": "Biblical examples",
+      "learningObjective": "Discuss biblical servants.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t12-po03-v1",
+      "topic": "Responding through service",
+      "subtopic": "Listing difficulties",
+      "learningObjective": "Identify service challenges.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t12-po04-v1",
+      "topic": "Responding through service",
+      "subtopic": "Explaining difficulties",
+      "learningObjective": "Explain service challenges.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t12-po05-v1",
+      "topic": "Responding through service",
+      "subtopic": "Rewards",
+      "learningObjective": "Explain rewards for service.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 5"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 5,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t12-po06-v1",
+      "topic": "Responding through service",
+      "subtopic": "Application",
+      "learningObjective": "Describe serving God and people.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 6"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 6,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t13-po01-v1",
+      "topic": "Responding with repentance",
+      "subtopic": "David and Nineveh",
+      "learningObjective": "Compare responses to repentance.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 14, PDF page 26, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t13-po02-v1",
+      "topic": "Responding with repentance",
+      "subtopic": "John",
+      "learningObjective": "Describe John's repentance message.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 14, PDF page 26, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t13-po03-v1",
+      "topic": "Responding with repentance",
+      "subtopic": "Jesus",
+      "learningObjective": "Explain Jesus' repentance message.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 14, PDF page 26, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t13-po04-v1",
+      "topic": "Responding with repentance",
+      "subtopic": "Consequences",
+      "learningObjective": "Contrast repentance and refusal.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 14, PDF page 26, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t14-po01-v1",
+      "topic": "Jesus' birth",
+      "subtopic": "Announcements",
+      "learningObjective": "Discuss birth announcements.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 15, PDF page 27, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t14-po02-v1",
+      "topic": "Jesus' birth",
+      "subtopic": "Birth narrative",
+      "learningObjective": "Recount Jesus' birth.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 15, PDF page 27, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t14-po03-v1",
+      "topic": "Jesus' birth",
+      "subtopic": "Visitors",
+      "learningObjective": "Describe shepherds and magi.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 15, PDF page 27, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t14-po04-v1",
+      "topic": "Jesus' birth",
+      "subtopic": "Curriculum values",
+      "learningObjective": "Discuss premarital chastity as a curriculum value.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 15, PDF page 27, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t15-po01-v1",
+      "topic": "Jesus' temple presentation",
+      "subtopic": "Presentation",
+      "learningObjective": "Describe Jesus' temple presentation.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 16, PDF page 28, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t15-po02-v1",
+      "topic": "Jesus' temple presentation",
+      "subtopic": "Simeon",
+      "learningObjective": "Explain Simeon's prophecy.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 16, PDF page 28, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t15-po03-v1",
+      "topic": "Jesus' temple presentation",
+      "subtopic": "Anna",
+      "learningObjective": "Explain Anna's message.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 16, PDF page 28, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t15-po04-v1",
+      "topic": "Jesus' temple presentation",
+      "subtopic": "Significance",
+      "learningObjective": "Interpret both temple testimonies.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 16, PDF page 28, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 4,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t16-po01-v1",
+      "topic": "Jesus' family life",
+      "subtopic": "Family teaching",
+      "learningObjective": "Explain Jesus' family teaching.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 17, PDF page 29, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 1,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t16-po02-v1",
+      "topic": "Jesus' family life",
+      "subtopic": "Jesus and parents",
+      "learningObjective": "Discuss Jesus' filial obedience.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 17, PDF page 29, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 2,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "id": "nerdc-crs-jss1-2025-t16-po03-v1",
+      "topic": "Jesus' family life",
+      "subtopic": "Application",
+      "learningObjective": "Illustrate respectful family conduct.",
+      "questionTypes": {},
+      "sourceSections": [
+        "September 2025 revised CRS JSS 1, printed p. 17, PDF page 29, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
+      "officialObjectiveCode": null,
+      "sourceObjectiveOrdinal": 3,
+      "questionCount": 0,
+      "validDrafts": 0,
+      "difficulty": {},
+      "tiers": {},
+      "assessmentObjectives": {},
+      "coverageStatus": "missing",
+      "validationStatus": "no_valid_drafts",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -64734,6 +65515,7 @@
     "NECO BECE Christian Religious Studies has initial original JSS 3 practice on Paul's trials using historical July 2018 topic mapping and directly checked Acts 23-25 text. Current curriculum adoption, full objectives, official 5161/5162 allocation and option counts remain unverified. Malformed curriculum verse references and the description of Agrippa as governor are flagged; drafts use checked references and identify him as king. No JSS 1 revised topic mapping is transferred to JSS 3.",
     "On 2026-11-07 an official September 2025 revised CRS JSS 1 PDF was successfully retrieved at the LMIS direct PDF URL. This is an exact-class access advance, not verified cohort adoption or complete objective coverage. Reconcile it with the unresolved NERDC bank register and map its outcomes before adding exact-class drafts. Other current class/subject access gaps remain.",
     "Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled.",
-    "CRS JSS 1 mapping now covers nine topics and 34 initial objectives, with verified PDF locators. A duplicated obedience table and shifted later pagination were found. Seven topics and complete competency/evaluation reconciliation remain open; none of the mapping work adds questions or confers academic approval."
+    "CRS JSS 1 mapping now covers nine topics and 34 initial objectives, with verified PDF locators. A duplicated obedience table and shifted later pagination were found. Seven topics and complete competency/evaluation reconciliation remain open; none of the mapping work adds questions or confers academic approval.",
+    "CRS JSS 1 now has 61 initial objective entries across all sixteen distinct topics and eight classroom drafts. Detailed competency/evaluation reconciliation and academic review are unfinished. Original four-mark rubrics do not reproduce an official marking scheme; actual performance is required for singing, modelling, drawing and role-play. School adoption and full coverage remain unverified."
   ]
 }
