@@ -2144,14 +2144,16 @@
       "documentDate": "September 2025",
       "retrievedOn": "2026-11-07",
       "status": "all_topics_initial_objectives_mapped_academic_alignment_pending",
-      "note": "Sixteen distinct September 2025 CRS JSS 1 topics have 61 initial performance-objective entries mapped. Direct PDF locators and checksum are in the inventory. This is not full competency/evaluation reconciliation, official marking or academic approval. Source duplicates and wording conflicts remain flagged. Eight initial classroom drafts use original tasks and rubrics. National rollout evidence is separate from unverified school adoption.",
+      "note": "Sixteen distinct September 2025 CRS JSS 1 topics have 61 initial performance-objective entries mapped. Direct PDF locators and checksum are in the inventory. This is not full competency/evaluation reconciliation, official marking or academic approval. Source duplicates and wording conflicts remain flagged. Thirty-two classroom drafts use original tasks and rubrics. National rollout evidence is separate from unverified school adoption.",
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
       "inventoryFile": "question-data/specifications/nerdc-crs-jss1-revised-2025-inventory.json",
       "checkedOn": "2026-11-08",
-      "sourceSha256": "6c465aa9d01935c6956ac897fd91066aa112a6e94b9e926e9e6c3a91b2995f2b"
+      "sourceSha256": "6c465aa9d01935c6956ac897fd91066aa112a6e94b9e926e9e6c3a91b2995f2b",
+      "lastRecheckedOn": "2026-11-08",
+      "retrievedBytes": 2189817
     },
     {
       "id": "nerdc-revised-bec-rollout-2025",
@@ -2268,6 +2270,22 @@
       "frameworkSource": "https://satsuite.collegeboard.org/media/pdf/assessment-framework-for-digital-sat-suite.pdf",
       "checkedOn": "2026-11-08",
       "note": "Official pages confirm four domains and named skills, short passages or pairs with one multiple-choice question, and 25–150-word stimuli. The assessment framework specifies four options and uses six-character words for stimulus length. Batch records whitespace counts as an editorial check, not a claim of exact official counting or calibrated difficulty. Original text/data only; no College Board items reproduced. No adaptive assembly, equating or score prediction established."
+    },
+    {
+      "id": "bible-crs-jss1-150-narrative-checks-2026",
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "kind": "primary_scripture_narrative_cross_check",
+      "source": "https://www.biblegateway.com/passage/?search=Genesis%201&version=KJV",
+      "additionalSources": [
+        "https://www.biblegateway.com/passage/?search=Luke%2015%3A11-32&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Genesis%2033%3A1-11&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Genesis%2012%3A1-4&version=KJV"
+      ],
+      "checkedOn": "2026-11-08",
+      "status": "four_narratives_checked_not_curriculum_adoption_evidence",
+      "note": "KJV passage text checked for Genesis 1 creation order, Luke 15 returning son/father, Genesis 33 meeting and gift sequence, and Genesis 12 Abram calling. Original paraphrase tasks; no copied examination items. This reference supplements, not replaces, the exact-class curriculum mapping."
     }
   ],
   "banks": [

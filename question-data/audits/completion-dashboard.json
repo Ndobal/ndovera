@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3824,
-    "validDrafts": 2145,
+    "raw": 3848,
+    "validDrafts": 2169,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1028,6 +1028,12 @@
       "sha256": "60388c32c766ae8af248094c8ff8111fa2334740186e4c6ffb5475757fef1080",
       "declared": 32,
       "actual": 32
+    },
+    {
+      "path": "original-multisubject-batch-150.json",
+      "sha256": "3fac7955b15bf4425ab7d2608f13be90503f523468603a2c0f4df047ee6de11b",
+      "declared": 24,
+      "actual": 24
     },
     {
       "path": "original-practice-batch-001.json",
@@ -4063,18 +4069,18 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 8,
-      "validDrafts": 8,
+      "raw": 32,
+      "validDrafts": 32,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 8
+        "structured": 32
       },
       "difficulty": {
-        "standard": 8
+        "standard": 32
       },
-      "remaining": 992,
+      "remaining": 968,
       "mappedObjectives": 61,
-      "representedObjectives": 8,
+      "representedObjectives": 32,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5887,8 +5893,8 @@
   ],
   "errorCounts": {
     "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
@@ -33347,6 +33353,150 @@
       "id": "ndv-149-032",
       "file": "original-multisubject-batch-149.json",
       "index": 31,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-001",
+      "file": "original-multisubject-batch-150.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-002",
+      "file": "original-multisubject-batch-150.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-003",
+      "file": "original-multisubject-batch-150.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-004",
+      "file": "original-multisubject-batch-150.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-005",
+      "file": "original-multisubject-batch-150.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-006",
+      "file": "original-multisubject-batch-150.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-007",
+      "file": "original-multisubject-batch-150.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-008",
+      "file": "original-multisubject-batch-150.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-009",
+      "file": "original-multisubject-batch-150.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-010",
+      "file": "original-multisubject-batch-150.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-011",
+      "file": "original-multisubject-batch-150.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-012",
+      "file": "original-multisubject-batch-150.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-013",
+      "file": "original-multisubject-batch-150.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-014",
+      "file": "original-multisubject-batch-150.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-015",
+      "file": "original-multisubject-batch-150.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-016",
+      "file": "original-multisubject-batch-150.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-017",
+      "file": "original-multisubject-batch-150.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-018",
+      "file": "original-multisubject-batch-150.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-019",
+      "file": "original-multisubject-batch-150.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-020",
+      "file": "original-multisubject-batch-150.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-021",
+      "file": "original-multisubject-batch-150.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-022",
+      "file": "original-multisubject-batch-150.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-023",
+      "file": "original-multisubject-batch-150.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-150-024",
+      "file": "original-multisubject-batch-150.json",
+      "index": 23,
       "errors": []
     },
     {
@@ -64986,20 +65136,26 @@
       "topic": "Understanding God",
       "subtopic": "Identity",
       "learningObjective": "Explain the Christian understanding of God.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 1, PDF page 13, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65011,20 +65167,26 @@
       "topic": "Understanding God",
       "subtopic": "Attributes",
       "learningObjective": "Identify divine attributes in Christian teaching.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 1, PDF page 13, performance objective 2"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 2,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65061,20 +65223,26 @@
       "topic": "Creation",
       "subtopic": "Biblical sequence",
       "learningObjective": "Outline the order of creation in the biblical account.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 2, PDF page 14, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65086,20 +65254,26 @@
       "topic": "Creation",
       "subtopic": "Human purpose",
       "learningObjective": "Explain the purposes assigned to human creation in the curriculum.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 2, PDF page 14, performance objective 2"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 2,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65192,20 +65366,26 @@
       "topic": "Human creativity",
       "subtopic": "Human-made objects",
       "learningObjective": "Distinguish objects produced through human activity.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 3, PDF page 15, performance objective 3"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 3,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65248,20 +65428,26 @@
       "topic": "Disobeying God",
       "subtopic": "Obedience",
       "learningObjective": "Explain obedience.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65273,20 +65459,26 @@
       "topic": "Disobeying God",
       "subtopic": "Categories",
       "learningObjective": "Classify disobedience.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 2"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 2,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65348,20 +65540,26 @@
       "topic": "Disobeying God",
       "subtopic": "Conduct",
       "learningObjective": "Relate disobedience to consequences.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 5"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 5,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65373,20 +65571,26 @@
       "topic": "Restoring relationships",
       "subtopic": "Meaning and conditions",
       "learningObjective": "Explain reconciliation and prerequisites.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65398,20 +65602,26 @@
       "topic": "Restoring relationships",
       "subtopic": "Parable",
       "learningObjective": "Recount the returning son.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 2"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 2,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65454,20 +65664,26 @@
       "topic": "Restoring relationships",
       "subtopic": "Jacob and Esau",
       "learningObjective": "Recount the brothers' reconciliation.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 4"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 4,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65479,20 +65695,26 @@
       "topic": "Family relationships",
       "subtopic": "Family forms",
       "learningObjective": "Describe family types.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65566,20 +65788,26 @@
       "topic": "Family relationships",
       "subtopic": "Healthy relationships",
       "learningObjective": "Describe positive family qualities.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 4"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 4,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65591,20 +65819,26 @@
       "topic": "School relationships",
       "subtopic": "School community",
       "learningObjective": "Identify school community members.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65616,20 +65850,26 @@
       "topic": "School relationships",
       "subtopic": "Friendship choices",
       "learningObjective": "Explain friendship selection.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 2"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 2,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65641,20 +65881,26 @@
       "topic": "School relationships",
       "subtopic": "Positive friendships",
       "learningObjective": "Illustrate constructive friendships.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 3"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 3,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65697,20 +65943,26 @@
       "topic": "Community and church relationships",
       "subtopic": "Community leadership",
       "learningObjective": "Identify community leaders.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 8, PDF page 20, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65753,20 +66005,26 @@
       "topic": "Community and church relationships",
       "subtopic": "Church cooperation",
       "learningObjective": "Describe church relationship-building.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 8, PDF page 20, performance objective 3"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 3,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65778,20 +66036,26 @@
       "topic": "Relating to God",
       "subtopic": "Relating to God",
       "learningObjective": "Describe relating to God.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65853,20 +66117,26 @@
       "topic": "Relating to God",
       "subtopic": "Worship performance",
       "learningObjective": "Demonstrate prayer, worship and praise.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 4"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 4,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65903,20 +66173,26 @@
       "topic": "Responding with obedience",
       "subtopic": "Abraham",
       "learningObjective": "Recount Abraham's calling.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 10, PDF page 22, performance objective 2"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 2,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -65953,20 +66229,26 @@
       "topic": "Responding to freedom",
       "subtopic": "Meaning",
       "learningObjective": "Explain freedom.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 12, PDF page 24, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -66028,20 +66310,26 @@
       "topic": "Responding through service",
       "subtopic": "Meaning and types",
       "learningObjective": "Describe service categories.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 1"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 1,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {
@@ -66259,20 +66547,26 @@
       "topic": "Responding with repentance",
       "subtopic": "Consequences",
       "learningObjective": "Contrast repentance and refusal.",
-      "questionTypes": {},
+      "questionTypes": {
+        "structured": 1
+      },
       "sourceSections": [
         "September 2025 revised CRS JSS 1, printed p. 14, PDF page 26, performance objective 4"
       ],
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 4,
-      "questionCount": 0,
-      "validDrafts": 0,
-      "difficulty": {},
-      "tiers": {},
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
       "assessmentObjectives": {},
-      "coverageStatus": "missing",
-      "validationStatus": "no_valid_drafts",
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
     },
     {

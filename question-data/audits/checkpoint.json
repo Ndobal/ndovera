@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_149_automated_validation_passed",
+  "phase": "batch_150_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-150.json",
+  "nextBatch": "original-multisubject-batch-151.json",
   "nextPriorities": [
-    "Expand exact-class revised NERDC CRS JSS 1 practice against underrepresented outcomes in the verified initial inventory, preserving real performance tasks where required. Recheck source locators and wording conflicts before authoring. SAT Reading and Writing now has 57 automated-valid drafts and eleven finer skill mappings; full coverage, difficulty calibration, adaptive assembly and independent review remain unfinished. School adoption and other exact-class/BECE source gaps stay open.",
+    "Continue exact-class revised NERDC CRS JSS 1 against remaining underrepresented outcomes, particularly Jesus birth, presentation and family topics after verifying passage references and excluding unsupported health claims. Thirty-two classroom drafts now represent 32 of 61 initial outcome entries; this is not full competency coverage or academic approval. Resolve printed reference/wording conflicts and school adoption. Preserve real performance modes. SAT finer skill coverage, calibration and adaptive assembly remain unfinished.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-149.json",
-  "lastRemoteVerifiedCommit": "3241e5802f6de312f1c8e3f1492073d9d9eae5f6",
+  "lastValidatedBatch": "original-multisubject-batch-150.json",
+  "lastRemoteVerifiedCommit": "7bc996248bb746c5cd4d893b9bb6de2e61659482",
   "verifiedTotals": {
-    "raw": 3824,
-    "validDrafts": 2145,
+    "raw": 3848,
+    "validDrafts": 2169,
     "reviewed": 0
   },
   "lastRunTestCount": 48,
-  "lastPopulatedBatch": "original-multisubject-batch-149.json",
+  "lastPopulatedBatch": "original-multisubject-batch-150.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3824,
-  "lastSourceUpdate": "igbo-jss3-historical-scope-inventory.json",
+  "inventoryRaw": 3848,
+  "lastSourceUpdate": "nerdc-crs-jss1-revised-2025-inventory.json",
   "lastSourceRecheck": {
-    "id": "sat-rw-official-specifications-rechecked-2026",
+    "id": "nerdc-crs-jss1-revised-2025-retrieved",
     "date": "2026-11-08"
   }
 }

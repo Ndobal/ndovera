@@ -22,7 +22,7 @@
   ],
   "mappingComplete": false,
   "academicReviewStatus": "pending",
-  "questionsAdded": 8,
+  "questionsAdded": 32,
   "scopeNotes": [
     "National rollout evidence does not verify each school's implementation.",
     "No term or learner-age allocation inferred.",
@@ -30,7 +30,12 @@
     "Singing and making a model require actual performance and original practice rubrics, not MCQ substitutes.",
     "Language-name spellings need specialist verification.",
     "Printed p. 3 links marriage with prevention of infections; that causal claim is flagged, not used as factual teaching evidence.",
-    "All sixteen distinct topics have initial mappings for 61 printed objective entries. This is an initial location/paraphrase map, not an academically verified full syllabus. Detailed competency/evaluation reconciliation, source-text checks and school adoption remain open; performance criteria below are original classroom practice."
+    "All sixteen distinct topics have initial mappings for 61 printed objective entries. This is an initial location/paraphrase map, not an academically verified full syllabus. Detailed competency/evaluation reconciliation, source-text checks and school adoption remain open; performance criteria below are original classroom practice.",
+    "2026-11-08: fresh official PDF retrieval matches the recorded checksum (2189817 bytes). Batch 150 adds 24 original drafts across previously unrepresented initial objectives; two require actual spoken performance. No term, learner age or school adoption inferred.",
+    "PDF page 19 lists sexual orientation/identity categories alongside harmful friendship outcomes. This requires critical specialist review; no draft treats identity as evidence of bad friendship or claims friendship causes orientation.",
+    "PDF page 27 associates premarital virginity with freedom from STI/HIV and other adverse outcomes. These unsupported health/causal guarantees are excluded from this batch and remain for specialist review.",
+    "Source categories for disobedience, family and service are not fully enumerated; supplied working classifications in batch 150 are original practice scaffolds, not claimed official exhaustive taxonomies.",
+    "Genesis 1, Luke 15:11–32, Genesis 33:1–11 and Genesis 12:1–4 checked against passage text. Returning son reconciles with his father; gift discussion does not make Esau’s welcome conditional on payment."
   ],
   "topics": [
     {
@@ -44,7 +49,10 @@
         "nerdc-crs-jss1-2025-t01-po03-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-150-001",
+        "ndv-150-002"
+      ],
       "contentsPrintedPage": 1,
       "verifiedPrintedPage": 1,
       "verifiedPdfPage": 13,
@@ -64,7 +72,9 @@
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
-        "ndv-140-001"
+        "ndv-140-001",
+        "ndv-150-003",
+        "ndv-150-004"
       ],
       "contentsPrintedPage": 2,
       "verifiedPrintedPage": 2,
@@ -86,7 +96,8 @@
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
-        "ndv-140-002"
+        "ndv-140-002",
+        "ndv-150-005"
       ],
       "contentsPrintedPage": 3,
       "verifiedPrintedPage": 3,
@@ -108,7 +119,11 @@
         "nerdc-crs-jss1-2025-t04-po05-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-150-006",
+        "ndv-150-007",
+        "ndv-150-008"
+      ],
       "focalCompetenceSummary": "Avoid disobedience.",
       "assessmentModeSummary": "Discussion and reflective writing.",
       "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
@@ -129,7 +144,10 @@
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
-        "ndv-140-008"
+        "ndv-140-008",
+        "ndv-150-009",
+        "ndv-150-010",
+        "ndv-150-011"
       ],
       "focalCompetenceSummary": "Acknowledge wrongdoing honestly.",
       "assessmentModeSummary": "Discussion and role-play.",
@@ -152,7 +170,9 @@
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
         "ndv-140-003",
-        "ndv-140-004"
+        "ndv-140-004",
+        "ndv-150-012",
+        "ndv-150-013"
       ],
       "focalCompetenceSummary": "Support family members.",
       "assessmentModeSummary": "Discussion and family-tree drawing.",
@@ -174,7 +194,10 @@
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
-        "ndv-140-005"
+        "ndv-140-005",
+        "ndv-150-014",
+        "ndv-150-015",
+        "ndv-150-016"
       ],
       "focalCompetenceSummary": "Cooperate at school.",
       "assessmentModeSummary": "Discussion and friendship evaluation.",
@@ -195,7 +218,9 @@
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
-        "ndv-140-006"
+        "ndv-140-006",
+        "ndv-150-017",
+        "ndv-150-018"
       ],
       "focalCompetenceSummary": "Participate in community service.",
       "assessmentModeSummary": "Community and church participation.",
@@ -216,7 +241,10 @@
         "nerdc-crs-jss1-2025-t09-po04-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-150-019",
+        "ndv-150-020"
+      ],
       "focalCompetenceSummary": "Trust and obey God.",
       "assessmentModeSummary": "Discussion and worship performance.",
       "assessmentSummaryStatus": "partial_author_summary_not_official_marking_scheme",
@@ -235,7 +263,9 @@
         "nerdc-crs-jss1-2025-t10-po03-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-150-021"
+      ],
       "contentsPrintedPage": 10,
       "verifiedPrintedPage": 10,
       "verifiedPdfPage": 22,
@@ -254,7 +284,9 @@
         "nerdc-crs-jss1-2025-t11-po03-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-150-022"
+      ],
       "contentsPrintedPage": 11,
       "verifiedPrintedPage": 12,
       "verifiedPdfPage": 24,
@@ -277,7 +309,8 @@
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
-        "ndv-140-007"
+        "ndv-140-007",
+        "ndv-150-023"
       ],
       "contentsPrintedPage": 12,
       "verifiedPrintedPage": 13,
@@ -298,7 +331,9 @@
         "nerdc-crs-jss1-2025-t13-po04-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-150-024"
+      ],
       "contentsPrintedPage": 13,
       "verifiedPrintedPage": 14,
       "verifiedPdfPage": 26,
@@ -414,5 +449,7 @@
       "treatment": "Preserve both source ordinals; do not treat them as two unrelated content objectives or inflate novelty."
     }
   ],
-  "performanceObjectiveMappingComplete": true
+  "performanceObjectiveMappingComplete": true,
+  "lastRecheckedOn": "2026-11-08",
+  "lastRecheckSha256": "6c465aa9d01935c6956ac897fd91066aa112a6e94b9e926e9e6c3a91b2995f2b"
 }

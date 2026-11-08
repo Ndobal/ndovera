@@ -1,0 +1,1196 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC revised 2025 CRS JSS 1 underrepresented outcomes, batch 150",
+  "questionCount": 24,
+  "note": "Original exact-class practice across 24 previously unrepresented initial outcome mappings. Two tasks require actual supervised spoken performance. All four-mark guides are original practice, not official marking schemes. Source wording conflicts and unsupported claims remain flagged; full reconciliation and school adoption are unverified. Independent academic review is pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Understanding God",
+      "subtopic": "Identity",
+      "learningObjective": "Explain the Christian understanding of God.",
+      "id": "ndv-150-001",
+      "objectiveId": "nerdc-crs-jss1-2025-t01-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a CRS discussion, a learner says, “Christians understand God as only a very powerful human being.” Explain two changes needed to make this description consistent with the Christian teaching in this topic.",
+      "answer": "Christian teaching describes God as the supreme being and creator of the world, rather than a human who is simply stronger than others. It also describes God as Spirit, rather than an ordinary physical human being.",
+      "explanation": "This assesses understanding of a religious teaching. It does not require the learner to profess a personal belief.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies God as supreme in Christian teaching.",
+          "marks": 1
+        },
+        {
+          "description": "Connects this description with God as creator.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies God as Spirit in Christian teaching.",
+          "marks": 1
+        },
+        {
+          "description": "Explains why a merely powerful human is therefore an inadequate description.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 1, PDF page 13, performance objective 1"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Understanding God",
+      "subtopic": "Attributes",
+      "learningObjective": "Identify divine attributes in Christian teaching.",
+      "id": "ndv-150-002",
+      "objectiveId": "nerdc-crs-jss1-2025-t01-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A Christian teaching chart has two headings: “present everywhere” and “perfect wisdom”. Give the divine attribute represented by each heading and explain its meaning. Do not interpret “present everywhere” as a claim that God has a separate human body in every room.",
+      "answer": "“Present everywhere” represents omnipresence: God is not confined to one location. “Perfect wisdom” represents God as all-wise: Christian teaching attributes complete wisdom to God, rather than limited human judgement.",
+      "explanation": "The two descriptions distinguish presence from wisdom; one attribute should not be substituted for the other.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Names omnipresence for present everywhere.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that God is not restricted to one place.",
+          "marks": 1
+        },
+        {
+          "description": "Names wisdom or all-wise for perfect wisdom.",
+          "marks": 1
+        },
+        {
+          "description": "Explains complete wisdom rather than merely knowing one particular fact.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 1, PDF page 13, performance objective 2"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Creation",
+      "subtopic": "Biblical sequence",
+      "learningObjective": "Outline the order of creation in the biblical account.",
+      "id": "ndv-150-003",
+      "objectiveId": "nerdc-crs-jss1-2025-t02-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "According to Genesis 1, arrange these event cards from earliest to latest: land animals and human beings; plants on the land; fish and birds. State the creation day associated with each card and explain why fish and birds should not be placed first among these three cards.",
+      "answer": "Plants appear on day three, fish and birds on day five, and land animals and human beings on day six. Fish and birds come after plants in this narrative, so their card is not first among the three.",
+      "explanation": "The ordering follows the Genesis 1 narrative. It is not a scientific chronology claim.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Places plants first and identifies day three.",
+          "marks": 1
+        },
+        {
+          "description": "Places fish and birds second and identifies day five.",
+          "marks": 1
+        },
+        {
+          "description": "Places land animals and human beings third and identifies day six.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that the plant event precedes the fish-and-bird event in this account.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 2, PDF page 14, performance objective 1",
+      "contentSourceId": "bible-crs-jss1-150-narrative-checks-2026",
+      "textReference": "Genesis 1:9–13, 20–31"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Creation",
+      "subtopic": "Human purpose",
+      "learningObjective": "Explain the purposes assigned to human creation in the curriculum.",
+      "id": "ndv-150-004",
+      "objectiveId": "nerdc-crs-jss1-2025-t02-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The curriculum presents knowing, worshipping and serving God as purposes of human creation in Christian teaching. A fictional learner records: studying a Bible account; joining a thanksgiving prayer; helping organise a church welcome activity. Match each activity to one of the three purposes and explain why the activities need not belong exclusively to one purpose.",
+      "answer": "Studying the account can illustrate knowing God; thanksgiving prayer can illustrate worshipping God; helping with the welcome activity can illustrate serving God. The purposes can overlap: a person might also learn while worshipping or regard service as an expression of worship.",
+      "explanation": "The examples are original illustrations of the three curriculum purposes, not an official classification of every activity.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Connects Bible study with knowing God.",
+          "marks": 1
+        },
+        {
+          "description": "Connects thanksgiving prayer with worshipping God.",
+          "marks": 1
+        },
+        {
+          "description": "Connects the welcome contribution with serving God.",
+          "marks": 1
+        },
+        {
+          "description": "Explains a sensible overlap between the purposes.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 2, PDF page 14, performance objective 2"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Human creativity",
+      "subtopic": "Human-made objects",
+      "learningObjective": "Distinguish objects produced through human activity.",
+      "id": "ndv-150-005",
+      "objectiveId": "nerdc-crs-jss1-2025-t03-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classroom display contains an uncarved stone, a wooden chair and a woven basket. Identify the two objects shaped by human creative work. For each, explain how people transform materials into a useful object. Why is the stone not evidence of manufacture as described?",
+      "answer": "The chair is made by shaping and joining wood to provide a seat. The basket is made by weaving suitable strips or fibres to hold things. The uncarved stone has not been described as shaped or assembled by people, so it provides no evidence of manufacture in this display.",
+      "explanation": "The distinction concerns human transformation of materials; it does not imply that manufactured objects have no natural raw materials.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies both chair and basket as human-produced objects.",
+          "marks": 1
+        },
+        {
+          "description": "Explains shaping or joining wood for a useful chair.",
+          "marks": 1
+        },
+        {
+          "description": "Explains weaving material for a useful basket.",
+          "marks": 1
+        },
+        {
+          "description": "Links the stone decision to absence of described human manufacture.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 3, PDF page 15, performance objective 3"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Disobeying God",
+      "subtopic": "Obedience",
+      "learningObjective": "Explain obedience.",
+      "id": "ndv-150-006",
+      "objectiveId": "nerdc-crs-jss1-2025-t04-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A teacher gives a reasonable instruction to return shared scissors to their labelled box after use. Kemi puts hers back even though the teacher has left the room. Explain obedience using this example, identify the instruction being followed, and give one reason this action benefits the class.",
+      "answer": "Obedience means following an instruction or rule. Kemi follows the instruction to return the shared scissors to the labelled box. Doing so without being watched shows she carries out the instruction independently. It helps others find the equipment and reduces misplaced items.",
+      "explanation": "The example assesses compliance with a specific reasonable classroom instruction, rather than treating every demand from any person as acceptable.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Defines obedience as following an instruction or rule.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies returning the scissors to their labelled box.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that the action follows the instruction even without supervision.",
+          "marks": 1
+        },
+        {
+          "description": "Gives a relevant classroom benefit.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 1"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Disobeying God",
+      "subtopic": "Categories",
+      "learningObjective": "Classify disobedience.",
+      "id": "ndv-150-007",
+      "objectiveId": "nerdc-crs-jss1-2025-t04-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "For this practice task, classify disobedience by setting: home or school. A fictional child leaves a shared tap running after a household instruction to close it. Another learner uses a phone during a lesson despite the school rule. Classify each incident, identify the instruction ignored, and explain why these are setting-based groups rather than a complete list of all forms of disobedience.",
+      "answer": "The tap incident belongs to the home group and ignores the instruction to close the tap. Phone use belongs to the school group and ignores the lesson rule. These labels group the examples by where the rule operates; other settings and other ways of disobeying are possible.",
+      "explanation": "The grouping is supplied for this original exercise. The source does not enumerate an authoritative exhaustive taxonomy.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Classifies the tap incident as home disobedience.",
+          "marks": 1
+        },
+        {
+          "description": "Classifies the phone incident as school disobedience.",
+          "marks": 1
+        },
+        {
+          "description": "Correctly identifies both instructions ignored.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that grouping by setting is not an exhaustive taxonomy.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 2"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Disobeying God",
+      "subtopic": "Conduct",
+      "learningObjective": "Relate disobedience to consequences.",
+      "id": "ndv-150-008",
+      "objectiveId": "nerdc-crs-jss1-2025-t04-po05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class agrees that each group must return library books before another group borrows them. One group keeps the books without permission. Trace two different consequences: one for the next group and one for trust between groups. Explain how following the agreement would address each consequence.",
+      "answer": "The next group loses access to materials needed for its work; returning the books makes them available. Other groups may become less willing to rely on the first group’s promises; consistently keeping the agreement provides evidence of reliability over time.",
+      "explanation": "The consequences follow from the stated classroom situation. They are not predictions of a legal penalty or guaranteed punishment.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies loss or delay of access for the next group.",
+          "marks": 1
+        },
+        {
+          "description": "Connects returning the books with restored access.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies reduced trust as a separate consequence.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how repeated reliability can help rebuild trust.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 5"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Restoring relationships",
+      "subtopic": "Meaning and conditions",
+      "learningObjective": "Explain reconciliation and prerequisites.",
+      "id": "ndv-150-009",
+      "objectiveId": "nerdc-crs-jss1-2025-t05-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "After tearing a partner’s chart, a fictional learner says “sorry” but insists that the partner caused everything and refuses to help repair it. Explain two changes that would make reconciliation more possible. Explain why an apology alone cannot guarantee immediate restoration of trust.",
+      "answer": "The learner should acknowledge the damage and accept responsibility instead of blaming the partner. The learner could offer an agreed practical repair, such as helping remake the damaged chart. Trust may take time and consistent changed behaviour; the other person cannot be required to trust immediately.",
+      "explanation": "Reconciliation involves honest acknowledgement and a workable response to harm. The guide allows reasonable equivalent steps and does not demand forced contact.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains acknowledgement of the damage or wrongdoing.",
+          "marks": 1
+        },
+        {
+          "description": "Explains accepting responsibility rather than shifting blame.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes an appropriate agreed repair.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that trust may require time and evidence of change.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 1"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Restoring relationships",
+      "subtopic": "Parable",
+      "learningObjective": "Recount the returning son.",
+      "id": "ndv-150-010",
+      "objectiveId": "nerdc-crs-jss1-2025-t05-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Luke 15:11–32, trace the returning son’s story in four stages: his departure, his hardship, his decision to return, and his father’s response. Make clear who receives him when he comes home.",
+      "answer": "The younger son receives his share and leaves home, then wastes his resources and faces hunger during a famine. He decides to return and acknowledge his wrongdoing. His father receives him with compassion and a celebration. The father, not a son of the returning traveller, is the welcoming parent.",
+      "explanation": "The narrative has been checked against Luke 15. A curriculum content line has a relationship typo; this question retains the father-and-son relationship in the referenced passage.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Describes receiving his share and leaving home.",
+          "marks": 1
+        },
+        {
+          "description": "Describes wasted resources and resulting hardship or hunger.",
+          "marks": 1
+        },
+        {
+          "description": "Describes deciding to return and acknowledge wrongdoing.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies the father’s compassionate welcome or celebration.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 2",
+      "contentSourceId": "bible-crs-jss1-150-narrative-checks-2026",
+      "textReference": "Luke 15:11–32"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Restoring relationships",
+      "subtopic": "Jacob and Esau",
+      "learningObjective": "Recount the brothers' reconciliation.",
+      "id": "ndv-150-011",
+      "objectiveId": "nerdc-crs-jss1-2025-t05-po04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using Genesis 33:1–11, describe one action by Jacob and one by Esau when the brothers meet. Explain how the meeting shows reconciliation, and why it would be inaccurate to say that Esau agrees to a meeting only after receiving payment.",
+      "answer": "Jacob approaches and bows; Esau runs to meet him and embraces him. Their affectionate meeting and tears show a change from hostility towards welcome. Esau initially says that he already has enough and does not need the gift; the passage does not describe payment as a condition for meeting or embracing Jacob.",
+      "explanation": "The answer distinguishes the gift discussion from the welcome, avoiding the unsupported claim that forgiveness was purchased.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Gives Jacob’s respectful approach or bowing.",
+          "marks": 1
+        },
+        {
+          "description": "Gives Esau’s running, embracing or kissing.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how the welcome or shared tears indicate reconciliation.",
+          "marks": 1
+        },
+        {
+          "description": "Uses Esau’s initial refusal or the order of events to reject the payment condition.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 5, PDF page 17, performance objective 4",
+      "contentSourceId": "bible-crs-jss1-150-narrative-checks-2026",
+      "textReference": "Genesis 33:1–11"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Family relationships",
+      "subtopic": "Family forms",
+      "learningObjective": "Describe family types.",
+      "id": "ndv-150-012",
+      "objectiveId": "nerdc-crs-jss1-2025-t06-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Use these working definitions: a nuclear family includes parents and their children; an extended family includes relatives beyond that unit. Fictional family A has two parents and their children. Fictional family B also includes a grandmother and an aunt. Classify each description and explain the feature that determines each classification. Do not rank the families by worth.",
+      "answer": "A is described as a nuclear family because its listed members form the parent-and-child unit. B is described as an extended family because the grandmother and aunt are relatives beyond that unit. These labels describe relationships, not how caring or valuable either family is.",
+      "explanation": "The definitions are supplied for this practice exercise; the two examples do not claim to cover every family arrangement.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Classifies A as nuclear.",
+          "marks": 1
+        },
+        {
+          "description": "Links A’s classification to its parent-and-child unit.",
+          "marks": 1
+        },
+        {
+          "description": "Classifies B as extended.",
+          "marks": 1
+        },
+        {
+          "description": "Links B’s classification to relatives beyond that unit.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 1"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Family relationships",
+      "subtopic": "Healthy relationships",
+      "learningObjective": "Describe positive family qualities.",
+      "id": "ndv-150-013",
+      "objectiveId": "nerdc-crs-jss1-2025-t06-po04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional household, members listen without interrupting when they disagree and keep agreed times for shared chores. Identify two positive family qualities illustrated here. For each quality, explain a practical way it can improve family relationships.",
+      "answer": "Listening without interruption illustrates respect or patience and helps each person feel heard during disagreement. Keeping agreed chore times illustrates cooperation or reliability and helps others plan shared work. Accept equivalent qualities when linked clearly to the described behaviour.",
+      "explanation": "Qualities must be supported by actions in the scenario rather than merely listed as labels.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies respect, patience or an equivalent quality linked to listening.",
+          "marks": 1
+        },
+        {
+          "description": "Explains a relationship benefit of that listening.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies cooperation, reliability or an equivalent quality linked to chores.",
+          "marks": 1
+        },
+        {
+          "description": "Explains a relationship benefit of keeping the agreement.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 6, PDF page 18, performance objective 4"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "School relationships",
+      "subtopic": "School community",
+      "learningObjective": "Identify school community members.",
+      "id": "ndv-150-014",
+      "objectiveId": "nerdc-crs-jss1-2025-t07-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A new learner needs help with two matters: understanding a lesson topic and finding out how the school is organised. Identify the teacher and principal as school-community members and explain an appropriate contribution each can make. Then name one other member and a constructive role that member can play.",
+      "answer": "A subject teacher can explain the lesson and guide practice. The principal leads the school and can explain arrangements or direct the learner to the appropriate staff. A prefect might help the learner locate a classroom, or a fellow student might share a timetable. Other appropriate member-role pairs are acceptable.",
+      "explanation": "The question concerns roles, not the current names of staff or an assumption that every school has the same leadership structure.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Links a teacher to subject learning support.",
+          "marks": 1
+        },
+        {
+          "description": "Links a principal to school leadership or organisation.",
+          "marks": 1
+        },
+        {
+          "description": "Names another school-community member.",
+          "marks": 1
+        },
+        {
+          "description": "Gives an appropriate constructive role for that member.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 1"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "School relationships",
+      "subtopic": "Friendship choices",
+      "learningObjective": "Explain friendship selection.",
+      "id": "ndv-150-015",
+      "objectiveId": "nerdc-crs-jss1-2025-t07-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two fictional classmates invite Ada to study. One admits mistakes and returns borrowed materials; the other offers answer copying and asks Ada to hide it. Give two behaviour-based reasons for choosing the first invitation, and explain how each reason supports a constructive friendship.",
+      "answer": "Admitting mistakes suggests honesty, which makes it easier to discuss difficulties truthfully. Returning borrowed materials suggests reliability and respect, which supports trust. Offering hidden answer copying pressures Ada to act dishonestly; choices should be based on behaviour rather than a person’s background or identity.",
+      "explanation": "The guide evaluates observable conduct. It does not adopt the source’s unsupported association of identity categories with harmful friendships.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies honesty from admitting mistakes.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how honesty helps truthful support or trust.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies reliability or respect from returning materials.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how reliability or respect supports a constructive friendship.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 2"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "School relationships",
+      "subtopic": "Positive friendships",
+      "learningObjective": "Illustrate constructive friendships.",
+      "id": "ndv-150-016",
+      "objectiveId": "nerdc-crs-jss1-2025-t07-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "With a partner, perform a one-minute classroom role-play. A friend feels embarrassed after getting a practice answer wrong and wants to stop trying. Demonstrate a constructive response: listen, acknowledge the feeling, offer help without supplying work to copy, and agree a manageable next step. Each learner must take a responding turn. A written script alone does not complete the task.",
+      "answer": "Illustrative response: listen to the friend, acknowledge the embarrassment without ridicule, offer to review the method together, and agree to try one step before checking it. Both learners perform the response in turn. Equivalent supportive dialogue is acceptable.",
+      "explanation": "The task requires demonstrated interaction rather than a description of friendship. Assess each learner’s own responding turn, not acting talent or personal disclosure.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Demonstrates listening by responding to what the partner says.",
+          "marks": 1
+        },
+        {
+          "description": "Acknowledges the feeling without ridicule.",
+          "marks": 1
+        },
+        {
+          "description": "Offers honest learning help without copying.",
+          "marks": 1
+        },
+        {
+          "description": "Agrees a specific manageable next step with the partner.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 7, PDF page 19, performance objective 3",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Community and church relationships",
+      "subtopic": "Community leadership",
+      "learningObjective": "Identify community leaders.",
+      "id": "ndv-150-017",
+      "objectiveId": "nerdc-crs-jss1-2025-t08-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional community has an elected association chair who coordinates shared projects and a council of elders that advises on local customs. Identify both leadership roles and explain one contribution each could make when residents plan a community meeting. Do not assume that these roles describe every Nigerian community.",
+      "answer": "The association chair can coordinate the project agenda or invite contributions. The elders can advise on local customs or ways to organise respectful participation. The two roles illustrate different contributions to community leadership; the scenario does not establish legal powers.",
+      "explanation": "The task uses generic roles explicitly supplied in the scenario and avoids inventing a universal official roster.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies the association chair as a community leader.",
+          "marks": 1
+        },
+        {
+          "description": "Gives a relevant coordinating contribution for the chair.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies the elders as community leaders or advisers.",
+          "marks": 1
+        },
+        {
+          "description": "Gives a relevant customary or advisory contribution for the elders.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 8, PDF page 20, performance objective 1"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Community and church relationships",
+      "subtopic": "Church cooperation",
+      "learningObjective": "Describe church relationship-building.",
+      "id": "ndv-150-018",
+      "objectiveId": "nerdc-crs-jss1-2025-t08-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional church youth group, a new member’s suggestions are repeatedly ignored while two established members take every role. Propose two different changes that could help build positive relationships in the group, and explain how each change promotes cooperation or care.",
+      "answer": "The group could invite each member to speak in turn, so the newcomer is heard respectfully. It could agree a fair rotation or shared allocation of suitable roles, so participation is not monopolised. Equivalent practical actions showing love, respect and cooperation are acceptable.",
+      "explanation": "The assessment concerns relationships within a church community, with two distinct actions and their effects.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Proposes a practical way to hear or welcome the new member.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how it demonstrates respect or care.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a distinct way to share participation or responsibilities.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how it improves cooperation.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 8, PDF page 20, performance objective 3"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Relating to God",
+      "subtopic": "Relating to God",
+      "learningObjective": "Describe relating to God.",
+      "id": "ndv-150-019",
+      "objectiveId": "nerdc-crs-jss1-2025-t09-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Within Christian teaching, describe two ways of relating to God: prayer and reading the Bible. For each, explain what a learner is doing and how it functions in that relationship. Explain the teaching without having to report your own religious practice.",
+      "answer": "Prayer involves addressing God, for example with thanksgiving or a request for guidance; it is understood as communication with God. Bible reading involves engaging with scriptural teaching; Christians use it to learn about God and reflect on how to live.",
+      "explanation": "The task distinguishes speaking in prayer from learning through scripture and assesses religious understanding rather than personal conviction.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Describes addressing God in prayer.",
+          "marks": 1
+        },
+        {
+          "description": "Explains prayer as communication or expression of thanks or need.",
+          "marks": 1
+        },
+        {
+          "description": "Describes engaging with biblical teaching through reading.",
+          "marks": 1
+        },
+        {
+          "description": "Explains learning about God or reflecting on conduct through that reading.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 1"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Relating to God",
+      "subtopic": "Worship performance",
+      "learningObjective": "Demonstrate prayer, worship and praise.",
+      "id": "ndv-150-020",
+      "objectiveId": "nerdc-crs-jss1-2025-t09-po04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a supervised CRS classroom, demonstrate an illustrative Christian act of prayer, worship and praise. Deliver a short original prayer of thanks and guidance, then speak or sing two original lines praising God. Introduce the demonstration by explaining why these acts are forms of worship. Perform the spoken or sung parts; written words alone do not complete the task. You may present this as a classroom illustration without declaring personal belief.",
+      "answer": "Illustrative performance: explain that worship expresses honour to God; deliver an original prayer thanking God for learning and asking for wisdom; then speak or sing two original lines praising God’s wisdom or goodness. Many alternative original words are acceptable.",
+      "explanation": "The source objective explicitly requires prayer, worship and praise. This original classroom rubric assesses demonstrated communication and understanding, not sincerity, denomination, musical skill or personal faith.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains worship as honouring God and connects the demonstration to it.",
+          "marks": 1
+        },
+        {
+          "description": "Actually delivers an intelligible original prayer including thanks.",
+          "marks": 1
+        },
+        {
+          "description": "Includes a request for guidance in the delivered prayer.",
+          "marks": 1
+        },
+        {
+          "description": "Actually speaks or sings two original lines expressing praise to God.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 4",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding with obedience",
+      "subtopic": "Abraham",
+      "learningObjective": "Recount Abraham's calling.",
+      "id": "ndv-150-021",
+      "objectiveId": "nerdc-crs-jss1-2025-t10-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Genesis 12:1–4, God calls Abram, who is later known as Abraham. Explain what he is told to leave, where he is told to go, one promise made to him, and how he responds. Avoid adding a destination name that is not stated in the command itself.",
+      "answer": "Abram is told to leave his country, relatives and father’s household for a land God will show him. A promise is that he will become a great nation, be blessed or become a blessing to others. He departs as directed. The command describes the destination as a land to be shown.",
+      "explanation": "The answer distinguishes the wording of the call from later details in the journey and uses the name Abram appropriate to this passage.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies leaving country and family or household.",
+          "marks": 1
+        },
+        {
+          "description": "Describes going to the land God will show him.",
+          "marks": 1
+        },
+        {
+          "description": "Gives one promise from the passage.",
+          "marks": 1
+        },
+        {
+          "description": "Describes Abram’s departure in response.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 10, PDF page 22, performance objective 2",
+      "contentSourceId": "bible-crs-jss1-150-narrative-checks-2026",
+      "textReference": "Genesis 12:1–4"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding to freedom",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain freedom.",
+      "id": "ndv-150-022",
+      "objectiveId": "nerdc-crs-jss1-2025-t11-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "For this classroom discussion, freedom means being able to make choices without improper restriction. A school club lets members choose a project but requires them to respect others and shared equipment. Explain how the choice illustrates freedom. Explain why freedom does not mean damaging another group’s display, and suggest one way to exercise choice responsibly.",
+      "answer": "Members can decide which project to undertake rather than having every choice imposed. Damaging a display harms others and interferes with their use of shared space, so it is not responsible exercise of freedom. Members could choose and carry out a project while protecting others’ work and respecting agreed arrangements.",
+      "explanation": "The scenario explains freedom and responsibility without making a claim about a specific law or legal entitlement.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains freedom as meaningful ability to choose.",
+          "marks": 1
+        },
+        {
+          "description": "Connects the project choice with that ability.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how damaging the display harms others or restricts their use.",
+          "marks": 1
+        },
+        {
+          "description": "Suggests a concrete responsible use of the available choice.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 12, PDF page 24, performance objective 1"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding through service",
+      "subtopic": "Meaning and types",
+      "learningObjective": "Describe service categories.",
+      "id": "ndv-150-023",
+      "objectiveId": "nerdc-crs-jss1-2025-t12-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Use these working categories for this practice task: paid service and voluntary service. A mechanic is paid to repair a vehicle; a neighbour freely gives time to help organise donated books. Classify each service and explain the basis of each classification. State why both can still benefit other people.",
+      "answer": "The repair is paid service because it is done for payment. The book activity is voluntary service because the neighbour freely gives time without payment in this example. Both meet a need: restoring a useful vehicle and making books available or organised for readers.",
+      "explanation": "The categories are author-supplied examples under the source’s meaning-and-types outcome, not a claim that the source lists this as an exhaustive taxonomy.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Classifies the repair as paid service.",
+          "marks": 1
+        },
+        {
+          "description": "Explains payment as its distinguishing feature.",
+          "marks": 1
+        },
+        {
+          "description": "Classifies and explains the book activity as voluntary unpaid service.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies a useful benefit of each example.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 1"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding with repentance",
+      "subtopic": "Consequences",
+      "learningObjective": "Contrast repentance and refusal.",
+      "id": "ndv-150-024",
+      "objectiveId": "nerdc-crs-jss1-2025-t13-po04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two fictional learners have spread the same false rumour. Learner A admits it, corrects the claim with those who heard it and stops repeating it. Learner B refuses correction and continues. Contrast one likely consequence for the spread of the rumour and one for trust in each learner. Explain why changed behaviour does not guarantee instant forgiveness.",
+      "answer": "A’s correction and stopping can reduce further spread; B’s repetition can keep the false claim circulating. A provides evidence that trust might gradually be rebuilt, while B’s continuing dishonesty can weaken trust. People affected may need time, and changed conduct cannot guarantee their immediate response.",
+      "explanation": "The contrast illustrates repentance and refusal through observable conduct. It does not promise wealth, health or an automatic reward for repentance.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Contrasts correction and stopping with continued spread.",
+          "marks": 1
+        },
+        {
+          "description": "Connects A’s changed conduct with possible gradual rebuilding of trust.",
+          "marks": 1
+        },
+        {
+          "description": "Connects B’s refusal with further loss of trust.",
+          "marks": 1
+        },
+        {
+          "description": "Explains why others’ forgiveness or trust cannot be guaranteed immediately.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 14, PDF page 26, performance objective 4"
+    }
+  ]
+}
