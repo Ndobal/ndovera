@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "specificationId": "nerdc-igbo-jss3-historical-route-unresolved-2026",
+  "subject": "Igbo",
+  "level": "JSS 3",
+  "retrievedOn": "2026-11-08",
+  "status": "historical_source_inventory_route_and_adoption_unresolved",
+  "topicLabels": "Author paraphrases; locators are one-based PDF/printed pages. Not official objective codes.",
+  "overviewPdfPage": 36,
+  "topicCount": 19,
+  "topics": [
+    {
+      "topicNumber": 1,
+      "topic": "Children’s rights and responsibilities",
+      "pdfPage": 37,
+      "printedPage": 37,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 2,
+      "topic": "Selected drama",
+      "pdfPage": 38,
+      "printedPage": 38,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 3,
+      "topic": "Human-trafficking comprehension",
+      "pdfPage": 39,
+      "printedPage": 39,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 4,
+      "topic": "Letter writing",
+      "pdfPage": 40,
+      "printedPage": 40,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 5,
+      "topic": "Folktales",
+      "pdfPage": 41,
+      "printedPage": 41,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 6,
+      "topic": "Examination-malpractice comprehension",
+      "pdfPage": 42,
+      "printedPage": 42,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 7,
+      "topic": "Selected poetry",
+      "pdfPage": 43,
+      "printedPage": 43,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 8,
+      "topic": "Cultural change",
+      "pdfPage": 44,
+      "printedPage": 44,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 9,
+      "topic": "Drug-misuse discussion",
+      "pdfPage": 45,
+      "printedPage": 45,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 10,
+      "topic": "Selected prose fiction",
+      "pdfPage": 46,
+      "printedPage": 46,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 11,
+      "topic": "Clauses",
+      "pdfPage": 47,
+      "printedPage": 47,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 12,
+      "topic": "Numbers to 1000",
+      "pdfPage": 48,
+      "printedPage": 48,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 13,
+      "topic": "Idioms",
+      "pdfPage": 49,
+      "printedPage": 49,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 14,
+      "topic": "Consumer rights",
+      "pdfPage": 50,
+      "printedPage": 50,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 15,
+      "topic": "Functions of na",
+      "pdfPage": 51,
+      "printedPage": 51,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 16,
+      "topic": "Tongue twisters",
+      "pdfPage": 52,
+      "printedPage": 52,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 17,
+      "topic": "Guided composition",
+      "pdfPage": 53,
+      "printedPage": 53,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 18,
+      "topic": "Communication methods",
+      "pdfPage": 54,
+      "printedPage": 54,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    },
+    {
+      "topicNumber": 19,
+      "topic": "Traditional drama",
+      "pdfPage": 55,
+      "printedPage": 55,
+      "activeObjectiveIds": [],
+      "draftQuestionIds": []
+    }
+  ],
+  "comprehensionSample": {
+    "pdfPage": 42,
+    "inspection": "Text extraction and visual render checked",
+    "objectiveSummaries": [
+      "Read fluently.",
+      "Explain examination malpractice.",
+      "Explain vocabulary and answer passage questions.",
+      "Discuss harms."
+    ],
+    "practiceConstraints": [
+      "Written comprehension cannot establish oral fluency.",
+      "No source passage or selected literary work has been adopted."
+    ]
+  },
+  "examinationFormatReference": {
+    "specificationId": "neco-bece-timetable-2026",
+    "L1": {
+      "paperCodes": [
+        "2081",
+        "2082"
+      ],
+      "format": "objective",
+      "durationPerPaper": "1 hour"
+    },
+    "L2": {
+      "paperCodes": [
+        "2211"
+      ],
+      "format": "objective",
+      "durationPerPaper": "1 hour"
+    },
+    "contentMappingEstablished": false
+  },
+  "questionsAdded": 0,
+  "mappingComplete": false,
+  "academicReviewStatus": "pending",
+  "gaps": [
+    "L1/L2 assignment.",
+    "Current cohort adoption and edition date.",
+    "Full performance-objective and evaluation reconciliation.",
+    "Selected literary works.",
+    "Paper allocation, option counts and official marking."
+  ],
+  "rejectedConflations": [
+    "Third-party BECE question counts are not official instructions.",
+    "Accelerated-programme Level 2 is not BECE second-language L2.",
+    "SSCE Igbo is not BECE Igbo."
+  ],
+  "nextAction": "Obtain the official route-specific NECO syllabus; retain this inventory without active bank mappings."
+}

@@ -2,19 +2,19 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_143_automated_validation_passed",
+  "phase": "igbo_historical_source_inventory_route_mapping_pending",
   "projectComplete": false,
   "academicReviewComplete": false,
   "nextBatch": "original-multisubject-batch-144.json",
   "nextPriorities": [
-    "Verify NECO BECE Igbo L1 and L2 as separate routes using exact-class content and official paper requirements before opening either bank. Hausa L1 now has eight provisional written-comprehension drafts; its historical source explicitly targets mother-tongue learners. Hausa L2 remains unopened: obtain its own learner objectives. Current adoption, full L1 scope, 2071/2072 allocation and option count remain unresolved.",
+    "Verify NECO BECE Yoruba L1 and L2 separately before opening either bank. Igbo historical JSS 3 source inventory now has nineteen topic locators, but route assignment and current adoption remain unresolved; both Igbo banks stay empty. Obtain official Igbo and Hausa L2 route-specific learner syllabuses rather than transferring L1, SSCE or accelerated-programme scope.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
   "lastValidatedBatch": "original-multisubject-batch-143.json",
-  "lastRemoteVerifiedCommit": "6f3b3b8edbe3d779ec6acb8ab4bd8196b5edc235",
+  "lastRemoteVerifiedCommit": "2bc092a9f38f8c7d4f7665306ebd4205999785d8",
   "verifiedTotals": {
     "raw": 3688,
     "validDrafts": 2009,
@@ -24,5 +24,5 @@
   "lastPopulatedBatch": "original-multisubject-batch-143.json",
   "unauditedDraftAdditions": {},
   "inventoryRaw": 3688,
-  "lastSourceUpdate": "nerdc-crs-jss1-revised-2025-inventory.json"
+  "lastSourceUpdate": "igbo-jss3-historical-scope-inventory.json"
 }

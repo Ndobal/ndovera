@@ -802,3 +802,9 @@ comprehension drafts across environmental-awareness and computer-record
 passages. The historical source explicitly targets mother-tongue learners;
 JSS 3 content mapping is provisional. L2 remains unopened. Current adoption,
 full objectives, paper allocation and official option counts remain open.
+
+The Igbo source investigation retrieves the historical curriculum and
+foreword and inventories nineteen JSS 3 topic tables with page locators.
+Neither document establishes BECE L1/L2 assignment or current adoption.
+Both routes remain unopened; no questions or active objectives are added.
+See `specifications/igbo-jss3-historical-scope-inventory.json`.
