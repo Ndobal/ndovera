@@ -885,3 +885,9 @@ hashed, with exact page locators. Source astronomy/climate/colour wording
 issues are recorded; current adoption and full NCEE topic allocation
 remain unverified. These MCQs do not assess practical performance, and
 four-option one-mark scoring remains an author practice choice.
+
+Batch 155 adds 24 NCEE Quantitative and Vocational Aptitude drafts
+on clothing construction, packaging, farm records, cleaning and meal
+constraints. Historical Primary 6 pp19–23 were rechecked and hashed.
+Two sewing-related mappings are provisional; MCQs assess decisions, not
+practical performance. Full current NCEE scope and adoption remain open.

@@ -769,7 +769,15 @@
       "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
       "curriculumReference": "https://icpc.gov.ng/wp-content/uploads/2024/10/Teachers-Guide-for-the-teaching-of-National-Values-in-Basic-Education-Primary-1-6.pdf",
       "retrievedOn": "2026-11-04",
-      "note": "NECO confirms Paper I Part B. ICPC-hosted older cross-curricular teaching guide supports provisional age and values mapping only. Official topic specification and current curriculum adoption unverified. Four-option format is an author practice choice."
+      "note": "NECO confirms Paper I Part B. ICPC-hosted older cross-curricular teaching guide supports provisional age and values mapping only. Official topic specification and current curriculum adoption unverified. Four-option format is an author practice choice.",
+      "lastRetrievalAttempt": {
+        "date": "2026-11-08",
+        "bytes": 5547716,
+        "sha256": "0fe296ed444f79b9208c0469b0a5438aed42fb96cddb9edda40b8a19def6cc89",
+        "pdfPages": 138,
+        "contentRecheckStatus": "image_based_pdf_no_extractable_text_full_recheck_requires_visual_or_ocr",
+        "note": "Download succeeded; this run adds no NVE questions and makes no claim to have reread the image-based lesson pages."
+      }
     },
     {
       "id": "ncee-verbal-aptitude-primary-six-reference-2026",
@@ -798,7 +806,14 @@
         "https://www.nerdc.gov.ng/content_manager/primary/pri4-6_prevoc.pdf"
       ],
       "retrievedOn": "2026-11-04",
-      "note": "NECO confirms Paper II Part A. Older Primary Six NERDC references guide provisional practice. The official blueprint, task families, option count and current curriculum adoption are unverified."
+      "note": "NECO confirms Paper II Part A. Older Primary Six NERDC references guide provisional practice. The official blueprint, task families, option count and current curriculum adoption are unverified. Recheck 2026-11-08: historical pre-vocational PDF directly retrieved and read; no current adoption inferred. Batch 155 includes original resource/record scenarios, not dietary or medical advice, official practical tasks or actual sewing assessment.",
+      "checkedOn": "2026-11-08",
+      "preVocationalSha256": "ba52bbdf9ef7192c89de9f25328cc00ea2968e9bdaaa2a0a69939834fe22cab0",
+      "preVocationalBytes": 647308,
+      "preVocationalPages": 26,
+      "verifiedReferenceSections": [
+        "Historical Primary Six Pre-Vocational Studies pp19–23: packaging/farm records, cleaning, stitches, seams, meal planning"
+      ]
     },
     {
       "id": "neco-ssce-internal-timetable-2026",
@@ -18519,6 +18534,44 @@
       "sourceSections": [
         "NECO 2026 general information p.1, Paper I Part A (component only)",
         "Historical NERDC Primary 6 BST, printed/PDF p.65"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-qva-155-stitches-v1",
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Stitch purposes and selection",
+      "learningObjective": "Distinguish temporary, permanent and decorative stitches and choose a stitch purpose for a stated task.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical NERDC Primary Six Pre-Vocational Studies, printed/PDF p.21"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-qva-155-seams-v1",
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Seam purpose and construction sequence",
+      "learningObjective": "Explain the purpose of a seam and reason about a simple construction sequence.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical NERDC Primary Six Pre-Vocational Studies, printed/PDF p.22"
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null

@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3950,
-    "validDrafts": 2271,
+    "raw": 3974,
+    "validDrafts": 2295,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1058,6 +1058,12 @@
       "sha256": "ac54f5c321f4b284222a372719962bba8e2d6d38c3e0ced6c5852121e764ab1f",
       "declared": 28,
       "actual": 28
+    },
+    {
+      "path": "original-multisubject-batch-155.json",
+      "sha256": "19ec98e531e70d4d932e92e5e1124fe0f9860da8544db89c1dfeffe18627d0be",
+      "declared": 24,
+      "actual": 24
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2668,18 +2674,18 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_2026_component_with_provisional_primary_six_reference",
-      "raw": 20,
-      "validDrafts": 20,
+      "raw": 44,
+      "validDrafts": 44,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 20
+        "mcq": 44
       },
       "difficulty": {
-        "standard": 20
+        "standard": 44
       },
-      "remaining": 980,
-      "mappedObjectives": 5,
-      "representedObjectives": 5,
+      "remaining": 956,
+      "mappedObjectives": 7,
+      "representedObjectives": 7,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5917,9 +5923,9 @@
   ],
   "errorCounts": {
     "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -5930,7 +5936,7 @@
     "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 323,
+    "explicitArithmeticClaims": 325,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -34136,6 +34142,150 @@
       "errors": []
     },
     {
+      "id": "ndv-155-001",
+      "file": "original-multisubject-batch-155.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-002",
+      "file": "original-multisubject-batch-155.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-003",
+      "file": "original-multisubject-batch-155.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-004",
+      "file": "original-multisubject-batch-155.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-005",
+      "file": "original-multisubject-batch-155.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-006",
+      "file": "original-multisubject-batch-155.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-007",
+      "file": "original-multisubject-batch-155.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-008",
+      "file": "original-multisubject-batch-155.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-009",
+      "file": "original-multisubject-batch-155.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-010",
+      "file": "original-multisubject-batch-155.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-011",
+      "file": "original-multisubject-batch-155.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-012",
+      "file": "original-multisubject-batch-155.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-013",
+      "file": "original-multisubject-batch-155.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-014",
+      "file": "original-multisubject-batch-155.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-015",
+      "file": "original-multisubject-batch-155.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-016",
+      "file": "original-multisubject-batch-155.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-017",
+      "file": "original-multisubject-batch-155.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-018",
+      "file": "original-multisubject-batch-155.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-019",
+      "file": "original-multisubject-batch-155.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-020",
+      "file": "original-multisubject-batch-155.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-021",
+      "file": "original-multisubject-batch-155.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-022",
+      "file": "original-multisubject-batch-155.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-023",
+      "file": "original-multisubject-batch-155.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-155-024",
+      "file": "original-multisubject-batch-155.json",
+      "index": 23,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -54541,7 +54691,7 @@
       "learningObjective": "Select packaging for a purpose and interpret simple farm records.",
       "specificationId": "ncee-qva-primary-six-reference-2026",
       "questionTypes": {
-        "mcq": 6
+        "mcq": 14
       },
       "sourceSections": [
         "NECO 2026 Paper II Part A",
@@ -54550,13 +54700,13 @@
       "level": "Primary 6",
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 6,
-      "validDrafts": 6,
+      "questionCount": 14,
+      "validDrafts": 14,
       "difficulty": {
-        "standard": 6
+        "standard": 14
       },
       "tiers": {
-        "not_specified": 6
+        "not_specified": 14
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -61023,7 +61173,7 @@
       "learningObjective": "Choose tools and an order of work suited to a cleaning job.",
       "id": "ncee-qva-p6-cleaning-v1",
       "questionTypes": {
-        "mcq": 3
+        "mcq": 7
       },
       "sourceSections": [
         "NECO 2026 Paper II Part A (component only)",
@@ -61031,13 +61181,13 @@
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 3,
-      "validDrafts": 3,
+      "questionCount": 7,
+      "validDrafts": 7,
       "difficulty": {
-        "standard": 3
+        "standard": 7
       },
       "tiers": {
-        "not_specified": 3
+        "not_specified": 7
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -61054,7 +61204,7 @@
       "learningObjective": "Select meals or menu descriptions that meet stated needs and constraints.",
       "id": "ncee-qva-p6-meal-planning-v1",
       "questionTypes": {
-        "mcq": 3
+        "mcq": 7
       },
       "sourceSections": [
         "NECO 2026 Paper II Part A (component only)",
@@ -61062,13 +61212,13 @@
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 3,
-      "validDrafts": 3,
+      "questionCount": 7,
+      "validDrafts": 7,
       "difficulty": {
-        "standard": 3
+        "standard": 7
       },
       "tiers": {
-        "not_specified": 3
+        "not_specified": 7
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -69500,6 +69650,68 @@
       "sourceSections": [
         "NECO 2026 general information p.1, Paper I Part A (component only)",
         "Historical NERDC Primary 6 BST, printed/PDF p.65"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-qva-155-stitches-v1",
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Stitch purposes and selection",
+      "learningObjective": "Distinguish temporary, permanent and decorative stitches and choose a stitch purpose for a stated task.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical NERDC Primary Six Pre-Vocational Studies, printed/PDF p.21"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-qva-155-seams-v1",
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "level": "Primary 6",
+      "topic": "Vocational aptitude",
+      "subtopic": "Seam purpose and construction sequence",
+      "learningObjective": "Explain the purpose of a seam and reason about a simple construction sequence.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical NERDC Primary Six Pre-Vocational Studies, printed/PDF p.22"
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null,

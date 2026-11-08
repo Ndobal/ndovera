@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_154_automated_validation_passed",
+  "phase": "batch_155_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-155.json",
+  "nextBatch": "original-multisubject-batch-156.json",
   "nextPriorities": [
-    "Expand underrepresented NCEE National Values Education or Quantitative and Vocational Aptitude against rechecked, explicit Primary 6 references and official component evidence; then rotate to another supported examination/subject. NCEE BST now has 53 automated-valid drafts with seven finer provisional conceptual mappings. Its historical curriculum alignment is not current adoption or a full NCEE blueprint. Practical performance, full content scope and option counts remain unresolved; preserve source astronomy/climate/colour issues rather than adopting them as facts. Other exact-class, BECE and independent-review gaps remain open.",
+    "Rotate to underrepresented WAEC/NECO Geography: inspect existing questions and obtain/recheck official current scope and permitted practical/essay formats before authoring. NECO timetable evidence alone is insufficient for content objectives; preserve cross-board topic limits. NCEE QVA now has 44 automated-valid drafts with provisional historical Primary 6 references. ICPC values guide downloaded successfully but is image-based; visually inspect or OCR exact Primary Six lessons before claiming a fresh content recheck. Full current NCEE blueprint/adoption and independent review remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-154.json",
-  "lastRemoteVerifiedCommit": "d5a6bf62cfda6532633e822d4c0b444ee85e3929",
+  "lastValidatedBatch": "original-multisubject-batch-155.json",
+  "lastRemoteVerifiedCommit": "3dc107bc668f98252bc270db601d093766dcca14",
   "verifiedTotals": {
-    "raw": 3950,
-    "validDrafts": 2271,
+    "raw": 3974,
+    "validDrafts": 2295,
     "reviewed": 0
   },
   "lastRunTestCount": 48,
-  "lastPopulatedBatch": "original-multisubject-batch-154.json",
+  "lastPopulatedBatch": "original-multisubject-batch-155.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3950,
+  "inventoryRaw": 3974,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "ncee-bst-primary-six-reference-2026",
+    "id": "ncee-qva-primary-six-reference-2026",
     "date": "2026-11-08"
   }
 }
