@@ -62,12 +62,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Yoruba | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NCEE | Basic Science | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NCEE | Basic Science and Technology | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
-| NCEE | English Studies | 1000 | 28 | 25 | 0 | 975 | partial_objective_register |
+| NCEE | English Studies | 1000 | 52 | 49 | 0 | 951 | partial_objective_register |
 | NCEE | Mathematics | 1000 | 35 | 20 | 0 | 980 | partial_objective_register |
 | NCEE | National Values Education | 1000 | 24 | 24 | 0 | 976 | partial_objective_register |
 | NCEE | Quantitative Reasoning | 1000 | 5 | 0 | 0 | 1000 | specification_unresolved |
 | NCEE | Quantitative and Vocational Aptitude | 1000 | 20 | 20 | 0 | 980 | partial_objective_register |
-| NCEE | Verbal Aptitude | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
+| NCEE | Verbal Aptitude | 1000 | 36 | 36 | 0 | 964 | partial_objective_register |
 | NCEE | Verbal Reasoning | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Agricultural Science | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
 | NECO | Arabic | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
@@ -211,14 +211,14 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IELTS | 121 | 112 | 0 | 4000 | 3888 |
 | IGCSE | 278 | 257 | 0 | 5000 | 4743 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
-| NCEE | 155 | 126 | 0 | 9000 | 8874 |
+| NCEE | 203 | 174 | 0 | 9000 | 8826 |
 | NECO | 436 | 401 | 0 | 36000 | 35599 |
 | NERDC | 123 | 58 | 0 | 28000 | 27942 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 104 | 95 | 0 | 4000 | 3905 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3874, "validDrafts": 2195, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3922, "validDrafts": 2243, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

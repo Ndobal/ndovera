@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_152_automated_validation_passed",
+  "phase": "batch_153_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-153.json",
+  "nextBatch": "original-multisubject-batch-154.json",
   "nextPriorities": [
-    "Rotate to underrepresented NCEE language/verbal objectives: recheck official current source and paper scope before expanding beyond existing mapped skills. Revised CRS JSS 1 now has 58 drafts representing 55 of 61 initial entries, not full coverage. Its six unrepresented entries concern Nigerian-language names, two marriage outcomes, civic-law consequences, overlapping obedience and premarital-value content; obtain appropriate specialist/source evidence rather than padding or adopting disputed health claims. Competency reconciliation, reference issues and school adoption remain open.",
+    "Expand underrepresented NCEE Basic Science and Technology objectives after rechecking current official component scope and the provenance of age/class content references. NCEE English Studies now has 49 automated-valid drafts and Verbal Aptitude 36. Batch 153 reading mappings remain provisional historical Primary 6 references, not an official full NCEE syllabus. Broader task families, option-count blueprint and current NERDC adoption remain unverified. Revised CRS JSS 1 six unrepresented entries and specialist/source issues remain open; do not pad them.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-152.json",
-  "lastRemoteVerifiedCommit": "d08b43bde68ecf0505f1b05e8df2ce77f2570217",
+  "lastValidatedBatch": "original-multisubject-batch-153.json",
+  "lastRemoteVerifiedCommit": "2e25b959a285ad44785a52c78839e714d11f3582",
   "verifiedTotals": {
-    "raw": 3874,
-    "validDrafts": 2195,
+    "raw": 3922,
+    "validDrafts": 2243,
     "reviewed": 0
   },
   "lastRunTestCount": 48,
-  "lastPopulatedBatch": "original-multisubject-batch-152.json",
+  "lastPopulatedBatch": "original-multisubject-batch-153.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3874,
-  "lastSourceUpdate": "nerdc-crs-jss1-revised-2025-inventory.json",
+  "inventoryRaw": 3922,
+  "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "nerdc-crs-jss1-revised-2025-retrieved",
+    "id": "ncee-english-primary-six-reading-reference-2026",
     "date": "2026-11-08"
   }
 }

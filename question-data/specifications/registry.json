@@ -46,7 +46,12 @@
     {
       "id": "ncee-2026",
       "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
-      "status": "official_paper_components_seen"
+      "status": "official_paper_components_seen",
+      "checkedOn": "2026-11-08",
+      "sourceSha256": "9f661360b98f15c85e94b15b7e4ed7a93bfc927dbe7fa87bc8df8c1d2ee73273",
+      "sourceBytes": 353067,
+      "note": "Official 2026 general information freshly retrieved. Paper components and final-year primary eligibility confirmed, not a full topic specification or option-count blueprint.",
+      "eligibility2026": "Official notice: final-year primary pupils, not less than 10 years by September 2026. This does not assign a single age to all Primary 6 learners."
     },
     {
       "id": "neco-ssce-2026",
@@ -774,7 +779,13 @@
       "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
       "curriculumReference": "https://www.nerdc.gov.ng/content_manager/primary/pri4-6_english_studies.pdf",
       "retrievedOn": "2026-11-04",
-      "note": "NECO confirms Paper II Part B. Older Primary 6 English Studies objectives support vocabulary practice and age suitability only. Official Verbal Aptitude task families, option count and current NERDC adoption remain unverified."
+      "note": "NECO confirms Paper II Part B. Older Primary 6 English Studies objectives support vocabulary practice and age suitability only. Official Verbal Aptitude task families, option count and current NERDC adoption remain unverified.",
+      "checkedOn": "2026-11-08",
+      "curriculumSha256": "c79a0588e12e04dfbbf1d6b778ed6d89736e0c00cb2440250dcdbc8f5bf6a892",
+      "curriculumBytes": 1278662,
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, printed/PDF pp. 42 and 61, synonyms/antonyms"
+      ]
     },
     {
       "id": "ncee-qva-primary-six-reference-2026",
@@ -2327,6 +2338,23 @@
       "checkedOn": "2026-11-08",
       "status": "passages_checked_academic_alignment_pending",
       "note": "KJV text directly retrieved and read for freedom, service, repentance, Isaac birth and Genesis 3. Luke 3 supplies John’s message; printed Matthew 1:1–12 is a mismatched genealogy reference, retained as an issue. Joseph’s grain is sold, not universally free; Ruth 1 records loyalty rather than later gleaning. Narrative rewards are not guarantees for every learner. Source retrieval does not establish school adoption."
+    },
+    {
+      "id": "ncee-english-primary-six-reading-reference-2026",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "kind": "official_component_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/primary/pri4-6_english_studies.pdf",
+      "checkedOn": "2026-11-08",
+      "sourceSha256": "9f661360b98f15c85e94b15b7e4ed7a93bfc927dbe7fa87bc8df8c1d2ee73273",
+      "curriculumSha256": "c79a0588e12e04dfbbf1d6b778ed6d89736e0c00cb2440250dcdbc8f5bf6a892",
+      "curriculumBytes": 1278662,
+      "status": "provisional_topic_alignment_current_adoption_unverified",
+      "note": "Freshly retrieved historical Primary 6 English pp.34–35,38–39 supports provisional story comprehension, summary selection, factual information and message reading. No publication/adoption date inferred. Source production and oral activities are not claimed assessed by these MCQs. Official current full NCEE syllabus, task families, option count and current NERDC adoption remain gaps. Official 2026 timetable independently reconfirms component locations.",
+      "additionalSources": [
+        "https://neco.gov.ng/2026%20NATIONAL%20COMMON%20ENTRANCE%20EXAMINATION%20TIMETABLE-1.pdf"
+      ]
     }
   ],
   "banks": [
@@ -18266,6 +18294,82 @@
         "Standard English Conventions / Form, Structure, and Sense"
       ],
       "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-153-character-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "level": "Primary 6",
+      "topic": "Reading comprehension",
+      "subtopic": "Character behaviour and prediction",
+      "learningObjective": "Explain character behaviour and select a future action supported by a story.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information, p. 1, Paper I Part B (component only)",
+        "Historical NERDC English Studies, Primary 6, printed/PDF p. 34"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-153-main-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "level": "Primary 6",
+      "topic": "Reading comprehension",
+      "subtopic": "Main ideas and summary selection",
+      "learningObjective": "Select a main idea or concise summary that preserves the important information.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information, p. 1, Paper I Part B (component only)",
+        "Historical NERDC English Studies, Primary 6, printed/PDF p. 35"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-153-information-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "level": "Primary 6",
+      "topic": "Reading comprehension",
+      "subtopic": "Finding information in factual texts",
+      "learningObjective": "Locate and interpret information in a short factual text or chart.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information, p. 1, Paper I Part B (component only)",
+        "Historical NERDC English Studies, Primary 6, printed/PDF p. 38"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-153-message-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "level": "Primary 6",
+      "topic": "Reading comprehension",
+      "subtopic": "Essential information in messages",
+      "learningObjective": "Identify essential details and interpret the purpose of a written message.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information, p. 1, Paper I Part B (component only)",
+        "Historical NERDC English Studies, Primary 6, printed/PDF p. 39"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null
     }
   ],

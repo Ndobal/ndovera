@@ -871,3 +871,10 @@ Primary passages were checked; the John-the-Baptist Matthew reference
 mismatch is recorded and the valid Luke passage used. Fifty-eight drafts
 represent 55 of 61 initial objective entries, not full coverage. Six
 entries, source conflicts, school adoption and academic review stay open.
+
+Batch 153 adds 24 NCEE Verbal Aptitude contextual word-relationship
+drafts and 24 English Studies reading drafts using six original stimuli.
+Official 2026 components were rechecked. Historical Primary 6 English
+locators support provisional skill alignment, not proof of current adoption
+or a complete NCEE topic blueprint. Four-option practice and one-mark
+scoring are author choices; production skills and academic review remain open.
