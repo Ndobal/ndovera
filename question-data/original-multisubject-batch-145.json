@@ -1,0 +1,1578 @@
+{
+  "schemaVersion": 2,
+  "collection": "IGCSE Chemistry 0620 original structured theory and practical evaluation",
+  "questionCount": 24,
+  "note": "Original Extended practice aligned to selected 2026–2028 v2 sections. Six new author-proposed objective mappings do not imply full syllabus coverage. Sixteen theory tasks and eight written alternative-to-practical tasks; no evidence of laboratory performance. All marking guides are original practice guides and all drafts await independent review.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids and bases",
+      "subtopic": "Properties, ions and strength",
+      "learningObjective": "Explain acid and base properties using ions and dissociation.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-001",
+      "objectiveId": "igcse-0620-145-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Solutions P and Q have pH 2 and pH 12 respectively. State which is acidic, name the ion responsible for the alkalinity of Q, and predict the colour of blue litmus in P and thymolphthalein in Q.",
+      "answer": "P is acidic. Q contains hydroxide ions, OH−. Blue litmus turns red in P. Thymolphthalein is blue in Q.",
+      "explanation": "The pH scale and indicator changes provide consistent evidence about acid and alkali properties.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify P as acidic.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Name hydroxide ions or OH− for Q.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State blue litmus becomes red in P.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "State thymolphthalein is blue in Q.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids and bases",
+      "subtopic": "Properties, ions and strength",
+      "learningObjective": "Explain acid and base properties using ions and dissociation.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-002",
+      "objectiveId": "igcse-0620-145-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Hydrochloric acid and ethanoic acid solutions have the same concentration and temperature. Explain why hydrochloric acid normally has the lower pH. Distinguish acid strength from concentration.",
+      "answer": "Hydrochloric acid is completely dissociated in water, while ethanoic acid is only partially dissociated. At equal concentrations hydrochloric acid therefore provides more hydrogen ions and has lower pH. Strength concerns the extent of dissociation; concentration concerns the amount of acid per unit volume.",
+      "explanation": "A weak acid is not necessarily dilute; these describe different properties.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State complete dissociation of hydrochloric acid.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State partial dissociation of ethanoic acid.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Link greater hydrogen-ion concentration to lower pH at the stated equal acid concentrations.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Distinguish dissociation extent from amount per volume.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids and bases",
+      "subtopic": "Properties, ions and strength",
+      "learningObjective": "Explain acid and base properties using ions and dissociation.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-003",
+      "objectiveId": "igcse-0620-145-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Aqueous hydrochloric acid neutralises aqueous sodium hydroxide. Write the ionic equation with state symbols. Explain why sodium and chloride ions are absent from it and identify the proton donor and proton acceptor in this reaction.",
+      "answer": "H+(aq) + OH−(aq) → H2O(l). Sodium and chloride ions remain unchanged in solution and are spectators. H+ supplied by the acid is the proton donor; OH− accepts a proton to form water.",
+      "explanation": "The net equation records the chemical change rather than every dissolved ion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Give balanced H+ + OH− → H2O.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Give aq, aq and l state symbols correctly.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain unchanged spectator sodium and chloride ions.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Identify acid/H+ as donor and hydroxide as acceptor.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids and bases",
+      "subtopic": "Properties, ions and strength",
+      "learningObjective": "Explain acid and base properties using ions and dissociation.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-004",
+      "objectiveId": "igcse-0620-145-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Copper(II) oxide reacts with dilute hydrochloric acid but does not dissolve appreciably in water. Explain why it is a base but not an alkali, and give the word equation for its reaction with the acid.",
+      "answer": "Copper(II) oxide is a base because it neutralises the acid. It is not an alkali because it is insoluble in water; an alkali is a soluble base. Copper(II) oxide + hydrochloric acid → copper(II) chloride + water.",
+      "explanation": "Solubility distinguishes an alkali from the wider class of bases.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link base behaviour to neutralising acid.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State an alkali is a soluble base.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Use the stated water insolubility to exclude an alkali.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give copper(II) chloride and water in the correct word equation.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Oxides and salts",
+      "subtopic": "Classification, solubility and hydration",
+      "learningObjective": "Apply oxide classification, salt solubility and hydration concepts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-005",
+      "objectiveId": "igcse-0620-145-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "An oxide reacts with both an acid and an alkali, producing a salt and water in each case. Classify it, give two syllabus examples of this class, and explain why observing reaction with acid alone would not establish this classification.",
+      "answer": "It is amphoteric. Aluminium oxide and zinc oxide are examples. Reaction with acid alone is also shown by ordinary basic oxides, so a reaction with a base must also be established.",
+      "explanation": "Amphoteric behaviour requires evidence of both types of reaction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Name amphoteric.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Give aluminium oxide/Al2O3.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Give zinc oxide/ZnO.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain acid reaction alone cannot distinguish it from a basic oxide.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Oxides and salts",
+      "subtopic": "Classification, solubility and hydration",
+      "learningObjective": "Apply oxide classification, salt solubility and hydration concepts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-006",
+      "objectiveId": "igcse-0620-145-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Use general solubility rules to classify potassium nitrate, silver chloride, calcium carbonate and sodium carbonate as soluble or insoluble in water. Give the relevant rule or exception for each.",
+      "answer": "Potassium nitrate is soluble: potassium salts and nitrates are soluble. Silver chloride is insoluble: silver is an exception to the generally soluble chlorides. Calcium carbonate is insoluble: most carbonates are insoluble. Sodium carbonate is soluble: sodium salts are soluble and are an exception to the carbonate rule.",
+      "explanation": "The cation can create an exception to an anion-based rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct potassium nitrate classification and rule.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Correct silver chloride classification and exception.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Correct calcium carbonate classification and rule.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Correct sodium carbonate classification and exception.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Oxides and salts",
+      "subtopic": "Classification, solubility and hydration",
+      "learningObjective": "Apply oxide classification, salt solubility and hydration concepts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-007",
+      "objectiveId": "igcse-0620-145-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A pure hydrated copper(II) sulfate sample has mass 2.50 g. Heating to remove only its water of crystallisation leaves 1.60 g anhydrous CuSO4. Given Mr(CuSO4)=160 and Mr(H2O)=18, determine x in CuSO4·xH2O and explain what water of crystallisation means.",
+      "answer": "Water lost = 0.90 g. Amounts: CuSO4 = 1.60/160 = 0.0100 mol; water = 0.90/18 = 0.0500 mol. The ratio is 1:5, so x=5. Water of crystallisation consists of water molecules chemically associated with the hydrated crystal in a fixed ratio.",
+      "explanation": "The calculation assumes no loss or decomposition of the anhydrous salt.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 0.90 g water loss.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 0.0100 mol CuSO4.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate 0.0500 mol H2O and the 1:5 ratio, giving x=5.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain water molecules present in hydrated crystals in a fixed ratio.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "2.50-1.60",
+          "expected": "0.90",
+          "purpose": "Water mass lost, g"
+        },
+        {
+          "expression": "1.60/160",
+          "expected": "0.01",
+          "purpose": "Amount of anhydrous copper sulfate, mol"
+        },
+        {
+          "expression": "0.90/18/(1.60/160)",
+          "expected": "5",
+          "purpose": "Hydration number x"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Oxides and salts",
+      "subtopic": "Classification, solubility and hydration",
+      "learningObjective": "Apply oxide classification, salt solubility and hydration concepts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-008",
+      "objectiveId": "igcse-0620-145-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A learner proposes making pure potassium chloride by adding excess aqueous potassium hydroxide to hydrochloric acid and filtering. Explain why filtration cannot remove the excess reagent. Outline a suitable way to choose the reacting quantities and obtain uncontaminated crystals.",
+      "answer": "Excess potassium hydroxide is dissolved and passes through filter paper. Find the neutralising quantities by titration using a suitable indicator. Repeat with the measured quantities without indicator to avoid indicator contamination. Concentrate the neutral solution suitably, cool to crystallise, then collect and dry the crystals.",
+      "explanation": "A soluble excess reagent requires controlled reacting quantities rather than filtration.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain dissolved excess hydroxide passes through the filter.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Use titration to determine neutralising quantities.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Repeat without indicator using the determined quantities.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Concentrate, cool, collect and dry crystals.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Water chemistry",
+      "subtopic": "Purity and treatment",
+      "learningObjective": "Distinguish water identification, purity, treatment and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-009",
+      "objectiveId": "igcse-0620-145-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A colourless liquid turns blue anhydrous cobalt(II) chloride pink. A learner concludes it is pure water. Assess the conclusion and suggest a physical measurement that would help assess purity, including a necessary condition for interpreting it.",
+      "answer": "The pink colour shows water is present, not that it is pure. A water-containing mixture can also give that test. Measure its boiling point and compare it with the value for pure water at the same pressure, for example 100°C at standard atmospheric pressure. A matching value supports but does not by itself prove complete purity.",
+      "explanation": "Identification of a component and assessment of purity are separate tasks.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State the test indicates water presence.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain a mixture containing water can also give the colour change.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Suggest boiling point with the appropriate pure-water reference.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Specify equal/known pressure or a limitation of a matching boiling point.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Water chemistry",
+      "subtopic": "Purity and treatment",
+      "learningObjective": "Distinguish water identification, purity, treatment and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-010",
+      "objectiveId": "igcse-0620-145-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Equal volumes of distilled water and tap water are evaporated separately in clean dishes. The tap water leaves more solid residue. Explain this result and why distilled water is preferred for preparing solutions used in chemical tests. Does absence of visible residue establish that a sample is safe to drink?",
+      "answer": "Tap water contains more dissolved non-volatile substances, which remain as residue when water evaporates. Distilled water has fewer dissolved impurities. These impurities could react with test reagents and give misleading observations. No visible residue does not establish absence of microbes or other harmful contaminants, so it does not prove drinking safety.",
+      "explanation": "A residue test samples only one aspect of water quality.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link residue to dissolved non-volatile substances.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State distilled water has fewer impurities.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain impurities may interfere with chemical tests.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Reject drinking-safety inference and identify an untested hazard.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Water chemistry",
+      "subtopic": "Purity and treatment",
+      "learningObjective": "Distinguish water identification, purity, treatment and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-011",
+      "objectiveId": "igcse-0620-145-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A water-treatment diagram labels three stages: settling followed by filtration; passage through carbon; chlorination. Explain the distinct purpose of each stage and why clear water after filtration alone cannot be assumed free of harmful microbes.",
+      "answer": "Settling and filtration remove suspended solids. Carbon removes unwanted tastes and odours. Chlorination kills harmful microbes. Some microbes can remain after removal of visible solids, so clarity alone does not establish microbiological safety.",
+      "explanation": "Different treatment stages address different classes of impurity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Give suspended-solid removal.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Give taste/odour removal by carbon.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Give killing microbes by chlorination.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain clarity does not show all microbes are absent.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Water chemistry",
+      "subtopic": "Purity and treatment",
+      "learningObjective": "Distinguish water identification, purity, treatment and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-012",
+      "objectiveId": "igcse-0620-145-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A stream contains dissolved oxygen and small amounts of mineral compounds. After fertiliser-rich runoff enters, its dissolved oxygen concentration falls. Explain why not all dissolved substances should be described as pollution and identify two nutrient ions in runoff that can damage aquatic life through deoxygenation.",
+      "answer": "Dissolved oxygen supports aquatic life and some mineral compounds provide essential nutrients. Nitrate and phosphate ions from runoff can lead to deoxygenation. Less dissolved oxygen threatens aquatic organisms that need oxygen for respiration.",
+      "explanation": "The nature and amount of a dissolved substance matter; the detailed eutrophication sequence is not required here.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State oxygen supports aquatic life.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State some mineral compounds supply essential minerals.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Identify both nitrates and phosphates.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Link reduced dissolved oxygen to harm to oxygen-dependent aquatic life.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Air and fertilisers",
+      "subtopic": "Composition, nutrients and pollutants",
+      "learningObjective": "Explain nutrient supply, air composition and combustion-related pollution.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-013",
+      "objectiveId": "igcse-0620-145-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A fertiliser blend contains ammonium nitrate and potassium phosphate. Explain what NPK stands for and how the two named ingredients collectively supply all three of these elements. State the purpose of supplying these nutrients.",
+      "answer": "NPK refers to nitrogen, phosphorus and potassium. Ammonium nitrate provides nitrogen through its ammonium and nitrate ions. Potassium phosphate provides potassium and phosphorus. The blend supplies these elements for improved plant growth; it need not consist of the elements in their uncombined forms.",
+      "explanation": "Element symbols on a fertiliser label name nutrients rather than imply free elemental substances.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Name nitrogen, phosphorus and potassium.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify ammonium nitrate as the nitrogen source.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Identify potassium phosphate as the potassium and phosphorus source.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Link the nutrients to improved plant growth or explain they occur in compounds, not necessarily as free elements.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Air and fertilisers",
+      "subtopic": "Composition, nutrients and pollutants",
+      "learningObjective": "Explain nutrient supply, air composition and combustion-related pollution.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-014",
+      "objectiveId": "igcse-0620-145-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "In a simplified experiment at constant temperature and pressure, oxygen is completely removed from 100 cm³ of clean, dry air, leaving about 79 cm³. Estimate the original oxygen percentage and explain why the residue should not be labelled pure nitrogen. Name two types of gas that can remain with nitrogen.",
+      "answer": "About 21 cm³ oxygen was removed, so the initial oxygen percentage was about 21%. The residue is a mixture, not pure nitrogen. Noble gases such as argon and carbon dioxide can remain alongside nitrogen.",
+      "explanation": "Air is a mixture; removing its oxygen does not remove every minor constituent.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 21 cm³ removed.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate or state approximately 21% oxygen.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Reject pure nitrogen because minor air constituents remain.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Name noble gas(es) and carbon dioxide.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "100-79",
+          "expected": "21",
+          "purpose": "Oxygen volume removed, cm3"
+        },
+        {
+          "expression": "(100-79)/100*100",
+          "expected": "21",
+          "purpose": "Oxygen percentage by volume"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Air and fertilisers",
+      "subtopic": "Composition, nutrients and pollutants",
+      "learningObjective": "Explain nutrient supply, air composition and combustion-related pollution.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-015",
+      "objectiveId": "igcse-0620-145-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A fuel burner receives too little oxygen and deposits black soot. Identify two products associated with incomplete combustion of a carbon-containing fuel and one adverse effect of each. Explain why increasing oxygen supply can reduce their formation.",
+      "answer": "Incomplete combustion can form carbon monoxide and carbon particulates/soot. Carbon monoxide is toxic; particulates increase the risk of respiratory problems. More oxygen allows more complete oxidation of the fuel carbon to carbon dioxide, reducing formation of carbon monoxide and soot under suitable combustion conditions.",
+      "explanation": "A visible soot deposit does not mean the other combustion gases are harmless.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify carbon monoxide and carbon particulates.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State toxicity of carbon monoxide.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State respiratory harm from particulates.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain more complete oxidation with adequate oxygen.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Air and fertilisers",
+      "subtopic": "Composition, nutrients and pollutants",
+      "learningObjective": "Explain nutrient supply, air composition and combustion-related pollution.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-016",
+      "objectiveId": "igcse-0620-145-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A catalytic converter allows carbon monoxide to react with nitrogen monoxide: 2CO + 2NO → 2CO2 + N2. Identify which reactant is oxidised and which is reduced, and explain one benefit of removing each reactant from vehicle exhaust.",
+      "answer": "Carbon monoxide is oxidised because it gains oxygen to form carbon dioxide. Nitrogen monoxide is reduced because it loses oxygen to form nitrogen. Removing carbon monoxide reduces a toxic pollutant. Removing nitrogen monoxide reduces an oxide of nitrogen associated with acid rain, photochemical smog or respiratory problems.",
+      "explanation": "The converter reaction reduces these pollutants but its carbon dioxide product is still a greenhouse gas.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify CO oxidation by oxygen gain.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify NO reduction by oxygen loss.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Link CO removal to reduced toxic-gas pollution.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give an appropriate adverse effect reduced by removing an oxide of nitrogen.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Experimental planning",
+      "subtopic": "Solutions, titration and precipitation",
+      "learningObjective": "Evaluate controlled measurements and preparation of pure salts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-017",
+      "objectiveId": "igcse-0620-145-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Plan a supervised investigation of how temperature affects the solubility of a solid in water. Describe how to make a saturated solution at each temperature, one quantity to control, and how to obtain comparable numerical results. No measurements have yet been made.",
+      "answer": "At each controlled temperature, stir a known mass of water with sufficient solid until undissolved solid remains and equilibrium is reached. Separate a measured sample of clear saturated solution without changing its temperature. Determine its dissolved-solid and water masses by suitable weighing and evaporation. Calculate grams of solute per 100 g water, use the same procedure at several temperatures, and repeat to check consistency.",
+      "explanation": "Temperature must be maintained during equilibration and sampling; a fixed amount merely dissolving is not evidence of saturation.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Vary and maintain temperature systematically.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Establish saturation with excess solid and sufficient stirring/time.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Maintain temperature during separation/sampling and control water quantity or sampling procedure.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Determine dissolved-solid and water masses for a solute-per-water comparison.",
+          "marks": 1
+        },
+        {
+          "step": 5,
+          "description": "Use several temperatures and repeats.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Experimental planning",
+      "subtopic": "Solutions, titration and precipitation",
+      "learningObjective": "Evaluate controlled measurements and preparation of pure salts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-018",
+      "objectiveId": "igcse-0620-145-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "During an acid–alkali titration, a learner rinses the conical flask with distilled water after measuring alkali into it using a volumetric pipette. All the rinse water stays in the flask. Explain whether this changes the moles of alkali, the volume of acid needed for neutralisation, or the alkali concentration in the flask. State why the flask should not instead be rinsed with extra alkali after the measured portion is added.",
+      "answer": "Distilled water adds no alkali, so the alkali amount is unchanged. The required neutralising acid volume is therefore unchanged. The alkali concentration in the flask decreases because its volume increases. Rinsing with extra alkali would add an unmeasured amount and increase the required acid volume.",
+      "explanation": "Neutralisation depends on reacting amounts; dilution alone does not alter the measured alkali amount.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State alkali moles unchanged.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State required acid volume unchanged and link to unchanged reacting amount.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State alkali concentration decreases.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain extra alkali introduces an unmeasured reacting amount.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Experimental planning",
+      "subtopic": "Solutions, titration and precipitation",
+      "learningObjective": "Evaluate controlled measurements and preparation of pure salts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-019",
+      "objectiveId": "igcse-0620-145-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "An acid burette is washed with water, drained but left wet, then filled with acid without an acid rinse. The acid solution originally has a known concentration. Explain the effect of the water, the likely effect on titre for a fixed alkali portion, and how to prevent this error.",
+      "answer": "Residual water dilutes the acid in the burette. The acid now supplies fewer hydrogen ions per unit volume than expected. A larger volume is required to neutralise the fixed alkali amount. Rinse the burette with small portions of the acid before filling, and discard those rinses appropriately.",
+      "explanation": "An apparatus rinse is different from adding water to the conical flask: here it changes the delivered titrant concentration.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify acid dilution.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain lower reacting amount per unit volume.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Predict larger required titre.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Specify an acid rinse before filling.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Experimental planning",
+      "subtopic": "Solutions, titration and precipitation",
+      "learningObjective": "Evaluate controlled measurements and preparation of pure salts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-020",
+      "objectiveId": "igcse-0620-145-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A student mixes aqueous magnesium chloride with excess aqueous sodium carbonate to prepare magnesium carbonate. Describe how to isolate and purify the solid. Explain why simply evaporating the entire mixture would give an impure product.",
+      "answer": "Filter the mixture to collect insoluble magnesium carbonate. Wash the residue with distilled water to remove dissolved sodium chloride and excess sodium carbonate. Dry the washed solid suitably. Evaporating all the liquid would also recover soluble salts, mixing them with the desired precipitate.",
+      "explanation": "Purifying a precipitate involves removing the soluble substances that remain in its mother liquor.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Filter to collect magnesium carbonate residue.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Wash with distilled water.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain washing removes dissolved sodium chloride/excess carbonate.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Dry the solid and explain whole-mixture evaporation retains soluble impurities.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Analytical evaluation",
+      "subtopic": "Separation and diagnostic tests",
+      "learningObjective": "Evaluate separation methods and controlled qualitative analysis.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-021",
+      "objectiveId": "igcse-0620-145-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A colourless mixture is separated by paper chromatography. No spots are visible after the paper dries. Explain why that alone does not show separation failed, how a suitable locating agent helps, and why any comparison with reference samples must use the same solvent and conditions. State whether a matching reference spot uniquely proves chemical identity.",
+      "answer": "The separated compounds may be colourless, so invisible spots do not establish failure. A suitable locating agent makes their positions visible. Reference samples should run under the same solvent and conditions because the movement of substances depends on those conditions. Matching positions support an identification but are not unique proof of chemical identity.",
+      "explanation": "A visualisation step reveals colourless substances; changing the solvent changes the basis of comparison.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain invisible colourless compounds may have separated.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Use a suitable locating agent to reveal spots.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Link same conditions to meaningful movement comparison.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "State matching positions support but do not uniquely prove identity.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Analytical evaluation",
+      "subtopic": "Separation and diagnostic tests",
+      "learningObjective": "Evaluate separation methods and controlled qualitative analysis.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-022",
+      "objectiveId": "igcse-0620-145-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A learner must recover water, rather than salt crystals, from salt solution by simple distillation. Explain the roles of the heated flask and condenser, where the collected water comes from, and why the flask should not be heated until completely dry.",
+      "answer": "Water vaporises from the heated solution while the non-volatile salt remains in the flask. The condenser removes thermal energy from water vapour and turns it back into liquid. The collected distillate is condensed water vapour. Stop while some liquid remains to avoid overheating a dry residue and associated spitting or damage.",
+      "explanation": "Collecting the condensed solvent distinguishes distillation from evaporation intended to retain a solute.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Describe water vaporisation with salt remaining.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain condenser cools vapour to liquid.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Identify distillate as condensed water vapour, not filtered salt solution.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give an appropriate reason to avoid heating the residue to dryness.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Analytical evaluation",
+      "subtopic": "Separation and diagnostic tests",
+      "learningObjective": "Evaluate separation methods and controlled qualitative analysis.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-023",
+      "objectiveId": "igcse-0620-145-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Two unknown solutions each give a white precipitate soluble in excess aqueous sodium hydroxide. The cations are known to be Al3+ and Zn2+, one in each solution. Plan a test with fresh portions that distinguishes them, giving the expected observation for each and why fresh portions are used.",
+      "answer": "Add aqueous ammonia dropwise and then in excess to fresh portions. Both initially give white precipitates. The zinc precipitate dissolves in excess ammonia, whereas the aluminium precipitate remains insoluble. Fresh portions avoid interference from the previous sodium hydroxide treatment.",
+      "explanation": "The initial sodium hydroxide result does not uniquely identify either of these ions.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use aqueous ammonia in excess on fresh portions.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State initial white precipitates.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Distinguish zinc dissolving from aluminium remaining insoluble in excess ammonia.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain fresh portions avoid interference from prior reagent.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Analytical evaluation",
+      "subtopic": "Separation and diagnostic tests",
+      "learningObjective": "Evaluate separation methods and controlled qualitative analysis.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-145-024",
+      "objectiveId": "igcse-0620-145-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A learner wants to test an unknown solution for chloride ions by adding dilute hydrochloric acid followed by aqueous silver nitrate. Identify the flaw, give a suitable acid, predict the observation for chloride and explain the value of testing a reagent blank.",
+      "answer": "Hydrochloric acid introduces chloride ions and can create a false positive. Use dilute nitric acid instead. Chloride gives a white precipitate of silver chloride with aqueous silver nitrate. A blank containing distilled water and the same reagents checks whether contamination or the reagents themselves produce the precipitate.",
+      "explanation": "A diagnostic reagent must not introduce the ion being tested.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain hydrochloric acid introduces chloride and risks a false positive.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Choose dilute nitric acid.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State white silver chloride precipitate.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain a blank checks reagent contamination or background response.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    }
+  ]
+}

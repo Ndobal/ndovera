@@ -815,3 +815,10 @@ addresses mother-tongue learning; JSS 3 comprehension was checked visually
 because text extraction loses letters and tone marks. L2 stays unopened.
 Current adoption, full scope, paper allocation, option counts and native-
 language academic review remain outstanding.
+
+Batch 145 adds 24 IGCSE Chemistry 0620 Extended drafts: sixteen structured
+theory and eight written practical-evaluation tasks. The official 2026–2028
+version 2 source was retrieved again and hashed. Six narrower objective
+mappings extend acids, salts, water, air and analysis coverage. Original
+marking guides and arithmetic checks do not confer academic approval;
+full content coverage and independent review remain incomplete.

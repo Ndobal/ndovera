@@ -192,7 +192,11 @@
         "Core",
         "Extended"
       ],
-      "coverageComplete": false
+      "coverageComplete": false,
+      "lastRecheckedOn": "2026-11-08",
+      "sourceSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
+      "sourceBytes": 1121078,
+      "pageCount": 59
     },
     {
       "id": "waec-commerce-compilation-2026",
@@ -17306,6 +17310,177 @@
         "Historical NERDC Yoruba foreword PDF p. 4 (iv), native-language audience; curriculum printed/PDF p. 28, JSS 3 comprehension"
       ],
       "mappingStatus": "provisional_historical_jss3_receptive_practice_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-145-01-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids and bases",
+      "subtopic": "Properties, ions and strength",
+      "learningObjective": "Explain acid and base properties using ions and dissociation.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "7.1 Core 1–8; Supplement 9–12"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-145-02-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Oxides and salts",
+      "subtopic": "Classification, solubility and hydration",
+      "learningObjective": "Apply oxide classification, salt solubility and hydration concepts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "7.2 Core 1; Supplement 2–3",
+        "7.3 Core 1–3; Supplement 4–5"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-145-03-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Water chemistry",
+      "subtopic": "Purity and treatment",
+      "learningObjective": "Distinguish water identification, purity, treatment and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "10.1 Core 1–7"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-145-04-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Air and fertilisers",
+      "subtopic": "Composition, nutrients and pollutants",
+      "learningObjective": "Explain nutrient supply, air composition and combustion-related pollution.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "10.2 Core 1–2",
+        "10.3 Core 1–4; Supplement 8",
+        "6.4 Core 2–5"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-145-05-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Experimental planning",
+      "subtopic": "Solutions, titration and precipitation",
+      "learningObjective": "Evaluate controlled measurements and preparation of pure salts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "7.3 Core 1; Supplement 4",
+        "12.1 Core 1–3",
+        "12.2 Core 1–2",
+        "Section 4 practical assessment, printed pp. 41–42"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0620-145-06-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Analytical evaluation",
+      "subtopic": "Separation and diagnostic tests",
+      "learningObjective": "Evaluate separation methods and controlled qualitative analysis.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "12.3 Core 1–2; Supplement 3",
+        "12.4 Core 1–3",
+        "12.5 Core 1–3",
+        "Section 4 practical assessment, printed pp. 41–42"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
       "officialObjectiveCode": null
     }
   ],

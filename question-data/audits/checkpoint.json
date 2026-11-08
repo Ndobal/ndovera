@@ -2,27 +2,27 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_144_automated_validation_passed",
+  "phase": "batch_145_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-145.json",
+  "nextBatch": "original-multisubject-batch-146.json",
   "nextPriorities": [
-    "Expand source-verified IGCSE Chemistry 0620 (2026–2028) to underrepresented content objectives and theory/practical-planning formats after inspecting current coverage. Yoruba L1 now has eight provisional historical JSS 3 reading drafts; L2 remains unopened. Preserve Igbo L1/L2, Hausa L2 and BECE Pre-Vocational source gaps; obtain route-specific official learner syllabuses and verify cohort adoption.",
+    "Expand source-verified IGCSE Biology 0610 (2026–2028) to underrepresented content objectives and practical data/planning tasks after inspecting current coverage. Chemistry now has 74 automated-valid drafts including batch 145, with six narrower mappings and sixteen theory/eight practical-evaluation additions. Full objective denominators, Core-only suitability of older items and independent review remain open. Preserve unresolved BECE routes and exact-class adoption gaps.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-144.json",
-  "lastRemoteVerifiedCommit": "3f153c1274783d14622625689ecb2640c6c4690b",
+  "lastValidatedBatch": "original-multisubject-batch-145.json",
+  "lastRemoteVerifiedCommit": "ac1db84e5f5b7ce60e6a7a2caa934a1b2892ff91",
   "verifiedTotals": {
-    "raw": 3696,
-    "validDrafts": 2017,
+    "raw": 3720,
+    "validDrafts": 2041,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-144.json",
+  "lastPopulatedBatch": "original-multisubject-batch-145.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3696,
+  "inventoryRaw": 3720,
   "lastSourceUpdate": "igbo-jss3-historical-scope-inventory.json"
 }

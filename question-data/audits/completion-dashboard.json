@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3696,
-    "validDrafts": 2017,
+    "raw": 3720,
+    "validDrafts": 2041,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1000,6 +1000,12 @@
       "actual": 8
     },
     {
+      "path": "original-multisubject-batch-145.json",
+      "sha256": "a01f069be0d650f2f77ae1eb661b45f5dd2b5738377340e57d93b5481e8b1be6",
+      "declared": 24,
+      "actual": 24
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1834,22 +1840,22 @@
         2028
       ],
       "note": "Only code-specific questions may count; legacy unassigned entries remain held. Other Cambridge codes are separate unresolved scope.",
-      "raw": 52,
-      "validDrafts": 50,
+      "raw": 76,
+      "validDrafts": 74,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 32,
-        "structured": 20
+        "structured": 44
       },
       "difficulty": {
-        "standard": 29,
+        "standard": 49,
         "easy": 17,
-        "difficult": 4,
+        "difficult": 8,
         "missing": 2
       },
-      "remaining": 950,
-      "mappedObjectives": 9,
-      "representedObjectives": 9,
+      "remaining": 926,
+      "mappedObjectives": 15,
+      "representedObjectives": 15,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5847,21 +5853,21 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 259,
+    "explicitArithmeticClaims": 264,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -32540,6 +32546,150 @@
       "id": "ndv-144-008",
       "file": "original-multisubject-batch-144.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-001",
+      "file": "original-multisubject-batch-145.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-002",
+      "file": "original-multisubject-batch-145.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-003",
+      "file": "original-multisubject-batch-145.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-004",
+      "file": "original-multisubject-batch-145.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-005",
+      "file": "original-multisubject-batch-145.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-006",
+      "file": "original-multisubject-batch-145.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-007",
+      "file": "original-multisubject-batch-145.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-008",
+      "file": "original-multisubject-batch-145.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-009",
+      "file": "original-multisubject-batch-145.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-010",
+      "file": "original-multisubject-batch-145.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-011",
+      "file": "original-multisubject-batch-145.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-012",
+      "file": "original-multisubject-batch-145.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-013",
+      "file": "original-multisubject-batch-145.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-014",
+      "file": "original-multisubject-batch-145.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-015",
+      "file": "original-multisubject-batch-145.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-016",
+      "file": "original-multisubject-batch-145.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-017",
+      "file": "original-multisubject-batch-145.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-018",
+      "file": "original-multisubject-batch-145.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-019",
+      "file": "original-multisubject-batch-145.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-020",
+      "file": "original-multisubject-batch-145.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-021",
+      "file": "original-multisubject-batch-145.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-022",
+      "file": "original-multisubject-batch-145.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-023",
+      "file": "original-multisubject-batch-145.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-145-024",
+      "file": "original-multisubject-batch-145.json",
+      "index": 23,
       "errors": []
     },
     {
@@ -66018,6 +66168,246 @@
         "not_specified": 4
       },
       "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-145-01-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Acids and bases",
+      "subtopic": "Properties, ions and strength",
+      "learningObjective": "Explain acid and base properties using ions and dissociation.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "7.1 Core 1–8; Supplement 9–12"
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Extended": 4
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "assessmentObjectives": {
+        "AO2": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-145-02-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Oxides and salts",
+      "subtopic": "Classification, solubility and hydration",
+      "learningObjective": "Apply oxide classification, salt solubility and hydration concepts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "7.2 Core 1; Supplement 2–3",
+        "7.3 Core 1–3; Supplement 4–5"
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Extended": 4
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-145-03-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Water chemistry",
+      "subtopic": "Purity and treatment",
+      "learningObjective": "Distinguish water identification, purity, treatment and environmental effects.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "10.1 Core 1–7"
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Extended": 4
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "assessmentObjectives": {
+        "AO2": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-145-04-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Air and fertilisers",
+      "subtopic": "Composition, nutrients and pollutants",
+      "learningObjective": "Explain nutrient supply, air composition and combustion-related pollution.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "10.2 Core 1–2",
+        "10.3 Core 1–4; Supplement 8",
+        "6.4 Core 2–5"
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Extended": 4
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "assessmentObjectives": {
+        "AO2": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-145-05-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Experimental planning",
+      "subtopic": "Solutions, titration and precipitation",
+      "learningObjective": "Evaluate controlled measurements and preparation of pure salts.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "7.3 Core 1; Supplement 4",
+        "12.1 Core 1–3",
+        "12.2 Core 1–2",
+        "Section 4 practical assessment, printed pp. 41–42"
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Extended": 4
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "difficult": 2,
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO3": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0620-145-06-v1",
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Analytical evaluation",
+      "subtopic": "Separation and diagnostic tests",
+      "learningObjective": "Evaluate separation methods and controlled qualitative analysis.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "2",
+      "sourceSections": [
+        "12.3 Core 1–2; Supplement 3",
+        "12.4 Core 1–3",
+        "12.5 Core 1–3",
+        "Section 4 practical assessment, printed pp. 41–42"
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Extended": 4
+      },
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 4
+      },
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
