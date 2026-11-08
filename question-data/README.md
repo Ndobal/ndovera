@@ -905,3 +905,10 @@ seven-/ten-minute task timings and discussion guidance were checked.
 Original models and analytic ten-point practice guides do not represent
 official scoring. No email minimum length is inferred. Manual language
 review, broader task coverage and full-section assembly remain open.
+
+Batch 158 adds 24 original TOEFL Build a Sentence drafts and reconciles
+the five earlier drills to explicit exchanges, frames and chunk banks.
+The freshly retrieved ETS overview p13 shows an unused-word example;
+this is not made a universal rule. Assembly checks verify accounting and
+reconstruction, not linguistic uniqueness or official scoring. Full
+delivery validation and independent academic review remain open.

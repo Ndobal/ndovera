@@ -1,0 +1,1576 @@
+{
+  "schemaVersion": 2,
+  "collection": "TOEFL original contextual sentence assembly",
+  "questionCount": 24,
+  "note": "Twenty-four original two-speaker reconstruction tasks with fixed frames and machine-readable chunks. Some author-created banks include one unused chunk; the official example does not establish a universal distractor rule. One-point practice, not a complete timed Writing section. No per-item time limit inferred. All drafts await independent academic review.",
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-001",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: What do you need to find out about the lecture?\nSpeaker B: Do _____ _____ _____ _____ _____?\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [when] | [the lecture] | [starts] | [does] | [you] | [know]",
+      "answer": "Do you know when the lecture starts?",
+      "explanation": "An embedded question after know uses statement order, not direct-question inversion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "What do you need to find out about the lecture?",
+        "frame": "Do {1} {2} {3} {4} {5}?",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "when"
+          },
+          {
+            "id": "c4",
+            "text": "the lecture"
+          },
+          {
+            "id": "c5",
+            "text": "starts"
+          },
+          {
+            "id": "x1",
+            "text": "does"
+          },
+          {
+            "id": "c1",
+            "text": "you"
+          },
+          {
+            "id": "c2",
+            "text": "know"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-002",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Why did you return the camera?\nSpeaker B: It _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [for] | [one afternoon] | [borrowing] | [had] | [been borrowed]",
+      "answer": "It had been borrowed for one afternoon.",
+      "explanation": "The past-perfect passive describes an earlier borrowing arrangement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Why did you return the camera?",
+        "frame": "It {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "for"
+          },
+          {
+            "id": "c4",
+            "text": "one afternoon"
+          },
+          {
+            "id": "x1",
+            "text": "borrowing"
+          },
+          {
+            "id": "c1",
+            "text": "had"
+          },
+          {
+            "id": "c2",
+            "text": "been borrowed"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-003",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Which students will present first?\nSpeaker B: The students _____ _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [the survey] | [will] | [present first] | [presents] | [who] | [completed]",
+      "answer": "The students who completed the survey will present first.",
+      "explanation": "The relative clause identifies the students; the main clause requires an uninflected verb after will.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Which students will present first?",
+        "frame": "The students {1} {2} {3} {4} {5}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "the survey"
+          },
+          {
+            "id": "c4",
+            "text": "will"
+          },
+          {
+            "id": "c5",
+            "text": "present first"
+          },
+          {
+            "id": "x1",
+            "text": "presents"
+          },
+          {
+            "id": "c1",
+            "text": "who"
+          },
+          {
+            "id": "c2",
+            "text": "completed"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-004",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: How can I join the online meeting?\nSpeaker B: You can _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [or] | [enter the meeting code] | [either] | [use the link]",
+      "answer": "You can either use the link or enter the meeting code.",
+      "explanation": "Either and or link parallel alternatives after the modal can.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "How can I join the online meeting?",
+        "frame": "You can {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "or"
+          },
+          {
+            "id": "c4",
+            "text": "enter the meeting code"
+          },
+          {
+            "id": "c1",
+            "text": "either"
+          },
+          {
+            "id": "c2",
+            "text": "use the link"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-005",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Was the second route preferable?\nSpeaker B: It was _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [but] | [less clearly marked] | [shortest] | [shorter] | [than the first]",
+      "answer": "It was shorter than the first but less clearly marked.",
+      "explanation": "The comparative shorter takes than; but introduces a contrasting disadvantage.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Was the second route preferable?",
+        "frame": "It was {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "but"
+          },
+          {
+            "id": "c4",
+            "text": "less clearly marked"
+          },
+          {
+            "id": "x1",
+            "text": "shortest"
+          },
+          {
+            "id": "c1",
+            "text": "shorter"
+          },
+          {
+            "id": "c2",
+            "text": "than the first"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-006",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Can we finish the outdoor survey tomorrow?\nSpeaker B: If _____, _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [tomorrow] | [could finished] | [the rain stops] | [we can finish it]",
+      "answer": "If the rain stops, we can finish it tomorrow.",
+      "explanation": "A present-tense condition can introduce a future possibility expressed with can.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Can we finish the outdoor survey tomorrow?",
+        "frame": "If {1}, {2} {3}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "tomorrow"
+          },
+          {
+            "id": "x1",
+            "text": "could finished"
+          },
+          {
+            "id": "c1",
+            "text": "the rain stops"
+          },
+          {
+            "id": "c2",
+            "text": "we can finish it"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-007",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Why was the room empty when you arrived?\nSpeaker B: The discussion _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [by the time] | [I arrived] | [had] | [already ended]",
+      "answer": "The discussion had already ended by the time I arrived.",
+      "explanation": "Past perfect places the ending before another past event.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Why was the room empty when you arrived?",
+        "frame": "The discussion {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "by the time"
+          },
+          {
+            "id": "c4",
+            "text": "I arrived"
+          },
+          {
+            "id": "c1",
+            "text": "had"
+          },
+          {
+            "id": "c2",
+            "text": "already ended"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-008",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Could the missing email have reached another address?\nSpeaker B: It _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [sent] | [to the old address] | [sending] | [might] | [have been]",
+      "answer": "It might have been sent to the old address.",
+      "explanation": "Might have been sent expresses a possible past event in the passive.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Could the missing email have reached another address?",
+        "frame": "It {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "sent"
+          },
+          {
+            "id": "c4",
+            "text": "to the old address"
+          },
+          {
+            "id": "x1",
+            "text": "sending"
+          },
+          {
+            "id": "c1",
+            "text": "might"
+          },
+          {
+            "id": "c2",
+            "text": "have been"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-009",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: What would you like to know about the printer?\nSpeaker B: Where _____ _____ _____?\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [go] | [goes] | [does] | [the paper]",
+      "answer": "Where does the paper go?",
+      "explanation": "A direct question uses does followed by the base form go.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "What would you like to know about the printer?",
+        "frame": "Where {1} {2} {3}?",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "go"
+          },
+          {
+            "id": "x1",
+            "text": "goes"
+          },
+          {
+            "id": "c1",
+            "text": "does"
+          },
+          {
+            "id": "c2",
+            "text": "the paper"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-010",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Why are the chairs still outside?\nSpeaker B: Although _____ _____, _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [the room] | [is still locked] | [the event] | [has finished]",
+      "answer": "Although the event has finished, the room is still locked.",
+      "explanation": "Although introduces a concession contrasting the finished event with the locked room.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Why are the chairs still outside?",
+        "frame": "Although {1} {2}, {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "the room"
+          },
+          {
+            "id": "c4",
+            "text": "is still locked"
+          },
+          {
+            "id": "c1",
+            "text": "the event"
+          },
+          {
+            "id": "c2",
+            "text": "has finished"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-011",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Why did you call the archive?\nSpeaker B: I called _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [access] | [to the collection] | [to ask] | [about]",
+      "answer": "I called to ask about access to the collection.",
+      "explanation": "The infinitive of purpose explains the reason for calling; about introduces the topic.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Why did you call the archive?",
+        "frame": "I called {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "access"
+          },
+          {
+            "id": "c4",
+            "text": "to the collection"
+          },
+          {
+            "id": "c1",
+            "text": "to ask"
+          },
+          {
+            "id": "c2",
+            "text": "about"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-012",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: What did the organisers recommend?\nSpeaker B: They suggested _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [before] | [announcing the event] | [to book] | [booking] | [the room]",
+      "answer": "They suggested booking the room before announcing the event.",
+      "explanation": "Suggest can be followed by a gerund phrase; this construction does not take a to-infinitive.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "What did the organisers recommend?",
+        "frame": "They suggested {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "before"
+          },
+          {
+            "id": "c4",
+            "text": "announcing the event"
+          },
+          {
+            "id": "x1",
+            "text": "to book"
+          },
+          {
+            "id": "c1",
+            "text": "booking"
+          },
+          {
+            "id": "c2",
+            "text": "the room"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-013",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Why did you select the smaller venue?\nSpeaker B: The main reason _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [it] | [was easier to reach] | [were] | [was] | [that]",
+      "answer": "The main reason was that it was easier to reach.",
+      "explanation": "The singular subject reason takes was, followed by a that-clause explaining the choice.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Why did you select the smaller venue?",
+        "frame": "The main reason {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "it"
+          },
+          {
+            "id": "c4",
+            "text": "was easier to reach"
+          },
+          {
+            "id": "x1",
+            "text": "were"
+          },
+          {
+            "id": "c1",
+            "text": "was"
+          },
+          {
+            "id": "c2",
+            "text": "that"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-014",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Did the two groups collect the same information?\nSpeaker B: One group _____ _____, while _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [the other] | [counted passengers] | [recorded] | [travel times]",
+      "answer": "One group recorded travel times, while the other counted passengers.",
+      "explanation": "The parallel past-tense clauses contrast the two groups’ methods.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Did the two groups collect the same information?",
+        "frame": "One group {1} {2}, while {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "the other"
+          },
+          {
+            "id": "c4",
+            "text": "counted passengers"
+          },
+          {
+            "id": "c1",
+            "text": "recorded"
+          },
+          {
+            "id": "c2",
+            "text": "travel times"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-015",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Which notice needs replacing?\nSpeaker B: The notice _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [contains] | [the old timetable] | [contain] | [attached] | [to the gate]",
+      "answer": "The notice attached to the gate contains the old timetable.",
+      "explanation": "The modifying phrase does not change the singular agreement between notice and contains.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Which notice needs replacing?",
+        "frame": "The notice {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "contains"
+          },
+          {
+            "id": "c4",
+            "text": "the old timetable"
+          },
+          {
+            "id": "x1",
+            "text": "contain"
+          },
+          {
+            "id": "c1",
+            "text": "attached"
+          },
+          {
+            "id": "c2",
+            "text": "to the gate"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-016",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Will you keep the original photograph?\nSpeaker B: Yes, _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [asks me] | [to delete it] | [unless] | [the owner]",
+      "answer": "Yes, unless the owner asks me to delete it.",
+      "explanation": "Unless introduces the condition under which the intended action will change.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Will you keep the original photograph?",
+        "frame": "Yes, {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "asks me"
+          },
+          {
+            "id": "c4",
+            "text": "to delete it"
+          },
+          {
+            "id": "c1",
+            "text": "unless"
+          },
+          {
+            "id": "c2",
+            "text": "the owner"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-017",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: How should I prepare for the interview?\nSpeaker B: The coordinator _____ _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [to bring] | [one example] | [of our work] | [bringing] | [asked] | [us]",
+      "answer": "The coordinator asked us to bring one example of our work.",
+      "explanation": "Ask someone to do something takes an object followed by a to-infinitive.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "How should I prepare for the interview?",
+        "frame": "The coordinator {1} {2} {3} {4} {5}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "to bring"
+          },
+          {
+            "id": "c4",
+            "text": "one example"
+          },
+          {
+            "id": "c5",
+            "text": "of our work"
+          },
+          {
+            "id": "x1",
+            "text": "bringing"
+          },
+          {
+            "id": "c1",
+            "text": "asked"
+          },
+          {
+            "id": "c2",
+            "text": "us"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-018",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Why was the presentation difficult to follow?\nSpeaker B: Not only _____ _____ _____, but _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [too small] | [the speaker] | [also moved] | [through it quickly] | [was] | [the text]",
+      "answer": "Not only was the text too small, but the speaker also moved through it quickly.",
+      "explanation": "Fronted not only requires subject–auxiliary inversion in this construction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Why was the presentation difficult to follow?",
+        "frame": "Not only {1} {2} {3}, but {4} {5} {6}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "too small"
+          },
+          {
+            "id": "c4",
+            "text": "the speaker"
+          },
+          {
+            "id": "c5",
+            "text": "also moved"
+          },
+          {
+            "id": "c6",
+            "text": "through it quickly"
+          },
+          {
+            "id": "c1",
+            "text": "was"
+          },
+          {
+            "id": "c2",
+            "text": "the text"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5",
+          "c6"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-019",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: What happened to the extra chairs?\nSpeaker B: They _____ _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [to storage] | [after] | [the audience left] | [were] | [returned]",
+      "answer": "They were returned to storage after the audience left.",
+      "explanation": "The past passive is followed by a clause locating the return after the departure.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "What happened to the extra chairs?",
+        "frame": "They {1} {2} {3} {4} {5}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "to storage"
+          },
+          {
+            "id": "c4",
+            "text": "after"
+          },
+          {
+            "id": "c5",
+            "text": "the audience left"
+          },
+          {
+            "id": "c1",
+            "text": "were"
+          },
+          {
+            "id": "c2",
+            "text": "returned"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-020",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: How much preparation time do we have left?\nSpeaker B: We have _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [than] | [we originally expected] | [fewer] | [less] | [time]",
+      "answer": "We have less time than we originally expected.",
+      "explanation": "Time is uncountable in this sense, so less is appropriate rather than fewer.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "How much preparation time do we have left?",
+        "frame": "We have {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "than"
+          },
+          {
+            "id": "c4",
+            "text": "we originally expected"
+          },
+          {
+            "id": "x1",
+            "text": "fewer"
+          },
+          {
+            "id": "c1",
+            "text": "less"
+          },
+          {
+            "id": "c2",
+            "text": "time"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-021",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Who checked the list?\nSpeaker B: Neither _____ _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [the assistant] | [was available] | [to check it] | [the organiser] | [nor]",
+      "answer": "Neither the organiser nor the assistant was available to check it.",
+      "explanation": "Neither…nor identifies two unavailable people; both singular subjects support was in this item.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Who checked the list?",
+        "frame": "Neither {1} {2} {3} {4} {5}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "the assistant"
+          },
+          {
+            "id": "c4",
+            "text": "was available"
+          },
+          {
+            "id": "c5",
+            "text": "to check it"
+          },
+          {
+            "id": "c1",
+            "text": "the organiser"
+          },
+          {
+            "id": "c2",
+            "text": "nor"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-022",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Why did you leave the instructions on the desk?\nSpeaker B: I wanted _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [to find] | [them easily] | [being able] | [everyone] | [to be able]",
+      "answer": "I wanted everyone to be able to find them easily.",
+      "explanation": "Want takes an object and a to-infinitive; be able is completed by to find.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Why did you leave the instructions on the desk?",
+        "frame": "I wanted {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "to find"
+          },
+          {
+            "id": "c4",
+            "text": "them easily"
+          },
+          {
+            "id": "x1",
+            "text": "being able"
+          },
+          {
+            "id": "c1",
+            "text": "everyone"
+          },
+          {
+            "id": "c2",
+            "text": "to be able"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-023",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: What would you change about the rehearsal?\nSpeaker B: I wish _____ _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [more time] | [for questions] | [have allowed] | [we] | [had allowed]",
+      "answer": "I wish we had allowed more time for questions.",
+      "explanation": "Wish followed by past perfect expresses regret about an earlier decision.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "What would you change about the rehearsal?",
+        "frame": "I wish {1} {2} {3} {4}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "more time"
+          },
+          {
+            "id": "c4",
+            "text": "for questions"
+          },
+          {
+            "id": "x1",
+            "text": "have allowed"
+          },
+          {
+            "id": "c1",
+            "text": "we"
+          },
+          {
+            "id": "c2",
+            "text": "had allowed"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Build a Sentence",
+      "subtopic": "Sentence reconstruction",
+      "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-158-024",
+      "objectiveId": "toefl-sentence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "shortanswer",
+      "prompt": "Speaker A: Can the booklet be printed now?\nSpeaker B: It can be printed _____ _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [are approved] | [as soon as] | [the final corrections]",
+      "answer": "It can be printed as soon as the final corrections are approved.",
+      "explanation": "As soon as introduces the approval event that must precede printing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Build a Sentence",
+      "score": 1,
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Can the booklet be printed now?",
+        "frame": "It can be printed {1} {2} {3}.",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "are approved"
+          },
+          {
+            "id": "c1",
+            "text": "as soon as"
+          },
+          {
+            "id": "c2",
+            "text": "the final corrections"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "practiceScoring": "One original practice point; automated checks reconstruct the designated answer but do not establish linguistic uniqueness or ETS score equivalence."
+    }
+  ]
+}

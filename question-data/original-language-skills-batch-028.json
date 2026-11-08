@@ -585,7 +585,7 @@
       "curriculum": "exam-style",
       "level": "Academic",
       "type": "shortanswer",
-      "prompt": "Your classmate asks whether you have finished the report. Reorder all chunks to make a grammatical reply: [submitted it] [I] [this morning].",
+      "prompt": "Speaker A: Have you finished the report?\nSpeaker B: I _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [this morning] | [submitted it]",
       "answer": "I submitted it this morning.",
       "explanation": "The subject precedes the verb phrase, and the time phrase follows the completed action.",
       "difficulty": "standard",
@@ -600,7 +600,29 @@
       "responseMode": "written",
       "taskType": "Build a Sentence",
       "score": 1,
-      "requiresManualReview": true
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Have you finished the report?",
+        "frame": "I {1} {2}.",
+        "chunks": [
+          {
+            "id": "c2",
+            "text": "this morning"
+          },
+          {
+            "id": "c1",
+            "text": "submitted it"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "formatReconciledOn": "2026-11-08",
+      "practiceScoring": "One original practice point for a grammatical contextual completion; manual review pending."
     },
     {
       "exam": "TOEFL",
@@ -615,7 +637,7 @@
       "curriculum": "exam-style",
       "level": "Academic",
       "type": "shortanswer",
-      "prompt": "You need to ask about a room reservation. Reorder all chunks to make a direct question: [the study room] [can] [we] [reserve] [for Friday]?",
+      "prompt": "Speaker A: What would you like to ask about the room reservation?\nSpeaker B: Can _____ _____ _____ _____?\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [the study room] | [reserving] | [for Friday] | [reserve] | [we]",
       "answer": "Can we reserve the study room for Friday?",
       "explanation": "In this modal question, can comes before the subject we, followed by the base verb reserve.",
       "difficulty": "standard",
@@ -630,7 +652,45 @@
       "responseMode": "written",
       "taskType": "Build a Sentence",
       "score": 1,
-      "requiresManualReview": true
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "What would you like to ask about the room reservation?",
+        "frame": "Can {1} {2} {3} {4}?",
+        "chunks": [
+          {
+            "id": "c3",
+            "text": "the study room"
+          },
+          {
+            "id": "x1",
+            "text": "reserving"
+          },
+          {
+            "id": "c4",
+            "text": "for Friday"
+          },
+          {
+            "id": "c2",
+            "text": "reserve"
+          },
+          {
+            "id": "c1",
+            "text": "we"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2",
+          "c3",
+          "c4"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "formatReconciledOn": "2026-11-08",
+      "practiceScoring": "One original practice point for a grammatical contextual completion; manual review pending."
     },
     {
       "exam": "TOEFL",
@@ -645,7 +705,7 @@
       "curriculum": "exam-style",
       "level": "Academic",
       "type": "shortanswer",
-      "prompt": "You are politely requesting information. Reorder all chunks: [you tell me] [could] [where the workshop is]?",
+      "prompt": "Speaker A: What information do you need about the workshop?\nSpeaker B: Could _____ _____?\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [where is the workshop] | [you tell me] | [where the workshop is]",
       "answer": "Could you tell me where the workshop is?",
       "explanation": "The main request uses modal inversion, but the embedded question keeps statement order: where the workshop is.",
       "difficulty": "standard",
@@ -660,7 +720,35 @@
       "responseMode": "written",
       "taskType": "Build a Sentence",
       "score": 1,
-      "requiresManualReview": true
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "What information do you need about the workshop?",
+        "frame": "Could {1} {2}?",
+        "chunks": [
+          {
+            "id": "x1",
+            "text": "where is the workshop"
+          },
+          {
+            "id": "c1",
+            "text": "you tell me"
+          },
+          {
+            "id": "c2",
+            "text": "where the workshop is"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "formatReconciledOn": "2026-11-08",
+      "practiceScoring": "One original practice point for a grammatical contextual completion; manual review pending."
     },
     {
       "exam": "TOEFL",
@@ -675,7 +763,7 @@
       "curriculum": "exam-style",
       "level": "Academic",
       "type": "shortanswer",
-      "prompt": "Explain a change in plans. Reorder all chunks: [because the bus was delayed] [we] [arrived late].",
+      "prompt": "Speaker A: Why did you miss the opening announcement?\nSpeaker B: We _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [because the bus was delayed] | [arrived late]",
       "answer": "We arrived late because the bus was delayed.",
       "explanation": "The main clause states the result and the because-clause gives the reason. Accept the equivalent fronted because-clause with appropriate punctuation.",
       "difficulty": "standard",
@@ -691,10 +779,28 @@
       "taskType": "Build a Sentence",
       "score": 1,
       "requiresManualReview": true,
-      "acceptedAnswers": [
-        "We arrived late because the bus was delayed.",
-        "Because the bus was delayed, we arrived late."
-      ]
+      "sentenceAssembly": {
+        "context": "Why did you miss the opening announcement?",
+        "frame": "We {1} {2}.",
+        "chunks": [
+          {
+            "id": "c2",
+            "text": "because the bus was delayed"
+          },
+          {
+            "id": "c1",
+            "text": "arrived late"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2"
+        ],
+        "unusedIds": []
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "formatReconciledOn": "2026-11-08",
+      "practiceScoring": "One original practice point for a grammatical contextual completion; manual review pending."
     },
     {
       "exam": "TOEFL",
@@ -709,7 +815,7 @@
       "curriculum": "exam-style",
       "level": "Academic",
       "type": "shortanswer",
-      "prompt": "Describe a resource for a classmate. Reorder all chunks: [the article] [that you recommended] [was helpful].",
+      "prompt": "Speaker A: Did the reading recommendation help you?\nSpeaker B: The article _____ _____.\n\nArrange the supplied chunks to complete Speaker B’s reply. Keep the fixed words and punctuation. Use each selected chunk once; some banks contain an unused chunk. Do not add or change words.\nChunks: [were helpful] | [that you recommended] | [was helpful]",
       "answer": "The article that you recommended was helpful.",
       "explanation": "The relative clause modifies article; the main clause is the article was helpful. The relative clause does not replace the main verb.",
       "difficulty": "standard",
@@ -724,7 +830,35 @@
       "responseMode": "written",
       "taskType": "Build a Sentence",
       "score": 1,
-      "requiresManualReview": true
+      "requiresManualReview": true,
+      "sentenceAssembly": {
+        "context": "Did the reading recommendation help you?",
+        "frame": "The article {1} {2}.",
+        "chunks": [
+          {
+            "id": "x1",
+            "text": "were helpful"
+          },
+          {
+            "id": "c1",
+            "text": "that you recommended"
+          },
+          {
+            "id": "c2",
+            "text": "was helpful"
+          }
+        ],
+        "answerOrder": [
+          "c1",
+          "c2"
+        ],
+        "unusedIds": [
+          "x1"
+        ]
+      },
+      "contentSourceId": "toefl-sentence-format-recheck-158-2026",
+      "formatReconciledOn": "2026-11-08",
+      "practiceScoring": "One original practice point for a grammatical contextual completion; manual review pending."
     },
     {
       "exam": "TOEFL",

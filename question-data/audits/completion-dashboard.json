@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4002,
-    "validDrafts": 2323,
+    "raw": 4026,
+    "validDrafts": 2347,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -59,7 +59,7 @@
     },
     {
       "path": "original-language-skills-batch-028.json",
-      "sha256": "1aaa8c30a5e116040a7e053785e740541403fcdffc1ce648bfa4e61812f8f2a1",
+      "sha256": "0277bfd6dd64e1473cae79196fd21954a882d568fdc68251286a7c478009a45d",
       "declared": 20,
       "actual": 20
     },
@@ -1076,6 +1076,12 @@
       "sha256": "6f55ad34cddfbadd34fb1d47cfae5a78cb48b46d687545d220736804b234664a",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-158.json",
+      "sha256": "529667bd6484545509a35e0a6d17485d9c34046b9cf92b7ff3ca0405a47d26b9",
+      "declared": 24,
+      "actual": 24
     },
     {
       "path": "original-practice-batch-001.json",
@@ -4943,19 +4949,19 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 25,
-      "validDrafts": 22,
+      "raw": 49,
+      "validDrafts": 46,
       "reviewed": 0,
       "questionTypes": {
-        "shortanswer": 5,
+        "shortanswer": 29,
         "essay": 17,
         "mcq": 3
       },
       "difficulty": {
-        "standard": 22,
+        "standard": 46,
         "missing": 3
       },
-      "remaining": 978,
+      "remaining": 954,
       "mappedObjectives": 3,
       "representedObjectives": 3,
       "coverage": "partial_objective_register",
@@ -5943,9 +5949,9 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81,
     "explanation_missing": 81,
-    "invalid_score": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 335,
@@ -34466,6 +34472,150 @@
       "errors": []
     },
     {
+      "id": "ndv-158-001",
+      "file": "original-multisubject-batch-158.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-002",
+      "file": "original-multisubject-batch-158.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-003",
+      "file": "original-multisubject-batch-158.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-004",
+      "file": "original-multisubject-batch-158.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-005",
+      "file": "original-multisubject-batch-158.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-006",
+      "file": "original-multisubject-batch-158.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-007",
+      "file": "original-multisubject-batch-158.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-008",
+      "file": "original-multisubject-batch-158.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-009",
+      "file": "original-multisubject-batch-158.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-010",
+      "file": "original-multisubject-batch-158.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-011",
+      "file": "original-multisubject-batch-158.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-012",
+      "file": "original-multisubject-batch-158.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-013",
+      "file": "original-multisubject-batch-158.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-014",
+      "file": "original-multisubject-batch-158.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-015",
+      "file": "original-multisubject-batch-158.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-016",
+      "file": "original-multisubject-batch-158.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-017",
+      "file": "original-multisubject-batch-158.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-018",
+      "file": "original-multisubject-batch-158.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-019",
+      "file": "original-multisubject-batch-158.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-020",
+      "file": "original-multisubject-batch-158.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-021",
+      "file": "original-multisubject-batch-158.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-022",
+      "file": "original-multisubject-batch-158.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-023",
+      "file": "original-multisubject-batch-158.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-158-024",
+      "file": "original-multisubject-batch-158.json",
+      "index": 23,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -48841,17 +48991,21 @@
       "learningObjective": "Order supplied words and phrases into a grammatical contextual response.",
       "specificationId": "toefl-2026",
       "questionTypes": {
-        "shortanswer": 5
+        "shortanswer": 29
       },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 5,
-      "validDrafts": 5,
+      "sourceSections": [
+        "ETS Updated TOEFL iBT Test Overview, PDF p13"
+      ],
+      "lastSourceRecheck": "2026-11-08",
+      "questionCount": 29,
+      "validDrafts": 29,
       "difficulty": {
-        "standard": 5
+        "standard": 29
       },
       "tiers": {
-        "not_specified": 5
+        "not_specified": 29
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

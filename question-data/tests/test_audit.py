@@ -219,4 +219,52 @@ class ValidationTests(unittest.TestCase):
         self.assertIn('unsupported_verification_kind', self.errors())
 
 
+
+
+class SentenceAssemblyTests(unittest.TestCase):
+    def setUp(self):
+        self.q = {'answer': 'It was useful.', 'sentenceAssembly': {
+            'context': 'How was the workshop?', 'frame': 'It {1} {2}.',
+            'chunks': [{'id':'a','text':'was'}, {'id':'b','text':'useful'},
+                       {'id':'x','text':'were'}], 'answerOrder':['a','b'], 'unusedIds':['x']}}
+
+    def test_valid_with_unused_chunk(self):
+        self.assertEqual(audit.sentence_assembly_errors(self.q), [])
+
+    def test_valid_without_unused_chunk(self):
+        self.q['sentenceAssembly']['chunks'].pop()
+        self.q['sentenceAssembly']['unusedIds'] = []
+        self.assertEqual(audit.sentence_assembly_errors(self.q), [])
+
+    def test_duplicate_chunk_id(self):
+        self.q['sentenceAssembly']['chunks'][2]['id'] = 'a'
+        self.assertIn('sentence_chunk_ids_not_unique', audit.sentence_assembly_errors(self.q))
+
+    def test_chunk_accounting(self):
+        for order, unused in [(['a','z'],['x']), (['a','a'],['b','x']), (['a','b'],[])]:
+            with self.subTest(order=order, unused=unused):
+                q=copy.deepcopy(self.q)
+                q['sentenceAssembly'].update(answerOrder=order, unusedIds=unused)
+                self.assertIn('sentence_chunk_accounting_mismatch', audit.sentence_assembly_errors(q))
+
+    def test_frame_slots(self):
+        self.q['sentenceAssembly']['frame'] = 'It {1} {1}.'
+        self.assertIn('sentence_frame_slots_mismatch', audit.sentence_assembly_errors(self.q))
+
+    def test_wrong_reconstruction(self):
+        self.q['answer'] = 'It were useful.'
+        self.assertIn('sentence_reconstruction_mismatch', audit.sentence_assembly_errors(self.q))
+
+    def test_missing_context(self):
+        self.q['sentenceAssembly']['context'] = ''
+        self.assertIn('sentence_assembly_invalid', audit.sentence_assembly_errors(self.q))
+
+    def test_checks_are_applied_to_toefl_sentence_tasks(self):
+        q=copy.deepcopy(self.q)
+        q.update(exam='TOEFL', subject='Writing', taskType='Build a Sentence',
+                 type='mcq', answer='It were useful.')
+        errors=audit.check_question(q,{})
+        self.assertIn('sentence_task_type_mismatch', errors)
+        self.assertIn('sentence_reconstruction_mismatch', errors)
+
 if __name__ == '__main__': unittest.main()

@@ -2416,6 +2416,22 @@
       ],
       "status": "current_task_descriptions_rechecked_academic_review_pending",
       "note": "Direct cloud retrieval of EU ETS overview succeeded after main-host at-a-glance web reader rejected size. Legacy writing URL returned a generic Explore TOEFL page and is not relied on as a fresh task-content check. No numeric email minimum inferred. New scenario goals, discussion posts, models and analytic ten-point rubrics are original, not copied ETS examples or official score conversions. Twelve tasks are standalone practice, not a complete Writing section."
+    },
+    {
+      "id": "toefl-sentence-format-recheck-158-2026",
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "kind": "official_current_task_format",
+      "source": "https://www.eu.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-overview.pdf",
+      "checkedOn": "2026-11-08",
+      "sourceSha256": "ce5e0eef3ea47b9964b0b1b034e96fa3b2aa0681347f17b381196cb0661249f0",
+      "sourceBytes": 20834764,
+      "sourcePdfPages": 28,
+      "sourceSections": [
+        "PDF p13: intact first sentence, scrambled words/phrases forming a contextual reply; example has fixed frame words and an unused was tile"
+      ],
+      "status": "current_mechanics_checked_not_full_delivery_validation",
+      "note": "Fresh retrieval matches prior overview hash. The sample supports a possible unused word, not a rule that every item contains exactly one. No per-item timing or official raw-score conversion inferred. Five earlier drills reconciled to explicit two-speaker exchanges and fixed frames while retaining stable IDs and canonical answers. Original new chunks/models do not copy the ETS sample. Structured assembly checks verify selection/accounting and reconstruction, not grammatical correctness or uniqueness."
     }
   ],
   "banks": [
@@ -5746,7 +5762,11 @@
         "shortanswer"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
-      "officialObjectiveCode": null
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "ETS Updated TOEFL iBT Test Overview, PDF p13"
+      ],
+      "lastSourceRecheck": "2026-11-08"
     },
     {
       "id": "toefl-email-v1",

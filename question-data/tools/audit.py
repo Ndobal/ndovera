@@ -104,6 +104,40 @@ def verify_logic_table(claim):
     return correct
 
 
+
+def sentence_assembly_errors(q):
+    """Check chunk accounting and exact designated reconstruction, not grammar."""
+    a = q.get('sentenceAssembly')
+    if not isinstance(a, dict):
+        return ['sentence_assembly_missing']
+    context, frame = a.get('context'), a.get('frame')
+    chunks, order, unused = a.get('chunks'), a.get('answerOrder'), a.get('unusedIds')
+    if (not isinstance(context, str) or not context.strip()
+            or not isinstance(frame, str) or not frame.strip()
+            or not isinstance(chunks, list) or not chunks
+            or any(not isinstance(c, dict) or not isinstance(c.get('id'), str)
+                   or not c['id'] or not isinstance(c.get('text'), str)
+                   or not c['text'].strip() for c in chunks)
+            or not isinstance(order, list) or not order
+            or not isinstance(unused, list)
+            or any(not isinstance(i, str) for i in order + unused)):
+        return ['sentence_assembly_invalid']
+    ids = [c['id'] for c in chunks]
+    if len(set(ids)) != len(ids):
+        return ['sentence_chunk_ids_not_unique']
+    if (len(set(order + unused)) != len(order + unused)
+            or set(order + unused) != set(ids)):
+        return ['sentence_chunk_accounting_mismatch']
+    slots = re.findall(r'\{(\d+)\}', frame)
+    if slots != [str(i) for i in range(1, len(order) + 1)]:
+        return ['sentence_frame_slots_mismatch']
+    lookup = {c['id']: c['text'] for c in chunks}
+    rendered = re.sub(r'\{(\d+)\}', lambda m: lookup[order[int(m.group(1))-1]], frame)
+    if rendered != q.get('answer'):
+        return ['sentence_reconstruction_mismatch']
+    return []
+
+
 def check_question(q, objectives):
     errors = []
     for key in ('id', 'exam', 'examType', 'curriculum', 'level', 'subject', 'topic',
@@ -134,6 +168,9 @@ def check_question(q, objectives):
                 errors.append('prescribed_text_reference_missing')
             if component == 'prescribed-shakespeare-context' and q.get('exam') == 'WAEC' and q.get('type') != 'mcq':
                 errors.append('waec_shakespeare_context_must_be_objective')
+    if q.get('exam') == 'TOEFL' and q.get('subject') == 'Writing' and q.get('taskType') == 'Build a Sentence':
+        if q.get('type') != 'shortanswer': errors.append('sentence_task_type_mismatch')
+        errors.extend(sentence_assembly_errors(q))
     score = q.get('score')
     if type(score) not in (int, float) or not math.isfinite(score) or not 0 < score <= 100: errors.append('invalid_score')
     if q.get('type') == 'mcq':
