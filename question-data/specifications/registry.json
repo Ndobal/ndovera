@@ -166,7 +166,11 @@
         "Core",
         "Extended"
       ],
-      "coverageComplete": false
+      "coverageComplete": false,
+      "lastRecheckedOn": "2026-11-08",
+      "sourceSha256": "ce4310300cfab16ed3ba2224896983b7a725a9052900a0eee394dd126b694098",
+      "sourceBytes": 861316,
+      "pageCount": 64
     },
     {
       "id": "igcse-0620-2026-2028-v2",
@@ -17473,6 +17477,175 @@
         "12.4 Core 1–3",
         "12.5 Core 1–3",
         "Section 4 practical assessment, printed pp. 41–42"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-146-01-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Classification evidence",
+      "subtopic": "Names, shared features and DNA",
+      "learningObjective": "Apply naming, observable-feature keys and DNA evidence to classification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "1.2; 1.3, printed p. 13"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-146-02-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Variation",
+      "subtopic": "Phenotypes, environment and mutation",
+      "learningObjective": "Distinguish forms and sources of variation and interpret inherited features.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "18.1; 18.2, printed p. 40"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-146-03-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Selection",
+      "subtopic": "Natural and artificial selection",
+      "learningObjective": "Explain changes in populations through differential reproduction and human selection.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "18.3, printed p. 41"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-146-04-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biotechnology applications",
+      "subtopic": "Enzymes and genetic modification",
+      "learningObjective": "Explain biological processing and evaluate applications of genetic modification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "21.2; 21.3, printed pp. 47–48",
+        "5.1, printed p. 17"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-146-05-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Respiration investigations",
+      "subtopic": "Temperature, gas, heat and recovery data",
+      "learningObjective": "Plan and evaluate respiration-related investigations using controlled measurements.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "12.1–12.3, printed pp. 28–29",
+        "11.1, printed p. 27",
+        "Section 4 practical assessment, printed pp. 50–51"
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0610-146-06-v1",
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Practical evidence",
+      "subtopic": "Variation, enzyme yield, osmosis and food tests",
+      "learningObjective": "Evaluate sampling, controls and measurements in varied biological investigations.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "syllabusVersion": "3",
+      "sourceSections": [
+        "18.1, printed p. 40",
+        "21.2, printed p. 47",
+        "3.2, printed p. 15",
+        "4.1, printed p. 16",
+        "Section 4 practical assessment, printed pp. 50–51"
       ],
       "questionTypes": [
         "structured"

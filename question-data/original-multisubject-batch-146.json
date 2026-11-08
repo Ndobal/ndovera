@@ -1,0 +1,1602 @@
+{
+  "schemaVersion": 2,
+  "collection": "IGCSE Biology 0610 original classification, variation, selection and practical evidence",
+  "questionCount": 24,
+  "note": "Sixteen original structured theory and eight written alternative-to-practical drafts. Extended 2026–2028 version 3 mappings remain author-proposed and pending independent review. Model data are original illustrative data, not reported research or proof of laboratory performance. Original marking guides do not reproduce official mark schemes.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Classification evidence",
+      "subtopic": "Names, shared features and DNA",
+      "learningObjective": "Apply naming, observable-feature keys and DNA evidence to classification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-001",
+      "objectiveId": "igcse-0610-146-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Three scientific names are Panthera leo, Panthera pardus and Felis catus. Identify the pair placed in the same genus and explain the two parts of a binomial name. Does sharing a genus establish that the two organisms belong to the same species?",
+      "answer": "Panthera leo and Panthera pardus share the genus Panthera. The first word gives the genus; the second identifies the species within that genus. Sharing a genus does not make them the same species: the two complete binomials differ.",
+      "explanation": "A genus can contain more than one species.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify Panthera leo and Panthera pardus.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify the first word as the genus.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain the second word distinguishes the species within the genus.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Reject same-species inference from a shared genus.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Classification evidence",
+      "subtopic": "Names, shared features and DNA",
+      "learningObjective": "Apply naming, observable-feature keys and DNA evidence to classification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-002",
+      "objectiveId": "igcse-0610-146-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "An organism has cells with nuclei, cell walls and no chloroplasts. Its body consists of hyphae and it feeds by secreting digestive enzymes and absorbing the products. Identify its kingdom, give two supporting features, and explain why cell walls alone would not distinguish it from plants.",
+      "answer": "It is a fungus. Its hyphae and extracellular digestion followed by absorption support this placement. Cell walls alone are insufficient because plant cells also have walls. The combined evidence, rather than a single feature, supports the classification.",
+      "explanation": "Absence of chloroplasts alone is also not a complete classification test.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify fungus/fungi.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Use hyphal structure.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Use extracellular digestion and absorption.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain plants also have cell walls.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Classification evidence",
+      "subtopic": "Names, shared features and DNA",
+      "learningObjective": "Apply naming, observable-feature keys and DNA evidence to classification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-003",
+      "objectiveId": "igcse-0610-146-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Construct a dichotomous key for these four described animals, using visible features: P has feathers; Q has hair; R has scales and fins; S has moist skin without scales, hair or feathers. Each choice must have two alternatives and lead to one animal.",
+      "answer": "1a Feathers present → P; 1b feathers absent → 2. 2a Hair present → Q; 2b hair absent → 3. 3a Scales and fins present → R; 3b scales and fins absent, with moist skin → S.",
+      "explanation": "A key uses successive paired alternatives, not a list of all four labels at one decision.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Create a paired feathers/no-feathers decision correctly identifying P.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Create a paired hair/no-hair decision correctly identifying Q.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Separate R and S using the stated observable features.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Provide unambiguous linked routes ending at all four animals.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Classification evidence",
+      "subtopic": "Names, shared features and DNA",
+      "learningObjective": "Apply naming, observable-feature keys and DNA evidence to classification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-004",
+      "objectiveId": "igcse-0610-146-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "For the same 1000-base DNA region, species A and B differ at 12 positions, A and C at 85, and B and C at 88. Infer the most closely related pair, explain the evolutionary reasoning, and give one reason to compare additional DNA regions before treating this as a complete classification.",
+      "answer": "A and B are the closest pair on this evidence because they differ at only 12 positions. More similar DNA generally indicates a more recent common ancestor. A single region may not represent the whole genome, so agreement across additional comparable regions would provide stronger evidence.",
+      "explanation": "The differences do not give an exact date of divergence without further evidence.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify A and B.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Cite 12 differences as the smallest number.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Link greater DNA similarity to more recent common ancestry.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain limited evidence from a single DNA region and the value of additional regions.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Variation",
+      "subtopic": "Phenotypes, environment and mutation",
+      "learningObjective": "Distinguish forms and sources of variation and interpret inherited features.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-005",
+      "objectiveId": "igcse-0610-146-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Pea plants in a sample produce either yellow or green seeds, while their stem lengths range from 18.2 cm to 76.8 cm with many intermediate values. Classify the two forms of variation and justify a suitable graph type for each distribution.",
+      "answer": "Seed colour is discontinuous variation, with distinct categories and no intermediates in this sample; a bar chart is suitable. Stem length is continuous variation, with values between extremes; a histogram using length intervals is suitable.",
+      "explanation": "The form of the data determines whether categories or continuous intervals are appropriate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Classify seed colour as discontinuous with distinct categories.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Choose a bar chart for colour categories.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Classify stem length as continuous with intermediates.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Choose a histogram with continuous length intervals.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Variation",
+      "subtopic": "Phenotypes, environment and mutation",
+      "learningObjective": "Distinguish forms and sources of variation and interpret inherited features.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-006",
+      "objectiveId": "igcse-0610-146-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Genetically identical cuttings are grown in two groups. One receives more light and more nitrate fertiliser, and grows taller. Explain why the height difference does not by itself show mutation, why the effect of nitrate alone cannot be identified, and how to make a fair nitrate comparison.",
+      "answer": "Height can vary because environmental conditions affect growth even when genotype is the same. Both light and nitrate changed, so their separate effects cannot be identified. Change nitrate supply while keeping light and other conditions constant, using replicated groups of similar cuttings.",
+      "explanation": "A phenotypic difference is not direct evidence that DNA has changed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain environmental effects on the phenotype of identical genotypes.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify light and nitrate as confounded variables.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Vary nitrate while holding light and other relevant conditions constant.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Use replicated comparable cuttings/groups.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Variation",
+      "subtopic": "Phenotypes, environment and mutation",
+      "learningObjective": "Distinguish forms and sources of variation and interpret inherited features.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-007",
+      "objectiveId": "igcse-0610-146-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A learner says that meiosis creates all new alleles and that mutations occur because organisms need a useful trait. Correct both statements. Identify the molecular change in a gene mutation and one factor that can increase mutation rate.",
+      "answer": "New alleles arise through mutation; meiosis mainly produces new combinations of existing alleles. A gene mutation is a random change in the DNA base sequence, not a directed response to need. Ionising radiation or some chemicals can increase mutation rate.",
+      "explanation": "A mutation can be harmful, neutral or beneficial in a particular environment; usefulness is not what directs its occurrence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify mutation as the source of new alleles.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Distinguish meiotic reshuffling from creation of alleles.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State a random change in DNA base sequence, rejecting need-directed mutation.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Name ionising radiation or some mutagenic chemicals.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Variation",
+      "subtopic": "Phenotypes, environment and mutation",
+      "learningObjective": "Distinguish forms and sources of variation and interpret inherited features.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-008",
+      "objectiveId": "igcse-0610-146-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A desert plant has inherited reduced leaves and a thick cuticle. Another plant loses leaves when a gardener cuts them off. Explain why the first case can be described as adaptive features but the cutting alone does not establish an inherited adaptation. Relate the desert features to water loss.",
+      "answer": "Reduced leaf area can reduce the surface through which water is lost, and a thick cuticle reduces evaporation from surfaces. If inherited, these features can help survival and reproduction in a dry environment. Removing leaves by cutting is an acquired physical change; it does not show that offspring inherit reduced leaves.",
+      "explanation": "An adaptive feature is inherited and contributes to survival and reproduction in the relevant environment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link reduced leaf area to reduced water loss.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Link thick cuticle to reduced evaporation.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Relate inherited features to survival and reproduction in a dry habitat.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Distinguish cutting/acquired damage from evidence of inheritance.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Selection",
+      "subtopic": "Natural and artificial selection",
+      "learningObjective": "Explain changes in populations through differential reproduction and human selection.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-009",
+      "objectiveId": "igcse-0610-146-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A model seed-eating bird population begins with 50 small-beaked and 50 large-beaked birds. After a drought, 10 small-beaked and 40 large-beaked birds survive where hard seeds predominate. Calculate survival percentages for each group and explain how an inherited large-beak trait could become more common in later generations.",
+      "answer": "Small-beaked survival is 10/50 × 100 = 20%; large-beaked survival is 40/50 × 100 = 80%. In this environment large beaks may improve access to hard seeds, giving their carriers a survival advantage. Survivors reproduce and pass associated alleles to offspring, so the inherited trait can become more frequent over generations.",
+      "explanation": "Selection acts on existing variation; surviving birds do not all change their beaks because of need.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 20% and 80% survival for the correct groups.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Relate the large-beak advantage to the hard-seed environment.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain differential survival leads to greater reproductive opportunity.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain inheritance of associated alleles can increase trait frequency over generations.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "10/50*100",
+          "expected": "20",
+          "purpose": "Small-beaked survival percentage"
+        },
+        {
+          "expression": "40/50*100",
+          "expected": "80",
+          "purpose": "Large-beaked survival percentage"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Selection",
+      "subtopic": "Natural and artificial selection",
+      "learningObjective": "Explain changes in populations through differential reproduction and human selection.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-010",
+      "objectiveId": "igcse-0610-146-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A bacterial population contains a few cells with an inherited resistance allele before an antibiotic is applied. After exposure, most surviving bacteria are resistant. Explain this change without claiming that the antibiotic taught the bacteria to resist it.",
+      "answer": "There was inherited variation before treatment. The antibiotic killed susceptible bacteria more readily, while resistant bacteria were more likely to survive. Survivors reproduced and passed resistance to descendants, increasing the resistant proportion. The exposure selected existing resistance rather than directing bacteria to acquire a needed trait.",
+      "explanation": "Inherited resistance becomes more frequent when resistant survivors reproduce after susceptible cells are removed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify pre-existing inherited variation.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Describe preferential loss of susceptible bacteria.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Describe resistant survivors reproducing and passing on resistance.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain an increased resistant proportion through selection, rejecting taught/need-directed resistance.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Selection",
+      "subtopic": "Natural and artificial selection",
+      "learningObjective": "Explain changes in populations through differential reproduction and human selection.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-011",
+      "objectiveId": "igcse-0610-146-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A grower wants a cowpea line with high pod yield. Outline a selective-breeding programme over several generations and explain why candidate plants should be compared under similar growing conditions.",
+      "answer": "Select parents with high pod yield and cross them. Grow their offspring and select those with the desired yield, then breed from them. Repeat selection and crossing over several generations. Similar growing conditions reduce environmental differences, making inherited yield differences easier to assess.",
+      "explanation": "Selecting a phenotype once is not the same as a repeated breeding programme.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Select suitable high-yield parents.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Cross them and select desirable offspring.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Repeat breeding and selection over generations.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain similar conditions reduce environmental confounding.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Selection",
+      "subtopic": "Natural and artificial selection",
+      "learningObjective": "Explain changes in populations through differential reproduction and human selection.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-012",
+      "objectiveId": "igcse-0610-146-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "In population X, humans choose which animals reproduce based on fleece quality. In population Y, predators are more likely to catch conspicuously coloured prey. Compare the selection processes, give a feature they share, and explain why a trait favoured in X need not improve survival in the wild.",
+      "answer": "X undergoes artificial selection because humans choose breeding animals. Y undergoes natural selection because environmental survival differences affect reproductive opportunity. Both can change inherited traits or allele frequencies across generations. Human preference for fleece quality need not confer an advantage against predators or other wild environmental challenges.",
+      "explanation": "Desirability in a breeding programme and fitness in a particular natural habitat are different criteria.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify X as artificial selection with human choice.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify Y as natural selection with differential survival.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State both act on inherited variation across generations.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain human-desired traits need not improve wild survival/reproduction.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biotechnology applications",
+      "subtopic": "Enzymes and genetic modification",
+      "learningObjective": "Explain biological processing and evaluate applications of genetic modification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-013",
+      "objectiveId": "igcse-0610-146-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A juice producer adds pectinase to crushed fruit. Explain how this can increase juice extraction, why pectinase is described as a catalyst, and why adding it is not equivalent to sterilising the juice.",
+      "answer": "Pectinase breaks down pectin in plant tissues, helping release juice from the crushed fruit. It speeds the breakdown without being used up, so it is a catalyst. This action targets a particular substrate; it does not establish that harmful microorganisms have been killed or removed.",
+      "explanation": "Improved extraction and control of microbial contamination are separate functions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify breakdown of pectin.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Link breakdown to easier juice release/extraction.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain a catalyst increases rate without being used up.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Reject a sterilisation claim from pectinase addition alone.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biotechnology applications",
+      "subtopic": "Enzymes and genetic modification",
+      "learningObjective": "Explain biological processing and evaluate applications of genetic modification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-014",
+      "objectiveId": "igcse-0610-146-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Milk is treated with lactase. Explain the enzyme’s role, name the smaller sugars produced, and assess the claim that lactose-free milk must therefore contain no sugar. Explain why an unrelated enzyme cannot automatically replace lactase.",
+      "answer": "Lactase catalyses the breakdown of lactose into glucose and galactose. These products are sugars, so removing lactose by this process does not mean all sugar is absent. Lactase acts specifically on lactose because its active site is complementary to that substrate.",
+      "explanation": "Changing the identity of a carbohydrate is not the same as removing all carbohydrate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify lactase-catalysed lactose breakdown.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Name glucose and galactose.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Reject no-sugar inference because the products are sugars.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain substrate specificity using active-site complementarity.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biotechnology applications",
+      "subtopic": "Enzymes and genetic modification",
+      "learningObjective": "Explain biological processing and evaluate applications of genetic modification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-015",
+      "objectiveId": "igcse-0610-146-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "In a simplified genetic-modification process, a human gene and a bacterial plasmid are cut with the same restriction enzyme. Explain the purpose of using the same enzyme, the role of DNA ligase, and what must occur after the recombinant plasmid enters a bacterium for the desired human protein to be produced. State why multiplying the modified bacteria is useful for production.",
+      "answer": "The same restriction enzyme forms complementary sticky ends on the gene and plasmid. DNA ligase joins the gene into the plasmid to form recombinant DNA. After entry, the human gene must be expressed by the bacterium to make the protein. Bacteria carrying the recombinant plasmid can multiply to provide a larger producing population.",
+      "explanation": "Gene insertion alone does not establish production; expression of the inserted gene is required.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain complementary sticky ends from using the same restriction enzyme.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain ligase joins DNA to form a recombinant plasmid.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State inserted gene must be expressed to produce the protein.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Describe multiplication of bacteria carrying the recombinant plasmid.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Biotechnology applications",
+      "subtopic": "Enzymes and genetic modification",
+      "learningObjective": "Explain biological processing and evaluate applications of genetic modification.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-016",
+      "objectiveId": "igcse-0610-146-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A crop is genetically modified to tolerate a particular herbicide. Explain one potential farming advantage, one possible ecological risk if the gene reaches a compatible wild relative, and why herbicide tolerance does not by itself mean the crop resists insect pests.",
+      "answer": "The crop can survive that herbicide while competing susceptible weeds are removed. If pollen transfers the gene to a compatible wild relative, herbicide-tolerant weeds could become harder to control. The tolerance gene concerns a specific herbicide response; insect resistance requires a different relevant trait and is not established by herbicide tolerance alone.",
+      "explanation": "Benefits and risks depend on the trait, environment and potential for gene flow.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link crop tolerance to survival during appropriate weed control.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Describe possible gene flow to a compatible wild relative.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain the possible difficulty of controlling tolerant weeds.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Distinguish herbicide tolerance from evidence of insect resistance.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Respiration investigations",
+      "subtopic": "Temperature, gas, heat and recovery data",
+      "learningObjective": "Plan and evaluate respiration-related investigations using controlled measurements.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-017",
+      "objectiveId": "igcse-0610-146-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Plan a supervised investigation of the effect of temperature on anaerobic respiration rate in yeast using carbon dioxide collection. Identify the independent and dependent variables, two controls, and a procedure for obtaining reliable comparable rates.",
+      "answer": "Use several controlled water-bath temperatures as the independent variable. Measure carbon dioxide volume collected per unit time as the dependent variable, keeping oxygen availability consistently low. Keep yeast amount and glucose concentration/volume constant. Allow mixtures to equilibrate, collect gas for the same interval using a leak-tested setup, and repeat at each temperature to compare mean rates.",
+      "explanation": "Changing yeast quantity or sugar supply along with temperature would confound the investigation.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Vary controlled temperature over a suitable range.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Measure CO2 volume per time with consistently low oxygen availability.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Control yeast quantity and glucose concentration/volume.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Equilibrate temperature and use the same collection interval with a suitable apparatus.",
+          "marks": 1
+        },
+        {
+          "step": 5,
+          "description": "Repeat and compare mean rates, checking leaks.",
+          "marks": 1
+        }
+      ],
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Respiration investigations",
+      "subtopic": "Temperature, gas, heat and recovery data",
+      "learningObjective": "Plan and evaluate respiration-related investigations using controlled measurements.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-018",
+      "objectiveId": "igcse-0610-146-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "In a yeast investigation, cumulative carbon dioxide volumes are 0 cm³ at 0 min, 15 cm³ at 2 min and 20 cm³ at 4 min. Calculate the mean rate over each two-minute interval. Suggest one reason for the later rate being lower and explain why these data alone do not prove that explanation.",
+      "answer": "The first rate is 15/2 = 7.5 cm³ min−1. The second is (20−15)/2 = 2.5 cm³ min−1. A factor such as glucose becoming limiting could slow respiration. However, glucose concentration was not measured or varied independently, and other changes or apparatus problems could also affect the rates.",
+      "explanation": "Interval rate uses the volume increase within that interval, not the cumulative volume divided by that interval length.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 7.5 cm³ min−1 for 0–2 min.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 2.5 cm³ min−1 for 2–4 min.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Suggest a plausible limitation such as declining glucose availability.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain data do not distinguish that cause from alternative factors/errors.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "15/2",
+          "expected": "7.5",
+          "purpose": "First interval CO2 rate, cm3/min"
+        },
+        {
+          "expression": "(20-15)/2",
+          "expected": "2.5",
+          "purpose": "Second interval CO2 rate, cm3/min"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Respiration investigations",
+      "subtopic": "Temperature, gas, heat and recovery data",
+      "learningObjective": "Plan and evaluate respiration-related investigations using controlled measurements.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-019",
+      "objectiveId": "igcse-0610-146-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Two similarly insulated containers hold equal starting masses of germinating seeds or heat-killed seeds. Both begin at 22°C. After a fixed time the first reaches 26°C and the second remains at 22°C. State what the comparison supports, explain the role of the heat-killed seeds, and name two additional conditions, not already fixed in this description, to keep comparable.",
+      "answer": "The temperature rise supports the conclusion that living germinating seeds release energy as heat during respiration. Heat-killed seeds provide a non-respiring comparison under similar conditions. Keep water availability and access to air comparable, in addition to the stated equal mass, starting temperature and insulation.",
+      "explanation": "The control helps separate a biological heat source from warming caused by the surroundings.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link warming of living seeds to heat released by respiration.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain heat-killed seeds form a non-respiring comparison.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Control water availability/moisture.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Control access to air/oxygen availability.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Respiration investigations",
+      "subtopic": "Temperature, gas, heat and recovery data",
+      "learningObjective": "Plan and evaluate respiration-related investigations using controlled measurements.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-020",
+      "objectiveId": "igcse-0610-146-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A breathing-rate investigation records 14 breaths min−1 at rest, 31 immediately after a standard exercise period, 22 after two minutes of recovery and 15 after five minutes. Describe the recovery trend, explain why counting for equal time intervals matters, and identify two features of the exercise protocol to standardise when comparing repeats for the same volunteer.",
+      "answer": "Breathing rate falls during recovery and is close to, but not exactly at, the resting value after five minutes. Equal counting intervals standardise the sampling period and improve comparability of precision. Standardise exercise duration and intensity, and use comparable starting/resting conditions between trials.",
+      "explanation": "These data describe recovery; they do not independently measure the chemical causes of that recovery.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Describe declining rate approaching the resting value.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain equal counting intervals support fair rate comparisons.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Control exercise duration.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Control intensity/work rate or an equivalent distinct starting-condition feature.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Practical evidence",
+      "subtopic": "Variation, enzyme yield, osmosis and food tests",
+      "learningObjective": "Evaluate sampling, controls and measurements in varied biological investigations.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-021",
+      "objectiveId": "igcse-0610-146-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A learner estimates leaf-length variation in a plant species by collecting only the largest leaves from plants nearest the path. Identify two sources of sampling bias and describe a more representative sampling and measurement procedure.",
+      "answer": "Choosing the largest leaves biases the size distribution, and sampling only near the path may miss different growing conditions elsewhere. Select plants using random positions across the study area and define a consistent leaf-age/stage rule without selecting for size. Measure the same length dimension with suitable precision and use enough independent plants to represent variation.",
+      "explanation": "Standardising developmental stage need not mean selecting only large leaves.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify largest-leaf selection bias.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify near-path spatial bias.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Use random/spatially representative plant selection and a consistent non-size leaf-stage rule.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Measure a consistent dimension across an adequate number of independent plants.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Practical evidence",
+      "subtopic": "Variation, enzyme yield, osmosis and food tests",
+      "learningObjective": "Evaluate sampling, controls and measurements in varied biological investigations.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-022",
+      "objectiveId": "igcse-0610-146-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Three equal fruit-pulp portions treated with active pectinase yield 16, 18 and 17 cm³ juice after filtration. Three matched no-pectinase controls yield 9, 10 and 11 cm³. Calculate the mean yield for each treatment and the difference. State two conditions that should have been controlled before attributing the difference to pectinase.",
+      "answer": "The active-treatment mean is (16+18+17)/3 = 17 cm³. The control mean is (9+10+11)/3 = 10 cm³, giving a difference of 7 cm³. Control fruit type/ripeness and pulp mass, as well as incubation time, temperature, pH, total added liquid and filtration conditions.",
+      "explanation": "Replicates show spread; matching the treatment conditions is still necessary for a causal comparison.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate active-treatment mean 17 cm³.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate control mean 10 cm³ and difference 7 cm³.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State one appropriate control, e.g. fruit type/ripeness.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "State a second distinct control, e.g. time or temperature; accept other relevant matched conditions.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(16+18+17)/3",
+          "expected": "17",
+          "purpose": "Mean treated yield, cm3"
+        },
+        {
+          "expression": "(9+10+11)/3",
+          "expected": "10",
+          "purpose": "Mean control yield, cm3"
+        },
+        {
+          "expression": "17-10",
+          "expected": "7",
+          "purpose": "Difference in mean juice yield, cm3"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Practical evidence",
+      "subtopic": "Variation, enzyme yield, osmosis and food tests",
+      "learningObjective": "Evaluate sampling, controls and measurements in varied biological investigations.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-023",
+      "objectiveId": "igcse-0610-146-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Potato pieces initially have mass 2.00 g. One piece in sucrose solution of concentration 0.40 mol dm−3 ends at 1.90 g after a standard interval. Other matched results show +5% mass change at 0.20 mol dm−3 and −5% at 0.40 mol dm−3. Calculate the percentage mass change of the first piece, estimate the zero-change concentration by linear interpolation, and state what zero net mass change means about water movement. Assume mass changes are due only to net water movement through intact cell membranes.",
+      "answer": "Percentage change = (1.90−2.00)/2.00 × 100 = −5%. Linear interpolation halfway between +5% at 0.20 and −5% at 0.40 gives about 0.30 mol dm−3. At zero net change, water still moves both ways through partially permeable membranes, but the opposing movements balance over the interval.",
+      "explanation": "Interpolation is an estimate from the sampled interval, not proof of an exact tissue concentration.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate −5%, including the negative sign.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Estimate 0.30 mol dm−3 using interpolation.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State water continues to move in both directions.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain balanced movement gives no net mass change.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(1.90-2.00)/2.00*100",
+          "expected": "-5",
+          "purpose": "Percentage mass change"
+        },
+        {
+          "expression": "0.20+(0.40-0.20)*5/(5+5)",
+          "expected": "0.30",
+          "purpose": "Interpolated zero-change concentration, mol/dm3"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Biology",
+      "topic": "Practical evidence",
+      "subtopic": "Variation, enzyme yield, osmosis and food tests",
+      "learningObjective": "Evaluate sampling, controls and measurements in varied biological investigations.",
+      "specificationId": "igcse-0610-2026-2028-v3",
+      "qualificationCode": "0610",
+      "syllabusVersion": "3",
+      "id": "ndv-146-024",
+      "objectiveId": "igcse-0610-146-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A learner mixes a food extract with Benedict’s solution at room temperature. It remains blue, so the learner reports that no reducing sugar is present. Explain the missing test condition, give a suitable heating method, predict a possible positive result and describe the purpose of a known-glucose control.",
+      "answer": "Benedict’s test requires heating, so the unheated result is not a valid negative test. Warm the mixture in a hot-water bath. A positive result can be an orange or brick-red precipitate, with colour depending on amount and conditions. A known-glucose sample tested in the same way checks that the reagents and procedure can produce a positive result.",
+      "explanation": "A control validates the test procedure rather than making an unheated unknown result conclusive.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify missing heating and reject the unheated negative inference.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Use a hot-water bath.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Describe a suitable positive precipitate/colour change.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain a known-glucose positive control checks reagent/procedure function.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    }
+  ]
+}

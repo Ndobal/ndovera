@@ -822,3 +822,11 @@ version 2 source was retrieved again and hashed. Six narrower objective
 mappings extend acids, salts, water, air and analysis coverage. Original
 marking guides and arithmetic checks do not confer academic approval;
 full content coverage and independent review remain incomplete.
+
+Batch 146 adds 24 IGCSE Biology 0610 Extended drafts across classification,
+variation, selection, biotechnology and practical evidence. Six new
+author-proposed mappings accompany sixteen structured theory and eight
+written alternative-to-practical tasks. Version 3 for 2026–2028 was
+retrieved again and hashed. Data are original illustrative examples;
+full syllabus coverage, laboratory experience and independent academic
+review are not established by these drafts.
