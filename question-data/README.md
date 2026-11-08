@@ -878,3 +878,10 @@ Official 2026 components were rechecked. Historical Primary 6 English
 locators support provisional skill alignment, not proof of current adoption
 or a complete NCEE topic blueprint. Four-option practice and one-mark
 scoring are author choices; production skills and academic review remain open.
+
+Batch 154 adds 28 NCEE BST conceptual drafts across seven finer
+provisional Primary 6 mappings. The historical source was retrieved and
+hashed, with exact page locators. Source astronomy/climate/colour wording
+issues are recorded; current adoption and full NCEE topic allocation
+remain unverified. These MCQs do not assess practical performance, and
+four-option one-mark scoring remains an author practice choice.

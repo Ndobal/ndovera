@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3922,
-    "validDrafts": 2243,
+    "raw": 3950,
+    "validDrafts": 2271,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1052,6 +1052,12 @@
       "sha256": "00916bb3e84756c49017093076d54b62a7a3d3315953046362c1b983ac09be41",
       "declared": 48,
       "actual": 48
+    },
+    {
+      "path": "original-multisubject-batch-154.json",
+      "sha256": "ac54f5c321f4b284222a372719962bba8e2d6d38c3e0ced6c5852121e764ab1f",
+      "declared": 28,
+      "actual": 28
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2549,19 +2555,19 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_2026_paper_components_topic_specification_pending",
-      "raw": 25,
-      "validDrafts": 25,
+      "raw": 53,
+      "validDrafts": 53,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 25
+        "mcq": 53
       },
       "difficulty": {
-        "standard": 23,
+        "standard": 51,
         "easy": 2
       },
-      "remaining": 975,
-      "mappedObjectives": 4,
-      "representedObjectives": 4,
+      "remaining": 947,
+      "mappedObjectives": 11,
+      "representedObjectives": 11,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5910,18 +5916,18 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81,
-    "explanation_missing": 81
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 323,
@@ -33959,6 +33965,174 @@
       "id": "ndv-153-048",
       "file": "original-multisubject-batch-153.json",
       "index": 47,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-001",
+      "file": "original-multisubject-batch-154.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-002",
+      "file": "original-multisubject-batch-154.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-003",
+      "file": "original-multisubject-batch-154.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-004",
+      "file": "original-multisubject-batch-154.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-005",
+      "file": "original-multisubject-batch-154.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-006",
+      "file": "original-multisubject-batch-154.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-007",
+      "file": "original-multisubject-batch-154.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-008",
+      "file": "original-multisubject-batch-154.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-009",
+      "file": "original-multisubject-batch-154.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-010",
+      "file": "original-multisubject-batch-154.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-011",
+      "file": "original-multisubject-batch-154.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-012",
+      "file": "original-multisubject-batch-154.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-013",
+      "file": "original-multisubject-batch-154.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-014",
+      "file": "original-multisubject-batch-154.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-015",
+      "file": "original-multisubject-batch-154.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-016",
+      "file": "original-multisubject-batch-154.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-017",
+      "file": "original-multisubject-batch-154.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-018",
+      "file": "original-multisubject-batch-154.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-019",
+      "file": "original-multisubject-batch-154.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-020",
+      "file": "original-multisubject-batch-154.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-021",
+      "file": "original-multisubject-batch-154.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-022",
+      "file": "original-multisubject-batch-154.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-023",
+      "file": "original-multisubject-batch-154.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-024",
+      "file": "original-multisubject-batch-154.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-025",
+      "file": "original-multisubject-batch-154.json",
+      "index": 24,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-026",
+      "file": "original-multisubject-batch-154.json",
+      "index": 25,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-027",
+      "file": "original-multisubject-batch-154.json",
+      "index": 26,
+      "errors": []
+    },
+    {
+      "id": "ndv-154-028",
+      "file": "original-multisubject-batch-154.json",
+      "index": 27,
       "errors": []
     },
     {
@@ -69119,6 +69293,223 @@
       },
       "tiers": {
         "not_specified": 8
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-bst-154-solar-system-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Space",
+      "subtopic": "Solar system",
+      "learningObjective": "Distinguish the Sun, planets and moons and interpret elementary gravitational effects.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.38"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-bst-154-earth-movements-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Space",
+      "subtopic": "Earth movements",
+      "learningObjective": "Relate Earth rotation and revolution to observations and distinguish eclipse alignments.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.39"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-bst-154-weather-records-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Weather",
+      "subtopic": "Weather records",
+      "learningObjective": "Interpret simple weather records and distinguish short-term observations from long-term climate evidence.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.40"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-bst-154-forces-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Forces",
+      "subtopic": "Forces",
+      "learningObjective": "Explain changes caused by forces and weigh useful and unwanted friction effects.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.41"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-bst-154-air-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Air",
+      "subtopic": "Air",
+      "learningObjective": "Explain elementary effects and uses of moving air and air pressure.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.44"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-bst-154-word-processing-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Computing",
+      "subtopic": "Word processing",
+      "learningObjective": "Choose appropriate document-editing, saving and retrieval actions without assuming a particular software interface.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.59"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-bst-154-it-society-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Computing",
+      "subtopic": "It society",
+      "learningObjective": "Relate information technology uses and careers to stated community needs and recognise human responsibility.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.65"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

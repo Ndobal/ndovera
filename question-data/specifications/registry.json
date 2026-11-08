@@ -2355,6 +2355,24 @@
       "additionalSources": [
         "https://neco.gov.ng/2026%20NATIONAL%20COMMON%20ENTRANCE%20EXAMINATION%20TIMETABLE-1.pdf"
       ]
+    },
+    {
+      "id": "ncee-bst-primary-six-reference-2026",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "kind": "official_component_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20NCEE%20ADVERT%20AND%20POSTER%20-%20GENERAL%20INFO.pdf",
+      "curriculumReference": "https://nerdc.gov.ng/content_manager/primary/pri4-6_basic_science_technology.pdf",
+      "checkedOn": "2026-11-08",
+      "curriculumSha256": "4f0a95e859f4569d535197f06b80b7b903d35385a0be0209454964704b5ad584",
+      "curriculumBytes": 1378694,
+      "curriculumPages": 68,
+      "status": "historical_primary_six_alignment_current_adoption_unverified",
+      "note": "Official 2026 notice reconfirms BST Paper I Part A and final-primary eligibility, not full topic allocation. Direct retrieval of historical Primary 6 pages38–41,44,59,65 supports seven author-proposed conceptual mappings. No revision/adoption date inferred. Source p39 eclipse/tide wording and Moon-as-light-source ambiguity flagged; Moon reflects sunlight and no eclipse-causes-tides claim used. Source p40 tsunami illustration not adopted as climate-change evidence. P46 pigment/light mixing ambiguity excluded. MCQs do not assess source practical demonstrations, document creation or outdoor observation. Full current NCEE syllabus, option count and current curriculum adoption remain gaps.",
+      "contentChecks": [
+        "https://science.nasa.gov/moon/moonlight/",
+        "https://www.ncei.noaa.gov/news/weather-vs-climate"
+      ]
     }
   ],
   "banks": [
@@ -18368,6 +18386,139 @@
       "sourceSections": [
         "NECO 2026 general information, p. 1, Paper I Part B (component only)",
         "Historical NERDC English Studies, Primary 6, printed/PDF p. 39"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-bst-154-solar-system-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Space",
+      "subtopic": "Solar system",
+      "learningObjective": "Distinguish the Sun, planets and moons and interpret elementary gravitational effects.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.38"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-bst-154-earth-movements-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Space",
+      "subtopic": "Earth movements",
+      "learningObjective": "Relate Earth rotation and revolution to observations and distinguish eclipse alignments.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.39"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-bst-154-weather-records-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Weather",
+      "subtopic": "Weather records",
+      "learningObjective": "Interpret simple weather records and distinguish short-term observations from long-term climate evidence.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.40"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-bst-154-forces-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Forces",
+      "subtopic": "Forces",
+      "learningObjective": "Explain changes caused by forces and weigh useful and unwanted friction effects.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.41"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-bst-154-air-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Air",
+      "subtopic": "Air",
+      "learningObjective": "Explain elementary effects and uses of moving air and air pressure.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.44"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-bst-154-word-processing-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Computing",
+      "subtopic": "Word processing",
+      "learningObjective": "Choose appropriate document-editing, saving and retrieval actions without assuming a particular software interface.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.59"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-bst-154-it-society-v1",
+      "exam": "NCEE",
+      "subject": "Basic Science and Technology",
+      "level": "Primary 6",
+      "topic": "Computing",
+      "subtopic": "It society",
+      "learningObjective": "Relate information technology uses and careers to stated community needs and recognise human responsibility.",
+      "specificationId": "ncee-bst-primary-six-reference-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 general information p.1, Paper I Part A (component only)",
+        "Historical NERDC Primary 6 BST, printed/PDF p.65"
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null
