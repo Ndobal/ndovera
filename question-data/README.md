@@ -839,3 +839,11 @@ existing target. Full coverage and academic review remain pending.
 The practical-format gate now includes Physics 0625 alongside Biology 0610
 and Chemistry 0620, with regression tests for valid written AO3 practice
 and invalid MCQ, component or mixed-assessment labels.
+
+Batch 148 adds 24 IGCSE Economics 0455 structured drafts, split equally
+between 2026 v2 and 2027–2029 v1. Direct cloud PDF retrieval succeeded
+after web-reader errors, and both versions were rechecked and hashed.
+The new mappings cover households, workers, firms, living standards,
+poverty and population. Original analytical/evaluation guides remain
+academic-review pending; Economics AO3 is evaluation, not a practical
+assessment. No full-cycle coverage is claimed.

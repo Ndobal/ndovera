@@ -1,0 +1,1621 @@
+{
+  "schemaVersion": 2,
+  "collection": "IGCSE Economics 0455 original structured analysis and evaluation, separate cycles",
+  "questionCount": 24,
+  "note": "Twelve original 2026 v2 questions and twelve 2027–2029 v1 questions. All are untiered Paper-2-style written practice. Economics AO3 means evaluation, not science practical work. Data and country examples are illustrative; no present-day country statistics or policy outcomes are asserted. Original 4/6-mark guides accept alternative economically reasoned answers and do not reproduce official mark schemes. All remain pending independent review.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Households and workers",
+      "subtopic": "Choices, earnings and specialisation",
+      "learningObjective": "Analyse household and worker decisions using monetary and non-monetary factors.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-001",
+      "objectiveId": "igcse-0455-148-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A household’s income rises, but its members become less confident about keeping their jobs. Explain why the information is insufficient to predict whether its current spending will rise. Identify one further influence that would help predict its saving or borrowing.",
+      "answer": "Higher income can support higher spending, but weaker job confidence may encourage precautionary saving and reduce willingness to borrow. The opposing effects make the net spending change uncertain. Interest rates are another influence: they change borrowing costs and the reward for saving.",
+      "explanation": "Economic predictions require the strength of the competing influences, not just their direction.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain the income effect supporting spending.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain weaker confidence may raise saving/reduce borrowing.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Recognise the net effect depends on the relative strength of these influences.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Identify and explain an additional influence such as interest rates.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Households and workers",
+      "subtopic": "Choices, earnings and specialisation",
+      "learningObjective": "Analyse household and worker decisions using monetary and non-monetary factors.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-002",
+      "objectiveId": "igcse-0455-148-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "In a hypothetical job comparison, job A pays ₦180000 per month with commuting costs of ₦10000; job B pays ₦200000 with commuting costs of ₦40000. Other monetary costs are equal. Compare pay after commuting and explain two non-wage factors that could affect the choice.",
+      "answer": "A leaves ₦170000 after commuting and B leaves ₦160000, so A has ₦10000 more on this measure. Job security, hours, working conditions, training or promotion prospects could also affect the choice. A worker may value stable hours or useful training even if gross pay is lower.",
+      "explanation": "Gross wages alone do not determine the monetary or overall attractiveness of an occupation.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate ₦170000 for A.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate ₦160000 for B and recognise A is higher.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain one valid non-wage factor.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain a second distinct non-wage factor.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "180000-10000",
+          "expected": "170000",
+          "purpose": "Job A pay after commuting"
+        },
+        {
+          "expression": "200000-40000",
+          "expected": "160000",
+          "purpose": "Job B pay after commuting"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Households and workers",
+      "subtopic": "Choices, earnings and specialisation",
+      "learningObjective": "Analyse household and worker decisions using monetary and non-monetary factors.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-003",
+      "objectiveId": "igcse-0455-148-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "Demand for repairs by qualified electricians increases, but training new electricians takes several years. Explain the likely initial wage pressure and why it may weaken later. State one reason wages need not fall back to their original level.",
+      "answer": "Higher demand for repair services increases derived demand for electricians. With few additional qualified workers immediately available, wages face upward pressure. Later training or entry can increase labour supply and moderate that pressure. Wages need not return to the old level if demand remains higher or qualification and other supply constraints persist.",
+      "explanation": "Labour-market adjustment depends on both the demand change and the speed of the supply response.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link service demand to derived demand for electricians.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain limited short-run supply creates upward wage pressure.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain training/entry may expand later supply.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give a valid reason the original wage need not be restored.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Households and workers",
+      "subtopic": "Choices, earnings and specialisation",
+      "learningObjective": "Analyse household and worker decisions using monetary and non-monetary factors.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-004",
+      "objectiveId": "igcse-0455-148-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "A bakery replaces a system in which each worker makes a whole loaf with separate mixing, shaping and packing jobs. Discuss whether this division of labour will necessarily benefit the bakery and its workers.",
+      "answer": "Specialisation can build skill and reduce time switching tasks, raising output per worker and lowering unit cost. Workers may also find tasks easier to learn. However, repetitive jobs can reduce motivation, and absence or failure at one stage can interrupt the whole process. Benefits are more likely where demand supports regular production and the bakery manages bottlenecks, quality and worker development; they are not guaranteed for every worker.",
+      "explanation": "A balanced judgement distinguishes productivity gains from worker welfare and operational risks.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Develop a mechanism for productivity/unit-cost benefits.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Develop a disadvantage for workers or production, such as monotony or interdependence.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Reach a justified judgement linked to demand, bottlenecks, training or working conditions.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Firms and scale",
+      "subtopic": "Growth, niches and average costs",
+      "learningObjective": "Explain firm growth and economies or diseconomies of scale.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-005",
+      "objectiveId": "igcse-0455-148-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A courier firm buys a competing courier business and separately buys a supplier of packaging materials. Classify each merger and explain one potential benefit and one possible customer disadvantage of the first merger.",
+      "answer": "Buying the competing courier is horizontal integration; buying the packaging supplier is backward vertical integration. The horizontal merger may allow shared depots/routes and lower average costs. Reduced competition may also permit higher prices or weaker service incentives, so customer benefits depend on how cost savings and market power are used.",
+      "explanation": "Merger classification depends on the relationship between the firms, not merely on their size.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify horizontal merger with a competitor.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify backward vertical merger with an input supplier.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain a possible economy/cost benefit of the horizontal merger.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain reduced competition may harm customers.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Firms and scale",
+      "subtopic": "Growth, niches and average costs",
+      "learningObjective": "Explain firm growth and economies or diseconomies of scale.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-006",
+      "objectiveId": "igcse-0455-148-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A small tailoring shop charges more per garment than a large standard-clothing producer but retains customers who request individual designs and quick alterations. Explain why the small firm can survive and identify two constraints it may still face.",
+      "answer": "Personal service, custom designs and flexible alterations can meet a niche that standardised mass production does not serve as well. Customers may pay more for those benefits, allowing the shop to survive without the lowest price. It may still face limited access to finance and higher unit input costs or a limited capacity to expand.",
+      "explanation": "Small-firm survival can reflect differentiated service rather than matching a large firm’s unit costs.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain niche/personalised service.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Link willingness to pay for that service to survival.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain one constraint such as access to finance.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain a second distinct constraint such as unit costs or limited capacity.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Firms and scale",
+      "subtopic": "Growth, niches and average costs",
+      "learningObjective": "Explain firm growth and economies or diseconomies of scale.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-007",
+      "objectiveId": "igcse-0455-148-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A furniture business obtains a bulk timber discount after expanding its own orders. It also benefits when a new shared training centre opens for all furniture firms in the district. Distinguish the two economies of scale and explain how each could reduce average cost.",
+      "answer": "The bulk discount is an internal purchasing economy because it follows the individual firm’s larger scale and lowers its input cost per unit. The shared training centre is an external economy arising from industry/district development; access to skilled workers can reduce recruitment or training costs and improve productivity for several firms.",
+      "explanation": "Internal and external economies are distinguished by the source of the benefit, not whether money is involved.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Classify bulk purchasing as internal.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain a lower input cost per unit.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Classify the industry training benefit as external.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain an appropriate training/recruitment/productivity channel reducing average cost.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Firms and scale",
+      "subtopic": "Growth, niches and average costs",
+      "learningObjective": "Explain firm growth and economies or diseconomies of scale.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-008",
+      "objectiveId": "igcse-0455-148-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A firm compares two long-run operating scales, with all inputs adjustable. At 1000 units, total cost is ₦4000000; at 2000 units, total cost is ₦9000000. Calculate average cost at each scale. Explain why these figures are consistent with diseconomies of scale but do not prove that communication problems caused them.",
+      "answer": "Average cost rises from ₦4000 to ₦4500 per unit. Rising long-run average cost as scale increases is consistent with diseconomies of scale. Communication or coordination problems could be one explanation, but costs may also change for other reasons; these two totals do not isolate the cause.",
+      "explanation": "A pattern in average cost is evidence about cost behaviour, not direct proof of a particular management mechanism.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate ₦4000 per unit.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate ₦4500 per unit.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Link the rise in long-run average cost with diseconomies of scale.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain two aggregate cost observations cannot identify communication problems as the cause.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "4000000/1000",
+          "expected": "4000",
+          "purpose": "Average cost at first scale"
+        },
+        {
+          "expression": "9000000/2000",
+          "expected": "4500",
+          "purpose": "Average cost at second scale"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Production and objectives",
+      "subtopic": "Productivity, costs and business choices",
+      "learningObjective": "Distinguish output, productivity, revenue and objectives in firm decisions.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-009",
+      "objectiveId": "igcse-0455-148-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A bakery makes 1200 loaves per day with eight workers. Later it makes 1800 loaves with twelve workers, with the same hours per worker. Compare total production and output per worker, and assess the claim that productivity must have increased.",
+      "answer": "Total production rises by 600 loaves, or 50%. Output per worker is 1200/8=150 loaves initially and 1800/12=150 later. On this labour-productivity measure there is no increase: higher output is associated with more workers rather than greater output per worker.",
+      "explanation": "Production and productivity are different measures.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify production rises by 600 or 50%.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate initial output per worker 150.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate later output per worker 150.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Reject the productivity-increase claim on the stated measure.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "1200/8",
+          "expected": "150",
+          "purpose": "Initial output per worker"
+        },
+        {
+          "expression": "1800/12",
+          "expected": "150",
+          "purpose": "Later output per worker"
+        },
+        {
+          "expression": "(1800-1200)/1200*100",
+          "expected": "50",
+          "purpose": "Output percentage increase"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Production and objectives",
+      "subtopic": "Productivity, costs and business choices",
+      "learningObjective": "Distinguish output, productivity, revenue and objectives in firm decisions.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-010",
+      "objectiveId": "igcse-0455-148-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "A fruit packer considers replacing manual sorting with machinery. Demand fluctuates, electricity is sometimes interrupted and the firm has little spare finance. Discuss whether more capital-intensive production is necessarily the best choice.",
+      "answer": "Machinery may sort faster and more consistently and lower unit costs at sufficiently high utilisation. But purchase and maintenance require finance, power interruptions reduce reliability, and fluctuating demand may leave expensive capacity idle. Labour may offer flexibility where suitable workers are available. The decision depends on expected utilisation, power arrangements, relative costs and quality needs rather than machinery being inherently superior.",
+      "explanation": "Evaluation compares productivity benefits with financing, reliability and capacity-utilisation risks.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Develop a potential productivity, consistency or unit-cost benefit.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Develop a relevant limitation such as finance, power or unused capacity.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Reach a supported judgement using demand, reliability and relative factor costs.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Production and objectives",
+      "subtopic": "Productivity, costs and business choices",
+      "learningObjective": "Distinguish output, productivity, revenue and objectives in firm decisions.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-011",
+      "objectiveId": "igcse-0455-148-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A workshop has fixed costs of ₦20000 for a period and variable costs of ₦30 per unit. It sells all 1000 units produced at ₦65 each. Calculate total cost, total revenue and profit. Explain why a positive profit at this output does not establish profit maximisation.",
+      "answer": "Total cost is 20000+30×1000=₦50000. Revenue is 65×1000=₦65000. Profit is ₦15000. Other feasible output and price combinations might produce higher profit; one profitable outcome cannot establish the maximum.",
+      "explanation": "Revenue is not profit, and profitability is not evidence of optimality.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate total cost ₦50000.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate revenue ₦65000.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate profit ₦15000.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain the need to compare other feasible choices before claiming profit maximisation.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "20000+30*1000",
+          "expected": "50000",
+          "purpose": "Total cost"
+        },
+        {
+          "expression": "65*1000",
+          "expected": "65000",
+          "purpose": "Total revenue"
+        },
+        {
+          "expression": "65000-50000",
+          "expected": "15000",
+          "purpose": "Profit"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Production and objectives",
+      "subtopic": "Productivity, costs and business choices",
+      "learningObjective": "Distinguish output, productivity, revenue and objectives in firm decisions.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "id": "ndv-148-012",
+      "objectiveId": "igcse-0455-148-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "A community transport firm sets a low fare to improve access and aims to cover costs over time rather than maximise annual profit. Explain the objective and why it can differ from profit maximisation. Discuss one constraint and give a reasoned judgement about long-run viability.",
+      "answer": "The firm pursues social welfare/access, subject to financial survival. A lower fare can help users while yielding less profit than another feasible fare. However, continuing costs must be met through fares or reliable funding. The objective can be viable if income and support cover costs and renewal needs; persistent unfunded losses would threaten the service.",
+      "explanation": "A non-profit-maximising objective does not remove the need to finance resources.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Develop the distinction between social-welfare/access and profit-maximisation objectives.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Explain a relevant cost/funding constraint.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Give a conditional viability judgement linked to covering continuing costs.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Living standards",
+      "subtopic": "Real income and broader indicators",
+      "learningObjective": "Interpret living-standard indicators and evaluate their limitations.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-013",
+      "objectiveId": "igcse-0455-148-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "A model economy has nominal GDP of 100 billion units and population 10 million in the base year. Next year nominal GDP is 121 billion, the GDP price index is 110 with base 100, and population is 11 million. Calculate next-year real GDP at base-year prices and compare real GDP per head across the years.",
+      "answer": "Next-year real GDP is 121×100/110=110 billion units. Base-year real GDP per head is 100 billion/10 million=10000 units; next-year real GDP per head is 110 billion/11 million=10000. Real output rises, but real output per head is unchanged because population rises proportionately.",
+      "explanation": "Nominal growth alone does not measure changes in purchasing power or output per person.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 110 billion real GDP.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate base-year 10000 per head.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate next-year 10000 per head.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain unchanged real GDP per head despite higher aggregate real output.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "121*100/110",
+          "expected": "110",
+          "purpose": "Real GDP, billion units"
+        },
+        {
+          "expression": "100000000000/10000000",
+          "expected": "10000",
+          "purpose": "Initial real GDP per head"
+        },
+        {
+          "expression": "110000000000/11000000",
+          "expected": "10000",
+          "purpose": "Later real GDP per head"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Living standards",
+      "subtopic": "Real income and broader indicators",
+      "learningObjective": "Interpret living-standard indicators and evaluate their limitations.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-014",
+      "objectiveId": "igcse-0455-148-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "Country A has higher real GDP per head than B, but lower life expectancy and fewer years of schooling. Explain why real GDP per head and a broader development indicator may rank the countries differently. Name the three broad dimensions represented in HDI.",
+      "answer": "Real GDP per head measures average real output/income, not health and education outcomes directly. HDI combines health, education and income dimensions. A’s higher income could be offset in HDI by poorer health and education, so the ranking need not match the GDP-per-head ranking; exact ranks require the full indicator data.",
+      "explanation": "A broader indicator can change a comparison without showing that income is irrelevant.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain the average real-output/income focus of GDP per head.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Name health/life expectancy and education as HDI dimensions.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Name income as the third dimension.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain offsetting components can change the ranking without claiming a certain numerical rank.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Living standards",
+      "subtopic": "Real income and broader indicators",
+      "learningObjective": "Interpret living-standard indicators and evaluate their limitations.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-015",
+      "objectiveId": "igcse-0455-148-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "Real GDP per head rises in an economy, but most extra income goes to a small high-income group. Explain why this does not establish that every household’s living standard improved and identify two kinds of additional evidence needed.",
+      "answer": "GDP per head is an average and does not show who receives gains. Some households may have unchanged or lower real income. Evidence on income distribution or household real incomes helps assess the spread of gains, while health, education, housing or access to services helps assess other living-standard dimensions.",
+      "explanation": "Aggregate averages cannot establish a universal household-level improvement.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain the average conceals distribution.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Reject the inference that every household benefits.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Identify distribution/household real-income evidence.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Identify an appropriate additional living-standard measure.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Living standards",
+      "subtopic": "Real income and broader indicators",
+      "learningObjective": "Interpret living-standard indicators and evaluate their limitations.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-016",
+      "objectiveId": "igcse-0455-148-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "Two economies have similar HDI scores, but one has longer working hours and much worse local air quality. Discuss whether the similar scores are enough to conclude that their populations enjoy the same living standards.",
+      "answer": "HDI captures important income, health and education dimensions and provides a useful broad comparison. It does not directly capture every aspect of leisure, local environmental quality or distribution, and similar composite scores can hide different components. The reported differences could affect well-being, so the scores alone are insufficient; additional environmental, working-time and distribution evidence is needed for a balanced judgement.",
+      "explanation": "A composite indicator is informative but incomplete.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain the value of HDI’s broad dimensions.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Develop an omitted factor or the possibility of offsetting component scores.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Reach a justified conclusion using the stated differences and need for additional evidence.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Poverty",
+      "subtopic": "Definitions, causes and policy evaluation",
+      "learningObjective": "Distinguish poverty concepts and evaluate policies in context.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-017",
+      "objectiveId": "igcse-0455-148-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "prompt": "Use these illustrative real monthly income units. A family’s income rises from 140 to 160. The cost of basic needs stays at 120, while median income rises from 200 to 400. Define relative poverty here as income below 50% of the median. Assess absolute and relative poverty for the family in each period.",
+      "answer": "The family remains above the 120 basic-needs threshold in both periods, so it is not absolutely poor under this definition. The relative line rises from 100 to 200. Income 140 is above the first line, but 160 is below the second, so relative poverty can emerge even though real family income rises.",
+      "explanation": "Absolute and relative poverty use different reference points; the numerical thresholds are illustrative, not official national poverty lines.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Compare both incomes with 120 and reject absolute poverty in both periods.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate relative lines 100 and 200.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Classify not relatively poor initially but relatively poor later.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain relative position can worsen despite rising real income.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "200*.50",
+          "expected": "100",
+          "purpose": "Initial relative-poverty line"
+        },
+        {
+          "expression": "400*.50",
+          "expected": "200",
+          "purpose": "Later relative-poverty line"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Poverty",
+      "subtopic": "Definitions, causes and policy evaluation",
+      "learningObjective": "Distinguish poverty concepts and evaluate policies in context.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-018",
+      "objectiveId": "igcse-0455-148-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A farming district suffers repeated droughts. Farm yields fall and some labourers lose paid work. Explain two economic channels through which this environmental shock can increase poverty, and why the impact need not be identical for all households.",
+      "answer": "Lower crop output can reduce farm sales, earnings and demand for labour, causing unemployment or lower wages. Reduced food supply can raise food costs and reduce households’ ability to afford basic needs. Households differ in their dependence on farming, savings, alternative income and support, so poverty effects vary.",
+      "explanation": "An environmental factor can affect both income and purchasing power.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain a yield/income or employment channel.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain a food-cost/purchasing-power channel.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Identify a relevant difference between households.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Link that difference to unequal vulnerability to poverty.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Poverty",
+      "subtopic": "Definitions, causes and policy evaluation",
+      "learningObjective": "Distinguish poverty concepts and evaluate policies in context.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-019",
+      "objectiveId": "igcse-0455-148-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "A government proposes free vocational education to reduce poverty among unemployed adults. Discuss whether this policy alone is likely to achieve the aim.",
+      "answer": "Education can improve skills, productivity and employability, supporting higher earnings. But courses take time, learners may face travel or forgone-income costs, and training that does not match vacancies may not lead to work. Funding also has an opportunity cost. The policy is more likely to reduce poverty when accessible, matched to labour demand and combined with conditions that support jobs; education alone is not a guarantee.",
+      "explanation": "The mechanism from education to income depends on access and employment opportunities.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Develop a skills-to-employment/earnings benefit.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Develop an access, time, mismatch or fiscal limitation.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Reach a contextual judgement linking effectiveness to labour demand and implementation.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Poverty",
+      "subtopic": "Definitions, causes and policy evaluation",
+      "learningObjective": "Distinguish poverty concepts and evaluate policies in context.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-020",
+      "objectiveId": "igcse-0455-148-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "A government can fund either better local healthcare access or a larger targeted cash benefit for low-income households. Discuss why neither policy can be declared the better poverty measure without more information.",
+      "answer": "Better healthcare can reduce work lost to illness, improve productive capacity and reduce burdensome costs, but effects may take time and depend on service quality. A targeted cash benefit can relieve immediate inability to meet basic needs, but may miss eligible households or require continuing finance. The better choice depends on the main causes of poverty, urgency, coverage and comparative costs; the measures may also complement each other.",
+      "explanation": "Policy evaluation requires the relevant mechanism, delivery and opportunity cost rather than a universal ranking.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Develop a healthcare mechanism and a relevant implementation/time limitation.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Develop an immediate cash-support mechanism and a relevant targeting/funding limitation.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Give a comparative judgement conditional on causes, urgency, reach or costs.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Population and development",
+      "subtopic": "Demographic change and productive capacity",
+      "learningObjective": "Analyse demographic change and international development differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-021",
+      "objectiveId": "igcse-0455-148-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "A model country starts a year with 2000000 people. During the year there are 48000 births, 20000 deaths, 12000 immigrants and 18000 emigrants. Calculate natural increase, net migration, total population change and the percentage increase relative to the starting population.",
+      "answer": "Natural increase is 48000−20000=28000. Net migration is 12000−18000=−6000. Total change is 22000, giving 22000/2000000×100=1.1% growth.",
+      "explanation": "Natural increase and net migration must both be included; gross immigration alone overstates migration’s contribution.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 28000 natural increase.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate −6000 net migration.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate 22000 total increase.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Calculate 1.1% population growth.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "48000-20000",
+          "expected": "28000",
+          "purpose": "Natural population increase"
+        },
+        {
+          "expression": "12000-18000",
+          "expected": "-6000",
+          "purpose": "Net migration"
+        },
+        {
+          "expression": "48000-20000+12000-18000",
+          "expected": "22000",
+          "purpose": "Total population increase"
+        },
+        {
+          "expression": "22000/2000000*100",
+          "expected": "1.1",
+          "purpose": "Population growth percentage"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Population and development",
+      "subtopic": "Demographic change and productive capacity",
+      "learningObjective": "Analyse demographic change and international development differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-022",
+      "objectiveId": "igcse-0455-148-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "prompt": "An economy’s working-age population is stable while the number of older residents rises. Explain two possible pressures on public resources and why this age change alone is insufficient to predict a fall in living standards.",
+      "answer": "Demand for pensions and age-related services may rise, while a stable working-age group may have to support more dependants if employment and productivity are unchanged. However, older people can work, save or contribute in other ways, and greater productivity or different funding arrangements can support more provision. The outcome depends on income generation, participation, service needs and policy, not age numbers alone.",
+      "explanation": "Age structure influences demands and potential output but does not mechanically determine living standards.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain a possible pension/service-demand pressure.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain a possible support/tax burden with unchanged employment/productivity.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Identify a countervailing contribution or productivity/participation change.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain the prediction needs further economic and policy information.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Population and development",
+      "subtopic": "Demographic change and productive capacity",
+      "learningObjective": "Analyse demographic change and international development differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-023",
+      "objectiveId": "igcse-0455-148-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "Many skilled workers emigrate from country X to country Y. Explain one possible production effect in each country and discuss why the net development effect on X is uncertain.",
+      "answer": "X may lose scarce skills, reducing some productive capacity or service provision. Y may fill vacancies and expand output, though adjustment and matching matter. X could also receive remittances or later returnees with skills, and effects depend on whether departing workers had jobs or could be replaced. Thus departure alone does not establish the size or sign of the overall development effect.",
+      "explanation": "Migration can affect labour supply, skills and income flows in different directions.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Develop a possible loss-of-skills/production effect in X.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Develop a possible vacancy/output benefit in Y.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Give a conditional judgement for X using a countervailing effect and relevant labour-market conditions.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Population and development",
+      "subtopic": "Demographic change and productive capacity",
+      "learningObjective": "Analyse demographic change and international development differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-148-024",
+      "objectiveId": "igcse-0455-148-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "prompt": "Country R has valuable mineral deposits but weak education and low investment outside mining. Country S has few mineral resources but a skilled workforce and diversified production. Discuss whether natural resources alone are enough to predict which country will develop faster.",
+      "answer": "Resources can generate output, export earnings and funds for investment. But extraction may be concentrated, revenues may not improve skills or services, and dependence on a narrow sector can create risks. Skills, productivity, saving, investment and diversification can support development in S despite fewer minerals. The growth outcome depends on how resources and income are used, institutions and other productive factors, so resource abundance alone cannot rank their future development.",
+      "explanation": "Development is multidimensional and depends on interactions between productive resources, people and investment.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Develop a possible resource-income-investment benefit for R.",
+          "marks": 2
+        },
+        {
+          "step": 2,
+          "description": "Develop a limitation of reliance on resources or a human-capital/diversification benefit for S.",
+          "marks": 2
+        },
+        {
+          "step": 3,
+          "description": "Reach a balanced conditional judgement using investment/productivity or use of resource income.",
+          "marks": 2
+        }
+      ],
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true
+    }
+  ]
+}

@@ -1881,7 +1881,11 @@
       "examinationYears": [
         2026
       ],
-      "note": "Cambridge 2026 version 2. Untiered. Paper 1: 30 MCQs, 45 minutes, AO1/AO2. Paper 2: structured questions, 90 marks, 135 minutes, AO1/AO2/AO3. Separate 2027–2029 syllabus requires its own mapping."
+      "note": "Cambridge 2026 version 2. Untiered. Paper 1: 30 MCQs, 45 minutes, AO1/AO2. Paper 2: structured questions, 90 marks, 135 minutes, AO1/AO2/AO3. Separate 2027–2029 syllabus requires its own mapping.",
+      "lastRecheckedOn": "2026-11-08",
+      "sha256": "9e4f81cf4320963431ad75fc597b9281e5d12d58b31410911ab7bb525711deb3",
+      "sourceBytes": 552562,
+      "pageCount": 32
     },
     {
       "id": "cambridge-0455-2027-2029-v1",
@@ -1898,7 +1902,10 @@
         2028,
         2029
       ],
-      "note": "Untiered. Paper 1 has 40 multiple-choice questions in 60 minutes and assesses AO1/AO2. Paper 2 has 80 marks in 120 minutes and assesses AO1/AO2/AO3. The 2026 syllabus remains separately mapped."
+      "note": "Untiered. Paper 1 has 40 multiple-choice questions in 60 minutes and assesses AO1/AO2. Paper 2 has 80 marks in 120 minutes and assesses AO1/AO2/AO3. The 2026 syllabus remains separately mapped.",
+      "lastRecheckedOn": "2026-11-08",
+      "sourceBytes": 695606,
+      "pageCount": 37
     },
     {
       "id": "neco-bece-bst-2026-historical-nerdc-reference",
@@ -17847,6 +17854,162 @@
         2027,
         2028
       ]
+    },
+    {
+      "id": "igcse-0455-148-01-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Households and workers",
+      "subtopic": "Choices, earnings and specialisation",
+      "learningObjective": "Analyse household and worker decisions using monetary and non-monetary factors.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "3.2.1; 3.3.1–3.3.4, printed p. 17"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-148-02-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Firms and scale",
+      "subtopic": "Growth, niches and average costs",
+      "learningObjective": "Explain firm growth and economies or diseconomies of scale.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "3.5.2–3.5.5, printed p. 18"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-148-03-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Production and objectives",
+      "subtopic": "Productivity, costs and business choices",
+      "learningObjective": "Distinguish output, productivity, revenue and objectives in firm decisions.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "3.6.1–3.6.3; 3.7.1–3.7.5, printed p. 18"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-148-04-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Living standards",
+      "subtopic": "Real income and broader indicators",
+      "learningObjective": "Interpret living-standard indicators and evaluate their limitations.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "5.1.1–5.1.2, printed p. 22"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-148-05-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Poverty",
+      "subtopic": "Definitions, causes and policy evaluation",
+      "learningObjective": "Distinguish poverty concepts and evaluate policies in context.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "5.2.1–5.2.3, printed pp. 22–23"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-148-06-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Population and development",
+      "subtopic": "Demographic change and productive capacity",
+      "learningObjective": "Analyse demographic change and international development differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "questionTypes": [
+        "structured"
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "5.3.1–5.3.2; 5.4.1, printed p. 23"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [

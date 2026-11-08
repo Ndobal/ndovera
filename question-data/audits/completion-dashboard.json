@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3768,
-    "validDrafts": 2089,
+    "raw": 3792,
+    "validDrafts": 2113,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1018,6 +1018,12 @@
       "actual": 24
     },
     {
+      "path": "original-multisubject-batch-148.json",
+      "sha256": "46df0e13ecb759248d163ffb531e40b834d8d1d2b85588a87c8851402c339232",
+      "declared": 24,
+      "actual": 24
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1882,20 +1888,20 @@
       "additionalSpecificationIds": [
         "cambridge-0455-2027-2029-v1"
       ],
-      "raw": 13,
-      "validDrafts": 13,
+      "raw": 37,
+      "validDrafts": 37,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 5,
-        "structured": 8
+        "structured": 32
       },
       "difficulty": {
-        "standard": 5,
-        "difficult": 8
+        "standard": 19,
+        "difficult": 18
       },
-      "remaining": 987,
-      "mappedObjectives": 13,
-      "representedObjectives": 13,
+      "remaining": 963,
+      "mappedObjectives": 19,
+      "representedObjectives": 19,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5875,20 +5881,20 @@
   ],
   "errorCounts": {
     "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 304,
+    "explicitArithmeticClaims": 323,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -32998,6 +33004,150 @@
     {
       "id": "ndv-147-024",
       "file": "original-multisubject-batch-147.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-001",
+      "file": "original-multisubject-batch-148.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-002",
+      "file": "original-multisubject-batch-148.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-003",
+      "file": "original-multisubject-batch-148.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-004",
+      "file": "original-multisubject-batch-148.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-005",
+      "file": "original-multisubject-batch-148.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-006",
+      "file": "original-multisubject-batch-148.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-007",
+      "file": "original-multisubject-batch-148.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-008",
+      "file": "original-multisubject-batch-148.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-009",
+      "file": "original-multisubject-batch-148.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-010",
+      "file": "original-multisubject-batch-148.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-011",
+      "file": "original-multisubject-batch-148.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-012",
+      "file": "original-multisubject-batch-148.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-013",
+      "file": "original-multisubject-batch-148.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-014",
+      "file": "original-multisubject-batch-148.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-015",
+      "file": "original-multisubject-batch-148.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-016",
+      "file": "original-multisubject-batch-148.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-017",
+      "file": "original-multisubject-batch-148.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-018",
+      "file": "original-multisubject-batch-148.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-019",
+      "file": "original-multisubject-batch-148.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-020",
+      "file": "original-multisubject-batch-148.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-021",
+      "file": "original-multisubject-batch-148.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-022",
+      "file": "original-multisubject-batch-148.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-023",
+      "file": "original-multisubject-batch-148.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-148-024",
+      "file": "original-multisubject-batch-148.json",
       "index": 23,
       "errors": []
     },
@@ -67197,6 +67347,238 @@
       },
       "assessmentObjectives": {
         "AO3": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-148-01-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Households and workers",
+      "subtopic": "Choices, earnings and specialisation",
+      "learningObjective": "Analyse household and worker decisions using monetary and non-monetary factors.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Untiered": 4
+      },
+      "sourceSections": [
+        "3.2.1; 3.3.1–3.3.4, printed p. 17"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 4,
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-148-02-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Firms and scale",
+      "subtopic": "Growth, niches and average costs",
+      "learningObjective": "Explain firm growth and economies or diseconomies of scale.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Untiered": 4
+      },
+      "sourceSections": [
+        "3.5.2–3.5.5, printed p. 18"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "assessmentObjectives": {
+        "AO2": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-148-03-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Production and objectives",
+      "subtopic": "Productivity, costs and business choices",
+      "learningObjective": "Distinguish output, productivity, revenue and objectives in firm decisions.",
+      "specificationId": "cambridge-0455-2026-v2",
+      "qualificationCode": "0455",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Untiered": 4
+      },
+      "sourceSections": [
+        "3.6.1–3.6.3; 3.7.1–3.7.5, printed p. 18"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 2
+      },
+      "assessmentObjectives": {
+        "AO2": 4,
+        "AO3": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-148-04-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Living standards",
+      "subtopic": "Real income and broader indicators",
+      "learningObjective": "Interpret living-standard indicators and evaluate their limitations.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Untiered": 4
+      },
+      "sourceSections": [
+        "5.1.1–5.1.2, printed p. 22"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "difficult": 2,
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO2": 4,
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-148-05-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Poverty",
+      "subtopic": "Definitions, causes and policy evaluation",
+      "learningObjective": "Distinguish poverty concepts and evaluate policies in context.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Untiered": 4
+      },
+      "sourceSections": [
+        "5.2.1–5.2.3, printed pp. 22–23"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "difficult": 3,
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 4,
+        "AO3": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-148-06-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Population and development",
+      "subtopic": "Demographic change and productive capacity",
+      "learningObjective": "Analyse demographic change and international development differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "questionTypes": {
+        "structured": 4
+      },
+      "tiers": {
+        "Untiered": 4
+      },
+      "sourceSections": [
+        "5.3.1–5.3.2; 5.4.1, printed p. 23"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 2,
+        "difficult": 2
+      },
+      "assessmentObjectives": {
+        "AO2": 4,
+        "AO3": 2
       },
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",

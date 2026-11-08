@@ -2,31 +2,34 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_147_automated_validation_passed",
+  "phase": "batch_148_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-148.json",
+  "nextBatch": "original-multisubject-batch-149.json",
   "nextPriorities": [
-    "Expand IGCSE Economics 0455 to underrepresented objectives, keeping the official 2026 v2 and 2027–2029 v1 cycles distinct after inspecting current coverage. Physics now has 60 automated-valid drafts, an explicit source-linked bank entry and 0625 practical-format validation. Full objective denominators, independent review and unresolved BECE/NERDC adoption routes remain open.",
+    "Expand SAT Reading and Writing across underrepresented official current domains after inspecting existing objective and stimulus coverage. Economics now has 37 automated-valid drafts, including twelve additional 2026 v2 and twelve additional 2027–2029 v1 structured tasks. Keep cycle mappings distinct and obtain complete objective denominators and independent review. Preserve unresolved BECE/NERDC source and adoption routes.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-147.json",
-  "lastRemoteVerifiedCommit": "d3d395012c0812a2e2b38d08ad656b52b9698dee",
+  "lastValidatedBatch": "original-multisubject-batch-148.json",
+  "lastRemoteVerifiedCommit": "7445f5053bfbe18d181d1ad666b83017d8ab8627",
   "verifiedTotals": {
-    "raw": 3768,
-    "validDrafts": 2089,
+    "raw": 3792,
+    "validDrafts": 2113,
     "reviewed": 0
   },
   "lastRunTestCount": 48,
-  "lastPopulatedBatch": "original-multisubject-batch-147.json",
+  "lastPopulatedBatch": "original-multisubject-batch-148.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3768,
+  "inventoryRaw": 3792,
   "lastSourceUpdate": "igbo-jss3-historical-scope-inventory.json",
   "lastSourceRecheck": {
-    "id": "cambridge-0625-2026-2028-v2",
+    "ids": [
+      "cambridge-0455-2026-v2",
+      "cambridge-0455-2027-2029-v1"
+    ],
     "date": "2026-11-08"
   }
 }
