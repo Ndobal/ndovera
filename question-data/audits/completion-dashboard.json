@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3688,
-    "validDrafts": 2009,
+    "raw": 3696,
+    "validDrafts": 2017,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -994,6 +994,12 @@
       "actual": 8
     },
     {
+      "path": "original-multisubject-batch-144.json",
+      "sha256": "627d9ab9166bd07f89f7e1f33fb519d4e18492b9d162bfa9293c59b3ec1d6942",
+      "declared": 8,
+      "actual": 8
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1637,7 +1643,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -1646,16 +1652,23 @@
         "2091",
         "2092"
       ],
-      "raw": 0,
-      "validDrafts": 0,
+      "additionalSpecificationIds": [
+        "neco-bece-yoruba-l1-2026-historical-reference"
+      ],
+      "raw": 8,
+      "validDrafts": 8,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 8
+      },
+      "difficulty": {
+        "standard": 8
+      },
+      "remaining": 992,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "BECE",
@@ -5834,18 +5847,18 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -32478,6 +32491,54 @@
     {
       "id": "ndv-143-008",
       "file": "original-multisubject-batch-143.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-144-001",
+      "file": "original-multisubject-batch-144.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-144-002",
+      "file": "original-multisubject-batch-144.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-144-003",
+      "file": "original-multisubject-batch-144.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-144-004",
+      "file": "original-multisubject-batch-144.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-144-005",
+      "file": "original-multisubject-batch-144.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-144-006",
+      "file": "original-multisubject-batch-144.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-144-007",
+      "file": "original-multisubject-batch-144.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-144-008",
+      "file": "original-multisubject-batch-144.json",
       "index": 7,
       "errors": []
     },
@@ -65898,6 +65959,68 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Yoruba (L1)",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-yoruba-l1-2026-historical-reference",
+      "id": "bece-yoruba-l1-144-01-v1",
+      "topic": "Àkàyé",
+      "subtopic": "Road-safety comprehension",
+      "learningObjective": "Interpret purpose, sequence and details in an original Yoruba road-safety passage.",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 BECE timetable, objective format only",
+        "Historical NERDC Yoruba foreword PDF p. 4 (iv), native-language audience; curriculum printed/PDF p. 28, JSS 3 comprehension"
+      ],
+      "mappingStatus": "provisional_historical_jss3_receptive_practice_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Yoruba (L1)",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-yoruba-l1-2026-historical-reference",
+      "id": "bece-yoruba-l1-144-02-v1",
+      "topic": "Àkàyé",
+      "subtopic": "Participation and women’s voices",
+      "learningObjective": "Interpret evidence, main idea and contextual vocabulary in an original Yoruba passage about equal participation.",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 BECE timetable, objective format only",
+        "Historical NERDC Yoruba foreword PDF p. 4 (iv), native-language audience; curriculum printed/PDF p. 28, JSS 3 comprehension"
+      ],
+      "mappingStatus": "provisional_historical_jss3_receptive_practice_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -65938,6 +66061,7 @@
     "NECO BECE Islamic Studies has initial provisional JSS 3 ethics practice using historical NERDC pp. 107-109 and checked Qur'anic meanings. Current curriculum adoption, full scope, 5181/5182 allocation and official option counts remain unverified. A justice verse-reference discrepancy and PDF rendering errors are recorded. Written practice does not assess Arabic recitation or tajwid.",
     "NECO BECE Arabic Language has eight initial written-reading drafts using original texts about books and radio, provisionally mapped to historical 2012 ninth-year pages. Current adoption, full scope, 2061/2062 allocation and official option count remain unverified. PyMuPDF rendered inspected source pages after Poppler failed. These written tasks do not assess listening, pronunciation or oral reading.",
     "Hausa routes (batch 143): the historical NERDC JSS 1-3 PDF explicitly targets mother-tongue learners and supports only a provisional L1 JSS 3 reading-content reference. Date, current adoption, complete NECO objectives, L1 2071/2072 allocation and option count remain unverified. L2 2201 has official timetable-format evidence only; neither this L1 PDF nor an NCCE teacher-training L2 syllabus establishes BECE L2 learner objectives. No L2 questions added.",
-    "Igbo route investigation (2026-11-08): historical official JSS 3 topics located, but neither retrieved curriculum nor foreword establishes BECE L1/L2 assignment or current adoption. Timetable confirms L1 2081/2082 and L2 2211 objective formats only. Both banks remain empty; topic inventory is source evidence, not active coverage. Obtain route-specific syllabus, selected works and performance requirements."
+    "Igbo route investigation (2026-11-08): historical official JSS 3 topics located, but neither retrieved curriculum nor foreword establishes BECE L1/L2 assignment or current adoption. Timetable confirms L1 2081/2082 and L2 2211 objective formats only. Both banks remain empty; topic inventory is source evidence, not active coverage. Obtain route-specific syllabus, selected works and performance requirements.",
+    "Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred."
   ]
 }

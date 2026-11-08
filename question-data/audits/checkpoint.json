@@ -2,27 +2,27 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "igbo_historical_source_inventory_route_mapping_pending",
+  "phase": "batch_144_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-144.json",
+  "nextBatch": "original-multisubject-batch-145.json",
   "nextPriorities": [
-    "Verify NECO BECE Yoruba L1 and L2 separately before opening either bank. Igbo historical JSS 3 source inventory now has nineteen topic locators, but route assignment and current adoption remain unresolved; both Igbo banks stay empty. Obtain official Igbo and Hausa L2 route-specific learner syllabuses rather than transferring L1, SSCE or accelerated-programme scope.",
+    "Expand source-verified IGCSE Chemistry 0620 (2026–2028) to underrepresented content objectives and theory/practical-planning formats after inspecting current coverage. Yoruba L1 now has eight provisional historical JSS 3 reading drafts; L2 remains unopened. Preserve Igbo L1/L2, Hausa L2 and BECE Pre-Vocational source gaps; obtain route-specific official learner syllabuses and verify cohort adoption.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-143.json",
-  "lastRemoteVerifiedCommit": "2bc092a9f38f8c7d4f7665306ebd4205999785d8",
+  "lastValidatedBatch": "original-multisubject-batch-144.json",
+  "lastRemoteVerifiedCommit": "3f153c1274783d14622625689ecb2640c6c4690b",
   "verifiedTotals": {
-    "raw": 3688,
-    "validDrafts": 2009,
+    "raw": 3696,
+    "validDrafts": 2017,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-143.json",
+  "lastPopulatedBatch": "original-multisubject-batch-144.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3688,
+  "inventoryRaw": 3696,
   "lastSourceUpdate": "igbo-jss3-historical-scope-inventory.json"
 }

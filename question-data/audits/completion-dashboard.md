@@ -24,7 +24,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | Mathematics / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | National Values Education / JSS 3 | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | BECE | Pre-Vocational Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| BECE | Yoruba (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Yoruba (L1) / JSS 3 | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | BECE | Yoruba (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | IELTS | Listening | 1000 | 40 | 40 | 0 | 960 | partial_objective_register |
 | IELTS | Reading | 1000 | 68 | 62 | 0 | 938 | partial_objective_register |
@@ -207,7 +207,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
-| BECE | 121 | 121 | 0 | 18000 | 17879 |
+| BECE | 129 | 129 | 0 | 18000 | 17871 |
 | IELTS | 121 | 112 | 0 | 4000 | 3888 |
 | IGCSE | 182 | 161 | 0 | 5000 | 4839 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
@@ -218,7 +218,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 104 | 95 | 0 | 4000 | 3905 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3688, "validDrafts": 2009, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3696, "validDrafts": 2017, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -262,3 +262,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - NECO BECE Arabic Language has eight initial written-reading drafts using original texts about books and radio, provisionally mapped to historical 2012 ninth-year pages. Current adoption, full scope, 2061/2062 allocation and official option count remain unverified. PyMuPDF rendered inspected source pages after Poppler failed. These written tasks do not assess listening, pronunciation or oral reading.
 - Hausa routes (batch 143): the historical NERDC JSS 1-3 PDF explicitly targets mother-tongue learners and supports only a provisional L1 JSS 3 reading-content reference. Date, current adoption, complete NECO objectives, L1 2071/2072 allocation and option count remain unverified. L2 2201 has official timetable-format evidence only; neither this L1 PDF nor an NCCE teacher-training L2 syllabus establishes BECE L2 learner objectives. No L2 questions added.
 - Igbo route investigation (2026-11-08): historical official JSS 3 topics located, but neither retrieved curriculum nor foreword establishes BECE L1/L2 assignment or current adoption. Timetable confirms L1 2081/2082 and L2 2211 objective formats only. Both banks remain empty; topic inventory is source evidence, not active coverage. Obtain route-specific syllabus, selected works and performance requirements.
+- Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred.

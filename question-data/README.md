@@ -808,3 +808,10 @@ foreword and inventories nineteen JSS 3 topic tables with page locators.
 Neither document establishes BECE L1/L2 assignment or current adoption.
 Both routes remain unopened; no questions or active objectives are added.
 See `specifications/igbo-jss3-historical-scope-inventory.json`.
+
+Batch 144 opens NECO BECE Yoruba (L1) with eight original written-reading
+drafts on road safety and equal participation. The historical foreword
+addresses mother-tongue learning; JSS 3 comprehension was checked visually
+because text extraction loses letters and tone marks. L2 stays unopened.
+Current adoption, full scope, paper allocation, option counts and native-
+language academic review remain outstanding.
