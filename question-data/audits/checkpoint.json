@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_158_automated_validation_passed",
+  "phase": "batch_159_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-159.json",
+  "nextBatch": "original-multisubject-batch-160.json",
   "nextPriorities": [
-    "Develop underrepresented IELTS Speaking Part2/Part3 practice after rechecking exact official current timing and task structure, preserving actual spoken responses and original practice rubrics. TOEFL Writing now has 46 automated-valid drafts:29 contextual sentence tasks,8 emails,9 discussions; none independently reviewed. Five earlier sentence formats reconciled with stable IDs/canonical answers. Chunk reconstruction checks do not prove grammatical uniqueness or ETS scoring. Full-section delivery, broader language skill coverage, Geography current specifications and exact-class/BECE adoption remain open.",
+    "Prioritise underrepresented IELTS General Training Writing Task1 communication functions after rechecking official current letter instructions, timing and word guidance. IELTS Speaking now has16 automated-valid drafts; batch159 adds4 long turns and8 linked abstract discussion questions with actual spoken-evidence requirements. Timing belongs to whole parts where stated; model transcripts do not demonstrate fluency/pronunciation or verified duration. Independent language review, full-test delivery and broader topic coverage remain open. Preserve Geography full-current-specification and exact-class/BECE adoption gaps.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-158.json",
-  "lastRemoteVerifiedCommit": "c1858e2b055739eb276d856a5bd1b7df0e7c2a41",
+  "lastValidatedBatch": "original-multisubject-batch-159.json",
+  "lastRemoteVerifiedCommit": "d40bcda90978d8de7b009a35f5f0b51a4f3196d0",
   "verifiedTotals": {
-    "raw": 4026,
-    "validDrafts": 2347,
+    "raw": 4038,
+    "validDrafts": 2359,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-158.json",
+  "lastPopulatedBatch": "original-multisubject-batch-159.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4026,
+  "inventoryRaw": 4038,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "toefl-sentence-format-recheck-158-2026",
+    "id": "ielts-speaking-parts2-3-recheck-159-2026",
     "date": "2026-11-08"
   }
 }

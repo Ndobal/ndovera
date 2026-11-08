@@ -912,3 +912,10 @@ The freshly retrieved ETS overview p13 shows an unused-word example;
 this is not made a universal rule. Assembly checks verify accounting and
 reconstruction, not linguistic uniqueness or official scoring. Full
 delivery validation and independent academic review remain open.
+
+Batch 159 adds four IELTS Speaking Part2 long turns and eight linked
+Part3 discussion questions, using shared Academic/General Training format.
+Official timing and criteria were rechecked. Actual live/recorded speech
+is required; original model transcripts cannot establish pronunciation or
+speaking duration. Eight-point guides have no official band equivalence.
+Part3 timing applies to the whole discussion, not each question.

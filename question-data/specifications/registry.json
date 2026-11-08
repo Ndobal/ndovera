@@ -2432,6 +2432,19 @@
       ],
       "status": "current_mechanics_checked_not_full_delivery_validation",
       "note": "Fresh retrieval matches prior overview hash. The sample supports a possible unused word, not a rule that every item contains exactly one. No per-item timing or official raw-score conversion inferred. Five earlier drills reconciled to explicit two-speaker exchanges and fixed frames while retaining stable IDs and canonical answers. Original new chunks/models do not copy the ETS sample. Structured assembly checks verify selection/accounting and reconstruction, not grammatical correctness or uniqueness."
+    },
+    {
+      "id": "ielts-speaking-parts2-3-recheck-159-2026",
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "kind": "official_shared_speaking_format",
+      "source": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-speaking",
+      "additionalSources": [
+        "https://ielts.org/take-a-test/test-types/ielts-general-training-test/ielts-general-training-format-speaking"
+      ],
+      "checkedOn": "2026-11-08",
+      "status": "parts2_3_format_and_assessment_criteria_rechecked",
+      "note": "Both official pages retrieved. Part2 gives one minute preparation and a long turn stopped at two minutes; whole Part2 lasts3–4minutes including preparation and possible rounding-off questions. Part3 develops linked general/abstract issues for4–5minutes. Overall Speaking11–14minutes. Four criteria: fluency/coherence, lexical resource, grammatical range/accuracy, pronunciation. Original eight-point practice rubrics do not convert to IELTS bands. Twelve standalone tasks do not form a full recorded test; no item-level Part3 time limit or spoken word-count requirement invented."
     }
   ],
   "banks": [
@@ -18648,6 +18661,40 @@
         "Author-proposed finer practice mapping; full current syllabus alignment unverified"
       ],
       "mappingStatus": "historical_official_reference_pending_current_alignment_and_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-speaking-159-part2-v1",
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 2",
+      "subtopic": "Individual long turn",
+      "learningObjective": "Sustain an organised spoken long turn on a familiar topic, developing the task-card points and explanation.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "IELTS official Academic and General Training Speaking format: Part 2; four assessment criteria"
+      ],
+      "mappingStatus": "author_proposed_from_official_task_description_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-speaking-159-part3-v1",
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "IELTS official Academic and General Training Speaking format: Part 3; four assessment criteria"
+      ],
+      "mappingStatus": "author_proposed_from_official_task_description_pending_academic_review",
       "officialObjectiveCode": null
     }
   ],

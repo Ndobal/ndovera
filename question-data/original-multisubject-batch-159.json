@@ -1,0 +1,792 @@
+{
+  "schemaVersion": 2,
+  "collection": "IELTS original linked long-turn and abstract speaking practice",
+  "questionCount": 12,
+  "note": "Four Part2 long turns and eight linked Part3 discussion questions. Shared Academic/General Training format, counted once. All require live or recorded speech. Original transcripts are illustrative and not verified-duration performances; no official word limits or band equivalents inferred. Part3 timing belongs to the whole discussion, not each item.",
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 2",
+      "subtopic": "Individual long turn",
+      "learningObjective": "Sustain an organised spoken long turn on a familiar topic, developing the task-card points and explanation.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-001",
+      "objectiveId": "ielts-speaking-159-part2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 2 task card: Describe a small change you made to a daily routine.\nYou should say:\n- what the routine was\n- what you changed\n- how you decided whether the change was useful\nAnd explain why the change did or did not suit you.\n\nYou have one minute to prepare and may make notes. Then speak aloud for up to two minutes, aiming to develop the talk until the examiner stops you. A written submission alone does not complete this task.",
+      "answer": "A small change that helped me was preparing my bag in the evening instead of leaving everything until the morning. It sounds rather ordinary, but it changed the way my day began.\n\nPreviously, I would finish an assignment at night and leave the notes on whichever table I had used. The next morning I often walked around looking for a notebook or a charging cable. I was not always late, but I usually felt hurried before I had even left home.\n\nI decided to try a simple routine for a week. After dinner, I checked the next day’s timetable, put the materials I needed in one place and wrote down anything I could not pack yet. I did not create a complicated list or buy any special equipment. I just used a small sheet of paper beside the bag.\n\nAt the end of the week, I compared how often I had needed to search for things in the morning. The change had not solved every problem, but I had forgotten fewer items and could sit down for breakfast without worrying about my notes.\n\nWhat suited me was the fact that the routine was short. If it had taken half an hour, I probably would not have continued. I also allowed exceptions when my plans changed. For me, the useful part was reducing unnecessary decisions, rather than following a rule perfectly every day.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 2 cue card",
+      "practiceGroupId": "ndv-159-routine",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 232,
+      "preparationTimeSeconds": 60,
+      "longTurnMaximumSeconds": 120,
+      "partDurationSeconds": {
+        "minimum": 180,
+        "maximum": 240
+      },
+      "examinerDelivery": "Allow one minute for notes, invite the long turn, stop at two minutes, and optionally ask one or two brief rounding-off questions. Part duration includes preparation and interaction; do not treat model word count as a timing guarantee."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-002",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: Why can a small change in routine be difficult to maintain?\nPossible examiner probe: Does the same approach work for everybody?\n\nDiscuss the issue aloud with the examiner and develop your own reasons or examples. Respond to the probe if asked; do not recite the model. The official 4–5-minute duration applies to the entire Part 3 discussion, not to this single question.",
+      "answer": "A change can be simple to describe but still compete with habits that happen almost automatically. Someone might plan to read in the morning, for instance, but discover that the household is busiest at exactly that time. Motivation alone does not remove that practical obstacle. I think it helps to connect a new action to something the person already does and to make the first step manageable. However, the same method will not suit everyone. A person with a predictable schedule can use a fixed time, whereas someone working changing shifts may need a flexible trigger. Maintaining a routine is often about fitting it to real circumstances rather than making a more ambitious promise.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-159-routine",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 114,
+      "linkedPart2QuestionId": "ndv-159-001",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-003",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: Should workplaces or colleges require everyone to follow the same routines?\nPossible examiner probe: When might flexibility become unfair to other people?\n\nDiscuss the issue aloud with the examiner and develop your own reasons or examples. Respond to the probe if asked; do not recite the model. The official 4–5-minute duration applies to the entire Part 3 discussion, not to this single question.",
+      "answer": "Some shared routines are necessary, especially where people depend on one another. A team needs a reliable way to hand over work, and a college needs clear arrangements for using shared equipment. Nevertheless, identical routines are not always the fairest approach. People may have different responsibilities or ways of completing the same task. I would keep common expectations about the result and allow flexibility in the method where possible. Flexibility becomes unfair when it transfers an unexplained burden to someone else, such as repeatedly leaving a colleague to finish shared work. The important distinction is between adapting an arrangement responsibly and treating an agreement as optional only for oneself.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-159-routine",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 109,
+      "linkedPart2QuestionId": "ndv-159-001",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 2",
+      "subtopic": "Individual long turn",
+      "learningObjective": "Sustain an organised spoken long turn on a familiar topic, developing the task-card points and explanation.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-004",
+      "objectiveId": "ielts-speaking-159-part2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 2 task card: Describe an object you had repaired instead of replacing it.\nYou should say:\n- what the object was\n- what was wrong with it\n- how the repair was arranged\nAnd explain what influenced your decision to keep the object.\n\nYou have one minute to prepare and may make notes. Then speak aloud for up to two minutes, aiming to develop the talk until the examiner stops you. A written submission alone does not complete this task.",
+      "answer": "The object I would describe is a small backpack that I used for classes and short trips. One of its shoulder straps began to come away from the main part of the bag. The fabric around the join was still in reasonable condition, so I did not immediately think I needed a new backpack.\n\nAt first I put it aside because I was worried that the strap might break while I was carrying books. A neighbour recommended a tailor who repaired bags as well as clothes. I took it there, explained how much I usually carried and asked whether the damaged area could be reinforced.\n\nThe tailor looked at the fabric before agreeing to the job. That was reassuring because I did not want a repair that would look tidy but fail again immediately. We agreed on a price, and I collected the bag a few days later. The stitching was visible, but the strap felt secure and the bag was comfortable to carry.\n\nCost was part of my decision, although it was not the only reason. I already liked the size of the bag and knew where everything fitted. Replacing it would have meant looking for another one without any guarantee that it would suit me as well.\n\nI was pleased that the repair extended its use. I would not repair every object regardless of its condition, but in this case the problem was limited and the rest of the bag was still useful.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 2 cue card",
+      "practiceGroupId": "ndv-159-repair",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 245,
+      "preparationTimeSeconds": 60,
+      "longTurnMaximumSeconds": 120,
+      "partDurationSeconds": {
+        "minimum": 180,
+        "maximum": 240
+      },
+      "examinerDelivery": "Allow one minute for notes, invite the long turn, stop at two minutes, and optionally ask one or two brief rounding-off questions. Part duration includes preparation and interaction; do not treat model word count as a timing guarantee."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-005",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: What factors influence whether people repair an item or replace it?\nPossible examiner probe: Can the cheapest immediate choice be more expensive over time?\n\nDiscuss the issue aloud with the examiner and develop your own reasons or examples. Respond to the probe if asked; do not recite the model. The official 4–5-minute duration applies to the entire Part 3 discussion, not to this single question.",
+      "answer": "People consider the price, the seriousness of the fault and whether a reliable repair service is available. They may also care about convenience or have an attachment to the object. A cheap replacement can appear attractive, particularly if a repair takes time, but the immediate price does not tell the whole story. If the replacement is poorly made and fails quickly, the person may pay again quite soon. Equally, repeated repairs to something that is no longer dependable can become costly. I would compare the likely useful life of both options and the consequences of another failure. There is no single rule that repair is always better or that buying new is always wasteful.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-159-repair",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 114,
+      "linkedPart2QuestionId": "ndv-159-004",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-006",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: Who should take more responsibility for making products last: producers or consumers?\nPossible examiner probe: What could communities do if repair services are difficult to find?\n\nDiscuss the issue aloud with the examiner and develop your own reasons or examples. Respond to the probe if asked; do not recite the model. The official 4–5-minute duration applies to the entire Part 3 discussion, not to this single question.",
+      "answer": "Both have responsibilities, but producers have influence over choices consumers cannot easily change. If an item cannot be opened or spare parts are unavailable, even a careful owner may be unable to repair it. Producers can make maintenance easier and provide clear information. Consumers can look after products and consider durability when choosing between options, although their budgets may limit that choice. Where repair services are scarce, communities could share information about trustworthy repairers or organise supervised advice events. Those activities should explain what can be repaired safely rather than encouraging people to attempt every repair themselves. Responsibility should be shared without pretending that everyone has equal control over the original design.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-159-repair",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 112,
+      "linkedPart2QuestionId": "ndv-159-004",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 2",
+      "subtopic": "Individual long turn",
+      "learningObjective": "Sustain an organised spoken long turn on a familiar topic, developing the task-card points and explanation.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-007",
+      "objectiveId": "ielts-speaking-159-part2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 2 task card: Describe a decision you helped a group make.\nYou should say:\n- who was involved\n- what the group needed to decide\n- how the different views were considered\nAnd explain what you learned from the way the decision was made.\n\nYou have one minute to prepare and may make notes. Then speak aloud for up to two minutes, aiming to develop the talk until the examiner stops you. A written submission alone does not complete this task.",
+      "answer": "I once helped a small reading group decide how to use a donation of books. Some members wanted to place all of them on one shelf in a meeting room. Others suggested dividing them among several locations so more people could find them.\n\nThere were six of us at the discussion, and I was keeping notes. At first, the conversation moved very quickly towards choosing one of the two ideas. I suggested that we first agree on what we wanted to achieve. We decided that the books should be easy to borrow, but also easy to locate and return.\n\nOnce those aims were clear, the options looked slightly different. One large collection would be straightforward to manage, but the meeting room was not open every day. Several small collections would improve access, although someone would need to keep track of them.\n\nWe eventually chose to begin with one main shelf and a small rotating selection at a second venue. Rather than treating that as a permanent answer, we agreed to review borrowing records after a month. I wrote down who would look after each location and when we would discuss the results.\n\nWhat I learned was that a useful group decision is not simply the option supported by the loudest person. Agreeing on the purpose made it easier to compare ideas fairly. The trial also allowed people to support a compromise without pretending that every uncertainty had already disappeared.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 2 cue card",
+      "practiceGroupId": "ndv-159-decision",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 239,
+      "preparationTimeSeconds": 60,
+      "longTurnMaximumSeconds": 120,
+      "partDurationSeconds": {
+        "minimum": 180,
+        "maximum": 240
+      },
+      "examinerDelivery": "Allow one minute for notes, invite the long turn, stop at two minutes, and optionally ask one or two brief rounding-off questions. Part duration includes preparation and interaction; do not treat model word count as a timing guarantee."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-008",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: When should a group rely on expert advice rather than a majority vote?\nPossible examiner probe: How can people question an expert constructively?\n\nDiscuss the issue aloud with the examiner and develop your own reasons or examples. Respond to the probe if asked; do not recite the model. The official 4–5-minute duration applies to the entire Part 3 discussion, not to this single question.",
+      "answer": "Expert advice is particularly valuable when the decision involves technical risks that most group members cannot judge well. A vote does not make an unsafe structure safe, for example. However, expertise about a technical issue does not automatically decide every question about people’s priorities. An expert can explain the likely consequences, while the group discusses which trade-offs it is willing to accept. Constructive questioning means asking about evidence, assumptions and alternatives rather than rejecting advice merely because it is inconvenient. It also helps if the expert explains uncertainty openly. I would not choose between expertise and participation in every case; a good process gives each a suitable role.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-159-decision",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 108,
+      "linkedPart2QuestionId": "ndv-159-007",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-009",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: Do online discussions make group decisions easier than face-to-face meetings?\nPossible examiner probe: What helps prevent a quiet participant’s view from being overlooked?\n\nDiscuss the issue aloud with the examiner and develop your own reasons or examples. Respond to the probe if asked; do not recite the model. The official 4–5-minute duration applies to the entire Part 3 discussion, not to this single question.",
+      "answer": "Online discussion can make participation easier for people who cannot attend at the same time. A written proposal also gives someone time to think before replying. On the other hand, long message threads can become confusing, and people may interpret a short response more negatively than intended. Face-to-face meetings allow immediate clarification, but a few confident speakers may dominate them. To include quieter participants, I would circulate the main question in advance and invite each person to contribute without forcing an instant answer. The organiser should also summarise the options and check that the summary is fair. The communication tool matters, but the way the discussion is managed may matter more.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-159-decision",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 111,
+      "linkedPart2QuestionId": "ndv-159-007",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 2",
+      "subtopic": "Individual long turn",
+      "learningObjective": "Sustain an organised spoken long turn on a familiar topic, developing the task-card points and explanation.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-010",
+      "objectiveId": "ielts-speaking-159-part2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 2 task card: Describe something interesting you discovered when you were looking for something else.\nYou should say:\n- what you were originally looking for\n- what you discovered\n- what you did after the discovery\nAnd explain why you remember the experience.\n\nYou have one minute to prepare and may make notes. Then speak aloud for up to two minutes, aiming to develop the talk until the examiner stops you. A written submission alone does not complete this task.",
+      "answer": "An interesting discovery happened when I was looking through a box of old family papers for a school certificate. I expected the task to be fairly dull because I only wanted to find the correct document and put everything away again.\n\nBetween two folders, I found a small notebook containing lists of plants and short descriptions of where they had been seen. It belonged to an older relative who had worked in several towns. Some entries were very practical, such as notes about shade or the condition of a path, while others described the colour of a tree at a particular time of year.\n\nI had known that this relative enjoyed walking, but I had not realised how carefully those walks had been recorded. After finding the certificate, I kept reading the notebook. Later I asked about some unfamiliar place names and learned more about the journeys behind the entries.\n\nI did not treat every note as a scientific record. There were no consistent measurements, and some dates were missing. What interested me was the attention paid to ordinary surroundings. A route I might have described simply as a road had become a series of small observations.\n\nI remember the experience because it changed the way I thought about keeping notes. A notebook does not have to contain an important discovery to be worth preserving. Sometimes its value lies in showing what a person noticed and considered worth remembering.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 2 cue card",
+      "practiceGroupId": "ndv-159-discovery",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 239,
+      "preparationTimeSeconds": 60,
+      "longTurnMaximumSeconds": 120,
+      "partDurationSeconds": {
+        "minimum": 180,
+        "maximum": 240
+      },
+      "examinerDelivery": "Allow one minute for notes, invite the long turn, stop at two minutes, and optionally ask one or two brief rounding-off questions. Part duration includes preparation and interaction; do not treat model word count as a timing guarantee."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-011",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: Is accidental discovery still important when people can search for information so quickly?\nPossible examiner probe: How can someone explore without becoming distracted from the original purpose?\n\nDiscuss the issue aloud with the examiner and develop your own reasons or examples. Respond to the probe if asked; do not recite the model. The official 4–5-minute duration applies to the entire Part 3 discussion, not to this single question.",
+      "answer": "Yes, because a search usually reflects a question we already know how to ask. Accidental discovery can reveal a connection or a question we had not considered. Browsing a shelf may bring a reader to a topic outside the terms they would have entered into a search engine. Still, exploration can consume time without helping the original task. I think it is useful to separate the two activities: finish the essential search first, note interesting side paths and return to them when time allows. That keeps curiosity alive without making every unexpected item an excuse to abandon the purpose. Fast searching and open exploration can support one another rather than compete completely.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-159-discovery",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 112,
+      "linkedPart2QuestionId": "ndv-159-010",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-159-012",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: Should libraries and digital services recommend familiar material or deliberately introduce unfamiliar topics?\nPossible examiner probe: Could recommendation systems limit what people discover?\n\nDiscuss the issue aloud with the examiner and develop your own reasons or examples. Respond to the probe if asked; do not recite the model. The official 4–5-minute duration applies to the entire Part 3 discussion, not to this single question.",
+      "answer": "They should do some of both. Familiar recommendations help people find something they are likely to enjoy, which can encourage them to keep reading. However, a service that only repeats earlier choices may gradually narrow the range of ideas a person encounters. Libraries can create displays that connect a popular topic with less obvious subjects, and digital services can explain why an unfamiliar item is being suggested. The user should still have control rather than being pushed towards novelty all the time. Recommendations become limiting when they are presented as the only relevant possibilities. Showing alternative routes through a collection helps people move beyond their earlier preferences while keeping the experience useful.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-159-discovery",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 112,
+      "linkedPart2QuestionId": "ndv-159-010",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    }
+  ]
+}
