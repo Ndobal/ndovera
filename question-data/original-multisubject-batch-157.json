@@ -1,0 +1,782 @@
+{
+  "schemaVersion": 2,
+  "collection": "TOEFL iBT original email and academic-discussion production",
+  "questionCount": 12,
+  "note": "Six original email tasks and six academic discussions using the post-January-2026 task structure. Timing checked against ETS overview pp14–15. Original model responses and ten-point practice rubrics are not official scoring examples or ETS scores. All require written production and manual review; no messages are sent.",
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-001",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your campus photography club is organising a small exhibition about everyday student life. A former student now works as a local photographer. You would like this person to join an informal question session after the exhibition.\n\nWrite an email to the photographer. In your email:\n- Explain the purpose and audience of the exhibition.\n- Invite the photographer and describe the proposed contribution.\n- Offer practical arrangements and ask whether the person is available.\n\nYou have 7 minutes. Write in complete sentences and develop the message clearly. No numerical minimum word count is imposed for this email practice task.",
+      "answer": "Dear Ms Bello,\n\nOur photography club is preparing an exhibition about everyday student life, and we would be delighted if you could join us. The audience will mainly be students who use phone cameras and want to tell more thoughtful stories through their pictures.\n\nAfter the display, we are planning a short question session. We hope you could discuss how you choose a subject and ask permission before photographing people. A formal lecture would not be necessary.\n\nThe proposed session is on Saturday afternoon in the student centre. We can provide a projector and arrange transport from a nearby location if that would help. Would you be available, and is there anything else you would need?\n\nBest wishes,\nAyo",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "Addresses goal 1: Explain the purpose and audience of the exhibition. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 2: Invite the photographer and describe the proposed contribution. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 3: Offer practical arrangements and ask whether the person is available. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses courteous language and an appropriate relationship with the recipient: consistent 2, uneven 1, inappropriate or unassessable 0.",
+          "marks": 2
+        },
+        {
+          "description": "Organises the email so its purpose, supporting details and requested action or closing can be followed: clear 2, partly clear 1, disconnected 0.",
+          "marks": 2
+        },
+        {
+          "description": "Uses grammar, vocabulary, spelling and punctuation effectively: clear and suitably varied 3, some non-obscuring errors 2, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 3
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 119,
+      "timeLimitSeconds": 420,
+      "communicativeGoals": [
+        "Explain the purpose and audience of the exhibition.",
+        "Invite the photographer and describe the proposed contribution.",
+        "Offer practical arrangements and ask whether the person is available."
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-002",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You helped prepare a campus newsletter. After it was distributed, you noticed that an article credited you alone for a survey completed jointly with another student. The error was accidental.\n\nWrite an email to the newsletter editor. In your email:\n- Identify the inaccurate credit and give the correct contribution information.\n- Explain why a correction matters.\n- Suggest a practical way to correct the published record.\n\nYou have 7 minutes. Write in complete sentences and develop the message clearly. No numerical minimum word count is imposed for this email practice task.",
+      "answer": "Dear Editor,\n\nThank you for including our survey article in this week’s newsletter. I noticed that the credit names only me, although Hana and I carried out the work together. Hana designed the interview questions and conducted half the interviews, while I organised the responses. We wrote the final account jointly.\n\nI realise the omission was accidental, but leaving it unchanged would give readers an inaccurate impression and overlook Hana’s contribution. She should be able to refer to the publication as evidence of her work too.\n\nCould you update the online version to include both names and publish a brief correction in the next issue? I can send a revised credit line for you to check.\n\nKind regards,\nDaniel",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "Addresses goal 1: Identify the inaccurate credit and give the correct contribution information. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 2: Explain why a correction matters. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 3: Suggest a practical way to correct the published record. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses courteous language and an appropriate relationship with the recipient: consistent 2, uneven 1, inappropriate or unassessable 0.",
+          "marks": 2
+        },
+        {
+          "description": "Organises the email so its purpose, supporting details and requested action or closing can be followed: clear 2, partly clear 1, disconnected 0.",
+          "marks": 2
+        },
+        {
+          "description": "Uses grammar, vocabulary, spelling and punctuation effectively: clear and suitably varied 3, some non-obscuring errors 2, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 3
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 119,
+      "timeLimitSeconds": 420,
+      "communicativeGoals": [
+        "Identify the inaccurate credit and give the correct contribution information.",
+        "Explain why a correction matters.",
+        "Suggest a practical way to correct the published record."
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-003",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You are completing your first short research proposal. Your supervisor offers feedback appointments, but you want to make the meeting focused rather than asking for a complete rewrite.\n\nWrite an email to your supervisor. In your email:\n- Briefly describe your project and its current stage.\n- Identify two specific issues on which you need feedback.\n- Request a meeting and explain how you will prepare.\n\nYou have 7 minutes. Write in complete sentences and develop the message clearly. No numerical minimum word count is imposed for this email practice task.",
+      "answer": "Dear Dr Adeyemi,\n\nI have finished a first draft of my proposal about how students choose places to study on campus. I have narrowed the project to two buildings and prepared a short interview plan, but I would appreciate your advice before collecting information.\n\nIn particular, I am unsure whether my main question is narrow enough for the time available. I would also like feedback on whether the proposed interviews can answer it without relying too heavily on students who already use the library.\n\nCould I attend one of your feedback appointments next week? I can send the draft and a one-page list of questions beforehand, so we can focus on these two decisions rather than rewriting the whole proposal together.\n\nBest regards,\nMariam",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "Addresses goal 1: Briefly describe your project and its current stage. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 2: Identify two specific issues on which you need feedback. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 3: Request a meeting and explain how you will prepare. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses courteous language and an appropriate relationship with the recipient: consistent 2, uneven 1, inappropriate or unassessable 0.",
+          "marks": 2
+        },
+        {
+          "description": "Organises the email so its purpose, supporting details and requested action or closing can be followed: clear 2, partly clear 1, disconnected 0.",
+          "marks": 2
+        },
+        {
+          "description": "Uses grammar, vocabulary, spelling and punctuation effectively: clear and suitably varied 3, some non-obscuring errors 2, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 3
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 124,
+      "timeLimitSeconds": 420,
+      "communicativeGoals": [
+        "Briefly describe your project and its current stage.",
+        "Identify two specific issues on which you need feedback.",
+        "Request a meeting and explain how you will prepare."
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-004",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your neighbourhood reading group has received permission to use a shared room for one afternoon each month. The coordinator has asked members to recommend a first activity for adults with varied reading interests.\n\nWrite an email to the group coordinator. In your email:\n- Recommend a specific first activity.\n- Explain how it would include people with different interests or confidence levels.\n- Describe one resource or arrangement needed to make it work.\n\nYou have 7 minutes. Write in complete sentences and develop the message clearly. No numerical minimum word count is imposed for this email practice task.",
+      "answer": "Hello Tola,\n\nFor our first afternoon in the shared room, I suggest a short reading exchange. Each person could bring a brief passage they enjoy and explain why they chose it. The selection could include fiction, a newspaper piece or a practical guide, rather than requiring everyone to read the same book in advance.\n\nThis would introduce different interests without making the meeting feel like a test. People who prefer not to read aloud could ask a partner to read their selection or simply listen during the first session.\n\nWe would need a clear time limit for each contribution so everyone has a chance to participate. I can bring a few spare passages for anyone who arrives without one.\n\nBest,\nAmaka",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "Addresses goal 1: Recommend a specific first activity. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 2: Explain how it would include people with different interests or confidence levels. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 3: Describe one resource or arrangement needed to make it work. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses courteous language and an appropriate relationship with the recipient: consistent 2, uneven 1, inappropriate or unassessable 0.",
+          "marks": 2
+        },
+        {
+          "description": "Organises the email so its purpose, supporting details and requested action or closing can be followed: clear 2, partly clear 1, disconnected 0.",
+          "marks": 2
+        },
+        {
+          "description": "Uses grammar, vocabulary, spelling and punctuation effectively: clear and suitably varied 3, some non-obscuring errors 2, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 3
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 121,
+      "timeLimitSeconds": 420,
+      "communicativeGoals": [
+        "Recommend a specific first activity.",
+        "Explain how it would include people with different interests or confidence levels.",
+        "Describe one resource or arrangement needed to make it work."
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-005",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You share a rehearsal room reservation with another student group. Your group has offered to leave equipment neatly at one side, but the other group needs the whole floor for movement practice. You want an arrangement that respects both uses.\n\nWrite an email to the other group’s organiser. In your email:\n- Acknowledge the other group’s need and explain your group’s difficulty.\n- Propose a workable compromise.\n- Ask for confirmation and suggest how both groups can check the arrangement.\n\nYou have 7 minutes. Write in complete sentences and develop the message clearly. No numerical minimum word count is imposed for this email practice task.",
+      "answer": "Hi Leon,\n\nThank you for explaining why your movement practice needs the entire floor. Our plan to leave the stands along one wall would still restrict your activity, so I understand that it is not suitable. Our difficulty is that we have only a short interval between rehearsals and cannot carry everything across campus each time.\n\nCould we use the small storage cupboard outside the room, if the centre manager approves? We would label the equipment and move it there before your reservation begins. Your group would then have a clear floor without being responsible for our materials.\n\nPlease let me know whether this would work for you. We could meet briefly with the manager and check the cupboard space together.\n\nThanks,\nNneka",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "Addresses goal 1: Acknowledge the other group’s need and explain your group’s difficulty. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 2: Propose a workable compromise. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 3: Ask for confirmation and suggest how both groups can check the arrangement. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses courteous language and an appropriate relationship with the recipient: consistent 2, uneven 1, inappropriate or unassessable 0.",
+          "marks": 2
+        },
+        {
+          "description": "Organises the email so its purpose, supporting details and requested action or closing can be followed: clear 2, partly clear 1, disconnected 0.",
+          "marks": 2
+        },
+        {
+          "description": "Uses grammar, vocabulary, spelling and punctuation effectively: clear and suitably varied 3, some non-obscuring errors 2, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 3
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 123,
+      "timeLimitSeconds": 420,
+      "communicativeGoals": [
+        "Acknowledge the other group’s need and explain your group’s difficulty.",
+        "Propose a workable compromise.",
+        "Ask for confirmation and suggest how both groups can check the arrangement."
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-006",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "A classmate tested the instructions you wrote for accessing a course archive. Their comments revealed a step you had omitted. You have revised the instructions and want to acknowledge their help and arrange a final check.\n\nWrite an email to your classmate. In your email:\n- Thank the classmate and identify the useful feedback.\n- Explain the revision you made.\n- Request a specific final check without assuming the person is available.\n\nYou have 7 minutes. Write in complete sentences and develop the message clearly. No numerical minimum word count is imposed for this email practice task.",
+      "answer": "Hi Sam,\n\nThank you for trying my archive instructions yesterday. Your comment about the missing sign-in step was especially helpful. I had tested the process while already logged in, so I had not noticed that a new user would see a different starting screen.\n\nI have now added the sign-in step and a short note explaining what to do if the archive opens on the general search page. I also replaced the phrase “click here” with the actual name of the button, which should make the sequence easier to follow.\n\nIf you have a few minutes this week, would you try the first three steps from a signed-out browser? Please do not feel obliged if you are busy; I can ask another volunteer.\n\nMany thanks,\nIfe",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "Addresses goal 1: Thank the classmate and identify the useful feedback. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 2: Explain the revision you made. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Addresses goal 3: Request a specific final check without assuming the person is available. A relevant, clear treatment earns 1; absent or irrelevant treatment earns 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses courteous language and an appropriate relationship with the recipient: consistent 2, uneven 1, inappropriate or unassessable 0.",
+          "marks": 2
+        },
+        {
+          "description": "Organises the email so its purpose, supporting details and requested action or closing can be followed: clear 2, partly clear 1, disconnected 0.",
+          "marks": 2
+        },
+        {
+          "description": "Uses grammar, vocabulary, spelling and punctuation effectively: clear and suitably varied 3, some non-obscuring errors 2, frequent obscuring errors 1, no assessable language 0.",
+          "marks": 3
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 126,
+      "timeLimitSeconds": 420,
+      "communicativeGoals": [
+        "Thank the classmate and identify the useful feedback.",
+        "Explain the revision you made.",
+        "Request a specific final check without assuming the person is available."
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-007",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your professor has opened the class discussion below. Write a post expressing and supporting your own view. Engage meaningfully with at least one student’s contribution and add reasoning or an example in your own words. You have 10 minutes. An effective response should contain at least 100 words.",
+      "answer": "I would initially prioritise an accessible online collection, while keeping a modest programme of guided visits. Lina’s point about distance matters because a museum serves more than the people who can travel to its building. A student researching family history could examine an object description from another town and return to it several times. However, I agree with Kojo that digital access does not reproduce every part of a visit. The online collection should therefore include questions that visitors can explore further with a guide, rather than claiming to replace the building. Starting with a carefully selected group of objects would also be more manageable than trying to digitise everything immediately. The museum could then ask users which materials deserve further attention.",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "States a clear, relevant position on the professor’s question: clear 2, partly clear 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Engages accurately with a student’s contribution rather than merely repeating it: meaningful 2, superficial 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Develops the position with reasoning, an example or a considered qualification: well developed 3, some development 2, minimal support 1, no relevant support 0.",
+          "marks": 3
+        },
+        {
+          "description": "Connects ideas in a coherent progression; award 1 when the post can be followed as a connected contribution, otherwise 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses grammar, vocabulary and written conventions effectively: generally clear and suitably varied 2, errors sometimes obscure meaning 1, largely unassessable 0.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 122,
+      "timeLimitSeconds": 600,
+      "passage": "Professor: A small community museum can fund either an improved online collection or more guided visits in its building. Which should receive priority, and why?\nLina: An online collection reaches people who live far away and can be used at any time.\nKojo: Guided visits let people ask questions and notice details that photographs cannot show.",
+      "stimulusId": "ndv-157-discussion-1",
+      "stimulusSource": "original",
+      "minimumResponseWords": 100
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-008",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your professor has opened the class discussion below. Write a post expressing and supporting your own view. Engage meaningfully with at least one student’s contribution and add reasoning or an example in your own words. You have 10 minutes. An effective response should contain at least 100 words.",
+      "answer": "An equipment-loan service would usually be the better starting point, especially for costly items used only occasionally. Farah is right that buying rarely used equipment can waste both money and storage space. For example, several project groups could share a recording device across a term instead of each buying one. Joel’s concern about availability is still important, and a poorly managed service could delay assignments. The university should publish reservation rules, allow bookings early and keep a small number of backup items. Subsidies might remain useful for inexpensive tools needed every week, but ownership should not automatically be treated as the solution to every access problem. The choice should depend on how often an item is needed and how reliably a loan system can supply it.",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "States a clear, relevant position on the professor’s question: clear 2, partly clear 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Engages accurately with a student’s contribution rather than merely repeating it: meaningful 2, superficial 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Develops the position with reasoning, an example or a considered qualification: well developed 3, some development 2, minimal support 1, no relevant support 0.",
+          "marks": 3
+        },
+        {
+          "description": "Connects ideas in a coherent progression; award 1 when the post can be followed as a connected contribution, otherwise 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses grammar, vocabulary and written conventions effectively: generally clear and suitably varied 2, errors sometimes obscure meaning 1, largely unassessable 0.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 126,
+      "timeLimitSeconds": 600,
+      "passage": "Professor: A university wants to help students obtain equipment needed occasionally for projects. Should it create an equipment-loan service or subsidise individual purchases?\nFarah: Loans prevent students from buying items they may use only once.\nJoel: Owning equipment gives students flexibility and avoids waiting for a shared item.",
+      "stimulusId": "ndv-157-discussion-2",
+      "stimulusSource": "original",
+      "minimumResponseWords": 100
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-009",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your professor has opened the class discussion below. Write a post expressing and supporting your own view. Engage meaningfully with at least one student’s contribution and add reasoning or an example in your own words. You have 10 minutes. An effective response should contain at least 100 words.",
+      "answer": "I would combine a brief open discussion with an option for confidential individual feedback. Tunde’s argument is persuasive because a missed meeting does not necessarily mean that someone has contributed nothing. The student may have completed research separately, and a conversation can clarify that evidence. Nevertheless, Mei identifies a real difficulty: some students may avoid raising concerns when a close friend or a forceful group member is present. A confidential channel allows those concerns to reach the instructor without turning every disagreement into a public accusation. Both stages should focus on specific tasks and evidence, not popularity. This approach would not eliminate bias, but it would give students opportunities both to explain their work and to report problems they cannot comfortably discuss together.",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "States a clear, relevant position on the professor’s question: clear 2, partly clear 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Engages accurately with a student’s contribution rather than merely repeating it: meaningful 2, superficial 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Develops the position with reasoning, an example or a considered qualification: well developed 3, some development 2, minimal support 1, no relevant support 0.",
+          "marks": 3
+        },
+        {
+          "description": "Connects ideas in a coherent progression; award 1 when the post can be followed as a connected contribution, otherwise 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses grammar, vocabulary and written conventions effectively: generally clear and suitably varied 2, errors sometimes obscure meaning 1, largely unassessable 0.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 123,
+      "timeLimitSeconds": 600,
+      "passage": "Professor: For a group assignment, should students give feedback on each member’s contribution anonymously or in an open group conversation?\nMei: Anonymous feedback makes it easier to report unequal effort without damaging friendships.\nTunde: Open conversation lets people explain circumstances and correct misunderstandings.",
+      "stimulusId": "ndv-157-discussion-3",
+      "stimulusSource": "original",
+      "minimumResponseWords": 100
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-010",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your professor has opened the class discussion below. Write a post expressing and supporting your own view. Engage meaningfully with at least one student’s contribution and add reasoning or an example in your own words. You have 10 minutes. An effective response should contain at least 100 words.",
+      "answer": "Scientists should give a clear main conclusion and then explain the most important limitation in ordinary language. I agree with Elena that a message full of technical qualifications may be difficult to remember, but simplicity should not create false certainty. Suppose an early study observes a pattern in one small group. Saying that the pattern is possible, while noting that more groups must be studied, communicates useful information without pretending that the result applies everywhere. Bayo’s concern is therefore essential to maintaining trust. The explanation need not list every statistical detail. It should identify the uncertainty that would most affect a person’s interpretation. A short summary can link to a fuller account for readers who want to examine the evidence more closely.",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "States a clear, relevant position on the professor’s question: clear 2, partly clear 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Engages accurately with a student’s contribution rather than merely repeating it: meaningful 2, superficial 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Develops the position with reasoning, an example or a considered qualification: well developed 3, some development 2, minimal support 1, no relevant support 0.",
+          "marks": 3
+        },
+        {
+          "description": "Connects ideas in a coherent progression; award 1 when the post can be followed as a connected contribution, otherwise 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses grammar, vocabulary and written conventions effectively: generally clear and suitably varied 2, errors sometimes obscure meaning 1, largely unassessable 0.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 122,
+      "timeLimitSeconds": 600,
+      "passage": "Professor: When scientists explain uncertain findings to the public, should they emphasise a simple conclusion or give substantial attention to the limitations?\nElena: A simple message is more likely to be understood and remembered.\nBayo: People need the limitations so they do not mistake preliminary findings for established facts.",
+      "stimulusId": "ndv-157-discussion-4",
+      "stimulusSource": "original",
+      "minimumResponseWords": 100
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-011",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your professor has opened the class discussion below. Write a post expressing and supporting your own view. Engage meaningfully with at least one student’s contribution and add reasoning or an example in your own words. You have 10 minutes. An effective response should contain at least 100 words.",
+      "answer": "I favour an initial consultation followed by a reversible trial, rather than treating the two approaches as alternatives. Rosa is right that a drawing cannot show every effect of a new layout. A short trial may reveal whether seating interrupts movement or whether a proposed gathering space is actually used. However, Emeka’s concern matters before the trial begins. Residents who rely on a clear route through the square should help identify access requirements, and temporary barriers should not ignore those needs. The city should explain the trial’s duration and publish the criteria for judging it. Feedback should include people who pass through the square, not only those who stay there. A trial is useful when it tests a proposal responsibly, not when it becomes a way to avoid listening.",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "States a clear, relevant position on the professor’s question: clear 2, partly clear 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Engages accurately with a student’s contribution rather than merely repeating it: meaningful 2, superficial 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Develops the position with reasoning, an example or a considered qualification: well developed 3, some development 2, minimal support 1, no relevant support 0.",
+          "marks": 3
+        },
+        {
+          "description": "Connects ideas in a coherent progression; award 1 when the post can be followed as a connected contribution, otherwise 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses grammar, vocabulary and written conventions effectively: generally clear and suitably varied 2, errors sometimes obscure meaning 1, largely unassessable 0.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 129,
+      "timeLimitSeconds": 600,
+      "passage": "Professor: A city is considering a new layout for a public square. Should it test a temporary layout first or consult residents fully before making any physical changes?\nRosa: A temporary trial gives people something concrete to experience and evaluate.\nEmeka: Even temporary changes can inconvenience people whose needs were not considered.",
+      "stimulusId": "ndv-157-discussion-5",
+      "stimulusSource": "original",
+      "minimumResponseWords": 100
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-157-012",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your professor has opened the class discussion below. Write a post expressing and supporting your own view. Engage meaningfully with at least one student’s contribution and add reasoning or an example in your own words. You have 10 minutes. An effective response should contain at least 100 words.",
+      "answer": "Introductory students should practise both, but I would begin with a general audience. Noor’s point is convincing because explaining a concept without assuming prior knowledge can expose gaps in the writer’s own understanding. A student who cannot describe an idea simply may be repeating terminology without knowing how the parts connect. Chris is also right that specialist conventions have a purpose. After writing a clear general explanation, students could revise it for a subject audience by adding appropriate terms, evidence and qualifications. Comparing the versions would show that precision does not require unnecessary complexity. The aim should not be to remove technical vocabulary from all writing, but to help students choose language deliberately for a particular reader and purpose.",
+      "explanation": "Illustrative original response, not the only acceptable answer. Assess how effectively the learner fulfils the communicative task with relevant development and clear language. Do not grade agreement with the model’s opinion.",
+      "score": 10,
+      "maxMarks": 10,
+      "markingGuide": [
+        {
+          "description": "States a clear, relevant position on the professor’s question: clear 2, partly clear 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Engages accurately with a student’s contribution rather than merely repeating it: meaningful 2, superficial 1, absent 0.",
+          "marks": 2
+        },
+        {
+          "description": "Develops the position with reasoning, an example or a considered qualification: well developed 3, some development 2, minimal support 1, no relevant support 0.",
+          "marks": 3
+        },
+        {
+          "description": "Connects ideas in a coherent progression; award 1 when the post can be followed as a connected contribution, otherwise 0.",
+          "marks": 1
+        },
+        {
+          "description": "Uses grammar, vocabulary and written conventions effectively: generally clear and suitably varied 2, errors sometimes obscure meaning 1, largely unassessable 0.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "requiresManualReview": true,
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Original analytic practice points only; no ETS raw-score, band or scaled-score equivalence.",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "modelAnswerWordCount": 119,
+      "timeLimitSeconds": 600,
+      "passage": "Professor: In an introductory course, should students write mainly for specialists in the subject or for readers who know little about it?\nNoor: Writing for general readers makes students explain ideas rather than hide behind technical terms.\nChris: Writing for specialists teaches the precision and conventions students will need later.",
+      "stimulusId": "ndv-157-discussion-6",
+      "stimulusSource": "original",
+      "minimumResponseWords": 100
+    }
+  ]
+}

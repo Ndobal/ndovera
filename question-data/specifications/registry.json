@@ -2399,6 +2399,23 @@
       "checkedOn": "2026-11-08",
       "status": "historical_topic_evidence_only_full_current_specification_missing",
       "note": "Accessible page displays Geography Paper 1 Nov/Dec 2008 despite a URL containing 117. Use the displayed heading as retrieved, not a year inferred from URL. It supports historical map construction/interpretation, scale and evidence-based functions. Original tasks/data/rubrics do not copy its question, named places or map. Newer 2022/2023 index report targets returned 404. No current WAEC paper number, timing or official marking scale inferred."
+    },
+    {
+      "id": "toefl-writing-production-recheck-157-2026",
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "kind": "official_current_task_format",
+      "source": "https://www.eu.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-overview.pdf",
+      "checkedOn": "2026-11-08",
+      "sourceSha256": "ce5e0eef3ea47b9964b0b1b034e96fa3b2aa0681347f17b381196cb0661249f0",
+      "sourceBytes": 20834764,
+      "sourcePdfPages": 28,
+      "sourceSections": [
+        "PDF p14: Write an Email, academic/social purpose, seven minutes, complete sentences",
+        "PDF p15: Write for an Academic Discussion, professor plus two student posts, ten minutes, effective response at least100 words"
+      ],
+      "status": "current_task_descriptions_rechecked_academic_review_pending",
+      "note": "Direct cloud retrieval of EU ETS overview succeeded after main-host at-a-glance web reader rejected size. Legacy writing URL returned a generic Explore TOEFL page and is not relied on as a fresh task-content check. No numeric email minimum inferred. New scenario goals, discussion posts, models and analytic ten-point rubrics are original, not copied ETS examples or official score conversions. Twelve tasks are standalone practice, not a complete Writing section."
     }
   ],
   "banks": [
@@ -5743,7 +5760,11 @@
         "essay"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
-      "officialObjectiveCode": null
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "ETS Updated TOEFL iBT Test Overview, PDF p14"
+      ],
+      "lastSourceRecheck": "2026-11-08"
     },
     {
       "id": "toefl-discussion-v1",
@@ -5757,7 +5778,11 @@
         "essay"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
-      "officialObjectiveCode": null
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "ETS Updated TOEFL iBT Test Overview, PDF p15"
+      ],
+      "lastSourceRecheck": "2026-11-08"
     },
     {
       "id": "igcse-0610-cells-v1",

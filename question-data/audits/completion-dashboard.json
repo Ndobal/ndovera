@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3990,
-    "validDrafts": 2311,
+    "raw": 4002,
+    "validDrafts": 2323,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1070,6 +1070,12 @@
       "sha256": "9718dd35b5182af503428b033f4b2bdda97bab641f2bfcd4208f15b7433c339e",
       "declared": 16,
       "actual": 16
+    },
+    {
+      "path": "original-multisubject-batch-157.json",
+      "sha256": "6f55ad34cddfbadd34fb1d47cfae5a78cb48b46d687545d220736804b234664a",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -4937,19 +4943,19 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 13,
-      "validDrafts": 10,
+      "raw": 25,
+      "validDrafts": 22,
       "reviewed": 0,
       "questionTypes": {
         "shortanswer": 5,
-        "essay": 5,
+        "essay": 17,
         "mcq": 3
       },
       "difficulty": {
-        "standard": 10,
+        "standard": 22,
         "missing": 3
       },
-      "remaining": 990,
+      "remaining": 978,
       "mappedObjectives": 3,
       "representedObjectives": 3,
       "coverage": "partial_objective_register",
@@ -5928,18 +5934,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
-    "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 335,
@@ -34388,6 +34394,78 @@
       "errors": []
     },
     {
+      "id": "ndv-157-001",
+      "file": "original-multisubject-batch-157.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-002",
+      "file": "original-multisubject-batch-157.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-003",
+      "file": "original-multisubject-batch-157.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-004",
+      "file": "original-multisubject-batch-157.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-005",
+      "file": "original-multisubject-batch-157.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-006",
+      "file": "original-multisubject-batch-157.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-007",
+      "file": "original-multisubject-batch-157.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-008",
+      "file": "original-multisubject-batch-157.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-009",
+      "file": "original-multisubject-batch-157.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-010",
+      "file": "original-multisubject-batch-157.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-011",
+      "file": "original-multisubject-batch-157.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-157-012",
+      "file": "original-multisubject-batch-157.json",
+      "index": 11,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -48789,17 +48867,21 @@
       "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
       "specificationId": "toefl-2026",
       "questionTypes": {
-        "essay": 2
+        "essay": 8
       },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 2,
-      "validDrafts": 2,
+      "sourceSections": [
+        "ETS Updated TOEFL iBT Test Overview, PDF p14"
+      ],
+      "lastSourceRecheck": "2026-11-08",
+      "questionCount": 8,
+      "validDrafts": 8,
       "difficulty": {
-        "standard": 2
+        "standard": 8
       },
       "tiers": {
-        "not_specified": 2
+        "not_specified": 8
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -48815,17 +48897,21 @@
       "learningObjective": "Contribute a relevant supported view to an academic discussion.",
       "specificationId": "toefl-2026",
       "questionTypes": {
-        "essay": 3
+        "essay": 9
       },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 3,
-      "validDrafts": 3,
+      "sourceSections": [
+        "ETS Updated TOEFL iBT Test Overview, PDF p15"
+      ],
+      "lastSourceRecheck": "2026-11-08",
+      "questionCount": 9,
+      "validDrafts": 9,
       "difficulty": {
-        "standard": 3
+        "standard": 9
       },
       "tiers": {
-        "not_specified": 3
+        "not_specified": 9
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

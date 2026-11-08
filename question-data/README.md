@@ -898,3 +898,10 @@ structured drafts, including an actual scale-plan drawing. Official NECO
 reports support limited topics; newer index targets returned 404. Source
 heading/URL date ambiguities stay recorded. All original four-mark guides
 are provisional practice; full current specifications remain unavailable.
+
+Batch 157 adds six TOEFL iBT email and six academic-discussion
+production drafts. The ETS overview was freshly retrieved and hashed;
+seven-/ten-minute task timings and discussion guidance were checked.
+Original models and analytic ten-point practice guides do not represent
+official scoring. No email minimum length is inferred. Manual language
+review, broader task coverage and full-section assembly remain open.
