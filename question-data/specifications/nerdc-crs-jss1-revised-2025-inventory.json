@@ -22,7 +22,7 @@
   ],
   "mappingComplete": false,
   "academicReviewStatus": "pending",
-  "questionsAdded": 45,
+  "questionsAdded": 58,
   "scopeNotes": [
     "National rollout evidence does not verify each school's implementation.",
     "No term or learner-age allocation inferred.",
@@ -36,7 +36,8 @@
     "PDF page 27 associates premarital virginity with freedom from STI/HIV and other adverse outcomes. These unsupported health/causal guarantees are excluded from this batch and remain for specialist review.",
     "Source categories for disobedience, family and service are not fully enumerated; supplied working classifications in batch 150 are original practice scaffolds, not claimed official exhaustive taxonomies.",
     "Genesis 1, Luke 15:11–32, Genesis 33:1–11 and Genesis 12:1–4 checked against passage text. Returning son reconciles with his father; gift discussion does not make Esau’s welcome conditional on payment.",
-    "Batch 151 adds thirteen drafts across ten previously unrepresented initial outcomes in topics 14–16. Forty-five questions now represent 42 of 61 initial objective entries, not full coverage. One task requires actual drama delivery; one requires a produced poster. No source-implied age, term or school adoption inferred."
+    "Batch 151 adds thirteen drafts across ten previously unrepresented initial outcomes in topics 14–16. Forty-five questions now represent 42 of 61 initial objective entries, not full coverage. One task requires actual drama delivery; one requires a produced poster. No source-implied age, term or school adoption inferred.",
+    "Batch 152: official PDF freshly retrieved with unchanged 2189817-byte checksum. Thirteen written drafts add thirteen represented initial objectives, reaching 58 drafts and 55 of 61 initial objective entries. This does not measure full competency coverage. The service-challenge explanation now addresses favouritism for gifts, distinct from batch 140 logistical difficulties. Repeated obedience, disputed health/value claims, language-name spellings and civic-law evidence are not filled by superficial variants. Six initial objectives remain unrepresented."
   ],
   "topics": [
     {
@@ -123,7 +124,8 @@
       "draftQuestionIds": [
         "ndv-150-006",
         "ndv-150-007",
-        "ndv-150-008"
+        "ndv-150-008",
+        "ndv-152-001"
       ],
       "focalCompetenceSummary": "Avoid disobedience.",
       "assessmentModeSummary": "Discussion and reflective writing.",
@@ -244,7 +246,9 @@
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
         "ndv-150-019",
-        "ndv-150-020"
+        "ndv-150-020",
+        "ndv-152-002",
+        "ndv-152-003"
       ],
       "focalCompetenceSummary": "Trust and obey God.",
       "assessmentModeSummary": "Discussion and worship performance.",
@@ -265,7 +269,8 @@
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
-        "ndv-150-021"
+        "ndv-150-021",
+        "ndv-152-004"
       ],
       "contentsPrintedPage": 10,
       "verifiedPrintedPage": 10,
@@ -286,7 +291,9 @@
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
-        "ndv-150-022"
+        "ndv-150-022",
+        "ndv-152-005",
+        "ndv-152-006"
       ],
       "contentsPrintedPage": 11,
       "verifiedPrintedPage": 12,
@@ -311,7 +318,11 @@
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
         "ndv-140-007",
-        "ndv-150-023"
+        "ndv-150-023",
+        "ndv-152-007",
+        "ndv-152-008",
+        "ndv-152-009",
+        "ndv-152-010"
       ],
       "contentsPrintedPage": 12,
       "verifiedPrintedPage": 13,
@@ -333,7 +344,10 @@
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
       "draftQuestionIds": [
-        "ndv-150-024"
+        "ndv-150-024",
+        "ndv-152-011",
+        "ndv-152-012",
+        "ndv-152-013"
       ],
       "contentsPrintedPage": 13,
       "verifiedPrintedPage": 14,
@@ -485,6 +499,13 @@
       ],
       "issue": "Unqualified health/causal guarantees attached to premarital virginity.",
       "treatment": "No question added against t14-po04. Do not teach these guarantees as medical fact; specialist reconciliation remains open."
+    },
+    {
+      "pdfPages": [
+        26
+      ],
+      "issue": "John the Baptist content lists Matthew 1:1–12, a genealogy passage, alongside Luke 3:1–14.",
+      "treatment": "Use the directly verified Luke 3:7–14 for the task; retain the Matthew mismatch for academic adjudication rather than silently asserting a corrected official reference."
     }
   ],
   "performanceObjectiveMappingComplete": true,

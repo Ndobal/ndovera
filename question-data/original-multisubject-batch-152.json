@@ -1,0 +1,663 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC revised CRS JSS 1 freedom, service and repentance",
+  "questionCount": 13,
+  "note": "Thirteen original written classroom drafts across thirteen previously unrepresented initial mappings. Original four-mark rubrics, not official marking schemes. Scripture narratives are distinguished from universal promises. Source conflicts, overlapping outcomes and school adoption remain explicit. Every item is a draft pending independent academic review.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Disobeying God",
+      "subtopic": "Genesis narrative",
+      "learningObjective": "Recount Genesis 3.",
+      "id": "ndv-152-001",
+      "objectiveId": "nerdc-crs-jss1-2025-t04-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using Genesis 3:1–13, outline the account of the first human disobedience in four stages: the serpent’s challenge, the eating, the attempt to hide, and the explanations given when questioned. Keep what the characters say distinct from what the narrator reports; do not name a fruit that this passage does not name.",
+      "answer": "The serpent challenges the warning about eating the forbidden fruit. The woman eats and gives some to her husband, who also eats. They cover themselves and hide when they hear God. When questioned, the man points to the woman’s giving him the fruit, and the woman points to the serpent’s deception. The passage does not identify the fruit as an apple.",
+      "explanation": "This assesses the sequence and the characters’ reported responses in a biblical narrative, without presenting its details as a scientific account.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Describes the serpent’s challenge to the warning.",
+          "marks": 1
+        },
+        {
+          "description": "Describes both humans eating the fruit.",
+          "marks": 1
+        },
+        {
+          "description": "Describes covering themselves or hiding from God.",
+          "marks": 1
+        },
+        {
+          "description": "Distinguishes the man’s and woman’s explanations accurately.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 4, PDF page 16, performance objective 3",
+      "textReference": "Genesis 3:1–13",
+      "contentSourceId": "bible-crs-jss1-152-freedom-service-repentance-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Relating to God",
+      "subtopic": "Divine communication",
+      "learningObjective": "Identify Christian understandings of divine communication.",
+      "id": "ndv-152-002",
+      "objectiveId": "nerdc-crs-jss1-2025-t09-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A CRS chart describes scripture and guidance from parents, teachers and preachers as ways Christians may understand God’s communication. Explain how Bible teaching and advice from a teacher could each function in that understanding. Then explain why the chart does not establish that every statement made by a teacher is a message from God.",
+      "answer": "Christians may read Bible teaching to understand God’s will. They may understand a teacher’s encouragement towards honesty or care as helping communicate that teaching. Teachers can still be mistaken; a person’s role does not make every personal opinion a divine message. Advice must be considered rather than accepted as infallible merely because of the speaker’s position.",
+      "explanation": "The answer explains the curriculum’s Christian framework while distinguishing religious interpretation from an unlimited claim of human authority.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains scripture as a source for understanding divine teaching in Christianity.",
+          "marks": 1
+        },
+        {
+          "description": "Gives a relevant example of teacher guidance connected with that teaching.",
+          "marks": 1
+        },
+        {
+          "description": "Recognises that a teacher can make mistakes or express personal opinions.",
+          "marks": 1
+        },
+        {
+          "description": "Explains why the teacher’s position alone does not establish divine authority for every statement.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 2"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Relating to God",
+      "subtopic": "Continuity",
+      "learningObjective": "Explain sustaining that relationship.",
+      "id": "ndv-152-003",
+      "objectiveId": "nerdc-crs-jss1-2025-t09-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional Christian learner describes a relationship with God as attending a single celebration once a year. Using the curriculum’s examples, propose two continuing practices: one involving personal reflection and one involving treatment of other people. Explain how each could sustain that relationship over time.",
+      "answer": "Regular Bible reflection or prayer can help the learner consider Christian teaching and seek guidance over time. Practising forgiveness or showing care in everyday interactions can connect that teaching with conduct towards others. A single celebration may be meaningful, but continuing reflection and conduct give the relationship an ongoing expression.",
+      "explanation": "The two proposals address continuity through different practices. The guide assesses understanding of Christian practice, not the learner’s own faith or frequency of attendance.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Proposes continuing prayer, Bible reflection or a comparable personal practice.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how that practice supports ongoing reflection or communication.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a distinct continuing practice of care or forgiveness towards others.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how conduct towards others expresses the relationship over time.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 9, PDF page 21, performance objective 3"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding with obedience",
+      "subtopic": "Blessings",
+      "learningObjective": "Identify blessings following Abraham's obedience.",
+      "id": "ndv-152-004",
+      "objectiveId": "nerdc-crs-jss1-2025-t10-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Genesis 21:1–8, explain how Isaac’s birth is presented as the fulfilment of a promise to Abraham and Sarah. Identify the child, connect the birth with the earlier promise, describe Sarah’s response, and explain why this particular narrative is not a guarantee that every faithful person will receive the same family outcome.",
+      "answer": "The child is Isaac. The account says Sarah bears Abraham a son at the time God had promised. Sarah responds with joy expressed through laughter. This is a particular promise and outcome in their story, not a general promise that every person’s family circumstances will be identical.",
+      "explanation": "The curriculum connects this episode with Abraham’s obedience. The task identifies the narrated blessing without turning it into a universal prediction or a judgement about people without children.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies Isaac as the child of Abraham and Sarah.",
+          "marks": 1
+        },
+        {
+          "description": "Connects the birth with the promised time or God’s earlier word.",
+          "marks": 1
+        },
+        {
+          "description": "Explains Sarah’s joyful laughter.",
+          "marks": 1
+        },
+        {
+          "description": "Distinguishes the particular narrated promise from a universal guarantee.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 10, PDF page 22, performance objective 3",
+      "textReference": "Genesis 21:1–8",
+      "contentSourceId": "bible-crs-jss1-152-freedom-service-repentance-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding to freedom",
+      "subtopic": "Moses",
+      "learningObjective": "Recount liberation under Moses.",
+      "id": "ndv-152-005",
+      "objectiveId": "nerdc-crs-jss1-2025-t11-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Construct a four-stage written account of the sea crossing in Exodus 14:10–31: the danger facing the Israelites, Moses’ response, the crossing itself, and its effect on the pursuing force. Explain the narrative without presenting violence as an action for classmates to imitate.",
+      "answer": "The Israelites are frightened as Pharaoh’s force approaches while they are near the sea. Moses reassures them and follows the instruction to stretch his hand over the sea. The narrative says God uses an east wind to divide the water and the people cross on dry ground. When the water returns, the pursuing force is overwhelmed and the Israelites escape.",
+      "explanation": "The answer retains both Moses’ leadership and the account’s attribution of deliverance to God. It is a retelling of the selected text, not a modern geographical or military reconstruction.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Describes the approaching Egyptian force and the people’s fear.",
+          "marks": 1
+        },
+        {
+          "description": "Describes Moses’ reassurance and response to the instruction.",
+          "marks": 1
+        },
+        {
+          "description": "Describes divided water and the Israelites crossing on dry ground.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the returning water’s effect on the pursuit and the Israelites’ escape.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 12, PDF page 24, performance objective 2",
+      "textReference": "Exodus 14:10–31",
+      "contentSourceId": "bible-crs-jss1-152-freedom-service-repentance-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding to freedom",
+      "subtopic": "Deborah and Barak",
+      "learningObjective": "Explain their liberation narrative.",
+      "id": "ndv-152-006",
+      "objectiveId": "nerdc-crs-jss1-2025-t11-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain the different contributions of Deborah and Barak in Judges 4. Identify Deborah’s leadership role, the instruction she conveys, how Barak responds to her involvement, and how the account connects their actions with relief from Jabin’s oppression. You do not need to describe violent details.",
+      "answer": "Deborah is a prophetess and judge. She summons Barak and conveys the instruction to gather troops and go to Mount Tabor. Barak says he will go if she accompanies him, and she agrees. He then leads the force; the account describes Sisera’s army being defeated and Israel prevailing against Jabin. Their roles are distinct but connected.",
+      "explanation": "The task does not give Barak Deborah’s prophetic role or attribute the whole account to one person. The text also includes other actors and attributes the victory to God.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies Deborah as a prophetess and judge.",
+          "marks": 1
+        },
+        {
+          "description": "Describes her instruction to Barak to gather forces and go to Mount Tabor.",
+          "marks": 1
+        },
+        {
+          "description": "Explains Barak’s request for her presence and her agreement.",
+          "marks": 1
+        },
+        {
+          "description": "Connects their leadership with the defeat of the opposing force and relief from Jabin’s rule.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 12, PDF page 24, performance objective 3",
+      "textReference": "Judges 4:1–24",
+      "contentSourceId": "bible-crs-jss1-152-freedom-service-repentance-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding through service",
+      "subtopic": "Biblical examples",
+      "learningObjective": "Discuss biblical servants.",
+      "id": "ndv-152-007",
+      "objectiveId": "nerdc-crs-jss1-2025-t12-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare Joseph’s service in Egypt in Genesis 41:37–57 with Ruth’s commitment to Naomi in Ruth 1:7–18. Identify the person or people helped in each account, one action or commitment by each character, one difference in the setting of their service, and one quality illustrated by both.",
+      "answer": "Joseph organises grain storage and its distribution through sale during famine, helping Egypt and others who come to buy. Ruth commits to accompanying Naomi and sharing her future. Joseph’s service is public administration with delegated authority; Ruth’s is a family commitment. Both can illustrate commitment to others, although their responsibilities and resources differ.",
+      "explanation": "The comparison stays within the selected accounts. Ruth’s later gleaning is not reported in chapter 1, and Genesis 41 describes grain sales rather than saying all grain is given away free.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies Joseph’s storage or sale/distribution work and the people it helps.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies Ruth’s commitment to accompany or remain with Naomi.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the public-administration versus family setting difference.",
+          "marks": 1
+        },
+        {
+          "description": "Explains a shared quality using evidence from both accounts.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 2",
+      "textReference": "Genesis 41:37–57; Ruth 1:7–18",
+      "contentSourceId": "bible-crs-jss1-152-freedom-service-repentance-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding through service",
+      "subtopic": "Explaining difficulties",
+      "learningObjective": "Explain service challenges.",
+      "id": "ndv-152-008",
+      "objectiveId": "nerdc-crs-jss1-2025-t12-po04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional school service project, a helper is asked to give a friend priority in a fair allocation process in exchange for a gift. Explain the ethical challenge, how accepting could damage the project, one practical response by the helper, and why the response supports faithful service. No specific legal offence needs to be named.",
+      "answer": "The helper faces pressure to exchange fair treatment for a personal benefit. Accepting would distort the agreed allocation and undermine trust. The helper can decline the offer, apply the same criteria to everyone and ask the supervising teacher for guidance. This keeps attention on the people served rather than private advantage.",
+      "explanation": "This addresses an ethical challenge named in the service content, distinct from the workload and communication difficulties already practised in batch 140. It does not assert a legal penalty.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains the pressure to favour someone for personal benefit.",
+          "marks": 1
+        },
+        {
+          "description": "Explains harm to fair allocation or trust.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a practical refusal and fair-process response or appropriate referral.",
+          "marks": 1
+        },
+        {
+          "description": "Connects the response with serving others honestly.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 4"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding through service",
+      "subtopic": "Rewards",
+      "learningObjective": "Explain rewards for service.",
+      "id": "ndv-152-009",
+      "objectiveId": "nerdc-crs-jss1-2025-t12-po05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using Genesis 41:37–43, identify two signs of authority or public recognition given to Joseph and explain what responsibility accompanies them. Explain why the story does not establish that all valuable service must be rewarded with wealth or high office.",
+      "answer": "Pharaoh gives Joseph his signet ring and publicly honours him with clothing, a chain or the second chariot. He is appointed to authority over Egypt under Pharaoh. These signs accompany responsibility for the administration he has proposed. The episode describes Joseph’s particular recognition; it does not promise the same status to every person who serves others.",
+      "explanation": "The guide distinguishes recognition and delegated responsibility. Service without public promotion is not thereby worthless.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies one accurate sign of recognition or delegated authority.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies a second distinct sign.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the accompanying administrative responsibility under Pharaoh.",
+          "marks": 1
+        },
+        {
+          "description": "Distinguishes this particular reward from a universal rule about valuable service.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 5",
+      "textReference": "Genesis 41:37–43",
+      "contentSourceId": "bible-crs-jss1-152-freedom-service-repentance-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding through service",
+      "subtopic": "Application",
+      "learningObjective": "Describe serving God and people.",
+      "id": "ndv-152-010",
+      "objectiveId": "nerdc-crs-jss1-2025-t12-po06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A Christian school group wants to serve both its worship community and nearby neighbours. Write a short proposal for one modest activity in each setting, explain whose need each activity addresses, and show how both can express service to God and people. Use school-supervised, age-appropriate activities.",
+      "answer": "The group could prepare accessible welcome cards for a worship gathering, helping newcomers find information. It could organise a teacher-supervised reading session for younger pupils, helping them practise reading. In Christian understanding, care and a willing contribution to others can express service to God in both settings; service is not limited to a religious building.",
+      "explanation": "The proposals are original classroom applications. Accept other modest activities with clear beneficiaries and explanations; expensive donations and unsupervised external contact are not required.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Proposes a suitable activity serving the worship community.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies a relevant need or beneficiary for that activity.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a distinct suitable activity helping neighbours or other pupils and identifies its need.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how both activities can express service to God and people in Christian teaching.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 13, PDF page 25, performance objective 6"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding with repentance",
+      "subtopic": "David and Nineveh",
+      "learningObjective": "Compare responses to repentance.",
+      "id": "ndv-152-011",
+      "objectiveId": "nerdc-crs-jss1-2025-t13-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare David’s response to Nathan in 2 Samuel 12:7–13 with Nineveh’s response to Jonah in Jonah 3:1–10. Explain one response in each account, one similarity, and one difference between the individual and community responses. Do not claim that either account makes wrongdoing harmless.",
+      "answer": "David acknowledges that he has sinned after Nathan confronts him. Nineveh’s people respond to Jonah’s warning with mourning, fasting and a call to turn away from wrongdoing and violence. Both respond to a message exposing wrongdoing rather than simply denying it. David’s confession is an individual king’s response, while Nineveh’s response involves the people and their king publicly.",
+      "explanation": "The comparison concerns acknowledgement and change. The selected David passage also announces consequences, so forgiveness should not be paraphrased as proof that the earlier harm did not matter.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Describes David’s acknowledgement of sin.",
+          "marks": 1
+        },
+        {
+          "description": "Describes Nineveh’s response including turning from wrongdoing, not only outward signs.",
+          "marks": 1
+        },
+        {
+          "description": "Explains a similarity in responding to a warning or recognising wrongdoing.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the individual versus community difference.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 14, PDF page 26, performance objective 1",
+      "textReference": "2 Samuel 12:7–13; Jonah 3:1–10",
+      "contentSourceId": "bible-crs-jss1-152-freedom-service-repentance-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding with repentance",
+      "subtopic": "John",
+      "learningObjective": "Describe John's repentance message.",
+      "id": "ndv-152-012",
+      "objectiveId": "nerdc-crs-jss1-2025-t13-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Luke 3:7–14, John calls for conduct that demonstrates repentance. Explain one instruction to the crowd about possessions, one to tax collectors, and one to soldiers. Explain how these examples show that a claim of repentance should affect conduct towards other people.",
+      "answer": "The crowd is told to share clothing or food with those without it. Tax collectors are told not to collect more than the appointed amount. Soldiers are told not to use violence or false accusations and to be content with their pay. These instructions connect repentance with generosity, honesty and restraint rather than words alone.",
+      "explanation": "The correctly printed Luke reference is used. The curriculum also gives Matthew 1:1–12 for this topic, which concerns a genealogy rather than this message and remains flagged.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains sharing clothing or food with someone in need.",
+          "marks": 1
+        },
+        {
+          "description": "Explains not collecting more than the appointed amount.",
+          "marks": 1
+        },
+        {
+          "description": "Gives an accurate instruction to soldiers.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how changed conduct supplies evidence of repentance.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 14, PDF page 26, performance objective 2",
+      "textReference": "Luke 3:7–14",
+      "contentSourceId": "bible-crs-jss1-152-freedom-service-repentance-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Responding with repentance",
+      "subtopic": "Jesus",
+      "learningObjective": "Explain Jesus' repentance message.",
+      "id": "ndv-152-013",
+      "objectiveId": "nerdc-crs-jss1-2025-t13-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain Jesus’ announcement in Mark 1:14–15 by identifying where he preaches, what he says about God’s kingdom, and the two responses he calls for. Explain the responses in your own words rather than adding a promise that listeners will immediately become wealthy.",
+      "answer": "Jesus preaches in Galilee. He announces that the time is fulfilled and God’s kingdom is near. He calls people to repent, turning from wrongdoing, and to believe the good news, responding with faith to the message. These verses do not promise immediate wealth.",
+      "explanation": "The answer distinguishes the announcement from the responses it calls for and keeps to the scope of the selected passage.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies Galilee as the preaching setting.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the announcement of the kingdom’s nearness or fulfilled time.",
+          "marks": 1
+        },
+        {
+          "description": "Explains repentance as turning from wrongdoing.",
+          "marks": 1
+        },
+        {
+          "description": "Explains believing the good news as responding with faith to the message.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 14, PDF page 26, performance objective 3",
+      "textReference": "Mark 1:14–15",
+      "contentSourceId": "bible-crs-jss1-152-freedom-service-repentance-checks-2026"
+    }
+  ]
+}

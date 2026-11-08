@@ -864,3 +864,10 @@ and flag a malformed family-teaching reference. Unsupported health claims
 remain excluded. The 45 drafts represent 42 initial objective entries;
 full competency reconciliation, school adoption and academic review
 remain open.
+
+Batch 152 adds thirteen revised CRS JSS 1 written drafts on biblical
+freedom, service, repentance and related underrepresented outcomes.
+Primary passages were checked; the John-the-Baptist Matthew reference
+mismatch is recorded and the valid Luke passage used. Fifty-eight drafts
+represent 55 of 61 initial objective entries, not full coverage. Six
+entries, source conflicts, school adoption and academic review stay open.
