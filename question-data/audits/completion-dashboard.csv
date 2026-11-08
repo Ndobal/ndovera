@@ -25,7 +25,7 @@ IGCSE,Biology,,0610,1000,78,74,0,926,16,16,partial_objective_register,selected_q
 IGCSE,Chemistry,,0620,1000,76,74,0,926,15,15,partial_objective_register,selected_qualification_code_current_source_retrieved
 IGCSE,Economics,,0455,1000,13,13,0,987,13,13,partial_objective_register,official_2026_and_2027_2029_syllabuses_partial_objective_register
 IGCSE,Mathematics,,,1000,26,12,0,988,3,3,partial_objective_register,observed_only_specification_unresolved
-IGCSE,Physics,,,1000,37,36,0,964,29,29,partial_objective_register,observed_only_specification_unresolved
+IGCSE,Physics,,0625,1000,61,60,0,940,35,35,partial_objective_register,selected_qualification_code_current_source_retrieved
 JAMB,Agricultural Science,,,1000,25,25,0,975,8,7,partial_objective_register,candidate_from_supplied_compilation
 JAMB,Arabic,,,1000,0,0,0,1000,0,0,specification_unresolved,candidate_from_supplied_compilation
 JAMB,Biology,,,1000,38,20,0,980,8,8,partial_objective_register,candidate_from_supplied_compilation

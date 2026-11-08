@@ -738,7 +738,12 @@
         2027,
         2028
       ],
-      "sha256": "baaf59f84543beb133ea87cbf8cfb0e8bf105a360cce5009cf57d3ae0a357075"
+      "sha256": "baaf59f84543beb133ea87cbf8cfb0e8bf105a360cce5009cf57d3ae0a357075",
+      "lastRecheckedOn": "2026-11-08",
+      "sourceBytes": 793700,
+      "pageCount": 61,
+      "updateSha256": "7896813e962a224fa6b03407563eba8feafcea6c214d3dd5769b3b0070eab815",
+      "updateBytes": 112730
     },
     {
       "id": "ncee-mathematics-primary-six-reference-2026",
@@ -4042,6 +4047,22 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "level": "",
+      "target": 1000,
+      "scopeStatus": "selected_qualification_code_current_source_retrieved",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "note": "Reconciles the observed Physics bank with the already retrieved official 0625 source. The existing target is retained; legacy unassigned questions remain held. Other codes and complete objective coverage are unresolved."
     }
   ],
   "objectives": [
@@ -17655,6 +17676,177 @@
       ],
       "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0625-147-01-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Mechanical reasoning",
+      "subtopic": "Moments, momentum, pressure and stability",
+      "learningObjective": "Apply equilibrium, momentum, liquid-pressure and stability models.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "1.5.2; 1.5.3, printed p. 15",
+        "1.6, printed p. 16",
+        "1.8, printed p. 18"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ]
+    },
+    {
+      "id": "igcse-0625-147-02-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Energy transfers",
+      "subtopic": "Work, power, kinetic energy and resources",
+      "learningObjective": "Analyse energy transfers, efficiency and resource choices.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "1.7.1–1.7.4, printed pp. 16–18"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ]
+    },
+    {
+      "id": "igcse-0625-147-03-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Optical models",
+      "subtopic": "Reflection, refraction and lenses",
+      "learningObjective": "Explain image formation and light behaviour at boundaries.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "3.2.1–3.2.3, printed pp. 23–24"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ]
+    },
+    {
+      "id": "igcse-0625-147-04-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electromagnetic systems",
+      "subtopic": "Induction, motors and transformers",
+      "learningObjective": "Explain electromagnetic devices and transmission efficiency.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "4.5.1; 4.5.5; 4.5.6, printed pp. 32–33"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ]
+    },
+    {
+      "id": "igcse-0625-147-05-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental mechanics and heat",
+      "subtopic": "Measurement, springs and thermal comparisons",
+      "learningObjective": "Plan and evaluate mechanical and thermal measurements with controlled variables.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "1.1, printed p. 12",
+        "1.5.1, printed p. 14",
+        "2.2.2, printed p. 20",
+        "2.3.3, printed pp. 21–22",
+        "4.2.5, printed p. 29",
+        "Section 4, printed pp. 43–44"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ]
+    },
+    {
+      "id": "igcse-0625-147-06-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental optics and circuits",
+      "subtopic": "Angles, focal length, resistance and zero error",
+      "learningObjective": "Interpret optical and electrical measurements and evaluate systematic errors.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "3.2.1; 3.2.3, printed pp. 23–24",
+        "4.2.4, printed p. 29",
+        "Section 4, printed pp. 43–44"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": [
+        "Extended"
+      ],
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ]
     }
   ],
   "scopeGaps": [
@@ -17696,6 +17888,7 @@
     "NECO BECE Arabic Language has eight initial written-reading drafts using original texts about books and radio, provisionally mapped to historical 2012 ninth-year pages. Current adoption, full scope, 2061/2062 allocation and official option count remain unverified. PyMuPDF rendered inspected source pages after Poppler failed. These written tasks do not assess listening, pronunciation or oral reading.",
     "Hausa routes (batch 143): the historical NERDC JSS 1-3 PDF explicitly targets mother-tongue learners and supports only a provisional L1 JSS 3 reading-content reference. Date, current adoption, complete NECO objectives, L1 2071/2072 allocation and option count remain unverified. L2 2201 has official timetable-format evidence only; neither this L1 PDF nor an NCCE teacher-training L2 syllabus establishes BECE L2 learner objectives. No L2 questions added.",
     "Igbo route investigation (2026-11-08): historical official JSS 3 topics located, but neither retrieved curriculum nor foreword establishes BECE L1/L2 assignment or current adoption. Timetable confirms L1 2081/2082 and L2 2211 objective formats only. Both banks remain empty; topic inventory is source evidence, not active coverage. Obtain route-specific syllabus, selected works and performance requirements.",
-    "Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred."
+    "Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred.",
+    "Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence."
   ]
 }

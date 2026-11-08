@@ -1,0 +1,1725 @@
+{
+  "schemaVersion": 2,
+  "collection": "IGCSE Physics 0625 original structured theory and experimental evaluation",
+  "questionCount": 24,
+  "note": "Sixteen theory and eight written alternative-to-practical original Extended drafts for 2026–2028 v2. Model measurements are illustrative. Original marking guides and author-proposed mappings await independent review; no laboratory-performance or full-syllabus claim.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Mechanical reasoning",
+      "subtopic": "Moments, momentum, pressure and stability",
+      "learningObjective": "Apply equilibrium, momentum, liquid-pressure and stability models.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-001",
+      "objectiveId": "igcse-0625-147-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A weightless horizontal beam balances about a pivot. A 6.0 N downward force acts 0.40 m to the left; a downward force F acts 0.30 m to the right. Calculate F and the upward pivot force, and state the two equilibrium conditions used.",
+      "answer": "The left moment is 6.0 × 0.40 = 2.4 N m. Balance requires F × 0.30 = 2.4, so F=8.0 N. The pivot force is 6.0+8.0=14 N upward. Equilibrium requires zero resultant moment and zero resultant force.",
+      "explanation": "Moment balance alone does not determine the vertical support force.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate the 2.4 N m moment.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate F=8.0 N using equal opposing moments.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate upward support 14 N.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "State zero resultant force and zero resultant moment.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "6*.40",
+          "expected": "2.4",
+          "purpose": "Moment, N m"
+        },
+        {
+          "expression": "6*.40/.30",
+          "expected": "8",
+          "purpose": "Balancing force, N"
+        },
+        {
+          "expression": "6+8",
+          "expected": "14",
+          "purpose": "Pivot support, N"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Mechanical reasoning",
+      "subtopic": "Moments, momentum, pressure and stability",
+      "learningObjective": "Apply equilibrium, momentum, liquid-pressure and stability models.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-002",
+      "objectiveId": "igcse-0625-147-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A 1.0 kg trolley moving at 3.0 m/s collides with a stationary 2.0 kg trolley and they remain joined. External horizontal impulse is negligible. Find their common speed and compare total kinetic energy before and after. Explain why the energy comparison does not contradict momentum conservation.",
+      "answer": "Initial momentum is 3.0 kg m/s, so the 3.0 kg joined pair moves at 1.0 m/s. Initial kinetic energy is 0.5×1.0×3.0²=4.5 J; final kinetic energy is 0.5×3.0×1.0²=1.5 J. The 3.0 J decrease is transferred to internal energy, deformation and sound. Momentum is conserved under negligible external impulse even though kinetic energy is not conserved.",
+      "explanation": "This is an inelastic collision; total energy is conserved while kinetic energy can decrease.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use momentum conservation to obtain 1.0 m/s.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate initial kinetic energy 4.5 J.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate final kinetic energy 1.5 J.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Identify 3.0 J transferred to other forms and distinguish momentum conservation from kinetic-energy conservation.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "1*3/(1+2)",
+          "expected": "1",
+          "purpose": "Joined trolley speed, m/s"
+        },
+        {
+          "expression": "1/2*1*3**2",
+          "expected": "4.5",
+          "purpose": "Initial kinetic energy, J"
+        },
+        {
+          "expression": "1/2*3*1**2",
+          "expected": "1.5",
+          "purpose": "Final kinetic energy, J"
+        },
+        {
+          "expression": "4.5-1.5",
+          "expected": "3",
+          "purpose": "Kinetic energy transferred, J"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Mechanical reasoning",
+      "subtopic": "Moments, momentum, pressure and stability",
+      "learningObjective": "Apply equilibrium, momentum, liquid-pressure and stability models.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-003",
+      "objectiveId": "igcse-0625-147-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Water has density 1000 kg/m³ and g=10 N/kg. A point is 1.2 m below the free surface in an open tank, where atmospheric pressure is 102000 Pa. Calculate pressure due to the water and total pressure. Would making the tank wider, without changing depth, change either pressure? Explain.",
+      "answer": "Water pressure is ρgh=1000×10×1.2=12000 Pa. Total pressure is 102000+12000=114000 Pa. Width alone changes neither pressure at that depth, since liquid pressure depends on density, g and depth, with the same atmospheric pressure above the water.",
+      "explanation": "The pressure contribution from the liquid must be distinguished from absolute total pressure.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use ρgh.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 12000 Pa liquid pressure.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate 114000 Pa total pressure.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain no width effect at unchanged density, depth and atmospheric pressure.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "1000*10*1.2",
+          "expected": "12000",
+          "purpose": "Liquid pressure, Pa"
+        },
+        {
+          "expression": "102000+12000",
+          "expected": "114000",
+          "purpose": "Total pressure, Pa"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Mechanical reasoning",
+      "subtopic": "Moments, momentum, pressure and stability",
+      "learningObjective": "Apply equilibrium, momentum, liquid-pressure and stability models.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-004",
+      "objectiveId": "igcse-0625-147-01-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Two stationary display stands have the same total weight. Stand A has a narrow base and a high centre of gravity; B has a wider base and a lower centre of gravity. Explain why B can generally be tilted further before toppling, using the line of action of its weight.",
+      "answer": "Weight acts vertically through the centre of gravity. A stand remains stable while this line passes within its support base. A wider base and lower centre of gravity generally allow more tilt before the line passes beyond an edge. Beyond that edge the weight produces a turning moment that tends to topple the stand.",
+      "explanation": "Equal weight alone does not make the two geometries equally stable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Locate weight through the centre of gravity.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State stable line of action lies within the support base.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Link wider base/lower centre to greater tilt before crossing an edge.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain toppling moment after the line passes outside the base.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Energy transfers",
+      "subtopic": "Work, power, kinetic energy and resources",
+      "learningObjective": "Analyse energy transfers, efficiency and resource choices.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-005",
+      "objectiveId": "igcse-0625-147-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A motor lifts a 200 N load vertically through 4.0 m in 10 s at steady speed. Electrical input power is 100 W. Calculate useful work, useful output power and efficiency. Explain what happens to input energy not transferred usefully to the load.",
+      "answer": "Useful work is Fd=200×4.0=800 J. Output power is 800/10=80 W. Efficiency is 80/100×100=80%. The remaining energy is transferred to less useful stores or the surroundings, for example by heating and sound.",
+      "explanation": "Energy is not destroyed when a device is less than 100% efficient.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 800 J useful work.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 80 W useful power.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate 80% efficiency.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain non-useful transfers such as heating/sound rather than destruction.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "200*4",
+          "expected": "800",
+          "purpose": "Useful work, J"
+        },
+        {
+          "expression": "800/10",
+          "expected": "80",
+          "purpose": "Useful power, W"
+        },
+        {
+          "expression": "80/100*100",
+          "expected": "80",
+          "purpose": "Efficiency percentage"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Energy transfers",
+      "subtopic": "Work, power, kinetic energy and resources",
+      "learningObjective": "Analyse energy transfers, efficiency and resource choices.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-006",
+      "objectiveId": "igcse-0625-147-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A 0.50 kg ball is released from rest 20 m above the ground and reaches it at 18 m/s. Take g=10 N/kg and ignore rotation. Calculate the initial gravitational potential energy and final kinetic energy, then explain the difference using energy conservation.",
+      "answer": "Initial gravitational potential energy is mgh=0.50×10×20=100 J. Final kinetic energy is 0.5×0.50×18²=81 J. The difference is 19 J, transferred to other stores, for example internal energy of the air and ball through air resistance. Total energy is conserved even though the ball’s mechanical energy decreases.",
+      "explanation": "Ground level is the gravitational-potential-energy reference in this calculation.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 100 J initial gravitational potential energy.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 81 J final kinetic energy.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate 19 J difference.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Account for the difference as other energy transfers, not energy destruction.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": ".50*10*20",
+          "expected": "100",
+          "purpose": "Initial potential energy, J"
+        },
+        {
+          "expression": "1/2*.50*18**2",
+          "expected": "81",
+          "purpose": "Final kinetic energy, J"
+        },
+        {
+          "expression": "100-81",
+          "expected": "19",
+          "purpose": "Other energy transfers, J"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Energy transfers",
+      "subtopic": "Work, power, kinetic energy and resources",
+      "learningObjective": "Analyse energy transfers, efficiency and resource choices.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-007",
+      "objectiveId": "igcse-0625-147-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A trolley’s speed is doubled while its mass stays constant. It is then stopped by the same constant resultant braking force over a level track. Compare its initial kinetic energy and stopping distance with the original case, explaining the relationship.",
+      "answer": "Kinetic energy is proportional to speed squared, so doubling speed makes it four times as large. The braking work must remove this kinetic energy. For the same constant force, work=force×distance, so the stopping distance is four times the original.",
+      "explanation": "The result assumes no other change in forces or energy transfers.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use kinetic energy proportional to v².",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State four times initial kinetic energy.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Relate braking work to the kinetic energy decrease.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Use unchanged force to deduce four times stopping distance.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "2**2",
+          "expected": "4",
+          "purpose": "Kinetic-energy and distance factor"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Energy transfers",
+      "subtopic": "Work, power, kinetic energy and resources",
+      "learningObjective": "Analyse energy transfers, efficiency and resource choices.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-008",
+      "objectiveId": "igcse-0625-147-02-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A school compares photovoltaic panels for running lights with solar thermal panels for heating wash water. Distinguish their useful outputs, explain why storage may be needed for evening use, and give one limitation of assuming solar input is constant throughout every day.",
+      "answer": "Photovoltaic panels produce electrical energy; solar thermal panels transfer energy to water as internal energy. Electrical or thermal storage can shift energy collected in daylight to evening demand. Sunlight varies with cloud cover, time of day and season, so constant input is not guaranteed.",
+      "explanation": "Both use solar radiation but supply different useful energy forms.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify electrical output from photovoltaic panels.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Identify heating/internal-energy increase of water from solar thermal panels.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Link storage to daylight supply versus evening demand.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give a valid reason solar input varies.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Optical models",
+      "subtopic": "Reflection, refraction and lenses",
+      "learningObjective": "Explain image formation and light behaviour at boundaries.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-009",
+      "objectiveId": "igcse-0625-147-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A small object stands 1.4 m in front of a plane mirror. State the image position and object-to-image separation. Explain why the image is virtual and state its size relative to the object.",
+      "answer": "The image is 1.4 m behind the mirror, so object and image are 2.8 m apart. It is virtual because reflected rays appear to come from behind the mirror but do not actually converge there. The image is the same size as the object.",
+      "explanation": "The image position is found by extending reflected rays backwards.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Place the image 1.4 m behind the mirror.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 2.8 m object-image separation.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain virtual image using apparent origin/backward extensions.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "State same image size.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "1.4+1.4",
+          "expected": "2.8",
+          "purpose": "Object-image separation, m"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Optical models",
+      "subtopic": "Reflection, refraction and lenses",
+      "learningObjective": "Explain image formation and light behaviour at boundaries.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-010",
+      "objectiveId": "igcse-0625-147-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "An oblique light ray passes from air into glass and slows down. Compare its frequency and wavelength on the two sides, and describe the direction change relative to the normal. Explain the wavelength change using the wave-speed relationship.",
+      "answer": "Frequency remains unchanged at the boundary. The lower speed with unchanged frequency means a shorter wavelength, from v=fλ. On oblique entry from air into glass the ray bends towards the normal, so its angle to the normal decreases.",
+      "explanation": "Frequency is set by the source; refraction changes speed and wavelength.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State unchanged frequency.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Use v=fλ.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Deduce smaller wavelength from lower speed at fixed frequency.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "State bending towards the normal/smaller angle.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Optical models",
+      "subtopic": "Reflection, refraction and lenses",
+      "learningObjective": "Explain image formation and light behaviour at boundaries.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-011",
+      "objectiveId": "igcse-0625-147-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "For a glass–air boundary, the critical angle is 42°. Light inside the glass reaches the boundary first at 35°, then at 50°, with angles measured from the normal. Describe what can happen to the transmitted ray in each case and state the two conditions for total internal reflection.",
+      "answer": "At 35°, below the critical angle, light can refract out into the air, with some internal reflection possible. At 50°, above the critical angle, total internal reflection occurs and there is no transmitted refracted ray. Total internal reflection requires travel from the optically denser medium towards a less optically dense medium and incidence greater than the critical angle.",
+      "explanation": "Incidence is measured from the normal, not from the surface.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Describe refraction into air below the critical angle.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State total internal reflection/no transmitted ray at 50°.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Require passage from greater to lower refractive index.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Require incidence greater than the critical angle.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Optical models",
+      "subtopic": "Reflection, refraction and lenses",
+      "learningObjective": "Explain image formation and light behaviour at boundaries.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-012",
+      "objectiveId": "igcse-0625-147-03-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A thin converging lens has focal length 12 cm. An object is placed 8 cm from it and is viewed through the lens as a magnifying glass. Describe the image orientation, size and real/virtual character. Explain why it cannot be collected as a sharp projection on a screen.",
+      "answer": "The image is upright, enlarged and virtual because the object is inside the focal length. Emerging rays diverge and their backward extensions locate the apparent image. They do not converge at that apparent image point to form a screen projection.",
+      "explanation": "A virtual magnified image is different from the real inverted image formed for a suitable object distance beyond the focus.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State upright.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "State enlarged.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "State virtual, relating this to object distance less than focal length.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain diverging rays/backward extensions prevent a screen projection at the image.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electromagnetic systems",
+      "subtopic": "Induction, motors and transformers",
+      "learningObjective": "Explain electromagnetic devices and transmission efficiency.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-013",
+      "objectiveId": "igcse-0625-147-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A bar magnet is pushed into a coil connected to a sensitive meter. The meter deflects while the magnet moves but returns to zero when it is held still inside. Explain these observations, predict the effect of withdrawing the magnet, and suggest how to increase the peak deflection without changing the coil.",
+      "answer": "Movement changes the magnetic field linking the coil and induces an e.m.f. Holding the magnet still gives no continuing change, so there is no induced e.m.f. Withdrawal reverses the field change and reverses the deflection. Moving the magnet faster, or using a stronger magnet, can increase peak induced e.m.f.",
+      "explanation": "A magnetic field being present is insufficient by itself; the linkage must change.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Link motion to changing magnetic linkage and induced e.m.f.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Explain no induction from a stationary field linkage.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Predict reversed deflection on withdrawal.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Suggest greater speed or a stronger magnet.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electromagnetic systems",
+      "subtopic": "Induction, motors and transformers",
+      "learningObjective": "Explain electromagnetic devices and transmission efficiency.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-014",
+      "objectiveId": "igcse-0625-147-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "Explain why a simple d.c. motor uses a split-ring commutator. State what would happen to the turning tendency if current were not reversed at the appropriate half-turn, and give two ways to increase the turning effect of the coil.",
+      "answer": "The split ring reverses current in the coil each half-turn, maintaining the torque in the same rotational sense. Without the reversal, the turning tendency would reverse after that position and oppose continuous rotation. Increase current, field strength or the number of turns to increase the turning effect.",
+      "explanation": "Brushes maintain electrical contact while the commutator switches coil connections.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State current reversal each half-turn.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Link reversal to a continued same-sense turning effect; describe opposition without it.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Give one valid increase: current, field strength or coil turns.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give a second distinct valid increase.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electromagnetic systems",
+      "subtopic": "Induction, motors and transformers",
+      "learningObjective": "Explain electromagnetic devices and transmission efficiency.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-015",
+      "objectiveId": "igcse-0625-147-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "An ideal transformer has 200 primary turns and 50 secondary turns. Its primary receives 12 V alternating potential difference and 0.50 A. Calculate secondary voltage and current, and explain why the greater secondary current does not mean extra power is created.",
+      "answer": "Vs=12×50/200=3.0 V. Input power is 12×0.50=6.0 W. At 100% efficiency the output power is also 6.0 W, so Is=6.0/3.0=2.0 A. Higher current accompanies lower voltage; power is conserved in the ideal model.",
+      "explanation": "These relations require the ideal-transformer assumption and alternating input.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 3.0 V secondary voltage.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 6.0 W input/output power.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate 2.0 A secondary current.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain compensating voltage/current changes preserve power.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "12*50/200",
+          "expected": "3",
+          "purpose": "Secondary voltage, V"
+        },
+        {
+          "expression": "12*.50",
+          "expected": "6",
+          "purpose": "Transformer power, W"
+        },
+        {
+          "expression": "6/3",
+          "expected": "2",
+          "purpose": "Secondary current, A"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electromagnetic systems",
+      "subtopic": "Induction, motors and transformers",
+      "learningObjective": "Explain electromagnetic devices and transmission efficiency.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-016",
+      "objectiveId": "igcse-0625-147-04-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "type": "structured",
+      "prompt": "A transmission line delivers the same electrical power after its voltage is doubled. Assume the line resistance stays constant and the simple model P=VI applies. Compare the current and resistive heating loss before and after, and explain why transformers are useful in this application.",
+      "answer": "For fixed transmitted power, doubling voltage halves current. Since line heating loss is I²R, halving current reduces the loss to one quarter. Transformers allow alternating voltages to be stepped up for transmission and down for use. They reduce this loss rather than eliminate all losses.",
+      "explanation": "The current comparison depends on equal transmitted power, not equal current.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "theory",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Use fixed P=VI to deduce half current.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Use loss proportional to I² at fixed R.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Deduce one-quarter resistive loss.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain step-up/step-down use of transformers.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(1/2)**2",
+          "expected": "0.25",
+          "purpose": "Transmission loss factor"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental mechanics and heat",
+      "subtopic": "Measurement, springs and thermal comparisons",
+      "learningObjective": "Plan and evaluate mechanical and thermal measurements with controlled variables.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-017",
+      "objectiveId": "igcse-0625-147-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A spring has unloaded length 8.0 cm. With loads 1.0 N and 2.0 N its lengths are 10.0 cm and 12.0 cm. Determine extension per unit load over this range, explain why total length should not be treated as extension, and identify one precaution when extending the investigation to higher loads.",
+      "answer": "Extensions are 2.0 cm and 4.0 cm, giving 2.0 cm N−1. The unloaded 8.0 cm must be subtracted because extension is the change in length. Increase loads cautiously within the elastic range and check recovery/removal of load or avoid the limit of proportionality when fitting a straight-line model.",
+      "explanation": "An intercept in a length-versus-load graph can represent the original length rather than a measurement fault.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate extensions 2.0 cm and 4.0 cm.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Obtain 2.0 cm N−1.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain subtraction of unloaded length.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give a relevant limit/recovery or safe-loading precaution.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "(10-8)/1",
+          "expected": "2",
+          "purpose": "Extension per unit load, cm/N"
+        },
+        {
+          "expression": "(12-8)/2",
+          "expected": "2",
+          "purpose": "Second extension ratio, cm/N"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental mechanics and heat",
+      "subtopic": "Measurement, springs and thermal comparisons",
+      "learningObjective": "Plan and evaluate mechanical and thermal measurements with controlled variables.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-018",
+      "objectiveId": "igcse-0625-147-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A learner times one small pendulum oscillation as 1.3 s using a hand stopwatch. A second method times 20 complete oscillations. Explain why the second method can reduce fractional timing error, how to obtain the period from it, and give two steps that improve consistency without changing the pendulum length.",
+      "answer": "A similar start/stop reaction-time error is a smaller fraction of the longer total time. Divide the time for 20 complete oscillations by 20. Use the same reference point and direction for counting complete cycles, keep a small consistent release angle, and repeat measurements.",
+      "explanation": "Longer timing reduces the relative effect of reaction time; it does not remove reaction time altogether.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Explain a similar absolute reaction error is a smaller fraction of total time.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Divide total time by 20.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Give a consistent counting reference/direction.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give small consistent amplitude or repeats as a distinct improvement.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental mechanics and heat",
+      "subtopic": "Measurement, springs and thermal comparisons",
+      "learningObjective": "Plan and evaluate mechanical and thermal measurements with controlled variables.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-019",
+      "objectiveId": "igcse-0625-147-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Two identical metal containers have dull-black or shiny outer surfaces. A learner wants to compare their cooling rates. Describe a fair procedure, two quantities to match and one limitation on claiming that all measured cooling is due to radiation.",
+      "answer": "Use equal amounts of water at the same starting temperature, place the containers together in the same surroundings and record temperatures at equal time intervals. Match exposed area and container geometry as well as water mass, temperature and airflow. The dull-black surface is expected to emit infrared more effectively, but conduction and convection also contribute to total cooling.",
+      "explanation": "A surface comparison can indicate a radiation effect without isolating radiation as the only transfer mechanism.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Describe temperature readings over matched intervals in common surroundings.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Control one relevant quantity, e.g. water mass/starting temperature.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Control a second distinct quantity, e.g. exposed area/airflow.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Recognise conduction/convection also affect cooling.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental mechanics and heat",
+      "subtopic": "Measurement, springs and thermal comparisons",
+      "learningObjective": "Plan and evaluate mechanical and thermal measurements with controlled variables.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-020",
+      "objectiveId": "igcse-0625-147-05-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "In a supervised low-voltage experiment, a 0.20 kg insulated metal block receives energy from a heater operating at 6.0 V and 2.0 A for 100 s. Its temperature rises by 10°C. Estimate its specific heat capacity and explain how heat lost to the surroundings would bias this estimate. Give one improvement.",
+      "answer": "Supplied energy is IVt=6.0×2.0×100=1200 J. The estimate is c=1200/(0.20×10)=600 J kg−1 °C−1. If some input energy escapes rather than heating the block, attributing all input to the block overestimates c. Improve insulation or use an appropriate heat-loss correction, and maintain good heater/thermometer contact.",
+      "explanation": "The simple calculation neglects energy absorbed by apparatus and lost to the surroundings.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Calculate 1200 J input energy.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 600 J kg−1 °C−1.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain heat loss makes this input-based estimate too high.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give relevant insulation, heat-loss correction or thermal-contact improvement.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "6*2*100",
+          "expected": "1200",
+          "purpose": "Energy input, J"
+        },
+        {
+          "expression": "1200/(.20*10)",
+          "expected": "600",
+          "purpose": "Specific heat capacity estimate, J/kg/degree C"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental optics and circuits",
+      "subtopic": "Angles, focal length, resistance and zero error",
+      "learningObjective": "Interpret optical and electrical measurements and evaluate systematic errors.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-021",
+      "objectiveId": "igcse-0625-147-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "In a mirror experiment, incidence angles measured from the normal are 20°, 40° and 60°. The corresponding recorded reflection angles are 19°, 39° and 59°. Describe the discrepancy, suggest a plausible systematic cause and explain why averaging more repeats alone would not fix it. State one apparatus check.",
+      "answer": "Every reflection reading is 1° lower than the incidence reading. A misdrawn reference normal or a consistent zero/alignment error is plausible. Repeats may reduce random scatter but retain a systematic offset. Check the normal is perpendicular to the mirror line and verify protractor zero/alignment.",
+      "explanation": "The data suggest an offset rather than a changing reflection law, but the precise cause still requires checking.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Identify the consistent −1° offset.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Suggest a plausible alignment/zero/reference error.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain averaging does not remove a persistent systematic bias.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give a normal/protractor alignment check.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental optics and circuits",
+      "subtopic": "Angles, focal length, resistance and zero error",
+      "learningObjective": "Interpret optical and electrical measurements and evaluate systematic errors.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-022",
+      "objectiveId": "igcse-0625-147-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "Plan a way to estimate the focal length of a thin converging lens using a distant illuminated object and a screen. Describe how to find the image, what distance to measure, why the object should be distant and one way to check reliability.",
+      "answer": "Move the lens or screen until a sharp real image of the distant object forms on the screen. Measure the distance from the lens centre to the screen. For a sufficiently distant object, incoming rays are approximately parallel and the image forms near the principal focus, so this distance estimates focal length. Repeat focusing and measurement, or use different distant objects to check consistency.",
+      "explanation": "A finite object distance means the result is an approximation to the focal length.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Form and focus a sharp real screen image.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Measure lens-centre to screen distance.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Explain distant rays are approximately parallel/image near the focus.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Repeat/re-focus or compare different distant objects.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental optics and circuits",
+      "subtopic": "Angles, focal length, resistance and zero error",
+      "learningObjective": "Interpret optical and electrical measurements and evaluate systematic errors.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-023",
+      "objectiveId": "igcse-0625-147-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A resistor is tested at 2.0 V, 4.0 V and 6.0 V, with currents 0.10 A, 0.20 A and 0.30 A. Explain how to connect the meters, calculate resistance, state the gradient meaning for a graph of voltage vertically against current horizontally, and give one way to limit heating during measurements.",
+      "answer": "Connect the ammeter in series and voltmeter in parallel with the resistor. Each pair gives R=V/I=20 Ω. For V on the vertical axis and I on the horizontal axis, the gradient is resistance, in V/A or ohms. Use a suitable low-voltage supply and switch off between brief readings to limit heating.",
+      "explanation": "The axes matter: reversing them gives conductance as the gradient.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "State ammeter in series and voltmeter in parallel.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 20 Ω consistently from the pairs.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Identify V-versus-I gradient as resistance with appropriate units.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Give a practical heating-limitation measure.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "2/.1",
+          "expected": "20",
+          "purpose": "Resistance from first pair, ohm"
+        },
+        {
+          "expression": "4/.2",
+          "expected": "20",
+          "purpose": "Resistance from second pair, ohm"
+        },
+        {
+          "expression": "6/.3",
+          "expected": "20",
+          "purpose": "Resistance from third pair, ohm"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental optics and circuits",
+      "subtopic": "Angles, focal length, resistance and zero error",
+      "learningObjective": "Interpret optical and electrical measurements and evaluate systematic errors.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-147-024",
+      "objectiveId": "igcse-0625-147-06-v1",
+      "examType": "original-practice",
+      "curriculum": "Cambridge IGCSE",
+      "level": "Secondary",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "type": "structured",
+      "prompt": "A voltmeter has a positive zero error of 0.20 V and reads 1.20 V across a resistor while a correct ammeter reads 0.10 A. Correct the voltage, calculate the resistance, compare it with the uncorrected estimate and explain whether repeating the same readings removes the zero error.",
+      "answer": "Correct voltage is 1.20−0.20=1.00 V. Correct resistance is 1.00/0.10=10 Ω, rather than the uncorrected 1.20/0.10=12 Ω. Repeating retains the offset; adjust the instrument zero or apply the measured correction.",
+      "explanation": "A positive voltage offset produces a high resistance estimate when current is measured correctly.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceComponent": "alternative-to-practical",
+      "markingGuide": [
+        {
+          "step": 1,
+          "description": "Correct voltage to 1.00 V.",
+          "marks": 1
+        },
+        {
+          "step": 2,
+          "description": "Calculate 10 Ω corrected resistance.",
+          "marks": 1
+        },
+        {
+          "step": 3,
+          "description": "Calculate/identify the uncorrected 12 Ω as too high.",
+          "marks": 1
+        },
+        {
+          "step": 4,
+          "description": "Explain repeats alone retain the offset and correction/zero adjustment is needed.",
+          "marks": 1
+        }
+      ],
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "1.20-.20",
+          "expected": "1",
+          "purpose": "Corrected voltage, V"
+        },
+        {
+          "expression": "1/.10",
+          "expected": "10",
+          "purpose": "Corrected resistance, ohm"
+        },
+        {
+          "expression": "1.20/.10",
+          "expected": "12",
+          "purpose": "Uncorrected resistance, ohm"
+        }
+      ]
+    }
+  ]
+}

@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3744,
-    "validDrafts": 2065,
+    "raw": 3768,
+    "validDrafts": 2089,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1012,6 +1012,12 @@
       "actual": 24
     },
     {
+      "path": "original-multisubject-batch-147.json",
+      "sha256": "a7000850b01b61897e875bd5ae02a9e459d2a77e87fd09e0e7edf9beedf293d5",
+      "declared": 24,
+      "actual": 24
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1922,22 +1928,31 @@
       "subject": "Physics",
       "level": "",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
-      "raw": 37,
-      "validDrafts": 36,
+      "scopeStatus": "selected_qualification_code_current_source_retrieved",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "note": "Reconciles the observed Physics bank with the already retrieved official 0625 source. The existing target is retained; legacy unassigned questions remain held. Other codes and complete objective coverage are unresolved.",
+      "raw": 61,
+      "validDrafts": 60,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 27,
+        "structured": 51,
         "mcq": 10
       },
       "difficulty": {
-        "standard": 26,
-        "difficult": 10,
+        "standard": 46,
+        "difficult": 14,
         "missing": 1
       },
-      "remaining": 964,
-      "mappedObjectives": 29,
-      "representedObjectives": 29,
+      "remaining": 940,
+      "mappedObjectives": 35,
+      "representedObjectives": 35,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5859,21 +5874,21 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 273,
+    "explicitArithmeticClaims": 304,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -32839,6 +32854,150 @@
     {
       "id": "ndv-146-024",
       "file": "original-multisubject-batch-146.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-001",
+      "file": "original-multisubject-batch-147.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-002",
+      "file": "original-multisubject-batch-147.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-003",
+      "file": "original-multisubject-batch-147.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-004",
+      "file": "original-multisubject-batch-147.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-005",
+      "file": "original-multisubject-batch-147.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-006",
+      "file": "original-multisubject-batch-147.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-007",
+      "file": "original-multisubject-batch-147.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-008",
+      "file": "original-multisubject-batch-147.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-009",
+      "file": "original-multisubject-batch-147.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-010",
+      "file": "original-multisubject-batch-147.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-011",
+      "file": "original-multisubject-batch-147.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-012",
+      "file": "original-multisubject-batch-147.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-013",
+      "file": "original-multisubject-batch-147.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-014",
+      "file": "original-multisubject-batch-147.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-015",
+      "file": "original-multisubject-batch-147.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-016",
+      "file": "original-multisubject-batch-147.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-017",
+      "file": "original-multisubject-batch-147.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-018",
+      "file": "original-multisubject-batch-147.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-019",
+      "file": "original-multisubject-batch-147.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-020",
+      "file": "original-multisubject-batch-147.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-021",
+      "file": "original-multisubject-batch-147.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-022",
+      "file": "original-multisubject-batch-147.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-023",
+      "file": "original-multisubject-batch-147.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-147-024",
+      "file": "original-multisubject-batch-147.json",
       "index": 23,
       "errors": []
     },
@@ -66801,6 +66960,247 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0625-147-01-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Mechanical reasoning",
+      "subtopic": "Moments, momentum, pressure and stability",
+      "learningObjective": "Apply equilibrium, momentum, liquid-pressure and stability models.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "1.5.2; 1.5.3, printed p. 15",
+        "1.6, printed p. 16",
+        "1.8, printed p. 18"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": {
+        "Extended": 4
+      },
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0625-147-02-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Energy transfers",
+      "subtopic": "Work, power, kinetic energy and resources",
+      "learningObjective": "Analyse energy transfers, efficiency and resource choices.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "1.7.1–1.7.4, printed pp. 16–18"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": {
+        "Extended": 4
+      },
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0625-147-03-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Optical models",
+      "subtopic": "Reflection, refraction and lenses",
+      "learningObjective": "Explain image formation and light behaviour at boundaries.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "3.2.1–3.2.3, printed pp. 23–24"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": {
+        "Extended": 4
+      },
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "assessmentObjectives": {
+        "AO2": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0625-147-04-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Electromagnetic systems",
+      "subtopic": "Induction, motors and transformers",
+      "learningObjective": "Explain electromagnetic devices and transmission efficiency.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "4.5.1; 4.5.5; 4.5.6, printed pp. 32–33"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": {
+        "Extended": 4
+      },
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0625-147-05-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental mechanics and heat",
+      "subtopic": "Measurement, springs and thermal comparisons",
+      "learningObjective": "Plan and evaluate mechanical and thermal measurements with controlled variables.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "1.1, printed p. 12",
+        "1.5.1, printed p. 14",
+        "2.2.2, printed p. 20",
+        "2.3.3, printed pp. 21–22",
+        "4.2.5, printed p. 29",
+        "Section 4, printed pp. 43–44"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": {
+        "Extended": 4
+      },
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0625-147-06-v1",
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Experimental optics and circuits",
+      "subtopic": "Angles, focal length, resistance and zero error",
+      "learningObjective": "Interpret optical and electrical measurements and evaluate systematic errors.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "3.2.1; 3.2.3, printed pp. 23–24",
+        "4.2.4, printed p. 29",
+        "Section 4, printed pp. 43–44"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "tiers": {
+        "Extended": 4
+      },
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "assessmentObjectives": {
+        "AO3": 4
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -66842,6 +67242,7 @@
     "NECO BECE Arabic Language has eight initial written-reading drafts using original texts about books and radio, provisionally mapped to historical 2012 ninth-year pages. Current adoption, full scope, 2061/2062 allocation and official option count remain unverified. PyMuPDF rendered inspected source pages after Poppler failed. These written tasks do not assess listening, pronunciation or oral reading.",
     "Hausa routes (batch 143): the historical NERDC JSS 1-3 PDF explicitly targets mother-tongue learners and supports only a provisional L1 JSS 3 reading-content reference. Date, current adoption, complete NECO objectives, L1 2071/2072 allocation and option count remain unverified. L2 2201 has official timetable-format evidence only; neither this L1 PDF nor an NCCE teacher-training L2 syllabus establishes BECE L2 learner objectives. No L2 questions added.",
     "Igbo route investigation (2026-11-08): historical official JSS 3 topics located, but neither retrieved curriculum nor foreword establishes BECE L1/L2 assignment or current adoption. Timetable confirms L1 2081/2082 and L2 2211 objective formats only. Both banks remain empty; topic inventory is source evidence, not active coverage. Obtain route-specific syllabus, selected works and performance requirements.",
-    "Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred."
+    "Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred.",
+    "Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence."
   ]
 }

@@ -177,6 +177,23 @@ class ValidationTests(unittest.TestCase):
     def test_igcse_practical_cannot_be_mcq(self):
         self.igcse_fixture(); self.q['assessmentObjectives'] = ['AO3']
         self.assertIn('igcse_practical_component_mismatch', self.errors())
+    def test_physics_practical_cannot_be_mcq(self):
+        self.igcse_fixture()
+        self.obj.update(subject='Physics', qualificationCode='0625')
+        self.q.update(subject='Physics', qualificationCode='0625',
+                      assessmentObjectives=['AO3'], practiceComponent='alternative-to-practical')
+        self.assertIn('igcse_practical_component_mismatch', self.errors())
+    def test_physics_written_practical_has_separate_assessment(self):
+        self.igcse_fixture()
+        self.obj.update(subject='Physics', qualificationCode='0625')
+        self.q.update(subject='Physics', qualificationCode='0625', type='structured',
+                      assessmentObjectives=['AO3'], practiceComponent='alternative-to-practical',
+                      maxMarks=1, markingGuide=[{'description': 'criterion', 'marks': 1}])
+        self.assertEqual(self.errors(), [])
+        self.q['practiceComponent'] = 'theory'
+        self.assertIn('igcse_practical_component_mismatch', self.errors())
+        self.q.update(practiceComponent='alternative-to-practical', assessmentObjectives=['AO2', 'AO3'])
+        self.assertIn('igcse_practical_ao_mix', self.errors())
     def test_igcse_aos_are_required(self):
         self.igcse_fixture(); self.q.pop('assessmentObjectives')
         self.assertIn('igcse_assessment_objective_missing_or_invalid', self.errors())

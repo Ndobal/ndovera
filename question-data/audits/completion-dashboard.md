@@ -34,7 +34,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | Chemistry [0620] | 1000 | 76 | 74 | 0 | 926 | partial_objective_register |
 | IGCSE | Economics [0455] | 1000 | 13 | 13 | 0 | 987 | partial_objective_register |
 | IGCSE | Mathematics | 1000 | 26 | 12 | 0 | 988 | partial_objective_register |
-| IGCSE | Physics | 1000 | 37 | 36 | 0 | 964 | partial_objective_register |
+| IGCSE | Physics [0625] | 1000 | 61 | 60 | 0 | 940 | partial_objective_register |
 | JAMB | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Biology | 1000 | 38 | 20 | 0 | 980 | partial_objective_register |
@@ -209,7 +209,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 |---|---:|---:|---:|---:|---:|
 | BECE | 129 | 129 | 0 | 18000 | 17871 |
 | IELTS | 121 | 112 | 0 | 4000 | 3888 |
-| IGCSE | 230 | 209 | 0 | 5000 | 4791 |
+| IGCSE | 254 | 233 | 0 | 5000 | 4767 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 155 | 126 | 0 | 9000 | 8874 |
 | NECO | 436 | 401 | 0 | 36000 | 35599 |
@@ -218,7 +218,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 104 | 95 | 0 | 4000 | 3905 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3744, "validDrafts": 2065, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3768, "validDrafts": 2089, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -263,3 +263,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Hausa routes (batch 143): the historical NERDC JSS 1-3 PDF explicitly targets mother-tongue learners and supports only a provisional L1 JSS 3 reading-content reference. Date, current adoption, complete NECO objectives, L1 2071/2072 allocation and option count remain unverified. L2 2201 has official timetable-format evidence only; neither this L1 PDF nor an NCCE teacher-training L2 syllabus establishes BECE L2 learner objectives. No L2 questions added.
 - Igbo route investigation (2026-11-08): historical official JSS 3 topics located, but neither retrieved curriculum nor foreword establishes BECE L1/L2 assignment or current adoption. Timetable confirms L1 2081/2082 and L2 2211 objective formats only. Both banks remain empty; topic inventory is source evidence, not active coverage. Obtain route-specific syllabus, selected works and performance requirements.
 - Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred.
+- Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence.

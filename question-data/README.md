@@ -830,3 +830,12 @@ written alternative-to-practical tasks. Version 3 for 2026–2028 was
 retrieved again and hashed. Data are original illustrative examples;
 full syllabus coverage, laboratory experience and independent academic
 review are not established by these drafts.
+
+Batch 147 adds 24 IGCSE Physics 0625 Extended drafts: sixteen structured
+theory and eight written experimental tasks. The official v2 syllabus and
+update notice were retrieved again. An explicit Physics bank entry now
+reconciles the previously observed bank with this source, retaining its
+existing target. Full coverage and academic review remain pending.
+The practical-format gate now includes Physics 0625 alongside Biology 0610
+and Chemistry 0620, with regression tests for valid written AO3 practice
+and invalid MCQ, component or mixed-assessment labels.

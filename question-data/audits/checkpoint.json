@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_146_automated_validation_passed",
+  "phase": "batch_147_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-147.json",
+  "nextBatch": "original-multisubject-batch-148.json",
   "nextPriorities": [
-    "Expand source-verified IGCSE Physics 0625 (2026–2028) to underrepresented objectives and written experimental/data tasks after inspecting current source and coverage. Biology now has 74 automated-valid drafts, including batch 146 classification, variation, selection, biotechnology and experimental evidence. Complete objective denominators, Core-only suitability of older items and independent academic review remain open. Preserve unresolved BECE routes and exact-class adoption gaps.",
+    "Expand IGCSE Economics 0455 to underrepresented objectives, keeping the official 2026 v2 and 2027–2029 v1 cycles distinct after inspecting current coverage. Physics now has 60 automated-valid drafts, an explicit source-linked bank entry and 0625 practical-format validation. Full objective denominators, independent review and unresolved BECE/NERDC adoption routes remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-146.json",
-  "lastRemoteVerifiedCommit": "d148655cb11ce55ee2da6c9007e19fc003f6c733",
+  "lastValidatedBatch": "original-multisubject-batch-147.json",
+  "lastRemoteVerifiedCommit": "d3d395012c0812a2e2b38d08ad656b52b9698dee",
   "verifiedTotals": {
-    "raw": 3744,
-    "validDrafts": 2065,
+    "raw": 3768,
+    "validDrafts": 2089,
     "reviewed": 0
   },
-  "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-146.json",
+  "lastRunTestCount": 48,
+  "lastPopulatedBatch": "original-multisubject-batch-147.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3744,
+  "inventoryRaw": 3768,
   "lastSourceUpdate": "igbo-jss3-historical-scope-inventory.json",
   "lastSourceRecheck": {
-    "id": "igcse-0610-2026-2028-v3",
+    "id": "cambridge-0625-2026-2028-v2",
     "date": "2026-11-08"
   }
 }

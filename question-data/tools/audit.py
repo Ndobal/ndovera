@@ -177,7 +177,7 @@ def check_question(q, objectives):
             aos = q.get('assessmentObjectives')
             if not isinstance(aos, list) or not aos or any(a not in ('AO1', 'AO2', 'AO3') for a in aos):
                 errors.append('igcse_assessment_objective_missing_or_invalid')
-            elif q.get('qualificationCode') in ('0610', '0620'):
+            elif q.get('qualificationCode') in ('0610', '0620', '0625'):
                 practical = 'AO3' in aos
                 if practical and (q.get('type') == 'mcq' or q.get('practiceComponent') != 'alternative-to-practical'):
                     errors.append('igcse_practical_component_mismatch')
