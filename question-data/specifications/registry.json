@@ -2144,7 +2144,7 @@
       "documentDate": "September 2025",
       "retrievedOn": "2026-11-07",
       "status": "all_topics_initial_objectives_mapped_academic_alignment_pending",
-      "note": "Sixteen distinct September 2025 CRS JSS 1 topics have 61 initial performance-objective entries mapped. Direct PDF locators and checksum are in the inventory. This is not full competency/evaluation reconciliation, official marking or academic approval. Source duplicates and wording conflicts remain flagged. Thirty-two classroom drafts use original tasks and rubrics. National rollout evidence is separate from unverified school adoption.",
+      "note": "Sixteen distinct September 2025 CRS JSS 1 topics have 61 initial performance-objective entries mapped. Direct PDF locators and checksum are in the inventory. This is not full competency/evaluation reconciliation, official marking or academic approval. Source duplicates and wording conflicts remain flagged. Forty-five classroom drafts use original tasks and rubrics. National rollout evidence is separate from unverified school adoption.",
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
@@ -2286,6 +2286,25 @@
       "checkedOn": "2026-11-08",
       "status": "four_narratives_checked_not_curriculum_adoption_evidence",
       "note": "KJV passage text checked for Genesis 1 creation order, Luke 15 returning son/father, Genesis 33 meeting and gift sequence, and Genesis 12 Abram calling. Original paraphrase tasks; no copied examination items. This reference supplements, not replaces, the exact-class curriculum mapping."
+    },
+    {
+      "id": "bible-crs-jss1-151-early-life-checks-2026",
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "kind": "primary_scripture_narrative_cross_check",
+      "source": "https://www.biblegateway.com/passage/?search=Luke%202&version=KJV",
+      "additionalSources": [
+        "https://www.biblegateway.com/passage/?search=Luke%201%3A26-38&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Matthew%201%3A18-25&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Matthew%202%3A1-12&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Luke%202%3A21-40&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Luke%202%3A41-52&version=KJV",
+        "https://www.biblegateway.com/passage/?search=Matthew%2012%3A46-50&version=KJV"
+      ],
+      "checkedOn": "2026-11-08",
+      "status": "passages_checked_reference_repair_pending_academic_review",
+      "note": "KJV primary passage checks for announcements, birth, visits, temple testimonies and family teaching. Combined-URL retrieval failed, individual pages succeeded. The malformed printed Matthew 12:4, 6–50 reference is retained as an issue; 12:46–50 is an author-proposed repair supported by content, not an official correction. Ephesians 6.1:3 also malformed and not used. Magi number/names and combined manger scene not asserted; Anna has no full verbatim speech in Luke 2:38. Scripture evidence does not establish school adoption."
     }
   ],
   "banks": [

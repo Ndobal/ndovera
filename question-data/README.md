@@ -854,3 +854,13 @@ original stimulus, including paired texts, tables and research notes.
 Official skill/format pages were rechecked. Equal practice allocation
 does not reproduce the official domain weighting or an adaptive module.
 Independent review, difficulty calibration and full coverage remain open.
+
+Batch 150 adds 24 original revised CRS JSS 1 drafts across previously
+unrepresented outcomes, including friendship and worship performances.
+Batch 151 adds thirteen early-life narrative and classroom-production
+drafts across ten more initial outcomes, including a performed drama
+and a produced poster. Scripture checks distinguish the gospel accounts
+and flag a malformed family-teaching reference. Unsupported health claims
+remain excluded. The 45 drafts represent 42 initial objective entries;
+full competency reconciliation, school adoption and academic review
+remain open.

@@ -22,7 +22,7 @@
   ],
   "mappingComplete": false,
   "academicReviewStatus": "pending",
-  "questionsAdded": 32,
+  "questionsAdded": 45,
   "scopeNotes": [
     "National rollout evidence does not verify each school's implementation.",
     "No term or learner-age allocation inferred.",
@@ -35,7 +35,8 @@
     "PDF page 19 lists sexual orientation/identity categories alongside harmful friendship outcomes. This requires critical specialist review; no draft treats identity as evidence of bad friendship or claims friendship causes orientation.",
     "PDF page 27 associates premarital virginity with freedom from STI/HIV and other adverse outcomes. These unsupported health/causal guarantees are excluded from this batch and remain for specialist review.",
     "Source categories for disobedience, family and service are not fully enumerated; supplied working classifications in batch 150 are original practice scaffolds, not claimed official exhaustive taxonomies.",
-    "Genesis 1, Luke 15:11–32, Genesis 33:1–11 and Genesis 12:1–4 checked against passage text. Returning son reconciles with his father; gift discussion does not make Esau’s welcome conditional on payment."
+    "Genesis 1, Luke 15:11–32, Genesis 33:1–11 and Genesis 12:1–4 checked against passage text. Returning son reconciles with his father; gift discussion does not make Esau’s welcome conditional on payment.",
+    "Batch 151 adds thirteen drafts across ten previously unrepresented initial outcomes in topics 14–16. Forty-five questions now represent 42 of 61 initial objective entries, not full coverage. One task requires actual drama delivery; one requires a produced poster. No source-implied age, term or school adoption inferred."
   ],
   "topics": [
     {
@@ -353,7 +354,13 @@
         "nerdc-crs-jss1-2025-t14-po04-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-151-001",
+        "ndv-151-002",
+        "ndv-151-003",
+        "ndv-151-004",
+        "ndv-151-005"
+      ],
       "contentsPrintedPage": 14,
       "verifiedPrintedPage": 15,
       "verifiedPdfPage": 27,
@@ -373,7 +380,13 @@
         "nerdc-crs-jss1-2025-t15-po04-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-151-006",
+        "ndv-151-007",
+        "ndv-151-008",
+        "ndv-151-009",
+        "ndv-151-010"
+      ],
       "contentsPrintedPage": 15,
       "verifiedPrintedPage": 16,
       "verifiedPdfPage": 28,
@@ -392,7 +405,11 @@
         "nerdc-crs-jss1-2025-t16-po03-v1"
       ],
       "mappingStatus": "initial_performance_objectives_mapped",
-      "draftQuestionIds": [],
+      "draftQuestionIds": [
+        "ndv-151-011",
+        "ndv-151-012",
+        "ndv-151-013"
+      ],
       "contentsPrintedPage": 16,
       "verifiedPrintedPage": 17,
       "verifiedPdfPage": 29,
@@ -447,6 +464,27 @@
       ],
       "issue": "Service objectives 3 and 4 address the same challenges at different response demands.",
       "treatment": "Preserve both source ordinals; do not treat them as two unrelated content objectives or inflate novelty."
+    },
+    {
+      "pdfPages": [
+        29
+      ],
+      "issue": "Matthew reference printed as 12:4, 6–50; Ephesians reference printed as 6.1:3.",
+      "treatment": "Matthew 12:46–50 checked directly as an author-proposed repair for family teaching; retain original malformed reference and pending academic adjudication. Ephesians not used in batch 151."
+    },
+    {
+      "pdfPages": [
+        28
+      ],
+      "issue": "Source labels Anna’s message a prophecy; Luke 2:38 records thanksgiving and speaking about Jesus but no full direct speech.",
+      "treatment": "Assess the reported message and redemption audience without inventing an exact quotation."
+    },
+    {
+      "pdfPages": [
+        27
+      ],
+      "issue": "Unqualified health/causal guarantees attached to premarital virginity.",
+      "treatment": "No question added against t14-po04. Do not teach these guarantees as medical fact; specialist reconciliation remains open."
     }
   ],
   "performanceObjectiveMappingComplete": true,

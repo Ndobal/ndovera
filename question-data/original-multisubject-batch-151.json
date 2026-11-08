@@ -1,0 +1,671 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC revised CRS JSS 1 early-life narratives and classroom production",
+  "questionCount": 13,
+  "note": "Thirteen original drafts across ten previously unrepresented initial outcomes. Includes an actual narrated drama and a produced poster. Four-mark guides are original classroom practice, not official marking. Reference repairs, health-claim exclusions, full competency reconciliation and school adoption remain explicit; every question awaits independent academic review.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' birth",
+      "subtopic": "Announcements",
+      "learningObjective": "Discuss birth announcements.",
+      "id": "ndv-151-001",
+      "objectiveId": "nerdc-crs-jss1-2025-t14-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using Luke 1:26–38, explain Gabriel’s announcement to Mary: where he meets her, the name she is to give the child, what is said about the child’s kingship, and how Mary responds at the end. Explain the narrative without having to state your own religious belief.",
+      "answer": "Gabriel meets Mary in Nazareth. She is told to name the child Jesus. He is promised David’s throne and an enduring kingdom. At the end Mary accepts the message and presents herself as willing to follow God’s word.",
+      "explanation": "The response distinguishes the announcement, its promise and Mary’s response. Her earlier question is not the same as her final acceptance.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Locates the encounter in Nazareth.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies the announced name Jesus.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the promised Davidic or enduring kingship.",
+          "marks": 1
+        },
+        {
+          "description": "Describes Mary’s final willing acceptance.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 15, PDF page 27, performance objective 1",
+      "textReference": "Luke 1:26–38",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' birth",
+      "subtopic": "Announcements",
+      "learningObjective": "Discuss birth announcements.",
+      "id": "ndv-151-002",
+      "objectiveId": "nerdc-crs-jss1-2025-t14-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Matthew 1:18–25, Joseph receives a message in a dream. Explain the instruction he receives concerning Mary, the name he is told to give the child, the reason given for that name, and the action he takes on waking.",
+      "answer": "Joseph is told not to fear taking Mary as his wife. He is to name the child Jesus because the child will save his people from their sins. On waking, Joseph follows the instruction and takes Mary as his wife.",
+      "explanation": "This task focuses on Joseph’s dream and response in Matthew, separately from Gabriel’s encounter with Mary in Luke.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains the instruction to take Mary as his wife without fear.",
+          "marks": 1
+        },
+        {
+          "description": "Gives the name Jesus.",
+          "marks": 1
+        },
+        {
+          "description": "Connects the name with saving his people from sins in the passage.",
+          "marks": 1
+        },
+        {
+          "description": "Describes Joseph following the instruction when he wakes.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 15, PDF page 27, performance objective 1",
+      "textReference": "Matthew 1:18–25",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' birth",
+      "subtopic": "Birth narrative",
+      "learningObjective": "Recount Jesus' birth.",
+      "id": "ndv-151-003",
+      "objectiveId": "nerdc-crs-jss1-2025-t14-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "With two classmates, perform a short narrated scene based only on Luke 2:1–7. Use a narrator, Mary and Joseph. Show why the journey to Bethlehem takes place, their arrival, Jesus’ birth and his being placed in a manger. Use original dialogue or narration; no infant actor or physical birth scene is needed. Each learner must narrate or explain one event accurately. A script alone does not complete the task.",
+      "answer": "Illustrative scene: the narrator explains the registration journey; Joseph explains the journey from Nazareth to Bethlehem because of his connection to David’s family; Mary or the narrator reports the birth and the wrapping of the child; the scene reports his being laid in a manger because no room was available in the inn. Each learner gives an accurate event contribution in the performed scene.",
+      "explanation": "The curriculum includes dramatisation. This original guide assesses accurate narrative contribution and coordinated communication, not acting talent or personal religious conviction. Do not add an innkeeper’s words or a stable as if Luke explicitly supplies them.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Performs an intelligible spoken contribution about an event in the account.",
+          "marks": 1
+        },
+        {
+          "description": "The contribution is accurate and compatible with Luke 2:1–7.",
+          "marks": 1
+        },
+        {
+          "description": "Places the contribution in a scene that retains the journey, birth and manger sequence.",
+          "marks": 1
+        },
+        {
+          "description": "Coordinates the contribution with partners so the narrator and characters can be followed.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 15, PDF page 27, performance objective 2",
+      "textReference": "Luke 2:1–7",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' birth",
+      "subtopic": "Visitors",
+      "learningObjective": "Describe shepherds and magi.",
+      "id": "ndv-151-004",
+      "objectiveId": "nerdc-crs-jss1-2025-t14-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Trace the shepherds’ response in Luke 2:8–20 from receiving the message to returning to their flocks. Explain the sign they are given, how they act on the message, what they tell others, and their response on returning.",
+      "answer": "They are told to look for a baby wrapped in cloths and lying in a manger. They go to Bethlehem and find Mary, Joseph and the baby as described. They make known what they were told about the child. They return glorifying and praising God.",
+      "explanation": "The answer traces a response to an announcement, a visit, communication and thanksgiving rather than merging the shepherds with Matthew’s magi.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Describes the cloths-and-manger sign.",
+          "marks": 1
+        },
+        {
+          "description": "Describes going to Bethlehem and finding the child as announced.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that they share the message concerning the child.",
+          "marks": 1
+        },
+        {
+          "description": "Describes their praise or glorifying God on return.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 15, PDF page 27, performance objective 3",
+      "textReference": "Luke 2:8–20",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' birth",
+      "subtopic": "Visitors",
+      "learningObjective": "Describe shepherds and magi.",
+      "id": "ndv-151-005",
+      "objectiveId": "nerdc-crs-jss1-2025-t14-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classroom illustration places three named kings beside the shepherds at a manger and labels every detail “stated in Matthew 2:1–12”. Evaluate the label using the passage: identify what Matthew says about the visitors and the place of their visit, what the gifts do and do not establish about their number, and what they do after a warning.",
+      "answer": "Matthew describes wise men or magi from the east and says they enter a house. It names three kinds of gifts, but does not give the visitors’ number or names in this passage. After a dream warning, they return by another route instead of reporting back to Herod. The illustration may be a traditional arrangement, but its label overstates the passage.",
+      "explanation": "Textual evidence must be distinguished from later artistic conventions. Counting gift types does not determine the number of people.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies magi or wise men from the east, rather than asserting named kings.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies the house as the stated visit location.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that three gift types do not establish three named visitors.",
+          "marks": 1
+        },
+        {
+          "description": "Describes the alternative return route after the warning.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 15, PDF page 27, performance objective 3",
+      "textReference": "Matthew 2:1–12",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' temple presentation",
+      "subtopic": "Presentation",
+      "learningObjective": "Describe Jesus' temple presentation.",
+      "id": "ndv-151-006",
+      "objectiveId": "nerdc-crs-jss1-2025-t15-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using Luke 2:21–24, distinguish the naming of Jesus from his later presentation. State when the naming occurs, where he is brought for presentation, why his family brings him, and the offering described. Do not assign a day number to the presentation unless the selected passage states it.",
+      "answer": "Jesus is named at the eighth-day circumcision. Later his family brings him to Jerusalem to present him to the Lord in keeping with the law. The offering is a pair of turtledoves or two young pigeons. These verses distinguish the events without giving a numerical day for the presentation.",
+      "explanation": "The task avoids conflating naming on day eight with the later presentation or importing a day count not stated in the selected verses.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Associates the naming with the eighth-day circumcision.",
+          "marks": 1
+        },
+        {
+          "description": "Locates the presentation in Jerusalem.",
+          "marks": 1
+        },
+        {
+          "description": "Explains presentation to the Lord in accordance with the law.",
+          "marks": 1
+        },
+        {
+          "description": "Gives either stated bird offering correctly.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 16, PDF page 28, performance objective 1",
+      "textReference": "Luke 2:21–24",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' temple presentation",
+      "subtopic": "Simeon",
+      "learningObjective": "Explain Simeon's prophecy.",
+      "id": "ndv-151-007",
+      "objectiveId": "nerdc-crs-jss1-2025-t15-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Luke 2:25–32, explain what Simeon had been waiting for, what assurance he had received, what he does when he meets Jesus, and how he describes the child’s significance for Israel and the Gentiles.",
+      "answer": "Simeon waits for Israel’s consolation and has been assured he will see the Lord’s Messiah before dying. He takes Jesus in his arms and praises God. He identifies God’s salvation as light for the Gentiles and glory for Israel.",
+      "explanation": "The passage’s paired reference to Gentiles and Israel gives the testimony a reach beyond only one group; the answer remains an explanation of the narrative.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies waiting for Israel’s consolation.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the assurance of seeing the Messiah before death.",
+          "marks": 1
+        },
+        {
+          "description": "Describes holding Jesus and praising God.",
+          "marks": 1
+        },
+        {
+          "description": "Explains both the light for Gentiles and glory for Israel.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 16, PDF page 28, performance objective 2",
+      "textReference": "Luke 2:25–32",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' temple presentation",
+      "subtopic": "Simeon",
+      "learningObjective": "Explain Simeon's prophecy.",
+      "id": "ndv-151-008",
+      "objectiveId": "nerdc-crs-jss1-2025-t15-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A learner summarises Luke 2:34–35 as “Simeon predicts that everyone will welcome Jesus and that Mary will never experience sorrow.” Explain two errors in this summary and relate each correction to what Simeon says.",
+      "answer": "Simeon speaks of a sign that will be opposed and of people’s fall and rising, so universal welcome is not his prediction. His image of a sword piercing Mary’s soul points to deep sorrow, so the passage does not promise a life free from grief.",
+      "explanation": "This item examines the challenging part of Simeon’s prophecy, rather than repeating the earlier light-and-glory testimony. The sword image is not an instruction or a report of a physical attack on Mary.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies the error in claiming universal welcome.",
+          "marks": 1
+        },
+        {
+          "description": "Supports the correction with opposition or fall-and-rising language.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies the error in claiming Mary will never sorrow.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the sword image as deep sorrow rather than a literal instruction.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 16, PDF page 28, performance objective 2",
+      "textReference": "Luke 2:34–35",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' temple presentation",
+      "subtopic": "Anna",
+      "learningObjective": "Explain Anna's message.",
+      "id": "ndv-151-009",
+      "objectiveId": "nerdc-crs-jss1-2025-t15-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Luke 2:36–38 calls Anna a prophetess but does not provide a word-for-word speech from her. Describe her temple service, her response on encountering Jesus, whom she speaks to, and what the account allows a reader to say about her message without inventing a quotation.",
+      "answer": "Anna serves with fasting and prayer. She gives thanks to God and speaks about Jesus to those awaiting Jerusalem’s redemption. Her message connects him with their hope of redemption, but the account does not preserve a full direct quotation of her words.",
+      "explanation": "The curriculum calls this a prophecy; the narrative records thanksgiving and speech about the child without supplying an exact prophetic speech to memorise.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Describes fasting and prayer as her temple service.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies thanksgiving as her response.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies people awaiting Jerusalem’s redemption as her audience.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the redemption connection while recognising that no full direct speech is recorded.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 16, PDF page 28, performance objective 3",
+      "textReference": "Luke 2:36–38",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' temple presentation",
+      "subtopic": "Significance",
+      "learningObjective": "Interpret both temple testimonies.",
+      "id": "ndv-151-010",
+      "objectiveId": "nerdc-crs-jss1-2025-t15-po04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Prepare a short written interpretation of Simeon’s and Anna’s testimonies in Luke 2:25–38. Give one detail from each witness and explain how each detail supports Christian recognition of Jesus as the awaited saviour. Keep the two witnesses’ contributions distinct.",
+      "answer": "Simeon identifies the child with God’s salvation and describes light for Gentiles and glory for Israel, presenting salvation as reaching beyond a single group. Anna thanks God and speaks about the child to people waiting for redemption, connecting Jesus with their expectation. Together their recognition presents the child as more than an ordinary visitor to the temple.",
+      "explanation": "The interpretation must connect evidence with significance, not simply list two names. Equivalent reasoned Christian readings supported by the selected passage are acceptable.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Gives an accurate detail from Simeon’s testimony.",
+          "marks": 1
+        },
+        {
+          "description": "Explains its significance for recognition of Jesus as saviour.",
+          "marks": 1
+        },
+        {
+          "description": "Gives an accurate detail from Anna’s response or audience.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how her testimony links Jesus with expected redemption.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 16, PDF page 28, performance objective 4",
+      "textReference": "Luke 2:25–38",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' family life",
+      "subtopic": "Family teaching",
+      "learningObjective": "Explain Jesus' family teaching.",
+      "id": "ndv-151-011",
+      "objectiveId": "nerdc-crs-jss1-2025-t16-po01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Matthew 12:46–50, Jesus points towards his disciples while speaking about family. Explain who is waiting to speak to him, the basis he gives for belonging to the family he describes, how this extends beyond biological relationships, and why the passage alone does not establish a command to abandon relatives.",
+      "answer": "His mother and brothers are waiting. He describes those who do his heavenly Father’s will as his family. This includes a spiritual relationship not limited to biological kinship. The statement identifies that wider belonging; it does not itself instruct the disciples to abandon their relatives.",
+      "explanation": "The source prints a malformed Matthew reference. Matthew 12:46–50 was checked as the relevant family passage and recorded as an author-proposed reference repair pending academic review.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies his mother and brothers as the waiting relatives.",
+          "marks": 1
+        },
+        {
+          "description": "Explains doing the heavenly Father’s will as the stated basis.",
+          "marks": 1
+        },
+        {
+          "description": "Explains spiritual belonging beyond biological kinship.",
+          "marks": 1
+        },
+        {
+          "description": "Distinguishes wider belonging from an unsupported command to abandon relatives.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 17, PDF page 29, performance objective 1",
+      "textReference": "Matthew 12:46–50",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' family life",
+      "subtopic": "Jesus and parents",
+      "learningObjective": "Discuss Jesus' filial obedience.",
+      "id": "ndv-151-012",
+      "objectiveId": "nerdc-crs-jss1-2025-t16-po02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using Luke 2:41–52, explain why it is incomplete to describe the twelve-year-old Jesus as permanently leaving his parents to live in the temple. State where they find him, what he is doing, what happens after their conversation, and what his return shows about his relationship with them.",
+      "answer": "They find him in the temple among teachers, listening and asking questions. After the conversation he returns with them to Nazareth and is subject to them. The account therefore presents a return to family life and obedience, not permanent residence in the temple.",
+      "explanation": "The question uses the surrounding narrative to interpret the explicit statement of obedience in verses 51–52. It does not turn the episode into an instruction for learners to travel unaccompanied.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Locates him in the temple among teachers.",
+          "marks": 1
+        },
+        {
+          "description": "Describes listening and asking questions.",
+          "marks": 1
+        },
+        {
+          "description": "Describes his return with his parents to Nazareth.",
+          "marks": 1
+        },
+        {
+          "description": "Links being subject to them with filial obedience and rejects permanent departure.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 17, PDF page 29, performance objective 2",
+      "textReference": "Luke 2:41–52",
+      "contentSourceId": "bible-crs-jss1-151-early-life-checks-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "JSS 1",
+      "specificationId": "nerdc-crs-jss1-revised-2025-retrieved",
+      "topic": "Jesus' family life",
+      "subtopic": "Application",
+      "learningObjective": "Illustrate respectful family conduct.",
+      "id": "ndv-151-013",
+      "objectiveId": "nerdc-crs-jss1-2025-t16-po03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Create an original classroom poster showing how a fictional JSS 1 learner can follow two reasonable parental instructions: put away borrowed household items after use and explain in advance when schoolwork affects the agreed chore time. Include two labelled pictures or symbols, a brief explanation for each, and a clear title. Use fictional examples rather than private family information.",
+      "answer": "Illustrative poster: a labelled shelf shows the learner returning a shared item, with a caption about following the return instruction. A timetable and speech bubble show the learner explaining a homework clash and agreeing when the chore will be completed. A title links both examples to responsible obedience at home. A clear hand-drawn or digital equivalent is acceptable.",
+      "explanation": "The source includes designing a poster. This original task requires a produced visual explanation of obeying reasonable parental instructions; it does not assess artistic polish or demand unquestioning obedience to harmful requests.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Produces an original poster with a title linking the examples to responsible obedience.",
+          "marks": 1
+        },
+        {
+          "description": "Uses two labelled visual elements to communicate the two supplied situations.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how returning the shared item follows the parental instruction.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how discussing the timing clash supports following an agreed household instruction.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "practiceDelivery": "supervised_classroom",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "sourceLocator": "September 2025 revised CRS JSS 1, printed p. 17, PDF page 29, performance objective 3"
+    }
+  ]
+}
