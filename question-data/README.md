@@ -785,3 +785,9 @@ Each has an original four-mark guide. The initial map now records
 61 objective entries across sixteen topics; source overlap and wording
 issues remain flagged. Full competency/evaluation reconciliation,
 school adoption and independent review remain incomplete.
+
+Batch 141 opens NECO BECE Islamic Studies with ten original JSS 3
+ethics drafts. Historical topic mapping remains provisional. The
+register distinguishes the justice injunction in Q5:8 from Q5:9 and
+records source rendering limitations. Current adoption, full paper
+scope, option counts and recitation requirements remain open.

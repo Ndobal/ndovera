@@ -2148,6 +2148,30 @@
       "documentDate": "2026-10-04",
       "retrievedOn": "2026-11-07",
       "note": "FME states that the review went into effect at the start of academic year 2025/2026. Read with the more specific NERDC cycle-entry notice; do not infer simultaneous adoption by every class or examination cohort."
+    },
+    {
+      "id": "neco-bece-islamic-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "Islamic Studies",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_islamic.pdf",
+      "retrievedOn": "2026-11-08",
+      "sourceSha256": "3f88767d5426f076c00e93ad475864adec6eabf84a8b1ba5f97ff0d7e32866b8",
+      "sourceBytes": 3012282,
+      "note": "NECO lists objective papers 5181/5182, one hour each. Historical NERDC JS Three pp. 107-109 support provisional ethics topics. Edition date, current adoption, full NECO objectives, paper allocation and option count remain unverified. Four options are an author practice choice. Revised JSS 3 public page was inaccessible. The downloaded PDF produced Flate-stream errors and a blank rendered page, while its text layer and web parse were readable; no Arabic-text visual verification is claimed. Page 107 cites Q5:9 for justice. Q5:8 directly contains the instruction against unjust treatment through hatred; Q5:9 promises forgiveness/reward. The distinction is recorded, not silently substituted."
+    },
+    {
+      "id": "quran-justice-neighbours-reference-2026",
+      "kind": "primary_scripture_with_translation_reference",
+      "source": "https://quran.com/4/135",
+      "additionalReferences": [
+        "https://quran.com/5/8",
+        "https://quran.com/5/9",
+        "https://quran.com/4/36"
+      ],
+      "retrievedOn": "2026-11-08",
+      "note": "Directly checked verse meanings for impartial justice, avoiding hostility-driven injustice, and neighbourly kindness. Original questions paraphrase these principles; no examination-prescribed translation, recitation or tajwid coverage is inferred."
     }
   ],
   "banks": [
@@ -3120,7 +3144,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -3128,6 +3152,9 @@
       "paperCodes": [
         "5181",
         "5182"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-islamic-2026-historical-reference"
       ]
     },
     {
@@ -17029,6 +17056,63 @@
       "mappingStatus": "author_paraphrase_of_revised_exact_class_objective_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceObjectiveOrdinal": 3
+    },
+    {
+      "exam": "BECE",
+      "subject": "Islamic Studies",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-islamic-2026-historical-reference",
+      "id": "bece-islamic-141-01-v1",
+      "topic": "Social responsibilities",
+      "subtopic": "Justice and fairness",
+      "learningObjective": "Apply impartial justice and explain the consequences of unfair treatment.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Islamic Studies, JS Three, printed/PDF p. 107"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Islamic Studies",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-islamic-2026-historical-reference",
+      "id": "bece-islamic-141-02-v1",
+      "topic": "Human relations",
+      "subtopic": "Neighbourliness",
+      "learningObjective": "Identify conduct that demonstrates consideration for neighbours.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Islamic Studies, JS Three, printed/PDF p. 108"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Islamic Studies",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-islamic-2026-historical-reference",
+      "id": "bece-islamic-141-03-v1",
+      "topic": "Human relations",
+      "subtopic": "Bribery, corruption and stealing",
+      "learningObjective": "Distinguish unethical conduct and explain its effects on shared trust.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Islamic Studies, JS Three, printed/PDF p. 109"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -17065,6 +17149,7 @@
     "On 2026-11-07 an official September 2025 revised CRS JSS 1 PDF was successfully retrieved at the LMIS direct PDF URL. This is an exact-class access advance, not verified cohort adoption or complete objective coverage. Reconcile it with the unresolved NERDC bank register and map its outcomes before adding exact-class drafts. Other current class/subject access gaps remain.",
     "Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled.",
     "CRS JSS 1 mapping now covers nine topics and 34 initial objectives, with verified PDF locators. A duplicated obedience table and shifted later pagination were found. Seven topics and complete competency/evaluation reconciliation remain open; none of the mapping work adds questions or confers academic approval.",
-    "CRS JSS 1 now has 61 initial objective entries across all sixteen distinct topics and eight classroom drafts. Detailed competency/evaluation reconciliation and academic review are unfinished. Original four-mark rubrics do not reproduce an official marking scheme; actual performance is required for singing, modelling, drawing and role-play. School adoption and full coverage remain unverified."
+    "CRS JSS 1 now has 61 initial objective entries across all sixteen distinct topics and eight classroom drafts. Detailed competency/evaluation reconciliation and academic review are unfinished. Original four-mark rubrics do not reproduce an official marking scheme; actual performance is required for singing, modelling, drawing and role-play. School adoption and full coverage remain unverified.",
+    "NECO BECE Islamic Studies has initial provisional JSS 3 ethics practice using historical NERDC pp. 107-109 and checked Qur'anic meanings. Current curriculum adoption, full scope, 5181/5182 allocation and official option counts remain unverified. A justice verse-reference discrepancy and PDF rendering errors are recorded. Written practice does not assess Arabic recitation or tajwid."
   ]
 }

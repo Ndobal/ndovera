@@ -2,27 +2,27 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_140_automated_validation_passed",
+  "phase": "batch_141_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-141.json",
+  "nextBatch": "original-multisubject-batch-142.json",
   "nextPriorities": [
-    "Investigate NECO BECE Islamic Studies current content and exact-class source evidence before opening its empty bank. Revised CRS JSS 1 now has eight classroom drafts and 61 initial printed-objective entries across sixteen distinct topics. Finish detailed competency/evaluation and biblical-reference checks before broadening coverage; keep school adoption and source conflicts explicit.",
+    "Investigate NECO BECE Arabic Language current content and exact-class references before opening its empty bank. Islamic Studies now has ten provisional JSS 3 ethics drafts. Verify current curriculum adoption, full scope, 5181/5182 allocation, official option count and recitation requirements; preserve source rendering and verse-reference issues.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-140.json",
-  "lastRemoteVerifiedCommit": "45bb88783597cb3779e65a534cbe6d127d6fca21",
+  "lastValidatedBatch": "original-multisubject-batch-141.json",
+  "lastRemoteVerifiedCommit": "03aa7447b0b37767f8f8ff2949934ae4df316510",
   "verifiedTotals": {
-    "raw": 3662,
-    "validDrafts": 1983,
+    "raw": 3672,
+    "validDrafts": 1993,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-140.json",
+  "lastPopulatedBatch": "original-multisubject-batch-141.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3662,
+  "inventoryRaw": 3672,
   "lastSourceUpdate": "nerdc-crs-jss1-revised-2025-inventory.json"
 }

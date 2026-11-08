@@ -20,7 +20,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | History / JSS 3 | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | BECE | Igbo (L1) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | Igbo (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| BECE | Islamic Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| BECE | Islamic Studies / JSS 3 | 1000 | 10 | 10 | 0 | 990 | partial_objective_register |
 | BECE | Mathematics / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | BECE | National Values Education / JSS 3 | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | BECE | Pre-Vocational Studies / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -207,7 +207,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
-| BECE | 95 | 95 | 0 | 18000 | 17905 |
+| BECE | 105 | 105 | 0 | 18000 | 17895 |
 | IELTS | 121 | 112 | 0 | 4000 | 3888 |
 | IGCSE | 182 | 161 | 0 | 5000 | 4839 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
@@ -218,7 +218,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 104 | 95 | 0 | 4000 | 3905 |
 | WAEC | 1309 | 510 | 0 | 45000 | 44490 |
 
-Overall: {"raw": 3662, "validDrafts": 1983, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3672, "validDrafts": 1993, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -258,3 +258,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled.
 - CRS JSS 1 mapping now covers nine topics and 34 initial objectives, with verified PDF locators. A duplicated obedience table and shifted later pagination were found. Seven topics and complete competency/evaluation reconciliation remain open; none of the mapping work adds questions or confers academic approval.
 - CRS JSS 1 now has 61 initial objective entries across all sixteen distinct topics and eight classroom drafts. Detailed competency/evaluation reconciliation and academic review are unfinished. Original four-mark rubrics do not reproduce an official marking scheme; actual performance is required for singing, modelling, drawing and role-play. School adoption and full coverage remain unverified.
+- NECO BECE Islamic Studies has initial provisional JSS 3 ethics practice using historical NERDC pp. 107-109 and checked Qur'anic meanings. Current curriculum adoption, full scope, 5181/5182 allocation and official option counts remain unverified. A justice verse-reference discrepancy and PDF rendering errors are recorded. Written practice does not assess Arabic recitation or tajwid.
