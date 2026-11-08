@@ -2257,6 +2257,17 @@
       "forewordBytes": 389250,
       "forewordPageCount": 6,
       "note": "Fresh direct retrieval. Text extraction loses many Yoruba letters and tone marks; PyMuPDF renders inspected pages legibly. Foreword PDF p. 4 (iv) explicitly addresses native-language learning; curriculum printed/PDF p. 28 identifies JSS 3 silent comprehension, detail questions and contextual idiom/vocabulary, with road safety and women/child rights among themes. This supports provisional L1 receptive practice only. No L2 transfer, publication year or current adoption inferred. Timetable verifies L1 objective papers 2091/2092 and L2 2221, one hour each, not topic allocation or option count. Four options are an author practice choice."
+    },
+    {
+      "id": "sat-rw-official-specifications-rechecked-2026",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "kind": "official_web_specifications_retrieved",
+      "source": "https://satsuite.collegeboard.org/k12-educators/about/alignment/reading",
+      "formatSource": "https://satsuite.collegeboard.org/sat/whats-on-the-test/reading-writing",
+      "frameworkSource": "https://satsuite.collegeboard.org/media/pdf/assessment-framework-for-digital-sat-suite.pdf",
+      "checkedOn": "2026-11-08",
+      "note": "Official pages confirm four domains and named skills, short passages or pairs with one multiple-choice question, and 25–150-word stimuli. The assessment framework specifies four options and uses six-character words for stimulus length. Batch records whitespace counts as an editorial check, not a claim of exact official counting or calibrated difficulty. Original text/data only; no College Board items reproduced. No adaptive assembly, equating or score prediction established."
     }
   ],
   "banks": [
@@ -18009,6 +18020,193 @@
         "5.3.1–5.3.2; 5.4.1, printed p. 23"
       ],
       "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-central-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Central Ideas and Details",
+      "learningObjective": "Identify a text’s central claim or a supported detail.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Information and Ideas / Central Ideas and Details"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-text-evidence-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Textual",
+      "learningObjective": "Select textual evidence that directly supports or tests a claim.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Information and Ideas / Command of Evidence: Textual"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-quant-evidence-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short text with an original table to select supported evidence.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Information and Ideas / Command of Evidence: Quantitative"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-inference-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Inferences",
+      "learningObjective": "Draw a warranted inference without extending beyond the text.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Information and Ideas / Inferences"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-words-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Craft and Structure",
+      "subtopic": "Words in Context",
+      "learningObjective": "Determine a word’s meaning from its specific context.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Craft and Structure / Words in Context"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-purpose-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Craft and Structure",
+      "subtopic": "Text Structure and Purpose",
+      "learningObjective": "Explain how a textual element contributes to a rhetorical purpose.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Craft and Structure / Text Structure and Purpose"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-cross-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Craft and Structure",
+      "subtopic": "Cross-Text Connections",
+      "learningObjective": "Compare related texts and identify agreement or response.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Craft and Structure / Cross-Text Connections"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-transitions-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Expression of Ideas",
+      "subtopic": "Transitions",
+      "learningObjective": "Select a transition that expresses the relationship between ideas.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Expression of Ideas / Transitions"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-synthesis-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Expression of Ideas",
+      "subtopic": "Rhetorical Synthesis",
+      "learningObjective": "Use supplied notes to fulfil a stated rhetorical goal.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Expression of Ideas / Rhetorical Synthesis"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-boundaries-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Standard English Conventions",
+      "subtopic": "Boundaries",
+      "learningObjective": "Edit punctuation and clause boundaries in context.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Standard English Conventions / Boundaries"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "sat-rw-149-form-v1",
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Standard English Conventions",
+      "subtopic": "Form, Structure, and Sense",
+      "learningObjective": "Edit agreement, tense and modifiers in context.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Standard English Conventions / Form, Structure, and Sense"
+      ],
+      "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
       "officialObjectiveCode": null
     }
   ],

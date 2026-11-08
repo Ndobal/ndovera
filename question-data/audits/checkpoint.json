@@ -2,34 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_148_automated_validation_passed",
+  "phase": "batch_149_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-149.json",
+  "nextBatch": "original-multisubject-batch-150.json",
   "nextPriorities": [
-    "Expand SAT Reading and Writing across underrepresented official current domains after inspecting existing objective and stimulus coverage. Economics now has 37 automated-valid drafts, including twelve additional 2026 v2 and twelve additional 2027–2029 v1 structured tasks. Keep cycle mappings distinct and obtain complete objective denominators and independent review. Preserve unresolved BECE/NERDC source and adoption routes.",
+    "Expand exact-class revised NERDC CRS JSS 1 practice against underrepresented outcomes in the verified initial inventory, preserving real performance tasks where required. Recheck source locators and wording conflicts before authoring. SAT Reading and Writing now has 57 automated-valid drafts and eleven finer skill mappings; full coverage, difficulty calibration, adaptive assembly and independent review remain unfinished. School adoption and other exact-class/BECE source gaps stay open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-148.json",
-  "lastRemoteVerifiedCommit": "7445f5053bfbe18d181d1ad666b83017d8ab8627",
+  "lastValidatedBatch": "original-multisubject-batch-149.json",
+  "lastRemoteVerifiedCommit": "3241e5802f6de312f1c8e3f1492073d9d9eae5f6",
   "verifiedTotals": {
-    "raw": 3792,
-    "validDrafts": 2113,
+    "raw": 3824,
+    "validDrafts": 2145,
     "reviewed": 0
   },
   "lastRunTestCount": 48,
-  "lastPopulatedBatch": "original-multisubject-batch-148.json",
+  "lastPopulatedBatch": "original-multisubject-batch-149.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3792,
+  "inventoryRaw": 3824,
   "lastSourceUpdate": "igbo-jss3-historical-scope-inventory.json",
   "lastSourceRecheck": {
-    "ids": [
-      "cambridge-0455-2026-v2",
-      "cambridge-0455-2027-2029-v1"
-    ],
+    "id": "sat-rw-official-specifications-rechecked-2026",
     "date": "2026-11-08"
   }
 }

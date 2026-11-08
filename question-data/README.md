@@ -847,3 +847,10 @@ The new mappings cover households, workers, firms, living standards,
 poverty and population. Original analytical/evaluation guides remain
 academic-review pending; Economics AO3 is evaluation, not a practical
 assessment. No full-cycle coverage is claimed.
+
+Batch 149 adds 32 SAT Reading and Writing drafts, eight per domain,
+with eleven finer author-proposed skill mappings. Each item has its own
+original stimulus, including paired texts, tables and research notes.
+Official skill/format pages were rechecked. Equal practice allocation
+does not reproduce the official domain weighting or an adaptive module.
+Independent review, difficulty calibration and full coverage remain open.
