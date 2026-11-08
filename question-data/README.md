@@ -797,3 +797,8 @@ written-reading drafts across two original texts. Direct retrieval and
 PyMuPDF rendering verified historical 2012 ninth-year source pages.
 Topic mapping remains provisional. Current adoption, full paper scope,
 option counts, listening and oral-reading requirements remain open.
+Batch 143 opens NECO BECE Hausa (L1) with eight original written-
+comprehension drafts across environmental-awareness and computer-record
+passages. The historical source explicitly targets mother-tongue learners;
+JSS 3 content mapping is provisional. L2 remains unopened. Current adoption,
+full objectives, paper allocation and official option counts remain open.

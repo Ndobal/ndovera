@@ -2,27 +2,27 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_142_automated_validation_passed",
+  "phase": "batch_143_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-143.json",
+  "nextBatch": "original-multisubject-batch-144.json",
   "nextPriorities": [
-    "Verify NECO BECE Hausa L1 and L2 as separate routes using exact-class content and official paper requirements before opening either bank. Arabic now has eight provisional written-reading drafts from original passages; current adoption of the historical 2012 curriculum, full scope, 2061/2062 allocation, option count, listening and oral-reading remain unresolved.",
+    "Verify NECO BECE Igbo L1 and L2 as separate routes using exact-class content and official paper requirements before opening either bank. Hausa L1 now has eight provisional written-comprehension drafts; its historical source explicitly targets mother-tongue learners. Hausa L2 remains unopened: obtain its own learner objectives. Current adoption, full L1 scope, 2071/2072 allocation and option count remain unresolved.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-142.json",
-  "lastRemoteVerifiedCommit": "46c34981c0e7b66c99ef17deb3c1ba5fa9ab7b43",
+  "lastValidatedBatch": "original-multisubject-batch-143.json",
+  "lastRemoteVerifiedCommit": "6f3b3b8edbe3d779ec6acb8ab4bd8196b5edc235",
   "verifiedTotals": {
-    "raw": 3680,
-    "validDrafts": 2001,
+    "raw": 3688,
+    "validDrafts": 2009,
     "reviewed": 0
   },
   "lastRunTestCount": 46,
-  "lastPopulatedBatch": "original-multisubject-batch-142.json",
+  "lastPopulatedBatch": "original-multisubject-batch-143.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3680,
+  "inventoryRaw": 3688,
   "lastSourceUpdate": "nerdc-crs-jss1-revised-2025-inventory.json"
 }

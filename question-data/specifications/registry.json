@@ -2187,6 +2187,20 @@
       "sourceBytes": 1014190,
       "pageCount": 28,
       "note": "NECO confirms objective papers 2061/2062, one hour each. The official historical index links this 2012 PDF. Direct cloud retrieval succeeded after web-reader failures. Poppler rendered tested pages blank with stream errors, but PyMuPDF rendered cover and pp. 21, 25 and 26 legibly. Page 21 identifies the ninth preparatory year, corresponding to JSS 3 within the JSS 1-3 cover scope. Reading pp. 25-26 concerns books and radio. Author-proposed written-comprehension objectives are receptive practice, not complete oral-reading or listening competence. Current curriculum adoption, NECO paper allocation, full objectives and official option count remain unverified. Four options are an author practice choice. A third-party Arabic scheme was not adopted: its claimed 60-question Paper II lists only four groups of 12."
+    },
+    {
+      "id": "neco-bece-hausa-l1-2026-historical-reference",
+      "exam": "BECE",
+      "subject": "Hausa (L1)",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_hausa.pdf",
+      "documentDate": null,
+      "retrievedOn": "2026-11-08",
+      "sourceSha256": "47f5f9153f51ae6c3b63c03237759d2149fe3ea96ae55de9646318412749ed47",
+      "sourceBytes": 1030813,
+      "pageCount": 44,
+      "note": "Fresh direct cloud retrieval succeeded. PyMuPDF rendered PDF/printed p. 32 legibly. Page 1 explicitly addresses mother-tongue learners; this reference is L1 only. Page 32 identifies AJI UKU, KARATU, Auna Fahimta, with objectives to explain comprehension and distinguish passage types; content includes environmental awareness and computer/communication technology. The two author-proposed receptive practice objectives are narrower provisional content mappings, not official objective codes or full syllabus coverage. Publication date and current cohort adoption are unverified. NECO 2026 timetable establishes L1 objective papers 2071/2072 and L2 objective paper 2201, one hour each; it does not establish their content, option counts or allocation. Four options are an original practice choice. A third-party BECE page and NCCE NCE teacher-training Hausa L2 syllabus were not adopted as official BECE L2 learner objectives. L2 remains unopened pending its own source."
     }
   ],
   "banks": [
@@ -3040,7 +3054,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -3048,6 +3062,9 @@
       "paperCodes": [
         "2071",
         "2072"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-hausa-l1-2026-historical-reference"
       ]
     },
     {
@@ -17169,6 +17186,44 @@
       ],
       "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Hausa (L1)",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-hausa-l1-2026-historical-reference",
+      "id": "bece-hausa-l1-143-01-v1",
+      "topic": "KARATU: Auna Fahimta",
+      "subtopic": "Environmental awareness passages",
+      "learningObjective": "Interpret evidence, purpose and passage type in an original Hausa text about environmental awareness.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, L1 objective format only",
+        "Historical NERDC Hausa JSS 1-3, p. 1 mother-tongue audience; p. 32 AJI UKU, Auna Fahimta, environmental awareness and computer/communication content"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Hausa (L1)",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-hausa-l1-2026-historical-reference",
+      "id": "bece-hausa-l1-143-02-v1",
+      "topic": "KARATU: Auna Fahimta",
+      "subtopic": "Computer and communication passages",
+      "learningObjective": "Interpret details, inference and passage type in an original Hausa text about computer records.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, L1 objective format only",
+        "Historical NERDC Hausa JSS 1-3, p. 1 mother-tongue audience; p. 32 AJI UKU, Auna Fahimta, environmental awareness and computer/communication content"
+      ],
+      "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -17207,6 +17262,7 @@
     "CRS JSS 1 mapping now covers nine topics and 34 initial objectives, with verified PDF locators. A duplicated obedience table and shifted later pagination were found. Seven topics and complete competency/evaluation reconciliation remain open; none of the mapping work adds questions or confers academic approval.",
     "CRS JSS 1 now has 61 initial objective entries across all sixteen distinct topics and eight classroom drafts. Detailed competency/evaluation reconciliation and academic review are unfinished. Original four-mark rubrics do not reproduce an official marking scheme; actual performance is required for singing, modelling, drawing and role-play. School adoption and full coverage remain unverified.",
     "NECO BECE Islamic Studies has initial provisional JSS 3 ethics practice using historical NERDC pp. 107-109 and checked Qur'anic meanings. Current curriculum adoption, full scope, 5181/5182 allocation and official option counts remain unverified. A justice verse-reference discrepancy and PDF rendering errors are recorded. Written practice does not assess Arabic recitation or tajwid.",
-    "NECO BECE Arabic Language has eight initial written-reading drafts using original texts about books and radio, provisionally mapped to historical 2012 ninth-year pages. Current adoption, full scope, 2061/2062 allocation and official option count remain unverified. PyMuPDF rendered inspected source pages after Poppler failed. These written tasks do not assess listening, pronunciation or oral reading."
+    "NECO BECE Arabic Language has eight initial written-reading drafts using original texts about books and radio, provisionally mapped to historical 2012 ninth-year pages. Current adoption, full scope, 2061/2062 allocation and official option count remain unverified. PyMuPDF rendered inspected source pages after Poppler failed. These written tasks do not assess listening, pronunciation or oral reading.",
+    "Hausa routes (batch 143): the historical NERDC JSS 1-3 PDF explicitly targets mother-tongue learners and supports only a provisional L1 JSS 3 reading-content reference. Date, current adoption, complete NECO objectives, L1 2071/2072 allocation and option count remain unverified. L2 2201 has official timetable-format evidence only; neither this L1 PDF nor an NCCE teacher-training L2 syllabus establishes BECE L2 learner objectives. No L2 questions added."
   ]
 }
