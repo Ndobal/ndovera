@@ -906,7 +906,8 @@
         "https://waeconline.org.ng/e-learning/Geography/Geo220mq2.html"
       ],
       "retrievedOn": "2026-11-04",
-      "note": "NECO timetable distinguishes Paper I practical and physical geography from Paper II essay in human and regional geography. Historical WAEC material informs provisional topics only. Practical drafts use original supplied measurements or observations. Official NECO objectives remain unverified."
+      "note": "NECO timetable distinguishes Paper I practical and physical geography from Paper II essay in human and regional geography. Historical WAEC material informs provisional topics only. Practical drafts use original supplied measurements or observations. Official NECO objectives remain unverified. Fresh 2026 Internal timetable recheck confirms codes 2063/2061 and 2062. Accessible WAEC Geo220mq1/2 pages display May/June 2011 headings; URL digits are not treated as edition evidence. Partial historical cross-board topic references remain provisional, not official NECO learning objectives.",
+      "checkedOn": "2026-11-08"
     },
     {
       "id": "neco-english-reading-reference-2026",
@@ -2388,6 +2389,16 @@
         "https://science.nasa.gov/moon/moonlight/",
         "https://www.ncei.noaa.gov/news/weather-vs-climate"
       ]
+    },
+    {
+      "id": "waec-geography-historical-map-reference-2026",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "kind": "official_historical_examiner_reference_current_alignment_pending",
+      "source": "https://www.waeconline.org.ng/e-learning/Geography/Geo117nq1.html",
+      "checkedOn": "2026-11-08",
+      "status": "historical_topic_evidence_only_full_current_specification_missing",
+      "note": "Accessible page displays Geography Paper 1 Nov/Dec 2008 despite a URL containing 117. Use the displayed heading as retrieved, not a year inferred from URL. It supports historical map construction/interpretation, scale and evidence-based functions. Original tasks/data/rubrics do not copy its question, named places or map. Newer 2022/2023 index report targets returned 404. No current WAEC paper number, timing or official marking scale inferred."
     }
   ],
   "banks": [
@@ -18574,6 +18585,24 @@
         "Historical NERDC Primary Six Pre-Vocational Studies, printed/PDF p.22"
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "waec-geography-156-map-evidence-v1",
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Map representation and evidence quality",
+      "learningObjective": "Construct or interpret a simple original map representation and assess the limits of supplied cartographic evidence.",
+      "specificationId": "waec-geography-historical-map-reference-2026",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Official WAEC historical map-reading report Geo117nq1.html, map drawing and interpretation observations",
+        "Author-proposed finer practice mapping; full current syllabus alignment unverified"
+      ],
+      "mappingStatus": "historical_official_reference_pending_current_alignment_and_academic_review",
       "officialObjectiveCode": null
     }
   ],

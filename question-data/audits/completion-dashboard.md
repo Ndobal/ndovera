@@ -87,7 +87,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Foods and Nutrition | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | French | 1000 | 10 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Further Mathematics | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
-| NECO | Geography | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
+| NECO | Geography | 1000 | 19 | 18 | 0 | 982 | partial_objective_register |
 | NECO | Government | 1000 | 11 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Hausa | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | NECO | Health Education | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
@@ -180,7 +180,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Food and Nutrition | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | French | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Further Mathematics | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Geography | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
+| WAEC | Geography | 1000 | 35 | 33 | 0 | 967 | partial_objective_register |
 | WAEC | Government | 1000 | 27 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Hausa | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | WAEC | Health Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -212,13 +212,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 278 | 257 | 0 | 5000 | 4743 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 255 | 226 | 0 | 9000 | 8774 |
-| NECO | 436 | 401 | 0 | 36000 | 35599 |
+| NECO | 444 | 409 | 0 | 36000 | 35591 |
 | NERDC | 123 | 58 | 0 | 28000 | 27942 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 104 | 95 | 0 | 4000 | 3905 |
-| WAEC | 1309 | 510 | 0 | 45000 | 44490 |
+| WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 3974, "validDrafts": 2295, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 3990, "validDrafts": 2311, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

@@ -891,3 +891,10 @@ on clothing construction, packaging, farm records, cleaning and meal
 constraints. Historical Primary 6 pp19–23 were rechecked and hashed.
 Two sewing-related mappings are provisional; MCQs assess decisions, not
 practical performance. Full current NCEE scope and adoption remain open.
+
+Batch 156 adds eight WAEC map-evidence and eight NECO human-geography
+structured drafts, including an actual scale-plan drawing. Official NECO
+2026 Internal codes/formats were rechecked. Accessible historical WAEC
+reports support limited topics; newer index targets returned 404. Source
+heading/URL date ambiguities stay recorded. All original four-mark guides
+are provisional practice; full current specifications remain unavailable.

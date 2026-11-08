@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_155_automated_validation_passed",
+  "phase": "batch_156_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-156.json",
+  "nextBatch": "original-multisubject-batch-157.json",
   "nextPriorities": [
-    "Rotate to underrepresented WAEC/NECO Geography: inspect existing questions and obtain/recheck official current scope and permitted practical/essay formats before authoring. NECO timetable evidence alone is insufficient for content objectives; preserve cross-board topic limits. NCEE QVA now has 44 automated-valid drafts with provisional historical Primary 6 references. ICPC values guide downloaded successfully but is image-based; visually inspect or OCR exact Primary Six lessons before claiming a fresh content recheck. Full current NCEE blueprint/adoption and independent review remain open.",
+    "Obtain current full WAEC/NECO Geography specifications and reconcile practical, physical and human/regional objective coverage before broad topic expansion. Newer WAEC 2022/2023 index targets returned 404; accessible report headings conflict with URL digits and remain historical partial references. Batch156 adds eight WAEC and eight NECO drafts, not full alignment. Continue manageable work in another source-supported bank, prioritising underrepresented IELTS/TOEFL language production/performance where exact current formats are verified. Preserve all cross-board, adoption and independent-review gaps.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-155.json",
-  "lastRemoteVerifiedCommit": "3dc107bc668f98252bc270db601d093766dcca14",
+  "lastValidatedBatch": "original-multisubject-batch-156.json",
+  "lastRemoteVerifiedCommit": "533cb35d3c48af0aebd469a3041a536e5f8ca120",
   "verifiedTotals": {
-    "raw": 3974,
-    "validDrafts": 2295,
+    "raw": 3990,
+    "validDrafts": 2311,
     "reviewed": 0
   },
   "lastRunTestCount": 48,
-  "lastPopulatedBatch": "original-multisubject-batch-155.json",
+  "lastPopulatedBatch": "original-multisubject-batch-156.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 3974,
-  "lastSourceUpdate": "registry.json",
+  "inventoryRaw": 3990,
+  "lastSourceUpdate": "geography-source-recheck-156.json",
   "lastSourceRecheck": {
-    "id": "ncee-qva-primary-six-reference-2026",
+    "id": "waec-geography-historical-map-reference-2026",
     "date": "2026-11-08"
   }
 }

@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-08",
+  "purpose": "Geography source and format recheck for batch156",
+  "fullCurrentOfficialSpecificationRetrieved": false,
+  "officialNecoFormat": {
+    "url": "https://neco.gov.ng/2026%20SSCE%20INTERNAL%20TIMETABLE-2.pdf",
+    "route": "SSCE Internal",
+    "page": 2,
+    "codes": {
+      "2061": "Paper I practical and physical geography",
+      "2062": "Paper II human and regional geography essay",
+      "2063": "Paper III objective"
+    },
+    "limit": "Paper formats, not content objectives."
+  },
+  "historicalReferences": [
+    {
+      "url": "https://www.waeconline.org.ng/e-learning/Geography/Geo117nq1.html",
+      "displayedHeading": "Geography Paper 1, Nov/Dec 2008",
+      "evidence": "Map drawing, scale, gradient and evidence-supported settlement functions.",
+      "limit": "URL contains 117; do not infer an edition/year from it."
+    },
+    {
+      "url": "https://waeconline.org.ng/e-learning/Geography/Geo220mq1.html",
+      "displayedHeading": "Geography Paper 2, May/June 2011",
+      "evidence": "Migration and causes.",
+      "limit": "URL digits differ from displayed heading; exact archival edition unresolved."
+    },
+    {
+      "url": "https://waeconline.org.ng/e-learning/Geography/Geo220mq2.html",
+      "displayedHeading": "Geography Paper 2, May/June 2011",
+      "evidence": "Settlement patterns, location factors and urban functions.",
+      "limit": "Historical partial topic evidence; cross-board use for NECO is provisional."
+    }
+  ],
+  "failedIndexTargets": [
+    {
+      "url": "https://www.waeconline.org.ng/e-learning/Geography/Geo340mc.html",
+      "status": "web_fetch_404",
+      "indexLabel": "2023 school Paper 3"
+    },
+    {
+      "url": "https://www.waeconline.org.ng/e-learning/Geography/Geo240mc.html",
+      "status": "web_fetch_404",
+      "indexLabel": "2023 school Paper 2"
+    },
+    {
+      "url": "https://www.waeconline.org.ng/e-learning/Geography/Geo355mc.html",
+      "status": "web_fetch_404",
+      "indexLabel": "2022 school Paper 3"
+    },
+    {
+      "url": "https://www.waeconline.org.ng/e-learning/Geography/Geo255mc.html",
+      "status": "web_fetch_404",
+      "indexLabel": "2022 school Paper 2"
+    }
+  ],
+  "scopeNotes": [
+    "No source question, map, named place or official marking scheme copied.",
+    "No current WAEC paper numbering/timing inferred from historical reports.",
+    "All new maps, measurements and settlement scenarios fictional.",
+    "No completed fieldwork, current population statistic or independent academic approval claimed."
+  ]
+}

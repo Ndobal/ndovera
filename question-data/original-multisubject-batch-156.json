@@ -1,0 +1,893 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original Geography map evidence and settlement reasoning",
+  "questionCount": 16,
+  "note": "Eight WAEC and eight NECO original structured drafts with original four-mark guides. Historical official WAEC evidence supplies partial topics, not a full current syllabus; NECO topic alignment remains cross-board provisional while 2026 Internal paper format is official. All data are fictional. One item requires a drawn scale plan. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Map representation and evidence quality",
+      "learningObjective": "Construct or interpret a simple original map representation and assess the limits of supplied cartographic evidence.",
+      "specificationId": "waec-geography-historical-map-reference-2026",
+      "id": "ndv-156-001",
+      "objectiveId": "waec-geography-156-map-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Draw an original sketch plan from these fictional coordinates in metres, measured east and north from A: A(0,0), B(600,0), C(600,400). Use 1 cm to represent 200 m. A road joins A to B; a stream runs from C towards B. Label the three places, distinguish the road from the stream, add a north arrow and a key. Submit the drawn plan, not only calculated lengths.",
+      "answer": "Place B 3 cm east of A and C 2 cm north of B. Draw and distinguish AB as road and CB as stream, with the flow arrow towards B. Label the places and provide a north arrow and key. A consistent equivalent symbol design is acceptable.",
+      "explanation": "This requires an actual scale drawing using original coordinate data. It does not reproduce a historical examination map.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Places B 3 cm east of A at the chosen scale.",
+          "marks": 1
+        },
+        {
+          "description": "Places C 2 cm north of B.",
+          "marks": 1
+        },
+        {
+          "description": "Labels the three places and distinguishes the road and stream with flow towards B.",
+          "marks": 1
+        },
+        {
+          "description": "Supplies a consistent key and correctly oriented north arrow.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "verification": [
+        {
+          "expression": "600/200",
+          "expected": 3,
+          "purpose": "Horizontal drawing distance in centimetres."
+        },
+        {
+          "expression": "400/200",
+          "expected": 2,
+          "purpose": "Vertical drawing distance in centimetres."
+        }
+      ],
+      "requiredResponseArtifact": "drawn_scale_plan"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Map representation and evidence quality",
+      "learningObjective": "Construct or interpret a simple original map representation and assess the limits of supplied cartographic evidence.",
+      "specificationId": "waec-geography-historical-map-reference-2026",
+      "id": "ndv-156-002",
+      "objectiveId": "waec-geography-156-map-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A fictional map shows a winding road between two villages. A pupil measures only the straight line joining the villages and reports it as the road journey length. Explain the error, describe a suitable way to measure the road on paper, state how to convert that measurement to ground distance, and identify one remaining source of measurement uncertainty.",
+      "answer": "The straight line gives direct separation rather than the winding route. A thread laid along the road or a map wheel can follow the bends; its length is then measured and converted using the map scale. Uncertainty can remain from tracing bends, thick road symbols or measuring precision.",
+      "explanation": "The task distinguishes route distance from direct separation and requires a measurement method, not another numerical scale substitution.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Distinguishes straight-line separation from road-route length.",
+          "marks": 1
+        },
+        {
+          "description": "Describes tracing the bends with thread, a map wheel or another suitable method.",
+          "marks": 1
+        },
+        {
+          "description": "Explains applying the stated map scale to the traced length.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies a relevant remaining measurement uncertainty.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Map representation and evidence quality",
+      "learningObjective": "Construct or interpret a simple original map representation and assess the limits of supplied cartographic evidence.",
+      "specificationId": "waec-geography-historical-map-reference-2026",
+      "id": "ndv-156-003",
+      "objectiveId": "waec-geography-156-map-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A rectangular plan has been stretched during copying. Two ground lines, each 200 m long, now measure 2 cm east–west and 1 cm north–south on the paper. Calculate the apparent representative fraction in each direction. Explain why one RF cannot describe this copy reliably, and state what should be done before using it for measurements.",
+      "answer": "The east–west apparent RF is 1:10,000, while the north–south apparent RF is 1:20,000. The unequal distortion changes scale by direction, so a single RF is misleading. Use an undistorted original or correct and verify both dimensions before measuring.",
+      "explanation": "The problem concerns directional distortion, not uniform map reduction. Convert 200 m to 20,000 cm before calculating the ratios.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Obtains 1:10,000 east–west.",
+          "marks": 1
+        },
+        {
+          "description": "Obtains 1:20,000 north–south.",
+          "marks": 1
+        },
+        {
+          "description": "Explains why direction-dependent scale prevents one reliable RF.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes an undistorted or checked corrected version.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "verification": [
+        {
+          "expression": "200*100/2",
+          "expected": 10000,
+          "purpose": "East–west RF denominator."
+        },
+        {
+          "expression": "200*100/1",
+          "expected": 20000,
+          "purpose": "North–south RF denominator."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Map representation and evidence quality",
+      "learningObjective": "Construct or interpret a simple original map representation and assess the limits of supplied cartographic evidence.",
+      "specificationId": "waec-geography-historical-map-reference-2026",
+      "id": "ndv-156-004",
+      "objectiveId": "waec-geography-156-map-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On a fictional land-use grid, each square represents 100 m by 100 m. A woodland covers eight whole squares and portions estimated together as six half-squares. Estimate its area in hectares, show the method, and explain one limitation of the result.",
+      "answer": "The estimated equivalent count is 8 + 6/2 = 11 squares. Each square is 10,000 m², or one hectare, so the estimate is 11 hectares. Irregular boundaries may not divide into exact halves, making the result approximate.",
+      "explanation": "The grid provides all required data; no actual woodland measurement or current land-use claim is implied.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Combines partial squares to obtain three whole-square equivalents.",
+          "marks": 1
+        },
+        {
+          "description": "Calculates one square as 10,000 m² or one hectare.",
+          "marks": 1
+        },
+        {
+          "description": "Obtains an estimated woodland area of 11 hectares.",
+          "marks": 1
+        },
+        {
+          "description": "Explains uncertainty from boundary or partial-square estimation.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "verification": [
+        {
+          "expression": "8+6/2",
+          "expected": 11,
+          "purpose": "Whole-square equivalents."
+        },
+        {
+          "expression": "100*100/10000",
+          "expected": 1,
+          "purpose": "Hectares represented by one square."
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Map representation and evidence quality",
+      "learningObjective": "Construct or interpret a simple original map representation and assess the limits of supplied cartographic evidence.",
+      "specificationId": "waec-geography-historical-map-reference-2026",
+      "id": "ndv-156-005",
+      "objectiveId": "waec-geography-156-map-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A fictional sketch map marks a stream at point P, height 180 m, and at point Q farther along the same unobstructed channel, height 120 m. A flow arrow points from Q to P. Identify the inconsistency, correct the arrow, give the terrain evidence for the correction, and explain why the two heights alone do not show the detailed shape of every bend.",
+      "answer": "The arrow points uphill. It should point from P towards Q because stream flow follows the overall fall from 180 m to 120 m. The two spot values establish relative height, but more mapping or observations are needed to locate each bend.",
+      "explanation": "The task checks consistency between mapped heights and direction while separating supported inference from detail not provided.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies the arrow as pointing uphill or conflicting with the heights.",
+          "marks": 1
+        },
+        {
+          "description": "Corrects the direction from P to Q.",
+          "marks": 1
+        },
+        {
+          "description": "Uses the stated fall in height as evidence.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that two height points do not locate every bend.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Map representation and evidence quality",
+      "learningObjective": "Construct or interpret a simple original map representation and assess the limits of supplied cartographic evidence.",
+      "specificationId": "waec-geography-historical-map-reference-2026",
+      "id": "ndv-156-006",
+      "objectiveId": "waec-geography-156-map-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school has an old town map showing a footbridge. A recent verified local notice states that the footbridge has been removed. Explain which evidence should guide a current route plan, why the map’s scale does not resolve the conflict, and two checks needed before treating an alternative crossing as usable.",
+      "answer": "The recent verified notice should override the old map on the bridge’s existence. A precise scale describes spatial measurement, not whether features remain current. Check the alternative crossing’s present condition and whether the approach route is accessible or permitted; equivalent relevant checks are acceptable.",
+      "explanation": "Cartographic precision and temporal currency are different qualities. No real-world travel instruction is provided by this fictional example.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Prioritises the verified recent removal information.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that scale accuracy does not establish feature currency.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies one relevant current check for an alternative crossing.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies a second distinct relevant check.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Map representation and evidence quality",
+      "learningObjective": "Construct or interpret a simple original map representation and assess the limits of supplied cartographic evidence.",
+      "specificationId": "waec-geography-historical-map-reference-2026",
+      "id": "ndv-156-007",
+      "objectiveId": "waec-geography-156-map-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A fictional coastal map marks a ferry landing, fish market and cold store together at a settlement. Infer two likely settlement functions, linking each to the mapped evidence. Explain why these symbols alone do not establish the settlement’s population size.",
+      "answer": "The ferry landing supports a transport function; the fish market and cold store support trading or fish-related storage and distribution. Each is an inference from a mapped facility. Symbols identify facilities, not a population count, so population data are still needed.",
+      "explanation": "The guide rewards evidence-based function inference and a limit on what the symbols establish.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Infers a transport function.",
+          "marks": 1
+        },
+        {
+          "description": "Links that function to the ferry landing.",
+          "marks": 1
+        },
+        {
+          "description": "Infers a supported commercial/storage function and links it to the market or cold store.",
+          "marks": 1
+        },
+        {
+          "description": "Explains that facility symbols alone do not give population size.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice."
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Geography",
+      "topic": "Practical geography",
+      "subtopic": "Map representation and evidence quality",
+      "learningObjective": "Construct or interpret a simple original map representation and assess the limits of supplied cartographic evidence.",
+      "specificationId": "waec-geography-historical-map-reference-2026",
+      "id": "ndv-156-008",
+      "objectiveId": "waec-geography-156-map-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A map distance is recorded as 6.0 cm with an uncertainty of ±0.1 cm on a 1:50,000 map. Calculate the corresponding ground distance and measurement uncertainty in metres. Explain why reporting the distance as exact would be misleading.",
+      "answer": "One centimetre represents 500 m, so 6.0 cm represents 3,000 m. The ±0.1 cm measurement uncertainty corresponds to ±50 m. A suitable report is about 3,000 m ±50 m for this measurement alone. The original measurement has limited precision and the map may introduce other uncertainties.",
+      "explanation": "The numerical uncertainty comes from the supplied measurement range; it is not an estimate of every possible mapping error.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Converts one centimetre to 500 m.",
+          "marks": 1
+        },
+        {
+          "description": "Obtains 3,000 m.",
+          "marks": 1
+        },
+        {
+          "description": "Converts the uncertainty to ±50 m.",
+          "marks": 1
+        },
+        {
+          "description": "Explains why limited precision makes an exact claim inappropriate.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "verification": [
+        {
+          "expression": "6*500",
+          "expected": 3000,
+          "purpose": "Ground distance in metres."
+        },
+        {
+          "expression": "1/10*500",
+          "expected": 50,
+          "purpose": "Ground measurement uncertainty in metres."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-156-009",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a fictional region, workers leave one rural district to help with a harvest in another rural district for eight weeks, then return to their usual homes. Classify the movement by settlement origin/destination and by duration. Give evidence for both classifications and distinguish it from daily commuting.",
+      "answer": "It is rural-to-rural and seasonal or temporary migration. Both districts are rural, and the harvest stay is limited before a planned return. The workers stay away for weeks, unlike commuters who normally return after a day’s work.",
+      "explanation": "Migration can be temporary and need not involve a city or an international border.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Classifies rural-to-rural movement.",
+          "marks": 1
+        },
+        {
+          "description": "Uses both districts’ rural character as evidence.",
+          "marks": 1
+        },
+        {
+          "description": "Classifies seasonal/temporary movement using the harvest period and planned return.",
+          "marks": 1
+        },
+        {
+          "description": "Distinguishes a multi-week stay from daily commuting.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "examinationYear": 2026,
+      "examRoute": "SSCE Internal",
+      "paperNumber": "II",
+      "paperCode": "2062",
+      "paperFormat": "human_and_regional_geography_essay"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-156-010",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A fictional town records 30 people moving in and 27 moving out during a month. A report says, “Only three people moved.” Calculate net migration and the total number of recorded arrivals plus departures. Explain the error in the report and one reason the distinction matters for planning.",
+      "answer": "Net migration is +3 people; total recorded movement is 57 arrivals plus departures. The report confuses the balance with all movement. A small net balance can conceal substantial turnover, affecting housing demand, enrolment or service administration even when the net change is small.",
+      "explanation": "Arrivals and departures are event counts supplied for this exercise. The question does not claim that they identify unique people over a longer period.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Calculates net migration as +3.",
+          "marks": 1
+        },
+        {
+          "description": "Calculates total recorded movement as 57.",
+          "marks": 1
+        },
+        {
+          "description": "Explains the net-versus-total confusion.",
+          "marks": 1
+        },
+        {
+          "description": "Gives a relevant planning implication of turnover.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "verification": [
+        {
+          "expression": "30-27",
+          "expected": 3,
+          "purpose": "Net migration."
+        },
+        {
+          "expression": "30+27",
+          "expected": 57,
+          "purpose": "Total recorded arrivals and departures."
+        }
+      ],
+      "examinationYear": 2026,
+      "examRoute": "SSCE Internal",
+      "paperNumber": "II",
+      "paperCode": "2062",
+      "paperFormat": "human_and_regional_geography_essay"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-156-011",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A fictional town contains a university campus and the district council’s offices. Identify two functions supported by these facilities and explain how each may attract a distinct group of daily users. Do not assume that the town has only those functions.",
+      "answer": "The university supports an educational function and attracts students or staff. Council offices support an administrative function and attract officials or residents seeking services. Other functions may coexist; the evidence identifies important activities, not a complete economic profile.",
+      "explanation": "Function is inferred from the use of facilities rather than from settlement size alone.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies an educational function.",
+          "marks": 1
+        },
+        {
+          "description": "Explains university-related daily users.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies an administrative function.",
+          "marks": 1
+        },
+        {
+          "description": "Explains users of council services or offices.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "examinationYear": 2026,
+      "examRoute": "SSCE Internal",
+      "paperNumber": "II",
+      "paperCode": "2062",
+      "paperFormat": "human_and_regional_geography_essay"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-156-012",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A fictional farming area has homes scattered among separately managed fields rather than gathered at one junction. Identify the settlement pattern, explain how the field arrangement could help account for it, and give one service-delivery difficulty and a suitable response.",
+      "answer": "The pattern is dispersed. Locating homes near separately managed fields can reduce travel to work on those fields. Scattered homes can make a single fixed service point less accessible; mobile services or a carefully located shared centre may help. Other linked difficulties and responses are acceptable.",
+      "explanation": "This is a possible explanation based on the scenario, not a rule that all farming communities are dispersed.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies a dispersed pattern.",
+          "marks": 1
+        },
+        {
+          "description": "Links the location of homes with the separate fields.",
+          "marks": 1
+        },
+        {
+          "description": "Explains a relevant accessibility or service difficulty.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a response linked to that difficulty.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "examinationYear": 2026,
+      "examRoute": "SSCE Internal",
+      "paperNumber": "II",
+      "paperCode": "2062",
+      "paperFormat": "human_and_regional_geography_essay"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-156-013",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A town’s official boundary is expanded to include three existing villages. Its recorded population rises, although no person has moved residence and no births or deaths occur during the change. Explain the rise, identify two kinds of growth that this evidence does not demonstrate, and state how a fair before/after comparison could be made.",
+      "answer": "The rise comes from including more territory and its existing residents. It does not demonstrate migration into the original town or natural increase. Compare populations within a consistent boundary, or report boundary change separately when analysing the totals.",
+      "explanation": "Administrative reclassification must be distinguished from demographic change within an unchanged area.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains inclusion of existing village residents through boundary expansion.",
+          "marks": 1
+        },
+        {
+          "description": "Rejects migration as demonstrated by this change alone.",
+          "marks": 1
+        },
+        {
+          "description": "Rejects natural increase as demonstrated by this change alone.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes consistent-boundary comparison or separate accounting for reclassification.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "examinationYear": 2026,
+      "examRoute": "SSCE Internal",
+      "paperNumber": "II",
+      "paperCode": "2062",
+      "paperFormat": "human_and_regional_geography_essay"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-156-014",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "In a fictional district, some young adults leave because local training places are scarce and another town offers apprenticeships. Propose one origin-area measure and one destination-area measure that respond to their needs. Explain why evaluating the measures should consider people’s choices rather than assuming all migration is harmful.",
+      "answer": "The origin could improve relevant training access; the destination could support fair access to apprenticeships and suitable accommodation. Better opportunities at the origin expand choices, while support at the destination addresses needs where people choose to move. Migration may bring benefits as well as pressures, so an evaluation should not treat preventing every move as the only success.",
+      "explanation": "The scenario supports reasoning about opportunities and planning; it does not prescribe restrictions on movement or assert current policy.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Proposes a relevant origin-area response.",
+          "marks": 1
+        },
+        {
+          "description": "Explains how it addresses scarce training or expands choice.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes and explains a relevant destination-area response.",
+          "marks": 1
+        },
+        {
+          "description": "Explains why migration has potential benefits and should not automatically be treated as harmful.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "examinationYear": 2026,
+      "examRoute": "SSCE Internal",
+      "paperNumber": "II",
+      "paperCode": "2062",
+      "paperFormat": "human_and_regional_geography_essay"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-156-015",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A fictional survey lists families who left flooded homes. It records neither how long they expect to be away nor whether their former homes can be used again. Explain why the survey cannot yet classify every move as permanent. Identify two missing pieces of evidence and one way to improve the survey.",
+      "answer": "Leaving a flooded home does not by itself establish a permanent change of residence. Expected duration/return intentions and whether a home can be reoccupied would help. Follow up with households over time or add questions addressing these uncertainties rather than imposing a permanent label at the first interview.",
+      "explanation": "Classification needs evidence about duration and residence, not only the cause of departure.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Explains why departure caused by flooding does not prove permanence.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies duration or return intentions as missing evidence.",
+          "marks": 1
+        },
+        {
+          "description": "Identifies home reoccupation prospects or another distinct relevant detail.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a follow-up or question that addresses the uncertainty.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "examinationYear": 2026,
+      "examRoute": "SSCE Internal",
+      "paperNumber": "II",
+      "paperCode": "2062",
+      "paperFormat": "human_and_regional_geography_essay"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Geography",
+      "topic": "Human geography",
+      "subtopic": "Settlement location, functions and migration",
+      "learningObjective": "Infer settlement patterns and functions from evidence and explain migration decisions.",
+      "specificationId": "neco-geography-settlement-map-reference-2026",
+      "id": "ndv-156-016",
+      "objectiveId": "neco-geography-skills-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A researcher interviews only stallholders in a town’s main market and concludes that nearly every adult in the town works in trade. Identify the sampling problem, explain its likely effect, and suggest two improvements for investigating the town’s range of functions.",
+      "answer": "Market-only sampling overrepresents people engaged in trade. It can exaggerate trade’s share while missing education, administration, industry or other work. Include households or workplaces across different parts of town and different activity types, using a planned sampling method; also compare with other suitable employment or facility data.",
+      "explanation": "An important market may demonstrate a commercial function without proving that almost all residents have the same occupation.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "description": "Identifies market-only selection as a biased sample for all adults.",
+          "marks": 1
+        },
+        {
+          "description": "Explains overrepresentation of trading activity.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes broader planned sampling of residents or workplaces.",
+          "marks": 1
+        },
+        {
+          "description": "Proposes a distinct improvement such as other activity areas or comparison with relevant records.",
+          "marks": 1
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "dataStatus": "original_hypothetical",
+      "alignmentNote": "Partial historical topic reference only; full current board-specific syllabus alignment pending. Four marks are an author practice choice.",
+      "examinationYear": 2026,
+      "examRoute": "SSCE Internal",
+      "paperNumber": "II",
+      "paperCode": "2062",
+      "paperFormat": "human_and_regional_geography_essay"
+    }
+  ]
+}
