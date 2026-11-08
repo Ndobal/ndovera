@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 3672,
-    "validDrafts": 1993,
+    "raw": 3680,
+    "validDrafts": 2001,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -982,6 +982,12 @@
       "actual": 10
     },
     {
+      "path": "original-multisubject-batch-142.json",
+      "sha256": "9a31ac098276d6c89622f284301a76d585141cd0394a2368366a2a656e5e8c03",
+      "declared": 8,
+      "actual": 8
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1087,7 +1093,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -1096,16 +1102,23 @@
         "2061",
         "2062"
       ],
-      "raw": 0,
-      "validDrafts": 0,
+      "additionalSpecificationIds": [
+        "neco-bece-arabic-2026-historical-2012-reference"
+      ],
+      "raw": 8,
+      "validDrafts": 8,
       "reviewed": 0,
-      "questionTypes": {},
-      "difficulty": {},
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "questionTypes": {
+        "mcq": 8
+      },
+      "difficulty": {
+        "standard": 8
+      },
+      "remaining": 992,
+      "mappedObjectives": 2,
+      "representedObjectives": 2,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "BECE",
@@ -5802,18 +5815,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
-    "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 259,
@@ -32351,6 +32364,54 @@
       "id": "ndv-141-010",
       "file": "original-multisubject-batch-141.json",
       "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-142-001",
+      "file": "original-multisubject-batch-142.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-142-002",
+      "file": "original-multisubject-batch-142.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-142-003",
+      "file": "original-multisubject-batch-142.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-142-004",
+      "file": "original-multisubject-batch-142.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-142-005",
+      "file": "original-multisubject-batch-142.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-142-006",
+      "file": "original-multisubject-batch-142.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-142-007",
+      "file": "original-multisubject-batch-142.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-142-008",
+      "file": "original-multisubject-batch-142.json",
+      "index": 7,
       "errors": []
     },
     {
@@ -65646,6 +65707,68 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Arabic Language",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-arabic-2026-historical-2012-reference",
+      "id": "bece-arabic-142-01-v1",
+      "topic": "Reading",
+      "subtopic": "Books and practical information",
+      "learningObjective": "Interpret details and use of information in a short original Arabic text about reading.",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Arabic 2012, ninth preparatory year, printed/PDF p. 25"
+      ],
+      "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "BECE",
+      "subject": "Arabic Language",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-arabic-2026-historical-2012-reference",
+      "id": "bece-arabic-142-02-v1",
+      "topic": "Reading",
+      "subtopic": "Radio and learning",
+      "learningObjective": "Interpret details, purpose and vocabulary in an original written text about radio.",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Arabic 2012, ninth preparatory year, printed/PDF p. 26"
+      ],
+      "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -65683,6 +65806,7 @@
     "Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled.",
     "CRS JSS 1 mapping now covers nine topics and 34 initial objectives, with verified PDF locators. A duplicated obedience table and shifted later pagination were found. Seven topics and complete competency/evaluation reconciliation remain open; none of the mapping work adds questions or confers academic approval.",
     "CRS JSS 1 now has 61 initial objective entries across all sixteen distinct topics and eight classroom drafts. Detailed competency/evaluation reconciliation and academic review are unfinished. Original four-mark rubrics do not reproduce an official marking scheme; actual performance is required for singing, modelling, drawing and role-play. School adoption and full coverage remain unverified.",
-    "NECO BECE Islamic Studies has initial provisional JSS 3 ethics practice using historical NERDC pp. 107-109 and checked Qur'anic meanings. Current curriculum adoption, full scope, 5181/5182 allocation and official option counts remain unverified. A justice verse-reference discrepancy and PDF rendering errors are recorded. Written practice does not assess Arabic recitation or tajwid."
+    "NECO BECE Islamic Studies has initial provisional JSS 3 ethics practice using historical NERDC pp. 107-109 and checked Qur'anic meanings. Current curriculum adoption, full scope, 5181/5182 allocation and official option counts remain unverified. A justice verse-reference discrepancy and PDF rendering errors are recorded. Written practice does not assess Arabic recitation or tajwid.",
+    "NECO BECE Arabic Language has eight initial written-reading drafts using original texts about books and radio, provisionally mapped to historical 2012 ninth-year pages. Current adoption, full scope, 2061/2062 allocation and official option count remain unverified. PyMuPDF rendered inspected source pages after Poppler failed. These written tasks do not assess listening, pronunciation or oral reading."
   ]
 }

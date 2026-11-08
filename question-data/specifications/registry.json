@@ -2172,6 +2172,21 @@
       ],
       "retrievedOn": "2026-11-08",
       "note": "Directly checked verse meanings for impartial justice, avoiding hostility-driven injustice, and neighbourly kindness. Original questions paraphrase these principles; no examination-prescribed translation, recitation or tajwid coverage is inferred."
+    },
+    {
+      "id": "neco-bece-arabic-2026-historical-2012-reference",
+      "exam": "BECE",
+      "subject": "Arabic Language",
+      "kind": "official_format_with_historical_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumReference": "https://nerdc.gov.ng/content_manager/jss/jss1-3_arabic.pdf",
+      "curriculumIndex": "https://www.nerdc.gov.ng/content_manager/jss1-3.html",
+      "documentDate": "2012 / 1433 AH as printed on cover",
+      "retrievedOn": "2026-11-08",
+      "sourceSha256": "a984d7d90fb1eacf015eba5f910c345dc44d9688c53293cc0a4dd7634e9039ff",
+      "sourceBytes": 1014190,
+      "pageCount": 28,
+      "note": "NECO confirms objective papers 2061/2062, one hour each. The official historical index links this 2012 PDF. Direct cloud retrieval succeeded after web-reader failures. Poppler rendered tested pages blank with stream errors, but PyMuPDF rendered cover and pp. 21, 25 and 26 legibly. Page 21 identifies the ninth preparatory year, corresponding to JSS 3 within the JSS 1-3 cover scope. Reading pp. 25-26 concerns books and radio. Author-proposed written-comprehension objectives are receptive practice, not complete oral-reading or listening competence. Current curriculum adoption, NECO paper allocation, full objectives and official option count remain unverified. Four options are an author practice choice. A third-party Arabic scheme was not adopted: its claimed 60-question Paper II lists only four groups of 12."
     }
   ],
   "banks": [
@@ -3226,7 +3241,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -3234,6 +3249,9 @@
       "paperCodes": [
         "2061",
         "2062"
+      ],
+      "additionalSpecificationIds": [
+        "neco-bece-arabic-2026-historical-2012-reference"
       ]
     },
     {
@@ -17113,6 +17131,44 @@
       ],
       "mappingStatus": "provisional_historical_jss3_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Arabic Language",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-arabic-2026-historical-2012-reference",
+      "id": "bece-arabic-142-01-v1",
+      "topic": "Reading",
+      "subtopic": "Books and practical information",
+      "learningObjective": "Interpret details and use of information in a short original Arabic text about reading.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Arabic 2012, ninth preparatory year, printed/PDF p. 25"
+      ],
+      "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "BECE",
+      "subject": "Arabic Language",
+      "level": "JSS 3",
+      "specificationId": "neco-bece-arabic-2026-historical-2012-reference",
+      "id": "bece-arabic-142-02-v1",
+      "topic": "Reading",
+      "subtopic": "Radio and learning",
+      "learningObjective": "Interpret details, purpose and vocabulary in an original written text about radio.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 timetable, objective format only",
+        "Historical NERDC Arabic 2012, ninth preparatory year, printed/PDF p. 26"
+      ],
+      "mappingStatus": "provisional_historical_jss3_written_precursor_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -17150,6 +17206,7 @@
     "Revised September 2025 NERDC CRS JSS 1 now has a separate exact-class bank, sixteen-topic contents inventory and ten initial performance-objective mappings for its first three topics. NERDC cycle-entry policy and FME 2025/2026 implementation evidence are registered. School adoption, remaining topic outcomes, performance assessment, spellings, full coverage and sustainable target capacity remain unverified. Other JSS 1 subjects and other classes remain unresolved; no legacy class records are relabelled.",
     "CRS JSS 1 mapping now covers nine topics and 34 initial objectives, with verified PDF locators. A duplicated obedience table and shifted later pagination were found. Seven topics and complete competency/evaluation reconciliation remain open; none of the mapping work adds questions or confers academic approval.",
     "CRS JSS 1 now has 61 initial objective entries across all sixteen distinct topics and eight classroom drafts. Detailed competency/evaluation reconciliation and academic review are unfinished. Original four-mark rubrics do not reproduce an official marking scheme; actual performance is required for singing, modelling, drawing and role-play. School adoption and full coverage remain unverified.",
-    "NECO BECE Islamic Studies has initial provisional JSS 3 ethics practice using historical NERDC pp. 107-109 and checked Qur'anic meanings. Current curriculum adoption, full scope, 5181/5182 allocation and official option counts remain unverified. A justice verse-reference discrepancy and PDF rendering errors are recorded. Written practice does not assess Arabic recitation or tajwid."
+    "NECO BECE Islamic Studies has initial provisional JSS 3 ethics practice using historical NERDC pp. 107-109 and checked Qur'anic meanings. Current curriculum adoption, full scope, 5181/5182 allocation and official option counts remain unverified. A justice verse-reference discrepancy and PDF rendering errors are recorded. Written practice does not assess Arabic recitation or tajwid.",
+    "NECO BECE Arabic Language has eight initial written-reading drafts using original texts about books and radio, provisionally mapped to historical 2012 ninth-year pages. Current adoption, full scope, 2061/2062 allocation and official option count remain unverified. PyMuPDF rendered inspected source pages after Poppler failed. These written tasks do not assess listening, pronunciation or oral reading."
   ]
 }

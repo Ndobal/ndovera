@@ -791,3 +791,9 @@ ethics drafts. Historical topic mapping remains provisional. The
 register distinguishes the justice injunction in Q5:8 from Q5:9 and
 records source rendering limitations. Current adoption, full paper
 scope, option counts and recitation requirements remain open.
+
+Batch 142 opens NECO BECE Arabic Language with eight original
+written-reading drafts across two original texts. Direct retrieval and
+PyMuPDF rendering verified historical 2012 ninth-year source pages.
+Topic mapping remains provisional. Current adoption, full paper scope,
+option counts, listening and oral-reading requirements remain open.
