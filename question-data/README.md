@@ -919,3 +919,10 @@ Official timing and criteria were rechecked. Actual live/recorded speech
 is required; original model transcripts cannot establish pronunciation or
 speaking duration. Eight-point guides have no official band equivalence.
 Part3 timing applies to the whole discussion, not each question.
+
+Batch 160 adds six IELTS General Training Task1 letter-production drafts
+on enquiry, complaint, invitation, changed arrangements, advice and
+service improvement. Current official letter format was rechecked. Each
+model has at least150 words and covers three specified content points.
+Original eight-point analytic guides require manual assessment and do
+not convert to IELTS bands. Broader coverage and academic review stay open.

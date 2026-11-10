@@ -2445,6 +2445,16 @@
       "checkedOn": "2026-11-08",
       "status": "parts2_3_format_and_assessment_criteria_rechecked",
       "note": "Both official pages retrieved. Part2 gives one minute preparation and a long turn stopped at two minutes; whole Part2 lasts3–4minutes including preparation and possible rounding-off questions. Part3 develops linked general/abstract issues for4–5minutes. Overall Speaking11–14minutes. Four criteria: fluency/coherence, lexical resource, grammatical range/accuracy, pronunciation. Original eight-point practice rubrics do not convert to IELTS bands. Twelve standalone tasks do not form a full recorded test; no item-level Part3 time limit or spoken word-count requirement invented."
+    },
+    {
+      "id": "ielts-general-training-writing-format-recheck-160-2026",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "kind": "official_general_training_writing_format",
+      "source": "https://ielts.org/take-a-test/test-types/ielts-general-training-test/ielts-general-training-format-writing",
+      "checkedOn": "2026-11-10",
+      "status": "task1_format_and_assessment_criteria_retrieved",
+      "note": "Official page retrieved: General Training Task1 is a letter addressing three supplied points, minimum150words, recommended no more than20minutes within the60minute Writing test. Register depends on recipient and purpose. Connected text, no postal addresses required. Four assessment categories support original practice rubrics; eight practice points have no band equivalence. Task2 contributes twice as much to Writing; standalone letters do not reproduce a complete test."
     }
   ],
   "banks": [
@@ -18695,6 +18705,108 @@
         "IELTS official Academic and General Training Speaking format: Part 3; four assessment criteria"
       ],
       "mappingStatus": "author_proposed_from_official_task_description_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-gt-letter-160-enquiry-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Information request",
+      "learningObjective": "Request relevant factual details and explain needs so a recipient can give a useful reply.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "Task 1: situation, audience and three content points; skills tested; marking"
+      ],
+      "mappingStatus": "author_proposed_communication_function_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-gt-letter-160-complaint-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Complaint and remedy",
+      "learningObjective": "Describe a service failure and its consequences, requesting a specific proportionate remedy.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "Task 1: situation, audience and three content points; skills tested; marking"
+      ],
+      "mappingStatus": "author_proposed_communication_function_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-gt-letter-160-invitation-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Personal invitation",
+      "learningObjective": "Invite a known recipient with a clear purpose, useful arrangements and room to accept or decline.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "Task 1: situation, audience and three content points; skills tested; marking"
+      ],
+      "mappingStatus": "author_proposed_communication_function_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-gt-letter-160-explanation-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Explanation and alternative arrangement",
+      "learningObjective": "Explain a practical constraint to a known organiser and negotiate a workable alternative without abandoning responsibilities.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "Task 1: situation, audience and three content points; skills tested; marking"
+      ],
+      "mappingStatus": "author_proposed_communication_function_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-gt-letter-160-advice-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Personal advice with reasons",
+      "learningObjective": "Offer relevant advice to a familiar recipient, explaining trade-offs and acknowledging missing information.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "Task 1: situation, audience and three content points; skills tested; marking"
+      ],
+      "mappingStatus": "author_proposed_communication_function_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-gt-letter-160-suggestion-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Reasoned suggestion",
+      "learningObjective": "Propose an improvement to a service, explaining its benefit and a realistic trial or limitation.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "Task 1: situation, audience and three content points; skills tested; marking"
+      ],
+      "mappingStatus": "author_proposed_communication_function_pending_academic_review",
       "officialObjectiveCode": null
     }
   ],

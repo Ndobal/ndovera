@@ -20,7 +20,7 @@ BECE,Yoruba (L2),JSS 3,,1000,0,0,0,1000,0,0,specification_unresolved,official_20
 IELTS,Listening,,,1000,40,40,0,960,36,36,partial_objective_register,official_part_1_format_mapped_live_delivery
 IELTS,Reading,,,1000,68,62,0,938,10,10,partial_objective_register,academic_and_general_training_formats_verified_partial_coverage
 IELTS,Speaking,,,1000,16,16,0,984,3,3,partial_objective_register,official_skill_structure_seen_version_or_variant_mapping_pending
-IELTS,Writing,,,1000,9,6,0,994,3,3,partial_objective_register,official_skill_structure_seen_version_or_variant_mapping_pending
+IELTS,Writing,,,1000,15,12,0,988,9,9,partial_objective_register,official_skill_structure_seen_version_or_variant_mapping_pending
 IGCSE,Biology,,0610,1000,78,74,0,926,16,16,partial_objective_register,selected_qualification_code_current_source_retrieved
 IGCSE,Chemistry,,0620,1000,76,74,0,926,15,15,partial_objective_register,selected_qualification_code_current_source_retrieved
 IGCSE,Economics,,0455,1000,37,37,0,963,19,19,partial_objective_register,official_2026_and_2027_2029_syllabuses_partial_objective_register

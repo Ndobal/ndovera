@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original IELTS General Training letter production practice — batch 160",
+  "questionCount": 6,
+  "note": "Six original standalone letters across distinct communication functions. Current official format retrieved 2026-11-10. Original eight-point rubrics require manual review and do not imply official bands, full-test delivery or academic approval.",
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Information request",
+      "learningObjective": "Request relevant factual details and explain needs so a recipient can give a useful reply.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "id": "ndv-160-001",
+      "objectiveId": "ielts-gt-letter-160-enquiry-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "General Training",
+      "type": "essay",
+      "prompt": "You want to attend a weekend pottery course advertised by a local studio, but the advertisement gives little detail. Write to the course coordinator.\nIn your letter:\n- explain your previous experience and what you hope to learn\n- ask about the teaching arrangements and materials\n- describe a scheduling constraint and ask which course would suit it\n\nWrite at least 150 words in connected paragraphs. Spend no more than 20 minutes. You do not need postal addresses. Begin your letter with: Dear Course Coordinator,",
+      "answer": "Dear Course Coordinator,\n\nI recently saw your advertisement for weekend pottery classes and would like some further information before choosing a course. I have made a few small bowls at a community event, but I have never used a pottery wheel. My aim is to learn how to shape a simple container and understand the stages involved in finishing it.\n\nCould you tell me whether beginners work in a separate group and how many students usually share a tutor? I would also like to know whether clay, tools and firing are included in the advertised fee. If participants need to buy anything themselves, a short list would help me plan the cost.\n\nMy main difficulty is that I work on alternate Saturday mornings. I am free every Sunday and could attend a Saturday session after one o’clock. Please let me know which of your courses would allow me to attend regularly, rather than miss important demonstrations. If there is a waiting list for a suitable group, I would be happy to join it.\n\nThank you for your advice. I look forward to hearing from you.\n\nYours faithfully,\nAmina Bello",
+      "explanation": "The illustrative model addresses information request through all three content points, with formal language for the specified recipient. Candidates may use other plausible details. Assess the candidate’s own letter; neither reproducing the model nor sharing its opinion is required.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Task achievement: cover all three requested points with relevant development, clear purpose and formal register. 2 = consistently effective; 1 = partial or uneven; 0 = no assessable fulfilment. Alternative details are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Coherence/cohesion: 2 = clear progression and purposeful paragraphs with natural links; 1 = understandable but uneven organisation; 0 = ideas cannot be followed.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource: 2 = appropriate range and precise choices; 1 = limited range or recurring misuse with meaning usually clear; 0 = insufficient comprehensible vocabulary.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy: 2 = varied forms with generally controlled sentences; 1 = limited forms or repeated errors sometimes obstructing meaning; 0 = insufficient assessable sentence control.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "General Training Writing Task 1 letter",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 189,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "formal",
+      "contentPoints": [
+        "explain your previous experience and what you hope to learn",
+        "ask about the teaching arrangements and materials",
+        "describe a scheduling constraint and ask which course would suit it"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points; no IELTS band conversion. The official Writing section weighting is not applied to this standalone task.",
+      "modelResponseStatus": "illustrative_original_letter_not_an_official_scored_script"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Complaint and remedy",
+      "learningObjective": "Describe a service failure and its consequences, requesting a specific proportionate remedy.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "id": "ndv-160-002",
+      "objectiveId": "ielts-gt-letter-160-complaint-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "General Training",
+      "type": "essay",
+      "prompt": "A storage company returned your labelled boxes to your home, but one box belongs to someone else and one of yours is missing. Write to the customer service manager.\nIn your letter:\n- describe the mistake and identify your missing property\n- explain the inconvenience it has caused\n- request a practical way to correct the delivery\n\nWrite at least 150 words in connected paragraphs. Spend no more than 20 minutes. You do not need postal addresses. Begin your letter with: Dear Customer Service Manager,",
+      "answer": "Dear Customer Service Manager,\n\nI am writing about the boxes your company delivered to my home yesterday under booking reference B27. I expected five boxes bearing my name. Four were correct, but the fifth had another customer’s label. My own box marked “Study materials” was missing. It contains reference books and a folder of course notes, rather than any valuable electronic equipment.\n\nThe mistake is inconvenient because I need those notes for a training session next week. I can replace some printed material, but the folder also contains my handwritten summaries. Meanwhile, I have kept the unfamiliar box sealed in a dry room so that its contents remain undisturbed.\n\nPlease check your delivery records and arrange to collect the incorrect box while returning mine. I am available at home on Thursday afternoon, although I could arrange for a neighbour to receive the delivery on Friday if you confirm the time in advance. I would appreciate a written update tomorrow explaining what you have found and when the exchange can take place. Please contact me before making an unannounced visit.\n\nYours faithfully,\nChidi Okafor",
+      "explanation": "The illustrative model addresses complaint and remedy through all three content points, with formal language for the specified recipient. Candidates may use other plausible details. Assess the candidate’s own letter; neither reproducing the model nor sharing its opinion is required.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Task achievement: cover all three requested points with relevant development, clear purpose and formal register. 2 = consistently effective; 1 = partial or uneven; 0 = no assessable fulfilment. Alternative details are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Coherence/cohesion: 2 = clear progression and purposeful paragraphs with natural links; 1 = understandable but uneven organisation; 0 = ideas cannot be followed.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource: 2 = appropriate range and precise choices; 1 = limited range or recurring misuse with meaning usually clear; 0 = insufficient comprehensible vocabulary.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy: 2 = varied forms with generally controlled sentences; 1 = limited forms or repeated errors sometimes obstructing meaning; 0 = insufficient assessable sentence control.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "General Training Writing Task 1 letter",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 183,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "formal",
+      "contentPoints": [
+        "describe the mistake and identify your missing property",
+        "explain the inconvenience it has caused",
+        "request a practical way to correct the delivery"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points; no IELTS band conversion. The official Writing section weighting is not applied to this standalone task.",
+      "modelResponseStatus": "illustrative_original_letter_not_an_official_scored_script"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Personal invitation",
+      "learningObjective": "Invite a known recipient with a clear purpose, useful arrangements and room to accept or decline.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "id": "ndv-160-003",
+      "objectiveId": "ielts-gt-letter-160-invitation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "General Training",
+      "type": "essay",
+      "prompt": "An old friend who lives in another town has mentioned wanting to learn more about your local area. Write a letter inviting the friend to visit during a community arts weekend.\nIn your letter:\n- explain why this weekend would interest your friend\n- suggest activities and accommodation arrangements\n- ask about the friend’s availability and preferences\n\nWrite at least 150 words in connected paragraphs. Spend no more than 20 minutes. You do not need postal addresses. Begin your letter with: Dear Tola,",
+      "answer": "Dear Tola,\n\nYou mentioned that you would like to see more of my area, so I thought of you when the community arts weekend was announced. Would you like to stay with me and come along? It takes place during the first weekend of next month, and I think you would enjoy meeting the people who make things here rather than only visiting the main shops.\n\nOn Saturday morning there is an open workshop where local artists will demonstrate printing on fabric. We could watch that and then walk through the small exhibition in the library. Sunday’s programme is more relaxed, with music in the courtyard and a display of photographs of the town. You are welcome to use my spare room, so there is no need to book a hotel. I can also meet you at the coach station if you send me your arrival time.\n\nLet me know whether that weekend suits you and which activities sound appealing. If you would prefer a quieter visit, we could skip the evening events and cook at home. I would be glad simply to have time to catch up properly.\n\nBest wishes,\nSade",
+      "explanation": "The illustrative model addresses personal invitation through all three content points, with personal language for the specified recipient. Candidates may use other plausible details. Assess the candidate’s own letter; neither reproducing the model nor sharing its opinion is required.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Task achievement: cover all three requested points with relevant development, clear purpose and personal register. 2 = consistently effective; 1 = partial or uneven; 0 = no assessable fulfilment. Alternative details are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Coherence/cohesion: 2 = clear progression and purposeful paragraphs with natural links; 1 = understandable but uneven organisation; 0 = ideas cannot be followed.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource: 2 = appropriate range and precise choices; 1 = limited range or recurring misuse with meaning usually clear; 0 = insufficient comprehensible vocabulary.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy: 2 = varied forms with generally controlled sentences; 1 = limited forms or repeated errors sometimes obstructing meaning; 0 = insufficient assessable sentence control.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "General Training Writing Task 1 letter",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 192,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "personal",
+      "contentPoints": [
+        "explain why this weekend would interest your friend",
+        "suggest activities and accommodation arrangements",
+        "ask about the friend’s availability and preferences"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points; no IELTS band conversion. The official Writing section weighting is not applied to this standalone task.",
+      "modelResponseStatus": "illustrative_original_letter_not_an_official_scored_script"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Explanation and alternative arrangement",
+      "learningObjective": "Explain a practical constraint to a known organiser and negotiate a workable alternative without abandoning responsibilities.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "id": "ndv-160-004",
+      "objectiveId": "ielts-gt-letter-160-explanation-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "General Training",
+      "type": "essay",
+      "prompt": "You volunteer at a neighbourhood reading club. Your work hours have changed, so you cannot continue your usual weekly session. Write to the club organiser, whom you know well.\nIn your letter:\n- explain the change and when it takes effect\n- describe the responsibilities that need covering\n- propose another way you could contribute\n\nWrite at least 150 words in connected paragraphs. Spend no more than 20 minutes. You do not need postal addresses. Begin your letter with: Dear Mrs Ahmed,",
+      "answer": "Dear Mrs Ahmed,\n\nI wanted to let you know about a change to my work schedule before you prepare the next reading club rota. From the beginning of next month, I will be working until six on Wednesdays. Unfortunately, that means I will no longer be able to lead the afternoon session, although I would very much like to remain involved with the club.\n\nAt present, I choose the short reading passages, set out the books and keep the attendance sheet. Whoever takes over will need the cupboard key as well as the folder containing our recent activities. I can meet a replacement volunteer during either of the next two sessions to show them where everything is kept and discuss the group’s different reading interests.\n\nWould it help if I prepared materials for the Wednesday group at home and sent them to you beforehand? I could also assist at the monthly Saturday session, when I am usually free. That would allow me to contribute regularly without promising to attend at a time I can no longer manage. Please let me know which arrangement would be most useful.\n\nKind regards,\nKunle",
+      "explanation": "The illustrative model addresses explanation and alternative arrangement through all three content points, with semi-formal language for the specified recipient. Candidates may use other plausible details. Assess the candidate’s own letter; neither reproducing the model nor sharing its opinion is required.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Task achievement: cover all three requested points with relevant development, clear purpose and semi-formal register. 2 = consistently effective; 1 = partial or uneven; 0 = no assessable fulfilment. Alternative details are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Coherence/cohesion: 2 = clear progression and purposeful paragraphs with natural links; 1 = understandable but uneven organisation; 0 = ideas cannot be followed.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource: 2 = appropriate range and precise choices; 1 = limited range or recurring misuse with meaning usually clear; 0 = insufficient comprehensible vocabulary.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy: 2 = varied forms with generally controlled sentences; 1 = limited forms or repeated errors sometimes obstructing meaning; 0 = insufficient assessable sentence control.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "General Training Writing Task 1 letter",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 190,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "semi-formal",
+      "contentPoints": [
+        "explain the change and when it takes effect",
+        "describe the responsibilities that need covering",
+        "propose another way you could contribute"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points; no IELTS band conversion. The official Writing section weighting is not applied to this standalone task.",
+      "modelResponseStatus": "illustrative_original_letter_not_an_official_scored_script"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Personal advice with reasons",
+      "learningObjective": "Offer relevant advice to a familiar recipient, explaining trade-offs and acknowledging missing information.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "id": "ndv-160-005",
+      "objectiveId": "ielts-gt-letter-160-advice-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "General Training",
+      "type": "essay",
+      "prompt": "A cousin is moving into a small rented room and asks for advice about furnishing it on a limited budget. Write a letter to your cousin.\nIn your letter:\n- suggest which items to prioritise\n- explain how to find suitable items without wasting money\n- offer a specific form of help\n\nWrite at least 150 words in connected paragraphs. Spend no more than 20 minutes. You do not need postal addresses. Begin your letter with: Dear Ife,",
+      "answer": "Dear Ife,\n\nIt is exciting that you have found a room near your new workplace. Since you asked about furnishing it, I would start with the things you will use every day: a comfortable bed, somewhere to keep clothes and a stable surface for eating or working. You can add decorative items later, once you know how the space actually feels to live in.\n\nBefore buying anything, measure the room and check what the landlord already provides. A cheap wardrobe is no bargain if it blocks the doorway. Second-hand shops and local noticeboards can be useful, but inspect each item carefully and include delivery charges when comparing prices. I would avoid buying a whole matching set simply because it is advertised at a discount. A few suitable pieces are more useful than a crowded room.\n\nI can come over on Sunday with a tape measure and help you draw a simple layout. If you find a desk you like, send me its dimensions and we can check whether it will fit. I do not know your exact budget yet, so tell me what you can spend before we start looking together.\n\nLove,\nBisi",
+      "explanation": "The illustrative model addresses personal advice with reasons through all three content points, with personal language for the specified recipient. Candidates may use other plausible details. Assess the candidate’s own letter; neither reproducing the model nor sharing its opinion is required.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Task achievement: cover all three requested points with relevant development, clear purpose and personal register. 2 = consistently effective; 1 = partial or uneven; 0 = no assessable fulfilment. Alternative details are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Coherence/cohesion: 2 = clear progression and purposeful paragraphs with natural links; 1 = understandable but uneven organisation; 0 = ideas cannot be followed.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource: 2 = appropriate range and precise choices; 1 = limited range or recurring misuse with meaning usually clear; 0 = insufficient comprehensible vocabulary.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy: 2 = varied forms with generally controlled sentences; 1 = limited forms or repeated errors sometimes obstructing meaning; 0 = insufficient assessable sentence control.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "General Training Writing Task 1 letter",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 193,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "personal",
+      "contentPoints": [
+        "suggest which items to prioritise",
+        "explain how to find suitable items without wasting money",
+        "offer a specific form of help"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points; no IELTS band conversion. The official Writing section weighting is not applied to this standalone task.",
+      "modelResponseStatus": "illustrative_original_letter_not_an_official_scored_script"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "General Training Writing Task 1",
+      "subtopic": "Reasoned suggestion",
+      "learningObjective": "Propose an improvement to a service, explaining its benefit and a realistic trial or limitation.",
+      "specificationId": "ielts-general-training-writing-format-recheck-160-2026",
+      "id": "ndv-160-006",
+      "objectiveId": "ielts-gt-letter-160-suggestion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "General Training",
+      "type": "essay",
+      "prompt": "Your local library is seeking suggestions for making its book discussion events easier to join. Write to the library events officer.\nIn your letter:\n- describe a difficulty you have observed\n- propose an improvement and explain who would benefit\n- suggest how the library could try the idea before making a permanent change\n\nWrite at least 150 words in connected paragraphs. Spend no more than 20 minutes. You do not need postal addresses. Begin your letter with: Dear Library Events Officer,",
+      "answer": "Dear Library Events Officer,\n\nI am a regular library user and would like to suggest a small change to your book discussion events. At the last two meetings, several people arrived without having finished the selected novel. They seemed reluctant to join the conversation because they worried about missing important details or hearing the ending before reading it themselves.\n\nCould the library occasionally offer a discussion based on a short story that is available to borrow in advance? This would give busy readers and people returning to reading a more manageable starting point. The event notice could identify the story clearly and explain how to obtain a copy. I am not suggesting that you stop the novel discussions, which many members enjoy, but that you provide another way to participate.\n\nYou could try the idea once during the next programme and ask participants for brief feedback afterwards. Attendance alone would not show whether it worked, so it might also help to ask whether newcomers felt able to contribute. If the response is positive, short-story meetings could become an occasional addition rather than an immediate permanent commitment.\n\nYours faithfully,\nNgozi Eze",
+      "explanation": "The illustrative model addresses reasoned suggestion through all three content points, with formal language for the specified recipient. Candidates may use other plausible details. Assess the candidate’s own letter; neither reproducing the model nor sharing its opinion is required.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Task achievement: cover all three requested points with relevant development, clear purpose and formal register. 2 = consistently effective; 1 = partial or uneven; 0 = no assessable fulfilment. Alternative details are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Coherence/cohesion: 2 = clear progression and purposeful paragraphs with natural links; 1 = understandable but uneven organisation; 0 = ideas cannot be followed.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource: 2 = appropriate range and precise choices; 1 = limited range or recurring misuse with meaning usually clear; 0 = insufficient comprehensible vocabulary.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy: 2 = varied forms with generally controlled sentences; 1 = limited forms or repeated errors sometimes obstructing meaning; 0 = insufficient assessable sentence control.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "General Training Writing Task 1 letter",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 190,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "formal",
+      "contentPoints": [
+        "describe a difficulty you have observed",
+        "propose an improvement and explain who would benefit",
+        "suggest how the library could try the idea before making a permanent change"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points; no IELTS band conversion. The official Writing section weighting is not applied to this standalone task.",
+      "modelResponseStatus": "illustrative_original_letter_not_an_official_scored_script"
+    }
+  ]
+}
