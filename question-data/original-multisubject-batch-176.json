@@ -1,0 +1,544 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 English Studies reading",
+  "questionCount": 14,
+  "note": "Original short reading passages and practice questions. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading passages for meaning",
+      "subtopic": "Main idea",
+      "learningObjective": "Identify the main idea that accounts for the supporting details of a passage.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-01-v1",
+      "id": "ndv-176-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "Pupils at a school in Jos wanted to swap storybooks. Hauwa put a small basket near the class door and wrote a card asking each borrower to leave a book when taking one. By Friday, pupils had found stories they had never seen before.",
+      "prompt": "Which statement best captures the main idea?",
+      "answer": "A class book swap gave pupils access to different stories.",
+      "explanation": "The basket and the card explain how the swap worked. Finding different stories is the result that ties those details together.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Hauwa asked each pupil to read a story by Friday.",
+        "A class book swap gave pupils access to different stories.",
+        "The pupils moved a basket away from the door.",
+        "The class needed more baskets to store its books."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading passages for meaning",
+      "subtopic": "Main idea",
+      "learningObjective": "Identify the main idea that accounts for the supporting details of a passage.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-01-v1",
+      "id": "ndv-176-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "The seedlings behind the school kitchen kept drying out over weekends. Rather than carry water every Saturday, the garden club asked the caretaker to move the trays to a shaded corner where they would dry out more slowly. The next Monday, fewer seedlings had wilted.",
+      "prompt": "Which heading best reflects the passage?",
+      "answer": "A Simple Move Helps Seedlings Stay Moist",
+      "explanation": "The new location addresses the drying problem. The trays, weekend timing and count of wilted seedlings support that central change.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "What the Kitchen Serves on Mondays",
+        "How to Count Seedlings in a Tray",
+        "A Saturday Visit to the School",
+        "A Simple Move Helps Seedlings Stay Moist"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading passages for meaning",
+      "subtopic": "Main ideas and supporting details",
+      "learningObjective": "Distinguish a passage’s main point from details that illustrate or support it.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-02-v1",
+      "id": "ndv-176-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "The school repaired its old noticeboard so messages would be easier to read. Pupils replaced the cloudy cover and made room for one notice per class. They also painted a small blue border around it.",
+      "prompt": "Which detail most directly supports the claim that notices became easier to read?",
+      "answer": "The cloudy cover was replaced.",
+      "explanation": "A clearer cover directly improves visibility. The border colour is decorative, and the other options do not explain how the print became easier to see.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The cloudy cover was replaced.",
+        "The border was painted blue.",
+        "The board belonged to a school.",
+        "The old board remained in use."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading passages for meaning",
+      "subtopic": "Main ideas and supporting details",
+      "learningObjective": "Distinguish a passage’s main point from details that illustrate or support it.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-02-v1",
+      "id": "ndv-176-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "On market days, the school crossing was crowded. The head teacher moved the pupil queue back from the kerb and asked a staff member to release groups at intervals. This left a clear space for people walking past the gate.",
+      "prompt": "Give the central point and one detail that shows how the school addressed the problem.",
+      "answer": "The school changed how pupils waited and crossed so the gate area was less crowded. For example, the queue was moved back from the kerb.",
+      "explanation": "The central point describes the change and its purpose. A detail names one specific action that helped.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that the school organised waiting or crossing to reduce crowding."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies one accurate action taken by the school."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading Passages to Answer Literal, Inferential and Critical Questions",
+      "subtopic": "Literal comprehension",
+      "learningObjective": "Retrieve information explicitly stated in a passage.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-03-v1",
+      "id": "ndv-176-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "The drama group planned to meet in Room 4. When the room was needed for a staff meeting, the teacher put a note on its door. The note told actors to wait on the veranda and told the costume team to go straight to the store.",
+      "prompt": "Where were the actors asked to wait?",
+      "answer": "On the veranda.",
+      "explanation": "The notice sends the actors to the veranda and the costume team to the store.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "In Room 4.",
+        "In the store.",
+        "On the veranda.",
+        "In the staffroom."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading Passages to Answer Literal, Inferential and Critical Questions",
+      "subtopic": "Literal comprehension",
+      "learningObjective": "Retrieve information explicitly stated in a passage.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-03-v1",
+      "id": "ndv-176-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "A notice invited pupils to bring books for a class display. Storybooks could be brought on Monday or Tuesday. Reference books had to arrive on Wednesday so the librarian could record them.",
+      "prompt": "When should a pupil bring a reference book?",
+      "answer": "Wednesday.",
+      "explanation": "The notice gives Wednesday as the day for reference books. Monday and Tuesday apply to storybooks.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Monday only.",
+        "Wednesday.",
+        "Tuesday only.",
+        "Any of the three days."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading Passages to Answer Literal, Inferential and Critical Questions",
+      "subtopic": "Evidence-based inference",
+      "learningObjective": "Infer an unstated motive or relationship using textual clues.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-04-v1",
+      "id": "ndv-176-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "At the class exhibition, visitors kept walking past a small model without stopping. Femi put a card beside it that read “Turn this wheel and watch the gate rise.” Soon, visitors gathered around the table.",
+      "prompt": "Why did Femi most likely add the card?",
+      "answer": "To show visitors how to interact with the model.",
+      "explanation": "The card tells readers what to do and what to watch. The later gathering supports the inference that the instruction made the model easier to engage with.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "To warn visitors that the wheel was broken.",
+        "To tell the visitors the exhibition was closing.",
+        "To record the cost of the model.",
+        "To show visitors how to interact with the model."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading Passages to Answer Literal, Inferential and Critical Questions",
+      "subtopic": "Evidence-based inference",
+      "learningObjective": "Infer an unstated motive or relationship using textual clues.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-04-v1",
+      "id": "ndv-176-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "Musa packed his speech cards into a waterproof folder before walking to the hall. He saw dark clouds, and the previous week he had struggled to read notes after ink ran on a damp page.",
+      "prompt": "What was Musa probably trying to prevent? Use two clues to support your answer.",
+      "answer": "He was trying to keep the cards dry and readable. The dark clouds suggested rain, and he remembered that moisture had made his earlier notes hard to read.",
+      "explanation": "The weather and the earlier experience work together to explain why he chose a waterproof folder.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Infers that he wanted to prevent water damage or keep the speech readable."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the dark clouds as relevant evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the earlier ink or reading problem as relevant evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading Passages to Answer Literal, Inferential and Critical Questions",
+      "subtopic": "Evaluating claims and evidence",
+      "learningObjective": "Judge whether evidence is sufficient for a claim made about a text.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-05-v1",
+      "id": "ndv-176-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "A class monitor says the new lunch queue is faster because she watched it on one quiet day. The note gives no time for the old queue and no observations from busy days.",
+      "prompt": "Which evidence would most directly test the monitor’s claim?",
+      "answer": "Waiting times for both queue systems on comparably busy days.",
+      "explanation": "Comparable waiting times allow the two systems to be compared. The other details cannot show whether one queue moves faster.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Waiting times for both queue systems on comparably busy days.",
+        "A list of the dishes served at lunch.",
+        "The number of windows beside the queue.",
+        "The names of pupils who sit near the door."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading Passages to Answer Literal, Inferential and Critical Questions",
+      "subtopic": "Evaluating claims and evidence",
+      "learningObjective": "Judge whether evidence is sufficient for a claim made about a text.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-05-v1",
+      "id": "ndv-176-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "An article claims every learner preferred a new school bulletin. It cites only three pupils who helped write the bulletin.",
+      "prompt": "Explain why this evidence cannot support the claim about every learner and suggest a better way to gather evidence.",
+      "answer": "The three writers may have different views from other pupils, and their responses do not tell us what everyone thinks. Ask a broader group from several classes, including pupils who did not write the bulletin.",
+      "explanation": "The claim refers to the whole school. Evidence from a narrow group of participants cannot establish that broad claim.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies that the evidence comes only from three writers."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why those views cannot establish the views of every learner."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a broader and more varied way to gather responses."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading for Summary",
+      "subtopic": "Topic sentences",
+      "learningObjective": "Identify an explicit topic sentence that governs the rest of a paragraph.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-06-v1",
+      "id": "ndv-176-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "A reading corner can be set up with simple materials. An empty crate can hold books upright. A borrowed mat gives pupils somewhere to sit. Handwritten cards make useful shelf labels.",
+      "prompt": "Which sentence is the topic sentence?",
+      "answer": "A reading corner can be set up with simple materials.",
+      "explanation": "The topic sentence states the broad idea. The crate, mat and cards are examples of the simple materials.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "An empty crate can hold books upright.",
+        "A borrowed mat gives pupils somewhere to sit.",
+        "A reading corner can be set up with simple materials.",
+        "Handwritten cards make useful shelf labels."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading for Summary",
+      "subtopic": "Signals of priority",
+      "learningObjective": "Identify expressions that tell a reader which point deserves most attention.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-07-v1",
+      "id": "ndv-176-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "Volunteers should bring a notebook and, if available, a pencil sharpener. Above all, every volunteer must report to the teacher before leaving the school grounds.",
+      "prompt": "Which expression signals the writer’s highest priority?",
+      "answer": "Above all.",
+      "explanation": "“Above all” introduces the most important instruction. The other phrases give a condition, an object or timing.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "If available.",
+        "A pencil sharpener.",
+        "Before leaving.",
+        "Above all."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading for Summary",
+      "subtopic": "Concise summaries",
+      "learningObjective": "Summarise a passage in original wording while retaining its key ideas.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-08-v1",
+      "id": "ndv-176-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "Pupils could hardly hear the morning announcements from the rear of the courtyard. The prefects began writing the main messages on a board beside the exit. Pupils who missed an announcement could now read it as they left.",
+      "prompt": "Summarise the problem and the response in one sentence.",
+      "answer": "The prefects posted the key announcements where pupils could read them because some pupils could not hear them in the courtyard.",
+      "explanation": "The sentence keeps the communication problem and the solution, leaving out incidental timing or exact location.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that some pupils could not hear the announcements."
+        },
+        {
+          "marks": 1,
+          "description": "States that key messages were posted for pupils to read."
+        },
+        {
+          "marks": 1,
+          "description": "Combines both ideas in one concise sentence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading for Summary",
+      "subtopic": "Concise summaries",
+      "learningObjective": "Summarise a passage in original wording while retaining its key ideas.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-176-08-v1",
+      "id": "ndv-176-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "Some pupils were returning borrowed sports equipment after the store had closed. The club moved the return time earlier and assigned a monitor to record items as they came in. The records helped staff see which items were still out before closing.",
+      "prompt": "In no more than two sentences, summarise the two changes and why they helped.",
+      "answer": "The club set an earlier return time and asked a monitor to record returned equipment. This let staff identify outstanding items before the store closed.",
+      "explanation": "The response includes the two changes and their purpose without copying the whole passage.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes the earlier return time."
+        },
+        {
+          "marks": 1,
+          "description": "Includes the monitor’s recording role."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that staff could identify outstanding equipment before closing."
+        }
+      ]
+    }
+  ]
+}

@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_175_automated_validation_passed",
+  "phase": "batch_176_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-176.json",
+  "nextBatch": "original-multisubject-batch-177.json",
   "nextPriorities": [
-    "Verify a further underrepresented exact-class NERDC subject from the September 2025 curriculum rollout. Preserve the JSS 1 Social and Citizenship Studies coverage gaps, including the dimensions of peace education and overlapping conflict objectives, for source and assessment review. School adoption and independent review remain open.",
+    "Extend JSS 1 English Studies using its September 2025 exact-class curriculum. Prioritise original letter writing and creative writing tasks with marking guides, then the remaining language skills. Verify school adoption and continue the JSS 1 subject inventory without assuming the retrieved PDFs establish the whole class catalogue.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-175.json",
-  "lastRemoteVerifiedCommit": "e6ae801b66f8cf9b43f831f96a91c24417e78eed",
+  "lastValidatedBatch": "original-multisubject-batch-176.json",
+  "lastRemoteVerifiedCommit": "72454ccc35474e115cb1875c9b5cfa5213474e71",
   "verifiedTotals": {
-    "raw": 4279,
-    "validDrafts": 2600,
+    "raw": 4293,
+    "validDrafts": 2614,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-175.json",
+  "lastPopulatedBatch": "original-multisubject-batch-176.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4279,
+  "inventoryRaw": 4293,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "nerdc-scs-jss1-revised-2025-retrieved",
+    "id": "nerdc-english-jss1-revised-2025-retrieved",
     "date": "2026-11-11"
   }
 }

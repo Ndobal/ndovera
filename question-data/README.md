@@ -1035,3 +1035,9 @@ seven social conflict and peace education objectives. Eight are multiple-choice
 questions and six are written tasks. The bank has 117 valid drafts across
 57 mapped objectives. School adoption, remaining curriculum objectives and
 independent academic review remain open.
+
+Batch 176 registers the September 2025 NERDC JSS 1 English Studies curriculum
+and adds 14 original reading drafts across eight mappings from printed pages
+5–7. Nine are multiple-choice and five are written. One earlier legacy entry
+remains held. School adoption, assessment formats, full curriculum coverage
+and independent academic review remain open.

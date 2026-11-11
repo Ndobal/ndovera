@@ -2611,6 +2611,25 @@
         "date": "2026-11-11",
         "method": "Direct PDF download matched the registered SHA-256. Printed pp. 2 and 6 checked against PDF pp. 16 and 20."
       }
+    },
+    {
+      "id": "nerdc-english-jss1-revised-2025-retrieved",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/1.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-11",
+      "sourceBytes": 1165097,
+      "pageCount": 31,
+      "sha256": "b7d866a706627d80429a88c0c35654a3138605d8b764d3d57e87f073085673b5",
+      "sourceSections": [
+        "Cover, PDF p. 1",
+        "Contents, PDF p. 13",
+        "Reading, printed pp. 5–7 (PDF pp. 18–20)"
+      ],
+      "note": "Direct official PDF with exact JSS 1 title and September 2025 cover. National cycle-entry rollout is documented separately. School-level adoption, term mapping and formal assessment format remain unverified. Initial objective mapping covers selected reading outcomes only."
     }
   ],
   "banks": [
@@ -5262,6 +5281,20 @@
       "target": 1000,
       "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
       "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "documentDate": "September 2025",
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
       "documentDate": "September 2025",
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
@@ -21672,6 +21705,153 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 20, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-176-01-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading passages for meaning",
+      "subtopic": "Main idea",
+      "learningObjective": "Identify the main idea that accounts for the supporting details of a passage.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-176-02-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading passages for meaning",
+      "subtopic": "Main ideas and supporting details",
+      "learningObjective": "Distinguish a passage’s main point from details that illustrate or support it.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-176-03-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading Passages to Answer Literal, Inferential and Critical Questions",
+      "subtopic": "Literal comprehension",
+      "learningObjective": "Retrieve information explicitly stated in a passage.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-176-04-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading Passages to Answer Literal, Inferential and Critical Questions",
+      "subtopic": "Evidence-based inference",
+      "learningObjective": "Infer an unstated motive or relationship using textual clues.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-176-05-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading Passages to Answer Literal, Inferential and Critical Questions",
+      "subtopic": "Evaluating claims and evidence",
+      "learningObjective": "Judge whether evidence is sufficient for a claim made about a text.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-176-06-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading for Summary",
+      "subtopic": "Topic sentences",
+      "learningObjective": "Identify an explicit topic sentence that governs the rest of a paragraph.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-176-07-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading for Summary",
+      "subtopic": "Signals of priority",
+      "learningObjective": "Identify expressions that tell a reader which point deserves most attention.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-176-08-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Reading for Summary",
+      "subtopic": "Concise summaries",
+      "learningObjective": "Summarise a passage in original wording while retaining its key ideas.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 3"
       ]
     }
   ],
