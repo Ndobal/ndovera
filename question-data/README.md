@@ -1060,3 +1060,9 @@ objectives. The batch includes eight multiple-choice questions, four written
 tasks and one oral retelling using original excerpts. The bank has 55 valid
 drafts across 36 mapped objectives. Full curriculum coverage, school adoption
 and independent academic review remain open.
+
+Batch 180 registers the September 2025 NERDC JSS 1 Nigerian History curriculum
+and adds 14 drafts across nine objectives on historical inquiry, source
+classification and using evidence. Eight are multiple-choice and six are
+written. School-level adoption, formal assessment formats and full coverage
+remain unverified. Independent academic review is pending.

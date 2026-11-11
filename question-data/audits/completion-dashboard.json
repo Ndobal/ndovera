@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4334,
-    "validDrafts": 2655,
+    "raw": 4348,
+    "validDrafts": 2669,
     "reviewed": 0,
-    "registeredBanks": 195,
-    "target": 177000,
+    "registeredBanks": 196,
+    "target": 178000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -1208,6 +1208,12 @@
       "sha256": "99fac9b3b5535a344e139601fed96261a9f266b0d5b7d6e720c420d385d10b15",
       "declared": 13,
       "actual": 13
+    },
+    {
+      "path": "original-multisubject-batch-180.json",
+      "sha256": "ec8a6d6a2a6fde568467c6c1b3b3765cb00d222cc01e739fa2f9aceb7acb062f",
+      "declared": 14,
+      "actual": 14
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5494,6 +5500,35 @@
     },
     {
       "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "documentDate": "September 2025",
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "raw": 14,
+      "validDrafts": 14,
+      "reviewed": 0,
+      "questionTypes": {
+        "mcq": 8,
+        "structured": 6
+      },
+      "difficulty": {
+        "standard": 14
+      },
+      "remaining": 986,
+      "mappedObjectives": 9,
+      "representedObjectives": 9,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NERDC",
       "subject": "Numeracy",
       "level": "Nursery",
       "target": 1000,
@@ -6948,18 +6983,18 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
-    "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -37469,6 +37504,90 @@
       "id": "ndv-179-013",
       "file": "original-multisubject-batch-179.json",
       "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-001",
+      "file": "original-multisubject-batch-180.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-002",
+      "file": "original-multisubject-batch-180.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-003",
+      "file": "original-multisubject-batch-180.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-004",
+      "file": "original-multisubject-batch-180.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-005",
+      "file": "original-multisubject-batch-180.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-006",
+      "file": "original-multisubject-batch-180.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-007",
+      "file": "original-multisubject-batch-180.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-008",
+      "file": "original-multisubject-batch-180.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-009",
+      "file": "original-multisubject-batch-180.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-010",
+      "file": "original-multisubject-batch-180.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-011",
+      "file": "original-multisubject-batch-180.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-012",
+      "file": "original-multisubject-batch-180.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-013",
+      "file": "original-multisubject-batch-180.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-180-014",
+      "file": "original-multisubject-batch-180.json",
+      "index": 13,
       "errors": []
     },
     {
@@ -77320,6 +77439,280 @@
       },
       "tiers": {
         "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-180-01-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Meaning of History",
+      "subtopic": "The past and historical inquiry",
+      "learningObjective": "Distinguish past events from the discipline that investigates them.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 1, PDF p. 13, performance objective 2"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-180-02-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Meaning of History",
+      "subtopic": "Historical accounts and invented scenes",
+      "learningObjective": "Distinguish an evidence-based historical account from an invented scene set in the past.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 1, PDF p. 13, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-180-03-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Evidence suited to a historical question",
+      "learningObjective": "Identify historical sources appropriate to a question about past events.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 14, performance objective 1"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-180-04-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Accessing evidence",
+      "learningObjective": "Select and explain suitable ways to access oral, archival and material sources.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 14, performance objective 2"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-180-05-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Primary, secondary and tertiary sources",
+      "learningObjective": "Classify sources by their role in a defined historical inquiry.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 14, performance objective 3"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-180-06-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Using evidence before a decision",
+      "learningObjective": "Use historical sources and their limits when recommending a decision.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 14, performance objective 4"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-180-07-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Importance of History",
+      "subtopic": "Understanding personal and family change",
+      "learningObjective": "Explain how studying the past can help an individual understand a change in everyday life.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-180-08-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Importance of History",
+      "subtopic": "Community memory and planning",
+      "learningObjective": "Explain how studying community history can inform a local decision.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-180-09-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Importance of History",
+      "subtopic": "Learning from past public projects",
+      "learningObjective": "Explain how records of past public projects can inform later public decisions.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

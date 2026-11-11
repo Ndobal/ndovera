@@ -1,0 +1,544 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Nigerian History: concept and sources",
+  "questionCount": 14,
+  "note": "Original practice with fictional source scenarios. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Meaning of History",
+      "subtopic": "The past and historical inquiry",
+      "learningObjective": "Distinguish past events from the discipline that investigates them.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-01-v1",
+      "id": "ndv-180-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A town moved its market many years ago. A pupil compares old maps and interviews to find out why. Which part illustrates history as a discipline?",
+      "answer": "The pupil investigates the move using evidence.",
+      "explanation": "The relocation is a past event. Gathering and comparing evidence about it is historical inquiry.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The market existed.",
+        "The stalls were moved.",
+        "The pupil investigates the move using evidence.",
+        "People shopped at the market."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Meaning of History",
+      "subtopic": "The past and historical inquiry",
+      "learningObjective": "Distinguish past events from the discipline that investigates them.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-01-v1",
+      "id": "ndv-180-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school choir travelled to another town in its first year. Explain the difference between that past event and a historian’s work on it. Give one question the historian could investigate.",
+      "answer": "The journey is something that happened. The historian studies evidence about it and could ask how the school arranged transport for the choir.",
+      "explanation": "Distinguishing what happened from the inquiry helps pupils recognise history as a discipline.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the choir journey as the past event."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the historian’s evidence-based inquiry."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an investigable question about the journey."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Meaning of History",
+      "subtopic": "Historical accounts and invented scenes",
+      "learningObjective": "Distinguish an evidence-based historical account from an invented scene set in the past.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-02-v1",
+      "id": "ndv-180-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A museum labels a scene about its early potters “imagined dialogue”. A separate label lists pottery fragments found at the site. Which statement should a reader make?",
+      "answer": "The fragments are evidence, while the dialogue is an author’s reconstruction.",
+      "explanation": "Objects can provide evidence about activities at a site. Invented speech can illustrate a possible scene without documenting actual words.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Both labels prove what the potters said.",
+        "The fragments are evidence, while the dialogue is an author’s reconstruction.",
+        "The dialogue proves where each fragment was found.",
+        "The fragments are fictional because the dialogue is imagined."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Evidence suited to a historical question",
+      "learningObjective": "Identify historical sources appropriate to a question about past events.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-03-v1",
+      "id": "ndv-180-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A class wants to know how a village classroom looked before a new roof was installed. Which source would most directly address the question?",
+      "answer": "A dated photograph showing the old classroom.",
+      "explanation": "The photograph directly shows the earlier appearance. The plans describe a proposed change, not what the old room looked like.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A current bus timetable.",
+        "A price list from a roofing shop.",
+        "A drawing of the planned new classroom.",
+        "A dated photograph showing the old classroom."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Evidence suited to a historical question",
+      "learningObjective": "Identify historical sources appropriate to a question about past events.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-03-v1",
+      "id": "ndv-180-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Researchers are studying how oil was processed by hand in one community. Which find would best support an inquiry into the equipment used?",
+      "answer": "A labelled hand press whose former use is documented.",
+      "explanation": "The documented tool is directly relevant to the technology the researchers are studying.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A labelled hand press whose former use is documented.",
+        "A new poster about a football match.",
+        "A calendar listing school holidays.",
+        "An unsigned recipe from another town with no date."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Accessing evidence",
+      "learningObjective": "Select and explain suitable ways to access oral, archival and material sources.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-04-v1",
+      "id": "ndv-180-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Pupils want to inspect preserved copies of council minutes from several decades ago. Which step is most suitable?",
+      "answer": "Ask the records office or archive whether it holds the minutes and how to consult them.",
+      "explanation": "The records office or archive can confirm what survives and explain access arrangements.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Ask only their classmates to guess what the council said.",
+        "Ask the records office or archive whether it holds the minutes and how to consult them.",
+        "Visit the council yard and count the chairs.",
+        "Choose a film about a different council."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Accessing evidence",
+      "learningObjective": "Select and explain suitable ways to access oral, archival and material sources.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-04-v1",
+      "id": "ndv-180-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class wants to learn about an old weaving workshop. A museum displays one of its looms, and a former apprentice has offered to speak. Suggest a useful action for each source and one respectful step before recording the interview.",
+      "answer": "Inspect the loom and note the features shown on its label. Ask the former apprentice how the loom was used. Explain the purpose of the recording and ask for permission before recording.",
+      "explanation": "The artefact and the person’s account offer different evidence. Permission allows the speaker to decide whether their words may be recorded.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a feasible action for studying the loom."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant interview question or action."
+        },
+        {
+          "marks": 1,
+          "description": "Seeks permission before recording."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Primary, secondary and tertiary sources",
+      "learningObjective": "Classify sources by their role in a defined historical inquiry.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-05-v1",
+      "id": "ndv-180-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "For an inquiry into a particular school opening, which source is secondary?",
+      "answer": "A later article that interprets the opening using the programme and photographs.",
+      "explanation": "The article analyses earlier evidence. The programme and photograph are primary for the event, and the index helps locate information.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A programme distributed at the opening.",
+        "A photograph taken during the opening.",
+        "A later article that interprets the opening using the programme and photographs.",
+        "An index that lists where school-opening articles can be found."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Primary, secondary and tertiary sources",
+      "learningObjective": "Classify sources by their role in a defined historical inquiry.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-05-v1",
+      "id": "ndv-180-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class investigates an old library opening. It has a ticket from the opening, a researcher’s later analysis and a catalogue index that points to relevant sources. Classify each as primary, secondary or tertiary for this inquiry and explain the classification.",
+      "answer": "The ticket is primary because it comes from the opening. The analysis is secondary because it interprets evidence later. The index is tertiary because it organises references to help readers find them.",
+      "explanation": "Each source has a different relationship to the event and a different use in the inquiry.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies and explains the ticket as primary."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies and explains the analysis as secondary."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies and explains the index as tertiary."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Using evidence before a decision",
+      "learningObjective": "Use historical sources and their limits when recommending a decision.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-06-v1",
+      "id": "ndv-180-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two older residents give different years for when a hall first opened. A committee needs a date for a display. What should it do first?",
+      "answer": "Look for another relevant source and record the uncertainty if the accounts cannot be reconciled.",
+      "explanation": "A dated opening programme or report could help resolve the discrepancy. If evidence remains inconclusive, the display should acknowledge that.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Pick the earlier year because it sounds more impressive.",
+        "Average the two years.",
+        "Discard both interviews and choose a date at random.",
+        "Look for another relevant source and record the uncertainty if the accounts cannot be reconciled."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Using evidence before a decision",
+      "learningObjective": "Use historical sources and their limits when recommending a decision.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-06-v1",
+      "id": "ndv-180-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A town wants to identify a former footpath for a heritage walk. A map shows the route, and a resident recalls that part of it changed after a bridge was replaced. Explain how to use both sources and what to verify before describing the route publicly.",
+      "answer": "Use the map to trace the route shown at the time it was made. Use the resident’s account to identify a possible later change. Look for a newer map or bridge record and distinguish the earlier and later routes if the change is supported.",
+      "explanation": "Checking when each source applies helps explain why they may differ and prevents presenting two periods as one.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains what the map can show."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the resident’s account to investigate a later change."
+        },
+        {
+          "marks": 1,
+          "description": "Names a useful check or explains how to present unresolved uncertainty."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Importance of History",
+      "subtopic": "Understanding personal and family change",
+      "learningObjective": "Explain how studying the past can help an individual understand a change in everyday life.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-07-v1",
+      "id": "ndv-180-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A learner interviews a relative about how the family began using two languages at home. What is a likely benefit of this inquiry?",
+      "answer": "It can help the learner understand changes in the family’s daily life over time.",
+      "explanation": "Family accounts can explain particular experiences and changes. Their relevance is strongest for the family being studied.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It can help the learner understand changes in the family’s daily life over time.",
+        "It can show that every family has the same language history.",
+        "It can prove every detail without checking any other source.",
+        "It can predict which languages everyone will use in fifty years."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Importance of History",
+      "subtopic": "Community memory and planning",
+      "learningObjective": "Explain how studying community history can inform a local decision.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-08-v1",
+      "id": "ndv-180-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A community wants to restore a meeting shelter. Older photographs show a wide entrance, and local accounts say the shelter also served as a place to display craftwork. Explain one way this history could guide the restoration and one current need the planners should check.",
+      "answer": "Planners could preserve the wide entrance and provide a display area if the community values that earlier use. They should check present accessibility and safety needs with users and qualified staff.",
+      "explanation": "The evidence can explain why design features mattered, while current needs help determine how to use them today.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests a feasible decision linked to the historical evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a relevant current need."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how both inform the restoration."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Importance of History",
+      "subtopic": "Learning from past public projects",
+      "learningObjective": "Explain how records of past public projects can inform later public decisions.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-180-09-v1",
+      "id": "ndv-180-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "An education office is planning a new textbook delivery. Earlier records show that books reached some towns after term began because journeys through flooded roads were delayed. Explain one lesson for the new plan and one reason to check current conditions before applying it.",
+      "answer": "Build extra time into delivery plans or arrange earlier dispatch to places where roads may flood. Check whether routes, bridges or delivery dates have changed since the earlier project.",
+      "explanation": "The earlier records identify a possible recurring problem. Current conditions determine whether the same response still fits.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the delay described in the records."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a practical planning change."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why a current check is needed."
+        }
+      ]
+    }
+  ]
+}

@@ -2638,6 +2638,25 @@
         "date": "2026-11-11",
         "method": "Direct PDF download matched the registered SHA-256. Verified literature tables on PDF pp. 27–30."
       }
+    },
+    {
+      "id": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/9.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-11",
+      "sourceBytes": 2514823,
+      "pageCount": 21,
+      "sha256": "901e61cd0e9fec5aa23a9c8e37763fd1e104b39d9ea8a5cb8fdc7cde4384c5d5",
+      "sourceSections": [
+        "Cover and imprint, PDF pp. 1–3",
+        "Contents, PDF p. 12",
+        "Concept of History, printed pp. 1–4 (PDF pp. 13–16)"
+      ],
+      "note": "Exact-class official PDF. School adoption, formal paper formats and full objectives remain unverified. Source categories are applied relative to the inquiry. Oral traditions can provide historical evidence, and document labels alone do not establish how a source functions."
     }
   ],
   "banks": [
@@ -5303,6 +5322,20 @@
       "target": 1000,
       "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
       "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "documentDate": "September 2025",
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
       "documentDate": "September 2025",
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
@@ -22367,6 +22400,172 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-180-01-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Meaning of History",
+      "subtopic": "The past and historical inquiry",
+      "learningObjective": "Distinguish past events from the discipline that investigates them.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 1, PDF p. 13, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-180-02-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Meaning of History",
+      "subtopic": "Historical accounts and invented scenes",
+      "learningObjective": "Distinguish an evidence-based historical account from an invented scene set in the past.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 1, PDF p. 13, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-180-03-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Evidence suited to a historical question",
+      "learningObjective": "Identify historical sources appropriate to a question about past events.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 14, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-180-04-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Accessing evidence",
+      "learningObjective": "Select and explain suitable ways to access oral, archival and material sources.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 14, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-180-05-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Primary, secondary and tertiary sources",
+      "learningObjective": "Classify sources by their role in a defined historical inquiry.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 14, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-180-06-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Sources of History",
+      "subtopic": "Using evidence before a decision",
+      "learningObjective": "Use historical sources and their limits when recommending a decision.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 14, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-180-07-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Importance of History",
+      "subtopic": "Understanding personal and family change",
+      "learningObjective": "Explain how studying the past can help an individual understand a change in everyday life.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-180-08-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Importance of History",
+      "subtopic": "Community memory and planning",
+      "learningObjective": "Explain how studying community history can inform a local decision.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-180-09-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Importance of History",
+      "subtopic": "Learning from past public projects",
+      "learningObjective": "Explain how records of past public projects can inform later public decisions.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 3"
       ]
     }
   ],
