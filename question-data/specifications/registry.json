@@ -20262,6 +20262,114 @@
       ],
       "mappingStatus": "provisional_cross_board_topic_reference",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-166-01-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Orthographic projection",
+      "subtopic": "Relationships between views",
+      "learningObjective": "Infer dimensions and view placement from a stated projection convention.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 2103: objective format",
+        "WAEC 2023 Technical Drawing 2 Question 1"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-166-02-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Pictorial projection",
+      "subtopic": "Isometric line directions",
+      "learningObjective": "Interpret axis directions and the appearance of features in an isometric drawing.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 2103: objective format",
+        "WAEC 2023 Technical Drawing 2 Question 1"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-166-03-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Sectional drawing",
+      "subtopic": "Cutting planes and assembly reading",
+      "learningObjective": "Interpret a section by distinguishing cut material, voids and parts beyond the plane.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 2103: objective format",
+        "WAEC 2023 Technical Drawing 3 Question 5"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-166-04-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Observational drawing",
+      "subtopic": "Light, form and shadows",
+      "learningObjective": "Interpret how tonal relationships describe an observed object and its contact with a surface.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 4123: objective format",
+        "WAEC 2023 Visual Art Paper 3A Question 1"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-166-05-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Observational drawing",
+      "subtopic": "Composition and spatial relationships",
+      "learningObjective": "Diagnose how framing, proportion and overlapping contours affect an observational drawing.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 4123: objective format",
+        "WAEC 2023 Visual Art Paper 3A Question 1"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-166-06-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Creative design",
+      "subtopic": "Lettering and information hierarchy",
+      "learningObjective": "Select layout and lettering decisions that make poster information easy to find and read.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 4123: objective format",
+        "WAEC 2023 Visual Art Paper 3B Question 2"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [

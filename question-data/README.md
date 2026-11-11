@@ -970,3 +970,10 @@ Original briefs and marking guides cover projection, sectional drawing,
 observational drawing and graphic design. The 2027 NECO timetable supports
 paper formats and historical WAEC examiner material supports provisional
 topic links. Current NECO topic requirements and independent review remain open.
+
+Batch 166 adds 12 objective drafts each for NECO Technical Drawing and
+Visual Arts. The 2027 timetable lists objective papers 2103 and 4123.
+Historical WAEC material supports provisional topic mappings for projection,
+sections, observational drawing and graphic design. The four-choice format
+and one-mark score are practice choices. Current NECO topic allocation and
+independent review remain open.

@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4106,
-    "validDrafts": 2427,
+    "raw": 4130,
+    "validDrafts": 2451,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1124,6 +1124,12 @@
       "sha256": "4a01b84213dc1f9e1ae28f32a8ebb0589435f7133fd96fd2233530dfe9c9e021",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-166.json",
+      "sha256": "f9d92291e66cc25a06cc5f5c78991c99fd2fb5eacab05ffd9ab23cfa61d802e1",
+      "declared": 24,
+      "actual": 24
     },
     {
       "path": "original-practice-batch-001.json",
@@ -4710,18 +4716,19 @@
       "additionalSpecificationIds": [
         "neco-technical-drawing-165-provisional-2027"
       ],
-      "raw": 4,
-      "validDrafts": 4,
+      "raw": 16,
+      "validDrafts": 16,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 4
+        "structured": 4,
+        "mcq": 12
       },
       "difficulty": {
-        "standard": 4
+        "standard": 16
       },
-      "remaining": 996,
-      "mappedObjectives": 4,
-      "representedObjectives": 4,
+      "remaining": 984,
+      "mappedObjectives": 7,
+      "representedObjectives": 7,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -4776,18 +4783,19 @@
       "additionalSpecificationIds": [
         "neco-visual-arts-165-provisional-2027"
       ],
-      "raw": 4,
-      "validDrafts": 4,
+      "raw": 16,
+      "validDrafts": 16,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 4
+        "structured": 4,
+        "mcq": 12
       },
       "difficulty": {
-        "standard": 4
+        "standard": 16
       },
-      "remaining": 996,
-      "mappedObjectives": 4,
-      "representedObjectives": 4,
+      "remaining": 984,
+      "mappedObjectives": 7,
+      "representedObjectives": 7,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -6824,18 +6832,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81,
-    "explanation_missing": 81
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 358,
@@ -35977,6 +35985,150 @@
       "id": "ndv-165-008",
       "file": "original-multisubject-batch-165.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-001",
+      "file": "original-multisubject-batch-166.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-002",
+      "file": "original-multisubject-batch-166.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-003",
+      "file": "original-multisubject-batch-166.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-004",
+      "file": "original-multisubject-batch-166.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-005",
+      "file": "original-multisubject-batch-166.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-006",
+      "file": "original-multisubject-batch-166.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-007",
+      "file": "original-multisubject-batch-166.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-008",
+      "file": "original-multisubject-batch-166.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-009",
+      "file": "original-multisubject-batch-166.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-010",
+      "file": "original-multisubject-batch-166.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-011",
+      "file": "original-multisubject-batch-166.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-012",
+      "file": "original-multisubject-batch-166.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-013",
+      "file": "original-multisubject-batch-166.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-014",
+      "file": "original-multisubject-batch-166.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-015",
+      "file": "original-multisubject-batch-166.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-016",
+      "file": "original-multisubject-batch-166.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-017",
+      "file": "original-multisubject-batch-166.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-018",
+      "file": "original-multisubject-batch-166.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-019",
+      "file": "original-multisubject-batch-166.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-020",
+      "file": "original-multisubject-batch-166.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-021",
+      "file": "original-multisubject-batch-166.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-022",
+      "file": "original-multisubject-batch-166.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-023",
+      "file": "original-multisubject-batch-166.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-166-024",
+      "file": "original-multisubject-batch-166.json",
+      "index": 23,
       "errors": []
     },
     {
@@ -72524,6 +72676,186 @@
       },
       "tiers": {
         "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-drawing-166-01-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Orthographic projection",
+      "subtopic": "Relationships between views",
+      "learningObjective": "Infer dimensions and view placement from a stated projection convention.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 2103: objective format",
+        "WAEC 2023 Technical Drawing 2 Question 1"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-drawing-166-02-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Pictorial projection",
+      "subtopic": "Isometric line directions",
+      "learningObjective": "Interpret axis directions and the appearance of features in an isometric drawing.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 2103: objective format",
+        "WAEC 2023 Technical Drawing 2 Question 1"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-drawing-166-03-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Sectional drawing",
+      "subtopic": "Cutting planes and assembly reading",
+      "learningObjective": "Interpret a section by distinguishing cut material, voids and parts beyond the plane.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 2103: objective format",
+        "WAEC 2023 Technical Drawing 3 Question 5"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-drawing-166-04-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Observational drawing",
+      "subtopic": "Light, form and shadows",
+      "learningObjective": "Interpret how tonal relationships describe an observed object and its contact with a surface.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 4123: objective format",
+        "WAEC 2023 Visual Art Paper 3A Question 1"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-drawing-166-05-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Observational drawing",
+      "subtopic": "Composition and spatial relationships",
+      "learningObjective": "Diagnose how framing, proportion and overlapping contours affect an observational drawing.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 4123: objective format",
+        "WAEC 2023 Visual Art Paper 3A Question 1"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "neco-drawing-166-06-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Creative design",
+      "subtopic": "Lettering and information hierarchy",
+      "learningObjective": "Select layout and lettering decisions that make poster information easy to find and read.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "NECO 2027 SSCE Internal Paper III 4123: objective format",
+        "WAEC 2023 Visual Art Paper 3B Question 2"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
