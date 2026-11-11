@@ -1078,3 +1078,8 @@ Benin City and Igbo-Ukwu. The original coordinate locator uses present-day
 reference points from the Getty Thesaurus of Geographic Names. It includes
 a text alternative and marks no historical boundaries. The bank has 30
 valid drafts across 21 mapped objectives. Academic review remains pending.
+
+Batch 183 adds 10 NERDC JSS 1 Nigerian History drafts across four objectives
+on precolonial centralised states. Five are multiple-choice and five are
+written. The bank has 40 valid drafts across 25 mapped objectives. Location
+coverage, school adoption and independent academic review remain open.

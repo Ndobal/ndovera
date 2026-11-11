@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Nigerian History precolonial centralised states",
+  "questionCount": 10,
+  "note": "Original practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Authority across communities",
+      "learningObjective": "Explain centralisation as the organisation of authority above individual local communities.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-01-v1",
+      "id": "ndv-183-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A historical study describes once-independent Nupe principalities becoming part of a kingdom with a central authority. What makes this an example of centralisation?",
+      "answer": "Several communities came under an authority that operated above the local level.",
+      "explanation": "Centralisation concerns how authority is organised. Communities can still have local leaders and distinct identities within a kingdom.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every community stopped having a local identity.",
+        "Several communities came under an authority that operated above the local level.",
+        "The communities began speaking exactly alike.",
+        "The population moved into a single settlement."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Authority across communities",
+      "learningObjective": "Explain centralisation as the organisation of authority above individual local communities.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-01-v1",
+      "id": "ndv-183-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Consider two fictional arrangements. In A, every settlement makes its own decisions and answers to no wider authority. In B, settlements have local leaders, and an institution can make decisions that apply across them. Which is more centralised? Explain why local leaders can still have a role.",
+      "answer": "B is more centralised because it has an authority whose decisions apply across settlements. Local leaders can still deal with matters within their own settlements or carry out wider decisions.",
+      "explanation": "Centralisation adds a level at which wider decisions can be made. It does not require the disappearance of local institutions.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects B."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies authority that operates across settlements."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a plausible continuing role for local leaders."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Rulers and councils",
+      "learningObjective": "Use evidence about Oyo to explain that a centralised state may have several governing institutions.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-02-v1",
+      "id": "ndv-183-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A historian describes a political dispute in eighteenth-century Oyo between the Alaafin and the Oyo Mesi, a body of chiefs. What does the account show about Oyo’s government?",
+      "answer": "A king and an organised body of chiefs both mattered in politics.",
+      "explanation": "The account identifies a ruler and an organised body of chiefs that could challenge him. It does not establish a single state for every Yoruba-speaking community.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Its leadership had no named offices.",
+        "The ruler and chiefs always agreed on public decisions.",
+        "Every Yoruba-speaking settlement belonged to the same state.",
+        "A king and an organised body of chiefs both mattered in politics."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Rulers and councils",
+      "learningObjective": "Use evidence about Oyo to explain that a centralised state may have several governing institutions.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-02-v1",
+      "id": "ndv-183-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classmate says that a centralised kingdom must have one ruler who decides everything alone. Use the Alaafin and the Oyo Mesi to explain one weakness in that claim.",
+      "answer": "Oyo had a king, the Alaafin, and an organised group of chiefs, the Oyo Mesi. Evidence that they could dispute political decisions shows that a kingdom can have a centre of government and several actors with influence.",
+      "explanation": "The presence of central institutions does not tell us that power within them was unlimited or uncontested.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the Alaafin as the ruler and the Oyo Mesi as a body of chiefs."
+        },
+        {
+          "marks": 1,
+          "description": "Uses their political interaction to challenge the claim about sole decision-making."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Examples in Nigerian history",
+      "learningObjective": "Recognise documented examples of precolonial centralised states in the region now called Nigeria.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-03-v1",
+      "id": "ndv-183-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which display heading belongs with a historian’s note about the Alaafin and an object made for the Court of Benin?",
+      "answer": "Oyo and Benin as examples of precolonial centralised states.",
+      "explanation": "The Alaafin belongs to the history of Oyo. The Court of Benin belonged to a different polity, also listed as a centralised state in the curriculum.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Oyo and Benin as examples of precolonial centralised states.",
+        "Two accounts of the same office in a single kingdom.",
+        "The origin of two present-day state governments.",
+        "Two archaeological sites identified solely by pottery types."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Examples in Nigerian history",
+      "learningObjective": "Recognise documented examples of precolonial centralised states in the region now called Nigeria.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-03-v1",
+      "id": "ndv-183-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which label uses “Nupe Kingdom” most accurately in an exhibition on forms of government?",
+      "answer": "A historical polity in Nupeland, studied through evidence of political organisation.",
+      "explanation": "The Nupe Kingdom was a historical polity. Its name does not refer to every community of the wider region or to a modern council.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A term for all communities at the Niger–Benue confluence.",
+        "Another name for the court of the Alaafin.",
+        "A historical polity in Nupeland, studied through evidence of political organisation.",
+        "A present-day local government council."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Examples in Nigerian history",
+      "learningObjective": "Recognise documented examples of precolonial centralised states in the region now called Nigeria.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-03-v1",
+      "id": "ndv-183-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Choose two examples from Oyo, Benin and Nupe. For each, name one documented feature or institution that a museum could use to introduce its political organisation.",
+      "answer": "Oyo can be introduced through its Alaafin and Oyo Mesi. Benin can be introduced through the royal court, which commissioned works by specialised brass casters. A valid Nupe example is the kingdom’s central authority over previously independent principalities.",
+      "explanation": "Specific institutions make the examples meaningful and avoid treating every centralised state as if it were organised in the same way.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names one listed polity and gives a relevant documented feature."
+        },
+        {
+          "marks": 1,
+          "description": "Names a different listed polity and gives a relevant documented feature."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Heritage and public learning",
+      "learningObjective": "Explain why evidence of precolonial institutions and skilled work is worth preserving and studying.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-04-v1",
+      "id": "ndv-183-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "An exhibition includes a Benin court plaque attributed to a brass-casting guild. Which caption best explains a reason for valuing the object?",
+      "answer": "It preserves evidence of skilled work and of how the court commissioned or used art.",
+      "explanation": "The object helps us study craft and court patronage. Broader claims require other sources.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It proves that all artisans worked at the palace.",
+        "It identifies the borders of every nearby kingdom.",
+        "It shows that court objects can explain every detail of village life.",
+        "It preserves evidence of skilled work and of how the court commissioned or used art."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Heritage and public learning",
+      "learningObjective": "Explain why evidence of precolonial institutions and skilled work is worth preserving and studying.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-04-v1",
+      "id": "ndv-183-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school club is preparing a heritage display about precolonial Kano. Nigeria’s National Commission for Museums and Monuments submitted the ancient Kano city walls and associated sites for UNESCO’s Tentative List. Explain one reason learners should study the walls and one step the club can take to describe their listing accurately.",
+      "answer": "The walls are physical evidence that learners can use to ask how an earlier city was organised. The club should label the sites as on Nigeria’s Tentative List and check the official entry before making a stronger claim about their status.",
+      "explanation": "The remains are a source for urban history. The Tentative List entry records a nomination-stage inventory, distinct from inscription.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a relevant reason for studying the walls."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the Tentative List status accurately or names an appropriate verification step."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Heritage and public learning",
+      "learningObjective": "Explain why evidence of precolonial institutions and skilled work is worth preserving and studying.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-183-04-v1",
+      "id": "ndv-183-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write two lines for a school heritage panel about Oyo. The first should explain why learning about the Alaafin and Oyo Mesi is valuable. The second should suggest one practical way to help younger pupils learn about the institutions.",
+      "answer": "The Alaafin and Oyo Mesi show how a precolonial state organised leadership through different institutions. Use a short chart naming each institution and ask pupils to explain what a dispute between them tells us about political authority.",
+      "explanation": "The first line identifies the historical value. The second offers a way to share the evidence without needing to invent historical detail.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links the two institutions to understanding political organisation."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a feasible learning activity based on those institutions."
+        }
+      ]
+    }
+  ]
+}

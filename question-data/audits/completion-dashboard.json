@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4364,
-    "validDrafts": 2685,
+    "raw": 4374,
+    "validDrafts": 2695,
     "reviewed": 0,
     "registeredBanks": 196,
     "target": 178000,
@@ -1226,6 +1226,12 @@
       "sha256": "86b1fa1e683ef5294f32c28f0c1ea7bc26512f3ed5a756083f65b538d7318199",
       "declared": 4,
       "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-183.json",
+      "sha256": "ad1f473ef1e27ac28916c1163e64dcc149dec33c67130ed8038098131e270d64",
+      "declared": 10,
+      "actual": 10
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5523,19 +5529,19 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 30,
-      "validDrafts": 30,
+      "raw": 40,
+      "validDrafts": 40,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 15,
-        "structured": 15
+        "mcq": 20,
+        "structured": 20
       },
       "difficulty": {
-        "standard": 30
+        "standard": 40
       },
-      "remaining": 970,
-      "mappedObjectives": 21,
-      "representedObjectives": 21,
+      "remaining": 960,
+      "mappedObjectives": 25,
+      "representedObjectives": 25,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -6995,18 +7001,18 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
+    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -37696,6 +37702,66 @@
       "id": "ndv-182-004",
       "file": "original-multisubject-batch-182.json",
       "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-001",
+      "file": "original-multisubject-batch-183.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-002",
+      "file": "original-multisubject-batch-183.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-003",
+      "file": "original-multisubject-batch-183.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-004",
+      "file": "original-multisubject-batch-183.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-005",
+      "file": "original-multisubject-batch-183.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-006",
+      "file": "original-multisubject-batch-183.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-007",
+      "file": "original-multisubject-batch-183.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-008",
+      "file": "original-multisubject-batch-183.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-009",
+      "file": "original-multisubject-batch-183.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-183-010",
+      "file": "original-multisubject-batch-183.json",
+      "index": 9,
       "errors": []
     },
     {
@@ -78225,6 +78291,146 @@
       },
       "tiers": {
         "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-183-01-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Authority across communities",
+      "learningObjective": "Explain centralisation as the organisation of authority above individual local communities.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 1"
+      ],
+      "contentReferences": [
+        "https://kubanni.abu.edu.ng/items/8c4e6f7c-38c8-44e6-8e72-df9f780154f3"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-183-02-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Rulers and councils",
+      "learningObjective": "Use evidence about Oyo to explain that a centralised state may have several governing institutions.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 2"
+      ],
+      "contentReferences": [
+        "https://www.cambridge.org/core/journals/journal-of-african-history/article/abs/constitutional-troubles-of-oyo-in-the-eighteenth-century/0A85ABC4A725E3BD3BC5E25D4D4B1286"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-183-03-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Examples in Nigerian history",
+      "learningObjective": "Recognise documented examples of precolonial centralised states in the region now called Nigeria.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 3"
+      ],
+      "contentReferences": [
+        "https://www.cambridge.org/core/journals/journal-of-african-history/article/abs/constitutional-troubles-of-oyo-in-the-eighteenth-century/0A85ABC4A725E3BD3BC5E25D4D4B1286",
+        "https://kubanni.abu.edu.ng/items/8c4e6f7c-38c8-44e6-8e72-df9f780154f3",
+        "https://www.metmuseum.org/art/collection/search/316393"
+      ],
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-183-04-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Heritage and public learning",
+      "learningObjective": "Explain why evidence of precolonial institutions and skilled work is worth preserving and studying.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 5"
+      ],
+      "contentReferences": [
+        "https://www.metmuseum.org/art/collection/search/316393",
+        "https://whc.unesco.org/en/tentativelists/5171/L",
+        "https://www.cambridge.org/core/journals/journal-of-african-history/article/abs/constitutional-troubles-of-oyo-in-the-eighteenth-century/0A85ABC4A725E3BD3BC5E25D4D4B1286"
+      ],
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
