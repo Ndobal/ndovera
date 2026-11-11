@@ -1,0 +1,450 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Nigerian History early civilisations",
+  "questionCount": 12,
+  "note": "Original questions based on curriculum, museum records and archaeological findings. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Terracotta as a material",
+      "learningObjective": "Identify evidence of Nok clay sculpture and explain what terracotta is.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-01-v1",
+      "id": "ndv-181-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A museum record describes a Nok figure as hollow and made of fired clay. Which label best identifies its material?",
+      "answer": "Terracotta.",
+      "explanation": "Terracotta is fired clay. A hollow interior describes the construction and does not make it a metal object.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Cast brass.",
+        "Carved ivory.",
+        "Terracotta.",
+        "Hammered iron."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Terracotta as a material",
+      "learningObjective": "Identify evidence of Nok clay sculpture and explain what terracotta is.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-01-v1",
+      "id": "ndv-181-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A catalogue describes grooves in the clay that form the elaborate hairstyle of a Nok head. What does this tell you about the maker’s work? Explain why the grooves alone cannot establish who the figure represents.",
+      "answer": "The maker shaped the clay in detail to portray hair. The grooves show how the hair is represented, but they do not identify an individual. Other evidence would be needed.",
+      "explanation": "An observed feature supports conclusions about craftsmanship more directly than it supports claims about identity.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the grooves as evidence of detailed clay modelling."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why a depicted hairstyle cannot identify the individual on its own."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Evidence beyond sculpture",
+      "learningObjective": "Explain how evidence beyond sculpture broadens what we know about Nok communities.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-02-v1",
+      "id": "ndv-181-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Researchers identified charred pearl millet remains from Nok contexts. Which question does this evidence help answer most directly?",
+      "answer": "What crops were used in Nok communities?",
+      "explanation": "Identifiable plant remains are evidence for crops used in the communities. They cannot reveal names or languages on their own.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "What crops were used in Nok communities?",
+        "Who designed a particular terracotta head?",
+        "What name did a sculptor give a figure?",
+        "Which language did every household speak?"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Evidence beyond sculpture",
+      "learningObjective": "Explain how evidence beyond sculpture broadens what we know about Nok communities.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-02-v1",
+      "id": "ndv-181-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A learner says, “Nok is important only because of sculpture.” Use the reported evidence of early iron production to explain what else the study of Nok can contribute to Nigerian history.",
+      "answer": "Nok sites help researchers study early iron production in the region. They give evidence of technological knowledge as well as artistic skill.",
+      "explanation": "Evidence of ironworking widens the historical account beyond what terracotta figures tell us.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies iron production as evidence beyond sculpture."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how that evidence helps reconstruct past technology."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Lost archaeological context",
+      "learningObjective": "Explain what information can be lost when a Nok artefact is removed without documentation.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-03-v1",
+      "id": "ndv-181-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two Nok head fragments have similar hairstyles. One was recorded with nearby finds in an excavation, and the other has no recorded findspot. What evidence is harder to recover for the second fragment?",
+      "answer": "Which objects or deposits were originally found beside it.",
+      "explanation": "Measurements and visible features can still be studied. An undocumented removal can permanently separate the object from evidence about where it lay.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Whether a hairstyle appears on it.",
+        "Whether its surface has scratches.",
+        "How wide the remaining fragment is.",
+        "Which objects or deposits were originally found beside it."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Ile-Ife Civilisation",
+      "subtopic": "Features of an Ile-Ife head",
+      "learningObjective": "Interpret documented material and visual features of an Ile-Ife sculpture.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-04-v1",
+      "id": "ndv-181-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "An Ile-Ife head from the Wunmonije Compound is catalogued as zinc-brass, cast by the lost-wax method. Which proposed label matches the record?",
+      "answer": "A brass head formed by casting.",
+      "explanation": "The record identifies a brass alloy and a casting method. The other labels change both the material and the way it was worked.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A stone head carved from a block.",
+        "A brass head formed by casting.",
+        "An iron head hammered from a sheet.",
+        "An ivory head cut from a tusk."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Ile-Ife Civilisation",
+      "subtopic": "Features of an Ile-Ife head",
+      "learningObjective": "Interpret documented material and visual features of an Ile-Ife sculpture.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-04-v1",
+      "id": "ndv-181-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The museum record for the Wunmonije head describes a lifelike face and an elaborate headdress. Name the two features and explain why the headdress may suggest status without identifying a particular person.",
+      "answer": "The face is represented naturalistically and the headdress is carefully decorated. The headdress resembles a crown and may suggest rank, but that alone does not establish the person’s name.",
+      "explanation": "The catalogue describes observable features. The idea that the headdress signifies rank is an interpretation of those features.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the naturalistic face."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the elaborate headdress."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes a plausible inference about rank from identifying an individual."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Benin Civilisation",
+      "subtopic": "Benin court reliefs",
+      "learningObjective": "Recognise the material and form of a documented Benin court plaque.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-05-v1",
+      "id": "ndv-181-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A museum’s Benin court record describes a cast brass plaque. The warrior and attendants stand out from its flat background. Which term describes the way the figures are shown?",
+      "answer": "A relief.",
+      "explanation": "The figures project from the background while remaining attached to it, which is the defining feature of relief.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "An ink wash.",
+        "A painted silhouette.",
+        "A relief.",
+        "A freestanding figure."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Benin Civilisation",
+      "subtopic": "Court art as evidence",
+      "learningObjective": "Explain how Benin plaques contribute to understanding the court and its artistic practices.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-06-v1",
+      "id": "ndv-181-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A Benin court plaque shows one main warrior and two smaller attendants. Give one reason this plaque is useful for studying court life and one reason to avoid using it as a complete account of how everyone in the kingdom lived.",
+      "answer": "The plaque can show how court artists presented rank and roles through the arrangement of figures. Its focus on court figures tells us little on its own about ordinary households or work away from the palace.",
+      "explanation": "The subject and composition are evidence for how the court was represented. Other sources are needed to investigate life beyond that setting.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a useful inference about court roles, rank or artistic representation."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a group or aspect of life the plaque cannot adequately describe."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "Excavated pottery",
+      "learningObjective": "Identify material evidence recovered in recent Igbo-Ukwu excavations.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-07-v1",
+      "id": "ndv-181-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Researchers at Igbo-Ukwu compared the fabrics and chemical compositions of vessels from recent excavations. Which group of finds were they examining in that comparison?",
+      "answer": "Ceramics.",
+      "explanation": "The study compared pottery, including the physical character and chemical composition of the ceramic material.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Ceramics.",
+        "Wooden roof beams.",
+        "Written chronicles.",
+        "Iron blades."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "How new excavations improve knowledge",
+      "learningObjective": "Explain how new archaeological evidence can broaden understanding of Igbo-Ukwu.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-08-v1",
+      "id": "ndv-181-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Igbo-Ukwu researchers found related pottery in excavations south of the sites studied by Thurstan Shaw. Which conclusion is best supported?",
+      "answer": "Evidence associated with Igbo-Ukwu extends beyond the earlier excavation locations.",
+      "explanation": "The new finds broaden the known spatial record. Pottery at more locations does not establish simultaneous occupation or identify individual makers.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Every nearby settlement was occupied in the same year.",
+        "The earlier excavations contained no useful evidence.",
+        "The pottery was made by one known person.",
+        "Evidence associated with Igbo-Ukwu extends beyond the earlier excavation locations."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "How new excavations improve knowledge",
+      "learningObjective": "Explain how new archaeological evidence can broaden understanding of Igbo-Ukwu.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-181-08-v1",
+      "id": "ndv-181-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At Igbo-Ukwu, recent fieldwork produced radiocarbon dates from specific excavated deposits. Why should a display distinguish dates for those deposits from the date of every Igbo-Ukwu artefact?",
+      "answer": "The dates apply to the sampled material and its documented contexts. Other objects may come from different contexts or periods and need their own dating evidence.",
+      "explanation": "Archaeological dates help place evidence in time. A date from one deposit cannot automatically be assigned to every object associated with the site.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the dates relate to particular samples or deposits."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why evidence from elsewhere may need separate dating."
+        }
+      ]
+    }
+  ]
+}

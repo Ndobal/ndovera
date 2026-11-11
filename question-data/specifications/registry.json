@@ -2654,9 +2654,14 @@
       "sourceSections": [
         "Cover and imprint, PDF pp. 1–3",
         "Contents, PDF p. 12",
-        "Concept of History, printed pp. 1–4 (PDF pp. 13–16)"
+        "Concept of History, body pp. 1–3 (PDF pp. 13–15)",
+        "Nok, Ile-Ife, Benin and Igbo-Ukwu, body pp. 4–7 (PDF pp. 16–19)"
       ],
-      "note": "Exact-class official PDF. School adoption, formal paper formats and full objectives remain unverified. Source categories are applied relative to the inquiry. Oral traditions can provide historical evidence, and document labels alone do not establish how a source functions."
+      "note": "Exact-class official PDF. School adoption, formal paper formats and full objectives remain unverified. Source categories are applied relative to the inquiry. Oral traditions can provide historical evidence, and document labels alone do not establish how a source functions. From Importance of History onward the contents listing is one page ahead of the printed body footers. Batch 181 corrects the three Importance of History locators and follows the body pages. Museum and archaeological evidence supports object-level claims. Location tasks, disputed dates and remaining performance objectives are open.",
+      "latestRecheck": {
+        "date": "2026-11-11",
+        "method": "Direct PDF download matched registered SHA-256. Verified body tables and printed footers on PDF pp. 13–19."
+      }
     }
   ],
   "banks": [
@@ -22529,7 +22534,7 @@
       "officialObjectiveCode": null,
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
-        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 1"
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 15, performance objective 1"
       ]
     },
     {
@@ -22547,7 +22552,7 @@
       "officialObjectiveCode": null,
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
-        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 2"
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 15, performance objective 2"
       ]
     },
     {
@@ -22565,7 +22570,179 @@
       "officialObjectiveCode": null,
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 15, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-181-01-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Terracotta as a material",
+      "learningObjective": "Identify evidence of Nok clay sculpture and explain what terracotta is.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 2"
+      ],
+      "contentReferences": [
+        "https://www.metmuseum.org/fr/essays/nok-terracottas-500-b-c-200-a-d"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-181-02-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Evidence beyond sculpture",
+      "learningObjective": "Explain how evidence beyond sculpture broadens what we know about Nok communities.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 3"
+      ],
+      "contentReferences": [
+        "https://link.springer.com/article/10.1007/s00334-022-00902-0"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-181-03-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Lost archaeological context",
+      "learningObjective": "Explain what information can be lost when a Nok artefact is removed without documentation.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 4"
+      ],
+      "contentReferences": [
+        "https://www.metmuseum.org/fr/essays/nok-terracottas-500-b-c-200-a-d"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-181-04-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Ile-Ife Civilisation",
+      "subtopic": "Features of an Ile-Ife head",
+      "learningObjective": "Interpret documented material and visual features of an Ile-Ife sculpture.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 17, performance objective 2"
+      ],
+      "contentReferences": [
+        "https://www.britishmuseum.org/collection/object/E_Af1939-34-1"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-181-05-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Benin Civilisation",
+      "subtopic": "Benin court reliefs",
+      "learningObjective": "Recognise the material and form of a documented Benin court plaque.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 18, performance objective 2"
+      ],
+      "contentReferences": [
+        "https://www.metmuseum.org/art/collection/search/316393"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-181-06-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Benin Civilisation",
+      "subtopic": "Court art as evidence",
+      "learningObjective": "Explain how Benin plaques contribute to understanding the court and its artistic practices.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 18, performance objective 3"
+      ],
+      "contentReferences": [
+        "https://www.metmuseum.org/art/collection/search/316393"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-181-07-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "Excavated pottery",
+      "learningObjective": "Identify material evidence recovered in recent Igbo-Ukwu excavations.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 2"
+      ],
+      "contentReferences": [
+        "https://www.repository.cam.ac.uk/handle/1810/385464"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-181-08-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "How new excavations improve knowledge",
+      "learningObjective": "Explain how new archaeological evidence can broaden understanding of Igbo-Ukwu.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 3"
+      ],
+      "contentReferences": [
+        "https://www.repository.cam.ac.uk/handle/1810/385464"
       ]
     }
   ],

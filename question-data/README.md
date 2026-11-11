@@ -1066,3 +1066,9 @@ and adds 14 drafts across nine objectives on historical inquiry, source
 classification and using evidence. Eight are multiple-choice and six are
 written. School-level adoption, formal assessment formats and full coverage
 remain unverified. Independent academic review is pending.
+
+Batch 181 adds 12 NERDC JSS 1 Nigerian History drafts across eight objectives
+on Nok, Ile-Ife, Benin and Igbo-Ukwu. Museum and archaeological references
+support selected content. Three earlier source locators now follow the printed
+body pages. The bank has 26 valid drafts across 17 mapped objectives. School
+adoption and independent review remain open.

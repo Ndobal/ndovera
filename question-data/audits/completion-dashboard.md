@@ -131,7 +131,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Mathematics / Primary 3 | 1000 | 20 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / Primary 4 | 1000 | 11 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / Primary 6 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
-| NERDC | Nigerian History / JSS 1 | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
+| NERDC | Nigerian History / JSS 1 | 1000 | 26 | 26 | 0 | 974 | partial_objective_register |
 | NERDC | Numeracy / Nursery | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Physics / SS 3 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Social and Citizenship Studies / JSS 1 | 1000 | 117 | 117 | 0 | 883 | partial_objective_register |
@@ -215,12 +215,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 476 | 441 | 0 | 36000 | 35559 |
-| NERDC | 309 | 244 | 0 | 30000 | 29756 |
+| NERDC | 321 | 256 | 0 | 30000 | 29744 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 4348, "validDrafts": 2669, "reviewed": 0, "registeredBanks": 196, "target": 178000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 4360, "validDrafts": 2681, "reviewed": 0, "registeredBanks": 196, "target": 178000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

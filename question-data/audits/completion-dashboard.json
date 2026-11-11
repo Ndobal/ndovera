@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4348,
-    "validDrafts": 2669,
+    "raw": 4360,
+    "validDrafts": 2681,
     "reviewed": 0,
     "registeredBanks": 196,
     "target": 178000,
@@ -1214,6 +1214,12 @@
       "sha256": "ec8a6d6a2a6fde568467c6c1b3b3765cb00d222cc01e739fa2f9aceb7acb062f",
       "declared": 14,
       "actual": 14
+    },
+    {
+      "path": "original-multisubject-batch-181.json",
+      "sha256": "702fba79382e26f627840a13a69d74c1034ac5f351c6c87d4f4ef199618e8d7d",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5511,19 +5517,19 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 14,
-      "validDrafts": 14,
+      "raw": 26,
+      "validDrafts": 26,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 8,
-        "structured": 6
+        "mcq": 15,
+        "structured": 11
       },
       "difficulty": {
-        "standard": 14
+        "standard": 26
       },
-      "remaining": 986,
-      "mappedObjectives": 9,
-      "representedObjectives": 9,
+      "remaining": 974,
+      "mappedObjectives": 17,
+      "representedObjectives": 17,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -6983,18 +6989,18 @@
     }
   ],
   "errorCounts": {
+    "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -37588,6 +37594,78 @@
       "id": "ndv-180-014",
       "file": "original-multisubject-batch-180.json",
       "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-001",
+      "file": "original-multisubject-batch-181.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-002",
+      "file": "original-multisubject-batch-181.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-003",
+      "file": "original-multisubject-batch-181.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-004",
+      "file": "original-multisubject-batch-181.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-005",
+      "file": "original-multisubject-batch-181.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-006",
+      "file": "original-multisubject-batch-181.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-007",
+      "file": "original-multisubject-batch-181.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-008",
+      "file": "original-multisubject-batch-181.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-009",
+      "file": "original-multisubject-batch-181.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-010",
+      "file": "original-multisubject-batch-181.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-011",
+      "file": "original-multisubject-batch-181.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-181-012",
+      "file": "original-multisubject-batch-181.json",
+      "index": 11,
       "errors": []
     },
     {
@@ -77644,7 +77722,7 @@
       "officialObjectiveCode": null,
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
-        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 1"
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 15, performance objective 1"
       ],
       "questionCount": 1,
       "validDrafts": 1,
@@ -77674,7 +77752,7 @@
       "officialObjectiveCode": null,
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
-        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 2"
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 15, performance objective 2"
       ],
       "questionCount": 1,
       "validDrafts": 1,
@@ -77704,7 +77782,7 @@
       "officialObjectiveCode": null,
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
-        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 3"
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 15, performance objective 3"
       ],
       "questionCount": 1,
       "validDrafts": 1,
@@ -77713,6 +77791,274 @@
       },
       "tiers": {
         "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-181-01-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Terracotta as a material",
+      "learningObjective": "Identify evidence of Nok clay sculpture and explain what terracotta is.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 2"
+      ],
+      "contentReferences": [
+        "https://www.metmuseum.org/fr/essays/nok-terracottas-500-b-c-200-a-d"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-181-02-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Evidence beyond sculpture",
+      "learningObjective": "Explain how evidence beyond sculpture broadens what we know about Nok communities.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 3"
+      ],
+      "contentReferences": [
+        "https://aktuelles.uni-frankfurt.de/english/leafy-greens-first-dished-up-3500-years-ago/"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-181-03-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Lost archaeological context",
+      "learningObjective": "Explain what information can be lost when a Nok artefact is removed without documentation.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 4"
+      ],
+      "contentReferences": [
+        "https://www.metmuseum.org/fr/essays/nok-terracottas-500-b-c-200-a-d"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-181-04-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Ile-Ife Civilisation",
+      "subtopic": "Features of an Ile-Ife head",
+      "learningObjective": "Interpret documented material and visual features of an Ile-Ife sculpture.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 17, performance objective 2"
+      ],
+      "contentReferences": [
+        "https://www.britishmuseum.org/collection/object/E_Af1939-34-1"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-181-05-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Benin Civilisation",
+      "subtopic": "Benin court reliefs",
+      "learningObjective": "Recognise the material and form of a documented Benin court plaque.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 18, performance objective 2"
+      ],
+      "contentReferences": [
+        "https://www.metmuseum.org/art/collection/search/316393"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-181-06-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Benin Civilisation",
+      "subtopic": "Court art as evidence",
+      "learningObjective": "Explain how Benin plaques contribute to understanding the court and its artistic practices.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 18, performance objective 3"
+      ],
+      "contentReferences": [
+        "https://www.metmuseum.org/art/collection/search/316393"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-181-07-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "Excavated pottery",
+      "learningObjective": "Identify material evidence recovered in recent Igbo-Ukwu excavations.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 2"
+      ],
+      "contentReferences": [
+        "https://www.repository.cam.ac.uk/handle/1810/385464"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-181-08-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "How new excavations improve knowledge",
+      "learningObjective": "Explain how new archaeological evidence can broaden understanding of Igbo-Ukwu.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 3"
+      ],
+      "contentReferences": [
+        "https://www.repository.cam.ac.uk/handle/1810/385464"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
