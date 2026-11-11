@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "checkedOn": "2026-11-11",
+  "specificationId": "neco-bece-pvs-161-historical-reference",
+  "status": "historical_content_access_resolved_current_adoption_and_neco_full_syllabus_unresolved",
+  "retrievals": [
+    {
+      "url": "https://www.nerdc.gov.ng/content_manager/jss1-3.html",
+      "status": 200,
+      "final": "https://www.nerdc.gov.ng/content_manager/jss1-3.html",
+      "bytes": 24776,
+      "sha256": "13fb843f9eaa0f72aa70a1be409274f6f7f647bd680b1f817ac36a175ba49a03",
+      "contentType": "text/html"
+    },
+    {
+      "url": "https://www.nerdc.gov.ng/content_manager/new_curriculum_home.html",
+      "status": 200,
+      "final": "https://www.nerdc.gov.ng/content_manager/new_curriculum_home.html",
+      "bytes": 19549,
+      "sha256": "6cc8bdc37c9a11ae23356c9522376e43ee624123ddea3c5e79257d29a386d1cb",
+      "contentType": "text/html"
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/jss_3",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_prevoc.pdf",
+      "status": 200,
+      "final": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_prevoc.pdf",
+      "bytes": 770290,
+      "sha256": "6366b532aa839275e9c769ecf2875cd6ee1cdc3821cd11aca3eafbcbbfecf73c",
+      "contentType": "application/pdf"
+    },
+    {
+      "url": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_prevoc_intro.pdf",
+      "status": 200,
+      "final": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_prevoc_intro.pdf",
+      "bytes": 309908,
+      "sha256": "de5acd08e84498acd311fa6a98dcc8e53fb46295fb4d220f6db6d7da43e8da6e",
+      "contentType": "application/pdf"
+    },
+    {
+      "url": "https://neco.gov.ng/2026%20BECE%20REGISTRATION%20GUIDELINES.d.pdf",
+      "status": 200,
+      "final": "https://neco.gov.ng/2026%20BECE%20REGISTRATION%20GUIDELINES.d.pdf",
+      "bytes": 830679,
+      "sha256": "3bead04d7f67b44a03615070b7eb5a699b7275280e73d755716f832c5db993e5",
+      "contentType": "application/pdf"
+    },
+    {
+      "url": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "status": 200,
+      "final": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "bytes": 173962,
+      "sha256": "b929fcb92e40133fdb79ef6820d570173b6e85472e67cafd41a7220cedfb5b01",
+      "pageCount": 1
+    },
+    {
+      "url": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_igbo_intro.pdf",
+      "status": 200,
+      "final": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_igbo_intro.pdf",
+      "bytes": 583758,
+      "sha256": "304808fb0c8a325077e3d37ea02e04c18c19030642faf9eccaf50afc1509fbf2",
+      "pageCount": 7
+    }
+  ],
+  "indexInspection": "Direct HTML includes view_jss.html?pdf=jss1-3_prevoc.pdf and corresponding foreword wrapper. Direct underlying historical PDFs returned200. This is an access advance over earlier recorded retrievals; it does not establish a curriculum change or present adoption.",
+  "visualChecks": [
+    "JSS THREE header and columns on PDF/printed22,23,28,29"
+  ],
+  "topicInventory": [
+    {
+      "pdfPage": 22,
+      "printedPage": 22,
+      "authorParaphrase": "Produce packaging criteria",
+      "developmentStatus": "mapped_knowledge_subset"
+    },
+    {
+      "pdfPage": 22,
+      "printedPage": 22,
+      "authorParaphrase": "Produce pricing",
+      "developmentStatus": "mapped_knowledge_subset"
+    },
+    {
+      "pdfPage": 23,
+      "printedPage": 23,
+      "authorParaphrase": "Farm records and bookkeeping",
+      "developmentStatus": "mapped_record_purposes_subset_journal_production_open"
+    },
+    {
+      "pdfPage": 24,
+      "printedPage": 24,
+      "authorParaphrase": "Agriculture and stock exchange",
+      "developmentStatus": "held_ambiguous_commodity_and_securities_wording"
+    },
+    {
+      "pdfPage": 25,
+      "printedPage": 25,
+      "authorParaphrase": "Agricultural export promotion",
+      "developmentStatus": "unmapped"
+    },
+    {
+      "pdfPage": 26,
+      "printedPage": 26,
+      "authorParaphrase": "Consumer challenges and rights",
+      "developmentStatus": "unmapped_current_authoritative_legal_check_needed"
+    },
+    {
+      "pdfPage": 27,
+      "printedPage": 27,
+      "authorParaphrase": "Child development and care",
+      "developmentStatus": "unmapped_current_health_references_needed"
+    },
+    {
+      "pdfPage": 28,
+      "printedPage": 28,
+      "authorParaphrase": "Textile types properties production uses and care",
+      "developmentStatus": "mapped_knowledge_subset_actual_weaving_and_laundering_open"
+    },
+    {
+      "pdfPage": 29,
+      "printedPage": 29,
+      "authorParaphrase": "Sewing machines and garment construction",
+      "developmentStatus": "mapped_knowledge_subset_actual_sewing_open"
+    },
+    {
+      "pdfPage": 30,
+      "printedPage": 30,
+      "authorParaphrase": "Food hygiene and safety",
+      "developmentStatus": "unmapped_current_authoritative_food_safety_check_needed"
+    },
+    {
+      "pdfPage": 31,
+      "printedPage": 31,
+      "authorParaphrase": "Food preparation packaging and marketing",
+      "developmentStatus": "unmapped_practical_performance_open"
+    },
+    {
+      "pdfPage": 32,
+      "printedPage": 32,
+      "authorParaphrase": "Responsible food management",
+      "developmentStatus": "unmapped_current_authoritative_food_safety_check_needed"
+    }
+  ],
+  "topicCount": 12,
+  "topicCountMeaning": "Author inventory of distinct historical JSS THREE topic tables; not a current NECO objective count or completion percentage. Topic numbering restarts and is inconsistent between source sections.",
+  "scopeLimits": [
+    "2026 timetable verifies8311/8312 as objective papers; no topic split or option count established.",
+    "Registration guidelines PDFp5 section6 describes separately available BECE syllabuses; no full current copy retrieved.",
+    "Revised JSS3 URL returned404; current cohort adoption of historical tables remains unverified.",
+    "Igbo foreword matches previous hash; automated English route-term search found no explicitL1/L2 terms, which is not a linguistic proof. The historical inventory and route/adoption gap remain; no active Igbo objectives or questions added.",
+    "Historical PVS p24 stock-exchange description combines goods/services and exchange terminology; excluded pending subject-specialist clarification.",
+    "No assertions about immunisation, treatment, binding consumer law, investment advice or exact food-safety procedures added from this source.",
+    "24MCQs assess written conceptual knowledge only; actual weaving, laundering, journal preparation, machine operation and cooking are not assessed."
+  ],
+  "activeObjectiveIds": [
+    "bece-pvs-161-packaging-v1",
+    "bece-pvs-161-pricing-v1",
+    "bece-pvs-161-records-v1",
+    "bece-pvs-161-terms-v1",
+    "bece-pvs-161-fibres-v1",
+    "bece-pvs-161-care-v1",
+    "bece-pvs-161-machine-v1",
+    "bece-pvs-161-construction-v1"
+  ],
+  "draftQuestionIds": [
+    "ndv-161-001",
+    "ndv-161-002",
+    "ndv-161-003",
+    "ndv-161-004",
+    "ndv-161-005",
+    "ndv-161-006",
+    "ndv-161-007",
+    "ndv-161-008",
+    "ndv-161-009",
+    "ndv-161-010",
+    "ndv-161-011",
+    "ndv-161-012",
+    "ndv-161-013",
+    "ndv-161-014",
+    "ndv-161-015",
+    "ndv-161-016",
+    "ndv-161-017",
+    "ndv-161-018",
+    "ndv-161-019",
+    "ndv-161-020",
+    "ndv-161-021",
+    "ndv-161-022",
+    "ndv-161-023",
+    "ndv-161-024"
+  ]
+}

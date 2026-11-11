@@ -926,3 +926,12 @@ service improvement. Current official letter format was rechecked. Each
 model has at least150 words and covers three specified content points.
 Original eight-point analytic guides require manual assessment and do
 not convert to IELTS bands. Broader coverage and academic review stay open.
+
+Batch 161 opens NECO BECE Pre-Vocational Studies with24 original JSS3
+conceptual objective drafts across eight provisional mappings. Direct
+retrieval now succeeds for the historical NERDC curriculum and foreword;
+selected exact-class tables were visually checked and hashed. A twelve-topic
+inventory records exclusions and remaining gaps. The revised JSS3 page still
+returns404. Current adoption, full NECO scope,8311/8312 topic allocation
+and official option count remain unverified. MCQs do not assess practical
+weaving, laundering or sewing. Igbo L1/L2 assignment remains unresolved.

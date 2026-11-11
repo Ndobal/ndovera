@@ -2057,8 +2057,10 @@
       "revisedCurriculumIndex": "https://www.nerdc.gov.ng/content_manager/new_curriculum_home.html",
       "revisedClassPage": "https://lmis.nerdcportals.com.ng/jss_3",
       "retrievedOn": "2026-11-07",
-      "status": "content_objectives_not_retrieved",
-      "note": "The 2026 timetable confirms objective papers 8311 and 8312. The historical index names Pre Vocational Studies, but the retrieved index exposes no usable subject PDF link. Searches and candidate legacy PDF paths did not retrieve the content. The revised index links JSS 3 to a page whose fetch returned 404. No class-topic mapping or current adoption is established."
+      "status": "historical_content_access_resolved_current_adoption_unverified",
+      "note": "The 2026 timetable confirms objective papers 8311 and 8312. The historical index names Pre Vocational Studies, but the retrieved index exposes no usable subject PDF link. Searches and candidate legacy PDF paths did not retrieve the content. The revised index links JSS 3 to a page whose fetch returned 404. No class-topic mapping or current adoption is established. Update 2026-11-11: direct historical PDF and foreword now retrieved successfully; see linked follow-up source for hashes and exact JSS3 locators. Earlier failure retained as retrieval history; current adoption remains unverified.",
+      "checkedOn": "2026-11-11",
+      "followUpSpecificationId": "neco-bece-pvs-161-historical-reference"
     },
     {
       "id": "neco-bece-history-2026-historical-reference",
@@ -2267,7 +2269,9 @@
       "forewordSha256": "304808fb0c8a325077e3d37ea02e04c18c19030642faf9eccaf50afc1509fbf2",
       "forewordBytes": 583758,
       "forewordPageCount": 7,
-      "note": "Fresh direct retrieval; JSS 3 comprehension table on printed/PDF p. 42 visually checked. Historical reference only. No L1/L2 assignment or current adoption established; no active bank objectives created. See igbo-jss3-historical-scope-inventory.json."
+      "note": "Fresh direct retrieval; JSS 3 comprehension table on printed/PDF p. 42 visually checked. Historical reference only. No L1/L2 assignment or current adoption established; no active bank objectives created. See igbo-jss3-historical-scope-inventory.json.",
+      "forewordRecheckedOn": "2026-11-11",
+      "forewordRecheckStatus": "same_hash_route_and_current_adoption_still_unresolved"
     },
     {
       "id": "neco-bece-yoruba-l1-2026-historical-reference",
@@ -2455,6 +2459,32 @@
       "checkedOn": "2026-11-10",
       "status": "task1_format_and_assessment_criteria_retrieved",
       "note": "Official page retrieved: General Training Task1 is a letter addressing three supplied points, minimum150words, recommended no more than20minutes within the60minute Writing test. Register depends on recipient and purpose. Connected text, no postal addresses required. Four assessment categories support original practice rubrics; eight practice points have no band equivalence. Task2 contributes twice as much to Writing; standalone letters do not reproduce a complete test."
+    },
+    {
+      "id": "neco-bece-pvs-161-historical-reference",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "kind": "official_2026_format_with_historical_jss3_curriculum_reference",
+      "source": "https://neco.gov.ng/2026%20BECE%20Timetable.pdf",
+      "curriculumSource": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_prevoc.pdf",
+      "forewordSource": "https://www.nerdc.gov.ng/content_manager/jss/jss1-3_prevoc_intro.pdf",
+      "retrievedOn": "2026-11-11",
+      "documentDate": null,
+      "curriculumSha256": "6366b532aa839275e9c769ecf2875cd6ee1cdc3821cd11aca3eafbcbbfecf73c",
+      "curriculumBytes": 770290,
+      "curriculumPages": 34,
+      "forewordSha256": "de5acd08e84498acd311fa6a98dcc8e53fb46295fb4d220f6db6d7da43e8da6e",
+      "forewordBytes": 309908,
+      "forewordPages": 9,
+      "status": "historical_exact_jss3_content_retrieved_current_adoption_unverified",
+      "sourceSections": [
+        "PDF/printed p22: packaging criteria and pricing determinants",
+        "PDF/printed p23: records and bookkeeping",
+        "PDF/printed p28: textile terminology, fibres and care",
+        "PDF/printed p29: machine parts and garment construction vocabulary"
+      ],
+      "note": "Direct cloud retrieval succeeded after earlier access failure. JSS THREE headers and selected table columns visually checked. Timetable verifies objective papers8311/8312 only; topic allocation and official option count remain unresolved. Four-option one-point tasks are original practice. No practical skill is certified by an MCQ. Revised JSS3 page still404; neither this historical PDF nor its foreword establishes current cohort adoption. Stock-exchange wording on p24 is ambiguous; health, legal-redress and food-safety topics need separate authoritative checks and are excluded from this batch.",
+      "retrievalAudit": "bece-pvs-source-recheck-161.json"
     }
   ],
   "banks": [
@@ -3478,7 +3508,7 @@
       "provider": "NECO",
       "examinationYear": 2026,
       "target": 1000,
-      "scopeStatus": "official_2026_timetable_subject_and_formats_verified_objectives_missing",
+      "scopeStatus": "official_2026_formats_provisional_historical_topics",
       "specificationId": "neco-bece-timetable-2026",
       "observedPaperFormats": [
         "objective"
@@ -3488,7 +3518,8 @@
         "8312"
       ],
       "additionalSpecificationIds": [
-        "neco-bece-pvs-source-access-2026"
+        "neco-bece-pvs-source-access-2026",
+        "neco-bece-pvs-161-historical-reference"
       ]
     },
     {
@@ -18808,6 +18839,150 @@
       ],
       "mappingStatus": "author_proposed_communication_function_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "bece-pvs-161-packaging-v1",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "topic": "Produce packaging",
+      "subtopic": "Packaging criteria",
+      "learningObjective": "Choose packaging by physical protection, quantity and transport requirements.",
+      "specificationId": "neco-bece-pvs-161-historical-reference",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC JSS THREE PDF/printed p22: Packaging Criteria: performance objectives1–2"
+      ],
+      "mappingStatus": "provisional_author_paraphrase_historical_reference_current_adoption_unverified",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "bece-pvs-161-pricing-v1",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "topic": "Agricultural marketing",
+      "subtopic": "Price determinants",
+      "learningObjective": "Explain how production costs, quality and supply or demand can affect produce pricing.",
+      "specificationId": "neco-bece-pvs-161-historical-reference",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC JSS THREE PDF/printed p22: Pricing and Advertising: performance objectives1–2"
+      ],
+      "mappingStatus": "provisional_author_paraphrase_historical_reference_current_adoption_unverified",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "bece-pvs-161-records-v1",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "topic": "Farm records and bookkeeping",
+      "subtopic": "Record purposes and source evidence",
+      "learningObjective": "Match farm information to suitable records and distinguish transaction evidence from summaries.",
+      "specificationId": "neco-bece-pvs-161-historical-reference",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC JSS THREE PDF/printed p23: Records and Book Keeping: performance objectives1–3,5–6"
+      ],
+      "mappingStatus": "provisional_author_paraphrase_historical_reference_current_adoption_unverified",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "bece-pvs-161-terms-v1",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "topic": "Textiles",
+      "subtopic": "Fibre, yarn, warp and weft",
+      "learningObjective": "Distinguish the elements used in constructing a woven textile.",
+      "specificationId": "neco-bece-pvs-161-historical-reference",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC JSS THREE PDF/printed p28: Textiles: performance objective2; content2"
+      ],
+      "mappingStatus": "provisional_author_paraphrase_historical_reference_current_adoption_unverified",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "bece-pvs-161-fibres-v1",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "topic": "Textiles",
+      "subtopic": "Natural and manufactured fibre sources",
+      "learningObjective": "Classify textile fibres by origin without inferring all properties from appearance.",
+      "specificationId": "neco-bece-pvs-161-historical-reference",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC JSS THREE PDF/printed p28: Textiles: performance objectives5–6"
+      ],
+      "mappingStatus": "provisional_author_paraphrase_historical_reference_current_adoption_unverified",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "bece-pvs-161-care-v1",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "topic": "Textiles",
+      "subtopic": "Care decisions from fabric information",
+      "learningObjective": "Choose fabric-care actions using supplied composition and care instructions.",
+      "specificationId": "neco-bece-pvs-161-historical-reference",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC JSS THREE PDF/printed p28: Textiles: performance objectives7,9; content6,8"
+      ],
+      "mappingStatus": "provisional_author_paraphrase_historical_reference_current_adoption_unverified",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "bece-pvs-161-machine-v1",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "topic": "Sewing machines",
+      "subtopic": "Functions of common parts",
+      "learningObjective": "Relate common sewing-machine parts to their stated functions.",
+      "specificationId": "neco-bece-pvs-161-historical-reference",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC JSS THREE PDF/printed p29: Sewing Machine and Garment Construction Processes: performance objective2"
+      ],
+      "mappingStatus": "provisional_author_paraphrase_historical_reference_current_adoption_unverified",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "bece-pvs-161-construction-v1",
+      "exam": "BECE",
+      "subject": "Pre-Vocational Studies",
+      "level": "JSS 3",
+      "topic": "Garment construction",
+      "subtopic": "Darts, hems and facings",
+      "learningObjective": "Identify construction features by their purpose in shaping or finishing a garment.",
+      "specificationId": "neco-bece-pvs-161-historical-reference",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC JSS THREE PDF/printed p29: Sewing Machine and Garment Construction Processes: performance objective5; teacher activity3"
+      ],
+      "mappingStatus": "provisional_author_paraphrase_historical_reference_current_adoption_unverified",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -18850,6 +19025,7 @@
     "Hausa routes (batch 143): the historical NERDC JSS 1-3 PDF explicitly targets mother-tongue learners and supports only a provisional L1 JSS 3 reading-content reference. Date, current adoption, complete NECO objectives, L1 2071/2072 allocation and option count remain unverified. L2 2201 has official timetable-format evidence only; neither this L1 PDF nor an NCCE teacher-training L2 syllabus establishes BECE L2 learner objectives. No L2 questions added.",
     "Igbo route investigation (2026-11-08): historical official JSS 3 topics located, but neither retrieved curriculum nor foreword establishes BECE L1/L2 assignment or current adoption. Timetable confirms L1 2081/2082 and L2 2211 objective formats only. Both banks remain empty; topic inventory is source evidence, not active coverage. Obtain route-specific syllabus, selected works and performance requirements.",
     "Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred.",
-    "Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence."
+    "Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence.",
+    "PVS access advance2026-11-11: historical official JSS THREE PDF now retrieved and hashed; twelve-topic inventory and eight provisional knowledge mappings recorded. Twenty-four original objective drafts do not establish current cohort adoption, complete NECO scope,8311/8312 topic allocation, option count or practical competence. Revised JSS3 page still404; stock-exchange wording and health/legal/food-safety topics need separate authoritative checks. Igbo foreword checksum unchanged; L1/L2 assignment and current adoption remain unverified."
   ]
 }
