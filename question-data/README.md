@@ -956,3 +956,10 @@ and text organisation. NECO’s 2026 notice and timetable confirm Paper I
 Part B. Historical NERDC Primary 6 pages 36, 40–43 and 45–46 support the
 provisional topic mappings. Four options and one mark are practice choices.
 Current adoption, the official item blueprint and academic review remain open.
+
+The NECO 2027 SSCE Internal timetable recheck records 97 paper codes
+across 36 matched banks. General Mathematics retains 1023 objective and
+1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026.
+The registry keeps year-specific evidence and preserves historical mappings.
+Section 7 of the 2027 registration guide identifies a separate syllabus.
+The topic blueprint still needs that source. Batch 165 remains next.

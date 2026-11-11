@@ -2808,6 +2808,30 @@
         "III": "2003",
         "II": "2002"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "2001",
+            "III": "2003",
+            "II": "2002"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2001"
+            ],
+            [
+              "2003",
+              "2002"
+            ]
+          ]
+        }
+      },
       "raw": 15,
       "validDrafts": 12,
       "reviewed": 0,
@@ -2842,6 +2866,30 @@
         "III": "4003",
         "IV": "4004"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "II": "4002",
+            "III": "4003",
+            "IV": "4004"
+          },
+          "paperFormats": {
+            "II": "essay and literature (paired with Paper III)",
+            "III": "objective (paired with Paper II)",
+            "IV": "oral"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4004"
+            ],
+            [
+              "4003",
+              "4002"
+            ]
+          ]
+        }
+      },
       "raw": 8,
       "validDrafts": 8,
       "reviewed": 0,
@@ -2874,6 +2922,30 @@
         "I": "5001",
         "II": "5002",
         "III": "5003"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "5001",
+            "II": "5002",
+            "III": "5003"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "II": "essay",
+            "III": "objective"
+          },
+          "scheduledCodeGroups": [
+            [
+              "5001"
+            ],
+            [
+              "5003",
+              "5002"
+            ]
+          ]
+        }
       },
       "raw": 14,
       "validDrafts": 14,
@@ -2910,6 +2982,30 @@
         "III": "2013",
         "II": "2012"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "2011",
+            "III": "2013",
+            "II": "2012"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2011"
+            ],
+            [
+              "2013",
+              "2012"
+            ]
+          ]
+        }
+      },
       "raw": 14,
       "validDrafts": 12,
       "reviewed": 0,
@@ -2944,6 +3040,30 @@
         "I": "4011",
         "II": "4012",
         "III": "4013"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "4011",
+            "II": "4012",
+            "III": "4013"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "II": "essay",
+            "III": "objective"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4011"
+            ],
+            [
+              "4013",
+              "4012"
+            ]
+          ]
+        }
       },
       "raw": 14,
       "validDrafts": 14,
@@ -2980,6 +3100,30 @@
         "III": "2023",
         "II": "2022"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "2021",
+            "III": "2023",
+            "II": "2022"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2021"
+            ],
+            [
+              "2023",
+              "2022"
+            ]
+          ]
+        }
+      },
       "raw": 16,
       "validDrafts": 12,
       "reviewed": 0,
@@ -3012,6 +3156,25 @@
       "paperCodes": {
         "III": "4023",
         "II": "4022"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "4023",
+            "II": "4022"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4023",
+              "4022"
+            ]
+          ]
+        }
       },
       "raw": 8,
       "validDrafts": 8,
@@ -3046,6 +3209,25 @@
         "III": "1003",
         "II": "1002"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "1003",
+            "II": "1002"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "1003",
+              "1002"
+            ]
+          ]
+        }
+      },
       "raw": 12,
       "validDrafts": 10,
       "reviewed": 0,
@@ -3077,6 +3259,25 @@
       "paperCodes": {
         "III": "3013",
         "II": "3012"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "3013",
+            "II": "3012"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "3013",
+              "3012"
+            ]
+          ]
+        }
       },
       "raw": 12,
       "validDrafts": 10,
@@ -3111,6 +3312,30 @@
         "I": "5011",
         "II": "5012",
         "III": "5013"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "5011",
+            "II": "5012",
+            "III": "5013"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "II": "essay",
+            "III": "objective"
+          },
+          "scheduledCodeGroups": [
+            [
+              "5011"
+            ],
+            [
+              "5013",
+              "5012"
+            ]
+          ]
+        }
       },
       "raw": 14,
       "validDrafts": 14,
@@ -3147,6 +3372,30 @@
         "III": "2033",
         "II": "2032"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "2031",
+            "III": "2033",
+            "II": "2032"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2031"
+            ],
+            [
+              "2033",
+              "2032"
+            ]
+          ]
+        }
+      },
       "raw": 16,
       "validDrafts": 16,
       "reviewed": 0,
@@ -3179,6 +3428,25 @@
       "paperCodes": {
         "III": "3023",
         "II": "3022"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "3023",
+            "II": "3022"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "3023",
+              "3022"
+            ]
+          ]
+        }
       },
       "raw": 21,
       "validDrafts": 20,
@@ -3215,6 +3483,32 @@
         "II": "1012",
         "IV": "1014"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "1013",
+            "II": "1012",
+            "IV": "1014"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay",
+            "IV": "test of orals"
+          },
+          "scheduledCodeGroups": [
+            [
+              "1013"
+            ],
+            [
+              "1012"
+            ],
+            [
+              "1014"
+            ]
+          ]
+        }
+      },
       "raw": 25,
       "validDrafts": 24,
       "reviewed": 0,
@@ -3250,6 +3544,30 @@
         "II": "5022",
         "III": "5023"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "5021",
+            "II": "5022",
+            "III": "5023"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "II": "essay",
+            "III": "objective"
+          },
+          "scheduledCodeGroups": [
+            [
+              "5021"
+            ],
+            [
+              "5023",
+              "5022"
+            ]
+          ]
+        }
+      },
       "raw": 14,
       "validDrafts": 14,
       "reviewed": 0,
@@ -3283,6 +3601,25 @@
       "paperCodes": {
         "III": "3003",
         "II": "3002"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "3003",
+            "II": "3002"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "theory and practice"
+          },
+          "scheduledCodeGroups": [
+            [
+              "3003",
+              "3002"
+            ]
+          ]
+        }
       },
       "raw": 21,
       "validDrafts": 20,
@@ -3320,6 +3657,30 @@
         "III": "2043",
         "II": "2042"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "2041",
+            "III": "2043",
+            "II": "2042"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2041"
+            ],
+            [
+              "2043",
+              "2042"
+            ]
+          ]
+        }
+      },
       "raw": 14,
       "validDrafts": 14,
       "reviewed": 0,
@@ -3355,6 +3716,32 @@
         "II": "4032",
         "IV": "4034"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "4031",
+            "II": "4032",
+            "IV": "4034"
+          },
+          "paperFormats": {
+            "I": "written comprehension",
+            "II": "written expression",
+            "IV": "oral"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4034"
+            ],
+            [
+              "4031"
+            ],
+            [
+              "4032"
+            ]
+          ]
+        }
+      },
       "raw": 10,
       "validDrafts": 10,
       "reviewed": 0,
@@ -3385,6 +3772,27 @@
       "paperCodes": {
         "III": "2053",
         "II": "2052"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "2053",
+            "II": "2052"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2053"
+            ],
+            [
+              "2052"
+            ]
+          ]
+        }
       },
       "raw": 8,
       "validDrafts": 8,
@@ -3421,6 +3829,30 @@
         "I": "2061",
         "II": "2062"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "2063",
+            "I": "2061",
+            "II": "2062"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "I": "practical and physical geography",
+            "II": "human and regional geography essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2063",
+              "2061"
+            ],
+            [
+              "2062"
+            ]
+          ]
+        }
+      },
       "raw": 19,
       "validDrafts": 18,
       "reviewed": 0,
@@ -3452,6 +3884,25 @@
       "paperCodes": {
         "III": "4043",
         "II": "4042"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "4043",
+            "II": "4042"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4043",
+              "4042"
+            ]
+          ]
+        }
       },
       "raw": 11,
       "validDrafts": 10,
@@ -3485,6 +3936,25 @@
         "II": "4052",
         "III": "4053"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "II": "4052",
+            "III": "4053"
+          },
+          "paperFormats": {
+            "II": "essay including literature",
+            "III": "objective"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4053",
+              "4052"
+            ]
+          ]
+        }
+      },
       "raw": 4,
       "validDrafts": 4,
       "reviewed": 0,
@@ -3517,6 +3987,30 @@
         "I": "2071",
         "III": "2073",
         "II": "2072"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "2071",
+            "III": "2073",
+            "II": "2072"
+          },
+          "paperFormats": {
+            "I": "test of practical",
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2071"
+            ],
+            [
+              "2073",
+              "2072"
+            ]
+          ]
+        }
       },
       "raw": 14,
       "validDrafts": 14,
@@ -3553,6 +4047,30 @@
         "III": "4063",
         "I": "4061"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "II": "4062",
+            "III": "4063",
+            "I": "4061"
+          },
+          "paperFormats": {
+            "II": "essay",
+            "III": "objective",
+            "I": "practical"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4061"
+            ],
+            [
+              "4063",
+              "4062"
+            ]
+          ]
+        }
+      },
       "raw": 14,
       "validDrafts": 14,
       "reviewed": 0,
@@ -3586,6 +4104,25 @@
         "II": "4072",
         "III": "4073"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "II": "4072",
+            "III": "4073"
+          },
+          "paperFormats": {
+            "II": "essay including literature",
+            "III": "objective"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4073",
+              "4072"
+            ]
+          ]
+        }
+      },
       "raw": 4,
       "validDrafts": 4,
       "reviewed": 0,
@@ -3616,6 +4153,25 @@
       "paperCodes": {
         "III": "4083",
         "II": "4082"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "4083",
+            "II": "4082"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4083",
+              "4082"
+            ]
+          ]
+        }
       },
       "raw": 8,
       "validDrafts": 8,
@@ -3652,6 +4208,30 @@
         "III": "4093",
         "IV": "4094"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "II": "4092",
+            "III": "4093",
+            "IV": "4094"
+          },
+          "paperFormats": {
+            "II": "drama and poetry",
+            "III": "objective",
+            "IV": "prose"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4092"
+            ],
+            [
+              "4093",
+              "4094"
+            ]
+          ]
+        }
+      },
       "raw": 0,
       "validDrafts": 0,
       "reviewed": 0,
@@ -3681,6 +4261,35 @@
         "II": "5042",
         "III": "5043",
         "IV": "5044"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "5031",
+            "II": "5032",
+            "III": "5033",
+            "IV": "5034"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "II": "essay",
+            "III": "objective",
+            "IV": "progressive assessments"
+          },
+          "scheduledCodeGroups": [
+            [
+              "5034"
+            ],
+            [
+              "5031"
+            ],
+            [
+              "5033",
+              "5032"
+            ]
+          ]
+        }
       },
       "raw": 14,
       "validDrafts": 14,
@@ -3715,6 +4324,25 @@
         "II": "3032",
         "III": "3033"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "II": "3032",
+            "III": "3033"
+          },
+          "paperFormats": {
+            "II": "essay",
+            "III": "objective"
+          },
+          "scheduledCodeGroups": [
+            [
+              "3033",
+              "3032"
+            ]
+          ]
+        }
+      },
       "raw": 9,
       "validDrafts": 9,
       "reviewed": 0,
@@ -3748,6 +4376,33 @@
       "paperCodes": {
         "III": "1023",
         "II": "1022"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "1023",
+            "II": "1022"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "1023"
+            ],
+            [
+              "1022"
+            ]
+          ],
+          "scheduledDate": "2027-04-22",
+          "durationsMinutes": {
+            "III": 105,
+            "II": 150
+          },
+          "timetableSubject": "General Mathematics"
+        }
       },
       "raw": 38,
       "validDrafts": 24,
@@ -3788,6 +4443,35 @@
         "I": "4101",
         "IV": "4104"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "II": "4102",
+            "III": "4103",
+            "I": "4101",
+            "IV": "4104"
+          },
+          "paperFormats": {
+            "II": "essay",
+            "III": "objective",
+            "I": "performance test, music technology and alternative to music technology",
+            "IV": "aural music"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4101"
+            ],
+            [
+              "4104"
+            ],
+            [
+              "4103",
+              "4102"
+            ]
+          ]
+        }
+      },
       "raw": 12,
       "validDrafts": 12,
       "reviewed": 0,
@@ -3820,6 +4504,25 @@
       "paperCodes": {
         "III": "4113",
         "II": "4112"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "III": "4113",
+            "II": "4112"
+          },
+          "paperFormats": {
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4113",
+              "4112"
+            ]
+          ]
+        }
       },
       "raw": 8,
       "validDrafts": 8,
@@ -3856,6 +4559,30 @@
         "III": "2083",
         "II": "2082"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "2081",
+            "III": "2083",
+            "II": "2082"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2081"
+            ],
+            [
+              "2083",
+              "2082"
+            ]
+          ]
+        }
+      },
       "raw": 14,
       "validDrafts": 14,
       "reviewed": 0,
@@ -3890,6 +4617,30 @@
         "I": "2091",
         "III": "2093",
         "II": "2092"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "2091",
+            "III": "2093",
+            "II": "2092"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "III": "objective",
+            "II": "essay"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2091"
+            ],
+            [
+              "2093",
+              "2092"
+            ]
+          ]
+        }
       },
       "raw": 15,
       "validDrafts": 12,
@@ -3926,6 +4677,30 @@
         "III": "2103",
         "IV": "2104"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "I": "2101",
+            "III": "2103",
+            "IV": "2104"
+          },
+          "paperFormats": {
+            "I": "practical",
+            "III": "objective",
+            "IV": "drawing"
+          },
+          "scheduledCodeGroups": [
+            [
+              "2101"
+            ],
+            [
+              "2103",
+              "2104"
+            ]
+          ]
+        }
+      },
       "raw": 0,
       "validDrafts": 0,
       "reviewed": 0,
@@ -3956,6 +4731,35 @@
         "I": "4121",
         "IV": "4124"
       },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "II": "4122",
+            "III": "4123",
+            "I": "4121",
+            "IV": "4124"
+          },
+          "paperFormats": {
+            "II": "essay",
+            "III": "objective",
+            "I": "drawing",
+            "IV": "creative design"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4123",
+              "4122"
+            ],
+            [
+              "4124"
+            ],
+            [
+              "4121"
+            ]
+          ]
+        }
+      },
       "raw": 0,
       "validDrafts": 0,
       "reviewed": 0,
@@ -3981,6 +4785,25 @@
       "paperCodes": {
         "II": "4132",
         "III": "4133"
+      },
+      "paperEvidenceByYear": {
+        "2027": {
+          "specificationId": "neco-ssce-internal-timetable-2027",
+          "paperCodes": {
+            "II": "4132",
+            "III": "4133"
+          },
+          "paperFormats": {
+            "II": "essay including literature",
+            "III": "objective"
+          },
+          "scheduledCodeGroups": [
+            [
+              "4133",
+              "4132"
+            ]
+          ]
+        }
       },
       "raw": 4,
       "validDrafts": 4,
@@ -5981,10 +6804,10 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -71441,6 +72264,7 @@
     "Igbo route investigation (2026-11-08): historical official JSS 3 topics located, but neither retrieved curriculum nor foreword establishes BECE L1/L2 assignment or current adoption. Timetable confirms L1 2081/2082 and L2 2211 objective formats only. Both banks remain empty; topic inventory is source evidence, not active coverage. Obtain route-specific syllabus, selected works and performance requirements.",
     "Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred.",
     "Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence.",
-    "PVS access advance2026-11-11: historical official JSS THREE PDF now retrieved and hashed; twelve-topic inventory and eight provisional knowledge mappings recorded. Twenty-four original objective drafts do not establish current cohort adoption, complete NECO scope,8311/8312 topic allocation, option count or practical competence. Revised JSS3 page still404; stock-exchange wording and health/legal/food-safety topics need separate authoritative checks. Igbo foreword checksum unchanged; L1/L2 assignment and current adoption remain unverified."
+    "PVS access advance2026-11-11: historical official JSS THREE PDF now retrieved and hashed; twelve-topic inventory and eight provisional knowledge mappings recorded. Twenty-four original objective drafts do not establish current cohort adoption, complete NECO scope,8311/8312 topic allocation, option count or practical competence. Revised JSS3 page still404; stock-exchange wording and health/legal/food-safety topics need separate authoritative checks. Igbo foreword checksum unchanged; L1/L2 assignment and current adoption remain unverified.",
+    "NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved."
   ]
 }
