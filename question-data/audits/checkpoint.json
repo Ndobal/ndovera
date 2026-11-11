@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "neco_2027_internal_paper_evidence_rechecked",
+  "phase": "batch_165_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-165.json",
+  "nextBatch": "original-multisubject-batch-166.json",
   "nextPriorities": [
-    "Use the 2027 NECO Internal paper evidence to prioritise underrepresented subjects, including Technical Drawing and Visual Arts, after obtaining topic evidence. Obtain the separate NECO General Mathematics syllabus referenced in section 7 of the 2027 guidelines. Retain provisional cross-board topic mappings and use year-specific Livestock Farming codes.",
+    "Expand the newly opened NECO Technical Drawing and Visual Arts banks with distinct source-supported objective practice. Prioritise a verified NECO topic syllabus and paper-level requirements. Eight production tasks cover projection, sections, observation and graphic design with provisional historical WAEC topic links.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-164.json",
-  "lastRemoteVerifiedCommit": "2489d15f2837ce9bd5db125d91f2df4caee49766",
+  "lastValidatedBatch": "original-multisubject-batch-165.json",
+  "lastRemoteVerifiedCommit": "a4a24a17dd1fade2a1ceb2249cf97e4d2764fd11",
   "verifiedTotals": {
-    "raw": 4098,
-    "validDrafts": 2419,
+    "raw": 4106,
+    "validDrafts": 2427,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-164.json",
+  "lastPopulatedBatch": "original-multisubject-batch-165.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4098,
+  "inventoryRaw": 4106,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "neco-ssce-internal-timetable-2027",
+    "id": "neco-technical-drawing-165-provisional-2027",
     "date": "2026-11-11"
   }
 }

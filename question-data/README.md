@@ -963,3 +963,10 @@ across 36 matched banks. General Mathematics retains 1023 objective and
 The registry keeps year-specific evidence and preserves historical mappings.
 Section 7 of the 2027 registration guide identifies a separate syllabus.
 The topic blueprint still needs that source. Batch 165 remains next.
+
+Batch 165 opens NECO Technical Drawing and Visual Arts with four
+production tasks each. Drawings and designs require manual assessment.
+Original briefs and marking guides cover projection, sectional drawing,
+observational drawing and graphic design. The 2027 NECO timetable supports
+paper formats and historical WAEC examiner material supports provisional
+topic links. Current NECO topic requirements and independent review remain open.

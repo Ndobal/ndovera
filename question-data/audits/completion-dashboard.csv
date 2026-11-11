@@ -93,8 +93,8 @@ NECO,Music,,,1000,12,12,0,988,4,4,partial_objective_register,official_2026_inter
 NECO,Nigerian History,,,1000,8,8,0,992,2,2,partial_objective_register,official_2026_internal_format_provisional_cross_board_topic_reference
 NECO,Physical Education,,,1000,14,14,0,986,4,4,partial_objective_register,official_2026_internal_format_provisional_cross_board_topic_reference
 NECO,Physics,,,1000,15,12,0,988,2,2,partial_objective_register,official_2026_internal_format_provisional_cross_board_topic_reference
-NECO,Technical Drawing,,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_internal_format_objectives_unresolved
-NECO,Visual Arts,,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_internal_format_objectives_unresolved
+NECO,Technical Drawing,,,1000,4,4,0,996,4,4,partial_objective_register,official_internal_formats_provisional_cross_board_topics
+NECO,Visual Arts,,,1000,4,4,0,996,4,4,partial_objective_register,official_internal_formats_provisional_cross_board_topics
 NECO,Yoruba,,,1000,4,4,0,996,4,4,partial_objective_register,official_2026_internal_formats_provisional_composition_objectives
 NERDC,Basic Science,JSS 2,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NERDC,Basic Science,Nursery,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved

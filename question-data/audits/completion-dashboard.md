@@ -102,8 +102,8 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Nigerian History | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Physical Education | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Physics | 1000 | 15 | 12 | 0 | 988 | partial_objective_register |
-| NECO | Technical Drawing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| NECO | Visual Arts | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| NECO | Technical Drawing | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
+| NECO | Visual Arts | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | NECO | Yoruba | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
 | NERDC | Basic Science / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Nursery | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -212,13 +212,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 278 | 257 | 0 | 5000 | 4743 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
-| NECO | 444 | 409 | 0 | 36000 | 35591 |
+| NECO | 452 | 417 | 0 | 36000 | 35583 |
 | NERDC | 123 | 58 | 0 | 28000 | 27942 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 4098, "validDrafts": 2419, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 4106, "validDrafts": 2427, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

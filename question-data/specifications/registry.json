@@ -2555,6 +2555,32 @@
       ],
       "acquisitionStatus": "official_syllabus_copy_not_retrieved",
       "note": "The 2027 registration guide confirms availability of a separate SSCE syllabus and final-year SSS 3 eligibility. Topic objectives and the exam blueprint remain unverified."
+    },
+    {
+      "id": "neco-technical-drawing-165-provisional-2027",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-learning/technical/Td240mq1.html",
+        "https://waeconline.org.ng/e-learning/Technical/Td340mq5.html"
+      ],
+      "note": "2027 timetable confirms practical 2101, objective 2103 and drawing 2104. Historical 2023 WAEC examiner material supports projection and section skills provisionally. Exact NECO paper allocation, drawing conventions and full syllabus remain unverified.",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
+      "retrievedOn": "2026-11-11"
+    },
+    {
+      "id": "neco-visual-arts-165-provisional-2027",
+      "topicReferences": [
+        "https://www.waeconline.org.ng/e-Learning/Visual/vart340mq1A.html",
+        "https://waeconline.org.ng/e-learning/visual/vart340mq2B.html"
+      ],
+      "note": "2027 timetable lists drawing 4121, essay 4122, objective 4123 and creative design 4124. Historical 2023 WAEC examiner material supports observational drawing and graphic composition provisionally. Exact NECO topic allocation, material requirements and full syllabus remain unverified.",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "kind": "official_format_with_cross_board_reference",
+      "source": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
+      "retrievedOn": "2026-11-11"
     }
   ],
   "banks": [
@@ -5042,7 +5068,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_internal_formats_provisional_cross_board_topics",
       "paperFormats": {
         "II": "essay",
         "III": "objective",
@@ -5083,7 +5109,10 @@
             ]
           ]
         }
-      }
+      },
+      "additionalSpecificationIds": [
+        "neco-visual-arts-165-provisional-2027"
+      ]
     },
     {
       "exam": "NECO",
@@ -5091,7 +5120,7 @@
       "level": "",
       "target": 1000,
       "specificationId": "neco-ssce-internal-timetable-2026",
-      "scopeStatus": "official_2026_internal_format_objectives_unresolved",
+      "scopeStatus": "official_internal_formats_provisional_cross_board_topics",
       "paperFormats": {
         "I": "practical",
         "III": "objective",
@@ -5125,7 +5154,10 @@
             ]
           ]
         }
-      }
+      },
+      "additionalSpecificationIds": [
+        "neco-technical-drawing-165-provisional-2027"
+      ]
     },
     {
       "exam": "WAEC",
@@ -20085,6 +20117,150 @@
         "Historical NERDC Primary 6 English, PDF and printed page 45 and page 46 for print formats"
       ],
       "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-165-01-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Orthographic projection",
+      "subtopic": "First-angle layout and stepped profiles",
+      "learningObjective": "Construct aligned first-angle views of a solid with a change in height.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal timetable: paper formats",
+        "Historical WAEC Technical Drawing 2, school candidates 2023, Question 1: orthographic conventions"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-165-02-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Pictorial projection",
+      "subtopic": "Isometric view with an open recess",
+      "learningObjective": "Use isometric axes to show the visible faces of an open recess.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal timetable: paper formats",
+        "Historical WAEC Technical Drawing 2, school candidates 2023, Question 1: isometric representation"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-165-03-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Sectional drawing",
+      "subtopic": "Longitudinal section of a sleeve",
+      "learningObjective": "Use a longitudinal cut to distinguish material from a through bore.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal timetable: paper formats",
+        "Historical WAEC Technical Drawing 3, school candidates 2023, Question 5: sectional elevation"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-165-04-v1",
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Orthographic projection",
+      "subtopic": "Features visible in plan and hidden in elevation",
+      "learningObjective": "Project a noncentral vertical hole between plan and front elevation.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal timetable: paper formats",
+        "Historical WAEC Technical Drawing 2 and 3, school candidates 2023: orthographic views and assembly drawing"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-165-05-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Observational drawing",
+      "subtopic": "Volume under directional light",
+      "learningObjective": "Represent observed curved forms with a coherent range of tones.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal timetable: paper formats",
+        "Historical WAEC Visual Art Paper 3A, school candidates 2023, Question 1: observed forms and tone"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-165-06-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Observational drawing",
+      "subtopic": "Overlap and directional texture",
+      "learningObjective": "Use observed overlap and directional marks to distinguish surfaces and depth.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal timetable: paper formats",
+        "Historical WAEC Visual Art Paper 3A, school candidates 2023, Question 1: observed proportion and composition"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-165-07-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Creative design",
+      "subtopic": "Poster hierarchy",
+      "learningObjective": "Design a pictorial poster that gives an event name, time and place a clear reading order.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal timetable: paper formats",
+        "Historical WAEC Visual Art Paper 3B, school candidates 2023, Question 2: poster layout and lettering"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-drawing-165-08-v1",
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Creative design",
+      "subtopic": "Coherent wayfinding graphics",
+      "learningObjective": "Create a coordinated set of signs with recognisable pictograms and clear directional cues.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal timetable: paper formats",
+        "Historical WAEC Visual Art Paper 3B, school candidates 2023, Question 2: graphic communication and layout"
+      ],
+      "mappingStatus": "provisional_cross_board_topic_reference",
       "officialObjectiveCode": null
     }
   ],

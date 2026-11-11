@@ -1,0 +1,443 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Technical Drawing and Visual Arts production",
+  "questionCount": 8,
+  "note": "Original drawing tasks with provisional topic mappings and practice rubrics.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Orthographic projection",
+      "subtopic": "First-angle layout and stepped profiles",
+      "learningObjective": "Construct aligned first-angle views of a solid with a change in height.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "id": "ndv-165-001",
+      "objectiveId": "neco-drawing-165-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Use a ruler and set square to draw a front elevation and plan at full size in first-angle projection. A solid base is 70 mm wide, 40 mm deep and 15 mm high. A rectangular riser, 25 mm wide and 20 mm high, sits at the left end of the base and spans its full depth. View the solid from the 70 mm-wide front face. Label both views and show the principal dimensions.",
+      "answer": "The front elevation has a 70 mm baseline, a 35 mm total height on the left, a 25 mm top edge, a 20 mm drop and a 45 mm shelf at 15 mm height. The plan is a 70 by 40 mm rectangle with a visible line across the depth at 25 mm from the left. Place the aligned plan below the elevation.",
+      "explanation": "Project the width across the two views. The riser extends through the depth, so its boundary appears as a full-depth line in plan.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draw the 70 mm-wide stepped elevation with heights of 15 and 35 mm."
+        },
+        {
+          "marks": 1,
+          "description": "Place the elevation step 25 mm from the left."
+        },
+        {
+          "marks": 1,
+          "description": "Show the 70 by 40 mm plan with its internal line at the matching position."
+        },
+        {
+          "marks": 1,
+          "description": "Put the aligned plan below the elevation and label and dimension the views."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "drawing",
+      "requiresManualReview": true,
+      "practiceFormatNote": "Assess the submitted drawing with the original practice guide. Exact NECO topic allocation remains unverified.",
+      "verification": [
+        {
+          "expression": "15+20",
+          "expected": 35,
+          "purpose": "Check the derived drawing dimension in millimetres."
+        },
+        {
+          "expression": "70-25",
+          "expected": 45,
+          "purpose": "Check the derived drawing dimension in millimetres."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Pictorial projection",
+      "subtopic": "Isometric view with an open recess",
+      "learningObjective": "Use isometric axes to show the visible faces of an open recess.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "id": "ndv-165-002",
+      "objectiveId": "neco-drawing-165-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Draw an isometric view using full stated lengths along the isometric axes. A rectangular block is 64 mm wide, 42 mm deep and 32 mm high. A rectangular recess is removed from the top and is open at the front edge. It is centred across the width, 24 mm wide, 18 mm deep from the front, and 10 mm below the top face. Choose a view that shows the front, top and right side. Use visible edges only.",
+      "answer": "Show an outer 64 by 42 by 32 mm isometric block. The recess starts 20 mm from each side and runs 18 mm in from the front. Its floor is 22 mm above the base, and its back and side faces rise to the original top. Draw only the edges visible from the specified viewpoint.",
+      "explanation": "The equal side margins are (64 − 24) ÷ 2 = 20 mm. A front-open recess interrupts both the upper front edge and the top outline of the front face.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Use consistent isometric axes and the three stated outside lengths."
+        },
+        {
+          "marks": 1,
+          "description": "Centre the 24 mm opening and give it 18 mm depth."
+        },
+        {
+          "marks": 1,
+          "description": "Show the floor 10 mm below the top, with the visible internal edges."
+        },
+        {
+          "marks": 1,
+          "description": "Keep the recess open at the front and omit concealed edges."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "drawing",
+      "requiresManualReview": true,
+      "practiceFormatNote": "Assess the submitted drawing with the original practice guide. Exact NECO topic allocation remains unverified.",
+      "verification": [
+        {
+          "expression": "(64-24)/2",
+          "expected": 20,
+          "purpose": "Check the derived drawing dimension in millimetres."
+        },
+        {
+          "expression": "32-10",
+          "expected": 22,
+          "purpose": "Check the derived drawing dimension in millimetres."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Sectional drawing",
+      "subtopic": "Longitudinal section of a sleeve",
+      "learningObjective": "Use a longitudinal cut to distinguish material from a through bore.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "id": "ndv-165-003",
+      "objectiveId": "neco-drawing-165-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Draw a full-size longitudinal section through the axis of a hollow cylindrical sleeve. The sleeve is 56 mm long, with outside diameter 36 mm and a coaxial through bore of diameter 20 mm. Show the axis horizontally. Use hatching to distinguish material intersected by the cutting plane from empty space. Dimension the length and both diameters.",
+      "answer": "Draw the 56 by 36 mm outside envelope. The central 20 mm-wide band is the bore and remains unhatched and open at both ends. The material above and below it forms two 8 mm-thick strips. Hatch both strips consistently, show the centreline and give the three dimensions.",
+      "explanation": "The wall thickness is half the difference between the outside and inside diameters. Only material cut by the plane receives hatching.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draw the outside sectional envelope with the correct proportions and size."
+        },
+        {
+          "marks": 1,
+          "description": "Centre a 20 mm through opening and show the ends open."
+        },
+        {
+          "marks": 1,
+          "description": "Hatch the two material strips consistently while leaving the opening clear."
+        },
+        {
+          "marks": 1,
+          "description": "Show a horizontal centreline and dimension the length and diameters."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "drawing",
+      "requiresManualReview": true,
+      "practiceFormatNote": "Assess the submitted drawing with the original practice guide. Exact NECO topic allocation remains unverified.",
+      "verification": [
+        {
+          "expression": "(36-20)/2",
+          "expected": 8,
+          "purpose": "Check the derived drawing dimension in millimetres."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Technical Drawing",
+      "topic": "Orthographic projection",
+      "subtopic": "Features visible in plan and hidden in elevation",
+      "learningObjective": "Project a noncentral vertical hole between plan and front elevation.",
+      "specificationId": "neco-technical-drawing-165-provisional-2027",
+      "id": "ndv-165-004",
+      "objectiveId": "neco-drawing-165-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At full size, draw a first-angle front elevation and plan of a 72 mm-wide, 48 mm-deep, 16 mm-high rectangular plate. A 14 mm-diameter vertical through hole has its centre 22 mm from the left edge and 30 mm from the front edge. Look squarely at the 72 mm-wide face for the elevation. In elevation show the concealed bore edges with dashed lines and show its centreline.",
+      "answer": "The plan is a 72 by 48 mm rectangle with a 14 mm circle whose centre is offset as stated. Align the plan below a 72 by 16 mm elevation. In the elevation, vertical hidden lines at 15 and 29 mm from the left project the sides of the bore, with a centreline at 22 mm.",
+      "explanation": "The hole is circular when viewed along its axis. Across the front elevation its hidden sides are half a diameter to either side of the projected centre.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Construct the aligned first-angle plan and elevation at the stated sizes."
+        },
+        {
+          "marks": 1,
+          "description": "Place the plan circle at the correct two offsets and diameter."
+        },
+        {
+          "marks": 1,
+          "description": "Show both hidden bore edges in elevation at their projected positions."
+        },
+        {
+          "marks": 1,
+          "description": "Use a distinct centreline and the requested line types."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "drawing",
+      "requiresManualReview": true,
+      "practiceFormatNote": "Assess the submitted drawing with the original practice guide. Exact NECO topic allocation remains unverified.",
+      "verification": [
+        {
+          "expression": "22-14/2",
+          "expected": 15,
+          "purpose": "Check the derived drawing dimension in millimetres."
+        },
+        {
+          "expression": "22+14/2",
+          "expected": 29,
+          "purpose": "Check the derived drawing dimension in millimetres."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Observational drawing",
+      "subtopic": "Volume under directional light",
+      "learningObjective": "Represent observed curved forms with a coherent range of tones.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "id": "ndv-165-005",
+      "objectiveId": "neco-drawing-165-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On a plain tabletop arrange an enamel bowl and an orange, with the orange slightly in front of the bowl but clear of its rim from your seat. Use daylight from one side or a fixed desk lamp. Make a graphite drawing from observation on A4 paper. Show the visible rim, the contact with the table and the direction of light through tone.",
+      "answer": "An acceptable drawing records the rim and bowl curvature as seen, the relative scale and placement of the orange, and a consistent relationship between highlights, shaded surfaces and cast shadows. The objects sit convincingly on the table. Allow different valid viewpoints.",
+      "explanation": "A curved object changes tone across its surface. Use the observed shadow and contact edges to show where the forms meet the tabletop.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Record the visible outline and rim of the bowl in proportion."
+        },
+        {
+          "marks": 1,
+          "description": "Place and proportion the orange accurately relative to the bowl."
+        },
+        {
+          "marks": 1,
+          "description": "Use a coherent tonal range and cast shadows consistent with the observed light."
+        },
+        {
+          "marks": 1,
+          "description": "Compose the forms on the page with clear contact against the tabletop."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "drawing",
+      "requiresManualReview": true,
+      "practiceFormatNote": "Assess the submitted drawing with the original practice guide. Exact NECO topic allocation remains unverified."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Observational drawing",
+      "subtopic": "Overlap and directional texture",
+      "learningObjective": "Use observed overlap and directional marks to distinguish surfaces and depth.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "id": "ndv-165-006",
+      "objectiveId": "neco-drawing-165-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Place a woven mat partly rolled on a table and set a closed exercise book diagonally in front of one end so that it hides part of the roll. Draw the arrangement from a fixed seat with pencil. Indicate the shape of the roll and the flatness of the book. Suggest the weave in selected areas without tracing every strand.",
+      "answer": "A successful study shows the book interrupting the visible contour of the mat. The rolled end and changing direction of a few weave marks suggest curvature. The book has planar faces with consistent angles, and both objects share a plausible resting surface.",
+      "explanation": "Contour interruption establishes the overlap. Selective marks following the rolled surface can distinguish texture from the book’s flatter planes.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Show the observed overlap without drawing the concealed contour through the book."
+        },
+        {
+          "marks": 1,
+          "description": "Represent the rolled end and flat book in plausible proportion and perspective."
+        },
+        {
+          "marks": 1,
+          "description": "Use selective directional marks to suggest the mat’s weave."
+        },
+        {
+          "marks": 1,
+          "description": "Use line weight or tone to keep the two forms legible and grounded."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "drawing",
+      "requiresManualReview": true,
+      "practiceFormatNote": "Assess the submitted drawing with the original practice guide. Exact NECO topic allocation remains unverified."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Creative design",
+      "subtopic": "Poster hierarchy",
+      "learningObjective": "Design a pictorial poster that gives an event name, time and place a clear reading order.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "id": "ndv-165-007",
+      "objectiveId": "neco-drawing-165-07-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Design an A4 portrait poster for a fictional school repair club’s open afternoon. Include the heading REPAIR CLUB OPEN DAY, the details Friday, 3 pm and School Workshop, and an original image of a repair activity. Use two ink colours plus the paper. Submit the finished poster with a small thumbnail showing your layout plan.",
+      "answer": "A valid poster makes the event heading the first element noticed, uses a repair image related to the event and places time and venue where they are easy to find. The thumbnail shows the intended arrangement. Different images and layouts can satisfy the brief.",
+      "explanation": "Scale, contrast and spacing can establish a reading order without relying on colour alone.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Show a thumbnail plan and organise the finished page with a clear focal point."
+        },
+        {
+          "marks": 1,
+          "description": "Include all event information with legible, accurate lettering."
+        },
+        {
+          "marks": 1,
+          "description": "Draw an original image that communicates the repair theme."
+        },
+        {
+          "marks": 1,
+          "description": "Use the two ink colours and paper to make information and image distinct."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "drawing",
+      "requiresManualReview": true,
+      "practiceFormatNote": "Assess the submitted drawing with the original practice guide. Exact NECO topic allocation remains unverified."
+    },
+    {
+      "exam": "NECO",
+      "subject": "Visual Arts",
+      "topic": "Creative design",
+      "subtopic": "Coherent wayfinding graphics",
+      "learningObjective": "Create a coordinated set of signs with recognisable pictograms and clear directional cues.",
+      "specificationId": "neco-visual-arts-165-provisional-2027",
+      "id": "ndv-165-008",
+      "objectiveId": "neco-drawing-165-08-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "On one A4 sheet, design two matching sign panels for a school exhibition. One directs visitors left to the display tables. The other directs visitors right to the feedback desk. Each panel must contain its own original pictogram, a short label and an arrow. Use one dark ink and the paper colour. Draw both panels at the same size.",
+      "answer": "A valid pair uses a consistent border, lettering style and alignment. The display sign has a clear left arrow and a symbol suggesting exhibits. The feedback sign has a right arrow and a different symbol suggesting a response, such as a slip entering a box. Accept other recognisable symbols.",
+      "explanation": "Consistent styling links the panels as a set. Distinct pictograms and arrow directions carry separate pieces of information.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draw two equal panels with a consistent visual system."
+        },
+        {
+          "marks": 1,
+          "description": "Give each destination a legible short label and a distinct relevant pictogram."
+        },
+        {
+          "marks": 1,
+          "description": "Show left for display tables and right for the feedback desk."
+        },
+        {
+          "marks": 1,
+          "description": "Use the single ink to maintain legible separation of symbols, arrows and lettering."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "drawing",
+      "requiresManualReview": true,
+      "practiceFormatNote": "Assess the submitted drawing with the original practice guide. Exact NECO topic allocation remains unverified."
+    }
+  ]
+}
