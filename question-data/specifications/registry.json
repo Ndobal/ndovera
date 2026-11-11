@@ -2600,12 +2600,13 @@
         "Contents, PDF pp. 13–14",
         "Printed pp. 3, 8 and 17 (PDF pp. 17, 22 and 31)",
         "Printed pp. 7, 11 and 12 (PDF pp. 21, 25 and 26)",
-        "Printed pp. 14–16 and 19 (PDF pp. 28–30 and 33)"
+        "Printed pp. 14–16 and 19 (PDF pp. 28–30 and 33)",
+        "Printed p. 18 (PDF p. 32)"
       ],
-      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch. Batch 171 maps fossil fuel combustion under the climate driver objective. The littering example needs separate treatment as a waste and pollution issue. Content cross-checks: UN climate causes (https://www.un.org/en/climatechange/science/causes-effects-climate-change), UNDRR terminology (https://www.undrr.org/terminology), NWS flood safety (https://www.weather.gov/safety/flood-during), and FRSC road safety education (https://frsc.gov.ng/about-us/what-we-do/).",
+      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch. Batch 171 maps fossil fuel combustion under the climate driver objective. The littering example needs separate treatment as a waste and pollution issue. Content cross-checks: UN climate causes (https://www.un.org/en/climatechange/science/causes-effects-climate-change), UNDRR terminology (https://www.undrr.org/terminology), NWS flood safety (https://www.weather.gov/safety/flood-during), and FRSC road safety education (https://frsc.gov.ng/about-us/what-we-do/). Batch 172 cross-checks outbreak communication with WHO (https://www.who.int/emergencies/risk-communications), prevention messages with NCDC (https://ncdc.gov.ng/news/337/cholera-in-nigeria%3A-urgent-call-to-strengthen-water%2C-sanitation-and-hygiene-%28wash%29), and disaster management with UNDRR (https://www.undrr.org/terminology/disaster-management). Printed p. 18 performance objective 4 is deferred pending authoritative age-appropriate guidance on pupil roles and safe referral.",
       "latestRecheck": {
         "date": "2026-11-11",
-        "method": "Direct PDF download matched the registered SHA-256. Printed pp. 7, 11, 12, 14–16 and 19 checked against PDF pp. 21, 25, 26, 28–30 and 33."
+        "method": "Direct PDF download matched the registered SHA-256. Printed pp. 15–16 and 18 checked against PDF pp. 29–30 and 32."
       }
     }
   ],
@@ -21080,6 +21081,118 @@
         "September 2025 revised JSS 1 curriculum, printed p. 19, PDF p. 33, performance objective 3"
       ],
       "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-172-01-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Communication channels",
+      "learningObjective": "Choose a communication channel that reaches the intended audience during a public health response.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 18, PDF p. 32, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-172-02-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Audiences and reporting routes",
+      "learningObjective": "Identify who needs public health information and distinguish public notices from private reports.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 18, PDF p. 32, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-172-03-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Public health announcements",
+      "learningObjective": "Deliver a clear public health message based on an approved instruction.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 18, PDF p. 32, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-172-04-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Public health poster design",
+      "learningObjective": "Create a clear prevention message using approved safe-water and handwashing guidance.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 18, PDF p. 32, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-172-05-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Continuity of essential services",
+      "learningObjective": "Explain how reducing disaster risk protects people and keeps essential services available.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 29, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-172-06-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Community recovery and access",
+      "learningObjective": "Explain ways a community can adapt and maintain services during local disaster recovery.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 30, performance objective 3"
+      ]
     }
   ],
   "scopeGaps": [

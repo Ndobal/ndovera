@@ -1009,3 +1009,10 @@ climate change, disaster risk, early warnings and community safety. The
 13 additional objectives from printed pages 14–16 and 19 of the September
 2025 curriculum. The bank now has 55 valid drafts across 25 mapped objectives.
 School adoption, remaining curriculum scope and academic review remain open.
+
+Batch 172 adds 14 NERDC JSS 1 Social and Citizenship Studies drafts mapped
+to six objectives on outbreak communication and continuity of services
+after disasters. The set includes six multiple-choice items, four written
+tasks, two spoken role-plays and two visual communication tasks. The bank
+now has 69 valid drafts across 31 mapped objectives. Direct-care coverage,
+school adoption and independent academic review remain open.

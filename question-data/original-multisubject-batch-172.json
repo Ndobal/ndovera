@@ -1,0 +1,578 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Social and Citizenship Studies public health communication and disaster continuity",
+  "questionCount": 14,
+  "note": "Fictional classroom practice. Spoken tasks use simulated announcements. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Communication channels",
+      "learningObjective": "Choose a communication channel that reaches the intended audience during a public health response.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-01-v1",
+      "id": "ndv-172-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The health office issues an approved notice for a village where many families have no mobile internet but regularly listen to a local radio station. Which way of sharing the notice best fits this audience?",
+      "answer": "Arrange a local radio announcement in the language used by the families.",
+      "explanation": "Local radio can reach the intended families without mobile internet. Using the local language makes the message easier to understand.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Post the notice only on a website that needs a login.",
+        "Email a large attachment to district employees.",
+        "Arrange a local radio announcement in the language used by the families.",
+        "Share a video only in a private online class group."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Communication channels",
+      "learningObjective": "Choose a communication channel that reaches the intended audience during a public health response.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-01-v1",
+      "id": "ndv-172-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A school needs guardians to receive a health-office update before pupils arrive the next morning. The school knows most guardians read SMS and keeps a call list for those who do not. Which plan best fits the deadline?",
+      "answer": "Send the approved update by SMS and call households on the call list.",
+      "explanation": "The two direct channels can reach guardians before arrival and accommodate households that do not use SMS.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Put the update in next month’s printed newsletter.",
+        "Send the approved update by SMS and call households on the call list.",
+        "Pin it inside the staffroom after lessons begin.",
+        "Ask pupils to recall it from memory at the end of the week."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Communication channels",
+      "learningObjective": "Choose a communication channel that reaches the intended audience during a public health response.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-01-v1",
+      "id": "ndv-172-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A short approved notice must reach families before a school sports practice. Some guardians read the school app. Others use basic phones. Recommend two channels and explain which access barrier each addresses.",
+      "answer": "Post the notice in the app for guardians who already check it. Send a short SMS to guardians whose phones cannot use the app.",
+      "explanation": "The plan matches channels to known audience access. The same approved instruction can be shared through both.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a channel for app users and explains why it fits."
+        },
+        {
+          "marks": 1,
+          "description": "Names a feasible channel for basic phones and explains why it fits."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps both messages timely and consistent with the approved notice."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Audiences and reporting routes",
+      "learningObjective": "Identify who needs public health information and distinguish public notices from private reports.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-02-v1",
+      "id": "ndv-172-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil hears an unverified claim about illness in their class. Who should first receive the pupil’s concern at school?",
+      "answer": "A teacher or another designated adult at school.",
+      "explanation": "A designated adult can follow the school’s reporting process and consult qualified authorities. A public rumour can spread misinformation and expose private information.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A teacher or another designated adult at school.",
+        "Everyone in a public neighbourhood chat.",
+        "Only pupils who want to forward it.",
+        "The pupils named in the rumour, in front of the whole class."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Audiences and reporting routes",
+      "learningObjective": "Identify who needs public health information and distinguish public notices from private reports.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-02-v1",
+      "id": "ndv-172-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A confirmed notice changes where pupils should collect drinking water at school. Which audience needs the instruction to make the change work during the school day?",
+      "answer": "Pupils, supervising staff and the workers who manage the water points.",
+      "explanation": "Pupils use the water points, staff supervise, and workers manage access. All three groups have a role in carrying out the change.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Only suppliers outside the school.",
+        "Only last year’s pupils.",
+        "Only families visiting the school website next term.",
+        "Pupils, supervising staff and the workers who manage the water points."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Audiences and reporting routes",
+      "learningObjective": "Identify who needs public health information and distinguish public notices from private reports.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-02-v1",
+      "id": "ndv-172-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The school has an approved water-point notice for all families. A separate confidential concern about a pupil needs to be referred under school procedure. Name an audience for each message and explain why the two messages need different channels.",
+      "answer": "Send the approved water notice to all guardians through the school’s normal family channel. Pass the concern privately to the designated school official for referral to qualified staff.",
+      "explanation": "A general instruction has a broad audience. A confidential referral goes to the people responsible for acting on it.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies families as recipients of the general notice."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a designated recipient for the confidential referral."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the channel choices protect privacy while reaching the intended audiences."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Public health announcements",
+      "learningObjective": "Deliver a clear public health message based on an approved instruction.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-03-v1",
+      "id": "ndv-172-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "For a classroom role-play, give a 30-second announcement to pupils and lunch monitors. The approved instruction says to wash hands with soap and safe water before eating. The handwashing station is by the dining hall. Include where pupils can ask for help.",
+      "answer": "Pupils and lunch monitors, please wash your hands with soap and safe water before eating. Use the handwashing station beside the dining hall. If you need help finding it, ask the lunch monitor.",
+      "explanation": "A short message names its audience, gives a clear action and tells listeners how to get help.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Addresses the pupils or monitors clearly."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the approved action and when to take it."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the station and a person to ask for help."
+        },
+        {
+          "marks": 1,
+          "description": "Speaks audibly and uses straightforward language."
+        }
+      ],
+      "requiresManualReview": true,
+      "requiresRecordingOrLiveExaminer": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Public health announcements",
+      "learningObjective": "Deliver a clear public health message based on an approved instruction.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-03-v1",
+      "id": "ndv-172-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Role-play a reply to a parent who asks whether a forwarded voice note announcing a school closure is genuine. The school office has issued no closure notice. Give a respectful answer that states what is known and points to the official update channel.",
+      "answer": "Thank you for checking. The school office has issued no closure notice. Please check the school’s official family channel for updates or call the office if you cannot access it.",
+      "explanation": "The reply acknowledges the concern and distinguishes verified information from a forwarded claim.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Acknowledges the concern respectfully."
+        },
+        {
+          "marks": 1,
+          "description": "States accurately that the school has issued no closure notice."
+        },
+        {
+          "marks": 1,
+          "description": "Directs the parent to an official channel."
+        },
+        {
+          "marks": 1,
+          "description": "Delivers the reply clearly without repeating or endorsing the rumour."
+        }
+      ],
+      "requiresManualReview": true,
+      "requiresRecordingOrLiveExaminer": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Public health poster design",
+      "learningObjective": "Create a clear prevention message using approved safe-water and handwashing guidance.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-04-v1",
+      "id": "ndv-172-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Design a notice for the school canteen with this approved guidance: drink water from the designated safe supply and wash hands with soap and safe water before eating. Give each instruction its own visual cue. Leave a space for the school office’s update details.",
+      "answer": "Heading: Safe water and clean hands at lunch. A labelled cup points to the designated safe supply. A soap-and-water picture sits beside the handwashing instruction. A footer is labelled School office updates.",
+      "explanation": "The two labels and visuals help readers distinguish where to drink safely and when to wash their hands.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Displays the safe-water instruction accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Displays the handwashing instruction accurately, including when to wash."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a distinct relevant visual cue for each instruction."
+        },
+        {
+          "marks": 1,
+          "description": "Leaves a clearly labelled space for official updates."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Public health poster design",
+      "learningObjective": "Create a clear prevention message using approved safe-water and handwashing guidance.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-04-v1",
+      "id": "ndv-172-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Make a three-frame storyboard for a school health-awareness clip. A pupil arrives from the toilet area, uses the designated handwashing station with soap and safe water, and joins the lunch queue. Use captions so the message works with the sound off.",
+      "answer": "Frame 1: After using the toilet, head to the handwashing station. Frame 2: Wash hands with soap and safe water. Frame 3: Join the lunch queue with clean hands.",
+      "explanation": "The captions show both the timing of the action and the materials needed. The practice storyboard can be assessed without publishing any footage.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Puts the handwashing scene after toilet use and before lunch."
+        },
+        {
+          "marks": 1,
+          "description": "Shows soap and safe water at the designated station."
+        },
+        {
+          "marks": 1,
+          "description": "Uses captions that make the sequence understandable with sound off."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Continuity of essential services",
+      "learningObjective": "Explain how reducing disaster risk protects people and keeps essential services available.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-05-v1",
+      "id": "ndv-172-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The records room at a clinic is in a low area that floods. Staff keep an authorised backup in a secure dry location. What is the main benefit during recovery?",
+      "answer": "Staff can retrieve essential records sooner and resume services more easily.",
+      "explanation": "The backup helps the clinic continue or restore essential work after records are damaged. It reduces the consequences of the hazard.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The backup prevents rain from reaching the clinic.",
+        "Staff can retrieve essential records sooner and resume services more easily.",
+        "The backup predicts which rooms will flood next year.",
+        "The clinic no longer needs to plan how to protect its staff."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Continuity of essential services",
+      "learningObjective": "Explain how reducing disaster risk protects people and keeps essential services available.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-05-v1",
+      "id": "ndv-172-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Strong winds sometimes interrupt classes at a school with loose roof panels. Explain one benefit of having qualified workers inspect and repair the roof before the windy season and one benefit of having an approved alternate classroom available.",
+      "answer": "Repair can reduce the risk of panels coming loose and injuring someone. An alternate room lets pupils continue lessons if staff close the affected room for inspection.",
+      "explanation": "The roof work reduces physical risk. An alternate room reduces disruption if the hazard still affects the school.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects qualified roof repair to reduced damage or injury."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the alternate classroom to continuity of lessons."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why both measures help even when strong winds cannot be prevented."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Community recovery and access",
+      "learningObjective": "Explain ways a community can adapt and maintain services during local disaster recovery.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-06-v1",
+      "id": "ndv-172-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A storm leaves a community library closed while staff wait for a safety inspection. Which temporary arrangement best helps readers keep borrowing books?",
+      "answer": "Set up a temporary lending desk in a confirmed safe public hall.",
+      "explanation": "A lending desk in a confirmed safe building keeps the service available while the damaged building remains closed.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Set up a temporary lending desk in a confirmed safe public hall.",
+        "Let readers collect books from the closed building on their own.",
+        "Leave all information about borrowing on the locked library door.",
+        "Ask readers to wait at the damaged entrance until repairs finish."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Community recovery and access",
+      "learningObjective": "Explain ways a community can adapt and maintain services during local disaster recovery.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-172-06-v1",
+      "id": "ndv-172-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Storm damage closes the only meeting hall used for a literacy class. The council confirms that a nearby school room is safe and available. Explain how the organisers can use the room and help learners who used to walk to the old hall find the temporary class.",
+      "answer": "Arrange permission and a regular time at the school room. Notify learners directly and place a clear notice at a safe familiar location with the room name, meeting time and contact for directions.",
+      "explanation": "A confirmed venue maintains the class. Clear directions and direct contact make the temporary service easier to reach.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a feasible way to use the confirmed room."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a safe way to communicate the changed location and time."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the plan maintains access during recovery."
+        }
+      ],
+      "requiresManualReview": true
+    }
+  ]
+}

@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4217,
-    "validDrafts": 2538,
+    "raw": 4231,
+    "validDrafts": 2552,
     "reviewed": 0,
     "registeredBanks": 195,
     "target": 177000,
@@ -1160,6 +1160,12 @@
       "sha256": "b89aa079aae5f44668fe85ee5e53b72ba19b98ae6ddebfda609d20a12f4d0719",
       "declared": 19,
       "actual": 19
+    },
+    {
+      "path": "original-multisubject-batch-172.json",
+      "sha256": "6cb2320f76a2cac7554b7fd690ae8b105be73d93974ed8142dc85df65427909a",
+      "declared": 14,
+      "actual": 14
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5490,19 +5496,19 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 55,
-      "validDrafts": 55,
+      "raw": 69,
+      "validDrafts": 69,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 37,
-        "structured": 18
+        "mcq": 43,
+        "structured": 26
       },
       "difficulty": {
-        "standard": 55
+        "standard": 69
       },
-      "remaining": 945,
-      "mappedObjectives": 25,
-      "representedObjectives": 25,
+      "remaining": 931,
+      "mappedObjectives": 31,
+      "representedObjectives": 31,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -6891,18 +6897,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
+    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 366,
@@ -36710,6 +36716,90 @@
       "id": "ndv-171-019",
       "file": "original-multisubject-batch-171.json",
       "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-001",
+      "file": "original-multisubject-batch-172.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-002",
+      "file": "original-multisubject-batch-172.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-003",
+      "file": "original-multisubject-batch-172.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-004",
+      "file": "original-multisubject-batch-172.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-005",
+      "file": "original-multisubject-batch-172.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-006",
+      "file": "original-multisubject-batch-172.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-007",
+      "file": "original-multisubject-batch-172.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-008",
+      "file": "original-multisubject-batch-172.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-009",
+      "file": "original-multisubject-batch-172.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-010",
+      "file": "original-multisubject-batch-172.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-011",
+      "file": "original-multisubject-batch-172.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-012",
+      "file": "original-multisubject-batch-172.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-013",
+      "file": "original-multisubject-batch-172.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-172-014",
+      "file": "original-multisubject-batch-172.json",
+      "index": 13,
       "errors": []
     },
     {
@@ -74502,6 +74592,190 @@
       },
       "tiers": {
         "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-172-01-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Communication channels",
+      "learningObjective": "Choose a communication channel that reaches the intended audience during a public health response.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 18, PDF p. 32, performance objective 1"
+      ],
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-172-02-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Audiences and reporting routes",
+      "learningObjective": "Identify who needs public health information and distinguish public notices from private reports.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 2,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 18, PDF p. 32, performance objective 2"
+      ],
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-172-03-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Public health announcements",
+      "learningObjective": "Deliver a clear public health message based on an approved instruction.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 18, PDF p. 32, performance objective 3"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-172-04-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Response to Epidemics",
+      "subtopic": "Public health poster design",
+      "learningObjective": "Create a clear prevention message using approved safe-water and handwashing guidance.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 18, PDF p. 32, performance objective 5"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-172-05-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Continuity of essential services",
+      "learningObjective": "Explain how reducing disaster risk protects people and keeps essential services available.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 29, performance objective 3"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-172-06-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Community recovery and access",
+      "learningObjective": "Explain ways a community can adapt and maintain services during local disaster recovery.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 30, performance objective 3"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
