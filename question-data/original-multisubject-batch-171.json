@@ -1,0 +1,734 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Social and Citizenship Studies environment and community safety",
+  "questionCount": 19,
+  "note": "Original classroom questions and artefacts. School-level adoption and independent academic review are pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Climate Change",
+      "subtopic": "Weather and climate over time",
+      "learningObjective": "Recognise climate change as a long-term shift in typical conditions.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-01-v1",
+      "id": "ndv-171-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which record would best help a class investigate whether the usual timing of the rainy season has shifted in Ibadan?",
+      "answer": "Records of the start of the rainy season over several decades.",
+      "explanation": "Records spanning decades allow comparison of the usual onset across long periods. A single event or short forecast describes weather.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A drawing of storm clouds from one afternoon.",
+        "Wind speeds recorded every hour on one Saturday.",
+        "Records of the start of the rainy season over several decades.",
+        "A forecast for next Tuesday morning."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Climate Change",
+      "subtopic": "Weather and climate over time",
+      "learningObjective": "Recognise climate change as a long-term shift in typical conditions.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-01-v1",
+      "id": "ndv-171-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two weather stations have reliable records. Which observation describes a possible change in climate?",
+      "answer": "At one station, nights were typically warmer in a recent 30-year period than in the previous 30-year period.",
+      "explanation": "Comparing typical night temperatures across two long periods can show a climate shift. The other observations concern short-term weather.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "At one station, nights were typically warmer in a recent 30-year period than in the previous 30-year period.",
+        "At both stations, a storm ended shortly after sunset yesterday.",
+        "At one station, the afternoon was cooler than the morning on Monday.",
+        "At both stations, the forecast for tomorrow mentions clouds."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Climate Change",
+      "subtopic": "Fossil fuels and greenhouse gases",
+      "learningObjective": "Explain how burning fossil fuels contributes to long-term warming.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-02-v1",
+      "id": "ndv-171-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A community centre replaces its diesel generator with solar panels that meet the same electricity needs during the day. What climate-related change follows from using less diesel?",
+      "answer": "Less carbon dioxide is released from burning diesel.",
+      "explanation": "Burning diesel releases carbon dioxide, which contributes to warming. Using less diesel reduces these direct emissions.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The solar panels remove all the carbon dioxide already in the air.",
+        "Rain is guaranteed on the following day.",
+        "The community stops experiencing hot weather.",
+        "Less carbon dioxide is released from burning diesel."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Climate Change",
+      "subtopic": "Fossil fuels and greenhouse gases",
+      "learningObjective": "Explain how burning fossil fuels contributes to long-term warming.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-02-v1",
+      "id": "ndv-171-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A class is making a flow chart about burning coal. Which step belongs between “Coal is burned” and “More heat is retained in the climate system”?",
+      "answer": "Carbon dioxide is added to the atmosphere.",
+      "explanation": "Coal combustion adds carbon dioxide. Higher concentrations of this greenhouse gas reduce the rate at which Earth loses heat to space.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The days become longer.",
+        "Carbon dioxide is added to the atmosphere.",
+        "The sea stops absorbing sunlight.",
+        "All water vapour disappears from the air."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Disaster, risk and risk reduction",
+      "learningObjective": "Distinguish a disaster, the possibility of future harm and a measure to reduce risk.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-03-v1",
+      "id": "ndv-171-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A flood ruins homes and closes the only market for several weeks. Which term best describes the serious disruption that has already occurred?",
+      "answer": "A disaster.",
+      "explanation": "Serious disruption caused when a hazard affects a community is a disaster. A forecast estimates future conditions.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A forecast.",
+        "A disaster.",
+        "A warning message.",
+        "A risk reduction measure."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Disaster, risk and risk reduction",
+      "learningObjective": "Distinguish a disaster, the possibility of future harm and a measure to reduce risk.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-03-v1",
+      "id": "ndv-171-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The school plans to move its paper records from a room that floods to a secure upper-floor store. Which description fits the move?",
+      "answer": "It is a measure to reduce possible flood losses.",
+      "explanation": "The change reduces the exposure of records to floodwater and thus reduces the chance of losing them.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It is a measure to reduce possible flood losses.",
+        "It is an estimate of when the next flood will occur.",
+        "It is the damage caused by the last flood.",
+        "It is a warning that a flood has already started."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Origins of hazardous events",
+      "learningObjective": "Compare natural and human-caused triggers of events that can lead to disasters.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-04-v1",
+      "id": "ndv-171-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two events disrupt nearby communities. Lightning strikes a roof in one community. In the other, a storage tank leaks after machinery accidentally damages it. What distinguishes the triggers?",
+      "answer": "The strike has a natural trigger and the leak has a human-related trigger.",
+      "explanation": "Lightning is a natural hazard. The leak in this scenario arose from human activity. The severity of either event also depends on who and what is exposed.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Both triggers are caused by changes in the weather.",
+        "The leak has a natural trigger and the strike has a human trigger.",
+        "The strike has a natural trigger and the leak has a human-related trigger.",
+        "The triggers can only be classified after the damage costs are known."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Actions before, during and after a flood",
+      "learningObjective": "Match risk reduction actions to stages of a flooding emergency.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-05-v1",
+      "id": "ndv-171-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A school follows its flood plan. At which stage should staff check that the approved high-ground assembly point is accessible as part of a scheduled drill?",
+      "answer": "Before a flood, during routine preparation.",
+      "explanation": "A routine drill checks access ahead of time. During flooding, pupils follow staff instructions and stay away from floodwater.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "While pupils are walking through floodwater.",
+        "After staff have sent pupils to check damaged buildings.",
+        "Only when the school has begun repairs after a flood.",
+        "Before a flood, during routine preparation."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Actions before, during and after a flood",
+      "learningObjective": "Match risk reduction actions to stages of a flooding emergency.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-05-v1",
+      "id": "ndv-171-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A flood-prone school is making a three-row checklist. Give one step staff can take before a flood, one safe action pupils can take during a flood under staff direction, and one check staff should arrange before letting classes return.",
+      "answer": "Before: practise the school’s approved evacuation route. During: follow staff to the designated safe assembly area by a route clear of floodwater. After: have qualified personnel confirm that classrooms are safe before reopening.",
+      "explanation": "Preparation, immediate protection and safe reopening address different stages of the hazard.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a feasible preparation step before flooding."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a safe pupil action under staff direction during flooding."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a safe staff-led check or clearance before re-entry."
+        }
+      ],
+      "requiresManualReview": true,
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "School risk reduction planning",
+      "learningObjective": "Develop a simple school disaster risk reduction plan with clear roles.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-06-v1",
+      "id": "ndv-171-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The school courtyard sometimes floods. The head teacher has approved a dry path to the upstairs hall. Draft a short plan that identifies the area to avoid, says how staff alert classes, states where they lead pupils, and assigns someone to check attendance.",
+      "answer": "Keep pupils out of the courtyard. The office sends the agreed alert to teachers. Teachers lead pupils along the approved dry path to the upstairs hall. Class teachers take their registers there and report anyone unaccounted for.",
+      "explanation": "A workable plan identifies the hazard, communicates instructions, names a safe destination and assigns responsibility for accounting for people.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the flooded courtyard as the area to avoid."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a clear staff-led alert method."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the approved dry path and upstairs hall."
+        },
+        {
+          "marks": 1,
+          "description": "Assigns an adult to check attendance and report missing pupils."
+        }
+      ],
+      "requiresManualReview": true,
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Forecasts and early warnings",
+      "learningObjective": "Interpret forecasts and early warnings as information that supports timely protective action.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-07-v1",
+      "id": "ndv-171-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The authorities issue a notice that a river may overflow by evening and direct schools to use their approved safety plans. What is the purpose of this early warning?",
+      "answer": "To give schools time to act before possible flooding.",
+      "explanation": "An early warning links information about a possible hazard to action. The notice allows preparation before the event and does not guarantee a particular outcome.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "To certify that every school has already flooded.",
+        "To give schools time to act before possible flooding.",
+        "To replace all school safety plans with rainfall records.",
+        "To confirm exactly how much damage will occur."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Forecasts and early warnings",
+      "learningObjective": "Interpret forecasts and early warnings as information that supports timely protective action.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-07-v1",
+      "id": "ndv-171-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A radio forecast says there is a chance of severe rain. So far the sky above the school is clear. What is the best interpretation?",
+      "answer": "The forecast concerns possible later conditions, so staff should monitor official updates.",
+      "explanation": "A forecast estimates future conditions. Present clear skies do not rule out later rain, and new official information can help staff decide what to do.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The forecast is wrong because rain has not started.",
+        "Every street will certainly flood.",
+        "The forecast concerns possible later conditions, so staff should monitor official updates.",
+        "The forecast describes only the rain that fell yesterday."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Effects on people and services",
+      "learningObjective": "Identify how damage during a disaster can disrupt community services.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-08-v1",
+      "id": "ndv-171-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A storm damages the only bridge linking a village to its health centre. What is a likely indirect effect of the damage?",
+      "answer": "Some patients take longer to reach the health centre.",
+      "explanation": "The bridge damage disrupts travel and can delay access to services. The other options describe direct physical effects of the storm.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Some patients take longer to reach the health centre.",
+        "The bridge deck cracks during the storm.",
+        "The river pushes debris against a bridge support.",
+        "A bridge railing bends when struck by debris."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Visual communication about preparedness",
+      "learningObjective": "Design an infographic that links preparedness measures to community benefits.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-09-v1",
+      "id": "ndv-171-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Design a two-panel infographic for a school display. One panel should show how a staff-led practice drill helps pupils. The other should show how a school alert sent through two different channels helps families. Use a short heading and a label or caption for each panel.",
+      "answer": "Heading: Get ready before floods. Panel 1 shows a teacher leading a drill with a caption about learning the safe route. Panel 2 shows a text alert and a community notice with a caption about reaching families who may miss one channel.",
+      "explanation": "The display connects each preparedness measure to a distinct benefit and can be read at a glance.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a relevant heading and two labelled or captioned panels."
+        },
+        {
+          "marks": 1,
+          "description": "Shows a staff-led drill with a plausible benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Shows two suitable channels for a school alert."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how using both channels helps more families receive the warning."
+        }
+      ],
+      "requiresManualReview": true,
+      "responseMode": "artefact"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Response to a hypothetical local hazard",
+      "learningObjective": "Propose safe immediate actions and communication in a hypothetical local disaster scenario.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-10-v1",
+      "id": "ndv-171-015",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A community hall is sheltering people during heavy rain. The usual entrance path is now flooded, and staff have confirmed an alternative dry exit. Propose how staff should communicate the change, move people safely and assist visitors who need help using the exit.",
+      "answer": "Announce that the flooded path is closed and point out the dry exit. Staff guide groups along the confirmed dry path. An assigned adult asks visitors who need support how best to assist them and helps coordinate that support.",
+      "explanation": "Clear directions reduce confusion. Confirmed routes and planned assistance help people move without entering floodwater.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Communicates which path is closed and identifies the alternate exit."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a staff-led move using the confirmed dry route."
+        },
+        {
+          "marks": 1,
+          "description": "Provides practical and respectful assistance to visitors who need it."
+        }
+      ],
+      "requiresManualReview": true,
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Promoting Safety in Our Community",
+      "subtopic": "Safety poster design",
+      "learningObjective": "Create a poster that explains a safety action and its purpose.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-11-v1",
+      "id": "ndv-171-016",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Design a safety poster for the landing outside a busy classroom. Its purpose is to prevent falls caused by bags left on the stairs. Include a readable heading, an image or layout cue and a short instruction telling pupils where to put bags.",
+      "answer": "Heading: Keep the stairs clear. A drawing shows bags on the classroom shelf and an empty stairway. Caption: Put your bag on the classroom shelf so people can use the stairs safely.",
+      "explanation": "A specific storage instruction and clear visual help pupils understand the action and the reason for it.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a readable heading about keeping stairs clear."
+        },
+        {
+          "marks": 1,
+          "description": "Shows a relevant visual or layout cue."
+        },
+        {
+          "marks": 1,
+          "description": "Names a suitable place to store bags."
+        },
+        {
+          "marks": 1,
+          "description": "Links the action to safer movement or fall prevention."
+        }
+      ],
+      "requiresManualReview": true,
+      "responseMode": "artefact"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Promoting Safety in Our Community",
+      "subtopic": "Recognising and reporting unsafe conditions",
+      "learningObjective": "Choose practical safety measures in familiar settings.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-12-v1",
+      "id": "ndv-171-017",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "During a supervised visit to a tailor’s workshop, a pupil notices scissors protruding from the edge of a worktable in a narrow aisle. What should the pupil do?",
+      "answer": "Keep clear and tell the supervising adult so the scissors can be stored safely.",
+      "explanation": "Keeping clear protects the pupil, and reporting lets the adult arrange safe storage without pupils handling unfamiliar equipment.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Lean over the table to rearrange the equipment.",
+        "Move the scissors to the floor beside the table.",
+        "Carry the scissors through the group to find their owner.",
+        "Keep clear and tell the supervising adult so the scissors can be stored safely."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Promoting Safety in Our Community",
+      "subtopic": "Recognising and reporting unsafe conditions",
+      "learningObjective": "Choose practical safety measures in familiar settings.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-12-v1",
+      "id": "ndv-171-018",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At home, a loose mat slides whenever someone steps on it beside the kitchen door. Which change most directly addresses the risk?",
+      "answer": "Ask an adult to remove the mat or replace it with one that stays in place.",
+      "explanation": "Removing or securing the mat deals with the cause of slipping where people pass.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Put a second loose mat on top.",
+        "Ask an adult to remove the mat or replace it with one that stays in place.",
+        "Keep the mat and ask everyone to walk faster over it.",
+        "Put a notice about kitchen safety in a different room."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Promoting Safety in Our Community",
+      "subtopic": "Road-user safety brochure",
+      "learningObjective": "Create a safety guide with actions for pedestrians, cyclists and motorists.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-171-13-v1",
+      "id": "ndv-171-019",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create a three-part road safety leaflet for the area outside a school gate. Give one specific action each for pedestrians, cyclists and motorists. Use labelled sections and explain how one of the actions reduces risk at the gate.",
+      "answer": "Pedestrians: use the designated crossing and check that traffic has stopped before stepping out. Cyclists: use the agreed cycle access and slow down near the gate. Motorists: approach slowly and yield to people using the crossing. Driving slowly gives motorists more time to notice pupils near the crossing.",
+      "explanation": "Each action gives a different group a practical way to reduce conflict where people are arriving and leaving.",
+      "score": 5,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Labels separate sections for pedestrians, cyclists and motorists."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a safe, actionable pedestrian instruction."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a safe, actionable cyclist instruction."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a safe, actionable motorist instruction."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how one action reduces a specific risk at the gate."
+        }
+      ],
+      "requiresManualReview": true,
+      "responseMode": "artefact"
+    }
+  ]
+}

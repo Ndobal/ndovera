@@ -2598,12 +2598,14 @@
       "sourceSections": [
         "Cover and imprint, PDF pp. 1–3",
         "Contents, PDF pp. 13–14",
-        "Printed pp. 3, 8 and 17 (PDF pp. 17, 22 and 31)"
+        "Printed pp. 3, 8 and 17 (PDF pp. 17, 22 and 31)",
+        "Printed pp. 7, 11 and 12 (PDF pp. 21, 25 and 26)",
+        "Printed pp. 14–16 and 19 (PDF pp. 28–30 and 33)"
       ],
-      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch.",
+      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch. Batch 171 maps fossil fuel combustion under the climate driver objective. The littering example needs separate treatment as a waste and pollution issue. Content cross-checks: UN climate causes (https://www.un.org/en/climatechange/science/causes-effects-climate-change), UNDRR terminology (https://www.undrr.org/terminology), NWS flood safety (https://www.weather.gov/safety/flood-during), and FRSC road safety education (https://frsc.gov.ng/about-us/what-we-do/).",
       "latestRecheck": {
         "date": "2026-11-11",
-        "method": "Direct PDF download matched the registered SHA-256. Printed pages 7, 11 and 12 checked against PDF pages 21, 25 and 26."
+        "method": "Direct PDF download matched the registered SHA-256. Printed pp. 7, 11, 12, 14–16 and 19 checked against PDF pp. 21, 25, 26, 28–30 and 33."
       }
     }
   ],
@@ -20841,6 +20843,241 @@
       "officialObjectiveCode": null,
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 21, performance objective 6"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-01-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Climate Change",
+      "subtopic": "Weather and climate over time",
+      "learningObjective": "Recognise climate change as a long-term shift in typical conditions.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 28, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-02-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Climate Change",
+      "subtopic": "Fossil fuels and greenhouse gases",
+      "learningObjective": "Explain how burning fossil fuels contributes to long-term warming.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 28, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-03-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Disaster, risk and risk reduction",
+      "learningObjective": "Distinguish a disaster, the possibility of future harm and a measure to reduce risk.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 29, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-04-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Origins of hazardous events",
+      "learningObjective": "Compare natural and human-caused triggers of events that can lead to disasters.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 29, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-05-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "Actions before, during and after a flood",
+      "learningObjective": "Match risk reduction actions to stages of a flooding emergency.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 29, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-06-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk Reduction",
+      "subtopic": "School risk reduction planning",
+      "learningObjective": "Develop a simple school disaster risk reduction plan with clear roles.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 29, performance objective 5"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-07-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Forecasts and early warnings",
+      "learningObjective": "Interpret forecasts and early warnings as information that supports timely protective action.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 30, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-08-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Effects on people and services",
+      "learningObjective": "Identify how damage during a disaster can disrupt community services.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 30, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-09-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Visual communication about preparedness",
+      "learningObjective": "Design an infographic that links preparedness measures to community benefits.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 30, performance objective 5"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-10-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Disaster Risk and Forecasting of Hazard: Early Warning Signs",
+      "subtopic": "Response to a hypothetical local hazard",
+      "learningObjective": "Propose safe immediate actions and communication in a hypothetical local disaster scenario.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 30, performance objective 6"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-11-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Promoting Safety in Our Community",
+      "subtopic": "Safety poster design",
+      "learningObjective": "Create a poster that explains a safety action and its purpose.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 19, PDF p. 33, performance objective 1"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-12-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Promoting Safety in Our Community",
+      "subtopic": "Recognising and reporting unsafe conditions",
+      "learningObjective": "Choose practical safety measures in familiar settings.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 19, PDF p. 33, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-171-13-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Promoting Safety in Our Community",
+      "subtopic": "Road-user safety brochure",
+      "learningObjective": "Create a safety guide with actions for pedestrians, cyclists and motorists.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 19, PDF p. 33, performance objective 3"
       ],
       "mappingStatus": "author_paraphrase_exact_class"
     }

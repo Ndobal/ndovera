@@ -1002,3 +1002,10 @@ culture, socialisation and conflict prevention and resolution. The exact
 September 2025 PDF matched its registered checksum. The 12 objective
 questions and six written or artefact tasks map to six additional outcomes
 from printed pages 7, 11 and 12. School adoption and academic review remain open.
+
+Batch 171 adds 19 NERDC JSS 1 Social and Citizenship Studies drafts on
+climate change, disaster risk, early warnings and community safety. The
+13 multiple-choice questions and six written or artefact tasks map to
+13 additional objectives from printed pages 14–16 and 19 of the September
+2025 curriculum. The bank now has 55 valid drafts across 25 mapped objectives.
+School adoption, remaining curriculum scope and academic review remain open.
