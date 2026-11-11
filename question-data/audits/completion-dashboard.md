@@ -32,7 +32,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IELTS | Writing | 1000 | 21 | 18 | 0 | 982 | partial_objective_register |
 | IGCSE | Biology [0610] | 1000 | 78 | 74 | 0 | 926 | partial_objective_register |
 | IGCSE | Chemistry [0620] | 1000 | 76 | 74 | 0 | 926 | partial_objective_register |
-| IGCSE | Economics [0455] | 1000 | 37 | 37 | 0 | 963 | partial_objective_register |
+| IGCSE | Economics [0455] | 1000 | 57 | 57 | 0 | 943 | partial_objective_register |
 | IGCSE | Mathematics | 1000 | 26 | 12 | 0 | 988 | partial_objective_register |
 | IGCSE | Physics [0625] | 1000 | 61 | 60 | 0 | 940 | partial_objective_register |
 | JAMB | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
@@ -209,7 +209,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 |---|---:|---:|---:|---:|---:|
 | BECE | 153 | 153 | 0 | 18000 | 17847 |
 | IELTS | 145 | 136 | 0 | 4000 | 3864 |
-| IGCSE | 278 | 257 | 0 | 5000 | 4743 |
+| IGCSE | 298 | 277 | 0 | 5000 | 4723 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 476 | 441 | 0 | 36000 | 35559 |
@@ -218,7 +218,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 4130, "validDrafts": 2451, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 4150, "validDrafts": 2471, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

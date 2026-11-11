@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_166_automated_validation_passed",
+  "phase": "batch_167_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-167.json",
+  "nextBatch": "original-multisubject-batch-168.json",
   "nextPriorities": [
-    "Rotate to an underrepresented Cambridge IGCSE Economics objective after checking the applicable qualification code and examination-year syllabus. NECO Technical Drawing and Visual Arts each now have 12 objective drafts and four production drafts. Current NECO topic allocation, item blueprint and independent review remain open.",
+    "Develop Cambridge IGCSE Economics 0455 Paper 2 practice on currency movements and the current account for the 2027–2029 syllabus. Use balanced policy evaluation and original marking guides. Batch 167 covers five knowledge and analysis objectives in Paper 1. The 2026 syllabus remains separately mapped.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-166.json",
-  "lastRemoteVerifiedCommit": "c30da866e09c9da6daace667b5625ee37f440fc0",
+  "lastValidatedBatch": "original-multisubject-batch-167.json",
+  "lastRemoteVerifiedCommit": "2315b0f4aa23762cf8ad5aa47becf7befec4385a",
   "verifiedTotals": {
-    "raw": 4130,
-    "validDrafts": 2451,
+    "raw": 4150,
+    "validDrafts": 2471,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-166.json",
+  "lastPopulatedBatch": "original-multisubject-batch-167.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4130,
+  "inventoryRaw": 4150,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "neco-technical-drawing-165-provisional-2027",
+    "id": "cambridge-0455-2027-2029-v1",
     "date": "2026-11-11"
   }
 }

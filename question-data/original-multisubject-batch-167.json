@@ -1,0 +1,989 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE 0455 currency markets and current account",
+  "questionCount": 20,
+  "note": "Original Paper 1 practice for the 2027–2029 syllabus. Exchange-rate figures are fictional.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Currency transactions and quotation",
+      "learningObjective": "Interpret exchange-rate quotations and identify reasons for exchanging currencies.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-001",
+      "objectiveId": "igcse-0455-167-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A fictional exchange rate is 400 naira per unit of a foreign currency. A student pays a foreign subscription of 15 units. With no fees, how many naira are needed?",
+      "options": [
+        "415 naira",
+        "6000 naira",
+        "4000 naira",
+        "26.67 naira"
+      ],
+      "answer": "6000 naira",
+      "correctOption": "B",
+      "explanation": "Multiply the amount payable in foreign currency by the naira price of one unit.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "400*15",
+          "expected": 6000,
+          "purpose": "Check the calculation in the answer."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Currency transactions and quotation",
+      "learningObjective": "Interpret exchange-rate quotations and identify reasons for exchanging currencies.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-002",
+      "objectiveId": "igcse-0455-167-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A resident sends part of her salary to a family member abroad, who receives the destination country's currency. Which reason for a currency exchange does this illustrate?",
+      "options": [
+        "An import of capital goods.",
+        "Speculative currency dealing.",
+        "A worker's remittance.",
+        "Payment of a dividend."
+      ],
+      "answer": "A worker's remittance.",
+      "correctOption": "C",
+      "explanation": "The transfer sends a worker's income to family abroad.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Currency transactions and quotation",
+      "learningObjective": "Interpret exchange-rate quotations and identify reasons for exchanging currencies.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-003",
+      "objectiveId": "igcse-0455-167-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A currency dealer buys a currency because she expects its value to rise and plans to sell it later. What is her motive?",
+      "options": [
+        "Paying interest abroad.",
+        "Paying for an imported service.",
+        "Sending a remittance.",
+        "Speculation."
+      ],
+      "answer": "Speculation.",
+      "correctOption": "D",
+      "explanation": "She aims to profit from the expected change in the exchange rate.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Currency transactions and quotation",
+      "learningObjective": "Interpret exchange-rate quotations and identify reasons for exchanging currencies.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-004",
+      "objectiveId": "igcse-0455-167-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A hotel abroad charges a tourist 180 units of its own currency. What does an exchange rate tell the tourist before converting money?",
+      "options": [
+        "The price of one currency expressed in the other currency.",
+        "The foreign hotel's profit on the booking.",
+        "The quantity of money printed in the destination country.",
+        "The tax rate applied to the hotel's income."
+      ],
+      "answer": "The price of one currency expressed in the other currency.",
+      "correctOption": "A",
+      "explanation": "An exchange rate relates the values of the two currencies.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Demand, supply and currency movements",
+      "learningObjective": "Analyse changes in currency demand or supply in a floating market.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-005",
+      "objectiveId": "igcse-0455-167-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Foreign buyers must obtain the currency of country M to pay its exporters. Demand for these exports rises. What happens in the currency market if everything else stays constant?",
+      "options": [
+        "Demand for M's currency falls and its value tends to decrease.",
+        "Supply of M's currency rises and its value tends to decrease.",
+        "Demand for M's currency rises and its value tends to increase.",
+        "Supply of M's currency falls because exporters demand fewer goods."
+      ],
+      "answer": "Demand for M's currency rises and its value tends to increase.",
+      "correctOption": "C",
+      "explanation": "More buyers need the currency to pay exporters, raising demand for it.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Demand, supply and currency movements",
+      "learningObjective": "Analyse changes in currency demand or supply in a floating market.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-006",
+      "objectiveId": "igcse-0455-167-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Residents of country R use their own currency to buy more foreign currency to pay for imported machinery. What is the direct effect in the market for R's currency?",
+      "options": [
+        "Its supply decreases.",
+        "Its demand increases.",
+        "Its demand decreases.",
+        "Its supply increases."
+      ],
+      "answer": "Its supply increases.",
+      "correctOption": "D",
+      "explanation": "Residents offer more of R's currency in exchange for foreign currency.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Demand, supply and currency movements",
+      "learningObjective": "Analyse changes in currency demand or supply in a floating market.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-007",
+      "objectiveId": "igcse-0455-167-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Investors move short-term deposits into country K after its interest rate rises. They must buy K's currency to do so. What effect follows, other things equal?",
+      "options": [
+        "An increase in demand for K's currency.",
+        "An increase in the supply of K's currency.",
+        "A fall in demand for K's exports by definition.",
+        "A fall in demand for K's currency."
+      ],
+      "answer": "An increase in demand for K's currency.",
+      "correctOption": "A",
+      "explanation": "The deposits require purchases of K's currency.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Demand, supply and currency movements",
+      "learningObjective": "Analyse changes in currency demand or supply in a floating market.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-008",
+      "objectiveId": "igcse-0455-167-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "One unit of A's currency initially buys 0.5 units of B's currency. It later buys 0.4 units. Which description is correct?",
+      "options": [
+        "A's currency has appreciated against B's.",
+        "A's currency has depreciated against B's.",
+        "Both currencies have depreciated against each other.",
+        "The exchange rate has stayed constant."
+      ],
+      "answer": "A's currency has depreciated against B's.",
+      "correctOption": "B",
+      "explanation": "A unit of A buys fewer units of B than before.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Effects on traded prices and quantities",
+      "learningObjective": "Analyse how currency movements affect import costs and export demand under stated assumptions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-009",
+      "objectiveId": "igcse-0455-167-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A Nigerian firm imports a tool priced at 50 foreign units. The exchange rate moves from 600 to 660 naira per foreign unit. The supplier's price is unchanged. How much more does the tool cost in naira before fees?",
+      "options": [
+        "33000 naira",
+        "60 naira",
+        "30000 naira",
+        "3000 naira"
+      ],
+      "answer": "3000 naira",
+      "correctOption": "D",
+      "explanation": "Multiply the increase in the naira price per foreign unit by the tool's price.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(660-600)*50",
+          "expected": 3000,
+          "purpose": "Check the calculation in the answer."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Effects on traded prices and quantities",
+      "learningObjective": "Analyse how currency movements affect import costs and export demand under stated assumptions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-010",
+      "objectiveId": "igcse-0455-167-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Country T's currency appreciates. An exporter keeps its selling price in T's currency unchanged. What is the immediate effect for foreign buyers?",
+      "options": [
+        "The price expressed in their own currency rises.",
+        "The price expressed in their own currency falls.",
+        "The price expressed in their own currency is unchanged.",
+        "They must buy more units of the exported good."
+      ],
+      "answer": "The price expressed in their own currency rises.",
+      "correctOption": "A",
+      "explanation": "Each unit of T's currency costs more in the buyers' currency.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Effects on traded prices and quantities",
+      "learningObjective": "Analyse how currency movements affect import costs and export demand under stated assumptions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-011",
+      "objectiveId": "igcse-0455-167-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A country's currency depreciates and foreign-currency prices of its exports fall. Foreign buyers can readily switch from competing suppliers. What is the likely effect on the quantity of these exports demanded?",
+      "options": [
+        "It decreases.",
+        "It increases.",
+        "It must remain unchanged.",
+        "It falls to zero."
+      ],
+      "answer": "It increases.",
+      "correctOption": "B",
+      "explanation": "With competing products available, a lower relative price can attract buyers.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Effects on traded prices and quantities",
+      "learningObjective": "Analyse how currency movements affect import costs and export demand under stated assumptions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-012",
+      "objectiveId": "igcse-0455-167-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "An exporter has a contract that pays a fixed amount in foreign currency per shipment. The domestic currency depreciates. What will the exporter receive after converting the payment, assuming no fees?",
+      "options": [
+        "Fewer units of domestic currency for each shipment.",
+        "The same domestic-currency revenue because the foreign price is fixed.",
+        "More units of domestic currency for each shipment.",
+        "More units of foreign currency for each shipment."
+      ],
+      "answer": "More units of domestic currency for each shipment.",
+      "correctOption": "C",
+      "explanation": "Each unit of foreign currency converts into more domestic currency. The contracted foreign-currency payment itself is unchanged.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Classification and balances",
+      "learningObjective": "Classify cross-border transactions and calculate component or overall balances.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-013",
+      "objectiveId": "igcse-0455-167-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A firm based in country J sells translation services to customers abroad. How does J record the sales in its current account?",
+      "options": [
+        "A credit in trade in services.",
+        "A debit in trade in goods.",
+        "A credit in secondary income.",
+        "A debit in primary income."
+      ],
+      "answer": "A credit in trade in services.",
+      "correctOption": "A",
+      "explanation": "Payment is received for an exported service.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Classification and balances",
+      "learningObjective": "Classify cross-border transactions and calculate component or overall balances.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-014",
+      "objectiveId": "igcse-0455-167-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A household in country F receives a cash gift from a relative living abroad, with no service or asset exchanged. Where is the receipt recorded?",
+      "options": [
+        "Trade in goods.",
+        "Secondary income.",
+        "Trade in services.",
+        "Primary income."
+      ],
+      "answer": "Secondary income.",
+      "correctOption": "B",
+      "explanation": "A gift is a transfer without a corresponding exchange of goods, services or factor income.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Classification and balances",
+      "learningObjective": "Classify cross-border transactions and calculate component or overall balances.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-015",
+      "objectiveId": "igcse-0455-167-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Country L has a goods balance of −12 million, a services balance of +7 million, a primary income balance of −4 million and a secondary income balance of +5 million. What is the current account balance?",
+      "options": [
+        "A surplus of 4 million.",
+        "A deficit of 9 million.",
+        "A deficit of 4 million.",
+        "A surplus of 24 million."
+      ],
+      "answer": "A deficit of 4 million.",
+      "correctOption": "C",
+      "explanation": "Add the four signed component balances.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "-12+7-4+5",
+          "expected": -4,
+          "purpose": "Check the calculation in the answer."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Classification and balances",
+      "learningObjective": "Classify cross-border transactions and calculate component or overall balances.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-016",
+      "objectiveId": "igcse-0455-167-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A resident investor receives interest on a bond issued overseas. What is the classification for the home country's current account?",
+      "options": [
+        "A secondary income credit.",
+        "A goods export.",
+        "A services import.",
+        "A primary income credit."
+      ],
+      "answer": "A primary income credit.",
+      "correctOption": "D",
+      "explanation": "Interest from an investment abroad is primary income received.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Causes and adjustment mechanisms",
+      "learningObjective": "Analyse how spending, export capacity and import substitution can affect the current account.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-017",
+      "objectiveId": "igcse-0455-167-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Household incomes rise in country N. Households spend much of the extra income on imported consumer goods. Export receipts and other current account flows are unchanged. What happens to the current account balance?",
+      "options": [
+        "It increases.",
+        "It decreases.",
+        "It must become zero.",
+        "It stays unchanged because incomes are domestic."
+      ],
+      "answer": "It decreases.",
+      "correctOption": "B",
+      "explanation": "Higher import expenditure increases debits, reducing the balance.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Causes and adjustment mechanisms",
+      "learningObjective": "Analyse how spending, export capacity and import substitution can affect the current account.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-018",
+      "objectiveId": "igcse-0455-167-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A country reduces delays at its ports so that exporters can deliver orders abroad more reliably. Which route could improve its current account?",
+      "options": [
+        "Higher sales to foreign buyers increase import debits by definition.",
+        "Shorter delays count as secondary income paid abroad.",
+        "Higher sales to foreign buyers increase export receipts.",
+        "The policy automatically lowers receipts from exports."
+      ],
+      "answer": "Higher sales to foreign buyers increase export receipts.",
+      "correctOption": "C",
+      "explanation": "Reliability can attract more orders and raise receipts from exports.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Causes and adjustment mechanisms",
+      "learningObjective": "Analyse how spending, export capacity and import substitution can affect the current account.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-019",
+      "objectiveId": "igcse-0455-167-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A country restricts imports of a product. Its trading partners respond by restricting its exports. Why might its current account fail to improve?",
+      "options": [
+        "Import restrictions raise export receipts by definition.",
+        "Export sales cannot affect the current account.",
+        "The restrictions convert goods trade into primary income.",
+        "Lost export receipts may offset lower import spending."
+      ],
+      "answer": "Lost export receipts may offset lower import spending.",
+      "correctOption": "D",
+      "explanation": "A reduction in both receipts and payments has an uncertain net effect.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Causes and adjustment mechanisms",
+      "learningObjective": "Analyse how spending, export capacity and import substitution can affect the current account.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-167-020",
+      "objectiveId": "igcse-0455-167-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "An economy's current account surplus falls because export orders decline. Exporting factories reduce production and there is no offsetting expansion elsewhere. Which short-run effect is most likely?",
+      "options": [
+        "Lower demand for workers in exporting industries.",
+        "Higher employment in exporting industries.",
+        "Higher export revenue despite fewer orders by assumption.",
+        "A fall in the price of every imported item."
+      ],
+      "answer": "Lower demand for workers in exporting industries.",
+      "correctOption": "A",
+      "explanation": "With lower output and no offsetting expansion, export firms generally need less labour.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

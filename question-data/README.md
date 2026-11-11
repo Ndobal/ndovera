@@ -977,3 +977,9 @@ Historical WAEC material supports provisional topic mappings for projection,
 sections, observational drawing and graphic design. The four-choice format
 and one-mark score are practice choices. Current NECO topic allocation and
 independent review remain open.
+
+Batch 167 adds 20 original Cambridge IGCSE Economics 0455 Paper 1
+items for 2027–2029. The new objectives cover exchange-rate quotations,
+currency markets, traded prices and the current account. Three numerical
+answers have arithmetic checks and the currency figures are fictional.
+Paper 2 evaluation practice and independent academic review remain open.

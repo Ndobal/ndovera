@@ -1937,9 +1937,10 @@
         2029
       ],
       "note": "Untiered. Paper 1 has 40 multiple-choice questions in 60 minutes and assesses AO1/AO2. Paper 2 has 80 marks in 120 minutes and assesses AO1/AO2/AO3. The 2026 syllabus remains separately mapped.",
-      "lastRecheckedOn": "2026-11-08",
+      "lastRecheckedOn": "2026-11-11",
       "sourceBytes": 695606,
-      "pageCount": 37
+      "pageCount": 37,
+      "latestRecheck": "Official syllabus web PDF checked for sections 6.3 and 6.4 on pages 25–26 and Paper 1 format on page 27."
     },
     {
       "id": "neco-bece-bst-2026-historical-nerdc-reference",
@@ -20370,6 +20371,141 @@
       ],
       "mappingStatus": "provisional_cross_board_topic_reference",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-167-01-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Currency transactions and quotation",
+      "learningObjective": "Interpret exchange-rate quotations and identify reasons for exchanging currencies.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "Section 6.3.1–6.3.2, p. 25",
+        "Paper 1 assessment, p. 27"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping"
+    },
+    {
+      "id": "igcse-0455-167-02-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Demand, supply and currency movements",
+      "learningObjective": "Analyse changes in currency demand or supply in a floating market.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "Section 6.3.3, p. 25",
+        "Paper 1 assessment, p. 27"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping"
+    },
+    {
+      "id": "igcse-0455-167-03-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Effects on traded prices and quantities",
+      "learningObjective": "Analyse how currency movements affect import costs and export demand under stated assumptions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "Section 6.3.4, p. 25",
+        "Paper 1 assessment, p. 27"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping"
+    },
+    {
+      "id": "igcse-0455-167-04-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Classification and balances",
+      "learningObjective": "Classify cross-border transactions and calculate component or overall balances.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "Section 6.4.1, p. 26",
+        "Paper 1 assessment, p. 27"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping"
+    },
+    {
+      "id": "igcse-0455-167-05-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Causes and adjustment mechanisms",
+      "learningObjective": "Analyse how spending, export capacity and import substitution can affect the current account.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "Section 6.4.2–6.4.4, p. 26",
+        "Paper 1 assessment, p. 27"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping"
     }
   ],
   "scopeGaps": [
