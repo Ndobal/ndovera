@@ -1016,3 +1016,9 @@ after disasters. The set includes six multiple-choice items, four written
 tasks, two spoken role-plays and two visual communication tasks. The bank
 now has 69 valid drafts across 31 mapped objectives. Direct-care coverage,
 school adoption and independent academic review remain open.
+
+Batch 173 adds 19 NERDC JSS 1 Social and Citizenship Studies drafts mapped
+to nine financial literacy objectives. It includes 15 multiple-choice
+questions, three written tasks and one supervised cash-handling simulation.
+The bank now has 88 valid drafts across 40 mapped objectives. School adoption,
+remaining curriculum objectives and academic review remain open.

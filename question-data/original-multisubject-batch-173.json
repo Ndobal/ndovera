@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Social and Citizenship Studies financial literacy",
+  "questionCount": 19,
+  "note": "Original fictional practice tasks with draft marking guides. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Income, saving and investment",
+      "learningObjective": "Classify examples of income, savings and investment.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-01-v1",
+      "id": "ndv-173-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "After receiving payment for a weekend shift, an adult keeps part of it for next term and uses another part to buy a tool expected to help the business earn more. Which action is the investment?",
+      "answer": "Buying the tool to increase future earnings.",
+      "explanation": "The tool is bought for an expected future benefit. The shift payment is income, and the amount kept for next term is savings.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Receiving payment for the shift.",
+        "Keeping money for next term.",
+        "Buying the tool to increase future earnings.",
+        "Counting the payment before leaving."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Income, saving and investment",
+      "learningObjective": "Classify examples of income, savings and investment.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-01-v1",
+      "id": "ndv-173-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which entry in a household diary records new income?",
+      "answer": "Received wages for work completed.",
+      "explanation": "Wages add earnings to the household. Moving or counting existing cash does not create earnings, and paying for a repair is an expense.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Received wages for work completed.",
+        "Moved money already saved from one envelope to another.",
+        "Paid for a shoe repair.",
+        "Counted cash already in the purse."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Income, saving and investment",
+      "learningObjective": "Classify examples of income, savings and investment.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-01-v1",
+      "id": "ndv-173-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Zainab plans to buy a book next month. Which decision puts money into savings for that goal?",
+      "answer": "Setting aside part of the allowance in a labelled envelope.",
+      "explanation": "Saving means keeping resources for future use. Setting money aside turns the book goal into a funded plan.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Listing books in the library.",
+        "Buying a snack with the full allowance.",
+        "Writing down the book price without putting money aside.",
+        "Setting aside part of the allowance in a labelled envelope."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Money and everyday needs",
+      "learningObjective": "Explain how money enables people to pay for goods and services or support others.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-02-v1",
+      "id": "ndv-173-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A shoemaker needs tomatoes, but the tomato seller does not need shoes. How does paying with money solve this problem?",
+      "answer": "The seller can accept payment and use it for a different purchase.",
+      "explanation": "An accepted means of payment allows trade without a direct match between what each person wants.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It obliges the seller to order shoes later.",
+        "The seller can accept payment and use it for a different purchase.",
+        "It requires both people to have identical needs.",
+        "It guarantees that the tomatoes cost less."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Money and everyday needs",
+      "learningObjective": "Explain how money enables people to pay for goods and services or support others.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-02-v1",
+      "id": "ndv-173-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A community group wants to help a learner who cannot afford the bus fare to a training centre. Which example shows money being used to support access to education?",
+      "answer": "The group pays the learner’s transport fare.",
+      "explanation": "The fare buys transport. The group uses money to remove a practical barrier to attending the training.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The group records how far the centre is from town.",
+        "The group draws a map of the route.",
+        "The learner borrows the group’s map.",
+        "The group pays the learner’s transport fare."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Reasons for holding money",
+      "learningObjective": "Distinguish holding money for routine payments from keeping a reserve for unexpected expenses.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-03-v1",
+      "id": "ndv-173-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A trader keeps some money ready to pay a weekly market stall charge. What is the main reason for holding that money?",
+      "answer": "To make a regular planned payment.",
+      "explanation": "The charge is known and recurring. The money is being held for a planned transaction.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "To make a regular planned payment.",
+        "To meet an unexpected repair cost.",
+        "To earn a return from a new business project.",
+        "To find out how much the stall is worth."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Reasons for holding money",
+      "learningObjective": "Distinguish holding money for routine payments from keeping a reserve for unexpected expenses.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-03-v1",
+      "id": "ndv-173-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A family sets aside cash in case a bicycle needed for travel breaks down. What feature makes this a precautionary reserve?",
+      "answer": "The cash is available for a cost that might arise unexpectedly.",
+      "explanation": "The expense is uncertain, so the reserve helps the family cope if a repair becomes necessary.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The family knows the exact date the repair will happen.",
+        "The cash has already paid the repairer.",
+        "The cash is available for a cost that might arise unexpectedly.",
+        "The family expects the cash itself to earn wages."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Qualities of money",
+      "learningObjective": "Apply acceptability, divisibility, durability and portability to simple examples.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-04-v1",
+      "id": "ndv-173-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A school fair uses approved tokens. A stall must charge exactly the equivalent of three units. Which feature lets a pupil pay the exact amount using one-unit and two-unit tokens?",
+      "answer": "Divisibility into smaller units.",
+      "explanation": "Smaller units can be combined to make the exact price. This illustrates divisibility.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Durability.",
+        "Divisibility into smaller units.",
+        "The colour of the token.",
+        "The weight of each token."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Qualities of money",
+      "learningObjective": "Apply acceptability, divisibility, durability and portability to simple examples.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-04-v1",
+      "id": "ndv-173-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At a practice market, all stallholders agree to take the same set of tokens. Which quality of money does the agreement illustrate?",
+      "answer": "Acceptability.",
+      "explanation": "The tokens work as payment because the people trading agree to accept them.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Portability.",
+        "Durability.",
+        "Divisibility.",
+        "Acceptability."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Benefits of Money",
+      "subtopic": "Qualities of money",
+      "learningObjective": "Apply acceptability, divisibility, durability and portability to simple examples.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-04-v1",
+      "id": "ndv-173-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A class compares two sets of same-size practice tokens. One stays readable after a term of ordinary handling. The other loses its numbers after a week. Which quality is being tested?",
+      "answer": "Durability.",
+      "explanation": "Durability describes how well the tokens withstand normal use over time.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Durability.",
+        "Portability.",
+        "Relative scarcity.",
+        "Acceptability by traders."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Ideals and Standards Regarding Money",
+      "subtopic": "Care for banknotes",
+      "learningObjective": "Choose ways to prevent damage to banknotes and confirm amounts during exchanges.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-05-v1",
+      "id": "ndv-173-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A class treasurer must carry a few banknotes past a table where paint is being mixed. Which option best protects the notes?",
+      "answer": "Keep them in a clean dry envelope away from the paint.",
+      "explanation": "A dry envelope separates the notes from liquids and avoids puncturing them.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Place them beside the paint pot for later collection.",
+        "Carry them loose together with the wet brushes.",
+        "Keep them in a clean dry envelope away from the paint.",
+        "Staple them to the painting sheet."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Ideals and Standards Regarding Money",
+      "subtopic": "Care for banknotes",
+      "learningObjective": "Choose ways to prevent damage to banknotes and confirm amounts during exchanges.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-05-v1",
+      "id": "ndv-173-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The school secretary hands over cash for approved class materials. What should the teacher and secretary do before signing the receipt?",
+      "answer": "Count the notes together and check the amount on the receipt.",
+      "explanation": "Counting by denomination and checking the receipt confirms the total before both people acknowledge it.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Sign first and estimate the amount later.",
+        "Count the notes together and check the amount on the receipt.",
+        "Write the number of notes without checking denominations.",
+        "Ask another class to guess the total."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Ideals and Standards Regarding Money",
+      "subtopic": "Handling and preservation demonstration",
+      "learningObjective": "Demonstrate accurate counting and safe storage using classroom practice notes.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-06-v1",
+      "id": "ndv-173-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Using classroom practice notes labelled ₦200, ₦100, ₦100 and ₦50, demonstrate how to count the amount, compare it with a slip that says ₦450 and store the notes for the teacher.",
+      "answer": "Group the practice notes by denomination. Count ₦200 + ₦100 + ₦100 + ₦50 = ₦450 and point to the matching total on the slip. Place the notes flat in a clean dry envelope and hand it to the teacher.",
+      "explanation": "Grouping helps avoid overlooking a denomination. Comparing the total checks the record, and the envelope protects the notes.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "supervised-performance",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Groups the notes by denomination or uses another reliable count method."
+        },
+        {
+          "marks": 1,
+          "description": "States the correct total and checks it against the slip."
+        },
+        {
+          "marks": 1,
+          "description": "Stores the practice notes safely and returns them to the teacher."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "200+100+100+50",
+          "expected": 450,
+          "purpose": "Practice note total"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Financial Risks and Rewards",
+      "subtopic": "Possible loss and potential benefit",
+      "learningObjective": "Identify a possible financial loss and potential benefit in a simple decision.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-07-v1",
+      "id": "ndv-173-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A club considers buying blank cards to decorate and sell. Which statement describes both a risk and a possible reward?",
+      "answer": "Unsold cards could leave costs unrecovered, while sufficient sales could produce a surplus.",
+      "explanation": "Sales depend on demand. Too few sales could leave the club out of pocket, while receipts above costs could produce a surplus.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "All cards will sell because members like the designs.",
+        "The price of each card is the only outcome that matters.",
+        "Unsold cards could leave costs unrecovered, while sufficient sales could produce a surplus.",
+        "Buying supplies guarantees that the club recovers its costs."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Financial Risks and Rewards",
+      "subtopic": "Possible loss and potential benefit",
+      "learningObjective": "Identify a possible financial loss and potential benefit in a simple decision.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-07-v1",
+      "id": "ndv-173-015",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school club would pay ₦1,500 to print reusable labels. A confirmed order would bring in ₦1,000 and a second, uncertain order would bring in ₦800. Calculate the result if only the first order goes ahead and if both go ahead. Explain the risk.",
+      "answer": "With one order the result is ₦1,000 − ₦1,500 = −₦500, a loss. With both, it is ₦1,000 + ₦800 − ₦1,500 = ₦300, a surplus. The uncertain order determines whether the project covers its costs.",
+      "explanation": "Comparing both outcomes shows why the potential surplus depends on a sale the club cannot count on.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates and identifies the ₦500 loss."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates and identifies the ₦300 surplus."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the uncertain order changes the outcome."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1000-1500",
+          "expected": -500,
+          "purpose": "Confirmed order only"
+        },
+        {
+          "expression": "1000+800-1500",
+          "expected": 300,
+          "purpose": "Both orders"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Financial Risks and Rewards",
+      "subtopic": "Payment default and information gaps",
+      "learningObjective": "Recognise payment default and uncertainty caused by missing cost information.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-08-v1",
+      "id": "ndv-173-016",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A customer receives a club calendar on credit and fails to pay by the agreed date. Which type of risk has occurred?",
+      "answer": "Default on an agreed payment.",
+      "explanation": "The agreed payment is overdue. This is a payment default risk, separate from damage, costs or delivery.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Loss from wet storage.",
+        "Change in the cost of printing.",
+        "A delay before the calendar is delivered.",
+        "Default on an agreed payment."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Financial Risks and Rewards",
+      "subtopic": "Payment default and information gaps",
+      "learningObjective": "Recognise payment default and uncertainty caused by missing cost information.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-08-v1",
+      "id": "ndv-173-017",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A supplier quotes a price for a box of art supplies but leaves the delivery charge blank. What risk does the missing information create for the club?",
+      "answer": "The final cost could exceed the amount budgeted.",
+      "explanation": "A missing delivery charge makes the total cost uncertain. The club cannot confirm affordability from the box price alone.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The final cost could exceed the amount budgeted.",
+        "The supplier has already missed a repayment.",
+        "The club’s stock has already been damaged.",
+        "The stated box price has automatically doubled."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Financial Risks and Rewards",
+      "subtopic": "Budgeting and reserves",
+      "learningObjective": "Develop a simple budget that prioritises commitments and provides for unexpected costs.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-09-v1",
+      "id": "ndv-173-018",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The drama club has ₦6,000. The approved spending plan must include ₦2,800 for transport, ₦1,900 for materials and at least ₦700 as a reserve. The club wants a ₦900 banner. Decide whether it can buy the banner under the plan and suggest a feasible adjustment.",
+      "answer": "After commitments and the reserve, ₦6,000 − ₦2,800 − ₦1,900 − ₦700 = ₦600 remains. The ₦900 banner is ₦300 above that limit. The club could use a banner costing at most ₦600 or postpone it.",
+      "explanation": "The reserve has a planned purpose. The optional banner fits only if its price falls within what remains after the required allocations.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates the ₦600 available for optional spending."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects the ₦900 purchase under the stated plan and identifies the shortfall."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a feasible change that keeps all three allocations."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "6000-2800-1900-700",
+          "expected": 600,
+          "purpose": "Amount after commitments and reserve"
+        },
+        {
+          "expression": "900-600",
+          "expected": 300,
+          "purpose": "Shortfall for the banner"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Financial Risks and Rewards",
+      "subtopic": "Budgeting and reserves",
+      "learningObjective": "Develop a simple budget that prioritises commitments and provides for unexpected costs.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-173-09-v1",
+      "id": "ndv-173-019",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draft a spending rule for a club that sometimes finds out about delivery fees after selecting supplies. Explain what its treasurer should confirm before committing and how the club should deal with any unused reserve at the end of the project.",
+      "answer": "Confirm the full cost, including delivery, and compare it with the approved budget before committing. Keep a reserve for genuine unforeseen costs. Record any amount left and carry it forward or return it according to the club’s rules.",
+      "explanation": "Checking the full cost reduces surprises. Recording and accounting for the reserve keeps it available for the purpose it was set aside for.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Requires confirmation of the full price including delivery."
+        },
+        {
+          "marks": 1,
+          "description": "Requires comparison with the approved budget before committing."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a practical, accountable rule for unused reserve."
+        }
+      ]
+    }
+  ]
+}
