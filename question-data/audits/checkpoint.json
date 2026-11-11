@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_168_automated_validation_passed",
+  "phase": "batch_169_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-169.json",
+  "nextBatch": "original-multisubject-batch-170.json",
   "nextPriorities": [
-    "Recheck official NERDC exact-class curriculum access and prioritise an underrepresented source-supported bank. If current scope is unavailable, continue another verified examination objective and retain the adoption gap. Cambridge 0455 exchange rates and the current account now have Paper 1 and Paper 2 drafts for 2027–2029. Complete syllabus and full-paper assembly remain open.",
+    "Continue the September 2025 NERDC JSS 1 Social and Citizenship Studies bank with unmapped culture, socialisation and conflict-resolution outcomes. Check exact printed and PDF pages and retain performance tasks. The initial batch maps six outcomes from three of the 29 topics in the contents. School adoption and the other JSS 1 subjects remain to be checked.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-168.json",
-  "lastRemoteVerifiedCommit": "6d447f64a27447040545e376adb3dcf56546ffce",
+  "lastValidatedBatch": "original-multisubject-batch-169.json",
+  "lastRemoteVerifiedCommit": "99bc47941cae119a2ffb6ca726a75bb72496edac",
   "verifiedTotals": {
-    "raw": 4162,
-    "validDrafts": 2483,
+    "raw": 4180,
+    "validDrafts": 2501,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-168.json",
+  "lastPopulatedBatch": "original-multisubject-batch-169.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4162,
+  "inventoryRaw": 4180,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "cambridge-0455-2027-2029-v1",
+    "id": "nerdc-scs-jss1-revised-2025-retrieved",
     "date": "2026-11-11"
   }
 }

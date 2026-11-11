@@ -989,3 +989,10 @@ drafts for 2027–2029. Original scenarios test currency-market responses,
 current-account interpretation and policy trade-offs. Each task has a
 worked answer and a six-mark practice guide. Five calculation checks
 passed. Full-paper assembly and independent academic review remain open.
+
+Batch 169 opens the NERDC JSS 1 Social and Citizenship Studies bank with
+12 objective, four written and two supervised performance drafts. The
+September 2025 official PDF was retrieved and hashed. Six outcomes from
+printed pages 3, 8 and 17 support the initial mapping. The national
+rollout evidence is recorded separately from school adoption. Full
+curriculum coverage and independent review remain open.

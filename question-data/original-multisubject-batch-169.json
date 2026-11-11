@@ -1,0 +1,672 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Social and Citizenship Studies",
+  "questionCount": 18,
+  "note": "Original classroom practice mapped to selected outcomes of the September 2025 revised exact-class curriculum.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Actions that promote peace",
+      "learningObjective": "Choose constructive ways to promote peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-01-v1",
+      "id": "ndv-169-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two groups want to use the school hall at the same time. Neither has started setting up. Which first step would give both groups a chance to be heard?",
+      "answer": "Ask each group what it needs before deciding how to share the hall.",
+      "explanation": "Hearing both groups can reveal time limits or equipment needs before a fair decision is made.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Ask each group what it needs before deciding how to share the hall.",
+        "Give the hall to the group that speaks most loudly.",
+        "Ask both groups to wait outside while one group decides alone.",
+        "Tell the groups their reasons are unimportant."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Actions that promote peace",
+      "learningObjective": "Choose constructive ways to promote peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-01-v1",
+      "id": "ndv-169-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A classmate tells Ngozi that another pupil has insulted her, but Ngozi did not hear the words herself. What could she do to avoid making the disagreement worse?",
+      "answer": "Check what happened calmly before repeating the claim.",
+      "explanation": "Checking the account avoids spreading an unconfirmed story.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Tell the whole class that the claim has been proved.",
+        "Check what happened calmly before repeating the claim.",
+        "Ask her friends to stop speaking to the other pupil.",
+        "Repeat the claim and add what she thinks was meant."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Actions that promote peace",
+      "learningObjective": "Choose constructive ways to promote peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-01-v1",
+      "id": "ndv-169-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "During a discussion, pupils agree on a decision, but Musa keeps being interrupted. What should the chairperson do?",
+      "answer": "Let Musa finish, then ask the group to consider his point.",
+      "explanation": "Giving everyone a turn makes disagreement possible without silencing a participant.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "End the discussion because most pupils have spoken.",
+        "Ask Musa to explain his point only to a friend later.",
+        "Let Musa finish, then ask the group to consider his point.",
+        "Let each pupil interrupt whenever they disagree."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Actions that promote peace",
+      "learningObjective": "Choose constructive ways to promote peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-01-v1",
+      "id": "ndv-169-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two classmates settle an argument by agreeing to take turns with a shared ruler. What would best help the agreement last?",
+      "answer": "Agree when to swap and check later that both had a turn.",
+      "explanation": "A specific, observable arrangement makes follow-through easier.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Let either person change the order without telling the other.",
+        "Keep the agreement vague so no one can tell if it was followed.",
+        "Give the ruler to the same pupil every day.",
+        "Agree when to swap and check later that both had a turn."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Qualities of a responsible citizen",
+      "learningObjective": "Recognise accountability, participation and respect for others in everyday situations.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-02-v1",
+      "id": "ndv-169-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil records materials used for a class garden and discovers that her tally leaves out two bags. Which action shows accountability?",
+      "answer": "Correct the record and explain the error to the group.",
+      "explanation": "Accountability involves acknowledging and correcting a mistake openly.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Leave the record as it is to avoid questions.",
+        "Correct the record and explain the error to the group.",
+        "Change the total and blame an absent pupil.",
+        "Remove the tally from the group folder."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Qualities of a responsible citizen",
+      "learningObjective": "Recognise accountability, participation and respect for others in everyday situations.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-02-v1",
+      "id": "ndv-169-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A class is planning a meeting about keeping its shared reading corner tidy. Which pupil is taking an active role in a realistic way?",
+      "answer": "The pupil who volunteers to make a rota and checks that classmates can take their turns.",
+      "explanation": "The volunteer contributes a practical plan and considers others' ability to participate.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The pupil who puts a name on the rota but refuses to take a turn.",
+        "The pupil who complains about the mess and leaves before suggestions are heard.",
+        "The pupil who volunteers to make a rota and checks that classmates can take their turns.",
+        "The pupil who insists that only new pupils should do the work."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Qualities of a responsible citizen",
+      "learningObjective": "Recognise accountability, participation and respect for others in everyday situations.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-02-v1",
+      "id": "ndv-169-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A new pupil uses a different home language from most of the class. Which response shows respect for diversity during a shared task?",
+      "answer": "Invite the pupil to contribute and check that the instructions are clear to everyone.",
+      "explanation": "The first response makes participation possible and avoids judging the pupil by language.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Ask the pupil to sit out until speaking exactly like the group.",
+        "Assume the pupil has no ideas about the task.",
+        "Make the pupil answer for everyone who speaks that language.",
+        "Invite the pupil to contribute and check that the instructions are clear to everyone."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Qualities of a responsible citizen",
+      "learningObjective": "Recognise accountability, participation and respect for others in everyday situations.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-02-v1",
+      "id": "ndv-169-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A club elects a class representative to present a list of agreed suggestions. Which action shows the representative is acting responsibly?",
+      "answer": "Present the agreed list accurately and report the response to the club.",
+      "explanation": "A representative is accountable to the people whose views they carry.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Present the agreed list accurately and report the response to the club.",
+        "Replace all the suggestions with a personal list without telling anyone.",
+        "Claim the club voted unanimously when it did not.",
+        "Tell the club that its members need not hear the response."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Measures and benefits",
+      "learningObjective": "Identify practical ways of protecting a school environment and explain their benefits.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-03-v1",
+      "id": "ndv-169-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A school can send clean cardboard to a recycler, but wet food scraps spoil the cardboard. Which arrangement would help?",
+      "answer": "Provide clearly marked separate containers for cardboard and food scraps.",
+      "explanation": "Keeping the materials separate helps keep cardboard suitable for collection.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Mix both wastes before putting them in the recycling container.",
+        "Leave food scraps on top of the cardboard to hold it down.",
+        "Provide clearly marked separate containers for cardboard and food scraps.",
+        "Wet the cardboard before storing it."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Measures and benefits",
+      "learningObjective": "Identify practical ways of protecting a school environment and explain their benefits.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-03-v1",
+      "id": "ndv-169-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Water continues to run from a loose classroom tap after pupils turn it off. What action should a pupil take first?",
+      "answer": "Report the leak to the teacher or person responsible for repairs.",
+      "explanation": "Reporting a fault promptly can lead to repair and prevent avoidable water loss.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Leave the tap running so the leak is easier to see.",
+        "Move the tap to another sink without permission.",
+        "Cover the outlet and assume that the leak has stopped.",
+        "Report the leak to the teacher or person responsible for repairs."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Measures and benefits",
+      "learningObjective": "Identify practical ways of protecting a school environment and explain their benefits.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-03-v1",
+      "id": "ndv-169-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A teacher asks pupils to choose a site for a tree that will provide shade in a few years. Which plan is most suitable?",
+      "answer": "Choose an approved spot with growing room and arrange regular care.",
+      "explanation": "An appropriate site and continuing care improve the chance that the tree survives to provide shade.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Choose an approved spot with growing room and arrange regular care.",
+        "Plant it directly in a busy doorway where people will notice it.",
+        "Choose a spot where its roots have no soil.",
+        "Plant it and assume no watering or checks will be needed."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Measures and benefits",
+      "learningObjective": "Identify practical ways of protecting a school environment and explain their benefits.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-03-v1",
+      "id": "ndv-169-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A class replaces disposable cups at its weekly meeting with washable cups. What benefit should the pupils look for?",
+      "answer": "Fewer single-use cups discarded after each meeting.",
+      "explanation": "Reusing cups can reduce the amount of single-use waste generated.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "More discarded cups after every meeting.",
+        "Fewer single-use cups discarded after each meeting.",
+        "Less need to clean the shared cups.",
+        "More mixed rubbish in the recycling container."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Peace messages",
+      "learningObjective": "Create an audience-appropriate message that explains a benefit of peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-04-v1",
+      "id": "ndv-169-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write a two-sentence announcement for pupils who disagree about turns at the school handwashing station. Ask for one action they can take and explain one benefit.",
+      "answer": "Example: If you arrive together, agree on whose turn comes first and wait behind that pupil. Taking turns lets everyone wash their hands without a quarrel.",
+      "explanation": "A useful message gives the audience an action it can carry out and explains why it helps.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "responseMode": "written",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Address the pupils and give a practical turn-taking action."
+        },
+        {
+          "marks": 1,
+          "description": "Explain one relevant benefit in clear language."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Peace messages",
+      "learningObjective": "Create an audience-appropriate message that explains a benefit of peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-04-v1",
+      "id": "ndv-169-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two clubs are sharing a noticeboard. Create a short sign that asks each club to respect the other club’s notices and gives a reason.",
+      "answer": "Example: Ask before moving another club’s notice. Leaving each notice in its agreed space helps every club share its news fairly.",
+      "explanation": "The message identifies a shared problem and encourages a specific peaceful habit.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "responseMode": "written",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Give a clear action that respects the other club’s notice."
+        },
+        {
+          "marks": 1,
+          "description": "Give a relevant reason the two clubs can understand."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Personal civic responsibility plan",
+      "learningObjective": "Create a feasible personal plan for contributing to the class or school.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-05-v1",
+      "id": "ndv-169-015",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write a one-week plan to help new pupils find the school library. Give a task you can do with permission, say when you will do it, and describe how you will check if it helped.",
+      "answer": "Example: With the librarian’s permission, I will explain the route at Monday break and show new pupils the sign near the main stairs. On Friday I will ask whether they could find the library on their own.",
+      "explanation": "A personal plan links a feasible action to a time and a check of its usefulness.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "written",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Propose a specific action within the pupil’s role."
+        },
+        {
+          "marks": 1,
+          "description": "State a workable time and any needed permission."
+        },
+        {
+          "marks": 1,
+          "description": "Give an observable way to check usefulness."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Personal civic responsibility plan",
+      "learningObjective": "Create a feasible personal plan for contributing to the class or school.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-05-v1",
+      "id": "ndv-169-016",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Make a plan to return shared pencils to the class tray after group work. Include what you will do, when you will do it and what you will record to see whether the plan is working.",
+      "answer": "Example: At the end of each group activity I will remind my group to count its pencils and return them to the tray. I will record how many are still missing before the next activity.",
+      "explanation": "A repeated action and a simple record make the plan possible to assess.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "written",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "State a realistic personal action for returning supplies."
+        },
+        {
+          "marks": 1,
+          "description": "Identify when the action will happen."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a record that measures whether pencils are returned."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Protecting shared resources",
+      "learningObjective": "Demonstrate and record a supervised action that protects a shared environment.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-06-v1",
+      "id": "ndv-169-017",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "With your teacher present, sort the clean, dry paper and reusable folders provided for this exercise. Use a reuse tray and a paper collection tray. Label the trays, count what you place in each and explain one reason for keeping reusable folders apart.",
+      "answer": "A valid submission shows reusable folders in the reuse tray, clean paper in the paper collection tray and a count matching the objects. The learner explains that keeping usable folders available can avoid replacing them immediately.",
+      "explanation": "Assess the observed sorting and tally. The two trays represent different next uses for the items.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "supervised-performance",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Label both trays clearly and sort the provided items appropriately."
+        },
+        {
+          "marks": 1,
+          "description": "Record counts that match the sorted objects."
+        },
+        {
+          "marks": 1,
+          "description": "Explain one benefit of setting reusable folders aside."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Protecting shared resources",
+      "learningObjective": "Demonstrate and record a supervised action that protects a shared environment.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-169-06-v1",
+      "id": "ndv-169-018",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "With permission, inspect your classroom at the end of a lesson and carry out one teacher-approved action that avoids wasting electricity. Keep equipment connected where the teacher says it is still needed. Report what you observed, what you did and how you checked it.",
+      "answer": "Example: I saw that the light over the empty reading corner was on. With the teacher’s permission I used its ordinary wall switch to turn it off and checked that the reading corner light went out. Other equipment remained in use.",
+      "explanation": "Assess an observed, supervised action. If no suitable action is available, the teacher should arrange a supervised simulation with an ordinary classroom switch.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "supervised-performance",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify an actual or simulated source of avoidable use."
+        },
+        {
+          "marks": 1,
+          "description": "Carry out a permitted action without interfering with needed equipment."
+        },
+        {
+          "marks": 1,
+          "description": "Report a clear check of the action’s result."
+        }
+      ]
+    }
+  ]
+}

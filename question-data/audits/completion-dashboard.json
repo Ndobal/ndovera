@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4162,
-    "validDrafts": 2483,
+    "raw": 4180,
+    "validDrafts": 2501,
     "reviewed": 0,
-    "registeredBanks": 194,
-    "target": 176000,
+    "registeredBanks": 195,
+    "target": 177000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -1142,6 +1142,12 @@
       "sha256": "8726cf8b98e139d4fd608c554e360d325845acadb90e4a0c602d7f4ad143a16e",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-169.json",
+      "sha256": "1c05bc79daaf7eb045d9197f42ce73518ce2e46e168124cf7d5e2d4cd9d01876",
+      "declared": 18,
+      "actual": 18
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5461,6 +5467,35 @@
     },
     {
       "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "documentDate": "September 2025",
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "raw": 18,
+      "validDrafts": 18,
+      "reviewed": 0,
+      "questionTypes": {
+        "mcq": 12,
+        "structured": 6
+      },
+      "difficulty": {
+        "standard": 18
+      },
+      "remaining": 982,
+      "mappedObjectives": 6,
+      "representedObjectives": 6,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NERDC",
       "subject": "[subject list unresolved]",
       "level": "JSS 1",
       "target": null,
@@ -6846,16 +6881,16 @@
   "errorCounts": {
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 366,
@@ -36333,6 +36368,114 @@
       "id": "ndv-168-012",
       "file": "original-multisubject-batch-168.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-001",
+      "file": "original-multisubject-batch-169.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-002",
+      "file": "original-multisubject-batch-169.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-003",
+      "file": "original-multisubject-batch-169.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-004",
+      "file": "original-multisubject-batch-169.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-005",
+      "file": "original-multisubject-batch-169.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-006",
+      "file": "original-multisubject-batch-169.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-007",
+      "file": "original-multisubject-batch-169.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-008",
+      "file": "original-multisubject-batch-169.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-009",
+      "file": "original-multisubject-batch-169.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-010",
+      "file": "original-multisubject-batch-169.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-011",
+      "file": "original-multisubject-batch-169.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-012",
+      "file": "original-multisubject-batch-169.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-013",
+      "file": "original-multisubject-batch-169.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-014",
+      "file": "original-multisubject-batch-169.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-015",
+      "file": "original-multisubject-batch-169.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-016",
+      "file": "original-multisubject-batch-169.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-017",
+      "file": "original-multisubject-batch-169.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-169-018",
+      "file": "original-multisubject-batch-169.json",
+      "index": 17,
       "errors": []
     },
     {
@@ -73379,6 +73522,186 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-169-01-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Actions that promote peace",
+      "learningObjective": "Choose constructive ways to promote peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 17, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-169-02-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Qualities of a responsible citizen",
+      "learningObjective": "Recognise accountability, participation and respect for others in everyday situations.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 22, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-169-03-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Measures and benefits",
+      "learningObjective": "Identify practical ways of protecting a school environment and explain their benefits.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 17, PDF p. 31, performance objective 2 and 4"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-169-04-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Peace messages",
+      "learningObjective": "Create an audience-appropriate message that explains a benefit of peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 17, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-169-05-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Personal civic responsibility plan",
+      "learningObjective": "Create a feasible personal plan for contributing to the class or school.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 22, performance objective 5"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-169-06-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Protecting shared resources",
+      "learningObjective": "Demonstrate and record a supervised action that protects a shared environment.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 17, PDF p. 31, performance objective 5"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -73423,6 +73746,7 @@
     "Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred.",
     "Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence.",
     "PVS access advance2026-11-11: historical official JSS THREE PDF now retrieved and hashed; twelve-topic inventory and eight provisional knowledge mappings recorded. Twenty-four original objective drafts do not establish current cohort adoption, complete NECO scope,8311/8312 topic allocation, option count or practical competence. Revised JSS3 page still404; stock-exchange wording and health/legal/food-safety topics need separate authoritative checks. Igbo foreword checksum unchanged; L1/L2 assignment and current adoption remain unverified.",
-    "NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved."
+    "NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved.",
+    "The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved."
   ]
 }

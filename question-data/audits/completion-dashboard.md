@@ -133,6 +133,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Mathematics / Primary 6 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Numeracy / Nursery | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Physics / SS 3 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
+| NERDC | Social and Citizenship Studies / JSS 1 | 1000 | 18 | 18 | 0 | 982 | partial_objective_register |
 | NERDC | [subject list unresolved] / JSS 1 | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | NERDC | [subject list unresolved] / JSS 2 | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | NERDC | [subject list unresolved] / JSS 3 | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
@@ -213,12 +214,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 476 | 441 | 0 | 36000 | 35559 |
-| NERDC | 123 | 58 | 0 | 28000 | 27942 |
+| NERDC | 141 | 76 | 0 | 29000 | 28924 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 4162, "validDrafts": 2483, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 4180, "validDrafts": 2501, "reviewed": 0, "registeredBanks": 195, "target": 177000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -266,3 +267,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence.
 - PVS access advance2026-11-11: historical official JSS THREE PDF now retrieved and hashed; twelve-topic inventory and eight provisional knowledge mappings recorded. Twenty-four original objective drafts do not establish current cohort adoption, complete NECO scope,8311/8312 topic allocation, option count or practical competence. Revised JSS3 page still404; stock-exchange wording and health/legal/food-safety topics need separate authoritative checks. Igbo foreword checksum unchanged; L1/L2 assignment and current adoption remain unverified.
 - NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved.
+- The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved.

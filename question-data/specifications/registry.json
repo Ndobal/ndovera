@@ -2582,6 +2582,25 @@
       "kind": "official_format_with_cross_board_reference",
       "source": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
       "retrievedOn": "2026-11-11"
+    },
+    {
+      "id": "nerdc-scs-jss1-revised-2025-retrieved",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/10.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-11",
+      "sourceBytes": 1172745,
+      "pageCount": 44,
+      "sha256": "f5ec1c33caf64ebc5cac6bd8cc1de00dff5414007dbc734f2127c490ef413aab",
+      "sourceSections": [
+        "Cover and imprint, PDF pp. 1–3",
+        "Contents, PDF pp. 13–14",
+        "Printed pp. 3, 8 and 17 (PDF pp. 17, 22 and 31)"
+      ],
+      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch."
     }
   ],
   "banks": [
@@ -5225,6 +5244,20 @@
         2028
       ],
       "note": "Reconciles the observed Physics bank with the already retrieved official 0625 source. The existing target is retained; legacy unassigned questions remain held. Other codes and complete objective coverage are unresolved."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "documentDate": "September 2025",
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
     }
   ],
   "objectives": [
@@ -20590,6 +20623,114 @@
       ],
       "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-scs-jss1-169-01-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Actions that promote peace",
+      "learningObjective": "Choose constructive ways to promote peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 17, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-scs-jss1-169-02-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Qualities of a responsible citizen",
+      "learningObjective": "Recognise accountability, participation and respect for others in everyday situations.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 22, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-scs-jss1-169-03-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Measures and benefits",
+      "learningObjective": "Identify practical ways of protecting a school environment and explain their benefits.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 17, PDF p. 31, performance objective 2 and 4"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-scs-jss1-169-04-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peaceful Living in Our Society",
+      "subtopic": "Peace messages",
+      "learningObjective": "Create an audience-appropriate message that explains a benefit of peaceful living.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 17, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-scs-jss1-169-05-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Citizenship",
+      "subtopic": "Personal civic responsibility plan",
+      "learningObjective": "Create a feasible personal plan for contributing to the class or school.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 22, performance objective 5"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-scs-jss1-169-06-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Environmental Protection",
+      "subtopic": "Protecting shared resources",
+      "learningObjective": "Demonstrate and record a supervised action that protects a shared environment.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 17, PDF p. 31, performance objective 5"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -20634,6 +20775,7 @@
     "Yoruba routes (batch 144): historical mother-tongue foreword and JSS 3 comprehension table support provisional L1 written-reading practice. Current adoption, complete objectives, 2091/2092 allocation and option count remain unverified. L2 2221 has timetable-format evidence only and remains unopened. PDF text extraction loses tone-marked characters; use rendered pages for transcription. No accelerated-programme or SSCE scope transferred.",
     "Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence.",
     "PVS access advance2026-11-11: historical official JSS THREE PDF now retrieved and hashed; twelve-topic inventory and eight provisional knowledge mappings recorded. Twenty-four original objective drafts do not establish current cohort adoption, complete NECO scope,8311/8312 topic allocation, option count or practical competence. Revised JSS3 page still404; stock-exchange wording and health/legal/food-safety topics need separate authoritative checks. Igbo foreword checksum unchanged; L1/L2 assignment and current adoption remain unverified.",
-    "NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved."
+    "NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved.",
+    "The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved."
   ]
 }
