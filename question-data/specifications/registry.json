@@ -2630,12 +2630,13 @@
         "Reading, printed pp. 5–7 (PDF pp. 18–20)",
         "Writing, printed pp. 12–13 (PDF pp. 25–26)",
         "Listening and Speaking, printed pp. 1–2 (PDF pp. 14–15)",
-        "Grammatical Accuracy, printed pp. 8–11 (PDF pp. 21–24)"
+        "Grammatical Accuracy, printed pp. 8–11 (PDF pp. 21–24)",
+        "Literature, printed pp. 14–17 (PDF pp. 27–30)"
       ],
-      "note": "Direct official PDF with exact JSS 1 title and September 2025 cover. National cycle-entry rollout is documented separately. School-level adoption, term mapping and formal assessment format remain unverified. Initial objective mapping covers selected reading outcomes only. Batch 177 adds letter writing and selected creative writing objectives. Practice marking guides are author-created. Batch 178 maps selected grammar and oral performance objectives. Listening uses original examiner-read scripts. School assessment delivery and pronunciation coverage remain open.",
+      "note": "Direct official PDF with exact JSS 1 title and September 2025 cover. National cycle-entry rollout is documented separately. School-level adoption, term mapping and formal assessment format remain unverified. Initial objective mapping covers selected reading outcomes only. Batch 177 adds letter writing and selected creative writing objectives. Practice marking guides are author-created. Batch 178 maps selected grammar and oral performance objectives. Listening uses original examiner-read scripts. School assessment delivery and pronunciation coverage remain open. Batch 179 maps selected literature outcomes using original passages, including explicitly invented examples in folktale, myth and legend styles.",
       "latestRecheck": {
         "date": "2026-11-11",
-        "method": "Direct PDF download matched the registered SHA-256. Verified PDF pp. 14–15 and 21–24."
+        "method": "Direct PDF download matched the registered SHA-256. Verified literature tables on PDF pp. 27–30."
       }
     }
   ],
@@ -22184,6 +22185,188 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-01-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Literary genres",
+      "learningObjective": "Identify features that distinguish prose, poetry and drama.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-02-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Oral and written transmission",
+      "learningObjective": "Distinguish oral transmission from reading or preserving a written text.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-03-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Literature and everyday life",
+      "learningObjective": "Explain how a literary scene reflects an aspect of community life.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-04-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Story conventions",
+      "learningObjective": "Recognise conventions used in a folktale-style story.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-05-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Moral supported by events",
+      "learningObjective": "Infer a lesson and connect it to the consequences of characters’ actions.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-06-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Oral retelling",
+      "learningObjective": "Retell the main events of a folktale-style story in sequence and in one’s own words.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-07-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Myths and Legends",
+      "subtopic": "Supernatural origin stories",
+      "learningObjective": "Recognise how a myth-style story uses supernatural events to explain an origin.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 29, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-08-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Myths and Legends",
+      "subtopic": "Themes in a legend-style story",
+      "learningObjective": "Explain a theme by linking a character’s decision to the story’s lasting effect.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 29, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-09-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Prose Fiction",
+      "subtopic": "Narrative and descriptive prose",
+      "learningObjective": "Distinguish prose that advances events from prose that chiefly describes a scene.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-179-10-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Prose Fiction",
+      "subtopic": "How details shape a story",
+      "learningObjective": "Explain how an author uses setting, viewpoint or events to shape a reader’s experience.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 3"
       ]
     }
   ],

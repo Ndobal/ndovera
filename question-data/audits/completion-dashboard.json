@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4321,
-    "validDrafts": 2642,
+    "raw": 4334,
+    "validDrafts": 2655,
     "reviewed": 0,
     "registeredBanks": 195,
     "target": 177000,
@@ -1202,6 +1202,12 @@
       "sha256": "c4fa92e0d726c1032f89fe8276807bbe585be9ee2ba152b73d2d4f2dcfc32d97",
       "declared": 16,
       "actual": 16
+    },
+    {
+      "path": "original-multisubject-batch-179.json",
+      "sha256": "99fac9b3b5535a344e139601fed96261a9f266b0d5b7d6e720c420d385d10b15",
+      "declared": 13,
+      "actual": 13
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5172,20 +5178,20 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 43,
-      "validDrafts": 42,
+      "raw": 56,
+      "validDrafts": 55,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 24,
-        "structured": 19
+        "mcq": 32,
+        "structured": 24
       },
       "difficulty": {
-        "standard": 42,
+        "standard": 55,
         "missing": 1
       },
-      "remaining": 958,
-      "mappedObjectives": 26,
-      "representedObjectives": 26,
+      "remaining": 945,
+      "mappedObjectives": 36,
+      "representedObjectives": 36,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -6942,18 +6948,18 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -37385,6 +37391,84 @@
       "id": "ndv-178-016",
       "file": "original-multisubject-batch-178.json",
       "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-001",
+      "file": "original-multisubject-batch-179.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-002",
+      "file": "original-multisubject-batch-179.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-003",
+      "file": "original-multisubject-batch-179.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-004",
+      "file": "original-multisubject-batch-179.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-005",
+      "file": "original-multisubject-batch-179.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-006",
+      "file": "original-multisubject-batch-179.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-007",
+      "file": "original-multisubject-batch-179.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-008",
+      "file": "original-multisubject-batch-179.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-009",
+      "file": "original-multisubject-batch-179.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-010",
+      "file": "original-multisubject-batch-179.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-011",
+      "file": "original-multisubject-batch-179.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-012",
+      "file": "original-multisubject-batch-179.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-179-013",
+      "file": "original-multisubject-batch-179.json",
+      "index": 12,
       "errors": []
     },
     {
@@ -76926,6 +77010,308 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective 2"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-01-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Literary genres",
+      "learningObjective": "Identify features that distinguish prose, poetry and drama.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 1"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-02-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Oral and written transmission",
+      "learningObjective": "Distinguish oral transmission from reading or preserving a written text.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-03-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Literature and everyday life",
+      "learningObjective": "Explain how a literary scene reflects an aspect of community life.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-04-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Story conventions",
+      "learningObjective": "Recognise conventions used in a folktale-style story.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-05-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Moral supported by events",
+      "learningObjective": "Infer a lesson and connect it to the consequences of characters’ actions.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 4"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-06-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Oral retelling",
+      "learningObjective": "Retell the main events of a folktale-style story in sequence and in one’s own words.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-07-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Myths and Legends",
+      "subtopic": "Supernatural origin stories",
+      "learningObjective": "Recognise how a myth-style story uses supernatural events to explain an origin.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 29, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-08-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Myths and Legends",
+      "subtopic": "Themes in a legend-style story",
+      "learningObjective": "Explain a theme by linking a character’s decision to the story’s lasting effect.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 16, PDF p. 29, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-09-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Prose Fiction",
+      "subtopic": "Narrative and descriptive prose",
+      "learningObjective": "Distinguish prose that advances events from prose that chiefly describes a scene.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-179-10-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Prose Fiction",
+      "subtopic": "How details shape a story",
+      "learningObjective": "Explain how an author uses setting, viewpoint or events to shape a reader’s experience.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 3"
       ],
       "questionCount": 2,
       "validDrafts": 2,

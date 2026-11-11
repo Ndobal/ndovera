@@ -1,0 +1,514 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 English Studies literature",
+  "questionCount": 13,
+  "note": "Original excerpts and practice tasks, including an oral retelling. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Literary genres",
+      "learningObjective": "Identify features that distinguish prose, poetry and drama.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-01-v1",
+      "id": "ndv-179-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "In a cracked clay cup\nOne green shoot lifts its head.\nRain taps the windowsill.",
+      "prompt": "Which feature most clearly supports reading this extract as a poem?",
+      "answer": "Short lines use imagery and personification.",
+      "explanation": "Line breaks shape the rhythm, and the shoot and rain are described with human actions. Rhyme is not needed for an extract to be a poem.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A cup is mentioned.",
+        "Short lines use imagery and personification.",
+        "The scene includes weather.",
+        "There is no title."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Literary genres",
+      "learningObjective": "Identify features that distinguish prose, poetry and drama.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-01-v1",
+      "id": "ndv-179-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "BISI: Is the basket still here?\n[Kunle lifts the cloth but keeps the basket covered.]\nKUNLE: Wait until everyone comes in.",
+      "prompt": "Which part would guide an actor’s movement?",
+      "answer": "The bracketed instruction about the cloth.",
+      "explanation": "The stage direction tells the actor playing Kunle what physical action to perform.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The question Bisi asks.",
+        "The name Kunle above a line.",
+        "The bracketed instruction about the cloth.",
+        "Kunle’s request to wait."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Oral and written transmission",
+      "learningObjective": "Distinguish oral transmission from reading or preserving a written text.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-02-v1",
+      "id": "ndv-179-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "At a family gathering, Auntie Ijeoma tells a story she learnt by hearing her grandfather tell it. Years later, Ijeoma’s niece writes down the version she heard.",
+      "prompt": "Which detail shows oral transmission before the story was written?",
+      "answer": "Ijeoma learnt the story by listening to her grandfather.",
+      "explanation": "The grandfather passed the story to Ijeoma through speech and listening. The niece later preserved a version in writing.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Ijeoma learnt the story by listening to her grandfather.",
+        "The niece later wrote down the story.",
+        "The story could be kept in a notebook.",
+        "The written version could be reread."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Literature",
+      "subtopic": "Literature and everyday life",
+      "learningObjective": "Explain how a literary scene reflects an aspect of community life.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-03-v1",
+      "id": "ndv-179-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "At dawn the baskets arrived before the stallholders. An older trader unlocked the gate and called the apprentices by name. Each apprentice helped clear the walkway before the first customers came.",
+      "prompt": "What shared routine does this scene portray? Use one detail to explain how it supports the community’s work.",
+      "answer": "The traders and apprentices prepare the market together before opening. Clearing the walkway makes space for customers and helps the market start smoothly.",
+      "explanation": "The scene shows how small shared responsibilities support a community activity.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the shared preparation routine."
+        },
+        {
+          "marks": 1,
+          "description": "Uses one accurate detail and explains how it helps the market."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Story conventions",
+      "learningObjective": "Recognise conventions used in a folktale-style story.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-04-v1",
+      "id": "ndv-179-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "Long ago, when birds held meetings at the old silk-cotton tree, Weaverbird offered to mend the torn roof. The others laughed at his tiny beak. By nightfall they were dry beneath the neat roof he had woven.",
+      "prompt": "Which feature most clearly gives this story the style of an animal folktale?",
+      "answer": "Birds speak and act like members of a human community.",
+      "explanation": "The birds meet, make offers and mock a neighbour. Giving animals human behaviour is a common convention of animal folktales.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A roof needs repair.",
+        "Events unfold during one day.",
+        "A tree is named.",
+        "Birds speak and act like members of a human community."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Moral supported by events",
+      "learningObjective": "Infer a lesson and connect it to the consequences of characters’ actions.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-05-v1",
+      "id": "ndv-179-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "A tortoise offered to carry all the fruit alone so he could keep the largest share. His basket split on the path. The other animals helped gather what remained after he agreed to divide it fairly.",
+      "prompt": "Which lesson is best supported by the ending?",
+      "answer": "Cooperation and fairness can accomplish more than greed.",
+      "explanation": "Keeping the fruit to himself led to a loss. Sharing fairly made it possible to recover the fruit with help.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Keep every problem a secret.",
+        "Cooperation and fairness can accomplish more than greed.",
+        "Always carry the heaviest basket.",
+        "Avoid sharing with anyone who arrives late."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Moral supported by events",
+      "learningObjective": "Infer a lesson and connect it to the consequences of characters’ actions.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-05-v1",
+      "id": "ndv-179-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "In a fictional animal tale, Hare promises to return Antelope’s basket by evening. He leaves it out in the rain. The next morning he brings a repaired basket and apologises. Antelope accepts the apology but asks Hare to explain what he will do differently next time.",
+      "prompt": "State a lesson about rebuilding trust and identify two actions or requests that support it.",
+      "answer": "Rebuilding trust takes action and a plan to prevent the same mistake. Hare repairs the basket and apologises. Antelope asks how he will handle the next loan.",
+      "explanation": "The repair and apology address the harm, while the question looks at future conduct.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States a relevant lesson about rebuilding trust."
+        },
+        {
+          "marks": 1,
+          "description": "Uses one detail about Hare’s response."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the request about future behaviour or another relevant detail."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Folktales",
+      "subtopic": "Oral retelling",
+      "learningObjective": "Retell the main events of a folktale-style story in sequence and in one’s own words.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-06-v1",
+      "id": "ndv-179-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "In a fictional animal tale, Crane guarded a pond during the dry season. She told smaller birds to wait outside until she had finished drinking. When a gust blew a branch across the entrance, Crane could not move it alone. The smaller birds pulled together to clear the way. Crane then invited every bird to take a turn at the pond.",
+      "prompt": "Read the tale. Put the text aside and retell it aloud, keeping the problem, turning point and ending in order.",
+      "answer": "Crane kept the small birds waiting at the pond. Then a branch blocked the way and she could not shift it. The small birds moved it together. Crane saw what they could do and let all the birds take turns drinking.",
+      "explanation": "The retelling preserves the order and explains why Crane changed her decision.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States the initial restriction and the blocked entrance."
+        },
+        {
+          "marks": 1,
+          "description": "Describes how the small birds cleared the way."
+        },
+        {
+          "marks": 1,
+          "description": "States the change at the end."
+        },
+        {
+          "marks": 1,
+          "description": "Retells the events coherently aloud in substantially original wording."
+        }
+      ],
+      "requiresRecordingOrLiveExaminer": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Myths and Legends",
+      "subtopic": "Supernatural origin stories",
+      "learningObjective": "Recognise how a myth-style story uses supernatural events to explain an origin.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-07-v1",
+      "id": "ndv-179-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "This invented origin story tells of a sky keeper who dropped a glowing bead into a valley. Wherever the bead rolled, a new river followed. That is how the story explains the river’s bends.",
+      "prompt": "What feature makes this a myth-style origin story?",
+      "answer": "It explains a natural feature through a supernatural event.",
+      "explanation": "The sky keeper and the glowing bead are supernatural devices used to explain the shape of the river.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It describes how to read a map.",
+        "It measures the depth of a river.",
+        "It explains a natural feature through a supernatural event.",
+        "It records a journey using dated observations."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Myths and Legends",
+      "subtopic": "Themes in a legend-style story",
+      "learningObjective": "Explain a theme by linking a character’s decision to the story’s lasting effect.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-08-v1",
+      "id": "ndv-179-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "In an invented legend-style account, a town remembers Bako, a runner who gave up his chance to win a race when he noticed a lost child. He led the child back to the crowd. In the story, later races begin with a reminder to look after other runners.",
+      "prompt": "Explain one theme and support it with the choice Bako makes and the tradition that follows.",
+      "answer": "Care for others matters more than winning. Bako leaves the race to help the child. The later reminder keeps that example alive at future races.",
+      "explanation": "The choice demonstrates the theme, and the tradition shows how the town remembers it.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States a plausible theme."
+        },
+        {
+          "marks": 1,
+          "description": "Connects Bako’s choice to the theme."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the tradition reinforces it."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Prose Fiction",
+      "subtopic": "Narrative and descriptive prose",
+      "learningObjective": "Distinguish prose that advances events from prose that chiefly describes a scene.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-09-v1",
+      "id": "ndv-179-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "Extract A: The old desk had a cracked corner and a smooth patch where many hands had rested.\nExtract B: Halima opened the desk drawer, found the missing receipt and ran to show the treasurer.",
+      "prompt": "Which comparison best explains the different purposes of the extracts?",
+      "answer": "A describes an object, while B advances events.",
+      "explanation": "A concentrates on the appearance of the desk. B moves the story forward through actions.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A describes an object, while B advances events.",
+        "A gives dialogue, while B gives stage directions.",
+        "Both mainly list the desk’s features.",
+        "Both chiefly explain the receipt’s contents."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Prose Fiction",
+      "subtopic": "How details shape a story",
+      "learningObjective": "Explain how an author uses setting, viewpoint or events to shape a reader’s experience.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-10-v1",
+      "id": "ndv-179-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "passage": "I watched the mechanic slide the note back into his pocket. From the bench I could see his hands shaking, but I could not hear what the woman beside him said.",
+      "prompt": "What does the first-person narration limit the reader to here?",
+      "answer": "What the narrator can observe from the bench.",
+      "explanation": "The narrator reports visible actions and explicitly says that the woman’s words were out of hearing.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Everything the woman said.",
+        "The mechanic’s private thoughts.",
+        "An account from every person in the scene.",
+        "What the narrator can observe from the bench."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Prose Fiction",
+      "subtopic": "How details shape a story",
+      "learningObjective": "Explain how an author uses setting, viewpoint or events to shape a reader’s experience.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-179-10-v1",
+      "id": "ndv-179-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "passage": "The evening bus pulled away just as Chika reached the stop. A shopkeeper was turning the key in his door, and the streetlamps had not yet come on. Chika looked at the only phone number written on her folded timetable.",
+      "prompt": "Explain how two details of the setting make the final action feel urgent.",
+      "answer": "The bus has already left, so Chika may need another way home. The shop is closing and it is getting dark, which makes it harder to wait there or ask nearby people for help. Looking at the phone number suggests she needs to contact someone soon.",
+      "explanation": "The closing shop and fading light make the delay feel consequential. The missed bus supplies the immediate problem.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies two relevant setting details."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how each detail contributes to urgency."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the urgency to Chika’s attention to the phone number."
+        }
+      ]
+    }
+  ]
+}

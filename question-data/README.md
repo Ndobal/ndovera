@@ -1054,3 +1054,9 @@ three are written and four require oral answers. Two oral tasks supply
 original examiner-read scripts. The bank has 42 valid drafts across 26
 mapped objectives. School adoption, delivery integration and independent
 academic review remain open.
+
+Batch 179 adds 13 NERDC JSS 1 English Studies drafts across ten literature
+objectives. The batch includes eight multiple-choice questions, four written
+tasks and one oral retelling using original excerpts. The bank has 55 valid
+drafts across 36 mapped objectives. Full curriculum coverage, school adoption
+and independent academic review remain open.
