@@ -935,3 +935,10 @@ inventory records exclusions and remaining gaps. The revised JSS3 page still
 returns404. Current adoption, full NECO scope,8311/8312 topic allocation
 and official option count remain unverified. MCQs do not assess practical
 weaving, laundering or sewing. Igbo L1/L2 assignment remains unresolved.
+
+Batch 162 adds three IELTS Academic Writing Task 1 process tasks. Each
+question references an original SVG relative to question-data and supplies
+a text equivalent of every labelled connection. Present the prompt with
+the stimulus and reserve the model and eight-mark guide for assessment.
+The diagrams and models were checked together. Delivery integration and
+independent academic review remain pending.

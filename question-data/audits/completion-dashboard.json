@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4068,
-    "validDrafts": 2389,
+    "raw": 4071,
+    "validDrafts": 2392,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1102,6 +1102,12 @@
       "actual": 24
     },
     {
+      "path": "original-multisubject-batch-162.json",
+      "sha256": "0bf9f3c0c82bddbafda430ce29e833a3d49afd45ab2e692a1508895b0511ef7f",
+      "declared": 3,
+      "actual": 3
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -1879,20 +1885,20 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 15,
-      "validDrafts": 12,
+      "raw": 18,
+      "validDrafts": 15,
       "reviewed": 0,
       "questionTypes": {
-        "essay": 12,
+        "essay": 15,
         "mcq": 3
       },
       "difficulty": {
-        "standard": 12,
+        "standard": 15,
         "missing": 3
       },
-      "remaining": 988,
-      "mappedObjectives": 9,
-      "representedObjectives": 9,
+      "remaining": 985,
+      "mappedObjectives": 12,
+      "representedObjectives": 12,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5963,18 +5969,18 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81,
     "invalid_score": 81,
-    "explanation_missing": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 335,
@@ -34888,6 +34894,24 @@
       "id": "ndv-161-024",
       "file": "original-multisubject-batch-161.json",
       "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-162-001",
+      "file": "original-multisubject-batch-162.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-162-002",
+      "file": "original-multisubject-batch-162.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-162-003",
+      "file": "original-multisubject-batch-162.json",
+      "index": 2,
       "errors": []
     },
     {
@@ -70841,6 +70865,93 @@
       },
       "tiers": {
         "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-process-162-parallel-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Parallel stages and convergence",
+      "learningObjective": "Summarise how two parallel production streams converge into a finished item.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "questionTypes": {
+        "essay": 1
+      },
+      "sourceSections": [
+        "Academic Writing Task 1: describing a diagram and giving an overview"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-process-162-branch-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Conditional routes",
+      "learningObjective": "Describe the shared stages of a workflow and explain the condition that determines each outcome.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "questionTypes": {
+        "essay": 1
+      },
+      "sourceSections": [
+        "Academic Writing Task 1: describing a diagram and giving an overview"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-process-162-cycle-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Reuse cycle and repair loop",
+      "learningObjective": "Explain a recurring loan cycle and distinguish its repair loop from the main sequence.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "questionTypes": {
+        "essay": 1
+      },
+      "sourceSections": [
+        "Academic Writing Task 1: describing a diagram and giving an overview"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

@@ -2485,6 +2485,16 @@
       ],
       "note": "Direct cloud retrieval succeeded after earlier access failure. JSS THREE headers and selected table columns visually checked. Timetable verifies objective papers8311/8312 only; topic allocation and official option count remain unresolved. Four-option one-point tasks are original practice. No practical skill is certified by an MCQ. Revised JSS3 page still404; neither this historical PDF nor its foreword establishes current cohort adoption. Stock-exchange wording on p24 is ambiguous; health, legal-redress and food-safety topics need separate authoritative checks and are excluded from this batch.",
       "retrievalAudit": "bece-pvs-source-recheck-161.json"
+    },
+    {
+      "id": "ielts-academic-writing-format-recheck-162-2026",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "kind": "official_academic_writing_format",
+      "source": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-writing",
+      "checkedOn": "2026-11-11",
+      "status": "task1_visual_format_and_criteria_retrieved",
+      "note": "Academic Task 1 uses supplied visual information, including process diagrams. The response uses connected prose in a neutral or academic register, with a 150-word minimum and about 20 minutes recommended. The four assessment dimensions inform the original practice guide."
     }
   ],
   "banks": [
@@ -18982,6 +18992,57 @@
         "Historical NERDC JSS THREE PDF/printed p29: Sewing Machine and Garment Construction Processes: performance objective5; teacher activity3"
       ],
       "mappingStatus": "provisional_author_paraphrase_historical_reference_current_adoption_unverified",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-academic-process-162-parallel-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Parallel stages and convergence",
+      "learningObjective": "Summarise how two parallel production streams converge into a finished item.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "Academic Writing Task 1: describing a diagram and giving an overview"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-academic-process-162-branch-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Conditional routes",
+      "learningObjective": "Describe the shared stages of a workflow and explain the condition that determines each outcome.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "Academic Writing Task 1: describing a diagram and giving an overview"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ielts-academic-process-162-cycle-v1",
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Reuse cycle and repair loop",
+      "learningObjective": "Explain a recurring loan cycle and distinguish its repair loop from the main sequence.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "questionTypes": [
+        "essay"
+      ],
+      "sourceSections": [
+        "Academic Writing Task 1: describing a diagram and giving an overview"
+      ],
+      "mappingStatus": "author_proposed_skill_mapping",
       "officialObjectiveCode": null
     }
   ],

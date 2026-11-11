@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_161_automated_validation_passed",
+  "phase": "batch_162_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-162.json",
+  "nextBatch": "original-multisubject-batch-163.json",
   "nextPriorities": [
-    "Extend underrepresented IELTS Academic Task1 process/diagram production after rechecking official format and supplying complete original visual stimuli with accessible descriptions. BECE PVS historical content access is now resolved:24 automated-valid drafts across8 initial knowledge objectives, with exact JSS THREE locators; this is not full coverage or current adoption. Remaining source-supported PVS outcomes and practical classroom skills need separate suitable formats. Igbo L1/L2 route assignment remains unresolved; do not transfer historical topics to either route without evidence. Preserve the full-current-specification, cohort adoption and independent-review gaps.",
+    "Expand underrepresented IELTS Academic Task 1 visual comparisons with original charts or maps, complete labels and accessible text equivalents. Three process tasks now cover parallel streams, conditional routes and reuse with a repair loop. Verify any future delivery adapter separately. BECE PVS historical mappings remain provisional, and current cohort adoption and Igbo L1/L2 scope remain unresolved.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-161.json",
-  "lastRemoteVerifiedCommit": "1e1285d244c61c6e5be32f60036125803ee4817b",
+  "lastValidatedBatch": "original-multisubject-batch-162.json",
+  "lastRemoteVerifiedCommit": "0c101b016a9f8ce39f4dc7134b884360984d4e55",
   "verifiedTotals": {
-    "raw": 4068,
-    "validDrafts": 2389,
+    "raw": 4071,
+    "validDrafts": 2392,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-161.json",
+  "lastPopulatedBatch": "original-multisubject-batch-162.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4068,
+  "inventoryRaw": 4071,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "neco-bece-pvs-161-historical-reference",
+    "id": "ielts-academic-writing-format-recheck-162-2026",
     "date": "2026-11-11"
   }
 }

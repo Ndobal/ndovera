@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 2,
+  "collection": "IELTS Academic Writing process diagrams",
+  "questionCount": 3,
+  "note": "Original diagram summaries with practice marking guides and text alternatives.",
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Parallel stages and convergence",
+      "learningObjective": "Summarise how two parallel production streams converge into a finished item.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "id": "ndv-162-001",
+      "objectiveId": "ielts-academic-process-162-parallel-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "The diagram shows the preparation and assembly of a library workshop booklet. Describe the process in connected prose, giving an overview and selecting the key stages and relationships. Write at least 150 words. Allow about 20 minutes.",
+      "stimulus": {
+        "type": "process-diagram",
+        "title": "Production of a library workshop booklet",
+        "assetPath": "stimuli/batch-162/ndv-162-001.svg",
+        "textAlternative": "Approve booklet design → Print interior pages\nApprove booklet design → Print cover on card\nPrint interior pages → Fold printed sheets into sets\nPrint cover on card → Score cover along fold line\nFold printed sheets into sets → Place one set inside each cover\nScore cover along fold line → Place one set inside each cover\nPlace one set inside each cover → Staple through fold\nStaple through fold → Check page order and box finished copies"
+      },
+      "answer": "The diagram illustrates how booklets for a library workshop are made, starting with approval of the design and ending with the packing of completed copies.\n\nOverall, preparation takes place along two separate routes, one for the interior and one for the cover. These routes come together when the two components are fitted together. Fastening and a check of page order then follow before the booklets are boxed.\n\nOnce the design is approved, the inside pages are printed on sheets, which are folded to form sets. In the other part of the process, the cover is printed on card. This card is scored along the line where it will fold. These operations produce the two components required at the assembly stage.\n\nAt assembly, one set of folded sheets is put inside each prepared cover. The two components are then joined by stapling through the fold. The last stage combines a check that the pages are in the correct order with packing the finished copies into boxes.",
+      "explanation": "The model groups the stages around the central relationship: covers and interior pages are prepared separately before assembly, fastening and final inspection. It draws its details from the labelled arrows and stages.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Task achievement. Award 2 for an accurate overview and key stages, including that covers and interior pages are prepared separately before assembly, fastening and final inspection. Award 1 for partial coverage or a minor misreading. Award 0 if the account is substantially inaccurate or off topic."
+        },
+        {
+          "marks": 2,
+          "description": "Coherence and cohesion. Award 2 for a clear overview and logically grouped stages with readable transitions, 1 for an understandable sequence with uneven grouping, or 0 for a sequence that is hard to follow."
+        },
+        {
+          "marks": 2,
+          "description": "Lexical resource. Award 2 for precise process vocabulary and effective paraphrase, 1 for generally intelligible but repetitive or imprecise wording, or 0 when word choice repeatedly obscures meaning."
+        },
+        {
+          "marks": 2,
+          "description": "Grammatical range and accuracy. Award 2 for clear, controlled sentences with some structural variety, 1 when errors sometimes interrupt reading, or 0 when frequent errors obstruct meaning."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "Academic Writing Task 1 process diagram",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 165,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "academic or neutral",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight practice marks",
+      "modelResponseStatus": "original_illustrative_response"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Conditional routes",
+      "learningObjective": "Describe the shared stages of a workflow and explain the condition that determines each outcome.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "id": "ndv-162-002",
+      "objectiveId": "ielts-academic-process-162-branch-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "The diagram shows how a community hall receives and releases parcels. Describe the process in connected prose, giving an overview and selecting the key stages and relationships. Write at least 150 words. Allow about 20 minutes.",
+      "stimulus": {
+        "type": "process-diagram",
+        "title": "Parcel collection at a community hall",
+        "assetPath": "stimuli/batch-162/ndv-162-002.svg",
+        "textAlternative": "Receive parcel at the hall → Record label number\nRecord label number → Place parcel on numbered shelf\nPlace parcel on numbered shelf → Check collection code against record (When collector arrives)\nCheck collection code against record → Hand parcel to collector (Code matches)\nHand parcel to collector → Mark record as collected\nCheck collection code against record → Keep parcel on shelf (Code does not match)\nKeep parcel on shelf → Refer query to desk supervisor"
+      },
+      "answer": "The diagram shows the stages involved in handling a parcel at a community hall, from its arrival to either collection or referral to a supervisor.\n\nOverall, every parcel is logged and stored before anyone attempts to collect it. The procedure then divides into two routes according to whether the collection code agrees with the record. One route ends with the parcel being released and the other leaves it in storage.\n\nOn receipt, the number shown on the parcel label is entered in the record. The parcel is then put on a numbered shelf, where it stays until a collector arrives. At that point, the collection code is checked against the recorded information.\n\nIf the code matches, the parcel is handed over and its record is updated to show that collection has taken place. If the code does not match, the parcel remains on the shelf and the query is passed to the desk supervisor. The diagram ends at that referral without showing how the query is resolved.",
+      "explanation": "The model groups the stages around the central relationship: all parcels go through registration and shelving, but only a matching code leads to release and a completed collection record. It draws its details from the labelled arrows and stages.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Task achievement. Award 2 for an accurate overview and key stages, including that all parcels go through registration and shelving, but only a matching code leads to release and a completed collection record. Award 1 for partial coverage or a minor misreading. Award 0 if the account is substantially inaccurate or off topic."
+        },
+        {
+          "marks": 2,
+          "description": "Coherence and cohesion. Award 2 for a clear overview and logically grouped stages with readable transitions, 1 for an understandable sequence with uneven grouping, or 0 for a sequence that is hard to follow."
+        },
+        {
+          "marks": 2,
+          "description": "Lexical resource. Award 2 for precise process vocabulary and effective paraphrase, 1 for generally intelligible but repetitive or imprecise wording, or 0 when word choice repeatedly obscures meaning."
+        },
+        {
+          "marks": 2,
+          "description": "Grammatical range and accuracy. Award 2 for clear, controlled sentences with some structural variety, 1 when errors sometimes interrupt reading, or 0 when frequent errors obstruct meaning."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "Academic Writing Task 1 process diagram",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 167,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "academic or neutral",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight practice marks",
+      "modelResponseStatus": "original_illustrative_response"
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Reuse cycle and repair loop",
+      "learningObjective": "Explain a recurring loan cycle and distinguish its repair loop from the main sequence.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "id": "ndv-162-003",
+      "objectiveId": "ielts-academic-process-162-cycle-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "The diagram shows how a lending library circulates its tools and handles tools that need repair. Describe the process in connected prose, giving an overview and selecting the key stages and relationships. Write at least 150 words. Allow about 20 minutes.",
+      "stimulus": {
+        "type": "process-diagram",
+        "title": "Circulation of tools at a lending library",
+        "assetPath": "stimuli/batch-162/ndv-162-003.svg",
+        "textAlternative": "Available tools on shelf → Record loan and issue tool\nRecord loan and issue tool → Borrower uses tool\nBorrower uses tool → Return tool\nReturn tool → Inspect condition\nInspect condition → Available tools on shelf (Ready to lend)\nInspect condition → Set aside for repair (Repair needed)\nSet aside for repair → Repair tool\nRepair tool → Inspect condition (Inspect again)"
+      },
+      "answer": "The diagram illustrates the circulation of tools through a lending library, including the route taken by equipment that needs attention after a loan.\n\nOverall, the main process is cyclical. A tool is issued from the shelf, used and returned, then inspected before becoming available again. Items requiring repair follow an additional route that leads back to inspection before any return to the shelf.\n\nThe cycle begins with tools that are ready to be borrowed. When one is taken out, the library records the loan and hands the tool to the borrower. The next stages are use by the borrower and return to the library. The returned tool is then inspected, and its condition determines where it goes next.\n\nIf the inspection finds the tool ready for another loan, it is put back with the available equipment. A tool needing work is instead set aside and repaired. The repaired item returns to the inspection stage, so the decision about its readiness is made again. Once it passes that check, it can rejoin the main lending cycle.",
+      "explanation": "The model groups the stages around the central relationship: tools return to the lending shelf through inspection, while tools needing repair pass through a separate loop and are inspected again. It draws its details from the labelled arrows and stages.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Task achievement. Award 2 for an accurate overview and key stages, including that tools return to the lending shelf through inspection, while tools needing repair pass through a separate loop and are inspected again. Award 1 for partial coverage or a minor misreading. Award 0 if the account is substantially inaccurate or off topic."
+        },
+        {
+          "marks": 2,
+          "description": "Coherence and cohesion. Award 2 for a clear overview and logically grouped stages with readable transitions, 1 for an understandable sequence with uneven grouping, or 0 for a sequence that is hard to follow."
+        },
+        {
+          "marks": 2,
+          "description": "Lexical resource. Award 2 for precise process vocabulary and effective paraphrase, 1 for generally intelligible but repetitive or imprecise wording, or 0 when word choice repeatedly obscures meaning."
+        },
+        {
+          "marks": 2,
+          "description": "Grammatical range and accuracy. Award 2 for clear, controlled sentences with some structural variety, 1 when errors sometimes interrupt reading, or 0 when frequent errors obstruct meaning."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "Academic Writing Task 1 process diagram",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 175,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "academic or neutral",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight practice marks",
+      "modelResponseStatus": "original_illustrative_response"
+    }
+  ]
+}
