@@ -1022,3 +1022,10 @@ to nine financial literacy objectives. It includes 15 multiple-choice
 questions, three written tasks and one supervised cash-handling simulation.
 The bank now has 88 valid drafts across 40 mapped objectives. School adoption,
 remaining curriculum objectives and academic review remain open.
+
+Batch 174 adds 15 NERDC JSS 1 Social and Citizenship Studies drafts across
+ten objectives on family as a primary social group and civic responsibilities.
+Nine are multiple-choice questions and six are written or artefact tasks. The
+bank has 103 valid drafts across 50 mapped objectives. Civic examples focus on
+freedom of expression and care for public property. School adoption, full
+curriculum coverage and independent academic review remain open.

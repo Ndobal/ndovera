@@ -1,0 +1,578 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Social and Citizenship Studies family and civic responsibility",
+  "questionCount": 15,
+  "note": "Original fictional classroom tasks. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Primary social groups",
+      "learningObjective": "Recognise a primary social group by its close, continuing personal relationships.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-01-v1",
+      "id": "ndv-174-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which group best illustrates a primary social group?",
+      "answer": "A few close friends who meet often and support one another.",
+      "explanation": "A primary group has close personal ties that continue over time. Brief contact in a public place does not show that relationship.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Travellers waiting for the same bus once.",
+        "A few close friends who meet often and support one another.",
+        "Shoppers who happen to stand in the same queue.",
+        "People assigned numbers at an open registration desk."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Primary social groups",
+      "learningObjective": "Recognise a primary social group by its close, continuing personal relationships.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-01-v1",
+      "id": "ndv-174-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two groups each have five members. One group stays in touch for years and helps members through difficult times. The other meets once to arrange chairs. Which feature gives stronger evidence of a primary social group?",
+      "answer": "Maintaining close relationships over time.",
+      "explanation": "Group size alone does not establish a primary group. The ongoing personal connection is the stronger evidence.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Having exactly five members.",
+        "Meeting where there are chairs.",
+        "Finishing a task in one visit.",
+        "Maintaining close relationships over time."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Family relationships and support",
+      "learningObjective": "Explain how regular interaction and mutual support can make a family a primary social group.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-02-v1",
+      "id": "ndv-174-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A learner stays with an aunt during the school week. They discuss school, plan meals and help one another when a problem arises. What best explains why their family relationship illustrates a primary group?",
+      "answer": "They share continuing personal care and everyday interaction.",
+      "explanation": "Ongoing care and daily interaction show the close personal relationship that characterises a primary group.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "They live near a school building.",
+        "One person is older than the other.",
+        "They share continuing personal care and everyday interaction.",
+        "Their home has a place to cook."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Family relationships and support",
+      "learningObjective": "Explain how regular interaction and mutual support can make a family a primary social group.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-02-v1",
+      "id": "ndv-174-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "People in a fictional family live in two towns. They call regularly, share important decisions and make time to support one another. Explain why they can still function as a primary social group. Use two details from the scenario.",
+      "answer": "Regular calls sustain personal contact. Making decisions together or providing support shows that members stay involved in each other’s lives.",
+      "explanation": "A shared address is one way to make frequent contact possible. The scenario gives other evidence of close, continuing relationships.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies regular calls and links them to continuing contact."
+        },
+        {
+          "marks": 1,
+          "description": "Links shared decisions or mutual help to a close personal relationship."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Sharing household responsibilities",
+      "learningObjective": "Identify household responsibilities and match them to ability, availability and safety.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-03-v1",
+      "id": "ndv-174-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "An adult in a household works late on Tuesdays. A younger pupil can put clean cups on a low shelf before doing homework. What principle makes this task suitable?",
+      "answer": "It fits what the pupil can do safely and when help is needed.",
+      "explanation": "An appropriate responsibility takes account of ability, safety and time. The example does not depend on gender or on who is youngest.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It fits what the pupil can do safely and when help is needed.",
+        "The youngest person should always do every job.",
+        "Only adults may contribute to any household task.",
+        "The task must be done by someone with a particular gender."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Sharing household responsibilities",
+      "learningObjective": "Identify household responsibilities and match them to ability, availability and safety.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-03-v1",
+      "id": "ndv-174-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At a family gathering, Nneka notices her uncle using a walking stick. Which response best combines help and respect?",
+      "answer": "Ask whether he would like a clear path or a chair nearby.",
+      "explanation": "Asking first respects his choices and allows the family to offer support suited to what he needs.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Move his walking stick out of sight so the room looks tidy.",
+        "Ask whether he would like a clear path or a chair nearby.",
+        "Assign him the heaviest task to keep duties equal.",
+        "Decide he cannot take part in any activity."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Comparing family sizes",
+      "learningObjective": "Compare the number of members in described families without inferring their relationships or quality of care.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-04-v1",
+      "id": "ndv-174-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "One family record lists two caregivers and one child. Another lists one caregiver and four children. Based only on the records, what can be concluded?",
+      "answer": "The second family has more listed members.",
+      "explanation": "The first list has three members and the second has five. The counts do not tell us how family members share attention.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The first family has more listed members.",
+        "Both families have the same number of listed members.",
+        "The second family has more listed members.",
+        "The second family must give each child less attention."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Family size and resource planning",
+      "learningObjective": "Explain how family size can affect resource needs while recognising that resources and circumstances differ.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-05-v1",
+      "id": "ndv-174-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A community centre expects more school-age children next year. Explain one effect this could have on demand for a local service. Then explain why the number of children in a household alone cannot tell us whether every child has the materials they need.",
+      "answer": "More school-age children may increase demand for places at a local school. Household access to materials also depends on income, prices, support and what the school provides.",
+      "explanation": "Population changes can affect planning for services, while a household’s ability to meet needs depends on more than family size.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a relevant local service and a plausible increase in demand."
+        },
+        {
+          "marks": 1,
+          "description": "Names a factor other than household size that affects access to materials."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the connection between that factor and access."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Family responsibility chart",
+      "learningObjective": "Create a chart that assigns appropriate duties and provides for changes in availability.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-06-v1",
+      "id": "ndv-174-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create a responsibility chart for three fictional family members preparing for a Saturday visit. One adult will be away in the morning, another adult can supervise, and a school-age child can set out cups. List three tasks, who will do them and when. Include a fallback for one task.",
+      "answer": "Morning: the supervising adult prepares refreshments and the child sets out cups. Afternoon: the returning adult clears the serving table. If the adult returns late, the supervising adult clears it once the visit ends.",
+      "explanation": "A useful chart matches tasks to availability and ability. A fallback helps when the agreed plan changes.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Lists three clear tasks with named roles."
+        },
+        {
+          "marks": 1,
+          "description": "Gives times that fit each person’s availability."
+        },
+        {
+          "marks": 1,
+          "description": "Assigns an age-appropriate task to the child."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a feasible fallback."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "Meaning of rights and duties",
+      "learningObjective": "Distinguish a protected freedom from a civic duty using age-appropriate examples.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-07-v1",
+      "id": "ndv-174-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "During a community discussion, a resident respectfully explains why she disagrees with a proposal. Which freedom is illustrated most directly?",
+      "answer": "Freedom of expression.",
+      "explanation": "The key action is communicating an opinion. Section 39 of Nigeria’s Constitution protects freedom of expression, subject to applicable limits.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Freedom of expression.",
+        "Freedom of movement.",
+        "Freedom of religion.",
+        "Freedom of peaceful assembly."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "Meaning of rights and duties",
+      "learningObjective": "Distinguish a protected freedom from a civic duty using age-appropriate examples.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-07-v1",
+      "id": "ndv-174-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which example most directly illustrates the duty to help protect public property?",
+      "answer": "Reporting damage to a public library desk to the librarian.",
+      "explanation": "Reporting damage helps the people responsible protect a public facility. The example illustrates the duty in section 24(e).",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Borrowing a book from a friend.",
+        "Buying a notebook from a shop.",
+        "Listening to a public speech.",
+        "Reporting damage to a public library desk to the librarian."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "Rights and responsibilities awareness",
+      "learningObjective": "Create a classroom campaign that pairs an example of a right with an appropriate civic duty.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-08-v1",
+      "id": "ndv-174-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Design two panels for a school awareness display. The first should show how a pupil can express a view respectfully. The second should show how pupils can help protect books in a public library. Give each panel a short label and a specific action.",
+      "answer": "Panel 1, Express a view: explain your opinion calmly during an open discussion. Panel 2, Protect public property: use public library books carefully and report damage to the librarian.",
+      "explanation": "The panels distinguish expressing an opinion from caring for public resources. Each gives a practical action pupils can understand.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies freedom of expression in the first panel."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a plausible, respectful way to express an opinion."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies care for public property in the second panel."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a specific action relevant to library books."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "Why rights and duties matter",
+      "learningObjective": "Explain how rights support participation and how civic duties help preserve shared resources.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-09-v1",
+      "id": "ndv-174-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A local library invites young readers to comment on its opening hours. Explain how letting readers express different views can improve the decision. Give one reason it also matters that visitors care for the library’s desks and books.",
+      "answer": "Readers can tell staff which hours are practical for school or travel, so staff can consider needs they might have missed. Caring for the desks and books keeps them usable for other visitors.",
+      "explanation": "Expression makes it possible for people to contribute different experiences. Protecting public property helps keep shared services available.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how hearing different views can inform the decision."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how protecting the shared items helps other visitors."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "How rights and duties relate",
+      "learningObjective": "Explain how a right and a civic duty can apply together in one situation.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-10-v1",
+      "id": "ndv-174-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A learner thinks a public reading room should open later. Which action combines expressing that opinion with protecting public property?",
+      "answer": "Give the suggestion to staff on a comment card and leave the furniture undamaged.",
+      "explanation": "The comment card communicates the opinion without damaging or removing public property.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Scratch the proposal into a reading desk.",
+        "Remove a library shelf so the issue gets noticed.",
+        "Give the suggestion to staff on a comment card and leave the furniture undamaged.",
+        "Keep a library chair at home until the hours change."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "How rights and duties relate",
+      "learningObjective": "Explain how a right and a civic duty can apply together in one situation.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-174-10-v1",
+      "id": "ndv-174-015",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The council invites residents to suggest changes to a community garden. Describe one way a young resident can express a view and one way the resident can help preserve the garden’s shared facilities at the same time.",
+      "answer": "Offer a suggestion at the council’s discussion or send it through the published feedback channel. Use the shared facilities with care and tell a designated adult if something is broken.",
+      "explanation": "The same resident can communicate a view and help look after shared property. Each action serves a different purpose.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a clear way to express a relevant opinion."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a practical action that helps preserve shared property."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the two actions can be taken together."
+        }
+      ]
+    }
+  ]
+}

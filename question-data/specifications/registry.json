@@ -2602,12 +2602,13 @@
         "Printed pp. 7, 11 and 12 (PDF pp. 21, 25 and 26)",
         "Printed pp. 14–16 and 19 (PDF pp. 28–30 and 33)",
         "Printed p. 18 (PDF p. 32)",
-        "Printed pp. 22–23 and 25 (PDF pp. 36–37 and 39)"
+        "Printed pp. 22–23 and 25 (PDF pp. 36–37 and 39)",
+        "Printed pp. 9–10 (PDF pp. 23–24)"
       ],
-      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch. Batch 171 maps fossil fuel combustion under the climate driver objective. The littering example needs separate treatment as a waste and pollution issue. Content cross-checks: UN climate causes (https://www.un.org/en/climatechange/science/causes-effects-climate-change), UNDRR terminology (https://www.undrr.org/terminology), NWS flood safety (https://www.weather.gov/safety/flood-during), and FRSC road safety education (https://frsc.gov.ng/about-us/what-we-do/). Batch 172 cross-checks outbreak communication with WHO (https://www.who.int/emergencies/risk-communications), prevention messages with NCDC (https://ncdc.gov.ng/news/337/cholera-in-nigeria%3A-urgent-call-to-strengthen-water%2C-sanitation-and-hygiene-%28wash%29), and disaster management with UNDRR (https://www.undrr.org/terminology/disaster-management). Printed p. 18 performance objective 4 is deferred pending authoritative age-appropriate guidance on pupil roles and safe referral. Batch 173 maps selected basic money, cash care and budgeting objectives. The routine-payment items use plain-language transaction examples. The source prints “Transitionary” in its motives list, and speculative motives remain unmapped in this batch.",
+      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch. Batch 171 maps fossil fuel combustion under the climate driver objective. The littering example needs separate treatment as a waste and pollution issue. Content cross-checks: UN climate causes (https://www.un.org/en/climatechange/science/causes-effects-climate-change), UNDRR terminology (https://www.undrr.org/terminology), NWS flood safety (https://www.weather.gov/safety/flood-during), and FRSC road safety education (https://frsc.gov.ng/about-us/what-we-do/). Batch 172 cross-checks outbreak communication with WHO (https://www.who.int/emergencies/risk-communications), prevention messages with NCDC (https://ncdc.gov.ng/news/337/cholera-in-nigeria%3A-urgent-call-to-strengthen-water%2C-sanitation-and-hygiene-%28wash%29), and disaster management with UNDRR (https://www.undrr.org/terminology/disaster-management). Printed p. 18 performance objective 4 is deferred pending authoritative age-appropriate guidance on pupil roles and safe referral. Batch 173 maps selected basic money, cash care and budgeting objectives. The routine-payment items use plain-language transaction examples. The source prints “Transitionary” in its motives list, and speculative motives remain unmapped in this batch. Batch 174 maps selected family and civic objectives. Civic content is limited to freedom of expression and the duty to help protect public property, checked against sections 39 and 24(e) of the NILDS compilation through the Fifth Alteration (https://ir.nilds.gov.ng/handle/123456789/1729). The batch does not map voting eligibility, education as a Chapter IV right, or legal consequences.",
       "latestRecheck": {
         "date": "2026-11-11",
-        "method": "Direct PDF download matched the registered SHA-256. Printed pp. 22–23 and 25 checked against PDF pp. 36–37 and 39."
+        "method": "Direct PDF download matched the registered SHA-256. Printed pp. 9–10 checked against PDF pp. 23–24."
       }
     }
   ],
@@ -21356,6 +21357,188 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 25, PDF p. 39, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-01-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Primary social groups",
+      "learningObjective": "Recognise a primary social group by its close, continuing personal relationships.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 24, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-02-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Family relationships and support",
+      "learningObjective": "Explain how regular interaction and mutual support can make a family a primary social group.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-03-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Sharing household responsibilities",
+      "learningObjective": "Identify household responsibilities and match them to ability, availability and safety.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 24, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-04-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Comparing family sizes",
+      "learningObjective": "Compare the number of members in described families without inferring their relationships or quality of care.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 24, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-05-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Family size and resource planning",
+      "learningObjective": "Explain how family size can affect resource needs while recognising that resources and circumstances differ.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 24, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-06-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Family as a Primary Social Group",
+      "subtopic": "Family responsibility chart",
+      "learningObjective": "Create a chart that assigns appropriate duties and provides for changes in availability.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 24, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-07-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "Meaning of rights and duties",
+      "learningObjective": "Distinguish a protected freedom from a civic duty using age-appropriate examples.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 9, PDF p. 23, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-08-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "Rights and responsibilities awareness",
+      "learningObjective": "Create a classroom campaign that pairs an example of a right with an appropriate civic duty.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 9, PDF p. 23, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-09-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "Why rights and duties matter",
+      "learningObjective": "Explain how rights support participation and how civic duties help preserve shared resources.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 9, PDF p. 23, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-174-10-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Rights and Duties of Citizens",
+      "subtopic": "How rights and duties relate",
+      "learningObjective": "Explain how a right and a civic duty can apply together in one situation.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 9, PDF p. 23, performance objective 4"
       ]
     }
   ],
