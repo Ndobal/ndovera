@@ -983,3 +983,9 @@ items for 2027–2029. The new objectives cover exchange-rate quotations,
 currency markets, traded prices and the current account. Three numerical
 answers have arithmetic checks and the currency figures are fictional.
 Paper 2 evaluation practice and independent academic review remain open.
+
+Batch 168 adds 12 standalone Cambridge IGCSE Economics 0455 Paper 2
+drafts for 2027–2029. Original scenarios test currency-market responses,
+current-account interpretation and policy trade-offs. Each task has a
+worked answer and a six-mark practice guide. Five calculation checks
+passed. Full-paper assembly and independent academic review remain open.

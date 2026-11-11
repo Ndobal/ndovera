@@ -1,0 +1,780 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE 0455 exchange-rate and current-account structured practice",
+  "questionCount": 12,
+  "note": "Standalone original Paper 2 practice for the 2027–2029 syllabus. All scenarios and figures are hypothetical.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Price changes and trade responses",
+      "learningObjective": "Evaluate how exchange-rate changes affect firms and traded quantities under different conditions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-001",
+      "objectiveId": "igcse-0455-168-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A currency depreciates. Exporters lower their prices in buyers’ currencies, but overseas buyers have annual contracts and cannot change quantities until renewal. Discuss why an increase in the volume of exports may take time.",
+      "answer": "The lower foreign price makes the exports more attractive, but the contracted quantities cannot change immediately. At renewal, buyers may increase orders if substitutes are available and they respond to relative prices. The increase may still be limited if exporters lack spare capacity or if competing suppliers lower their prices.",
+      "explanation": "Price competitiveness can improve before order volumes can adjust.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Explain the change in foreign price and the incentive for buyers."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Explain how existing contracts prevent an immediate quantity response."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Explain a condition affecting the size of the eventual volume response."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Price changes and trade responses",
+      "learningObjective": "Evaluate how exchange-rate changes affect firms and traded quantities under different conditions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-002",
+      "objectiveId": "igcse-0455-168-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A country’s currency appreciates. A furniture exporter buys imported fittings but invoices its overseas customers in the domestic currency. Discuss whether the appreciation will improve the firm’s profit.",
+      "answer": "Imported fittings become cheaper in domestic currency if suppliers hold their foreign prices fixed. This can raise the margin on each unit sold. However, a fixed domestic selling price is now higher for overseas buyers in their own currency, so export sales may fall. The outcome depends on the share of imported costs and how much foreign demand responds to the higher price.",
+      "explanation": "A firm can face a cost advantage and a demand disadvantage from the same currency movement.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Develop the link from appreciation to cheaper imported inputs and margins."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Develop the link from the unchanged domestic price to higher foreign price and potential loss of sales."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Give a conditional judgement using input cost share or demand sensitivity."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Price changes and trade responses",
+      "learningObjective": "Evaluate how exchange-rate changes affect firms and traded quantities under different conditions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-003",
+      "objectiveId": "igcse-0455-168-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A producer sells 200 crates abroad at 25 foreign currency units each. The exchange rate moves from 300 to 330 domestic units per foreign unit, and all sales are converted at the stated rates. Calculate the change in domestic revenue. Explain why this figure does not show the change in profit.",
+      "answer": "The invoice is 200 × 25 = 5,000 foreign units. At the initial rate revenue is 1,500,000 domestic units. At the new rate it is 1,650,000, a rise of 150,000. Profit also depends on costs. For example, if the producer imports packaging, the same foreign packaging bill now costs more in domestic currency and offsets some of the revenue rise.",
+      "explanation": "A higher conversion value changes domestic revenue. Profit also reflects the cost of production.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Calculate the invoice in foreign currency."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Find both domestic values or calculate the correct increase directly."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Explain why a relevant cost change can alter the profit outcome."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "200*25",
+          "expected": 5000,
+          "purpose": "Check a worked calculation."
+        },
+        {
+          "expression": "200*25*(330-300)",
+          "expected": 150000,
+          "purpose": "Check a worked calculation."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Price changes and trade responses",
+      "learningObjective": "Evaluate how exchange-rate changes affect firms and traded quantities under different conditions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-004",
+      "objectiveId": "igcse-0455-168-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "Foreign investors sell domestic currency after expecting it to lose value. Explain the effect on its floating exchange rate and discuss why a subsequent rise in export orders might reverse that movement.",
+      "answer": "Selling domestic currency increases its supply in the foreign exchange market, putting downward pressure on its price, all else equal. If overseas customers must buy domestic currency to pay exporters, rising orders increase demand for it. A reversal depends on the export-related increase in demand relative to the continuing currency sales and other changes in the market.",
+      "explanation": "The relative size of the demand and supply changes determines the movement of the equilibrium rate.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Link currency sales to higher supply and downward pressure."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Link increased orders to demand for the domestic currency under domestic-currency settlement."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Explain why the net movement depends on the strength and timing of both changes."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Composition and economic consequences",
+      "learningObjective": "Interpret current-account components and assess what a changing balance implies for the economy.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-005",
+      "objectiveId": "igcse-0455-168-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "Country D records a goods balance of +18 million, a services balance of −8 million, primary income of −14 million and secondary income of +2 million. Calculate its current account balance and explain how a goods surplus can coexist with that result.",
+      "answer": "Adding the signed balances gives 18 − 8 − 14 + 2 = −2 million, a deficit. Services and primary income together subtract 22 million. The goods surplus and secondary income receipts net of payments contribute 20 million, so the combined negative balances outweigh them.",
+      "explanation": "The goods balance is only one of the four components of the current account.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Combine the four balances with the correct signs."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "State a deficit of 2 million."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Explain how the other component balances outweigh the goods surplus."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "18-8-14+2",
+          "expected": -2,
+          "purpose": "Check a worked calculation."
+        },
+        {
+          "expression": "-8-14",
+          "expected": -22,
+          "purpose": "Check a worked calculation."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Composition and economic consequences",
+      "learningObjective": "Interpret current-account components and assess what a changing balance implies for the economy.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-006",
+      "objectiveId": "igcse-0455-168-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "In country E, a rise in service exports improves the trade balance by 9 million. Net interest paid to non-residents rises by 12 million and all other components stay constant. Calculate the change in the current account balance and explain the classification of the two changes.",
+      "answer": "The balance falls by 3 million because +9 million in net service receipts is more than offset by −12 million in net primary income. The service export is a payment for a service. Interest paid abroad is investment income and enters the primary income balance.",
+      "explanation": "The two changes belong to different components and move the total in opposite directions.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Classify the export receipts in services."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Classify the interest payments as primary income debits."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Calculate the 3 million deterioration using the stated changes."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true,
+      "verification": [
+        {
+          "expression": "9-12",
+          "expected": -3,
+          "purpose": "Check a worked calculation."
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Composition and economic consequences",
+      "learningObjective": "Interpret current-account components and assess what a changing balance implies for the economy.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-007",
+      "objectiveId": "igcse-0455-168-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A country’s current-account deficit shrinks during a recession. The volume of imports falls while exports are unchanged. Discuss whether the smaller deficit is evidence that its producers have become more competitive.",
+      "answer": "The deficit may narrow because weak household and firm spending reduces import payments. That does not require local producers to lower prices, improve quality or win foreign orders. Competitiveness could have improved, but evidence such as rising export market share or lower unit costs would be needed. The cause of the import decline and movements in prices matter.",
+      "explanation": "A better balance can result from weak domestic demand or improved competitiveness, which have different implications.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Explain a recession-driven fall in import spending."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Explain why the given evidence does not establish a competitiveness improvement."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Identify and explain a useful additional indicator or alternative explanation."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Composition and economic consequences",
+      "learningObjective": "Interpret current-account components and assess what a changing balance implies for the economy.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-008",
+      "objectiveId": "igcse-0455-168-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A country’s current-account surplus rises because its exports of processed food increase. Producers have spare capacity, but many ingredients are imported. Explain one likely employment effect and discuss why the overall trade improvement may be smaller than the rise in export receipts.",
+      "answer": "Higher export orders may lead firms to expand production and hire workers or increase hours. Spare capacity can allow them to expand without immediately raising prices, although some firms may use existing staff. Higher output also requires imported ingredients, increasing import payments. The net improvement depends on how much of the extra export revenue is spent on foreign inputs.",
+      "explanation": "Export-led output can raise labour demand while also increasing imports of intermediate goods.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Develop an employment effect from higher export production."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Explain the import payment effect from using more imported inputs."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Link the net trade effect to the size of the additional import bill relative to export receipts."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Policy choice and effectiveness",
+      "learningObjective": "Evaluate demand-side and supply-side options for addressing a current-account deficit.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-009",
+      "objectiveId": "igcse-0455-168-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A government facing a current-account deficit considers reducing its own spending on domestically produced services. Discuss how this could reduce the deficit and explain one cost of this policy.",
+      "answer": "Lower government spending reduces incomes of firms and workers supplying the services. Lower incomes can lead to less spending, including on imports, reducing current-account debits. The effect may be small if imports are mostly essentials or if export receipts fall at the same time. The spending cuts can also reduce output and jobs in the affected services.",
+      "explanation": "The external balance can improve through lower demand, with a possible cost to output and employment.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Trace the effect of lower public spending through incomes to import demand."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Explain a relevant condition that limits the improvement."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Develop an output or employment cost in the stated context."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Policy choice and effectiveness",
+      "learningObjective": "Evaluate demand-side and supply-side options for addressing a current-account deficit.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-010",
+      "objectiveId": "igcse-0455-168-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "An economy imports most of its packaging. Its government is considering training technicians and improving electricity reliability to help local packaging producers compete. Discuss whether these measures could improve the current account over time.",
+      "answer": "Training can raise productivity and more reliable electricity can reduce lost production. If this lowers unit costs or raises quality enough to attract local buyers, purchases may shift from imported packaging to domestic supplies. The policy takes time and may initially require imported equipment. The outcome depends on whether local firms can meet the required quality and volumes at a competitive price.",
+      "explanation": "The measures work through capacity and competitiveness. Timing and imported inputs affect the net external result.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Link training or reliable electricity to local productivity, cost or quality."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Explain how competitive domestic supply can replace imports."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Evaluate a time lag, initial import cost or realistic condition for effectiveness."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Policy choice and effectiveness",
+      "learningObjective": "Evaluate demand-side and supply-side options for addressing a current-account deficit.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-011",
+      "objectiveId": "igcse-0455-168-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "Country P relies on imported fuel and has a current-account deficit. A proposal would replace some imported fuel with locally generated electricity, but building the generators requires imported equipment. Discuss the short-run and longer-run implications for the current account.",
+      "answer": "Equipment purchases raise goods import payments during construction and can worsen the balance initially. Once local electricity displaces fuel imports, recurring import payments may fall. The eventual gain depends on how much fuel is displaced and on continuing payments for imported parts or maintenance services. The size and timing of these flows determine how long it takes to see an improvement.",
+      "explanation": "The investment can increase import debits first and reduce a different stream of import debits later.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Explain the initial equipment import effect."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Explain how reduced fuel imports can improve the later balance."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Assess the outcome using substitution or recurring foreign costs."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Policy choice and effectiveness",
+      "learningObjective": "Evaluate demand-side and supply-side options for addressing a current-account deficit.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-168-012",
+      "objectiveId": "igcse-0455-168-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2",
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "Country Q’s current-account deficit reflects strong household demand for imported durables. The central bank proposes a higher interest rate. Explain one channel through which the deficit may shrink and one channel through which it may widen. Give a conditional conclusion.",
+      "answer": "Higher borrowing costs may reduce credit-financed purchases of imports, cutting import payments. Higher rates may also attract foreign funds that need to buy Q’s currency. If it appreciates, imported goods may become cheaper and foreign buyers may face higher prices for Q’s exports. The balance depends on the relative demand and exchange-rate responses, including how quickly buyers adjust spending.",
+      "explanation": "A single policy can move import spending through domestic demand and through the exchange rate in opposite directions.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Link higher interest rates, reduced borrowing and lower import demand."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Develop the currency appreciation channel and a possible adverse trade effect."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Give a conditional conclusion comparing the two channels."
+        }
+      ],
+      "markingGuideNote": "For each criterion, award 1 for a valid but incomplete step and 2 for a complete step. Accept other sound reasoning. This is an original practice guide.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "requiresManualReview": true
+    }
+  ]
+}

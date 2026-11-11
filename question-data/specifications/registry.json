@@ -1940,7 +1940,7 @@
       "lastRecheckedOn": "2026-11-11",
       "sourceBytes": 695606,
       "pageCount": 37,
-      "latestRecheck": "Official syllabus web PDF checked for sections 6.3 and 6.4 on pages 25–26 and Paper 1 format on page 27."
+      "latestRecheck": "Official syllabus PDF checked for sections 6.3–6.4 (pp. 25–26) and Paper 1 and Paper 2 assessment (pp. 27–28)."
     },
     {
       "id": "neco-bece-bst-2026-historical-nerdc-reference",
@@ -20506,6 +20506,90 @@
         "Paper 1 assessment, p. 27"
       ],
       "mappingStatus": "author_proposed_skill_mapping"
+    },
+    {
+      "id": "igcse-0455-168-01-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Foreign exchange rates",
+      "subtopic": "Price changes and trade responses",
+      "learningObjective": "Evaluate how exchange-rate changes affect firms and traded quantities under different conditions.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "Section 6.3.3–6.3.4, p. 25",
+        "Paper 2 assessment, pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-168-02-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Composition and economic consequences",
+      "learningObjective": "Interpret current-account components and assess what a changing balance implies for the economy.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "Section 6.4.1–6.4.3, p. 26",
+        "Paper 2 assessment, pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-168-03-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Current account",
+      "subtopic": "Policy choice and effectiveness",
+      "learningObjective": "Evaluate demand-side and supply-side options for addressing a current-account deficit.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "Section 6.4.4, p. 26",
+        "Paper 2 assessment, pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_against_versioned_official_source_pending_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
