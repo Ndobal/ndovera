@@ -942,3 +942,10 @@ a text equivalent of every labelled connection. Present the prompt with
 the stimulus and reserve the model and eight-mark guide for assessment.
 The diagrams and models were checked together. Delivery integration and
 independent academic review remain pending.
+
+Batch 163 adds three IELTS Academic Task 1 chart comparisons covering
+trends, matched categories and percentage composition. The original charts
+use fictional data and include text equivalents and structured values.
+Models and eight-mark practice guides accompany each task. The rendered
+charts, labels and comparisons were checked. Independent review and
+delivery integration remain pending.

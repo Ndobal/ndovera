@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 2,
+  "collection": "IELTS Academic Writing chart comparisons",
+  "questionCount": 3,
+  "note": "Original charts with fictional data, text alternatives, model responses and practice guides.",
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Trends and changes in rank",
+      "learningObjective": "Compare time series and report when their relative positions change.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "id": "ndv-163-001",
+      "objectiveId": "ielts-academic-chart-163-crossover-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "The chart shows monthly visits to two reading rooms. Write a summary in connected prose. Give an overview and support the main comparisons with relevant figures. Write at least 150 words and allow about 20 minutes.",
+      "stimulus": {
+        "type": "chart",
+        "title": "Monthly visits to two reading rooms",
+        "assetPath": "stimuli/batch-163/ndv-163-001.svg",
+        "textAlternative": "Monthly visits to two reading rooms\nVisits per month\nCategory | East room | West room\nJanuary | 240 | 120\nFebruary | 260 | 190\nMarch | 270 | 250\nApril | 290 | 310\nMay | 300 | 370",
+        "data": {
+          "unit": "Visits per month",
+          "categories": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May"
+          ],
+          "series": {
+            "East room": [
+              240,
+              260,
+              270,
+              290,
+              300
+            ],
+            "West room": [
+              120,
+              190,
+              250,
+              310,
+              370
+            ]
+          }
+        }
+      },
+      "answer": "The line chart compares monthly visits to the east and west reading rooms over the first five months of the year.\n\nOverall, both rooms received more visits at the end of the period than at the beginning. The increase was much larger in the west room, however, and its monthly total surpassed that of the east room in April.\n\nThe east room began with 240 visits in January, twice the figure for the west room. Its total rose to 260 in February and then to 270 in March. Over the same two months, the figure for the west room increased from 120 to 250. By March, the gap between the two rooms had therefore narrowed to just 20 visits.\n\nIn April the west room recorded 310 visits, compared with 290 in the east room. The difference widened in May, when their totals reached 370 and 300 respectively. Across the full period, monthly visits increased by 250 in the west room, against a rise of 60 in the east room.",
+      "explanation": "The overview identifies that the west room started with half as many visits as the east room, overtook it in April and ended 70 visits ahead. The model supports the comparison with selected values from the chart.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Task achievement. Award 2 for a clear overview and accurate selected comparisons, including that the west room started with half as many visits as the east room, overtook it in April and ended 70 visits ahead. Award 1 for partial coverage or a minor misreading, or 0 for a substantially inaccurate or off-topic account."
+        },
+        {
+          "marks": 2,
+          "description": "Coherence and cohesion. Award 2 for logical grouping and clear transitions, 1 for understandable prose with uneven grouping, or 0 if the progression is hard to follow."
+        },
+        {
+          "marks": 2,
+          "description": "Lexical resource. Award 2 for precise comparison language and accurate units, 1 for generally intelligible wording with some repetition or imprecision, or 0 if wording repeatedly obscures meaning."
+        },
+        {
+          "marks": 2,
+          "description": "Grammatical range and accuracy. Award 2 for controlled sentences with structural variety, 1 for errors that sometimes interrupt reading, or 0 if frequent errors obstruct meaning."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "Academic Writing Task 1 chart comparison",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 169,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "academic or neutral",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight practice marks",
+      "modelResponseStatus": "original_illustrative_response",
+      "verification": [
+        {
+          "expression": "240 / 120",
+          "expected": 2,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "270 - 250",
+          "expected": 20,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "370 - 300",
+          "expected": 70,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "370 - 120",
+          "expected": 250,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "300 - 240",
+          "expected": 60,
+          "purpose": "Check a comparison or total in the chart and model response."
+        }
+      ]
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Comparisons across groups",
+      "learningObjective": "Select contrasts between matched categories and distinguish shared patterns from group-specific differences.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "id": "ndv-163-002",
+      "objectiveId": "ielts-academic-chart-163-paired-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "The chart shows repair jobs completed by two workshops during one month. Write a summary in connected prose. Give an overview and support the main comparisons with relevant figures. Write at least 150 words and allow about 20 minutes.",
+      "stimulus": {
+        "type": "chart",
+        "title": "Repair jobs completed by two workshops",
+        "assetPath": "stimuli/batch-163/ndv-163-002.svg",
+        "textAlternative": "Repair jobs completed by two workshops\nCompleted jobs\nCategory | Workshop A | Workshop B\nBicycles | 36 | 18\nLamps | 12 | 24\nFans | 20 | 22\nChairs | 28 | 26",
+        "data": {
+          "unit": "Completed jobs",
+          "categories": [
+            "Bicycles",
+            "Lamps",
+            "Fans",
+            "Chairs"
+          ],
+          "series": {
+            "Workshop A": [
+              36,
+              12,
+              20,
+              28
+            ],
+            "Workshop B": [
+              18,
+              24,
+              22,
+              26
+            ]
+          }
+        }
+      },
+      "answer": "The bar chart compares the numbers of bicycle, lamp, fan and chair repairs completed by two workshops during the same month.\n\nOverall, bicycles accounted for the highest figure at Workshop A, whereas chairs were the largest category at Workshop B. The workshops differed most in bicycle repairs, and their figures for fans and chairs were much closer.\n\nWorkshop A completed 36 bicycle repairs, double the total of 18 at Workshop B. Lamps showed the reverse pattern. Workshop B repaired 24 lamps, twice the number handled by Workshop A. The two workshops therefore had very different rankings for these categories: bicycles led at Workshop A but came last at Workshop B, while lamps were the smallest category at Workshop A.\n\nFor fans and chairs, the difference was only two jobs in each case. Workshop B repaired 22 fans compared with 20 at Workshop A, while Workshop A completed 28 chair repairs against 26 at Workshop B. Despite the contrast in bicycles and lamps, the overall totals were fairly close, at 96 jobs and 90 jobs respectively.",
+      "explanation": "The overview identifies that bicycles show the largest gap, while the two workshops completed nearly the same number of fan and chair repairs. The model supports the comparison with selected values from the chart.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Task achievement. Award 2 for a clear overview and accurate selected comparisons, including that bicycles show the largest gap, while the two workshops completed nearly the same number of fan and chair repairs. Award 1 for partial coverage or a minor misreading, or 0 for a substantially inaccurate or off-topic account."
+        },
+        {
+          "marks": 2,
+          "description": "Coherence and cohesion. Award 2 for logical grouping and clear transitions, 1 for understandable prose with uneven grouping, or 0 if the progression is hard to follow."
+        },
+        {
+          "marks": 2,
+          "description": "Lexical resource. Award 2 for precise comparison language and accurate units, 1 for generally intelligible wording with some repetition or imprecision, or 0 if wording repeatedly obscures meaning."
+        },
+        {
+          "marks": 2,
+          "description": "Grammatical range and accuracy. Award 2 for controlled sentences with structural variety, 1 for errors that sometimes interrupt reading, or 0 if frequent errors obstruct meaning."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "Academic Writing Task 1 chart comparison",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 175,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "academic or neutral",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight practice marks",
+      "modelResponseStatus": "original_illustrative_response",
+      "verification": [
+        {
+          "expression": "36 / 18",
+          "expected": 2,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "24 / 12",
+          "expected": 2,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "22 - 20",
+          "expected": 2,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "28 - 26",
+          "expected": 2,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "36+12+20+28",
+          "expected": 96,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "18+24+22+26",
+          "expected": 90,
+          "purpose": "Check a comparison or total in the chart and model response."
+        }
+      ]
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Writing",
+      "topic": "Academic Writing Task 1",
+      "subtopic": "Percentage composition",
+      "learningObjective": "Compare the distribution of a fixed total across categories and describe changes in percentage points.",
+      "specificationId": "ielts-academic-writing-format-recheck-162-2026",
+      "id": "ndv-163-003",
+      "objectiveId": "ielts-academic-chart-163-composition-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "The chart shows allocation of community garden space. Write a summary in connected prose. Give an overview and support the main comparisons with relevant figures. Write at least 150 words and allow about 20 minutes.",
+      "stimulus": {
+        "type": "chart",
+        "title": "Allocation of community garden space",
+        "assetPath": "stimuli/batch-163/ndv-163-003.svg",
+        "textAlternative": "Allocation of community garden space\nShare of total area (%)\nCategory | Growing beds | Paths | Meeting space | Storage\nPlan A | 55 | 20 | 15 | 10\nPlan B | 40 | 20 | 25 | 15",
+        "data": {
+          "unit": "Share of total area (%)",
+          "categories": [
+            "Plan A",
+            "Plan B"
+          ],
+          "series": {
+            "Growing beds": [
+              55,
+              40
+            ],
+            "Paths": [
+              20,
+              20
+            ],
+            "Meeting space": [
+              15,
+              25
+            ],
+            "Storage": [
+              10,
+              15
+            ]
+          }
+        }
+      },
+      "answer": "The chart shows how two plans divide the space in a community garden between growing beds, paths, meeting space and storage.\n\nOverall, growing beds occupy the largest share under both proposals, although they make up a majority of the area only in Plan A. Plan B assigns a greater proportion to meeting space and storage, while the share reserved for paths stays the same.\n\nIn Plan A, growing beds cover 55 percent of the site. Paths account for one fifth of the area, followed by meeting space at 15 percent and storage at 10 percent. Together, the two smallest categories make up one quarter of the garden.\n\nIn Plan B, the share for growing beds falls by 15 percentage points to 40 percent. Meeting space rises to 25 percent, placing it ahead of paths, which still account for 20 percent. Storage remains the smallest category despite increasing to 15 percent. Combined, meeting space and storage occupy 40 percent of the site in Plan B, equal to the share allocated to growing beds.",
+      "explanation": "The overview identifies that growing beds remain the largest use of space in both plans, while meeting space and storage take larger shares in Plan B. The model supports the comparison with selected values from the chart.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Task achievement. Award 2 for a clear overview and accurate selected comparisons, including that growing beds remain the largest use of space in both plans, while meeting space and storage take larger shares in Plan B. Award 1 for partial coverage or a minor misreading, or 0 for a substantially inaccurate or off-topic account."
+        },
+        {
+          "marks": 2,
+          "description": "Coherence and cohesion. Award 2 for logical grouping and clear transitions, 1 for understandable prose with uneven grouping, or 0 if the progression is hard to follow."
+        },
+        {
+          "marks": 2,
+          "description": "Lexical resource. Award 2 for precise comparison language and accurate units, 1 for generally intelligible wording with some repetition or imprecision, or 0 if wording repeatedly obscures meaning."
+        },
+        {
+          "marks": 2,
+          "description": "Grammatical range and accuracy. Award 2 for controlled sentences with structural variety, 1 for errors that sometimes interrupt reading, or 0 if frequent errors obstruct meaning."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "requiresManualReview": true,
+      "taskType": "Academic Writing Task 1 chart comparison",
+      "minimumResponseWords": 150,
+      "modelAnswerWordCount": 172,
+      "recommendedMaximumTimeSeconds": 1200,
+      "register": "academic or neutral",
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight practice marks",
+      "modelResponseStatus": "original_illustrative_response",
+      "verification": [
+        {
+          "expression": "55-40",
+          "expected": 15,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "15+10",
+          "expected": 25,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "25+15",
+          "expected": 40,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "55+20+15+10",
+          "expected": 100,
+          "purpose": "Check a comparison or total in the chart and model response."
+        },
+        {
+          "expression": "40+20+25+15",
+          "expected": 100,
+          "purpose": "Check a comparison or total in the chart and model response."
+        }
+      ]
+    }
+  ]
+}
