@@ -62,7 +62,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | Yoruba | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NCEE | Basic Science | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NCEE | Basic Science and Technology | 1000 | 53 | 53 | 0 | 947 | partial_objective_register |
-| NCEE | English Studies | 1000 | 52 | 49 | 0 | 951 | partial_objective_register |
+| NCEE | English Studies | 1000 | 76 | 73 | 0 | 927 | partial_objective_register |
 | NCEE | Mathematics | 1000 | 35 | 20 | 0 | 980 | partial_objective_register |
 | NCEE | National Values Education | 1000 | 24 | 24 | 0 | 976 | partial_objective_register |
 | NCEE | Quantitative Reasoning | 1000 | 5 | 0 | 0 | 1000 | specification_unresolved |
@@ -211,14 +211,14 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IELTS | 145 | 136 | 0 | 4000 | 3864 |
 | IGCSE | 278 | 257 | 0 | 5000 | 4743 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
-| NCEE | 255 | 226 | 0 | 9000 | 8774 |
+| NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 444 | 409 | 0 | 36000 | 35591 |
 | NERDC | 123 | 58 | 0 | 28000 | 27942 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 4074, "validDrafts": 2395, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 4098, "validDrafts": 2419, "reviewed": 0, "registeredBanks": 194, "target": 176000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

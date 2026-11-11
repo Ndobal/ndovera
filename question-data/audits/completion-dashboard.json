@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4074,
-    "validDrafts": 2395,
+    "raw": 4098,
+    "validDrafts": 2419,
     "reviewed": 0,
     "registeredBanks": 194,
     "target": 176000,
@@ -1112,6 +1112,12 @@
       "sha256": "230d3933fccc64c94c1eae24d3b6febc8d76a75fd5861297f00df4cd6e971ae8",
       "declared": 3,
       "actual": 3
+    },
+    {
+      "path": "original-multisubject-batch-164.json",
+      "sha256": "4a5cf28a75848a0954d3eb12df35032865916a10721d80b92b784d2e7c7c542c",
+      "declared": 24,
+      "actual": 24
     },
     {
       "path": "original-practice-batch-001.json",
@@ -2636,20 +2642,20 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_2026_paper_components_topic_specification_pending",
-      "raw": 52,
-      "validDrafts": 49,
+      "raw": 76,
+      "validDrafts": 73,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 52
+        "mcq": 76
       },
       "difficulty": {
         "easy": 6,
-        "standard": 43,
+        "standard": 67,
         "missing": 3
       },
-      "remaining": 951,
-      "mappedObjectives": 6,
-      "representedObjectives": 6,
+      "remaining": 927,
+      "mappedObjectives": 12,
+      "representedObjectives": 12,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -5975,17 +5981,17 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "explanation_missing": 81,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
@@ -34936,6 +34942,150 @@
       "id": "ndv-163-003",
       "file": "original-multisubject-batch-163.json",
       "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-001",
+      "file": "original-multisubject-batch-164.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-002",
+      "file": "original-multisubject-batch-164.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-003",
+      "file": "original-multisubject-batch-164.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-004",
+      "file": "original-multisubject-batch-164.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-005",
+      "file": "original-multisubject-batch-164.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-006",
+      "file": "original-multisubject-batch-164.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-007",
+      "file": "original-multisubject-batch-164.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-008",
+      "file": "original-multisubject-batch-164.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-009",
+      "file": "original-multisubject-batch-164.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-010",
+      "file": "original-multisubject-batch-164.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-011",
+      "file": "original-multisubject-batch-164.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-012",
+      "file": "original-multisubject-batch-164.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-013",
+      "file": "original-multisubject-batch-164.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-014",
+      "file": "original-multisubject-batch-164.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-015",
+      "file": "original-multisubject-batch-164.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-016",
+      "file": "original-multisubject-batch-164.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-017",
+      "file": "original-multisubject-batch-164.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-018",
+      "file": "original-multisubject-batch-164.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-019",
+      "file": "original-multisubject-batch-164.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-020",
+      "file": "original-multisubject-batch-164.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-021",
+      "file": "original-multisubject-batch-164.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-022",
+      "file": "original-multisubject-batch-164.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-023",
+      "file": "original-multisubject-batch-164.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-164-024",
+      "file": "original-multisubject-batch-164.json",
+      "index": 23,
       "errors": []
     },
     {
@@ -71063,6 +71213,186 @@
       },
       "tiers": {
         "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-english-164-01-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Drama text",
+      "subtopic": "Reading dialogue and stage directions",
+      "learningObjective": "Interpret dialogue and written stage directions in a short dramatic scene.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 36"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-english-164-02-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Dictionary use",
+      "subtopic": "Finding entries",
+      "learningObjective": "Use alphabetical order and entry cues to locate information in a short reference list.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 40"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-english-164-03-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Idiomatic language",
+      "subtopic": "Idioms in context",
+      "learningObjective": "Distinguish an idiomatic meaning from a literal reading by using clues in context.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 41"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-english-164-04-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Word meanings",
+      "subtopic": "Same spelling, different meaning",
+      "learningObjective": "Use sentence context to distinguish different meanings of a word with the same spelling.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 42"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-english-164-05-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Figurative comparison",
+      "subtopic": "Simile and metaphor",
+      "learningObjective": "Identify what a simile or metaphor suggests about a person, object or situation.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 43"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ncee-english-164-06-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Text organisation",
+      "subtopic": "Headings, captions and genre",
+      "learningObjective": "Use text features and genre cues to locate information or recognise a text format.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 45 and page 46 for print formats"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

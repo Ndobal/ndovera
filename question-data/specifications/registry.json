@@ -2374,7 +2374,21 @@
       "note": "Freshly retrieved historical Primary 6 English pp.34–35,38–39 supports provisional story comprehension, summary selection, factual information and message reading. No publication/adoption date inferred. Source production and oral activities are not claimed assessed by these MCQs. Official current full NCEE syllabus, task families, option count and current NERDC adoption remain gaps. Official 2026 timetable independently reconfirms component locations.",
       "additionalSources": [
         "https://neco.gov.ng/2026%20NATIONAL%20COMMON%20ENTRANCE%20EXAMINATION%20TIMETABLE-1.pdf"
-      ]
+      ],
+      "latestRecheck": {
+        "date": "2026-11-11",
+        "method": "NECO notice and timetable inspected via web retrieval. NERDC PDF downloaded directly and checksum matched.",
+        "historicalPages": [
+          36,
+          40,
+          41,
+          42,
+          43,
+          45,
+          46
+        ],
+        "scope": "Final-year primary audience and Paper I Part B confirmed for 2026. The older NERDC reading objectives inform original practice. Current adoption, official item types and option count remain unverified."
+      }
     },
     {
       "id": "ncee-bst-primary-six-reference-2026",
@@ -19094,6 +19108,114 @@
         "Academic Writing Task 1: describing and comparing visual information"
       ],
       "mappingStatus": "author_proposed_skill_mapping",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-164-01-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Drama text",
+      "subtopic": "Reading dialogue and stage directions",
+      "learningObjective": "Interpret dialogue and written stage directions in a short dramatic scene.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 36"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-164-02-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Dictionary use",
+      "subtopic": "Finding entries",
+      "learningObjective": "Use alphabetical order and entry cues to locate information in a short reference list.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 40"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-164-03-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Idiomatic language",
+      "subtopic": "Idioms in context",
+      "learningObjective": "Distinguish an idiomatic meaning from a literal reading by using clues in context.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 41"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-164-04-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Word meanings",
+      "subtopic": "Same spelling, different meaning",
+      "learningObjective": "Use sentence context to distinguish different meanings of a word with the same spelling.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 42"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-164-05-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Figurative comparison",
+      "subtopic": "Simile and metaphor",
+      "learningObjective": "Identify what a simile or metaphor suggests about a person, object or situation.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 43"
+      ],
+      "mappingStatus": "provisional_historical_reference",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-english-164-06-v1",
+      "exam": "NCEE",
+      "subject": "English Studies",
+      "topic": "Text organisation",
+      "subtopic": "Headings, captions and genre",
+      "learningObjective": "Use text features and genre cues to locate information or recognise a text format.",
+      "specificationId": "ncee-english-primary-six-reading-reference-2026",
+      "level": "Primary 6",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Historical NERDC Primary 6 English, PDF and printed page 45 and page 46 for print formats"
+      ],
+      "mappingStatus": "provisional_historical_reference",
       "officialObjectiveCode": null
     }
   ],

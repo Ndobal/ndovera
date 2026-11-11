@@ -949,3 +949,10 @@ use fictional data and include text equivalents and structured values.
 Models and eight-mark practice guides accompany each task. The rendered
 charts, labels and comparisons were checked. Independent review and
 delivery integration remain pending.
+
+Batch 164 adds 24 NCEE English Studies drafts covering drama reading,
+dictionary use, idioms, contextual word meanings, figurative comparisons
+and text organisation. NECO’s 2026 notice and timetable confirm Paper I
+Part B. Historical NERDC Primary 6 pages 36, 40–43 and 45–46 support the
+provisional topic mappings. Four options and one mark are practice choices.
+Current adoption, the official item blueprint and academic review remain open.

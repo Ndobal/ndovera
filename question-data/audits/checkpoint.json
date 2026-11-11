@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_163_automated_validation_passed",
+  "phase": "batch_164_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-164.json",
+  "nextBatch": "original-multisubject-batch-165.json",
   "nextPriorities": [
-    "Rotate to underrepresented source-supported NCEE English or Verbal Aptitude skills and recheck current NECO component evidence. IELTS Academic chart comparisons now cover trends, matched categories and percentage composition. Map comparisons, delivery integration and independent review remain open. BECE PVS adoption and Igbo route assignment remain unresolved.",
+    "Recheck current NECO General Mathematics topic and paper evidence, then extend underrepresented objectives where source-supported. NCEE English has six additional provisional reading and vocabulary mappings. Its official item blueprint and current curriculum adoption remain unresolved. IELTS map comparisons and delivery integration remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-163.json",
-  "lastRemoteVerifiedCommit": "3ff9240d80dd6b9f01c788ee424af2df2b2f70da",
+  "lastValidatedBatch": "original-multisubject-batch-164.json",
+  "lastRemoteVerifiedCommit": "b24c3fd9a12e1764c9e18dda2422eab299ef6432",
   "verifiedTotals": {
-    "raw": 4074,
-    "validDrafts": 2395,
+    "raw": 4098,
+    "validDrafts": 2419,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-163.json",
+  "lastPopulatedBatch": "original-multisubject-batch-164.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4074,
+  "inventoryRaw": 4098,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "ielts-academic-writing-format-recheck-162-2026",
+    "id": "ncee-english-primary-six-reading-reference-2026",
     "date": "2026-11-11"
   }
 }
