@@ -1,0 +1,544 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Social and Citizenship Studies peace education and social conflict",
+  "questionCount": 14,
+  "note": "Original fictional classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Social Conflict",
+      "subtopic": "From different preferences to conflict",
+      "learningObjective": "Distinguish social conflict from a difference that people can accommodate.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-01-v1",
+      "id": "ndv-175-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which situation shows social conflict rather than simply different interests?",
+      "answer": "Two clubs each claim sole use of the same hall at the same time and both reject a shared timetable.",
+      "explanation": "The two clubs pursue claims that cannot both be met under the current plan. The other groups can act on their preferences without blocking one another.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "One learner prefers drawing while a friend prefers singing, and both activities go ahead.",
+        "Two clubs each claim sole use of the same hall at the same time and both reject a shared timetable.",
+        "Two pupils select different stories at the library and take both books home.",
+        "Two groups plan different projects and use separate materials."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Social Conflict",
+      "subtopic": "From different preferences to conflict",
+      "learningObjective": "Distinguish social conflict from a difference that people can accommodate.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-01-v1",
+      "id": "ndv-175-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two classes would prefer to display their projects on the same wall. What additional fact most clearly shows that this has become a conflict?",
+      "answer": "Each class removes the other’s work to claim the space.",
+      "explanation": "Removing the other class’s display shows active opposition over the same space. Differences in appearance or class size do not explain a conflict.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The projects use different colours.",
+        "The classes have different numbers of pupils.",
+        "Each class prepared its project on a different day.",
+        "Each class removes the other’s work to claim the space."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Social Conflict",
+      "subtopic": "Individuals and groups in conflict",
+      "learningObjective": "Distinguish disputes between individuals from disputes between groups.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-02-v1",
+      "id": "ndv-175-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The drama club and the debate club each send representatives to dispute an allocation of assembly time. What is the best description of who is in conflict?",
+      "answer": "Two organised groups are in a dispute represented by their delegates.",
+      "explanation": "The delegates act for the clubs. The interests in dispute belong to the two groups.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "One person is weighing two private choices.",
+        "Two representatives are in a personal dispute about their friendship.",
+        "Two organised groups are in a dispute represented by their delegates.",
+        "One pupil has a disagreement with themself."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Social Conflict",
+      "subtopic": "Individuals and groups in conflict",
+      "learningObjective": "Distinguish disputes between individuals from disputes between groups.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-02-v1",
+      "id": "ndv-175-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Case A: two pupils disagree about who borrowed a ruler and speak for themselves. Case B: two house captains disagree over practice times on behalf of their houses. Classify each conflict by who is involved and explain the difference.",
+      "answer": "Case A is a dispute between individuals. Case B is a dispute between groups. Each house captain represents a house’s claim to practice time.",
+      "explanation": "Classification depends on whose interests the speakers represent. Two speakers can be involved in either type.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies Case A as a dispute between individuals."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies Case B as a dispute between groups."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the role of the captains as representatives."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Social Conflict",
+      "subtopic": "Causes and consequences of conflict",
+      "learningObjective": "Separate a conflict’s cause from consequences for participation or shared work.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-03-v1",
+      "id": "ndv-175-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A change to the art-room timetable reaches one club but fails to reach the other. Both groups arrive and argue, and the session starts late. Which fact is the clearest cause of the argument?",
+      "answer": "One group did not receive the timetable change.",
+      "explanation": "The communication gap led both groups to expect access. The delayed start and lost work time followed the disagreement.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "One group did not receive the timetable change.",
+        "The session started late.",
+        "The groups had less time to work after the argument.",
+        "A teacher recorded the late start."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Social Conflict",
+      "subtopic": "Causes and consequences of conflict",
+      "learningObjective": "Separate a conflict’s cause from consequences for participation or shared work.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-03-v1",
+      "id": "ndv-175-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class exhibition has space for six projects. The organisers change the selection rule without telling the groups. Several groups object and two stop attending preparation sessions. Identify the likely cause and explain one effect on the exhibition.",
+      "answer": "The organisers changed how projects would be selected without explaining the change. The resulting dispute led two groups to stop attending, leaving fewer people to prepare the exhibition.",
+      "explanation": "The lack of notice came before the objection. Reduced participation is a consequence that can make preparation harder.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the unexplained change to the rule as a likely cause."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies reduced participation as an effect."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how reduced participation could affect preparation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Learning to handle disagreement",
+      "learningObjective": "Recognise peace education as learning and practising skills for managing disagreements peacefully.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-04-v1",
+      "id": "ndv-175-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which classroom activity best shows peace education in practice?",
+      "answer": "Practise listening to an opposing view and restating it accurately before replying.",
+      "explanation": "The activity builds a skill pupils can use during real disagreements. Silence alone gives them no practice in understanding another viewpoint.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Copy the names of every class captain.",
+        "Ask pupils to avoid mentioning disagreements.",
+        "Count how many pupils attended assembly.",
+        "Practise listening to an opposing view and restating it accurately before replying."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Learning to handle disagreement",
+      "learningObjective": "Recognise peace education as learning and practising skills for managing disagreements peacefully.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-04-v1",
+      "id": "ndv-175-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Design a five-minute partner activity that teaches pupils to understand a viewpoint before responding. Use a fictional disagreement about choosing a class game.",
+      "answer": "One pupil explains a game preference while the other listens. The listener states the reason in their own words and checks it with the speaker. They swap roles, then name one thing both games should offer.",
+      "explanation": "The activity teaches attentive listening and gives both pupils a chance to verify that their reasons were understood.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a fictional disagreement appropriate for the class."
+        },
+        {
+          "marks": 1,
+          "description": "Gives each pupil a turn to speak or listen."
+        },
+        {
+          "marks": 1,
+          "description": "Includes a way for each speaker to check that the listener understood."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Inclusion and peacebuilding",
+      "learningObjective": "Explain how hearing people affected by a decision can support peacebuilding.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-05-v1",
+      "id": "ndv-175-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A committee drafts new rules for using a playground. It invites pupils who need a step-free route to explain how the plan would affect them. How can this help build peace?",
+      "answer": "It gives affected pupils a voice and helps the committee spot barriers early.",
+      "explanation": "Including people affected by a decision can uncover overlooked barriers and help participants see that their concerns were considered.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It guarantees that every suggested rule will be accepted.",
+        "It gives affected pupils a voice and helps the committee spot barriers early.",
+        "It means the committee can ignore all other pupils.",
+        "It makes it unnecessary to explain the final rules."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Inclusion and peacebuilding",
+      "learningObjective": "Explain how hearing people affected by a decision can support peacebuilding.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-05-v1",
+      "id": "ndv-175-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a class meeting about a new club rule, a few pupils are repeatedly interrupted. Explain how letting them finish and allowing written comments could improve the discussion.",
+      "answer": "Letting pupils finish gives the group a chance to hear their reasons in full. Written comments also let pupils contribute when they find it hard to speak in the meeting. The class can consider more concerns before agreeing on the rule.",
+      "explanation": "Different routes for expression can improve participation and help the class make a better-informed decision.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how completing a spoken turn improves participation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how written comments offer another way to participate."
+        },
+        {
+          "marks": 1,
+          "description": "Connects hearing more views to a fairer or better-informed discussion."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Mediation and negotiation",
+      "learningObjective": "Distinguish negotiation from mediation in non-violent dispute resolution.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-06-v1",
+      "id": "ndv-175-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two groups try to settle a timetable disagreement. A neutral teacher guides turns and helps both groups suggest solutions, but leaves the final choice to them. Which process is illustrated?",
+      "answer": "Mediation by a neutral person.",
+      "explanation": "A mediator helps the parties communicate and reach their own agreement.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A vote by people who have not heard the dispute.",
+        "An instruction imposed by the teacher.",
+        "Mediation by a neutral person.",
+        "A private decision by one group."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Mediation and negotiation",
+      "learningObjective": "Distinguish negotiation from mediation in non-violent dispute resolution.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-06-v1",
+      "id": "ndv-175-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two pupils need the same reference book to finish different assignments. Give an example of how they could negotiate directly. Explain what a neutral librarian would do if asked to mediate instead.",
+      "answer": "The pupils could explain their deadlines and agree on borrowing turns. A neutral librarian could give each pupil a chance to explain the problem and guide them towards an agreement they both accept.",
+      "explanation": "Negotiation is direct discussion between the pupils. Mediation adds a neutral facilitator while the pupils retain responsibility for agreeing.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a feasible example of direct negotiation."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a neutral facilitation action."
+        },
+        {
+          "marks": 1,
+          "description": "Shows that the mediator helps the pupils reach their own agreement."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Global citizenship in everyday life",
+      "learningObjective": "Relate global citizenship to shared concerns and cooperation across communities.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-07-v1",
+      "id": "ndv-175-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A class in Nigeria exchanges notes with a class abroad about reducing food waste. Which action best shows global citizenship?",
+      "answer": "Compare the two schools’ approaches, respect their different circumstances and share a workable idea.",
+      "explanation": "Global citizenship includes recognising a shared issue, learning from other communities and working respectfully across differences.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Compare the two schools’ approaches, respect their different circumstances and share a workable idea.",
+        "Decide that only one school’s experiences count.",
+        "Assume that every community has the same food practices.",
+        "Rank the schools without listening to either explanation."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Global citizenship in everyday life",
+      "learningObjective": "Relate global citizenship to shared concerns and cooperation across communities.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-175-07-v1",
+      "id": "ndv-175-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two partner schools, one in Nigeria and one abroad, want to learn how pupils reduce the use of disposable packaging. Propose one shared question for the classes to investigate. Explain how they can compare their findings without assuming that both schools have the same resources.",
+      "answer": "Ask: Which reusable packaging is practical for pupils at each school? Each class describes its available materials and routines before comparing ideas. The classes share options that fit different circumstances.",
+      "explanation": "A shared question supports cooperation. Describing local conditions helps pupils see why an idea might work differently in each place.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a specific question both classes can investigate."
+        },
+        {
+          "marks": 1,
+          "description": "Describes how to record relevant differences in resources or routines."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how to compare results respectfully."
+        }
+      ]
+    }
+  ]
+}

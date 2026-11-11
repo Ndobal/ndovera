@@ -2603,12 +2603,13 @@
         "Printed pp. 14–16 and 19 (PDF pp. 28–30 and 33)",
         "Printed p. 18 (PDF p. 32)",
         "Printed pp. 22–23 and 25 (PDF pp. 36–37 and 39)",
-        "Printed pp. 9–10 (PDF pp. 23–24)"
+        "Printed pp. 9–10 (PDF pp. 23–24)",
+        "Printed pp. 2 and 6 (PDF pp. 16 and 20)"
       ],
-      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch. Batch 171 maps fossil fuel combustion under the climate driver objective. The littering example needs separate treatment as a waste and pollution issue. Content cross-checks: UN climate causes (https://www.un.org/en/climatechange/science/causes-effects-climate-change), UNDRR terminology (https://www.undrr.org/terminology), NWS flood safety (https://www.weather.gov/safety/flood-during), and FRSC road safety education (https://frsc.gov.ng/about-us/what-we-do/). Batch 172 cross-checks outbreak communication with WHO (https://www.who.int/emergencies/risk-communications), prevention messages with NCDC (https://ncdc.gov.ng/news/337/cholera-in-nigeria%3A-urgent-call-to-strengthen-water%2C-sanitation-and-hygiene-%28wash%29), and disaster management with UNDRR (https://www.undrr.org/terminology/disaster-management). Printed p. 18 performance objective 4 is deferred pending authoritative age-appropriate guidance on pupil roles and safe referral. Batch 173 maps selected basic money, cash care and budgeting objectives. The routine-payment items use plain-language transaction examples. The source prints “Transitionary” in its motives list, and speculative motives remain unmapped in this batch. Batch 174 maps selected family and civic objectives. Civic content is limited to freedom of expression and the duty to help protect public property, checked against sections 39 and 24(e) of the NILDS compilation through the Fifth Alteration (https://ir.nilds.gov.ng/handle/123456789/1729). The batch does not map voting eligibility, education as a Chapter IV right, or legal consequences.",
+      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch. Batch 171 maps fossil fuel combustion under the climate driver objective. The littering example needs separate treatment as a waste and pollution issue. Content cross-checks: UN climate causes (https://www.un.org/en/climatechange/science/causes-effects-climate-change), UNDRR terminology (https://www.undrr.org/terminology), NWS flood safety (https://www.weather.gov/safety/flood-during), and FRSC road safety education (https://frsc.gov.ng/about-us/what-we-do/). Batch 172 cross-checks outbreak communication with WHO (https://www.who.int/emergencies/risk-communications), prevention messages with NCDC (https://ncdc.gov.ng/news/337/cholera-in-nigeria%3A-urgent-call-to-strengthen-water%2C-sanitation-and-hygiene-%28wash%29), and disaster management with UNDRR (https://www.undrr.org/terminology/disaster-management). Printed p. 18 performance objective 4 is deferred pending authoritative age-appropriate guidance on pupil roles and safe referral. Batch 173 maps selected basic money, cash care and budgeting objectives. The routine-payment items use plain-language transaction examples. The source prints “Transitionary” in its motives list, and speculative motives remain unmapped in this batch. Batch 174 maps selected family and civic objectives. Civic content is limited to freedom of expression and the duty to help protect public property, checked against sections 39 and 24(e) of the NILDS compilation through the Fifth Alteration (https://ir.nilds.gov.ng/handle/123456789/1729). The batch does not map voting eligibility, education as a Chapter IV right, or legal consequences. Batch 175 maps selected social conflict and peace education objectives. The dimensions of peace education and overlapping conflict-management objectives need further mapping review.",
       "latestRecheck": {
         "date": "2026-11-11",
-        "method": "Direct PDF download matched the registered SHA-256. Printed pp. 9–10 checked against PDF pp. 23–24."
+        "method": "Direct PDF download matched the registered SHA-256. Printed pp. 2 and 6 checked against PDF pp. 16 and 20."
       }
     }
   ],
@@ -21539,6 +21540,138 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 9, PDF p. 23, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-175-01-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Social Conflict",
+      "subtopic": "From different preferences to conflict",
+      "learningObjective": "Distinguish social conflict from a difference that people can accommodate.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 16, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-175-02-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Social Conflict",
+      "subtopic": "Individuals and groups in conflict",
+      "learningObjective": "Distinguish disputes between individuals from disputes between groups.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 16, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-175-03-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Social Conflict",
+      "subtopic": "Causes and consequences of conflict",
+      "learningObjective": "Separate a conflict’s cause from consequences for participation or shared work.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 16, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-175-04-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Learning to handle disagreement",
+      "learningObjective": "Recognise peace education as learning and practising skills for managing disagreements peacefully.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 20, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-175-05-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Inclusion and peacebuilding",
+      "learningObjective": "Explain how hearing people affected by a decision can support peacebuilding.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 20, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-175-06-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Mediation and negotiation",
+      "learningObjective": "Distinguish negotiation from mediation in non-violent dispute resolution.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 20, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-scs-jss1-175-07-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Peace Education",
+      "subtopic": "Global citizenship in everyday life",
+      "learningObjective": "Relate global citizenship to shared concerns and cooperation across communities.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 20, performance objective 4"
       ]
     }
   ],

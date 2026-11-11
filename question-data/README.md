@@ -1029,3 +1029,9 @@ Nine are multiple-choice questions and six are written or artefact tasks. The
 bank has 103 valid drafts across 50 mapped objectives. Civic examples focus on
 freedom of expression and care for public property. School adoption, full
 curriculum coverage and independent academic review remain open.
+
+Batch 175 adds 14 NERDC JSS 1 Social and Citizenship Studies drafts across
+seven social conflict and peace education objectives. Eight are multiple-choice
+questions and six are written tasks. The bank has 117 valid drafts across
+57 mapped objectives. School adoption, remaining curriculum objectives and
+independent academic review remain open.
