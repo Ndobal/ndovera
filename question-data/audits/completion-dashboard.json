@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4305,
-    "validDrafts": 2626,
+    "raw": 4321,
+    "validDrafts": 2642,
     "reviewed": 0,
     "registeredBanks": 195,
     "target": 177000,
@@ -1196,6 +1196,12 @@
       "sha256": "2392878016dffe13ec982c395e664558302846da99f373ec9ae4b98885a1f9d3",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-178.json",
+      "sha256": "c4fa92e0d726c1032f89fe8276807bbe585be9ee2ba152b73d2d4f2dcfc32d97",
+      "declared": 16,
+      "actual": 16
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5166,20 +5172,20 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 27,
-      "validDrafts": 26,
+      "raw": 43,
+      "validDrafts": 42,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 15,
-        "structured": 12
+        "mcq": 24,
+        "structured": 19
       },
       "difficulty": {
-        "standard": 26,
+        "standard": 42,
         "missing": 1
       },
-      "remaining": 974,
-      "mappedObjectives": 17,
-      "representedObjectives": 17,
+      "remaining": 958,
+      "mappedObjectives": 26,
+      "representedObjectives": 26,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -6936,10 +6942,10 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -37283,6 +37289,102 @@
       "id": "ndv-177-012",
       "file": "original-multisubject-batch-177.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-001",
+      "file": "original-multisubject-batch-178.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-002",
+      "file": "original-multisubject-batch-178.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-003",
+      "file": "original-multisubject-batch-178.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-004",
+      "file": "original-multisubject-batch-178.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-005",
+      "file": "original-multisubject-batch-178.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-006",
+      "file": "original-multisubject-batch-178.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-007",
+      "file": "original-multisubject-batch-178.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-008",
+      "file": "original-multisubject-batch-178.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-009",
+      "file": "original-multisubject-batch-178.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-010",
+      "file": "original-multisubject-batch-178.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-011",
+      "file": "original-multisubject-batch-178.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-012",
+      "file": "original-multisubject-batch-178.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-013",
+      "file": "original-multisubject-batch-178.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-014",
+      "file": "original-multisubject-batch-178.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-015",
+      "file": "original-multisubject-batch-178.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-178-016",
+      "file": "original-multisubject-batch-178.json",
+      "index": 15,
       "errors": []
     },
     {
@@ -76561,6 +76663,277 @@
       },
       "tiers": {
         "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-178-01-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Nouns, Verbs and Adjectives",
+      "subtopic": "Word class in context",
+      "learningObjective": "Identify a noun, verb or adjective from its use in a sentence.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 3"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-178-02-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Nouns, Verbs and Adjectives",
+      "subtopic": "Building a descriptive sentence",
+      "learningObjective": "Use nouns, verbs and adjectives together to communicate a clear observation.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-178-03-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Adverbs, Conjunctions, Prepositions and Interjections",
+      "subtopic": "Meaning and grammatical function",
+      "learningObjective": "Identify the function of selected connecting and modifying words.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 3
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ],
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-178-04-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Subject-Verb Agreement",
+      "subtopic": "Singular and plural subjects",
+      "learningObjective": "Match present-tense verb forms to singular or plural subjects.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 2"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-178-05-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Subject-Verb Agreement",
+      "subtopic": "Revising an agreement error",
+      "learningObjective": "Write grammatically agreeing sentences and identify the word controlling agreement.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-178-06-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Use of Prefixes, Suffixes and Compounds",
+      "subtopic": "Forming words with affixes",
+      "learningObjective": "Use a prefix or suffix to form a word that fits a sentence.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 2"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-178-07-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Use of Prefixes, Suffixes and Compounds",
+      "subtopic": "Forming compound words",
+      "learningObjective": "Form a familiar compound by combining two words to suit a context.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-178-08-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Oral Comprehension",
+      "subtopic": "Listening for a change and its reason",
+      "learningObjective": "Answer a literal and inferential question aloud after hearing a short announcement.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 2"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-178-09-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Conversation on Various Issues",
+      "subtopic": "Register in conversation",
+      "learningObjective": "Use a register suited to the listener and the purpose in a spoken exchange.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective 2"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

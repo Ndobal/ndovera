@@ -2628,12 +2628,14 @@
         "Cover, PDF p. 1",
         "Contents, PDF p. 13",
         "Reading, printed pp. 5–7 (PDF pp. 18–20)",
-        "Writing, printed pp. 12–13 (PDF pp. 25–26)"
+        "Writing, printed pp. 12–13 (PDF pp. 25–26)",
+        "Listening and Speaking, printed pp. 1–2 (PDF pp. 14–15)",
+        "Grammatical Accuracy, printed pp. 8–11 (PDF pp. 21–24)"
       ],
-      "note": "Direct official PDF with exact JSS 1 title and September 2025 cover. National cycle-entry rollout is documented separately. School-level adoption, term mapping and formal assessment format remain unverified. Initial objective mapping covers selected reading outcomes only. Batch 177 adds letter writing and selected creative writing objectives. Practice marking guides are author-created.",
+      "note": "Direct official PDF with exact JSS 1 title and September 2025 cover. National cycle-entry rollout is documented separately. School-level adoption, term mapping and formal assessment format remain unverified. Initial objective mapping covers selected reading outcomes only. Batch 177 adds letter writing and selected creative writing objectives. Practice marking guides are author-created. Batch 178 maps selected grammar and oral performance objectives. Listening uses original examiner-read scripts. School assessment delivery and pronunciation coverage remain open.",
       "latestRecheck": {
         "date": "2026-11-11",
-        "method": "Direct PDF download matched the registered SHA-256. Writing tables verified on PDF pp. 25–26."
+        "method": "Direct PDF download matched the registered SHA-256. Verified PDF pp. 14–15 and 21–24."
       }
     }
   ],
@@ -22019,6 +22021,169 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-178-01-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Nouns, Verbs and Adjectives",
+      "subtopic": "Word class in context",
+      "learningObjective": "Identify a noun, verb or adjective from its use in a sentence.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-178-02-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Nouns, Verbs and Adjectives",
+      "subtopic": "Building a descriptive sentence",
+      "learningObjective": "Use nouns, verbs and adjectives together to communicate a clear observation.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-178-03-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Adverbs, Conjunctions, Prepositions and Interjections",
+      "subtopic": "Meaning and grammatical function",
+      "learningObjective": "Identify the function of selected connecting and modifying words.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-178-04-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Subject-Verb Agreement",
+      "subtopic": "Singular and plural subjects",
+      "learningObjective": "Match present-tense verb forms to singular or plural subjects.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-178-05-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Subject-Verb Agreement",
+      "subtopic": "Revising an agreement error",
+      "learningObjective": "Write grammatically agreeing sentences and identify the word controlling agreement.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-178-06-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Use of Prefixes, Suffixes and Compounds",
+      "subtopic": "Forming words with affixes",
+      "learningObjective": "Use a prefix or suffix to form a word that fits a sentence.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-178-07-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Use of Prefixes, Suffixes and Compounds",
+      "subtopic": "Forming compound words",
+      "learningObjective": "Form a familiar compound by combining two words to suit a context.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-178-08-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Oral Comprehension",
+      "subtopic": "Listening for a change and its reason",
+      "learningObjective": "Answer a literal and inferential question aloud after hearing a short announcement.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-178-09-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Conversation on Various Issues",
+      "subtopic": "Register in conversation",
+      "learningObjective": "Use a register suited to the listener and the purpose in a spoken exchange.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective 2"
       ]
     }
   ],

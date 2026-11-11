@@ -1,0 +1,634 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 English Studies grammar and oral performance",
+  "questionCount": 16,
+  "note": "Original practice. Examiner-read listening scripts and live speaking tasks require manual scoring. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Nouns, Verbs and Adjectives",
+      "subtopic": "Word class in context",
+      "learningObjective": "Identify a noun, verb or adjective from its use in a sentence.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-01-v1",
+      "id": "ndv-178-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Compare “The pupils plant beans” with “The plant needs water.” What is the role of “plant” in the second sentence?",
+      "answer": "It names the living thing that needs water.",
+      "explanation": "In the second sentence, “plant” names the thing that needs water and is a noun. In the first, it expresses an action and is a verb.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It describes the water.",
+        "It tells what the pupils do.",
+        "It names the living thing that needs water.",
+        "It connects the two sentences."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Nouns, Verbs and Adjectives",
+      "subtopic": "Word class in context",
+      "learningObjective": "Identify a noun, verb or adjective from its use in a sentence.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-01-v1",
+      "id": "ndv-178-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "In “The narrow bridge connects two paths,” which word describes a feature of the bridge?",
+      "answer": "narrow",
+      "explanation": "“Narrow” describes the bridge and functions as an adjective.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "narrow",
+        "connects",
+        "paths",
+        "The"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Nouns, Verbs and Adjectives",
+      "subtopic": "Building a descriptive sentence",
+      "learningObjective": "Use nouns, verbs and adjectives together to communicate a clear observation.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-02-v1",
+      "id": "ndv-178-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write one sentence about a scene at a bus stop. Use an adjective to describe a noun and underline or list that adjective and the main verb.",
+      "answer": "A blue bus stopped beside the shelter. Adjective: blue. Main verb: stopped.",
+      "explanation": "The adjective describes the bus, and the verb expresses what the bus did.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes a complete sentence about the scene."
+        },
+        {
+          "marks": 1,
+          "description": "Uses and correctly identifies a descriptive adjective."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly identifies the main verb."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Adverbs, Conjunctions, Prepositions and Interjections",
+      "subtopic": "Meaning and grammatical function",
+      "learningObjective": "Identify the function of selected connecting and modifying words.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-03-v1",
+      "id": "ndv-178-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "In “Although the field was wet, the teams met under the shelter,” what does “although” do?",
+      "answer": "It introduces an idea that contrasts with what happened.",
+      "explanation": "The conjunction introduces the wet field as a circumstance that might have prevented the meeting, yet the teams met.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It names the shelter.",
+        "It introduces an idea that contrasts with what happened.",
+        "It tells where the teams met.",
+        "It modifies “wet” to show degree."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Adverbs, Conjunctions, Prepositions and Interjections",
+      "subtopic": "Meaning and grammatical function",
+      "learningObjective": "Identify the function of selected connecting and modifying words.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-03-v1",
+      "id": "ndv-178-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "In “The volunteer spoke softly beside the doorway,” which word tells how the volunteer spoke?",
+      "answer": "softly",
+      "explanation": "The adverb “softly” modifies “spoke” by describing how the action was done.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "volunteer",
+        "beside",
+        "doorway",
+        "softly"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Parts of speech: Adverbs, Conjunctions, Prepositions and Interjections",
+      "subtopic": "Meaning and grammatical function",
+      "learningObjective": "Identify the function of selected connecting and modifying words.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-03-v1",
+      "id": "ndv-178-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "In “The painter left the brushes beneath the bench,” what relationship does “beneath” express?",
+      "answer": "Where the brushes were in relation to the bench.",
+      "explanation": "The preposition locates the brushes relative to the bench.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Where the brushes were in relation to the bench.",
+        "Why the painter left.",
+        "How the brushes were made.",
+        "When the bench was built."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Subject-Verb Agreement",
+      "subtopic": "Singular and plural subjects",
+      "learningObjective": "Match present-tense verb forms to singular or plural subjects.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-04-v1",
+      "id": "ndv-178-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Choose the verb that completes “The box of spare pencils ___ on the teacher’s table every afternoon.”",
+      "answer": "rests",
+      "explanation": "The subject is “the box of spare pencils”. Its head, “box”, is singular, so the simple present verb is “rests”.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "rest",
+        "have rested",
+        "rests",
+        "are resting"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Subject-Verb Agreement",
+      "subtopic": "Singular and plural subjects",
+      "learningObjective": "Match present-tense verb forms to singular or plural subjects.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-04-v1",
+      "id": "ndv-178-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which sentence shows correct subject–verb agreement?",
+      "answer": "The lamps in the hall shine brightly.",
+      "explanation": "The plural head noun “lamps” takes “shine”. The singular noun in “in the hall” does not control the verb.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The lamps in the hall shines brightly.",
+        "The lamps in the hall shine brightly.",
+        "The lamp in the hall shine brightly.",
+        "The lamp and the torch shines brightly."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Subject-Verb Agreement",
+      "subtopic": "Revising an agreement error",
+      "learningObjective": "Write grammatically agreeing sentences and identify the word controlling agreement.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-05-v1",
+      "id": "ndv-178-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Correct both verbs in “The list of teams are ready, but the team captains is outside.” Name the head noun that controls each verb.",
+      "answer": "The list of teams is ready, but the team captains are outside. “List” controls “is” and “captains” controls “are”.",
+      "explanation": "A noun inside the phrase “of teams” does not control the first verb. Each clause has its own subject.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Corrects “are” to “is”."
+        },
+        {
+          "marks": 1,
+          "description": "Corrects “is” to “are”."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies “list” and “captains” as the controlling nouns."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Use of Prefixes, Suffixes and Compounds",
+      "subtopic": "Forming words with affixes",
+      "learningObjective": "Use a prefix or suffix to form a word that fits a sentence.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-06-v1",
+      "id": "ndv-178-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The first set of labels was hard to read, so Ebi will ___ them using larger letters. Which word means “write again”?",
+      "answer": "rewrite",
+      "explanation": "The prefix “re-” adds the meaning “again” to “write”.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "writer",
+        "written",
+        "unwritten",
+        "rewrite"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Use of Prefixes, Suffixes and Compounds",
+      "subtopic": "Forming words with affixes",
+      "learningObjective": "Use a prefix or suffix to form a word that fits a sentence.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-06-v1",
+      "id": "ndv-178-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Add a suffix to “care” to form a word meaning “full of care”. Use the new word in a sentence that shows its meaning.",
+      "answer": "Careful. The careful painter covered the floor before opening the tin.",
+      "explanation": "The suffix “-ful” forms the adjective “careful”. The action in the sentence shows that the painter pays attention to avoiding a spill.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Forms “careful” using “-ful”."
+        },
+        {
+          "marks": 1,
+          "description": "Uses it as an adjective in a complete sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a context that shows attention or caution."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Use of Prefixes, Suffixes and Compounds",
+      "subtopic": "Forming compound words",
+      "learningObjective": "Form a familiar compound by combining two words to suit a context.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-07-v1",
+      "id": "ndv-178-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which pair combines to name something worn on the foot in the rain?",
+      "answer": "rain and boot",
+      "explanation": "“Rain” and “boot” combine to make “rain boot”, an open compound naming a type of footwear.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "rain and fall",
+        "rain and boot",
+        "rain and drop",
+        "rain and coat"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Oral Comprehension",
+      "subtopic": "Listening for a change and its reason",
+      "learningObjective": "Answer a literal and inferential question aloud after hearing a short announcement.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-08-v1",
+      "id": "ndv-178-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Listen to the announcement. Answer aloud: Where should the cast go first, and why should they leave the boxes in the hall?",
+      "answer": "The cast should go to the music room. The props team still needs the boxes in the hall to finish checking the costumes.",
+      "explanation": "The first answer is stated directly. The props team’s ongoing check explains why moving the boxes would interrupt its work.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names the music room."
+        },
+        {
+          "marks": 1,
+          "description": "Connects leaving the boxes with the ongoing costume check."
+        },
+        {
+          "marks": 1,
+          "description": "Gives both answers clearly aloud."
+        }
+      ],
+      "requiresRecordingOrLiveExaminer": true,
+      "listeningStimulus": {
+        "script": "The cast will start rehearsal in the music room today because the hall is still in use. The props team is checking the costumes in boxes in the hall. Please leave those boxes where they are. The teacher will tell us when we can move back.",
+        "delivery": "Read aloud twice at a natural pace. Keep this script out of the learner’s view. Give the oral prompt after the second reading."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Oral Comprehension",
+      "subtopic": "Listening for a change and its reason",
+      "learningObjective": "Answer a literal and inferential question aloud after hearing a short announcement.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-08-v1",
+      "id": "ndv-178-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Listen to the announcement. Answer aloud: Which two details would help decide whether the trial improved access to library books?",
+      "answer": "Compare how many pupils were able to borrow books before and during the trial, and find out whether pupils who could not come at lunch could use the earlier time.",
+      "explanation": "Both details provide evidence about access. The first helps compare use before and during the change, while the second checks whether it helped the pupils it was intended to reach.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a useful comparison before and during the trial."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies evidence about pupils who previously could not attend at lunch."
+        },
+        {
+          "marks": 1,
+          "description": "Expresses both points clearly aloud."
+        }
+      ],
+      "requiresRecordingOrLiveExaminer": true,
+      "listeningStimulus": {
+        "script": "Next week the library will try opening before assembly as well as at lunchtime. The librarian hopes this will help pupils who cannot leave their lunch duties. At the end of the week, the library committee will decide whether to keep the earlier opening.",
+        "delivery": "Read aloud twice at a natural pace. Keep this script out of the learner’s view. Give the oral prompt after the second reading."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Conversation on Various Issues",
+      "subtopic": "Register in conversation",
+      "learningObjective": "Use a register suited to the listener and the purpose in a spoken exchange.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-09-v1",
+      "id": "ndv-178-015",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Role-play a conversation with a teacher about reducing paper waste at school. Ask permission to start a reuse tray, respond to the teacher’s concern about clutter and agree on a next step. The examiner plays the teacher.",
+      "answer": "Pupil: Good afternoon, Ma. May we set up a tray for paper we can use again? Teacher: How will you stop it becoming untidy? Pupil: We can label one tray and empty it each Friday. May we try it beside the noticeboard for a week?",
+      "explanation": "The pupil makes a courteous request, responds to the concern with a practical proposal and suggests a next step.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Makes a clear spoken request using an appropriate register."
+        },
+        {
+          "marks": 1,
+          "description": "Responds directly to the concern about clutter."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a feasible next step."
+        }
+      ],
+      "requiresRecordingOrLiveExaminer": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Conversation on Various Issues",
+      "subtopic": "Register in conversation",
+      "learningObjective": "Use a register suited to the listener and the purpose in a spoken exchange.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-178-09-v1",
+      "id": "ndv-178-016",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Speak to a classmate who thinks the class should buy new books instead of repairing existing ones. Ask why they prefer that plan, respond to one reason they give, and suggest one step the class could agree on. The examiner plays the classmate and gives one reason.",
+      "answer": "Pupil: Why do you think we should buy new books first? Classmate: Some pages are missing. Pupil: That makes sense. Could we list the books with missing pages and replace those first, then repair books that only have loose covers?",
+      "explanation": "The pupil listens, acknowledges a specific reason and proposes a decision that addresses both options.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Asks for the classmate’s reason."
+        },
+        {
+          "marks": 1,
+          "description": "Acknowledges and responds to the reason given."
+        },
+        {
+          "marks": 1,
+          "description": "Offers a concrete proposal in a respectful peer register."
+        }
+      ],
+      "requiresRecordingOrLiveExaminer": true
+    }
+  ]
+}

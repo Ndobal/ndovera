@@ -1047,3 +1047,10 @@ objectives. Seven are written responses and five assess supporting concepts.
 The bank has 26 valid drafts across 17 mapped objectives. Practice rubrics
 are author-created. School adoption, formal assessment formats and independent
 academic review remain open.
+
+Batch 178 adds 16 NERDC JSS 1 English Studies drafts across nine objectives
+in grammatical accuracy and oral performance. Nine are multiple-choice,
+three are written and four require oral answers. Two oral tasks supply
+original examiner-read scripts. The bank has 42 valid drafts across 26
+mapped objectives. School adoption, delivery integration and independent
+academic review remain open.
