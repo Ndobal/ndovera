@@ -2627,9 +2627,14 @@
       "sourceSections": [
         "Cover, PDF p. 1",
         "Contents, PDF p. 13",
-        "Reading, printed pp. 5–7 (PDF pp. 18–20)"
+        "Reading, printed pp. 5–7 (PDF pp. 18–20)",
+        "Writing, printed pp. 12–13 (PDF pp. 25–26)"
       ],
-      "note": "Direct official PDF with exact JSS 1 title and September 2025 cover. National cycle-entry rollout is documented separately. School-level adoption, term mapping and formal assessment format remain unverified. Initial objective mapping covers selected reading outcomes only."
+      "note": "Direct official PDF with exact JSS 1 title and September 2025 cover. National cycle-entry rollout is documented separately. School-level adoption, term mapping and formal assessment format remain unverified. Initial objective mapping covers selected reading outcomes only. Batch 177 adds letter writing and selected creative writing objectives. Practice marking guides are author-created.",
+      "latestRecheck": {
+        "date": "2026-11-11",
+        "method": "Direct PDF download matched the registered SHA-256. Writing tables verified on PDF pp. 25–26."
+      }
     }
   ],
   "banks": [
@@ -21852,6 +21857,168 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-177-01-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Audience and purpose",
+      "learningObjective": "Choose the appropriate letter type for a given audience and purpose.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-177-02-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Letter features",
+      "learningObjective": "Recognise which parts of a letter serve particular purposes.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-177-03-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Formal requests",
+      "learningObjective": "Write a formal letter with a clear request, relevant details and appropriate conventions.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-177-04-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Informal letters",
+      "learningObjective": "Write an informal letter that suits a personal relationship and communicates the requested details.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-177-05-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Characterisation and plot",
+      "learningObjective": "Use a character’s choices to explain a development in a short story.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-177-06-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Distinguishing creative forms",
+      "learningObjective": "Distinguish a script from prose by how it presents speech and action.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-177-07-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Dialogue and description",
+      "learningObjective": "Revise flat narration to reveal a character’s state through dialogue and observable details.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-177-08-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Short fiction",
+      "learningObjective": "Write an original scene with a problem, a consequential choice and an ending.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-english-jss1-177-09-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Writing a short script",
+      "learningObjective": "Write a short script that uses dialogue and stage directions to show change.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 5"
       ]
     }
   ],

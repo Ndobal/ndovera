@@ -1,0 +1,522 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 English Studies writing",
+  "questionCount": 12,
+  "note": "Original writing practice, model responses and practice marking guides. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Audience and purpose",
+      "learningObjective": "Choose the appropriate letter type for a given audience and purpose.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-01-v1",
+      "id": "ndv-177-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil wants written permission from the head teacher to display club posters in the corridor. Why is a formal letter appropriate?",
+      "answer": "It makes an official request to someone acting in a school role.",
+      "explanation": "The pupil is addressing an office-holder about official permission, which calls for a formal tone and format.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It tells a private story to a close friend.",
+        "It makes an official request to someone acting in a school role.",
+        "It removes the need to explain what the club wants.",
+        "It is required whenever a letter mentions a poster."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Letter features",
+      "learningObjective": "Recognise which parts of a letter serve particular purposes.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-02-v1",
+      "id": "ndv-177-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Tari’s formal request already shows her own address and the date. Which missing feature would identify the office that should receive it?",
+      "answer": "The recipient’s official address.",
+      "explanation": "The recipient’s address directs the letter to the intended office. It serves a different purpose from the writer’s address.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "An extra signature.",
+        "A second copy of Tari’s address.",
+        "The recipient’s official address.",
+        "An informal greeting to a friend."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Letter features",
+      "learningObjective": "Recognise which parts of a letter serve particular purposes.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-02-v1",
+      "id": "ndv-177-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which line makes the purpose of a formal request clear before the reader reaches the body?",
+      "answer": "Request to Use the School Hall for Rehearsal",
+      "explanation": "A specific heading states the purpose. The salutation, closing and address identify other parts of the letter.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Dear Madam,",
+        "Yours faithfully,",
+        "22 Palm Close",
+        "Request to Use the School Hall for Rehearsal"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Formal requests",
+      "learningObjective": "Write a formal letter with a clear request, relevant details and appropriate conventions.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-03-v1",
+      "id": "ndv-177-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write a short formal letter to the branch librarian asking permission for your reading club to visit next Wednesday after school. State the purpose of the visit, the number of pupils and one question about arrangements. Use fictional names and addresses.",
+      "answer": "Reading Club, Hilltop School\n4 Hill Road, Enugu\n11 November 2026\n\nThe Branch Librarian\nOak Street Library\n2 Oak Street, Enugu\n\nDear Sir or Madam,\n\nRequest for a Reading Club Visit\n\nMay our reading club visit on Wednesday, 18 November, at 3 p.m.? Twelve pupils and our teacher would like to learn how to find and borrow books. Please let us know whether the pupils should bring their school identity cards.\n\nYours faithfully,\nAmaka Obi\nReading Club Secretary",
+      "explanation": "The model identifies the recipient, makes a specific request and supplies details the librarian needs to respond.",
+      "score": 5,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes both addresses and a date."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a suitable greeting, heading, closing and name."
+        },
+        {
+          "marks": 1,
+          "description": "Requests the visit and specifies the intended day or time."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a purpose and group size."
+        },
+        {
+          "marks": 1,
+          "description": "Asks one practical question in a courteous formal tone."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Formal requests",
+      "learningObjective": "Write a formal letter with a clear request, relevant details and appropriate conventions.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-03-v1",
+      "id": "ndv-177-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The tap beside the JSS classrooms has been leaking since Monday. Write a formal letter to the school facilities officer describing what you observed, giving one effect and asking for a practical next step. Use fictional addresses and names.",
+      "answer": "JSS 1, Riverbend School\n6 Clay Road, Makurdi\n11 November 2026\n\nThe Facilities Officer\nRiverbend School\n6 Clay Road, Makurdi\n\nDear Sir or Madam,\n\nLeaking Tap Beside the JSS Classrooms\n\nWater has continued to drip from the tap beside our classrooms since Monday, even when the handle is closed. A puddle has formed where pupils queue. Please arrange for the maintenance team to inspect the tap and let our teacher know when it can be used again.\n\nYours faithfully,\nTerna Ude",
+      "explanation": "The letter separates the observation, its effect and the requested action. The officer can locate the problem from the details.",
+      "score": 5,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes both addresses and a date."
+        },
+        {
+          "marks": 1,
+          "description": "Uses appropriate greeting, subject heading, closing and name."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the location and when the problem started."
+        },
+        {
+          "marks": 1,
+          "description": "Explains one plausible effect."
+        },
+        {
+          "marks": 1,
+          "description": "Requests a practical response in a courteous formal tone."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Informal letters",
+      "learningObjective": "Write an informal letter that suits a personal relationship and communicates the requested details.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-04-v1",
+      "id": "ndv-177-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write a short informal letter to a cousin who missed a class exhibition. Describe one exhibit you saw, explain why it surprised you and ask your cousin a related question. Use a fictional address and name.",
+      "answer": "8 Meadow Lane, Jos\n11 November 2026\n\nDear Ladi,\n\nI wish you had seen our exhibition! The weaving group made a mat from strips of old fabric. I thought the strips would come loose, but one pupil lifted the whole mat without losing a single piece. She showed me how the tight edges held it together. Have you made anything useful from old fabric? Tell me when you write back.\n\nLove,\nRuth",
+      "explanation": "The model describes a specific exhibit, makes the surprise clear and invites a personal reply.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a sender address, greeting and suitable personal closing."
+        },
+        {
+          "marks": 1,
+          "description": "Describes one exhibit with a concrete detail."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why it surprised the writer."
+        },
+        {
+          "marks": 1,
+          "description": "Asks a relevant question and uses a friendly voice."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Informal letters",
+      "learningObjective": "Write an informal letter that suits a personal relationship and communicates the requested details.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-04-v1",
+      "id": "ndv-177-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write an informal letter thanking a friend who helped you prepare for a poem recital. Explain one thing they did that helped and suggest a way to practise together again. Use a fictional address and name.",
+      "answer": "5 Cedar Lane, Calabar\n11 November 2026\n\nDear Eno,\n\nThanks for listening to my poem before the recital. When you sat at the back of the room, I could tell which lines were too quiet. I spoke more clearly on the day because of that practice. Would you like us to take turns reading our next poems in the library courtyard on Friday?\n\nYour friend,\nBassey",
+      "explanation": "The thanks is specific, and the new practice plan follows naturally from the help the friend provided.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a sender address and suitable opening and closing."
+        },
+        {
+          "marks": 1,
+          "description": "Expresses thanks and names a specific action the friend took."
+        },
+        {
+          "marks": 1,
+          "description": "Links the help to an improvement."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a feasible plan in a friendly tone."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Characterisation and plot",
+      "learningObjective": "Use a character’s choices to explain a development in a short story.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-05-v1",
+      "id": "ndv-177-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "In a story, Sade finds the missing scoreboard card in her own bag. She could quietly replace it, but instead tells the team she took it by mistake and helps them update the score. Which trait is most strongly supported by her decision?",
+      "answer": "Honesty.",
+      "explanation": "Admitting the mistake when it could have been hidden is evidence of honesty.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Honesty.",
+        "Impatience.",
+        "Forgetfulness about the rules.",
+        "A dislike of team games."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Distinguishing creative forms",
+      "learningObjective": "Distinguish a script from prose by how it presents speech and action.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-06-v1",
+      "id": "ndv-177-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Read this extract: [Ayo pulls a stool towards the window.] AYO: We can see the gate from here. NANA: Then let’s wait. Which feature most clearly marks the extract as a script?",
+      "answer": "Speaker labels and a stage direction organise the action.",
+      "explanation": "Speaker labels identify who delivers each line, and the bracketed direction tells a performer what to do.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It mentions a piece of furniture.",
+        "Two characters are in the same place.",
+        "Speaker labels and a stage direction organise the action.",
+        "The characters are waiting for something."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Dialogue and description",
+      "learningObjective": "Revise flat narration to reveal a character’s state through dialogue and observable details.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-07-v1",
+      "id": "ndv-177-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Rewrite “Amina was worried before the relay” as two or three sentences. Include one line of dialogue and one action that lets the reader infer her worry.",
+      "answer": "Amina pulled at her shoelace until the knot came undone. “Are you sure I start in this lane?” she asked, looking from the number on the ground to the starting official.",
+      "explanation": "The repeated checking and the question convey uncertainty without directly naming worry.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes a clear line of dialogue."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an observable action that suggests worry."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the relay context and uses readable sentences."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Short fiction",
+      "learningObjective": "Write an original scene with a problem, a consequential choice and an ending.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-08-v1",
+      "id": "ndv-177-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write a short story about a pupil who finds a label that belongs on someone else’s exhibition entry. Establish where the scene takes place, show a choice the pupil makes and end with a consequence of that choice.",
+      "answer": "At the school exhibition, Efe found a label under the pottery table. It bore the name of a pupil from another class. The judges were already moving down the row. Efe almost slipped the label beside the nearest pot, but the pot did not match the label’s sketch. She showed the label to the attendant, who checked the display list and found the correct bowl at the end of the table. When the judges arrived, the potter’s name was back in place.",
+      "explanation": "The setting establishes urgency, the sketch gives the pupil a reason to pause and the final result follows from asking for help.",
+      "score": 5,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Establishes a recognisable exhibition setting."
+        },
+        {
+          "marks": 1,
+          "description": "Introduces the misplaced label as the problem."
+        },
+        {
+          "marks": 1,
+          "description": "Shows a meaningful choice by the pupil."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a consequence that follows from the choice."
+        },
+        {
+          "marks": 1,
+          "description": "Uses coherent sequencing and readable language."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Writing a short script",
+      "learningObjective": "Write a short script that uses dialogue and stage directions to show change.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-english-jss1-177-09-v1",
+      "id": "ndv-177-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write a short scene in which two pupils discover that they each brought the wrong item for a display. Use speaker labels, at least one stage direction and a workable decision at the end.",
+      "answer": "[Nosa opens a bag and holds up a roll of string.]\nNOSA: I thought you were bringing the labels.\n[Zara takes another roll of string out of her bag.]\nZARA: I thought you were. The display opens soon.\nNOSA: We have blank card in the classroom. I can cut it into strips.\nZARA: I’ll write the names while you tie them on.",
+      "explanation": "The stage directions reveal the mix-up. The final exchange assigns tasks that can solve it.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses clear speaker labels."
+        },
+        {
+          "marks": 1,
+          "description": "Includes a stage direction that supports the scene."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the mix-up through dialogue or action."
+        },
+        {
+          "marks": 1,
+          "description": "Ends with a plausible decision."
+        }
+      ]
+    }
+  ]
+}

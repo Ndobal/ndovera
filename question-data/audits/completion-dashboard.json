@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4293,
-    "validDrafts": 2614,
+    "raw": 4305,
+    "validDrafts": 2626,
     "reviewed": 0,
     "registeredBanks": 195,
     "target": 177000,
@@ -1190,6 +1190,12 @@
       "sha256": "2c7fec8e2a3df1b0c0bdb48eb46654e9f893e1c78aceb127fd0fd3ea7c5b0a37",
       "declared": 14,
       "actual": 14
+    },
+    {
+      "path": "original-multisubject-batch-177.json",
+      "sha256": "2392878016dffe13ec982c395e664558302846da99f373ec9ae4b98885a1f9d3",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5160,20 +5166,20 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 15,
-      "validDrafts": 14,
+      "raw": 27,
+      "validDrafts": 26,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 10,
-        "structured": 5
+        "mcq": 15,
+        "structured": 12
       },
       "difficulty": {
-        "standard": 14,
+        "standard": 26,
         "missing": 1
       },
-      "remaining": 986,
-      "mappedObjectives": 8,
-      "representedObjectives": 8,
+      "remaining": 974,
+      "mappedObjectives": 17,
+      "representedObjectives": 17,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -6931,17 +6937,17 @@
   ],
   "errorCounts": {
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -37205,6 +37211,78 @@
       "id": "ndv-176-014",
       "file": "original-multisubject-batch-176.json",
       "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-001",
+      "file": "original-multisubject-batch-177.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-002",
+      "file": "original-multisubject-batch-177.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-003",
+      "file": "original-multisubject-batch-177.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-004",
+      "file": "original-multisubject-batch-177.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-005",
+      "file": "original-multisubject-batch-177.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-006",
+      "file": "original-multisubject-batch-177.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-007",
+      "file": "original-multisubject-batch-177.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-008",
+      "file": "original-multisubject-batch-177.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-009",
+      "file": "original-multisubject-batch-177.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-010",
+      "file": "original-multisubject-batch-177.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-011",
+      "file": "original-multisubject-batch-177.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-177-012",
+      "file": "original-multisubject-batch-177.json",
+      "index": 11,
       "errors": []
     },
     {
@@ -76213,6 +76291,276 @@
       },
       "tiers": {
         "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-177-01-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Audience and purpose",
+      "learningObjective": "Choose the appropriate letter type for a given audience and purpose.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-177-02-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Letter features",
+      "learningObjective": "Recognise which parts of a letter serve particular purposes.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 2"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-177-03-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Formal requests",
+      "learningObjective": "Write a formal letter with a clear request, relevant details and appropriate conventions.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 3"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-177-04-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Writing Informal and Formal Letters",
+      "subtopic": "Informal letters",
+      "learningObjective": "Write an informal letter that suits a personal relationship and communicates the requested details.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 3"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-177-05-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Characterisation and plot",
+      "learningObjective": "Use a character’s choices to explain a development in a short story.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-177-06-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Distinguishing creative forms",
+      "learningObjective": "Distinguish a script from prose by how it presents speech and action.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-177-07-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Dialogue and description",
+      "learningObjective": "Revise flat narration to reveal a character’s state through dialogue and observable details.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-177-08-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Short fiction",
+      "learningObjective": "Write an original scene with a problem, a consequential choice and an ending.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-english-jss1-177-09-v1",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Creative writing",
+      "subtopic": "Writing a short script",
+      "learningObjective": "Write a short script that uses dialogue and stage directions to show change.",
+      "specificationId": "nerdc-english-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

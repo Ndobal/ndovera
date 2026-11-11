@@ -1041,3 +1041,9 @@ and adds 14 original reading drafts across eight mappings from printed pages
 5–7. Nine are multiple-choice and five are written. One earlier legacy entry
 remains held. School adoption, assessment formats, full curriculum coverage
 and independent academic review remain open.
+
+Batch 177 adds 12 NERDC JSS 1 English Studies drafts mapped to nine writing
+objectives. Seven are written responses and five assess supporting concepts.
+The bank has 26 valid drafts across 17 mapped objectives. Practice rubrics
+are author-created. School adoption, formal assessment formats and independent
+academic review remain open.
