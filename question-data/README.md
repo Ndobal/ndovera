@@ -996,3 +996,9 @@ September 2025 official PDF was retrieved and hashed. Six outcomes from
 printed pages 3, 8 and 17 support the initial mapping. The national
 rollout evidence is recorded separately from school adoption. Full
 curriculum coverage and independent review remain open.
+
+Batch 170 adds 18 NERDC JSS 1 Social and Citizenship Studies drafts on
+culture, socialisation and conflict prevention and resolution. The exact
+September 2025 PDF matched its registered checksum. The 12 objective
+questions and six written or artefact tasks map to six additional outcomes
+from printed pages 7, 11 and 12. School adoption and academic review remain open.

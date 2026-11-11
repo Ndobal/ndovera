@@ -2600,7 +2600,11 @@
         "Contents, PDF pp. 13–14",
         "Printed pp. 3, 8 and 17 (PDF pp. 17, 22 and 31)"
       ],
-      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch."
+      "note": "Direct official PDF retrieved. Initial mapping covers selected peaceful living, responsible citizenship and environmental protection outcomes. National cycle-entry evidence is separate from school-specific adoption. No term or examination format inferred. Legal citizenship routes and constitutional scope need independent source checks. The climate page is outside this initial batch.",
+      "latestRecheck": {
+        "date": "2026-11-11",
+        "method": "Direct PDF download matched the registered SHA-256. Printed pages 7, 11 and 12 checked against PDF pages 21, 25 and 26."
+      }
     }
   ],
   "banks": [
@@ -20731,6 +20735,114 @@
       ],
       "mappingStatus": "author_paraphrase_exact_class",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-scs-jss1-170-01-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Material and non-material culture",
+      "learningObjective": "Distinguish cultural objects from shared practices, values and knowledge.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 25, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-02-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Agents and learned behaviour",
+      "learningObjective": "Explain how different social groups and media influence learned behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 26, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-03-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Recognising prevention steps",
+      "learningObjective": "Identify steps that help prevent conflict or support peacebuilding.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 21, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-04-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Culture collage",
+      "learningObjective": "Create and label an original visual example of material and non-material culture.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 25, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-05-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Club formation plan",
+      "learningObjective": "Develop a supervised school club plan that helps members learn responsible behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 26, performance objective 6"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-06-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Conflict resolution strategy",
+      "learningObjective": "Develop a fair strategy and check whether an agreement is working.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 21, performance objective 6"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class"
     }
   ],
   "scopeGaps": [

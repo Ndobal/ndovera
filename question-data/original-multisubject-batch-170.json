@@ -1,0 +1,680 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Social and Citizenship Studies culture and conflict resolution",
+  "questionCount": 18,
+  "note": "Original classroom tasks with exact-class source locators and practice marking guides.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Material and non-material culture",
+      "learningObjective": "Distinguish cultural objects from shared practices, values and knowledge.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-01-v1",
+      "id": "ndv-170-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At a class exhibition, Ada displays a woven basket and describes a custom of sharing food with visitors. Which part is an example of material culture?",
+      "answer": "The woven basket.",
+      "explanation": "The basket is a physical object. Customs, beliefs and spoken language are non-material aspects of culture.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The custom of sharing food.",
+        "The woven basket.",
+        "The belief that visitors should feel welcome.",
+        "The spoken account of the custom."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Material and non-material culture",
+      "learningObjective": "Distinguish cultural objects from shared practices, values and knowledge.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-01-v1",
+      "id": "ndv-170-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A drummer brings a drum to a festival and teaches a group the rhythm played to welcome guests. Which feature is non-material culture?",
+      "answer": "The learned rhythm used for the welcome.",
+      "explanation": "A rhythm is learned knowledge, even when it is played on a physical instrument.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The drum itself.",
+        "The stand holding the drum.",
+        "The learned rhythm used for the welcome.",
+        "The cloth covering the drum."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Material and non-material culture",
+      "learningObjective": "Distinguish cultural objects from shared practices, values and knowledge.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-01-v1",
+      "id": "ndv-170-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil calls a greeting material culture because she wrote it on a card. Which correction is most accurate?",
+      "answer": "The card is a physical object, while the greeting as a language practice is non-material.",
+      "explanation": "The medium and the practice it records can belong to different categories.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Writing the greeting makes the greeting itself a physical object.",
+        "The greeting is material only when it is spoken aloud.",
+        "The card becomes non-material when people read it.",
+        "The card is a physical object, while the greeting as a language practice is non-material."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Material and non-material culture",
+      "learningObjective": "Distinguish cultural objects from shared practices, values and knowledge.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-01-v1",
+      "id": "ndv-170-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A community continues to pass on a traditional story after losing the booklet in which it was written. What does this show?",
+      "answer": "A non-material tradition can continue through oral teaching.",
+      "explanation": "The printed booklet is material, while knowledge of the story can be shared orally.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A non-material tradition can continue through oral teaching.",
+        "A tradition can survive only if its original object is found.",
+        "An oral story becomes a physical object when repeated.",
+        "All cultural objects are passed down by speaking."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Agents and learned behaviour",
+      "learningObjective": "Explain how different social groups and media influence learned behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-02-v1",
+      "id": "ndv-170-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "During a rehearsal, friends show Yusuf when to take his turn and give him feedback. Which agent is most directly teaching him this behaviour?",
+      "answer": "His peer group.",
+      "explanation": "The behaviour is learned through interaction with friends.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "His family.",
+        "A news outlet.",
+        "His peer group.",
+        "A government office."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Agents and learned behaviour",
+      "learningObjective": "Explain how different social groups and media influence learned behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-02-v1",
+      "id": "ndv-170-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A school models how to take turns in discussion. A pupil later uses the same habit at a youth meeting. What does this illustrate?",
+      "answer": "A habit learned through one agent can be used in another setting.",
+      "explanation": "Practices learned at school can transfer to other groups when they are useful.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A school habit can be learned only after leaving school.",
+        "Socialisation happens only when a person studies alone.",
+        "Different settings always require opposite behaviour.",
+        "A habit learned through one agent can be used in another setting."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Agents and learned behaviour",
+      "learningObjective": "Explain how different social groups and media influence learned behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-02-v1",
+      "id": "ndv-170-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A radio programme demonstrates how to apologise after a disagreement. A listener tries the same approach at home. Which agent supplied the example?",
+      "answer": "The media.",
+      "explanation": "The example was communicated through radio, a form of mass media.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The media.",
+        "The listener’s family.",
+        "The listener’s friends.",
+        "The listener’s school."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Agents and learned behaviour",
+      "learningObjective": "Explain how different social groups and media influence learned behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-02-v1",
+      "id": "ndv-170-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At home, a learner is taught to return a borrowed item on time. At school, the library reinforces the habit by requiring a return date. What does this example show?",
+      "answer": "Different agents can reinforce the same expectation.",
+      "explanation": "Both settings teach or reinforce a shared expectation.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Only the group that taught a habit first can influence it.",
+        "Different agents can reinforce the same expectation.",
+        "Agents can influence behaviour only by disagreeing.",
+        "Borrowing rules are unrelated to socialisation."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Recognising prevention steps",
+      "learningObjective": "Identify steps that help prevent conflict or support peacebuilding.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-03-v1",
+      "id": "ndv-170-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A class plans a display with several groups using the same table. Which step would best prevent disagreement before the display starts?",
+      "answer": "Agree on each group’s space and write down the arrangement.",
+      "explanation": "Agreeing boundaries early reduces misunderstandings about shared space.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Wait for the first disagreement before discussing space.",
+        "Allow each group to mark out space without consulting the others.",
+        "Tell the groups that there is no need to discuss the table.",
+        "Agree on each group’s space and write down the arrangement."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Recognising prevention steps",
+      "learningObjective": "Identify steps that help prevent conflict or support peacebuilding.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-03-v1",
+      "id": "ndv-170-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A teacher asks two groups to explain what each needs from a shared room. Both say they need a quiet place to work, but at different times. What should be recorded as a starting point for a solution?",
+      "answer": "Their shared need for quiet and their different times.",
+      "explanation": "Finding common ground and clarifying differences can reveal workable arrangements.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Their shared need for quiet and their different times.",
+        "Only the group that spoke first.",
+        "The names of the pupils who disagree most loudly.",
+        "A rule that they must always use the room together."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Recognising prevention steps",
+      "learningObjective": "Identify steps that help prevent conflict or support peacebuilding.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-03-v1",
+      "id": "ndv-170-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "One pupil returns a shared book late. Another asks that no one else ever be allowed to borrow it. What would be the most proportionate prevention step?",
+      "answer": "Agree on a clear return time and a way to notify the next borrower if there is a delay.",
+      "explanation": "Clear expectations and communication address the cause without ending access for everyone.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Stop all borrowing because of one late return.",
+        "Agree on a clear return time and a way to notify the next borrower if there is a delay.",
+        "Let each borrower choose a different return time without telling anyone.",
+        "Remove the record of who has the book."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Recognising prevention steps",
+      "learningObjective": "Identify steps that help prevent conflict or support peacebuilding.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-03-v1",
+      "id": "ndv-170-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At a club meeting, pupils begin shouting and cannot hear one another. They still need to decide how to use their shared materials. Which step would best help them return to the discussion calmly?",
+      "answer": "Pause the meeting and agree when to resume with a teacher present.",
+      "explanation": "A planned pause can lower tension. A time to resume with adult support keeps the issue open for a fair discussion.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Continue immediately and ask each side to defend its position more strongly.",
+        "Make one group accept a decision while it is still upset.",
+        "Pause the meeting and agree when to resume with a teacher present.",
+        "End the meeting permanently and leave the concern unresolved."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Culture collage",
+      "learningObjective": "Create and label an original visual example of material and non-material culture.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-04-v1",
+      "id": "ndv-170-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Make a two-panel drawing for a classroom display. One panel should show a physical item used in a community celebration you know about. In the other panel, illustrate a practice associated with a celebration. Label each panel and add a sentence explaining the classification.",
+      "answer": "Example: draw a hand drum in the first panel and label it material culture because it is an object. Draw people carrying out a welcome dance in the second and label the learned dance as non-material culture. Accept other accurate and respectful examples.",
+      "explanation": "A drawing can depict an object or show people carrying out a practice. The classification is based on what it depicts.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "artefact",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Submit two original illustrated panels with clear labels."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a physical cultural object and explain why it is material."
+        },
+        {
+          "marks": 1,
+          "description": "Identify a learned practice and explain why it is non-material."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Culture collage",
+      "learningObjective": "Create and label an original visual example of material and non-material culture.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-04-v1",
+      "id": "ndv-170-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create a small illustrated card for a class culture display about a traditional game you know. Show one object used in the game and add a short caption explaining one rule that players learn. Label the object and the rule as material or non-material culture.",
+      "answer": "Example: draw the pebbles used in a counting game and label them material culture. Explain a rule about when a player takes a turn and label the learned rule non-material. Credit other accurate examples.",
+      "explanation": "The object can be handled, while the rule is shared knowledge about how to play.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "artefact",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Provide an original drawing of a relevant game object."
+        },
+        {
+          "marks": 1,
+          "description": "Describe a real or clearly identified example rule that matches the game."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly classify the object and the rule."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Club formation plan",
+      "learningObjective": "Develop a supervised school club plan that helps members learn responsible behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-05-v1",
+      "id": "ndv-170-015",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write a proposal for a school road safety club that starts with classroom activities. Give its purpose, two student roles and a safe first activity to practise pedestrian decisions using a classroom map. State who should approve and supervise the activity.",
+      "answer": "Example: the club helps pupils recognise safe pedestrian choices. A student coordinator prepares the meeting and a recorder collects feedback. The first activity uses a teacher-approved classroom map to compare marked crossing points. The teacher approves and supervises it.",
+      "explanation": "The plan links responsibilities to a supervised learning activity without putting pupils in traffic.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "written",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "State a suitable road safety purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Give two clear student roles."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a relevant classroom activity and identify adult approval and supervision."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Club formation plan",
+      "learningObjective": "Develop a supervised school club plan that helps members learn responsible behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-05-v1",
+      "id": "ndv-170-016",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher has approved a classroom road safety club. Draft a plan for welcoming new members and checking what they learned after the first meeting. Include one peer-led activity with teacher supervision and a simple way to check learning.",
+      "answer": "Example: pair new members with returning pupils to discuss two picture scenarios under teacher supervision. Have each new member explain which route on the picture gives a clearer view of approaching traffic and why. The teacher checks the explanations.",
+      "explanation": "The activity shows how a club can help pupils learn through peers and provides evidence of learning.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "written",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explain how new members will take part."
+        },
+        {
+          "marks": 1,
+          "description": "Include a safe peer-led learning activity supervised by the teacher."
+        },
+        {
+          "marks": 1,
+          "description": "Give a check that tests understanding rather than attendance alone."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Conflict resolution strategy",
+      "learningObjective": "Develop a fair strategy and check whether an agreement is working.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-06-v1",
+      "id": "ndv-170-017",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two groups need the same set of markers. One group must finish a diagram before lunch. The other needs only two colours immediately for its labels. Write a three-step plan that meets both needs and includes a check after lunch.",
+      "answer": "Example: confirm the first group’s deadline and the two colours needed by the second group. Agree that the second group takes those colours briefly, then returns them at a stated time so the first group can finish. After lunch, ask both groups whether the work was completed and revise the arrangement if needed.",
+      "explanation": "A fair solution addresses actual needs and sets a clear review point.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "written",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify both groups’ needs."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a feasible, specific arrangement that considers both."
+        },
+        {
+          "marks": 1,
+          "description": "Include a follow-up that checks whether the plan worked."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Conflict resolution strategy",
+      "learningObjective": "Develop a fair strategy and check whether an agreement is working.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-scs-jss1-170-06-v1",
+      "id": "ndv-170-018",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two pupils disagree about which version of a group notice was approved. Both remember the discussion differently. Draft a plan for resolving the disagreement and preventing it next time.",
+      "answer": "Example: let each pupil explain what they remember without interruption. Check any written notes and, if no version is confirmed, ask the group to agree on one before displaying it. Next time, record the final version and read it back before the meeting ends.",
+      "explanation": "Shared evidence or a fresh agreement can resolve the immediate uncertainty. A final confirmation step reduces future confusion.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "responseMode": "written",
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Give both pupils a fair chance to explain."
+        },
+        {
+          "marks": 1,
+          "description": "Use shared evidence or a fresh group decision to settle the issue."
+        },
+        {
+          "marks": 1,
+          "description": "Propose a clear prevention step for future decisions."
+        }
+      ]
+    }
+  ]
+}

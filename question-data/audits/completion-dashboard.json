@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4180,
-    "validDrafts": 2501,
+    "raw": 4198,
+    "validDrafts": 2519,
     "reviewed": 0,
     "registeredBanks": 195,
     "target": 177000,
@@ -1146,6 +1146,12 @@
     {
       "path": "original-multisubject-batch-169.json",
       "sha256": "1c05bc79daaf7eb045d9197f42ce73518ce2e46e168124cf7d5e2d4cd9d01876",
+      "declared": 18,
+      "actual": 18
+    },
+    {
+      "path": "original-multisubject-batch-170.json",
+      "sha256": "3bff7975a4c4f38b731fd7a0542265e389f49b9167169386f4362d21d2d96e20",
       "declared": 18,
       "actual": 18
     },
@@ -5478,19 +5484,19 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 18,
-      "validDrafts": 18,
+      "raw": 36,
+      "validDrafts": 36,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 12,
-        "structured": 6
+        "mcq": 24,
+        "structured": 12
       },
       "difficulty": {
-        "standard": 18
+        "standard": 36
       },
-      "remaining": 982,
-      "mappedObjectives": 6,
-      "representedObjectives": 6,
+      "remaining": 964,
+      "mappedObjectives": 12,
+      "representedObjectives": 12,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -6879,18 +6885,18 @@
     }
   ],
   "errorCounts": {
+    "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 366,
@@ -36475,6 +36481,114 @@
     {
       "id": "ndv-169-018",
       "file": "original-multisubject-batch-169.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-001",
+      "file": "original-multisubject-batch-170.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-002",
+      "file": "original-multisubject-batch-170.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-003",
+      "file": "original-multisubject-batch-170.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-004",
+      "file": "original-multisubject-batch-170.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-005",
+      "file": "original-multisubject-batch-170.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-006",
+      "file": "original-multisubject-batch-170.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-007",
+      "file": "original-multisubject-batch-170.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-008",
+      "file": "original-multisubject-batch-170.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-009",
+      "file": "original-multisubject-batch-170.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-010",
+      "file": "original-multisubject-batch-170.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-011",
+      "file": "original-multisubject-batch-170.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-012",
+      "file": "original-multisubject-batch-170.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-013",
+      "file": "original-multisubject-batch-170.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-014",
+      "file": "original-multisubject-batch-170.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-015",
+      "file": "original-multisubject-batch-170.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-016",
+      "file": "original-multisubject-batch-170.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-017",
+      "file": "original-multisubject-batch-170.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-170-018",
+      "file": "original-multisubject-batch-170.json",
       "index": 17,
       "errors": []
     },
@@ -73690,6 +73804,186 @@
       ],
       "mappingStatus": "author_paraphrase_exact_class",
       "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-01-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Material and non-material culture",
+      "learningObjective": "Distinguish cultural objects from shared practices, values and knowledge.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 25, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-02-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Agents and learned behaviour",
+      "learningObjective": "Explain how different social groups and media influence learned behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 26, performance objective 2"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-03-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Recognising prevention steps",
+      "learningObjective": "Identify steps that help prevent conflict or support peacebuilding.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 4
+      },
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 21, performance objective 4"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-04-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Culture collage",
+      "learningObjective": "Create and label an original visual example of material and non-material culture.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 25, performance objective 3"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-05-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Socialization",
+      "subtopic": "Club formation plan",
+      "learningObjective": "Develop a supervised school club plan that helps members learn responsible behaviour.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 12, PDF p. 26, performance objective 6"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-scs-jss1-170-06-v1",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "JSS 1",
+      "topic": "Conflict Prevention and Resolution",
+      "subtopic": "Conflict resolution strategy",
+      "learningObjective": "Develop a fair strategy and check whether an agreement is working.",
+      "specificationId": "nerdc-scs-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 21, performance objective 6"
+      ],
+      "mappingStatus": "author_paraphrase_exact_class",
       "questionCount": 2,
       "validDrafts": 2,
       "difficulty": {
