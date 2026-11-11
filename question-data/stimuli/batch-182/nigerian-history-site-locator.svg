@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 410" role="img" aria-labelledby="title desc"><title id="title">Four historical locations in present-day Nigeria</title><desc id="desc">North is up and east is right. Lettered locations on a latitude–longitude grid: A = 7.48° N, 4.56° E; B = 6.32° N, 5.68° E; C = 6.02° N, 7.02° E; D = 9.50° N, 8.02° E. Each mark is a present-day reference point. No boundaries are shown.</desc>
+<rect width="560" height="410" fill="#fff"/>
+<g font-family="sans-serif" fill="#132841"><text x="30" y="31" font-size="19" font-weight="bold">Four historical locations in present-day Nigeria</text>
+<rect x="88" y="44" width="360" height="300" fill="#eff6fa" stroke="#405a6b"/>
+<g stroke="#abbcc6" stroke-width="1">
+<path d="M88 44 V344"/>
+<path d="M160 44 V344"/>
+<path d="M232 44 V344"/>
+<path d="M304 44 V344"/>
+<path d="M376 44 V344"/>
+<path d="M448 44 V344"/>
+<path d="M88 344 H448"/>
+<path d="M88 284 H448"/>
+<path d="M88 224 H448"/>
+<path d="M88 164 H448"/>
+<path d="M88 104 H448"/>
+<path d="M88 44 H448"/>
+</g><g font-size="13">
+<text x="88" y="365" text-anchor="middle">4° E</text>
+<text x="160" y="365" text-anchor="middle">5° E</text>
+<text x="232" y="365" text-anchor="middle">6° E</text>
+<text x="304" y="365" text-anchor="middle">7° E</text>
+<text x="376" y="365" text-anchor="middle">8° E</text>
+<text x="448" y="365" text-anchor="middle">9° E</text>
+<text x="76" y="348" text-anchor="end">5° N</text>
+<text x="76" y="288" text-anchor="end">6° N</text>
+<text x="76" y="228" text-anchor="end">7° N</text>
+<text x="76" y="168" text-anchor="end">8° N</text>
+<text x="76" y="108" text-anchor="end">9° N</text>
+<text x="76" y="48" text-anchor="end">10° N</text>
+<path d="M488 98 V65 M480 75 L488 65 L496 75" stroke="#132841" stroke-width="2" fill="none"/><text x="488" y="58" text-anchor="middle">N</text>
+<circle cx="128.34" cy="195.06" r="6" fill="#005675"/><text x="139.34" y="199.06" font-size="16" font-weight="bold">A</text>
+<circle cx="209.20" cy="265.00" r="6" fill="#005675"/><text x="220.20" y="269.00" font-size="16" font-weight="bold">B</text>
+<circle cx="305.46" cy="282.92" r="6" fill="#005675"/><text x="316.46" y="286.92" font-size="16" font-weight="bold">C</text>
+<circle cx="377.20" cy="74.00" r="6" fill="#005675"/><text x="388.20" y="78.00" font-size="16" font-weight="bold">D</text>
+<text x="30" y="393">Present-day reference points. No political or historical boundaries are shown.</text></g></g></svg>

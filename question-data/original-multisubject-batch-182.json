@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Nigerian History site locator",
+  "questionCount": 4,
+  "note": "Original map interpretation and marking guides. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Locating Nok on a coordinate map",
+      "learningObjective": "Locate Nok using a latitude and longitude description.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-182-01-v1",
+      "id": "ndv-182-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Nok is at about 9.50° N and 8.02° E. Which point marks Nok? Explain how the north and east values together rule out point C.",
+      "answer": "Point D. It is at about 9.50° N and 8.02° E. Point C is farther south, near 6.02° N, and farther west, near 7.02° E.",
+      "explanation": "A map location needs both coordinates. A higher north value is farther north, and a higher east value is farther east on this grid.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies point D."
+        },
+        {
+          "marks": 1,
+          "description": "Uses latitude to distinguish Nok from C."
+        },
+        {
+          "marks": 1,
+          "description": "Uses longitude to distinguish Nok from C."
+        }
+      ],
+      "stimulus": {
+        "type": "map",
+        "title": "Four historical locations in present-day Nigeria",
+        "assetPath": "stimuli/batch-182/nigerian-history-site-locator.svg",
+        "textAlternative": "North is up and east is right. Lettered locations on a latitude–longitude grid: A = 7.48° N, 4.56° E; B = 6.32° N, 5.68° E; C = 6.02° N, 7.02° E; D = 9.50° N, 8.02° E. Each mark is a present-day reference point. No boundaries are shown."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Ile-Ife Civilisation",
+      "subtopic": "Relative position of Ile-Ife",
+      "learningObjective": "Locate Ile-Ife on a map by comparing its position with the other sites.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-182-02-v1",
+      "id": "ndv-182-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Ile-Ife is the westernmost of the four sites marked. Find its letter, then describe its position relative to Benin City at B using a two-part compass direction.",
+      "answer": "A is Ile-Ife. It is north-west of Benin City, since A is higher and farther left than B.",
+      "explanation": "A has the lowest longitude. It also has a higher latitude than B.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies point A."
+        },
+        {
+          "marks": 1,
+          "description": "Describes A as north-west of B or explains both component directions."
+        }
+      ],
+      "stimulus": {
+        "type": "map",
+        "title": "Four historical locations in present-day Nigeria",
+        "assetPath": "stimuli/batch-182/nigerian-history-site-locator.svg",
+        "textAlternative": "North is up and east is right. Lettered locations on a latitude–longitude grid: A = 7.48° N, 4.56° E; B = 6.32° N, 5.68° E; C = 6.02° N, 7.02° E; D = 9.50° N, 8.02° E. Each mark is a present-day reference point. No boundaries are shown."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Benin Civilisation",
+      "subtopic": "Benin City and historical extent",
+      "learningObjective": "Locate the present-day reference point for Benin City and distinguish it from an area on a historical map.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-182-03-v1",
+      "id": "ndv-182-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The marker for Benin City, Edo State, belongs just south and east of Ile-Ife at A and west of Igbo-Ukwu at C. Choose its letter and explain why this marker cannot show the full extent of the historical Kingdom of Benin.",
+      "answer": "B marks Benin City. The marker locates one city. It does not show the area governed by the kingdom or how its extent changed.",
+      "explanation": "Point B fits both relative position clues. A city location and a kingdom’s territorial extent are different information.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies point B."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that a city marker does not show the kingdom’s territorial extent."
+        }
+      ],
+      "stimulus": {
+        "type": "map",
+        "title": "Four historical locations in present-day Nigeria",
+        "assetPath": "stimuli/batch-182/nigerian-history-site-locator.svg",
+        "textAlternative": "North is up and east is right. Lettered locations on a latitude–longitude grid: A = 7.48° N, 4.56° E; B = 6.32° N, 5.68° E; C = 6.02° N, 7.02° E; D = 9.50° N, 8.02° E. Each mark is a present-day reference point. No boundaries are shown."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "Adding Igbo-Ukwu to a locator key",
+      "learningObjective": "Locate Igbo-Ukwu using a map and write an accurate locator key entry.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-182-04-v1",
+      "id": "ndv-182-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A museum caption places Igbo-Ukwu in Anambra State at approximately 6.02° N and 7.02° E. Write the missing map-key entry with its letter, site and present-day state. Identify the grid intersection nearest to the marker.",
+      "answer": "C — Igbo-Ukwu, Anambra State. The nearest grid intersection is 6° N, 7° E.",
+      "explanation": "The rounded coordinates place C near the intersection of those grid lines. The modern state name is useful for orientation.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives the correct letter and site name."
+        },
+        {
+          "marks": 1,
+          "description": "Includes Anambra as the present-day state."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the nearest grid intersection as 6° N, 7° E."
+        }
+      ],
+      "stimulus": {
+        "type": "map",
+        "title": "Four historical locations in present-day Nigeria",
+        "assetPath": "stimuli/batch-182/nigerian-history-site-locator.svg",
+        "textAlternative": "North is up and east is right. Lettered locations on a latitude–longitude grid: A = 7.48° N, 4.56° E; B = 6.32° N, 5.68° E; C = 6.02° N, 7.02° E; D = 9.50° N, 8.02° E. Each mark is a present-day reference point. No boundaries are shown."
+      }
+    }
+  ]
+}

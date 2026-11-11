@@ -2657,10 +2657,10 @@
         "Concept of History, body pp. 1–3 (PDF pp. 13–15)",
         "Nok, Ile-Ife, Benin and Igbo-Ukwu, body pp. 4–7 (PDF pp. 16–19)"
       ],
-      "note": "Exact-class official PDF. School adoption, formal paper formats and full objectives remain unverified. Source categories are applied relative to the inquiry. Oral traditions can provide historical evidence, and document labels alone do not establish how a source functions. From Importance of History onward the contents listing is one page ahead of the printed body footers. Batch 181 corrects the three Importance of History locators and follows the body pages. Museum and archaeological evidence supports object-level claims. Location tasks, disputed dates and remaining performance objectives are open.",
+      "note": "Exact-class official PDF. School adoption, formal paper formats and full objectives remain unverified. Source categories are applied relative to the inquiry. Oral traditions can provide historical evidence, and document labels alone do not establish how a source functions. From Importance of History onward the contents listing is one page ahead of the printed body footers. Batch 181 corrects the three Importance of History locators and follows the body pages. Museum and archaeological evidence supports object-level claims. Location tasks, disputed dates and remaining performance objectives are open. Batch 182 adds a coordinate locator using Getty Thesaurus of Geographic Names points and NCMM location evidence. Its markers represent present-day reference points. Historical territories and the full archaeological distribution remain outside this mapping.",
       "latestRecheck": {
         "date": "2026-11-11",
-        "method": "Direct PDF download matched registered SHA-256. Verified body tables and printed footers on PDF pp. 13–19."
+        "method": "Direct PDF download matched the registered SHA-256. Rechecked location objectives on PDF pp. 16–19."
       }
     }
   ],
@@ -22743,6 +22743,94 @@
       ],
       "contentReferences": [
         "https://www.repository.cam.ac.uk/handle/1810/385464"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-182-01-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Locating Nok on a coordinate map",
+      "learningObjective": "Locate Nok using a latitude and longitude description.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 1"
+      ],
+      "contentReferences": [
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=6004291"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-182-02-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Ile-Ife Civilisation",
+      "subtopic": "Relative position of Ile-Ife",
+      "learningObjective": "Locate Ile-Ife on a map by comparing its position with the other sites.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 17, performance objective 1"
+      ],
+      "contentReferences": [
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=7000498",
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=1091899"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-182-03-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Benin Civilisation",
+      "subtopic": "Benin City and historical extent",
+      "learningObjective": "Locate the present-day reference point for Benin City and distinguish it from an area on a historical map.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 18, performance objective 1"
+      ],
+      "contentReferences": [
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=1091899",
+        "https://museum.ng/museums/national-museums/",
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=8711681"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-182-04-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "Adding Igbo-Ukwu to a locator key",
+      "learningObjective": "Locate Igbo-Ukwu using a map and write an accurate locator key entry.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 1"
+      ],
+      "contentReferences": [
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=6002714",
+        "https://museum.ng/museums/national-museums/"
       ]
     }
   ],

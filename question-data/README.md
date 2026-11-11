@@ -1072,3 +1072,9 @@ on Nok, Ile-Ife, Benin and Igbo-Ukwu. Museum and archaeological references
 support selected content. Three earlier source locators now follow the printed
 body pages. The bank has 26 valid drafts across 17 mapped objectives. School
 adoption and independent review remain open.
+
+Batch 182 adds four NERDC JSS 1 Nigerian History map tasks on Nok, Ile-Ife,
+Benin City and Igbo-Ukwu. The original coordinate locator uses present-day
+reference points from the Getty Thesaurus of Geographic Names. It includes
+a text alternative and marks no historical boundaries. The bank has 30
+valid drafts across 21 mapped objectives. Academic review remains pending.

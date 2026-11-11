@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4360,
-    "validDrafts": 2681,
+    "raw": 4364,
+    "validDrafts": 2685,
     "reviewed": 0,
     "registeredBanks": 196,
     "target": 178000,
@@ -1220,6 +1220,12 @@
       "sha256": "702fba79382e26f627840a13a69d74c1034ac5f351c6c87d4f4ef199618e8d7d",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-182.json",
+      "sha256": "86b1fa1e683ef5294f32c28f0c1ea7bc26512f3ed5a756083f65b538d7318199",
+      "declared": 4,
+      "actual": 4
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5517,19 +5523,19 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 26,
-      "validDrafts": 26,
+      "raw": 30,
+      "validDrafts": 30,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 15,
-        "structured": 11
+        "structured": 15
       },
       "difficulty": {
-        "standard": 26
+        "standard": 30
       },
-      "remaining": 974,
-      "mappedObjectives": 17,
-      "representedObjectives": 17,
+      "remaining": 970,
+      "mappedObjectives": 21,
+      "representedObjectives": 21,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -6990,17 +6996,17 @@
   ],
   "errorCounts": {
     "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -37666,6 +37672,30 @@
       "id": "ndv-181-012",
       "file": "original-multisubject-batch-181.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-182-001",
+      "file": "original-multisubject-batch-182.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-182-002",
+      "file": "original-multisubject-batch-182.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-182-003",
+      "file": "original-multisubject-batch-182.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-182-004",
+      "file": "original-multisubject-batch-182.json",
+      "index": 3,
       "errors": []
     },
     {
@@ -77850,7 +77880,7 @@
         "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 3"
       ],
       "contentReferences": [
-        "https://aktuelles.uni-frankfurt.de/english/leafy-greens-first-dished-up-3500-years-ago/"
+        "https://link.springer.com/article/10.1007/s00334-022-00902-0"
       ],
       "questionCount": 2,
       "validDrafts": 2,
@@ -78059,6 +78089,142 @@
       },
       "tiers": {
         "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-182-01-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "The Nok Culture",
+      "subtopic": "Locating Nok on a coordinate map",
+      "learningObjective": "Locate Nok using a latitude and longitude description.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 1"
+      ],
+      "contentReferences": [
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=6004291"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-182-02-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Ile-Ife Civilisation",
+      "subtopic": "Relative position of Ile-Ife",
+      "learningObjective": "Locate Ile-Ife on a map by comparing its position with the other sites.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 17, performance objective 1"
+      ],
+      "contentReferences": [
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=7000498",
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=1091899"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-182-03-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Benin Civilisation",
+      "subtopic": "Benin City and historical extent",
+      "learningObjective": "Locate the present-day reference point for Benin City and distinguish it from an area on a historical map.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 6, PDF p. 18, performance objective 1"
+      ],
+      "contentReferences": [
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=1091899",
+        "https://museum.ng/museums/national-museums/",
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=8711681"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-nh-jss1-182-04-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Igbo-Ukwu Civilisation",
+      "subtopic": "Adding Igbo-Ukwu to a locator key",
+      "learningObjective": "Locate Igbo-Ukwu using a map and write an accurate locator key entry.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 1"
+      ],
+      "contentReferences": [
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=6002714",
+        "https://museum.ng/museums/national-museums/"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
