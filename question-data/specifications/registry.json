@@ -2796,12 +2796,14 @@
         "Personal Health, printed p. 3 (PDF p. 15)",
         "Pathogens, diseases and prevention, printed p. 5 (PDF p. 17)",
         "Health promotion, printed p. 2 (PDF p. 14)",
-        "Food and nutrition in Health, printed p. 9 (PDF p. 21)"
+        "Food and nutrition in Health, printed p. 9 (PDF p. 21)",
+        "Posture and postural defects, printed p. 6 (PDF p. 18)",
+        "Food preservation, printed p. 10 (PDF p. 22)"
       ],
-      "note": "Exact-class revised PDF. Publication date not established from inspected pages. Contents lists these topics as pp. 6–7, while table footers show pp. 7–8. School adoption, term allocation, formal assessment and remaining topics are open.",
+      "note": "Exact-class revised PDF. Publication date not established from inspected pages. Contents lists these topics as pp. 6–7, while table footers show pp. 7–8. School adoption, term allocation, formal assessment and remaining topics are open. Batch 207 distinguishes observable posture from clinical diagnosis. The table’s general causes list is not used to attribute scoliosis to sitting habits.",
       "latestRecheck": {
         "date": "2026-11-12",
-        "method": "Matched registered SHA-256 and verified PDF pp. 14–15 and 21."
+        "method": "Matched registered SHA-256 and verified PDF pp. 18 and 22."
       }
     },
     {
@@ -2866,6 +2868,24 @@
       "level": "JSS 1",
       "kind": "supplementary_public_health_reference",
       "source": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+      "retrievedOn": "2026-11-12"
+    },
+    {
+      "id": "who-five-keys-food-phe",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "kind": "supplementary_public_health_reference",
+      "source": "https://www.who.int/docs/default-source/food-safety/five-keys-to-safer-food-poster/5keys-en.pdf",
+      "retrievedOn": "2026-11-12"
+    },
+    {
+      "id": "nhs-scoliosis-phe",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "kind": "supplementary_public_health_reference",
+      "source": "https://www.nhs.uk/conditions/scoliosis/",
       "retrievedOn": "2026-11-12"
     }
   ],
@@ -26016,6 +26036,96 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 9, PDF p. 21, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-207-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Posture and postural defects",
+      "subtopic": "Describing posture during a task",
+      "learningObjective": "Describe body position using observable features.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 18, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-207-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Posture and postural defects",
+      "subtopic": "Limits of classroom observation",
+      "learningObjective": "Distinguish a momentary sitting position from evidence of a spinal condition.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 18, performance objective 3 and 4"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-207-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food preservation",
+      "subtopic": "Refrigeration and spoilage",
+      "learningObjective": "Explain how refrigeration helps preserve perishable food.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 10, PDF p. 22, performance objective 1 and 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-207-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food preservation",
+      "subtopic": "Temperature control during storage",
+      "learningObjective": "Use a food safety temperature criterion to interpret a storage record.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 10, PDF p. 22, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-207-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food preservation",
+      "subtopic": "Drying as a preservation method",
+      "learningObjective": "Identify drying from the change made to a food.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 10, PDF p. 22, performance objective 2"
       ]
     }
   ],

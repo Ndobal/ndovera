@@ -1204,3 +1204,8 @@ Batch 206 adds six NERDC JSS 1 Physical and Health Education drafts on
 health promotion, oral hygiene and nutrition. WHO oral-health and healthy-diet
 fact sheets support the content. School adoption, formal assessment formats
 and independent academic review remain open.
+
+Batch 207 adds five NERDC JSS 1 Physical and Health Education drafts on
+posture and food preservation. The questions distinguish observed posture
+from clinical diagnosis and use WHO guidance for refrigeration. School
+adoption, formal assessment and independent academic review remain open.

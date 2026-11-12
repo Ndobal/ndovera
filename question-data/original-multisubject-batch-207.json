@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Physical and Health Education posture and food preservation",
+  "questionCount": 5,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Posture and postural defects",
+      "subtopic": "Describing posture during a task",
+      "learningObjective": "Describe body position using observable features.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-207-01-v1",
+      "id": "ndv-207-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two pictures show a pupil doing different tasks. In picture A the pupil is seated with the back supported. In picture B the pupil is upright and taking a step forward. Name the posture or activity shown in each and give one visible clue.",
+      "answer": "A shows sitting, with body weight supported by the seat. B shows walking, with a step in progress.",
+      "explanation": "Posture describes how the body is held. Body position can be described during stillness or movement.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies sitting in A."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the seat or supported back as evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies walking in B."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the step as evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Posture and postural defects",
+      "subtopic": "Limits of classroom observation",
+      "learningObjective": "Distinguish a momentary sitting position from evidence of a spinal condition.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-207-02-v1",
+      "id": "ndv-207-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "During a lesson, Kemi leans sideways to see the board. A classmate says that this single observation proves Kemi has scoliosis caused by sitting badly. Explain two problems with the claim.",
+      "answer": "A momentary lean does not establish that the spine has a sideways curve. Sitting badly is not an established cause of idiopathic scoliosis.",
+      "explanation": "Scoliosis involves a spinal curve. A classroom observation does not replace a clinical assessment, and the cause of idiopathic scoliosis is unknown.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why a momentary lean does not establish a spinal curve or diagnosis."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that poor posture does not cause idiopathic scoliosis or that the observation cannot establish a cause."
+        }
+      ],
+      "contentSourceId": "nhs-scoliosis-phe"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food preservation",
+      "subtopic": "Refrigeration and spoilage",
+      "learningObjective": "Explain how refrigeration helps preserve perishable food.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-207-03-v1",
+      "id": "ndv-207-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The school cook has a portion of cooked stew to save for later. Which choice uses refrigeration to help preserve it?",
+      "answer": "Refrigerate the stew promptly in a clean covered container.",
+      "explanation": "Keeping perishable food cold slows the growth of many microorganisms. A cover helps protect the food from contamination.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Keep it beside a sunny window until it is needed.",
+        "Refrigerate the stew promptly in a clean covered container.",
+        "Cover it and leave it at room temperature all afternoon.",
+        "Keep it in a warm cupboard to prevent moisture loss."
+      ],
+      "correctOption": "B",
+      "contentSourceId": "who-five-keys-food-phe"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food preservation",
+      "subtopic": "Temperature control during storage",
+      "learningObjective": "Use a food safety temperature criterion to interpret a storage record.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-207-04-v1",
+      "id": "ndv-207-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A canteen checks a refrigerator holding perishable food. Its chart sets a target below 5 °C. Readings are 3 °C at opening and 8 °C later in the morning. Which reading meets the target, and what can staff conclude from the other reading?",
+      "answer": "The 3 °C reading meets the target. The 8 °C reading shows that the refrigerator was above the target when checked. Staff need to investigate and assess the food under their safety procedure.",
+      "explanation": "The readings compare measured temperatures with the stated target. They do not give a continuous record of how long the food was above it.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies 3 °C as below the target."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies 8 °C as above the target."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the readings do not establish how long the temperature was too high or that further checks are needed."
+        }
+      ],
+      "contentSourceId": "who-five-keys-food-phe"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food preservation",
+      "subtopic": "Drying as a preservation method",
+      "learningObjective": "Identify drying from the change made to a food.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-207-05-v1",
+      "id": "ndv-207-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At a market, one supplier sells dried pepper flakes and another sells fresh peppers. What change in the peppers identifies drying as the method used to make the flakes?",
+      "answer": "Much of the water has been removed from the peppers.",
+      "explanation": "Drying removes moisture. Lower water availability can slow many processes that spoil food.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "More water has been mixed into the peppers.",
+        "The peppers have been kept below freezing during sale.",
+        "The peppers have been stored in a liquid brine.",
+        "Much of the water has been removed from the peppers."
+      ],
+      "correctOption": "D"
+    }
+  ]
+}
