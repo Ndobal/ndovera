@@ -1133,3 +1133,9 @@ instruments and music icons, including three supervised performances.
 Twenty-two of the 25 curriculum topic pages now have initial mappings.
 Introduction to Art, Carving and Clay still lack mappings from their
 respective topic pages. Full objective coverage and academic review remain open.
+
+Batch 193 adds eight NERDC JSS 1 Cultural and Creative Arts drafts on
+Introduction to Art, Carving and Clay. All 25 topic pages now have initial
+mappings. The two supervised tasks use soap relief and clay coiling.
+Full objective coverage, school adoption, formal assessment formats, learner
+wood carving and independent academic review remain open.

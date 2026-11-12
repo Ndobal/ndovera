@@ -1,0 +1,343 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts introduction to art, carving and clay",
+  "questionCount": 8,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Art",
+      "subtopic": "Art forms within an event",
+      "learningObjective": "Identify visual and performing arts within a combined event.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-193-01-v1",
+      "id": "ndv-193-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At a school open day, pupils exhibit painted banners while a group performs a short drama beside them. How should the two contributions be classified?",
+      "answer": "The banners are visual art and the drama is performing art.",
+      "explanation": "The banners communicate through a visible design. The drama communicates through action and speech unfolding in time.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Both are visual art because the audience can see them.",
+        "The banners are performing art and the drama is visual art.",
+        "The banners are visual art and the drama is performing art.",
+        "Both are performing art because they are presented at an event."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Art",
+      "subtopic": "Art and public communication",
+      "learningObjective": "Explain how artistic choices communicate a shared message.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-193-02-v1",
+      "id": "ndv-193-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school plans a mural about caring for its library. Describe two different choices a painter could make so pupils understand the message while passing the wall. Explain how each choice helps.",
+      "answer": "A painter could show a pupil returning a book to a labelled shelf so viewers see the intended action. Large contrasting shapes could help pupils recognise the scene while walking past.",
+      "explanation": "The subject communicates what to do. Visual contrast can make that message easier to notice.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes a choice about the depicted subject."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the subject conveys library care."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a distinct visual design choice."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how that choice makes the message easier to notice or understand."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Art",
+      "subtopic": "Applied and fine art purposes",
+      "learningObjective": "Relate a visual art branch to the purpose of a design.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-193-03-v1",
+      "id": "ndv-193-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A club wants a design that can be printed on a small sign to identify its meeting room. The club’s name must be readable alongside a symbol. Which branch most directly addresses this brief?",
+      "answer": "Graphic design.",
+      "explanation": "Graphic design arranges lettering and symbols so they communicate information clearly in the available space.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Graphic design.",
+        "Ceramics.",
+        "Dance.",
+        "Instrumental music."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Carving",
+      "subtopic": "Planning shallow relief",
+      "learningObjective": "Explain the order of steps in a shallow carving plan.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-193-04-v1",
+      "id": "ndv-193-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil wants a simple leaf to stand out on a soap tile. The teacher asks for a plan before any material is removed. Explain what the pupil should mark on the tile and which area should be lowered. Explain why starting with shallow cuts is useful.",
+      "answer": "Mark the leaf outline, then lower the background outside the outline. Shallow removal lets the pupil check the depth and shape before taking away more material.",
+      "explanation": "The leaf reads as raised when its background is lower. Removed soap cannot be put back into the tile during carving.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Marks the outline before carving."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the background outside the outline as the area to lower."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that shallow removal allows checking or reduces the risk of taking away too much."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Carving",
+      "subtopic": "Soap relief practical",
+      "learningObjective": "Carve a shallow design in soap by controlled removal.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-193-05-v1",
+      "id": "ndv-193-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Use a teacher-approved blunt modelling tool and a soap tile on a tray. Under supervision, mark a broad geometric shape and carve a shallow recessed band around it. Show your teacher the original top surface beside the new recess.",
+      "answer": "A learner might mark a triangle and remove a narrow strip of soap around its sides. The triangle retains its top surface and the band is visibly lower.",
+      "explanation": "Removing a shallow band creates a measurable difference in level and preserves the marked shape.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Marks a clear geometric shape before removing material."
+        },
+        {
+          "marks": 1,
+          "description": "Removes soap to create a recessed band around the shape."
+        },
+        {
+          "marks": 1,
+          "description": "Preserves the recognisable top surface of the shape."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the difference in height on the finished tile."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Clay",
+      "subtopic": "Storing workable clay",
+      "learningObjective": "Select storage that reduces drying of workable clay.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-193-06-v1",
+      "id": "ndv-193-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "After class, a piece of moist modelling clay must stay workable for the next lesson. Which storage choice is most suitable?",
+      "answer": "Wrap it closely and keep it in a sealed container.",
+      "explanation": "A close wrap and sealed container slow moisture loss. Clay that loses too much water becomes firmer and harder to shape.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Leave it uncovered on a sunny shelf.",
+        "Spread it into a thin sheet in front of a fan.",
+        "Rest it on absorbent paper under an open window.",
+        "Wrap it closely and keep it in a sealed container."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Clay",
+      "subtopic": "Recognising clay techniques",
+      "learningObjective": "Distinguish pinching from coiling by the actions used to form a wall.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-193-07-v1",
+      "id": "ndv-193-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One pupil starts with a ball of clay, presses a thumb into its centre and works the wall between thumb and fingers. A second pupil builds a wall by joining rolled lengths of clay. Name both techniques and explain how each wall is formed.",
+      "answer": "The first pupil uses pinching, thinning and raising the wall by working the clay between thumb and fingers. The second uses coiling, joining rolled lengths to build the wall.",
+      "explanation": "A pinch vessel is shaped from a single lump. A coiled vessel is built from lengths joined together.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies pinching."
+        },
+        {
+          "marks": 1,
+          "description": "Explains shaping the wall by working the original lump."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies coiling."
+        },
+        {
+          "marks": 1,
+          "description": "Explains building the wall by joining rolled lengths."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Clay",
+      "subtopic": "Building a low coil wall",
+      "learningObjective": "Make a stable clay form using coiling and join inspection.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-193-08-v1",
+      "id": "ndv-193-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Under teacher supervision, make a flat clay base and build a low wall with two coils. Join the coils to the base and to each other, then show a section where the joins have been blended. Set the piece on a flat board to check it stands.",
+      "answer": "A learner places the first coil around the base, joins it, places the second above it and blends the joins. The low wall remains attached when the piece rests on the board.",
+      "explanation": "Joining the coils turns separate lengths into a continuous wall. A flat base supports the form.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Makes a base that rests on the board."
+        },
+        {
+          "marks": 1,
+          "description": "Builds the wall with two coils."
+        },
+        {
+          "marks": 1,
+          "description": "Joins the coils to the base and to one another."
+        },
+        {
+          "marks": 1,
+          "description": "Shows a blended join on a stable form."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    }
+  ]
+}
