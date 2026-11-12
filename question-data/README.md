@@ -1149,3 +1149,7 @@ Batch 195 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
 clay bodies, carving materials and tie-dye. The tie-dye practical uses
 teacher-prepared classroom materials. School adoption, formal assessment
 formats and independent academic review remain open.
+
+Batch 196 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
+instrument classification and woven structures, including leno. School
+adoption, formal assessment formats and independent review remain open.
