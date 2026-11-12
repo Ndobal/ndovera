@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts instruments and music icons",
+  "questionCount": 8,
+  "note": "Original classroom practice. Teacher selects and verifies any listening excerpt. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Playing Musical Instruments",
+      "subtopic": "Sound-producing parts",
+      "learningObjective": "Classify struck instruments by their vibrating parts.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-192-01-v1",
+      "id": "ndv-192-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil strikes a metal bell and a drum with a stretched head. Both are struck, but which classification accounts for how each produces its sound?",
+      "answer": "The bell is an idiophone and the drum is a membranophone.",
+      "explanation": "The bell’s solid body vibrates. In the drum the stretched head is the main vibrating source.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Both are membranophones because both are struck.",
+        "The bell is an idiophone and the drum is a membranophone.",
+        "The bell is an aerophone and the drum is an idiophone.",
+        "Both are idiophones because both produce short sounds."
+      ],
+      "correctOption": "B",
+      "contentSourceId": "wuerzburg-hornbostel-sachs-reference"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Playing Musical Instruments",
+      "subtopic": "Air vibration in a recorder",
+      "learningObjective": "Describe how sound begins in a recorder.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-192-02-v1",
+      "id": "ndv-192-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classmate thinks the holes in a recorder make sound by vibrating. Explain how blowing starts the sound and how covering holes changes the note.",
+      "answer": "Air directed at an edge makes the air column oscillate. Covering and opening holes changes the effective length of the air column, which changes the pitch.",
+      "explanation": "The recorder is an aerophone. Its holes help set the length of the resonating air column.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies blowing an airstream towards an edge."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the oscillating air column."
+        },
+        {
+          "marks": 1,
+          "description": "Links changing the open holes to a change in effective air-column length and pitch."
+        }
+      ],
+      "contentSourceId": "wuerzburg-hornbostel-sachs-reference"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Playing Musical Instruments",
+      "subtopic": "Accompanying a singer",
+      "learningObjective": "Select an accompaniment that supports a vocal performance.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-192-03-v1",
+      "id": "ndv-192-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "During rehearsal for assembly, a singer’s words become hard to hear over the percussion. Which change lets percussion keep a clear pulse while making the words easier to hear?",
+      "answer": "Play a quieter repeating pattern behind the singer.",
+      "explanation": "A quieter repeating pattern keeps the beat audible while leaving room for the words.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Add more loud strokes while the singer is speaking.",
+        "Speed up the percussion without telling the singer.",
+        "Have each percussionist play at a different pace.",
+        "Play a quieter repeating pattern behind the singer."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Playing Musical Instruments",
+      "subtopic": "Layered classroom percussion",
+      "learningObjective": "Maintain a percussion pattern with a shared pulse and cues.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-192-04-v1",
+      "id": "ndv-192-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In pairs, play an eight-beat sequence twice under teacher supervision. One player uses a classroom bell on beats one and five. The other uses a hand drum on beats three and seven. Agree on a starting cue and finish together after the final silent beat. Each player should demonstrate their part separately before the duet.",
+      "answer": "The bell sounds on one and five and the drum on three and seven in each cycle. Both players count all eight beats, including the rests, and end after beat eight of the second cycle.",
+      "explanation": "The shared pulse places the alternating strokes accurately. Counting the final rest keeps both players together to the end.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Responds to the shared starting cue."
+        },
+        {
+          "marks": 1,
+          "description": "Plays the assigned part on its designated beats."
+        },
+        {
+          "marks": 1,
+          "description": "Maintains the common pulse across both cycles."
+        },
+        {
+          "marks": 1,
+          "description": "Finishes after the final silent beat."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Playing Musical Instruments",
+      "subtopic": "Alternating recorder phrases",
+      "learningObjective": "Play two short recorder phrases with a controlled rest.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-192-05-v1",
+      "id": "ndv-192-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Using your own classroom recorder, play a two-bar phrase in four beats per bar. In bar one play a comfortable note on beat one and hold it through beat two, then rest on beats three and four. In bar two play a different comfortable note on beats one and three, resting on beats two and four. The teacher provides the beat.",
+      "answer": "The first bar has one two-beat sound and two silent beats. The second bar alternates single beats of sound and silence at a different pitch.",
+      "explanation": "The task requires a stable sound, controlled starts and stops, and a pitch change between phrases.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Produces a steady two-beat note in bar one."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps beats three and four silent in bar one."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a different pitch in bar two."
+        },
+        {
+          "marks": 1,
+          "description": "Plays only on beats one and three in bar two."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music Icons in Nigeria",
+      "subtopic": "Recording credits",
+      "learningObjective": "Use an artist catalogue entry to attribute a Nigerian popular recording.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-192-06-v1",
+      "id": "ndv-192-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The catalogue for Expensive Shit credits Fela Kuti for the track “Water No Get Enemy.” A class display card gives the track title but credits an unnamed school cover band as the performer of the catalogue recording. What should be changed and why?",
+      "answer": "Credit Fela Kuti as the performer of the catalogue recording. A school cover can have separate credits for its own performance.",
+      "explanation": "The catalogue entry identifies the credited artist for the specified recording. A later performance does not change that credit.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names Fela Kuti in the corrected credit."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the given catalogue evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the credit for the catalogue recording from that of a cover performance."
+        }
+      ],
+      "contentSourceId": "fela-official-water-no-get-enemy-recording"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music Icons in Nigeria",
+      "subtopic": "Describing musical style",
+      "learningObjective": "Support an observation about a Nigerian popular recording with listening evidence.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-192-07-v1",
+      "id": "ndv-192-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Listen to a teacher-selected section of “Water No Get Enemy” from Fela Kuti’s artist catalogue. The teacher should identify the exact section played and repeat it once. Describe two audible features and say where in the section you heard each one.",
+      "answer": "Possible observations include a repeating rhythmic figure or instruments entering at different moments, if present in the selected section. Point to a particular recurrence or entry for each observation.",
+      "explanation": "The response links musical terms to audible evidence from the specific excerpt. Different sections may support different descriptions.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes one feature audible in the selected passage."
+        },
+        {
+          "marks": 1,
+          "description": "Locates that feature within the passage by time or audible landmark."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a second distinct audible feature."
+        },
+        {
+          "marks": 1,
+          "description": "Locates the second feature within the passage."
+        }
+      ],
+      "contentSourceId": "fela-official-water-no-get-enemy-recording"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music Icons in Nigeria",
+      "subtopic": "Original song and performance",
+      "learningObjective": "Compose and perform a short original song using a feature from a documented listening example.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-192-08-v1",
+      "id": "ndv-192-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Your teacher will supply a credited example by a Nigerian popular musician and identify a broad feature you can hear, such as a short recurring refrain. Compose and sing two original lines about looking after shared instruments. Use one audible feature from the example in your own melody and words. Name the feature before performing.",
+      "answer": "For a refrain example, sing an original line about returning a drum to its shelf and a short answer about leaving it ready for others. Repeat the answer at the same point when you sing the two lines again.",
+      "explanation": "A general musical device can shape new work. Original words and melody communicate the pupil’s own message.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a broad audible feature from the credited example."
+        },
+        {
+          "marks": 1,
+          "description": "Creates original sung lines with a clear care message."
+        },
+        {
+          "marks": 1,
+          "description": "Makes the named feature recognisable in the song."
+        },
+        {
+          "marks": 1,
+          "description": "Performs the song with enough continuity to hear its intended structure."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    }
+  ]
+}

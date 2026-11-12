@@ -1127,3 +1127,9 @@ Batch 191 adds eight NERDC JSS 1 Cultural and Creative Arts drafts on
 culture and cultural values. Two use evidence from the UNESCO Argungu
 inscription decision and one is a supervised display with a teacher-verified
 source card. School adoption, formal formats and academic review remain open.
+
+Batch 192 adds eight NERDC JSS 1 Cultural and Creative Arts drafts on
+instruments and music icons, including three supervised performances.
+Twenty-two of the 25 curriculum topic pages now have initial mappings.
+Introduction to Art, Carving and Clay still lack mappings from their
+respective topic pages. Full objective coverage and academic review remain open.
