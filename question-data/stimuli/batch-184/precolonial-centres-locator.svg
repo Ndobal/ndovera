@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 408" role="img" aria-labelledby="title desc"><title id="title">Three centres on a coordinate map</title><desc id="desc">North is up and east is right. P is near 9.0° N, 4.4° E. Q is near 12.0° N, 8.5° E. R is near 6.3° N, 5.7° E. Markers are approximate reference points. The map has no territorial boundaries.</desc>
+<rect width="540" height="408" fill="white"/>
+<g font-family="sans-serif" fill="#132841"><text x="26" y="26" font-size="20" font-weight="bold">Three centres on a coordinate map</text>
+<rect x="88" y="62" width="325" height="280" fill="#eff6fa" stroke="#405a6b"/>
+<path d="M88 62 V342" stroke="#abbcc6"/>
+<text x="88" y="364" font-size="13" text-anchor="middle">4° E</text>
+<path d="M153 62 V342" stroke="#abbcc6"/>
+<text x="153" y="364" font-size="13" text-anchor="middle">5° E</text>
+<path d="M218 62 V342" stroke="#abbcc6"/>
+<text x="218" y="364" font-size="13" text-anchor="middle">6° E</text>
+<path d="M283 62 V342" stroke="#abbcc6"/>
+<text x="283" y="364" font-size="13" text-anchor="middle">7° E</text>
+<path d="M348 62 V342" stroke="#abbcc6"/>
+<text x="348" y="364" font-size="13" text-anchor="middle">8° E</text>
+<path d="M413 62 V342" stroke="#abbcc6"/>
+<text x="413" y="364" font-size="13" text-anchor="middle">9° E</text>
+<path d="M88 342 H413" stroke="#abbcc6"/>
+<text x="77" y="346" font-size="13" text-anchor="end">6° N</text>
+<path d="M88 302 H413" stroke="#abbcc6"/>
+<text x="77" y="306" font-size="13" text-anchor="end">7° N</text>
+<path d="M88 262 H413" stroke="#abbcc6"/>
+<text x="77" y="266" font-size="13" text-anchor="end">8° N</text>
+<path d="M88 222 H413" stroke="#abbcc6"/>
+<text x="77" y="226" font-size="13" text-anchor="end">9° N</text>
+<path d="M88 182 H413" stroke="#abbcc6"/>
+<text x="77" y="186" font-size="13" text-anchor="end">10° N</text>
+<path d="M88 142 H413" stroke="#abbcc6"/>
+<text x="77" y="146" font-size="13" text-anchor="end">11° N</text>
+<path d="M88 102 H413" stroke="#abbcc6"/>
+<text x="77" y="106" font-size="13" text-anchor="end">12° N</text>
+<path d="M88 62 H413" stroke="#abbcc6"/>
+<text x="77" y="66" font-size="13" text-anchor="end">13° N</text>
+<path d="M468 118 V86 M460 96 L468 86 L476 96" stroke="#132841" stroke-width="2" fill="none"/><text x="468" y="78" text-anchor="middle">N</text>
+<circle cx="114.0" cy="222.0" r="6" fill="#005675"/><text x="125.0" y="226.0" font-weight="bold">P</text>
+<circle cx="380.5" cy="102.0" r="6" fill="#005675"/><text x="391.5" y="106.0" font-weight="bold">Q</text>
+<circle cx="198.5" cy="330.0" r="6" fill="#005675"/><text x="209.5" y="334.0" font-weight="bold">R</text>
+<text x="26" y="393" font-size="13">Approximate reference points. No territorial boundaries are shown.</text></g></svg>

@@ -2658,10 +2658,10 @@
         "Nok, Ile-Ife, Benin and Igbo-Ukwu, body pp. 4–7 (PDF pp. 16–19)",
         "Major Centralised States in Pre-colonial Nigeria, body p. 8 (PDF p. 20)"
       ],
-      "note": "Exact-class official PDF. School adoption, formal paper formats and full objectives remain unverified. Source categories are applied relative to the inquiry. Oral traditions can provide historical evidence, and document labels alone do not establish how a source functions. From Importance of History onward the contents listing is one page ahead of the printed body footers. Batch 181 corrects the three Importance of History locators and follows the body pages. Museum and archaeological evidence supports object-level claims. Location tasks, disputed dates and remaining performance objectives are open. Batch 182 adds a coordinate locator using Getty Thesaurus of Geographic Names points and NCMM location evidence. Its markers represent present-day reference points. Historical territories and the full archaeological distribution remain outside this mapping. Batch 183 maps selected governance and heritage objectives using documented examples. Location objective and detailed chronology for other listed polities remain open.",
+      "note": "Exact-class official PDF. School adoption, formal paper formats and full objectives remain unverified. Source categories are applied relative to the inquiry. Oral traditions can provide historical evidence, and document labels alone do not establish how a source functions. From Importance of History onward the contents listing is one page ahead of the printed body footers. Batch 181 corrects the three Importance of History locators and follows the body pages. Museum and archaeological evidence supports object-level claims. Location tasks, disputed dates and remaining performance objectives are open. Batch 182 adds a coordinate locator using Getty Thesaurus of Geographic Names points and NCMM location evidence. Its markers represent present-day reference points. Historical territories and the full archaeological distribution remain outside this mapping. Batch 183 maps selected governance and heritage objectives using documented examples. Location objective and detailed chronology for other listed polities remain open. Batch 184 maps selected historical centres for Oyo, Kano and Benin. The locator uses a representative point within Nigeria’s Old Oyo submission range and rounded city reference points for Kano and Benin City. Remaining polities, dates and territorial extents require separate evidence.",
       "latestRecheck": {
         "date": "2026-11-12",
-        "method": "Direct PDF download matched registered SHA-256. Verified the political developments table on PDF p. 20."
+        "method": "Direct PDF download matched the registered SHA-256. Rechecked printed p. 8, PDF p. 20, performance objective 4."
       }
     }
   ],
@@ -22924,6 +22924,76 @@
         "https://www.metmuseum.org/art/collection/search/316393",
         "https://whc.unesco.org/en/tentativelists/5171/L",
         "https://www.cambridge.org/core/journals/journal-of-african-history/article/abs/constitutional-troubles-of-oyo-in-the-eighteenth-century/0A85ABC4A725E3BD3BC5E25D4D4B1286"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-184-01-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Historical and later seats of Oyo",
+      "learningObjective": "Locate Old Oyo and distinguish the historic capital site from a later seat.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 4"
+      ],
+      "contentReferences": [
+        "https://whc.unesco.org/en/tentativelists/489/",
+        "https://www.cambridge.org/core/journals/journal-of-african-history/article/abs/alafin-in-exile-a-study-of-the-igboho-period-in-oyo-history/FF8C1D783F20DF3B0472FD18EE25518F"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-184-02-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Locating Kano and interpreting its landmarks",
+      "learningObjective": "Use a coordinate map and a heritage source to locate Kano as a historical centre.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 4"
+      ],
+      "contentReferences": [
+        "https://whc.unesco.org/en/tentativelists/5171/L",
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=7000506",
+        "https://whc.unesco.org/en/tentativelists/489/"
+      ]
+    },
+    {
+      "id": "nerdc-nh-jss1-184-03-v1",
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Benin City and map scope",
+      "learningObjective": "Locate Benin City on a map and explain the limits of a centre marker.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 4"
+      ],
+      "contentReferences": [
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=8711681",
+        "https://www.getty.edu/vow/TGNFullDisplay?subjectid=1091899",
+        "https://whc.unesco.org/en/tentativelists/489/"
       ]
     }
   ],

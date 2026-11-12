@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Nigerian History precolonial centres",
+  "questionCount": 6,
+  "note": "Original practice using selected historical centres. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Historical and later seats of Oyo",
+      "learningObjective": "Locate Old Oyo and distinguish the historic capital site from a later seat.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-184-01-v1",
+      "id": "ndv-184-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The heritage submission places Old Oyo at approximately 9° N, 4.4° E. Find its marker and use both coordinates to explain why R is a poor match.",
+      "answer": "P marks Old Oyo. R is much farther south and also farther east than the location given.",
+      "explanation": "P fits both the latitude and the longitude in the source. Old Oyo is shown by a representative point within the submitted coordinate range.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies P."
+        },
+        {
+          "marks": 1,
+          "description": "Uses latitude to rule out R."
+        },
+        {
+          "marks": 1,
+          "description": "Uses longitude to rule out R."
+        }
+      ],
+      "stimulus": {
+        "type": "map",
+        "title": "Three centres on a coordinate map",
+        "assetPath": "stimuli/batch-184/precolonial-centres-locator.svg",
+        "textAlternative": "North is up and east is right. P is near 9.0° N, 4.4° E. Q is near 12.0° N, 8.5° E. R is near 6.3° N, 5.7° E. Markers are approximate reference points. The map has no territorial boundaries."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Historical and later seats of Oyo",
+      "learningObjective": "Locate Old Oyo and distinguish the historic capital site from a later seat.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-184-01-v1",
+      "id": "ndv-184-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A caption labels Old Oyo and the later capital founded at Ago d’Oyo as one site. Which revision is best supported?",
+      "answer": "Identify Old Oyo and Ago d’Oyo as different seats and say which period the map describes.",
+      "explanation": "Historical scholarship distinguishes Oyo-Ile from the later capital at Ago d’Oyo. A time-specific caption prevents readers from confusing the seats.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Treat every place named Oyo as a single site.",
+        "Identify Old Oyo and Ago d’Oyo as different seats and say which period the map describes.",
+        "Label the earlier site with the name of its later ruler instead of a location.",
+        "Omit all place names and use the outline of present-day Oyo State."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Locating Kano and interpreting its landmarks",
+      "learningObjective": "Use a coordinate map and a heritage source to locate Kano as a historical centre.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-184-02-v1",
+      "id": "ndv-184-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The reference point for Kano is close to 12° N and halfway between 8° E and 9° E. Which entry belongs in the map key?",
+      "answer": "Q — Kano",
+      "explanation": "Only Q matches the latitude and longitude together.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "P — Kano",
+        "R — Kano",
+        "Q — Kano",
+        "No marked point matches Kano."
+      ],
+      "correctOption": "C",
+      "stimulus": {
+        "type": "map",
+        "title": "Three centres on a coordinate map",
+        "assetPath": "stimuli/batch-184/precolonial-centres-locator.svg",
+        "textAlternative": "North is up and east is right. P is near 9.0° N, 4.4° E. Q is near 12.0° N, 8.5° E. R is near 6.3° N, 5.7° E. Markers are approximate reference points. The map has no territorial boundaries."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Locating Kano and interpreting its landmarks",
+      "learningObjective": "Use a coordinate map and a heritage source to locate Kano as a historical centre.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-184-02-v1",
+      "id": "ndv-184-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The locations of two centres are marked at P and Q. Q marks Kano and P marks Old Oyo. Describe Kano’s direction from Old Oyo. Name one feature from Nigeria’s heritage submission that helps locate the historical city within present-day Kano.",
+      "answer": "Kano lies north-east of Old Oyo. The ancient city walls, Dala Hill, Kurmi Market or the Emir’s Palace provide a named historical landmark.",
+      "explanation": "Kano is higher and farther right on the grid. The submitted landmarks help connect a general city reference point with the older urban landscape.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States north-east or gives both component directions."
+        },
+        {
+          "marks": 1,
+          "description": "Names a landmark listed in the submission."
+        }
+      ],
+      "stimulus": {
+        "type": "map",
+        "title": "Three centres on a coordinate map",
+        "assetPath": "stimuli/batch-184/precolonial-centres-locator.svg",
+        "textAlternative": "North is up and east is right. P is near 9.0° N, 4.4° E. Q is near 12.0° N, 8.5° E. R is near 6.3° N, 5.7° E. Markers are approximate reference points. The map has no territorial boundaries."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Benin City and map scope",
+      "learningObjective": "Locate Benin City on a map and explain the limits of a centre marker.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-184-03-v1",
+      "id": "ndv-184-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Use the locator and a gazetteer entry of about 6.3° N, 5.7° E to label the centre of the historical Kingdom of Benin. Compare its position with Old Oyo at P.",
+      "answer": "R is Benin City. Its latitude is lower and its longitude higher than P, so it lies south-east of Old Oyo.",
+      "explanation": "The gazetteer locates present-day Benin City, the centre named for the historical kingdom. The comparison follows the grid orientation.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Labels R as Benin City."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the south-east position relative to P."
+        }
+      ],
+      "stimulus": {
+        "type": "map",
+        "title": "Three centres on a coordinate map",
+        "assetPath": "stimuli/batch-184/precolonial-centres-locator.svg",
+        "textAlternative": "North is up and east is right. P is near 9.0° N, 4.4° E. Q is near 12.0° N, 8.5° E. R is near 6.3° N, 5.7° E. Markers are approximate reference points. The map has no territorial boundaries."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Nigerian History",
+      "level": "JSS 1",
+      "topic": "Major Centralised States in Pre-colonial Nigeria",
+      "subtopic": "Benin City and map scope",
+      "learningObjective": "Locate Benin City on a map and explain the limits of a centre marker.",
+      "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-nh-jss1-184-03-v1",
+      "id": "ndv-184-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil wants to colour every place between R at Benin City and P at Old Oyo as territory of the Kingdom of Benin. Explain why the two point locations are insufficient. Describe one additional type of historical evidence the pupil should seek.",
+      "answer": "R and P show where two centres were. They do not show where political authority extended between them at a particular time. The pupil could seek a dated historical map or a historian’s account based on records of territories under the kingdom’s authority.",
+      "explanation": "Mapping an area of control requires evidence about territory and period. Knowing a centre’s position only gives a point.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that markers locate centres rather than territorial extent."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests suitable evidence tied to a historical period."
+        }
+      ],
+      "stimulus": {
+        "type": "map",
+        "title": "Three centres on a coordinate map",
+        "assetPath": "stimuli/batch-184/precolonial-centres-locator.svg",
+        "textAlternative": "North is up and east is right. P is near 9.0° N, 4.4° E. Q is near 12.0° N, 8.5° E. R is near 6.3° N, 5.7° E. Markers are approximate reference points. The map has no territorial boundaries."
+      }
+    }
+  ]
+}

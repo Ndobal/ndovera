@@ -1083,3 +1083,8 @@ Batch 183 adds 10 NERDC JSS 1 Nigerian History drafts across four objectives
 on precolonial centralised states. Five are multiple-choice and five are
 written. The bank has 40 valid drafts across 25 mapped objectives. Location
 coverage, school adoption and independent academic review remain open.
+
+Batch 184 adds six NERDC JSS 1 Nigerian History drafts on Old Oyo, Kano and
+Benin City. Five use the original coordinate locator, which includes a text
+alternative. The bank has 46 valid drafts across 28 mapped objectives. Other
+polities, full chronology, school adoption and academic review remain open.
