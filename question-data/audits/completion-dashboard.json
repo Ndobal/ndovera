@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4380,
-    "validDrafts": 2701,
+    "raw": 4390,
+    "validDrafts": 2711,
     "reviewed": 0,
-    "registeredBanks": 196,
-    "target": 178000,
+    "registeredBanks": 197,
+    "target": 179000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -1238,6 +1238,12 @@
       "sha256": "87fdc2ba30e8c940b462ad10b5afc5cdce26c6128c81821720ac45d4b1747eb2",
       "declared": 6,
       "actual": 6
+    },
+    {
+      "path": "original-multisubject-batch-185.json",
+      "sha256": "b524d3b74133b97b317d6ca0088673cf6b72cd4c6a0d85e37b86e48c56496f86",
+      "declared": 10,
+      "actual": 10
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5155,6 +5161,35 @@
     },
     {
       "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "documentDate": "September 2025",
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "raw": 10,
+      "validDrafts": 10,
+      "reviewed": 0,
+      "questionTypes": {
+        "mcq": 5,
+        "structured": 5
+      },
+      "difficulty": {
+        "standard": 10
+      },
+      "remaining": 990,
+      "mappedObjectives": 8,
+      "representedObjectives": 8,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NERDC",
       "subject": "Economics",
       "level": "SS 1",
       "target": 1000,
@@ -7007,17 +7042,17 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
@@ -37804,6 +37839,66 @@
       "id": "ndv-184-006",
       "file": "original-multisubject-batch-184.json",
       "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-001",
+      "file": "original-multisubject-batch-185.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-002",
+      "file": "original-multisubject-batch-185.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-003",
+      "file": "original-multisubject-batch-185.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-004",
+      "file": "original-multisubject-batch-185.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-005",
+      "file": "original-multisubject-batch-185.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-006",
+      "file": "original-multisubject-batch-185.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-007",
+      "file": "original-multisubject-batch-185.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-008",
+      "file": "original-multisubject-batch-185.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-009",
+      "file": "original-multisubject-batch-185.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-185-010",
+      "file": "original-multisubject-batch-185.json",
+      "index": 9,
       "errors": []
     },
     {
@@ -78579,6 +78674,248 @@
       },
       "tiers": {
         "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-185-01-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Tools and Equipment",
+      "subtopic": "Choosing and caring for brushes",
+      "learningObjective": "Select a tool for a stated art task and explain how to care for it.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective on usage of art tools and equipment"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-185-02-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Shading and texture",
+      "learningObjective": "Explain how line direction or spacing can represent light, shade and surface texture.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1,
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 1"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-185-03-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Types of drawings",
+      "learningObjective": "Identify the drawing type from the main subject and arrangement.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-185-04-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Drawing a still life from observation",
+      "learningObjective": "Draw an arrangement of objects using relative size, overlap and a consistent light direction.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-185-05-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Observing landscape depth",
+      "learningObjective": "Draw a landscape that distinguishes foreground and distance through placement, relative size or detail.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-185-06-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Building and shaping with clay",
+      "learningObjective": "Identify how modelling can build volume by shaping and adding material.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-185-07-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Modelling a stable clay vessel",
+      "learningObjective": "Model a small clay vessel with a cavity, stable base and controlled wall shape.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-185-08-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Textile Design (Tie and Dye)",
+      "subtopic": "Resist and pattern",
+      "learningObjective": "Explain how a tied area can resist dye and form a lighter mark.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 17, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

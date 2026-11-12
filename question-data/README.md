@@ -1088,3 +1088,9 @@ Batch 184 adds six NERDC JSS 1 Nigerian History drafts on Old Oyo, Kano and
 Benin City. Five use the original coordinate locator, which includes a text
 alternative. The bank has 46 valid drafts across 28 mapped objectives. Other
 polities, full chronology, school adoption and academic review remain open.
+
+Batch 185 registers the September 2025 NERDC JSS 1 Cultural and Creative
+Arts curriculum and adds ten original drafts across eight visual arts
+objectives. Five are multiple-choice and five are practical tasks with
+marking guides. School adoption, assessment formats, remaining objectives
+and independent academic review remain open.

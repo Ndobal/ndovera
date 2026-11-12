@@ -1,0 +1,410 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts visual arts",
+  "questionCount": 10,
+  "note": "Original classroom practice with author-created practical marking guides. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Tools and Equipment",
+      "subtopic": "Choosing and caring for brushes",
+      "learningObjective": "Select a tool for a stated art task and explain how to care for it.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-01-v1",
+      "id": "ndv-185-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil using watercolour needs to cover a wide background evenly. Which tool is best suited to that part of the work?",
+      "answer": "A broad flat brush.",
+      "explanation": "A broad flat brush can cover a larger area with fewer strokes. A pointed brush is more useful for narrow details.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A sharpened pencil.",
+        "A broad flat brush.",
+        "A fine pointed brush.",
+        "A narrow ruler."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Tools and Equipment",
+      "subtopic": "Choosing and caring for brushes",
+      "learningObjective": "Select a tool for a stated art task and explain how to care for it.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-01-v1",
+      "id": "ndv-185-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Demonstrate how you would care for a brush just used with watercolour. Use the teacher’s designated water container and return the brush to the drying area.",
+      "answer": "Rinse the brush until visible colour is removed, gently blot excess water, reshape the bristles and lay the brush flat in the designated drying area.",
+      "explanation": "Removing pigment keeps it from drying in the brush. Blotting and laying the brush flat help protect its shape.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "supervised-performance",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the designated container and removes visible paint."
+        },
+        {
+          "marks": 1,
+          "description": "Blots and reshapes the bristles without pulling them."
+        },
+        {
+          "marks": 1,
+          "description": "Places the brush appropriately in the designated area."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Shading and texture",
+      "learningObjective": "Explain how line direction or spacing can represent light, shade and surface texture.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-02-v1",
+      "id": "ndv-185-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil shades the same pencil drawing with parallel lines. Which change makes one area appear darker while retaining this technique?",
+      "answer": "Place the strokes closer together.",
+      "explanation": "Closer parallel strokes cover more of the paper, making the area read as a darker tone.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Erase every line from that area.",
+        "Spread the strokes farther apart.",
+        "Place the strokes closer together.",
+        "Make only the outline lighter."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Shading and texture",
+      "learningObjective": "Explain how line direction or spacing can represent light, shade and surface texture.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-02-v1",
+      "id": "ndv-185-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Sketch a smooth bottle and a rough woven basket on one sheet. Add two kinds of marks that help the viewer distinguish the surfaces. Label each mark and explain its purpose.",
+      "answer": "The bottle uses smooth gradual shading with a light highlight. The basket uses short crossing strokes in repeated bands to suggest interwoven strips.",
+      "explanation": "Contrasting mark patterns make the material differences visible. The marks should match what the pupil observes or intends to suggest.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows two clearly distinguishable surfaces."
+        },
+        {
+          "marks": 1,
+          "description": "Uses suitable marks for the smooth surface."
+        },
+        {
+          "marks": 1,
+          "description": "Uses distinct marks for the woven surface."
+        },
+        {
+          "marks": 1,
+          "description": "Labels and explains both choices."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Types of drawings",
+      "learningObjective": "Identify the drawing type from the main subject and arrangement.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-03-v1",
+      "id": "ndv-185-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil arranges a cup, a closed book and an orange on a table and draws them from one viewing position. Which type of drawing is this?",
+      "answer": "Still life.",
+      "explanation": "A still life depicts arranged objects. The cup, book and orange are the subjects of the composition.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Landscape.",
+        "Self-portrait.",
+        "Figure drawing.",
+        "Still life."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Drawing a still life from observation",
+      "learningObjective": "Draw an arrangement of objects using relative size, overlap and a consistent light direction.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-04-v1",
+      "id": "ndv-185-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Place a cup partly in front of a closed book. Draw the arrangement from your seat. Show which object is closer and use one light direction to shade the scene.",
+      "answer": "A successful drawing shows the cup overlapping the book, keeps their relative sizes close to the observed arrangement and places darker tones and cast shadow consistently with the light source.",
+      "explanation": "Overlap helps show depth. Consistent shading makes the volume and position of the objects easier to read.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draws both observed objects with recognisable shapes."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the cup overlapping the book."
+        },
+        {
+          "marks": 1,
+          "description": "Uses plausible relative sizes."
+        },
+        {
+          "marks": 1,
+          "description": "Uses shading consistent with one light direction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Observing landscape depth",
+      "learningObjective": "Draw a landscape that distinguishes foreground and distance through placement, relative size or detail.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-05-v1",
+      "id": "ndv-185-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "From a teacher-approved view of the school grounds, draw a landscape with one near feature and one distant feature. Use placement and at least one other visual clue to make the depth clear.",
+      "answer": "For example, draw a large, detailed tree near the lower edge and a smaller, simpler school building farther up the page. The near feature may overlap part of the distant view if that is what you observe.",
+      "explanation": "Position and relative detail or size can suggest depth. The example allows other views and layouts that communicate the same relationship.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows a recognisable outdoor scene."
+        },
+        {
+          "marks": 1,
+          "description": "Places a near and a distant feature coherently."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a second cue such as overlap, scale or detail to show depth."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Building and shaping with clay",
+      "learningObjective": "Identify how modelling can build volume by shaping and adding material.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-06-v1",
+      "id": "ndv-185-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "To make a clay animal, a pupil forms a body and joins separate clay pieces for the legs. Which feature makes this an example of modelling?",
+      "answer": "The pupil shapes and adds soft material to build a form.",
+      "explanation": "Joining and shaping soft clay builds a three-dimensional form.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The pupil shapes and adds soft material to build a form.",
+        "The pupil cuts a shape out of a block of wood.",
+        "The pupil paints a flat shape on paper.",
+        "The pupil folds a sheet into a two-dimensional pattern."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Modelling a stable clay vessel",
+      "learningObjective": "Model a small clay vessel with a cavity, stable base and controlled wall shape.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-07-v1",
+      "id": "ndv-185-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Using teacher-provided modelling clay, shape a small pinch pot for display. Make a cavity, keep the wall fairly even and check that the base rests steadily on a flat board.",
+      "answer": "A successful pot has a clear cavity, continuous walls without conspicuous thin spots and a broad enough base to stand without rocking.",
+      "explanation": "The cavity makes the form recognisable as a vessel. Wall control and a steady base are visible signs of successful modelling.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Forms a recognisable vessel with a cavity."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the walls continuous and reasonably even."
+        },
+        {
+          "marks": 1,
+          "description": "Produces a base that stands steadily."
+        },
+        {
+          "marks": 1,
+          "description": "Finishes the rim without conspicuous tears or loose pieces."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Textile Design (Tie and Dye)",
+      "subtopic": "Resist and pattern",
+      "learningObjective": "Explain how a tied area can resist dye and form a lighter mark.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-185-08-v1",
+      "id": "ndv-185-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A cloth is tied tightly around a small gathered section before dyeing. When the tie is removed, why might part of that section appear lighter?",
+      "answer": "The tight tie limits how much dye reaches that part.",
+      "explanation": "The tie acts as a resist by limiting dye penetration where the cloth is compressed.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The tied cloth becomes a different fibre.",
+        "The tight tie limits how much dye reaches that part.",
+        "The tie makes the whole cloth absorb dye at the same rate.",
+        "The knot makes the dye lighter everywhere."
+      ],
+      "correctOption": "B"
+    }
+  ]
+}

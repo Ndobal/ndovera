@@ -2663,6 +2663,25 @@
         "date": "2026-11-12",
         "method": "Direct PDF download matched the registered SHA-256. Rechecked printed p. 8, PDF p. 20, performance objective 4."
       }
+    },
+    {
+      "id": "nerdc-cca-jss1-revised-2025-retrieved",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/11.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-12",
+      "sourceBytes": 1274512,
+      "pageCount": 39,
+      "sha256": "f8f4f77bd1a8a2ce8800b553ca8036fea5fcc1b3c1d3b2378bf9a8bbc8a04233",
+      "sourceSections": [
+        "Cover and imprint, PDF pp. 1–3",
+        "Contents, PDF p. 13",
+        "Visual arts, printed pp. 2–5 (PDF pp. 15–18)"
+      ],
+      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open."
     }
   ],
   "banks": [
@@ -5342,6 +5361,20 @@
       "target": 1000,
       "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
       "specificationId": "nerdc-nigerian-history-jss1-revised-2025-retrieved",
+      "documentDate": "September 2025",
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "revised_2025_exact_class_national_rollout_evidenced_partial_mapping",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
       "documentDate": "September 2025",
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
@@ -22994,6 +23027,152 @@
         "https://www.getty.edu/vow/TGNFullDisplay?subjectid=8711681",
         "https://www.getty.edu/vow/TGNFullDisplay?subjectid=1091899",
         "https://whc.unesco.org/en/tentativelists/489/"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-185-01-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Tools and Equipment",
+      "subtopic": "Choosing and caring for brushes",
+      "learningObjective": "Select a tool for a stated art task and explain how to care for it.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective on usage of art tools and equipment"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-185-02-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Shading and texture",
+      "learningObjective": "Explain how line direction or spacing can represent light, shade and surface texture.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-185-03-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Types of drawings",
+      "learningObjective": "Identify the drawing type from the main subject and arrangement.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-185-04-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Drawing a still life from observation",
+      "learningObjective": "Draw an arrangement of objects using relative size, overlap and a consistent light direction.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-185-05-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Observing landscape depth",
+      "learningObjective": "Draw a landscape that distinguishes foreground and distance through placement, relative size or detail.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-185-06-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Building and shaping with clay",
+      "learningObjective": "Identify how modelling can build volume by shaping and adding material.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-185-07-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Modelling a stable clay vessel",
+      "learningObjective": "Model a small clay vessel with a cavity, stable base and controlled wall shape.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-185-08-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Textile Design (Tie and Dye)",
+      "subtopic": "Resist and pattern",
+      "learningObjective": "Explain how a tied area can resist dye and form a lighter mark.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 17, performance objective 1"
       ]
     }
   ],
