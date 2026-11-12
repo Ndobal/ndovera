@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4492,
-    "validDrafts": 2813,
+    "raw": 4498,
+    "validDrafts": 2819,
     "reviewed": 0,
     "registeredBanks": 197,
     "target": 179000,
@@ -1320,6 +1320,12 @@
     {
       "path": "original-multisubject-batch-198.json",
       "sha256": "5c7e81d16555321c64a5de661cbbef60220db4e951c4779bc495df047e1561e2",
+      "declared": 6,
+      "actual": 6
+    },
+    {
+      "path": "original-multisubject-batch-199.json",
+      "sha256": "877d739db1233dda6a6c4eb06917bddf39afaa0dcb0e0f0f521122852720adaa",
       "declared": 6,
       "actual": 6
     },
@@ -5250,20 +5256,20 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 112,
-      "validDrafts": 112,
+      "raw": 118,
+      "validDrafts": 118,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 45,
-        "structured": 67
+        "mcq": 47,
+        "structured": 71
       },
       "difficulty": {
-        "standard": 110,
+        "standard": 116,
         "easy": 2
       },
-      "remaining": 888,
-      "mappedObjectives": 108,
-      "representedObjectives": 108,
+      "remaining": 882,
+      "mappedObjectives": 114,
+      "representedObjectives": 114,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7121,18 +7127,18 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -38589,6 +38595,42 @@
     {
       "id": "ndv-198-006",
       "file": "original-multisubject-batch-198.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-199-001",
+      "file": "original-multisubject-batch-199.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-199-002",
+      "file": "original-multisubject-batch-199.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-199-003",
+      "file": "original-multisubject-batch-199.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-199-004",
+      "file": "original-multisubject-batch-199.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-199-005",
+      "file": "original-multisubject-batch-199.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-199-006",
+      "file": "original-multisubject-batch-199.json",
       "index": 5,
       "errors": []
     },
@@ -82602,6 +82644,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 19, PDF p. 32, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-199-01-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Tools and Equipment",
+      "subtopic": "Working tools and support equipment",
+      "learningObjective": "Distinguish an art tool that makes a mark from equipment that supports the work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objectives on meaning and types"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-199-02-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Tools and Equipment",
+      "subtopic": "Printmaking tool control",
+      "learningObjective": "Use simple art tools to control the clarity and spacing of repeated prints.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 2, PDF p. 15, evaluation guide 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-199-03-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Modelling material and support",
+      "learningObjective": "Explain how a modelling material and equipment help produce a three-dimensional form.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objectives 1 and 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-199-04-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Fundamentals of Music",
+      "subtopic": "Rhythm and melody",
+      "learningObjective": "Distinguish the pattern of durations from the sequence of pitches in a song.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objectives 1 and 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-199-05-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Repeating musical alphabet",
+      "learningObjective": "Use the repeating letter sequence to name successive musical notes.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-199-06-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Treble and bass staves together",
+      "learningObjective": "Explain why a great staff uses treble and bass staves and how they are read together.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 2 and knowledge point 1"
       ],
       "questionCount": 1,
       "validDrafts": 1,

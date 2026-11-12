@@ -1163,3 +1163,8 @@ Batch 198 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
 drama, dance, craft and mosaic, including supervised construction of a
 freestanding card holder. School adoption, formal assessment formats and
 independent academic review remain open.
+
+Batch 199 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
+art tools, modelling and music fundamentals and rudiments. It includes
+supervised sponge printing and great-staff interpretation. School adoption,
+formal assessment formats and independent academic review remain open.

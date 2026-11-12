@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts art tools, modelling and music",
+  "questionCount": 6,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Tools and Equipment",
+      "subtopic": "Working tools and support equipment",
+      "learningObjective": "Distinguish an art tool that makes a mark from equipment that supports the work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-199-01-v1",
+      "id": "ndv-199-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil sets a sheet on an easel and draws a broad dark line with charcoal. Explain the different jobs of the easel and the charcoal in this task.",
+      "answer": "The easel holds the drawing surface steady at a useful angle. The charcoal leaves the visible dark mark.",
+      "explanation": "Equipment can position the work while a drawing medium transfers material to the surface.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes the easel as support for the drawing surface."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies charcoal as the medium that makes the mark."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Tools and Equipment",
+      "subtopic": "Printmaking tool control",
+      "learningObjective": "Use simple art tools to control the clarity and spacing of repeated prints.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-199-02-v1",
+      "id": "ndv-199-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Under teacher supervision, use a sponge stamp and a tray of washable paint to print a row of four marks on a card. Make a trial mark on scrap paper first. Use a ruler to plan spaces between the marks. Explain one adjustment you made or one choice you kept after the trial.",
+      "answer": "A learner might remove excess paint after a blurred trial, mark four spaced positions with a ruler and press the stamp once at each position. An even trial could also justify keeping the same paint load.",
+      "explanation": "A trial helps check how much paint the stamp carries. Planning positions helps the repeated marks read as a row.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Makes a trial print with the sponge."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the ruler to plan four positions."
+        },
+        {
+          "marks": 1,
+          "description": "Makes four distinct printed marks in a row."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the trial to explain a decision about printing."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Modelling material and support",
+      "learningObjective": "Explain how a modelling material and equipment help produce a three-dimensional form.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-199-03-v1",
+      "id": "ndv-199-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "For a display model of a market basket, a pupil wants to shape a small handle and check it from every side without lifting the model. The teacher offers plasticine, a banding wheel and a ruler. Choose the material and the piece of equipment that best meet these needs. Explain each choice.",
+      "answer": "Plasticine can be shaped into a handle that holds its form. The banding wheel lets the pupil turn the model to inspect it from different sides.",
+      "explanation": "A workable material can be shaped in three dimensions. A rotating support changes the viewing angle without lifting the model.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects plasticine as the material."
+        },
+        {
+          "marks": 1,
+          "description": "Connects plasticine to shaping the handle."
+        },
+        {
+          "marks": 1,
+          "description": "Selects the banding wheel and explains how rotation aids inspection."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Fundamentals of Music",
+      "subtopic": "Rhythm and melody",
+      "learningObjective": "Distinguish the pattern of durations from the sequence of pitches in a song.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-199-04-v1",
+      "id": "ndv-199-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A choir sings a short tune. On the second attempt the notes occur at the same times and last just as long, but two of the pitches are changed. Which musical feature changed?",
+      "answer": "The melody changed while the rhythm stayed the same.",
+      "explanation": "Melody depends on the sequence of pitches. The timings and durations preserve the rhythm in this example.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The rhythm changed while the melody stayed the same.",
+        "The melody changed while the rhythm stayed the same.",
+        "The tempo changed while all the pitches stayed the same.",
+        "The dynamics changed because the singing became softer."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Repeating musical alphabet",
+      "learningObjective": "Use the repeating letter sequence to name successive musical notes.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-199-05-v1",
+      "id": "ndv-199-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A teacher points to four successive letter names going upward, starting at F. Each new note advances one letter name. What is the sequence?",
+      "answer": "F, G, A, B.",
+      "explanation": "The musical alphabet uses A through G, then starts again at A. This question follows letter names without specifying accidentals.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "F, G, H, A.",
+        "F, E, D, C.",
+        "F, A, C, E.",
+        "F, G, A, B."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Treble and bass staves together",
+      "learningObjective": "Explain why a great staff uses treble and bass staves and how they are read together.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-199-06-v1",
+      "id": "ndv-199-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a keyboard score, a pupil sees a treble staff above a bass staff, joined by a brace. Explain why the score uses both staves, what the brace shows, and what it means when a note on the upper staff lines up vertically with a note on the lower staff.",
+      "answer": "The two staves give space for higher and lower pitches in one score. The brace shows that the two staves are read together. Vertically aligned notes in the two staves begin together.",
+      "explanation": "A great staff makes a broad pitch range easier to read and shows how the parts fit in time.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies that the two staves serve higher and lower pitch ranges."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the brace groups the staves for reading together."
+        },
+        {
+          "marks": 1,
+          "description": "Interprets vertically aligned notes as starting together."
+        }
+      ]
+    }
+  ]
+}
