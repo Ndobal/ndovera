@@ -1111,3 +1111,9 @@ Batch 188 adds twelve NERDC JSS 1 Cultural and Creative Arts drafts on
 craft, weaving, collage and mosaic. Three tasks require supervised artefact
 production using classroom materials and original marking guides. School-level
 adoption, formal assessment formats and independent academic review remain open.
+
+Batch 189 adds eight NERDC JSS 1 Cultural and Creative Arts drafts on
+beading and wood carving, including supervised production of a beaded
+display strip. Wood-carving tasks use written reasoning and teacher
+demonstration contexts. Learner wood carving, school adoption, formal
+assessment formats and independent academic review remain open.

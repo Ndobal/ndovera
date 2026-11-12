@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts beading and wood carving",
+  "questionCount": 8,
+  "note": "Original classroom practice. Wood-carving items use written responses or observation of a teacher demonstration. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Beading",
+      "subtopic": "Beads as units",
+      "learningObjective": "Recognise beads as decorative units that can be attached or threaded.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-189-01-v1",
+      "id": "ndv-189-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A craft table has painted dots, printed circles, coils of plain thread and small coloured pieces with holes. Which feature of the last group makes it suitable for a threaded beaded design?",
+      "answer": "A cord can pass through each piece and hold it in the design.",
+      "explanation": "Separate pierced pieces can be threaded onto a cord and arranged in order. Their colour alone does not determine whether they can be threaded.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Each piece can be flattened into a paper circle.",
+        "A cord can pass through each piece and hold it in the design.",
+        "The pieces can change the colour of the cord.",
+        "The holes let the pieces stick to card without adhesive."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Beading",
+      "subtopic": "Cord fit and flexibility",
+      "learningObjective": "Select compatible materials for threading beads.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-189-02-v1",
+      "id": "ndv-189-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At a school craft club, the sample bead slides onto a soft cord. Several other beads from the same packet stop at the tip. The finished piece must bend freely. What should the pupil do before assembling the design?",
+      "answer": "Test a thinner flexible cord with beads from across the packet.",
+      "explanation": "Hole sizes may vary. Testing several beads confirms fit, while a flexible cord allows the piece to bend.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Choose a thicker cord to make the beads fit tightly.",
+        "Use the first cord and check only the bead that already fits.",
+        "Replace the cord with a rigid stick that fits the sample bead.",
+        "Test a thinner flexible cord with beads from across the packet."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Beading",
+      "subtopic": "Planning and assembly",
+      "learningObjective": "Explain a workable sequence for threading and checking a design.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-189-03-v1",
+      "id": "ndv-189-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Bola has a sketch for a beaded display strip and finds that her beads roll away while she compares colours. She has a shallow tray and a cord with a teacher-prepared stop at one end. Explain how to use both aids and how to check the result before the teacher secures the loose end.",
+      "answer": "Lay the beads in the intended order in the tray. Thread from the open end so the stop holds the beads already on the cord. Compare the threaded order with the sketch and correct any misplaced bead before closing the end.",
+      "explanation": "The tray keeps the planned order visible, and the stop prevents the beads from sliding off. The open end makes correction possible.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the tray to organise beads in the planned order."
+        },
+        {
+          "marks": 1,
+          "description": "Threads from the open end."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the stop retains threaded beads."
+        },
+        {
+          "marks": 1,
+          "description": "Checks the order against the sketch while the end is open."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Beading",
+      "subtopic": "Symmetrical display strip",
+      "learningObjective": "Create a threaded bead design with a visible composition rule.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-189-04-v1",
+      "id": "ndv-189-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Make a short beaded display strip with a contrasting centre bead and a mirror-image colour order on each side. Use the supplied large classroom beads and a soft cord with a teacher-prepared stop. Show your teacher the layout before threading, then demonstrate that the finished strip holds together when lifted. Ask the teacher for help securing the loose end if needed.",
+      "answer": "One design reads blue, white, yellow, white, blue. Yellow is the centre and the other colours appear in reverse order on the two sides. The two ends retain the beads when the strip is lifted.",
+      "explanation": "The symmetry depends on the order moving outward from the centre. Secured ends let the strip be displayed without losing the pattern.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Lays out a contrasting centre bead before threading."
+        },
+        {
+          "marks": 1,
+          "description": "Plans matching outward colour orders on the two sides."
+        },
+        {
+          "marks": 1,
+          "description": "Threads the beads in the planned order."
+        },
+        {
+          "marks": 1,
+          "description": "Shows a finished strip that retains its beads when lifted."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Wood Carving",
+      "subtopic": "Relief and removal",
+      "learningObjective": "Explain carving as shaping wood by removing material.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-189-05-v1",
+      "id": "ndv-189-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "During a demonstration, the teacher shows a wooden panel with a raised leaf. A pupil notices that the top of the leaf is level with the untouched edge of the panel. Which change would explain the raised appearance?",
+      "answer": "Wood was removed around the leaf, lowering its background.",
+      "explanation": "Lowering the surrounding surface leaves the leaf at its original height. The difference in height creates relief.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Wood was removed around the leaf, lowering its background.",
+        "The entire surface was lowered evenly.",
+        "Only the top surface of the leaf was lowered.",
+        "The panel was turned over without changing either surface."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Wood Carving",
+      "subtopic": "Tool roles",
+      "learningObjective": "Distinguish the roles of a chisel and a mallet in a demonstration.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-189-06-v1",
+      "id": "ndv-189-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "In a teacher demonstration, a chisel and wooden mallet are used together. Which description identifies their roles?",
+      "answer": "The chisel has the cutting edge, and the mallet delivers a controlled tap.",
+      "explanation": "The cutting edge separates wood. The mallet supplies a tapping force to the chisel handle.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The mallet has the cutting edge, and the chisel holds the panel still.",
+        "Both tools remove wood with a cutting edge.",
+        "The chisel has the cutting edge, and the mallet delivers a controlled tap.",
+        "The chisel marks colour, and the mallet smooths the surface like sandpaper."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Wood Carving",
+      "subtopic": "Recognising tool evidence",
+      "learningObjective": "Explain which observed changes show that a tool cut the wood.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-189-07-v1",
+      "id": "ndv-189-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "After a teacher carves two grooves in a demonstration panel, one pupil points to the painted pencil outline as evidence of cutting. Another points to the grooves and the small chips collected beneath the panel. Decide which evidence is stronger and explain why.",
+      "answer": "The grooves and chips are stronger evidence. The grooves show a change in surface depth and the chips are pieces removed from the wood. An outline can be made without cutting.",
+      "explanation": "A carving tool changes the material physically. A surface mark can guide the work while leaving the wood intact.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses the grooves and chips."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how a groove shows wood was removed."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the outline alone is insufficient evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Wood Carving",
+      "subtopic": "Carved recess and attached border",
+      "learningObjective": "Compare a carved form with a built-up form.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-189-08-v1",
+      "id": "ndv-189-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school display has two wooden trays. In tray K, the inside is hollowed out of one block. In tray L, wooden strips are attached around a flat board. Both have rims. Describe how the rim and hollow of each tray were formed and identify which construction used carving to create its hollow.",
+      "answer": "In K the wood inside was removed and the remaining edge forms the rim. In L the added strips create a raised rim above the board. K used carving to form the hollow.",
+      "explanation": "Subtractive shaping leaves material around a recess. Adding strips raises the border while the board can stay flat.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies K as carved."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the removed interior creates K’s recess."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the remaining edge forms K’s rim."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that adding strips above a flat board forms L’s rim."
+        }
+      ]
+    }
+  ]
+}
