@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4503,
-    "validDrafts": 2824,
+    "raw": 4510,
+    "validDrafts": 2831,
     "reviewed": 0,
-    "registeredBanks": 197,
-    "target": 179000,
+    "registeredBanks": 198,
+    "target": 180000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -1334,6 +1334,12 @@
       "sha256": "092b74ed1670eba0870a00e7901e57fec353a351c0c141d5154b786508c81fa5",
       "declared": 5,
       "actual": 5
+    },
+    {
+      "path": "original-multisubject-batch-201.json",
+      "sha256": "9166845509f8e1b252d0eb2fd96286ace92671191fe52b9b771c6bfb8e043745",
+      "declared": 7,
+      "actual": 7
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5697,6 +5703,31 @@
       "representedObjectives": 0,
       "coverage": "specification_unresolved",
       "completionStatus": "blocked_or_unmapped"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "raw": 7,
+      "validDrafts": 7,
+      "reviewed": 0,
+      "questionTypes": {
+        "mcq": 3,
+        "structured": 4
+      },
+      "difficulty": {
+        "easy": 1,
+        "standard": 6
+      },
+      "remaining": 993,
+      "mappedObjectives": 7,
+      "representedObjectives": 7,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "NERDC",
@@ -38668,6 +38699,48 @@
       "id": "ndv-200-005",
       "file": "original-multisubject-batch-200.json",
       "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-201-001",
+      "file": "original-multisubject-batch-201.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-201-002",
+      "file": "original-multisubject-batch-201.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-201-003",
+      "file": "original-multisubject-batch-201.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-201-004",
+      "file": "original-multisubject-batch-201.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-201-005",
+      "file": "original-multisubject-batch-201.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-201-006",
+      "file": "original-multisubject-batch-201.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-201-007",
+      "file": "original-multisubject-batch-201.json",
+      "index": 6,
       "errors": []
     },
     {
@@ -83010,6 +83083,216 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-201-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Fitness and daily tasks",
+      "learningObjective": "Relate physical fitness to the demands of everyday movement.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-201-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Value of fitness",
+      "learningObjective": "Explain how an aspect of fitness can support school participation.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-201-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Balance and agility",
+      "learningObjective": "Distinguish balance from agility in movement tasks.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-201-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Evidence and limits",
+      "learningObjective": "Explain what one observed activity can show about physical fitness.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-201-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Progressive practice",
+      "learningObjective": "Identify body conditioning as planned practice to develop physical capacity.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-201-06-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Controlled stretching demonstration",
+      "learningObjective": "Demonstrate a teacher-approved stretch with controlled movement and spacing.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-201-07-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Preparing a practice area",
+      "learningObjective": "Recognise and address obstacles before a conditioning activity.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 2"
       ],
       "questionCount": 1,
       "validDrafts": 1,

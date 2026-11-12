@@ -2773,6 +2773,24 @@
       "kind": "supplementary_content_reference",
       "source": "https://resources.metmuseum.org/resources/metpublications/pdf/Chinese_Textiles_An_Introduction.pdf",
       "retrievedOn": "2026-11-12"
+    },
+    {
+      "id": "nerdc-phe-jss1-revised-retrieved",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/6.pdf",
+      "retrievedOn": "2026-11-12",
+      "sourceBytes": 5528559,
+      "pageCount": 32,
+      "sha256": "ad9529230f2ddedb64c35accfdd3b00f5f9967626ff4f987360b23d4e8dfc18a",
+      "sourceSections": [
+        "Cover and title, PDF pp. 1–3",
+        "Contents, PDF p. 13",
+        "Physical Fitness and Body Conditioning, printed pp. 7–8 (PDF pp. 19–20)"
+      ],
+      "note": "Exact-class revised PDF. Publication date not established from inspected pages. Contents lists these topics as pp. 6–7, while table footers show pp. 7–8. School adoption, term allocation, formal assessment and remaining topics are open."
     }
   ],
   "banks": [
@@ -5471,6 +5489,15 @@
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
     }
   ],
@@ -25265,6 +25292,132 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-201-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Fitness and daily tasks",
+      "learningObjective": "Relate physical fitness to the demands of everyday movement.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-201-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Value of fitness",
+      "learningObjective": "Explain how an aspect of fitness can support school participation.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-201-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Balance and agility",
+      "learningObjective": "Distinguish balance from agility in movement tasks.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-201-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Evidence and limits",
+      "learningObjective": "Explain what one observed activity can show about physical fitness.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 19, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-201-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Progressive practice",
+      "learningObjective": "Identify body conditioning as planned practice to develop physical capacity.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-201-06-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Controlled stretching demonstration",
+      "learningObjective": "Demonstrate a teacher-approved stretch with controlled movement and spacing.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-201-07-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Preparing a practice area",
+      "learningObjective": "Recognise and address obstacles before a conditioning activity.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 2"
       ]
     }
   ],

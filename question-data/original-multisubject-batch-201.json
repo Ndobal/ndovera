@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Physical and Health Education physical fitness and body conditioning",
+  "questionCount": 7,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Fitness and daily tasks",
+      "learningObjective": "Relate physical fitness to the demands of everyday movement.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-201-01-v1",
+      "id": "ndv-201-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which observation gives the clearest evidence of physical fitness for an everyday task?",
+      "answer": "A pupil carries ordinary class materials to a nearby room and can continue the lesson comfortably.",
+      "explanation": "Fitness relates to what a person can do. A person’s height, clothes or voice alone do not show capacity for this task.",
+      "score": 1,
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A pupil is taller than everyone in the group.",
+        "A pupil carries ordinary class materials to a nearby room and can continue the lesson comfortably.",
+        "A pupil wears a sports uniform every day.",
+        "A pupil speaks loudly at assembly."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Value of fitness",
+      "learningObjective": "Explain how an aspect of fitness can support school participation.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-201-02-v1",
+      "id": "ndv-201-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A group spends part of the school day moving books between two rooms. Explain how muscular endurance could help during this activity, and name a sign that the task is becoming tiring.",
+      "answer": "Muscular endurance helps the pupil repeat manageable carrying actions. Slower movement or needing more frequent rests can indicate increasing tiredness.",
+      "explanation": "The activity calls for repeated effort over time. The question concerns the demands of this task.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects muscular endurance to repeated effort."
+        },
+        {
+          "marks": 1,
+          "description": "Applies the idea to moving books."
+        },
+        {
+          "marks": 1,
+          "description": "Names a plausible observable sign of fatigue."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Balance and agility",
+      "learningObjective": "Distinguish balance from agility in movement tasks.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-201-03-v1",
+      "id": "ndv-201-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At a sports lesson, task P asks pupils to hold a steady position. Task Q asks them to change direction quickly in response to a cue. Which pairing best identifies the main fitness component in each task?",
+      "answer": "P tests balance and Q tests agility.",
+      "explanation": "Balance helps control a steady position. Agility involves changing direction quickly with control.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "P tests agility and Q tests balance.",
+        "P tests flexibility and Q tests muscular strength.",
+        "P tests speed and Q tests flexibility.",
+        "P tests balance and Q tests agility."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Physical Fitness",
+      "subtopic": "Evidence and limits",
+      "learningObjective": "Explain what one observed activity can show about physical fitness.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-201-04-v1",
+      "id": "ndv-201-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil keeps a steady pace on a short route around the school field. A classmate concludes that the pupil must also have excellent flexibility. Explain what the observation supports and why the conclusion about flexibility needs separate evidence.",
+      "answer": "It shows that the pupil can sustain that pace for the observed route. Flexibility concerns range of movement and was not measured on the route.",
+      "explanation": "Fitness has several components. Evidence from one activity may only address some of them.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Limits the evidence to maintaining pace during the observed route."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies flexibility as involving range of movement."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why a separate observation would be needed."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Progressive practice",
+      "learningObjective": "Identify body conditioning as planned practice to develop physical capacity.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-201-05-v1",
+      "id": "ndv-201-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A teacher plans several lessons of controlled movement practice, choosing activities to develop strength and flexibility. Why does this plan fit body conditioning?",
+      "answer": "It uses planned physical practice to develop specific abilities over time.",
+      "explanation": "Conditioning links repeated practice to physical abilities such as strength and flexibility.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It uses planned physical practice to develop specific abilities over time.",
+        "It uses the same school hall for each lesson.",
+        "It records only who attends the lessons.",
+        "It requires every pupil to be ranked by speed."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Controlled stretching demonstration",
+      "learningObjective": "Demonstrate a teacher-approved stretch with controlled movement and spacing.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-201-06-v1",
+      "id": "ndv-201-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In your own marked space, demonstrate one gentle stretch already taught and approved by your teacher. Show how you enter it slowly, stay within a comfortable range and return to the starting position. A seated version is acceptable.",
+      "answer": "For example, a pupil gently moves into the teacher’s demonstrated position, briefly maintains it without bouncing, then returns slowly.",
+      "explanation": "The demonstration assesses control and awareness of space. It uses a movement already taught and selected for the pupil.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the marked space without crowding others."
+        },
+        {
+          "marks": 1,
+          "description": "Enters the demonstrated stretch gradually."
+        },
+        {
+          "marks": 1,
+          "description": "Maintains a controlled position within the selected range."
+        },
+        {
+          "marks": 1,
+          "description": "Returns to the starting position smoothly."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Preparing a practice area",
+      "learningObjective": "Recognise and address obstacles before a conditioning activity.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-201-07-v1",
+      "id": "ndv-201-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A group is about to practise a familiar conditioning movement on mats. One mat has a folded corner and a school bag lies between the mats. Explain how the pupils should respond before beginning and why each change matters.",
+      "answer": "Pause and ask the teacher to flatten or replace the mat. Move the bag to the agreed storage area so the practice space and paths between mats are clear.",
+      "explanation": "A level mat and clear space reduce avoidable tripping or interference during practice.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Pauses before beginning."
+        },
+        {
+          "marks": 1,
+          "description": "Addresses the folded mat and explains the reason."
+        },
+        {
+          "marks": 1,
+          "description": "Clears the bag from the practice area and explains the reason."
+        }
+      ]
+    }
+  ]
+}

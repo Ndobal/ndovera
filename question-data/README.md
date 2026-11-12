@@ -1173,3 +1173,9 @@ Batch 200 adds five NERDC JSS 1 Cultural and Creative Arts drafts on
 modelling with a mould, tool selection, choreography and the meaning of a
 music icon. A supervised trio performs and varies a shared motif. Full
 objective reconciliation, school adoption and independent review remain open.
+
+Batch 201 registers the revised NERDC JSS 1 Physical and Health Education
+PDF and adds seven drafts on physical fitness and body conditioning. A
+supervised stretch uses teacher-approved movement. The contents and table
+page numbers differ, so both printed and PDF locators are recorded.
+Publication date, school adoption, formal formats and academic review remain open.

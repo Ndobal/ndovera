@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_200_automated_validation_passed",
+  "phase": "batch_201_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-201.json",
+  "nextBatch": "original-multisubject-batch-202.json",
   "nextPriorities": [
-    "Check for a retrievable official exact-class curriculum for an underrepresented JSS 1 subject. Reconcile existing registered banks before adding a new bank. Return to Cultural and Creative Arts for the remaining objective-by-objective review and learner wood-carving delivery.",
+    "Expand verified JSS 1 Physical and Health Education objectives, prioritising supervised movement and school health. Check printed page offsets and suitable delivery. Return to Cultural and Creative Arts for objective-by-objective review and learner wood-carving delivery.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-200.json",
-  "lastRemoteVerifiedCommit": "5fbd060c431dcc37e3d8145120e7cab288b986db",
+  "lastValidatedBatch": "original-multisubject-batch-201.json",
+  "lastRemoteVerifiedCommit": "a75b65f0a0e304e43c2a76a41e5480605423aa6b",
   "verifiedTotals": {
-    "raw": 4503,
-    "validDrafts": 2824,
+    "raw": 4510,
+    "validDrafts": 2831,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-200.json",
+  "lastPopulatedBatch": "original-multisubject-batch-201.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4503,
+  "inventoryRaw": 4510,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "nerdc-cca-jss1-revised-2025-retrieved",
+    "id": "nerdc-phe-jss1-revised-retrieved",
     "date": "2026-11-12"
   }
 }
