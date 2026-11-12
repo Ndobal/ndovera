@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4510,
-    "validDrafts": 2831,
+    "raw": 4516,
+    "validDrafts": 2837,
     "reviewed": 0,
     "registeredBanks": 198,
     "target": 180000,
@@ -1340,6 +1340,12 @@
       "sha256": "9166845509f8e1b252d0eb2fd96286ace92671191fe52b9b771c6bfb8e043745",
       "declared": 7,
       "actual": 7
+    },
+    {
+      "path": "original-multisubject-batch-202.json",
+      "sha256": "961d21036ace172324a233efa06a7a4369be4d3656d6577c6021570441c83878",
+      "declared": 6,
+      "actual": 6
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5712,20 +5718,20 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-phe-jss1-revised-retrieved",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 7,
-      "validDrafts": 7,
+      "raw": 13,
+      "validDrafts": 13,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 3,
-        "structured": 4
+        "mcq": 5,
+        "structured": 8
       },
       "difficulty": {
         "easy": 1,
-        "standard": 6
+        "standard": 12
       },
-      "remaining": 993,
-      "mappedObjectives": 7,
-      "representedObjectives": 7,
+      "remaining": 987,
+      "mappedObjectives": 13,
+      "representedObjectives": 13,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7164,8 +7170,8 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
@@ -7174,8 +7180,8 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -38741,6 +38747,42 @@
       "id": "ndv-201-007",
       "file": "original-multisubject-batch-201.json",
       "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-202-001",
+      "file": "original-multisubject-batch-202.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-202-002",
+      "file": "original-multisubject-batch-202.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-202-003",
+      "file": "original-multisubject-batch-202.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-202-004",
+      "file": "original-multisubject-batch-202.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-202-005",
+      "file": "original-multisubject-batch-202.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-202-006",
+      "file": "original-multisubject-batch-202.json",
+      "index": 5,
       "errors": []
     },
     {
@@ -83285,6 +83327,186 @@
       "topic": "Body Conditioning",
       "subtopic": "Preparing a practice area",
       "learningObjective": "Recognise and address obstacles before a conditioning activity.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-202-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "School and Community Health",
+      "subtopic": "Sewage and refuse",
+      "learningObjective": "Distinguish sewage from solid refuse in school settings.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-202-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "School and Community Health",
+      "subtopic": "Sorting compostable material",
+      "learningObjective": "Select a suitable material for a school garden compost collection.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-202-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "School and Community Health",
+      "subtopic": "Separate routes for waste",
+      "learningObjective": "Explain how a school can direct separated refuse to appropriate destinations.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-202-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "School and Community Health",
+      "subtopic": "Sewage handling responsibilities",
+      "learningObjective": "Choose a responsible response to a suspected sewage leak at school.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 4, PDF p. 16, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-202-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Controlled press-up adaptation",
+      "learningObjective": "Demonstrate controlled technique in a teacher-approved press-up variation.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-202-06-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Responding to unstable equipment",
+      "learningObjective": "Explain how to respond when conditioning equipment becomes unstable.",
       "specificationId": "nerdc-phe-jss1-revised-retrieved",
       "questionTypes": {
         "structured": 1

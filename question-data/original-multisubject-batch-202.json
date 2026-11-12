@@ -1,0 +1,257 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Physical and Health Education school environment and movement",
+  "questionCount": 6,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "School and Community Health",
+      "subtopic": "Sewage and refuse",
+      "learningObjective": "Distinguish sewage from solid refuse in school settings.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-202-01-v1",
+      "id": "ndv-202-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school caretaker reports wastewater flowing from toilets and discarded paper piling up in a bin. Classify each waste stream and explain the difference between them.",
+      "answer": "The wastewater from the toilets is sewage. The discarded paper is solid refuse. Sewage here is wastewater carrying human waste, while the paper is discarded solid material.",
+      "explanation": "Distinguishing the waste streams helps the school identify the type of collection or treatment each needs.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies toilet wastewater as sewage."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies discarded paper as solid refuse."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the difference using the examples."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "School and Community Health",
+      "subtopic": "Sorting compostable material",
+      "learningObjective": "Select a suitable material for a school garden compost collection.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-202-02-v1",
+      "id": "ndv-202-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "The school garden accepts fallen leaves and uncooked vegetable peelings in its compost bin. Which material should the grounds team put in that bin?",
+      "answer": "Dry leaves swept from the garden path.",
+      "explanation": "Dry leaves are organic matter and meet the school garden’s stated compost rules.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Empty plastic drink sachets.",
+        "Broken glass from a window.",
+        "Dry leaves swept from the garden path.",
+        "Used aluminium drink cans."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "School and Community Health",
+      "subtopic": "Separate routes for waste",
+      "learningObjective": "Explain how a school can direct separated refuse to appropriate destinations.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-202-03-v1",
+      "id": "ndv-202-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "After a school fair, bins contain uncooked vegetable peelings and empty plastic bottles. The garden team accepts peelings, and an agreed recycler accepts clean bottles. Propose a labelled collection system and explain how it helps both teams.",
+      "answer": "Use one labelled bin for the peelings going to the garden team and another for empty bottles going to the recycler. This keeps plastic out of the compost collection and keeps food scraps away from bottles meant for recycling.",
+      "explanation": "The destination’s requirements guide sorting at the point of collection.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Provides separate clearly labelled collection points."
+        },
+        {
+          "marks": 1,
+          "description": "Matches peelings to the garden collection."
+        },
+        {
+          "marks": 1,
+          "description": "Matches clean bottles to the agreed recycler."
+        },
+        {
+          "marks": 1,
+          "description": "Explains one benefit of preventing mixing."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "School and Community Health",
+      "subtopic": "Sewage handling responsibilities",
+      "learningObjective": "Choose a responsible response to a suspected sewage leak at school.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-202-04-v1",
+      "id": "ndv-202-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Wastewater from a damaged toilet pipe is pooling across a school walkway. Which first response should a pupil take?",
+      "answer": "Use another route, alert a staff member and tell them where the leak is.",
+      "explanation": "Staff can keep the affected area clear and arrange suitable repair and cleaning.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Move the liquid into a bin with discarded paper.",
+        "Use another route, alert a staff member and tell them where the leak is.",
+        "Walk through the pool to find out how deep it is.",
+        "Wait for the pool to dry before telling anyone."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Controlled press-up adaptation",
+      "learningObjective": "Demonstrate controlled technique in a teacher-approved press-up variation.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-202-05-v1",
+      "id": "ndv-202-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Under teacher supervision, show two slow repetitions of the wall press-up already taught in class. Use the teacher’s marked position and agreed comfortable movement range. Show a controlled return after each repetition.",
+      "answer": "In the teacher-approved position, bend the elbows to move towards the wall with the body controlled, then straighten them to return smoothly. Repeat within the agreed range.",
+      "explanation": "The task checks control and consistency in a supported press-up variation.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Starts in the taught position."
+        },
+        {
+          "marks": 1,
+          "description": "Controls the movement towards the wall."
+        },
+        {
+          "marks": 1,
+          "description": "Returns smoothly on both repetitions."
+        },
+        {
+          "marks": 1,
+          "description": "Stays within the agreed movement range."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Body Conditioning",
+      "subtopic": "Responding to unstable equipment",
+      "learningObjective": "Explain how to respond when conditioning equipment becomes unstable.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-202-06-v1",
+      "id": "ndv-202-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Before a supervised conditioning activity, a pupil notices that the exercise bar moves at its base when the teacher tests it. What should the pupil do, and how can the group continue while the bar is checked?",
+      "answer": "Tell the teacher and keep clear of the bar. The teacher can close off that station and choose an already taught activity that uses suitable equipment or no equipment.",
+      "explanation": "An unstable station may move during use. A teacher-selected alternative lets the class practise while the station is checked.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Alerts the teacher to the movement."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps clear of the unstable station."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests continuing only with a suitable teacher-approved alternative."
+        }
+      ]
+    }
+  ]
+}

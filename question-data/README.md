@@ -1179,3 +1179,8 @@ PDF and adds seven drafts on physical fitness and body conditioning. A
 supervised stretch uses teacher-approved movement. The contents and table
 page numbers differ, so both printed and PDF locators are recorded.
 Publication date, school adoption, formal formats and academic review remain open.
+
+Batch 202 adds six NERDC JSS 1 Physical and Health Education drafts on
+school sanitation and body conditioning. The practical uses a teacher-approved
+wall press-up adaptation. Publication date, school adoption, formal assessment
+formats and independent academic review remain open.
