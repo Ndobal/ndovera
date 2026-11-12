@@ -1144,3 +1144,8 @@ Batch 194 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
 evidence of early art, artistic expression, clay sourcing and preparation.
 The numbered-objective check for Introduction to Art and Clay leaves clay
 types open. School adoption, formal formats and independent review remain open.
+
+Batch 195 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
+clay bodies, carving materials and tie-dye. The tie-dye practical uses
+teacher-prepared classroom materials. School adoption, formal assessment
+formats and independent academic review remain open.
