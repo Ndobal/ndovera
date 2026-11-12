@@ -1168,3 +1168,8 @@ Batch 199 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
 art tools, modelling and music fundamentals and rudiments. It includes
 supervised sponge printing and great-staff interpretation. School adoption,
 formal assessment formats and independent academic review remain open.
+
+Batch 200 adds five NERDC JSS 1 Cultural and Creative Arts drafts on
+modelling with a mould, tool selection, choreography and the meaning of a
+music icon. A supervised trio performs and varies a shared motif. Full
+objective reconciliation, school adoption and independent review remain open.

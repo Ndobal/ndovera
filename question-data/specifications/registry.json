@@ -2689,10 +2689,10 @@
         "Playing Musical Instruments and Music Icons in Nigeria, printed pp. 12 and 15 (PDF pp. 25 and 28)",
         "Introduction to Art, Carving and Clay, printed pp. 1, 6–7 (PDF pp. 14, 19–20)"
       ],
-      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open. Batch 186 maps selected drama and music outcomes. Performance and stave-marking guides are original classroom rubrics. Formal assessment formats remain open. Batch 187 maps selected dance and choreography outcomes. The traditional-dance performance requires a documented teacher demonstration. Classroom rubrics are author-created. Batch 188 maps selected craft outcomes and uses supervised classroom rubrics, including a paper-tesserae model of direct mosaic. Batch 189 includes supervised beading and written wood-carving practice. Learner production in wood remains unmapped pending suitable workshop delivery. Batch 190 adds fictional classroom cases on apprenticeships and creative occupations. The cases make no claims about available placements or qualifications. Batch 191 covers culture and cultural values, with one supervised display using a teacher-verified example. Formal assessment and school adoption remain open. Batch 192 adds instrument classification and playing, and artist attribution and original song composition. Batch 193 establishes initial mappings for all 25 topic pages. The Clay table header refers to drama; mappings use the Clay topic row, performance objectives and evaluation guide. Learner wood carving and complete objective coverage remain open. Batch 194 adds initial evidence-based art history and clay sourcing practice. Batch 195 adds ceramic clay bodies, carving materials and tie-dye practice. Clay-body labels describe workshop materials and are distinct from clay mineral names. Tie-dye uses teacher-prepared classroom materials. Batch 196 extends instrument classification and leno weave interpretation. Batch 197 adds drawing media, mirror self-portrait, music meaning and use, and collage examples classified by materials. The collage table does not prescribe a taxonomy. Batch 198 addresses selected gaps in drama and dance forms, craft meaning and construction, and mosaic materials and tools. Batch 199 extends tool use, modelling, musical fundamentals and rudiments.",
+      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open. Batch 186 maps selected drama and music outcomes. Performance and stave-marking guides are original classroom rubrics. Formal assessment formats remain open. Batch 187 maps selected dance and choreography outcomes. The traditional-dance performance requires a documented teacher demonstration. Classroom rubrics are author-created. Batch 188 maps selected craft outcomes and uses supervised classroom rubrics, including a paper-tesserae model of direct mosaic. Batch 189 includes supervised beading and written wood-carving practice. Learner production in wood remains unmapped pending suitable workshop delivery. Batch 190 adds fictional classroom cases on apprenticeships and creative occupations. The cases make no claims about available placements or qualifications. Batch 191 covers culture and cultural values, with one supervised display using a teacher-verified example. Formal assessment and school adoption remain open. Batch 192 adds instrument classification and playing, and artist attribution and original song composition. Batch 193 establishes initial mappings for all 25 topic pages. The Clay table header refers to drama; mappings use the Clay topic row, performance objectives and evaluation guide. Learner wood carving and complete objective coverage remain open. Batch 194 adds initial evidence-based art history and clay sourcing practice. Batch 195 adds ceramic clay bodies, carving materials and tie-dye practice. Clay-body labels describe workshop materials and are distinct from clay mineral names. Tie-dye uses teacher-prepared classroom materials. Batch 196 extends instrument classification and leno weave interpretation. Batch 197 adds drawing media, mirror self-portrait, music meaning and use, and collage examples classified by materials. The collage table does not prescribe a taxonomy. Batch 198 addresses selected gaps in drama and dance forms, craft meaning and construction, and mosaic materials and tools. Batch 199 extends tool use, modelling, musical fundamentals and rudiments. Batch 200 adds initial music-icon meaning practice and extends modelling techniques and choreography principles.",
       "latestRecheck": {
         "date": "2026-11-12",
-        "method": "Matched the registered PDF checksum and checked printed pp. 2, 5, 10 and 11."
+        "method": "Matched the registered PDF checksum and checked printed pp. 5, 14 and 15."
       }
     },
     {
@@ -25175,6 +25175,96 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 2 and knowledge point 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-200-01-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Modelling with a mould",
+      "learningObjective": "Explain how a mould can reproduce a shape across clay pieces.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-200-02-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Modeling",
+      "subtopic": "Shaping and checking a surface",
+      "learningObjective": "Choose modelling tools for a stated surface and thickness problem.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-200-03-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Choreography",
+      "subtopic": "Focus and contrast in a group",
+      "learningObjective": "Explain how contrasting movement can direct an audience’s attention.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-200-04-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Choreography",
+      "subtopic": "Passing a movement motif",
+      "learningObjective": "Create and perform a movement motif passed between dancers with a variation.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-200-05-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music Icons in Nigeria",
+      "subtopic": "Recognition and influence",
+      "learningObjective": "Explain how evidence of recognition and influence can support describing a musician as an icon.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 1"
       ]
     }
   ],
