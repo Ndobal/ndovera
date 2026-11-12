@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Physical and Health Education soccer and field events",
+  "questionCount": 5,
+  "note": "Original classroom practice. Field-event items assess observation and safety reasoning. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Soccer",
+      "subtopic": "Receiving and passing",
+      "learningObjective": "Control a rolling pass and return it accurately in a supervised drill.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-204-01-v1",
+      "id": "ndv-204-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "With a partner and a soft football, use the marked practice lane. Receive a gentle rolling pass and bring the ball under control. Then pass it back along the ground through the cone gate. Take two turns each while the teacher observes.",
+      "answer": "A pupil cushions the incoming ball so it remains within playing distance, then sends a controlled rolling pass through the gate.",
+      "explanation": "A controlled first touch makes the next action easier. A ground pass through a gate gives a visible test of direction.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Keeps the first touch within playing distance."
+        },
+        {
+          "marks": 1,
+          "description": "Sends the return pass along the ground."
+        },
+        {
+          "marks": 1,
+          "description": "Directs at least one return pass through the gate."
+        },
+        {
+          "marks": 1,
+          "description": "Takes turns and stays in the marked lane."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Soccer",
+      "subtopic": "Dribbling control",
+      "learningObjective": "Select a ball-control adjustment for a tight turn.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-204-02-v1",
+      "id": "ndv-204-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "During a cone drill, the ball repeatedly rolls beyond Chidi’s reach just before a turn. Which adjustment is most likely to help him change direction while keeping the ball close?",
+      "answer": "Slow slightly and use shorter touches before the turn.",
+      "explanation": "Shorter touches reduce the distance the ball travels away from the player and allow time to change direction.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Kick the ball farther ahead before turning.",
+        "Increase speed while keeping the same long touches.",
+        "Slow slightly and use shorter touches before the turn.",
+        "Run around the cone first and leave the ball behind."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Soccer",
+      "subtopic": "Touchline decisions",
+      "learningObjective": "Apply the whole-ball crossing and last-touch criteria to a throw-in decision.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-204-03-v1",
+      "id": "ndv-204-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a match using IFAB Law 15, the ball first rolls with part of it still over the touchline. It then passes completely beyond the line after a Blue player’s touch. What should the match official decide at each point?",
+      "answer": "Play continues at the first point because the whole ball has not crossed. At the second point, award a throw-in to the other team because Blue touched it last.",
+      "explanation": "The restart follows complete crossing of the touchline. The opposing team of the last player to touch it takes the throw-in.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Keeps play going while part of the ball remains over the line."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a throw-in after full crossing."
+        },
+        {
+          "marks": 1,
+          "description": "Awards it to the team opposing Blue."
+        }
+      ],
+      "contentSourceId": "ifab-law-15-throw-in-2026-recheck"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Field events",
+      "subtopic": "Keeping the landing sector clear",
+      "learningObjective": "Explain why access to a throwing sector is controlled during school field events.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-204-04-v1",
+      "id": "ndv-204-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher is supervising a field-event demonstration. One pupil wants to collect an implement from the landing area while the next demonstrator is getting ready. Describe what the pupil should do and explain why.",
+      "answer": "Stay outside the landing area and wait for the teacher to stop activity and give permission to collect it.",
+      "explanation": "Keeping people out of the landing area while a throw could occur reduces the chance of someone being struck.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Stays outside the landing area."
+        },
+        {
+          "marks": 1,
+          "description": "Waits for an explicit teacher signal after activity is stopped."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the risk of an implement striking someone."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Field events",
+      "subtopic": "Observing field-event techniques",
+      "learningObjective": "Distinguish the basic delivery actions shown in shot put and discus demonstrations.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-204-05-v1",
+      "id": "ndv-204-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two paused demonstration clips show different implements. In clip P an athlete begins with a round shot close to the neck and pushes it away with one hand. In clip Q an athlete carries a disc away from the body and releases it after a sweeping arm action. Identify each event and give one observable clue for each.",
+      "answer": "P is shot put, shown by the shot starting close to the neck and being pushed. Q is discus, shown by the disc and the sweeping delivery.",
+      "explanation": "The implement and the observed delivery distinguish the events. This observation task assesses recognition of techniques.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies P as shot put."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an observed clue for P."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies Q as discus."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an observed clue for Q."
+        }
+      ]
+    }
+  ]
+}

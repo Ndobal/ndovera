@@ -2791,13 +2791,24 @@
         "Physical Fitness and Body Conditioning, printed pp. 7–8 (PDF pp. 19–20)",
         "School and Community Health, printed p. 4 (PDF p. 16)",
         "Long jump and High jump, printed pp. 13–14 (PDF pp. 25–26)",
-        "Recreation, Leisure and Dance activities, printed p. 19 (PDF p. 31)"
+        "Recreation, Leisure and Dance activities, printed p. 19 (PDF p. 31)",
+        "Field events and Soccer, printed pp. 15–16 (PDF pp. 27–28)"
       ],
       "note": "Exact-class revised PDF. Publication date not established from inspected pages. Contents lists these topics as pp. 6–7, while table footers show pp. 7–8. School adoption, term allocation, formal assessment and remaining topics are open.",
       "latestRecheck": {
         "date": "2026-11-12",
-        "method": "Matched registered PDF checksum and verified the tables on PDF pp. 25–26 and 31."
+        "method": "Matched registered SHA-256 and verified the Field events and Soccer tables on PDF pp. 27–28."
       }
+    },
+    {
+      "id": "ifab-law-15-throw-in-2026-recheck",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "kind": "supplementary_official_rules_reference",
+      "source": "https://www.theifab.com/laws/latest/the-throw-in/",
+      "retrievedOn": "2026-11-12",
+      "note": "Checked the published Law 15 introduction for whole-ball crossing and restart allocation. Local school competition adoption and other rules remain open."
     }
   ],
   "banks": [
@@ -25641,6 +25652,96 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 19, PDF p. 31, learning outcome on simple recreational, leisure and dance activities"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-204-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Soccer",
+      "subtopic": "Receiving and passing",
+      "learningObjective": "Control a rolling pass and return it accurately in a supervised drill.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 16, PDF p. 28, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-204-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Soccer",
+      "subtopic": "Dribbling control",
+      "learningObjective": "Select a ball-control adjustment for a tight turn.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 16, PDF p. 28, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-204-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Soccer",
+      "subtopic": "Touchline decisions",
+      "learningObjective": "Apply the whole-ball crossing and last-touch criteria to a throw-in decision.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 16, PDF p. 28, performance objective 3 and 4"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-204-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Field events",
+      "subtopic": "Keeping the landing sector clear",
+      "learningObjective": "Explain why access to a throwing sector is controlled during school field events.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 15, PDF p. 27, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-204-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Field events",
+      "subtopic": "Observing field-event techniques",
+      "learningObjective": "Distinguish the basic delivery actions shown in shot put and discus demonstrations.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 15, PDF p. 27, performance objective 1 and 2"
       ]
     }
   ],

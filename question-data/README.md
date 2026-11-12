@@ -1189,3 +1189,8 @@ Batch 203 adds six NERDC JSS 1 Physical and Health Education drafts on
 recreation and athletics. It includes a tabletop officiating simulation
 and a supervised rhythm game. Live jump performance, publication date,
 school adoption, formal assessment and independent review remain open.
+
+Batch 204 adds five NERDC JSS 1 Physical and Health Education drafts on
+soccer and field events, including supervised receiving and passing. The
+throw-in item cites IFAB Law 15. Field events cover observation and safety.
+Competition-rule comparison, live throws and independent review remain open.
