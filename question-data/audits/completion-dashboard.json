@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4516,
-    "validDrafts": 2837,
+    "raw": 4522,
+    "validDrafts": 2843,
     "reviewed": 0,
     "registeredBanks": 198,
     "target": 180000,
@@ -1344,6 +1344,12 @@
     {
       "path": "original-multisubject-batch-202.json",
       "sha256": "961d21036ace172324a233efa06a7a4369be4d3656d6577c6021570441c83878",
+      "declared": 6,
+      "actual": 6
+    },
+    {
+      "path": "original-multisubject-batch-203.json",
+      "sha256": "ee4bd545274a16d585048b24f84f4ce06ec4dfe7b640488afb680c2e2398e96c",
       "declared": 6,
       "actual": 6
     },
@@ -5718,20 +5724,20 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-phe-jss1-revised-retrieved",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 13,
-      "validDrafts": 13,
+      "raw": 19,
+      "validDrafts": 19,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 5,
-        "structured": 8
+        "mcq": 6,
+        "structured": 13
       },
       "difficulty": {
         "easy": 1,
-        "standard": 12
+        "standard": 18
       },
-      "remaining": 987,
-      "mappedObjectives": 13,
-      "representedObjectives": 13,
+      "remaining": 981,
+      "mappedObjectives": 19,
+      "representedObjectives": 19,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7170,17 +7176,17 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81,
     "invalid_score": 81
   },
   "mathematicalVerification": {
@@ -38782,6 +38788,42 @@
     {
       "id": "ndv-202-006",
       "file": "original-multisubject-batch-202.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-203-001",
+      "file": "original-multisubject-batch-203.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-203-002",
+      "file": "original-multisubject-batch-203.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-203-003",
+      "file": "original-multisubject-batch-203.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-203-004",
+      "file": "original-multisubject-batch-203.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-203-005",
+      "file": "original-multisubject-batch-203.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-203-006",
+      "file": "original-multisubject-batch-203.json",
       "index": 5,
       "errors": []
     },
@@ -83515,6 +83557,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-203-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Long jump",
+      "subtopic": "Take-off and flight",
+      "learningObjective": "Distinguish the take-off phase from flight in a long jump.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 13, PDF p. 25, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-203-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Long jump",
+      "subtopic": "Measuring a simulated attempt",
+      "learningObjective": "Use a reference line and the nearest landing mark to measure a classroom trial.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 13, PDF p. 25, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-203-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "High jump",
+      "subtopic": "Landing and recovery",
+      "learningObjective": "Distinguish landing and recovery when observing a high jump.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 14, PDF p. 26, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-203-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Recreation, Leisure and Dance activities",
+      "subtopic": "Free time and chosen activity",
+      "learningObjective": "Distinguish time available for leisure from a recreational activity during it.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 19, PDF p. 31, performance objectives 1 and 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-203-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Recreation, Leisure and Dance activities",
+      "subtopic": "Benefits of shared recreation",
+      "learningObjective": "Explain how an inclusive recreational activity can support social connection.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 19, PDF p. 31, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-203-06-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Recreation, Leisure and Dance activities",
+      "subtopic": "Inclusive rhythmic game",
+      "learningObjective": "Perform a simple group recreation activity using a shared pulse and turn-taking.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 19, PDF p. 31, learning outcome on simple recreational, leisure and dance activities"
       ],
       "questionCount": 1,
       "validDrafts": 1,

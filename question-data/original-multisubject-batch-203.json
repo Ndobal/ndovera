@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Physical and Health Education recreation and athletics",
+  "questionCount": 6,
+  "note": "Original classroom practice. Athletics uses video and tabletop observation rather than live jumps. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Long jump",
+      "subtopic": "Take-off and flight",
+      "learningObjective": "Distinguish the take-off phase from flight in a long jump.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-203-01-v1",
+      "id": "ndv-203-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil pauses a video of a long jump just after the jumper’s take-off foot has left the ground. Which event marks the transition shown?",
+      "answer": "The jumper finishes pushing against the ground and begins moving through the air.",
+      "explanation": "Take-off ends when ground contact ends. Flight continues until the jumper touches down.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The jumper begins the approach run.",
+        "The jumper finishes pushing against the ground and begins moving through the air.",
+        "The jumper’s feet first contact the landing area.",
+        "The jumper stands and leaves the landing area."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Long jump",
+      "subtopic": "Measuring a simulated attempt",
+      "learningObjective": "Use a reference line and the nearest landing mark to measure a classroom trial.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-203-02-v1",
+      "id": "ndv-203-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a supervised tabletop officiating simulation, a drawn line represents take-off and a paper strip represents the sand. The teacher marks a heel print farther from the line and a hand print closer to it. The classroom rule uses the closest landing mark. Use a ruler to demonstrate the shortest measurement from the line to the appropriate mark. Report the distance with its unit.",
+      "answer": "Measure perpendicular from the line to the nearer hand mark, and report the ruler reading in the units shown. The rule uses the nearest mark left in the landing area.",
+      "explanation": "The classroom simulation isolates the measurement decision without requiring pupils to jump.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the take-off line as the reference."
+        },
+        {
+          "marks": 1,
+          "description": "Selects the nearer hand mark."
+        },
+        {
+          "marks": 1,
+          "description": "Measures along a perpendicular path."
+        },
+        {
+          "marks": 1,
+          "description": "Reads and reports the measured distance with its unit."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "High jump",
+      "subtopic": "Landing and recovery",
+      "learningObjective": "Distinguish landing and recovery when observing a high jump.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-203-03-v1",
+      "id": "ndv-203-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher pauses a demonstration video twice. At frame A the jumper first contacts the landing mat. At frame B the jumper has settled and is getting up to leave. Name the phase shown by each frame and describe the difference.",
+      "answer": "Frame A shows landing, when the jumper first contacts the mat. Frame B shows recovery, when the jumper regains control after landing and prepares to leave.",
+      "explanation": "Landing begins at contact. Recovery takes place after that contact as the jumper comes to rest or regains control.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies A as landing."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies B as recovery."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the distinction using contact and regaining control."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Recreation, Leisure and Dance activities",
+      "subtopic": "Free time and chosen activity",
+      "learningObjective": "Distinguish time available for leisure from a recreational activity during it.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-203-04-v1",
+      "id": "ndv-203-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "During a free period after school duties, pupils choose to play a clapping game for enjoyment. Identify the leisure time and the recreation in this example.",
+      "answer": "The free period is the leisure time. Playing the clapping game for enjoyment is the recreation.",
+      "explanation": "Leisure can describe time free from duties. Recreation describes an activity chosen for enjoyment or refreshment during free time.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the free period as leisure time."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the chosen clapping game as recreation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Recreation, Leisure and Dance activities",
+      "subtopic": "Benefits of shared recreation",
+      "learningObjective": "Explain how an inclusive recreational activity can support social connection.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-203-05-v1",
+      "id": "ndv-203-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A lunchtime movement game lets pupils choose a seated or standing role, and rotates who leads each round. Explain how these two features could help pupils join in and get to know one another.",
+      "answer": "Choice of role makes participation possible for more pupils. Rotating leaders gives different pupils opportunities to guide the group and gives others a reason to pay attention to each of them.",
+      "explanation": "Participation choices lower barriers and shared responsibility can encourage interaction.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links role choice to participation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how rotating leadership creates opportunities for interaction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Recreation, Leisure and Dance activities",
+      "subtopic": "Inclusive rhythmic game",
+      "learningObjective": "Perform a simple group recreation activity using a shared pulse and turn-taking.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-203-06-v1",
+      "id": "ndv-203-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In groups of three under teacher supervision, play a turn-taking rhythm game. Keep a gentle shared pulse. Each pupil gives one short clap or tap pattern for the others to echo before the next leader begins. Agree on a cue for changing leaders. A seated version is acceptable.",
+      "answer": "One pupil gives a short two-tap pattern and the others echo it on the shared pulse. The agreed cue passes leadership to the next pupil until each has led.",
+      "explanation": "The shared pulse helps the group respond together, and rotating turns makes participation visible.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Maintains a recognisable shared pulse."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a short pattern during the assigned turn."
+        },
+        {
+          "marks": 1,
+          "description": "Echoes the other leaders’ patterns."
+        },
+        {
+          "marks": 1,
+          "description": "Uses or responds to the agreed turn-changing cue."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    }
+  ]
+}

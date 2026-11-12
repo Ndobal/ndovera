@@ -1184,3 +1184,8 @@ Batch 202 adds six NERDC JSS 1 Physical and Health Education drafts on
 school sanitation and body conditioning. The practical uses a teacher-approved
 wall press-up adaptation. Publication date, school adoption, formal assessment
 formats and independent academic review remain open.
+
+Batch 203 adds six NERDC JSS 1 Physical and Health Education drafts on
+recreation and athletics. It includes a tabletop officiating simulation
+and a supervised rhythm game. Live jump performance, publication date,
+school adoption, formal assessment and independent review remain open.

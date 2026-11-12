@@ -2789,12 +2789,14 @@
         "Cover and title, PDF pp. 1–3",
         "Contents, PDF p. 13",
         "Physical Fitness and Body Conditioning, printed pp. 7–8 (PDF pp. 19–20)",
-        "School and Community Health, printed p. 4 (PDF p. 16)"
+        "School and Community Health, printed p. 4 (PDF p. 16)",
+        "Long jump and High jump, printed pp. 13–14 (PDF pp. 25–26)",
+        "Recreation, Leisure and Dance activities, printed p. 19 (PDF p. 31)"
       ],
       "note": "Exact-class revised PDF. Publication date not established from inspected pages. Contents lists these topics as pp. 6–7, while table footers show pp. 7–8. School adoption, term allocation, formal assessment and remaining topics are open.",
       "latestRecheck": {
         "date": "2026-11-12",
-        "method": "Matched registered PDF SHA-256 and checked School and Community Health and Body Conditioning tables on PDF pp. 16 and 20."
+        "method": "Matched registered PDF checksum and verified the tables on PDF pp. 25–26 and 31."
       }
     }
   ],
@@ -25531,6 +25533,114 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 8, PDF p. 20, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-203-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Long jump",
+      "subtopic": "Take-off and flight",
+      "learningObjective": "Distinguish the take-off phase from flight in a long jump.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 13, PDF p. 25, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-203-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Long jump",
+      "subtopic": "Measuring a simulated attempt",
+      "learningObjective": "Use a reference line and the nearest landing mark to measure a classroom trial.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 13, PDF p. 25, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-203-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "High jump",
+      "subtopic": "Landing and recovery",
+      "learningObjective": "Distinguish landing and recovery when observing a high jump.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 14, PDF p. 26, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-203-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Recreation, Leisure and Dance activities",
+      "subtopic": "Free time and chosen activity",
+      "learningObjective": "Distinguish time available for leisure from a recreational activity during it.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 19, PDF p. 31, performance objectives 1 and 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-203-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Recreation, Leisure and Dance activities",
+      "subtopic": "Benefits of shared recreation",
+      "learningObjective": "Explain how an inclusive recreational activity can support social connection.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 19, PDF p. 31, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-203-06-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Recreation, Leisure and Dance activities",
+      "subtopic": "Inclusive rhythmic game",
+      "learningObjective": "Perform a simple group recreation activity using a shared pulse and turn-taking.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 19, PDF p. 31, learning outcome on simple recreational, leisure and dance activities"
       ]
     }
   ],
