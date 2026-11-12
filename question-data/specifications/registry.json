@@ -2689,10 +2689,10 @@
         "Playing Musical Instruments and Music Icons in Nigeria, printed pp. 12 and 15 (PDF pp. 25 and 28)",
         "Introduction to Art, Carving and Clay, printed pp. 1, 6–7 (PDF pp. 14, 19–20)"
       ],
-      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open. Batch 186 maps selected drama and music outcomes. Performance and stave-marking guides are original classroom rubrics. Formal assessment formats remain open. Batch 187 maps selected dance and choreography outcomes. The traditional-dance performance requires a documented teacher demonstration. Classroom rubrics are author-created. Batch 188 maps selected craft outcomes and uses supervised classroom rubrics, including a paper-tesserae model of direct mosaic. Batch 189 includes supervised beading and written wood-carving practice. Learner production in wood remains unmapped pending suitable workshop delivery. Batch 190 adds fictional classroom cases on apprenticeships and creative occupations. The cases make no claims about available placements or qualifications. Batch 191 covers culture and cultural values, with one supervised display using a teacher-verified example. Formal assessment and school adoption remain open. Batch 192 adds instrument classification and playing, and artist attribution and original song composition. Batch 193 establishes initial mappings for all 25 topic pages. The Clay table header refers to drama; mappings use the Clay topic row, performance objectives and evaluation guide. Learner wood carving, art origins and complete objective coverage remain open.",
+      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open. Batch 186 maps selected drama and music outcomes. Performance and stave-marking guides are original classroom rubrics. Formal assessment formats remain open. Batch 187 maps selected dance and choreography outcomes. The traditional-dance performance requires a documented teacher demonstration. Classroom rubrics are author-created. Batch 188 maps selected craft outcomes and uses supervised classroom rubrics, including a paper-tesserae model of direct mosaic. Batch 189 includes supervised beading and written wood-carving practice. Learner production in wood remains unmapped pending suitable workshop delivery. Batch 190 adds fictional classroom cases on apprenticeships and creative occupations. The cases make no claims about available placements or qualifications. Batch 191 covers culture and cultural values, with one supervised display using a teacher-verified example. Formal assessment and school adoption remain open. Batch 192 adds instrument classification and playing, and artist attribution and original song composition. Batch 193 establishes initial mappings for all 25 topic pages. The Clay table header refers to drama; mappings use the Clay topic row, performance objectives and evaluation guide. Learner wood carving and complete objective coverage remain open. Batch 194 adds initial evidence-based art history and clay sourcing practice.",
       "latestRecheck": {
         "date": "2026-11-12",
-        "method": "Direct PDF download matched the registered SHA-256. Checked PDF pp. 14 and 19–20 against the contents."
+        "method": "Matched registered PDF checksum and reconciled numbered objectives on printed pp. 1 and 7."
       }
     },
     {
@@ -2725,6 +2725,26 @@
       "source": "https://felakuti.bandcamp.com/track/water-no-get-enemy",
       "retrievedOn": "2026-11-12",
       "note": "Artist catalogue recording credits Fela Kuti and lists the track on Expensive Shit. No recording or lyrics included in the repository."
+    },
+    {
+      "id": "henshilwood-blombos-engraved-ochre-2002",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "kind": "supplementary_content_reference",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/11786608/",
+      "retrievedOn": "2026-11-12",
+      "note": "Primary excavation report on engraved ochre at Blombos Cave, Science 295, DOI 10.1126/science.1067575."
+    },
+    {
+      "id": "usgs-clay-mineral-deposits",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "kind": "supplementary_content_reference",
+      "source": "https://pubs.usgs.gov/info/clays/",
+      "retrievedOn": "2026-11-12",
+      "note": "USGS report on clay characteristics, weathering, transport and deposition."
     }
   ],
   "banks": [
@@ -24479,6 +24499,114 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-194-01-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Art",
+      "subtopic": "Evidence of early mark-making",
+      "learningObjective": "Draw a supported historical inference from evidence of early mark-making.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-194-02-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Art",
+      "subtopic": "Limits of an origin claim",
+      "learningObjective": "Explain the limits of a claim about the origin of art based on an excavated object.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-194-03-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Art",
+      "subtopic": "Art as expression",
+      "learningObjective": "Explain how artistic decisions convey a feeling.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-194-04-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Clay",
+      "subtopic": "How clay deposits form",
+      "learningObjective": "Explain how moving water can carry and deposit fine clay particles.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-194-05-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Clay",
+      "subtopic": "Recognising a working property",
+      "learningObjective": "Recognise plasticity as a useful property of moist modelling clay.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-194-06-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Clay",
+      "subtopic": "Preparing a clay body",
+      "learningObjective": "Select a preparation step for clay with uneven moisture.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 4"
       ]
     }
   ],

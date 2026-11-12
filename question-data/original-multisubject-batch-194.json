@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts early art and clay sources",
+  "questionCount": 6,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Art",
+      "subtopic": "Evidence of early mark-making",
+      "learningObjective": "Draw a supported historical inference from evidence of early mark-making.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-194-01-v1",
+      "id": "ndv-194-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Archaeologists reported pieces of red ochre with engraved designs from Middle Stone Age layers at Blombos Cave in South Africa. Which statement can a museum label support using this evidence?",
+      "answer": "People made deliberate designs on pieces of ochre during the Middle Stone Age.",
+      "explanation": "The designs and their excavation context provide evidence of early mark-making. The objects alone cannot establish the intended meaning or the first place people made art.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The designs record the names of the people who made them.",
+        "People made deliberate designs on pieces of ochre during the Middle Stone Age.",
+        "The same designs were used throughout Africa at that time.",
+        "The cave is the first place where people ever made art."
+      ],
+      "correctOption": "B",
+      "contentSourceId": "henshilwood-blombos-engraved-ochre-2002"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Art",
+      "subtopic": "Limits of an origin claim",
+      "learningObjective": "Explain the limits of a claim about the origin of art based on an excavated object.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-194-02-v1",
+      "id": "ndv-194-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school exhibition label calls the Blombos Cave engravings “the first art anyone ever made.” Rewrite that claim as a defensible sentence and give one reason the stronger claim goes beyond the find.",
+      "answer": "The engraved ochre from Blombos Cave provides evidence of early deliberate design. Older examples may have perished or may still be undiscovered.",
+      "explanation": "Excavation provides evidence of what survives in a particular context. It cannot settle where or when every form of art began.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies engraved ochre from Blombos Cave as evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Makes a limited claim about early design."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how survival, discovery or the limited context prevents establishing a universal first."
+        }
+      ],
+      "contentSourceId": "henshilwood-blombos-engraved-ochre-2002"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Introduction to Art",
+      "subtopic": "Art as expression",
+      "learningObjective": "Explain how artistic decisions convey a feeling.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-194-03-v1",
+      "id": "ndv-194-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two pupils draw the same empty classroom. One uses widely spaced desks and long shadows to suggest loneliness. Explain how the pupil’s choices turn a familiar place into an expression of a feeling.",
+      "answer": "The gaps make the room look empty and the long shadows can make it feel still or isolated. The pupil arranges visible features to communicate a feeling about the place.",
+      "explanation": "An artwork can communicate a viewpoint through deliberate decisions about what to show and how to show it.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies at least one deliberate visual choice."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the choice to a plausible feeling."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how this makes the drawing an expression of the pupil’s viewpoint."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Clay",
+      "subtopic": "How clay deposits form",
+      "learningObjective": "Explain how moving water can carry and deposit fine clay particles.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-194-04-v1",
+      "id": "ndv-194-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Water carries tiny particles away from weathered ground and into a sheltered basin. A fine layer gradually builds on the bottom. Explain how the particles travelled and why they could collect in that basin.",
+      "answer": "Flowing water carried the fine particles in suspension. Where water movement was weak enough for long enough, particles could settle and gradually form a layer.",
+      "explanation": "Clay deposits can form when transported fine material accumulates. The example describes deposition, one route by which clay-rich layers form.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies transport by moving water."
+        },
+        {
+          "marks": 1,
+          "description": "Explains settling where the water becomes sufficiently quiet."
+        },
+        {
+          "marks": 1,
+          "description": "Connects repeated settling to accumulation of the layer."
+        }
+      ],
+      "contentSourceId": "usgs-clay-mineral-deposits"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Clay",
+      "subtopic": "Recognising a working property",
+      "learningObjective": "Recognise plasticity as a useful property of moist modelling clay.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-194-05-v1",
+      "id": "ndv-194-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At an art table, a material can be pressed into a shallow cup while moist and keeps the new shape when the pressure is removed. Which property is the pupil making use of?",
+      "answer": "Plasticity.",
+      "explanation": "Plasticity allows a suitably moist clay body to deform under pressure and retain the changed shape.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Plasticity.",
+        "Transparency.",
+        "Magnetism.",
+        "Elastic recovery."
+      ],
+      "correctOption": "A",
+      "contentSourceId": "usgs-clay-mineral-deposits"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Clay",
+      "subtopic": "Preparing a clay body",
+      "learningObjective": "Select a preparation step for clay with uneven moisture.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-194-06-v1",
+      "id": "ndv-194-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A teacher provides modelling clay with some firm patches and some soft patches. Which action best prepares the clay for a small hand-modelled form?",
+      "answer": "Work it until the moisture and consistency are reasonably even.",
+      "explanation": "An even consistency lets the clay respond more predictably when pressed or rolled.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Dust only the outside with dry powder and keep the patches inside.",
+        "Shape the piece immediately with all the soft clay on one side.",
+        "Work it until the moisture and consistency are reasonably even.",
+        "Expose only the firm patches to warm moving air."
+      ],
+      "correctOption": "C"
+    }
+  ]
+}

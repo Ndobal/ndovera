@@ -1139,3 +1139,8 @@ Introduction to Art, Carving and Clay. All 25 topic pages now have initial
 mappings. The two supervised tasks use soap relief and clay coiling.
 Full objective coverage, school adoption, formal assessment formats, learner
 wood carving and independent academic review remain open.
+
+Batch 194 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
+evidence of early art, artistic expression, clay sourcing and preparation.
+The numbered-objective check for Introduction to Art and Clay leaves clay
+types open. School adoption, formal formats and independent review remain open.

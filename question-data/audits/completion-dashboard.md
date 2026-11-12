@@ -114,7 +114,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Chemistry / SS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Christian Religious Studies / JSS 1 | 1000 | 58 | 58 | 0 | 942 | partial_objective_register |
 | NERDC | Computer Studies / JSS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
-| NERDC | Cultural and Creative Arts / JSS 1 | 1000 | 82 | 82 | 0 | 918 | partial_objective_register |
+| NERDC | Cultural and Creative Arts / JSS 1 | 1000 | 88 | 88 | 0 | 912 | partial_objective_register |
 | NERDC | Economics / SS 1 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English / Primary | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English Studies / JSS 1 | 1000 | 56 | 55 | 0 | 945 | partial_objective_register |
@@ -216,12 +216,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 476 | 441 | 0 | 36000 | 35559 |
-| NERDC | 423 | 358 | 0 | 31000 | 30642 |
+| NERDC | 429 | 364 | 0 | 31000 | 30636 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 4462, "validDrafts": 2783, "reviewed": 0, "registeredBanks": 197, "target": 179000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 4468, "validDrafts": 2789, "reviewed": 0, "registeredBanks": 197, "target": 179000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
