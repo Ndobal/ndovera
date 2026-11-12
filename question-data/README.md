@@ -1158,3 +1158,8 @@ Batch 197 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
 drawing, music and collage, including a supervised mirror self-portrait.
 Collage labels describe examples grouped by materials. School adoption,
 formal assessment formats and independent academic review remain open.
+
+Batch 198 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
+drama, dance, craft and mosaic, including supervised construction of a
+freestanding card holder. School adoption, formal assessment formats and
+independent academic review remain open.
