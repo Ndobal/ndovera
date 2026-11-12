@@ -1122,3 +1122,8 @@ Batch 190 adds ten NERDC JSS 1 Cultural and Creative Arts drafts on
 apprenticeship, creative careers and art professionals. Five use
 written responses with marking guides. Scenarios are fictional. School
 adoption, formal assessment formats and academic review remain open.
+
+Batch 191 adds eight NERDC JSS 1 Cultural and Creative Arts drafts on
+culture and cultural values. Two use evidence from the UNESCO Argungu
+inscription decision and one is a supervised display with a teacher-verified
+source card. School adoption, formal formats and academic review remain open.

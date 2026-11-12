@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts culture and cultural values",
+  "questionCount": 8,
+  "note": "Original classroom practice. The Argungu examples use the registered UNESCO decision. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Learning and transmission",
+      "learningObjective": "Explain how a shared practice can be transmitted across generations.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-191-01-v1",
+      "id": "ndv-191-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At the Argungu festival, some skills are passed on through demonstrations within families. What does this example show about how a cultural practice can continue?",
+      "answer": "Younger people can learn a shared practice by watching experienced people demonstrate it.",
+      "explanation": "Demonstration passes on knowledge of how an activity is done. The documented festival example illustrates how a practice can be learned within a family.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A practice can continue only after it has been written in a textbook.",
+        "Younger people can learn a shared practice by watching experienced people demonstrate it.",
+        "Each new generation must invent the activity independently.",
+        "A practice continues only if every family member takes part."
+      ],
+      "correctOption": "B",
+      "contentSourceId": "unesco-argungu-decision-2016"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Objects and performance",
+      "learningObjective": "Distinguish a physical cultural object from a learned cultural expression.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-191-02-v1",
+      "id": "ndv-191-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "An Argungu festival exhibition includes a canoe and a recording of festival singing. Classify the canoe and the act of singing as a physical object or a learned expression. Explain why the recording itself differs from the singing it documents.",
+      "answer": "The canoe is a physical object. The act of singing is a learned expression. A recording preserves evidence of a performance that people learned and carried out.",
+      "explanation": "An object can be handled, while a performance is something people do. A recording documents an activity and can help others learn about it.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies the canoe as a physical object."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies the act of singing as a learned expression."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the distinction between the record and the performance."
+        }
+      ],
+      "contentSourceId": "unesco-argungu-decision-2016"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Variation within a community",
+      "learningObjective": "Explain why shared culture allows for variation in how people participate.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-191-03-v1",
+      "id": "ndv-191-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two families at a fictional community gathering share the practice of welcoming guests with a greeting. One family uses a short spoken greeting and the other adds a song. What conclusion is best supported?",
+      "answer": "A shared purpose can be expressed in different ways within one community.",
+      "explanation": "Both families welcome guests, and the details of how they greet them differ. The examples support shared purpose and variation.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A greeting counts as culture only when everyone uses exactly the same words.",
+        "The family that adds a song has stopped welcoming guests.",
+        "The greeting proves that the families share every other custom.",
+        "A shared purpose can be expressed in different ways within one community."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Evidence-based cultural display",
+      "learningObjective": "Present a documented dress example and describe its context respectfully.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-191-04-v1",
+      "id": "ndv-191-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Using a garment or reproduction supplied by your teacher, give a short supervised display. Show two visible features and explain one context of use from the teacher’s accompanying source card. State whose example the card documents. You may present the garment on a stand or wear it if appropriate.",
+      "answer": "A successful display identifies the example named on the source card, points out two accurate features and explains one documented use in context. For example, the pupil could point to a woven border and a method of fastening if both are visible.",
+      "explanation": "A documented example helps viewers connect visible details to a specific context and understand who supplied that evidence.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Presents the garment or reproduction so viewers can see it."
+        },
+        {
+          "marks": 1,
+          "description": "Points out two accurate visible features."
+        },
+        {
+          "marks": 1,
+          "description": "Explains one context of use supported by the source card."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the maker, wearer or community as documented by the source card."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Cultural Values in a Child",
+      "subtopic": "Values and actions",
+      "learningObjective": "Distinguish a value from the action that expresses it.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-191-05-v1",
+      "id": "ndv-191-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The class decides that every display label should credit the person who made the object. A pupil adds a missing maker’s name after checking the display register. Identify one value the action expresses and explain the difference between the value and the action.",
+      "answer": "Honesty is a value that guides the pupil to give accurate credit. Adding the missing name after checking the register is the action that expresses it. Respect for the maker is also defensible if explained.",
+      "explanation": "A value is a principle that guides behaviour. An action is something people do in a particular situation.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies honesty, respect or a defensible related value."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies checking and correcting the credit as the action."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the principle guides the action."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Cultural Values in a Child",
+      "subtopic": "Respectful handling",
+      "learningObjective": "Apply respect to decisions about objects lent for a display.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-191-06-v1",
+      "id": "ndv-191-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A family lends a ceremonial garment to a school display and asks that it be shown without being handled by visitors. What should the pupil guiding the display do?",
+      "answer": "Explain the family’s request and let visitors observe the garment from the display area.",
+      "explanation": "Following the lender’s request respects the conditions of the loan and still gives visitors a chance to learn from the garment.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Pass it around after the family leaves.",
+        "Ask visitors to try it on briefly if they are careful.",
+        "Explain the family’s request and let visitors observe the garment from the display area.",
+        "Let visitors handle it if they promise to put it back."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Cultural Values in a Child",
+      "subtopic": "Punctuality and coordination",
+      "learningObjective": "Explain how punctuality supports a shared arts activity.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-191-07-v1",
+      "id": "ndv-191-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At a school arts evening, a team needs ten minutes to set up a display before the next group begins. A pupil learns that the materials will arrive late. Give one action the pupil can take before the event and explain how it helps both teams keep to the agreed timetable.",
+      "answer": "Tell the teacher and the next group about the delay early so they can agree on a revised setup plan. They could prepare the available parts first and protect the next group’s start time.",
+      "explanation": "Timely communication helps groups adjust shared plans when a delay is unavoidable.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a practical action taken before the event."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how it helps the pupil’s own group prepare."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how it protects or allows coordination with the next group’s schedule."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Cultural Values in a Child",
+      "subtopic": "Communicating honesty",
+      "learningObjective": "Design a short message that explains why an honest action matters.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-191-08-v1",
+      "id": "ndv-191-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draft a caption of no more than two sentences for an infographic about honesty at a school craft fair. Use an example in which a pupil notices that a visitor paid twice for the same item. Include the honest action and one benefit to the visitor or the fair.",
+      "answer": "Tell the visitor about the second payment and ask the teacher handling the stall to return it. Correcting the error treats the visitor fairly and helps people trust the fair.",
+      "explanation": "A concrete action and its consequence make the value meaningful to the audience.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the duplicate-payment situation."
+        },
+        {
+          "marks": 1,
+          "description": "States an honest action that addresses the error."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant benefit to the visitor or fair."
+        },
+        {
+          "marks": 1,
+          "description": "Communicates the message in at most two sentences."
+        }
+      ]
+    }
+  ]
+}

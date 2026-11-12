@@ -2684,13 +2684,25 @@
         "Dance and Introduction to Choreography, printed pp. 13–14 (PDF pp. 26–27)",
         "Craft, Weaving, Collage and Mosaic, printed pp. 16–19 (PDF pp. 29–32)",
         "Beading and Wood Carving, printed pp. 20–21 (PDF pp. 33–34)",
-        "Apprenticeship and Career Opportunities in Creative and Design Arts and Art Professionals, printed pp. 22–23 (PDF pp. 35–36)"
+        "Apprenticeship and Career Opportunities in Creative and Design Arts and Art Professionals, printed pp. 22–23 (PDF pp. 35–36)",
+        "Culture and Cultural Values in a Child, printed pp. 24–25 (PDF pp. 37–38)"
       ],
-      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open. Batch 186 maps selected drama and music outcomes. Performance and stave-marking guides are original classroom rubrics. Formal assessment formats remain open. Batch 187 maps selected dance and choreography outcomes. The traditional-dance performance requires a documented teacher demonstration. Classroom rubrics are author-created. Batch 188 maps selected craft outcomes and uses supervised classroom rubrics, including a paper-tesserae model of direct mosaic. Batch 189 includes supervised beading and written wood-carving practice. Learner production in wood remains unmapped pending suitable workshop delivery. Batch 190 adds fictional classroom cases on apprenticeships and creative occupations. The cases make no claims about available placements or qualifications.",
+      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open. Batch 186 maps selected drama and music outcomes. Performance and stave-marking guides are original classroom rubrics. Formal assessment formats remain open. Batch 187 maps selected dance and choreography outcomes. The traditional-dance performance requires a documented teacher demonstration. Classroom rubrics are author-created. Batch 188 maps selected craft outcomes and uses supervised classroom rubrics, including a paper-tesserae model of direct mosaic. Batch 189 includes supervised beading and written wood-carving practice. Learner production in wood remains unmapped pending suitable workshop delivery. Batch 190 adds fictional classroom cases on apprenticeships and creative occupations. The cases make no claims about available placements or qualifications. Batch 191 covers culture and cultural values, with one supervised display using a teacher-verified example. Formal assessment and school adoption remain open.",
       "latestRecheck": {
         "date": "2026-11-12",
-        "method": "Direct PDF download matched the registered SHA-256. Verified the apprenticeship and art professionals tables on PDF pp. 35–36."
+        "method": "Direct PDF download matched the registered SHA-256. Verified culture and cultural values tables on PDF pp. 37–38."
       }
+    },
+    {
+      "id": "unesco-argungu-decision-2016",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "kind": "official_cultural_reference",
+      "source": "https://ich.unesco.org/en/decisions/11.COM/10.b.23",
+      "documentDate": "2016",
+      "retrievedOn": "2026-11-12",
+      "note": "UNESCO inscription decision for Argungu, based on Nigerian nomination file 00901. Used only for the documented practices and transmission example."
     }
   ],
   "banks": [
@@ -24013,6 +24025,150 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 23, PDF p. 36, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-191-01-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Learning and transmission",
+      "learningObjective": "Explain how a shared practice can be transmitted across generations.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 24, PDF p. 37, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-191-02-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Objects and performance",
+      "learningObjective": "Distinguish a physical cultural object from a learned cultural expression.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 24, PDF p. 37, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-191-03-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Variation within a community",
+      "learningObjective": "Explain why shared culture allows for variation in how people participate.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 24, PDF p. 37, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-191-04-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Culture",
+      "subtopic": "Evidence-based cultural display",
+      "learningObjective": "Present a documented dress example and describe its context respectfully.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 24, PDF p. 37, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-191-05-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Cultural Values in a Child",
+      "subtopic": "Values and actions",
+      "learningObjective": "Distinguish a value from the action that expresses it.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 25, PDF p. 38, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-191-06-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Cultural Values in a Child",
+      "subtopic": "Respectful handling",
+      "learningObjective": "Apply respect to decisions about objects lent for a display.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 25, PDF p. 38, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-191-07-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Cultural Values in a Child",
+      "subtopic": "Punctuality and coordination",
+      "learningObjective": "Explain how punctuality supports a shared arts activity.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 25, PDF p. 38, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-191-08-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Cultural Values in a Child",
+      "subtopic": "Communicating honesty",
+      "learningObjective": "Design a short message that explains why an honest action matters.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 25, PDF p. 38, performance objective 2"
       ]
     }
   ],
