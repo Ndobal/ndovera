@@ -1,0 +1,409 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts apprenticeships and art professionals",
+  "questionCount": 10,
+  "note": "Original classroom practice with fictional scenarios. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Learning through guided work",
+      "learningObjective": "Identify features of apprenticeship in a creative workplace.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-01-v1",
+      "id": "ndv-190-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Four pupils describe what happens at a fictional community theatre. Which description provides the clearest evidence that an apprenticeship is taking place?",
+      "answer": "A trainee practises making props in stages and revises them after feedback from an experienced prop maker.",
+      "explanation": "Guided practice and feedback across successive tasks show that the trainee is learning a craft through work.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A visitor watches the opening scene and takes a programme home.",
+        "A volunteer hands out tickets before a single show.",
+        "A trainee practises making props in stages and revises them after feedback from an experienced prop maker.",
+        "A customer orders a painted backdrop and collects it later."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Feedback during apprenticeship",
+      "learningObjective": "Explain how repeated supervised practice builds a creative skill.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-02-v1",
+      "id": "ndv-190-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At a textile studio, an apprentice prints a border whose corners fail to join. The mentor points out where the repeat begins and asks the apprentice to make a second trial on scrap fabric. Explain how the feedback and trial can improve the finished border.",
+      "answer": "The feedback helps the apprentice locate the break in the repeat. On scrap fabric the apprentice can test a different starting position. Comparing the trial corners shows whether the border joins before using the final fabric.",
+      "explanation": "The mentor makes the error specific, and the trial gives the apprentice a way to check a correction before committing materials.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Locates the problem in the meeting of the repeated motif."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the trial lets the apprentice change and test the starting position."
+        },
+        {
+          "marks": 1,
+          "description": "States that the trial result can be checked before printing the final fabric."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Finding relevant training",
+      "learningObjective": "Match a stated creative learning goal to the work taught by a mentor.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-03-v1",
+      "id": "ndv-190-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A fictional arts centre lists four supervised learning sessions. Ngozi wants to learn how recorded dialogue and background sounds are combined for a short film. Which session best matches her goal?",
+      "answer": "Working with a sound editor to adjust speech and background tracks against a scene.",
+      "explanation": "The sound editor’s session lets her practise combining the kinds of audio named in the learning goal.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Working with a costume maker to fit and label garments.",
+        "Working with a sound editor to adjust speech and background tracks against a scene.",
+        "Working with a camera assistant to record shots from different angles.",
+        "Working with a storyboard artist to sketch a scene in panels."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Comparing training plans",
+      "learningObjective": "Use evidence about tasks and supervision to compare possible learning opportunities.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-04-v1",
+      "id": "ndv-190-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two fictional design studios describe their training. Studio A lets learners draft sample signs, discuss readability with a designer and revise one design. Studio B asks learners to pack completed signs and record quantities. Which plan better suits a learner who wants to design signs? Give two pieces of evidence and one question to ask about progress before choosing.",
+      "answer": "Choose Studio A. Learners draft signs and receive a designer’s feedback on readability. Ask what criteria the designer uses to decide when a learner is ready to work on a more complex sign.",
+      "explanation": "The choice follows the stated learning goal. Asking how progress is judged helps the learner understand how the training develops over time.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects Studio A."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies drafting sample signs as relevant practice."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies feedback or revision as a relevant feature."
+        },
+        {
+          "marks": 1,
+          "description": "Asks a question about feedback, progression or how learning is assessed."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Creative career roles",
+      "learningObjective": "Identify creative occupations associated with a community production.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-05-v1",
+      "id": "ndv-190-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A youth theatre needs an illustrated event flyer and a performer to compose a short original tune for the opening. Name a suitable creative occupation for each task and describe what each person would deliver.",
+      "answer": "A graphic designer could deliver a flyer layout with an illustration and readable event details. A musician or composer could deliver a short original opening tune.",
+      "explanation": "The flyer communicates in visual form. The tune provides musical material for the performance.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names graphic designer, graphic artist or another defensible visual-design role."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a flyer with a visual layout and event information."
+        },
+        {
+          "marks": 1,
+          "description": "Names musician or composer."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a short original tune for the opening."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Professional artistic practice",
+      "learningObjective": "Recognise evidence of professional artistic practice from a work description.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-06-v1",
+      "id": "ndv-190-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A display label describes Zainab taking a commission for a mural. She discusses the theme with the client, agrees a delivery date, prepares a sketch and completes the mural. Which detail most clearly shows her work as a professional artist in this case?",
+      "answer": "She undertakes a commission and delivers artwork to an agreed brief.",
+      "explanation": "The commission and agreed brief show that she is applying artistic skills to a professional responsibility.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "She uses the same colours as the school uniform.",
+        "She keeps a sketchbook at home.",
+        "She admires the work of another painter.",
+        "She undertakes a commission and delivers artwork to an agreed brief."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Identifying an art specialism",
+      "learningObjective": "Identify a professional art role from characteristic materials and work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-07-v1",
+      "id": "ndv-190-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A craft cooperative needs a maker who can shape clay vessels and have them fired for an exhibition of ceramic work. Which professional’s usual practice best matches the brief?",
+      "answer": "Ceramist.",
+      "explanation": "Ceramists work with clay and other ceramic materials. Firing is a characteristic process in producing ceramic objects.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Ceramist.",
+        "Graphic designer.",
+        "Textile designer.",
+        "Dramatist."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Comparing visual outputs",
+      "learningObjective": "Explain how two art professionals communicate using different features of their work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-08-v1",
+      "id": "ndv-190-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "For a library entrance, one artist makes a freestanding sculpture of a reader, while another designs a wall sign pointing towards the reading room. Describe a feature each artist can use to help the work serve its purpose.",
+      "answer": "The sculptor can shape the reader and book so they are recognisable from several approaches. The graphic designer can use a clear arrow and large lettering that visitors can read while walking.",
+      "explanation": "Three-dimensional form can communicate an idea from different viewpoints. Legible lettering and directional symbols guide movement.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a relevant feature of the sculpture such as recognisable form or pose."
+        },
+        {
+          "marks": 1,
+          "description": "Connects that feature to communicating the reading theme from an intended viewpoint."
+        },
+        {
+          "marks": 1,
+          "description": "Names a feature of the sign such as an arrow or legible lettering."
+        },
+        {
+          "marks": 1,
+          "description": "Connects that feature to helping visitors find the room."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Textile and fashion design",
+      "learningObjective": "Distinguish textile design from fashion design using examples of work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-09-v1",
+      "id": "ndv-190-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A makers’ fair displays two development boards. Board P shows a repeated motif tested across the width of a cloth. Board Q shows sleeve shapes tested on a garment to improve movement. Assign the most relevant design specialism to each board and justify both choices.",
+      "answer": "P fits textile design because it develops how the motif repeats on the cloth. Q fits fashion design because it develops the shape and fit of a garment for the wearer.",
+      "explanation": "The roles can overlap. The main design problem shown on each board indicates the relevant specialism.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies textile design for P."
+        },
+        {
+          "marks": 1,
+          "description": "Links P to designing a repeat on fabric."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies fashion design for Q."
+        },
+        {
+          "marks": 1,
+          "description": "Links Q to garment shape, fit or movement."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Work of a choreographer",
+      "learningObjective": "Recognise a characteristic feature of a choreographer’s work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-190-10-v1",
+      "id": "ndv-190-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A school arts team has already selected its music. Which contribution best demonstrates the work of the choreographer preparing the group dance?",
+      "answer": "Arranging the dancers’ movements and entries to fit the planned sequence.",
+      "explanation": "Choreography organises movement over time and space. Entries help structure when performers join a sequence.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Balancing the volume of the recorded music and announcements.",
+        "Arranging the dancers’ movements and entries to fit the planned sequence.",
+        "Painting a backdrop that suggests the location of the story.",
+        "Editing a recording to join shots from two cameras."
+      ],
+      "correctOption": "B"
+    }
+  ]
+}

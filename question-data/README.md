@@ -1117,3 +1117,8 @@ beading and wood carving, including supervised production of a beaded
 display strip. Wood-carving tasks use written reasoning and teacher
 demonstration contexts. Learner wood carving, school adoption, formal
 assessment formats and independent academic review remain open.
+
+Batch 190 adds ten NERDC JSS 1 Cultural and Creative Arts drafts on
+apprenticeship, creative careers and art professionals. Five use
+written responses with marking guides. Scenarios are fictional. School
+adoption, formal assessment formats and academic review remain open.

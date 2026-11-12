@@ -2683,12 +2683,13 @@
         "Drama, Music, Fundamentals and Rudiments, printed pp. 8–11 (PDF pp. 21–24)",
         "Dance and Introduction to Choreography, printed pp. 13–14 (PDF pp. 26–27)",
         "Craft, Weaving, Collage and Mosaic, printed pp. 16–19 (PDF pp. 29–32)",
-        "Beading and Wood Carving, printed pp. 20–21 (PDF pp. 33–34)"
+        "Beading and Wood Carving, printed pp. 20–21 (PDF pp. 33–34)",
+        "Apprenticeship and Career Opportunities in Creative and Design Arts and Art Professionals, printed pp. 22–23 (PDF pp. 35–36)"
       ],
-      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open. Batch 186 maps selected drama and music outcomes. Performance and stave-marking guides are original classroom rubrics. Formal assessment formats remain open. Batch 187 maps selected dance and choreography outcomes. The traditional-dance performance requires a documented teacher demonstration. Classroom rubrics are author-created. Batch 188 maps selected craft outcomes and uses supervised classroom rubrics, including a paper-tesserae model of direct mosaic. Batch 189 includes supervised beading and written wood-carving practice. Learner production in wood remains unmapped pending suitable workshop delivery.",
+      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open. Batch 186 maps selected drama and music outcomes. Performance and stave-marking guides are original classroom rubrics. Formal assessment formats remain open. Batch 187 maps selected dance and choreography outcomes. The traditional-dance performance requires a documented teacher demonstration. Classroom rubrics are author-created. Batch 188 maps selected craft outcomes and uses supervised classroom rubrics, including a paper-tesserae model of direct mosaic. Batch 189 includes supervised beading and written wood-carving practice. Learner production in wood remains unmapped pending suitable workshop delivery. Batch 190 adds fictional classroom cases on apprenticeships and creative occupations. The cases make no claims about available placements or qualifications.",
       "latestRecheck": {
         "date": "2026-11-12",
-        "method": "Direct PDF download matched the registered SHA-256. Verified Beading and Wood Carving on PDF pp. 33–34."
+        "method": "Direct PDF download matched the registered SHA-256. Verified the apprenticeship and art professionals tables on PDF pp. 35–36."
       }
     }
   ],
@@ -23832,6 +23833,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 21, PDF p. 34, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-01-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Learning through guided work",
+      "learningObjective": "Identify features of apprenticeship in a creative workplace.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 22, PDF p. 35, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-02-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Feedback during apprenticeship",
+      "learningObjective": "Explain how repeated supervised practice builds a creative skill.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 22, PDF p. 35, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-03-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Finding relevant training",
+      "learningObjective": "Match a stated creative learning goal to the work taught by a mentor.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 22, PDF p. 35, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-04-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Comparing training plans",
+      "learningObjective": "Use evidence about tasks and supervision to compare possible learning opportunities.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 22, PDF p. 35, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-05-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Apprenticeship and Career Opportunities in Creative and Design Arts",
+      "subtopic": "Creative career roles",
+      "learningObjective": "Identify creative occupations associated with a community production.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 22, PDF p. 35, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-06-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Professional artistic practice",
+      "learningObjective": "Recognise evidence of professional artistic practice from a work description.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 23, PDF p. 36, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-07-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Identifying an art specialism",
+      "learningObjective": "Identify a professional art role from characteristic materials and work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 23, PDF p. 36, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-08-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Comparing visual outputs",
+      "learningObjective": "Explain how two art professionals communicate using different features of their work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 23, PDF p. 36, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-09-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Textile and fashion design",
+      "learningObjective": "Distinguish textile design from fashion design using examples of work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 23, PDF p. 36, performance objective 2 and 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-190-10-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Art Professionals",
+      "subtopic": "Work of a choreographer",
+      "learningObjective": "Recognise a characteristic feature of a choreographer’s work.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 23, PDF p. 36, performance objective 3"
       ]
     }
   ],
