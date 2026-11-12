@@ -1,0 +1,442 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts drama and music",
+  "questionCount": 10,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Scripted and improvised drama",
+      "learningObjective": "Distinguish an agreed script from dialogue invented during performance.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-01-v1",
+      "id": "ndv-186-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A teacher tells two actors that they are returning a borrowed drum. The teacher gives them a situation and asks them to invent their lines as they perform. Which category describes this scene?",
+      "answer": "Non-scripted drama using improvisation.",
+      "explanation": "The situation is given, while the dialogue is created during the scene. That is improvisation.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Scripted drama with memorised lines.",
+        "A reading of a prepared script.",
+        "Non-scripted drama using improvisation.",
+        "A rehearsal of a fixed speech."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Personnel and responsibilities",
+      "learningObjective": "Identify the work of production personnel in a school drama.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-02-v1",
+      "id": "ndv-186-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A scene needs a bench, a basket and a letter. Who should check that these objects are ready and placed for the actors to use?",
+      "answer": "The person responsible for props.",
+      "explanation": "The bench, basket and letter are props. Their preparation and placement belong to the props role.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A member of the audience.",
+        "The person responsible for props.",
+        "The actor who plays the narrator in an unrelated scene.",
+        "The person checking tickets outside."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Acting and stage cues",
+      "learningObjective": "Perform a short scene using purposeful voice, movement and cues.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-03-v1",
+      "id": "ndv-186-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "With a partner, act a short scene in which two pupils realise they have prepared different versions of an announcement. Let the audience see the discovery through movement. Use one spoken line as a cue for your partner and end with a shared decision.",
+      "answer": "One actor unfolds a page and points to a time. The other compares a second page and says, “Wait, our times are different.” The first actor responds by turning both pages towards the audience. They agree to check the approved notice before speaking.",
+      "explanation": "Movement makes the discovery visible. The cue links the actors’ actions, and the decision gives the scene an ending.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "supervised-performance",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows the discovery through a clear physical action."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an audible line that prompts the partner’s response."
+        },
+        {
+          "marks": 1,
+          "description": "Responds to the partner’s cue in character."
+        },
+        {
+          "marks": 1,
+          "description": "Ends with a clear shared decision."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Acting and stage cues",
+      "learningObjective": "Perform a short scene using purposeful voice, movement and cues.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-03-v1",
+      "id": "ndv-186-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Perform a solo scene at a school exhibition. Begin as a guide who thinks a display is ready, then discover that a label has fallen. Use posture and voice to show the change. Finish by explaining to an imagined visitor what will happen next.",
+      "answer": "The guide begins upright with an even voice, pauses and bends to notice the fallen label, then speaks more deliberately: “Please give me a moment to put this label back beside the correct work.”",
+      "explanation": "A visible and audible change helps viewers follow the guide’s reaction before the final explanation.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "supervised-performance",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Establishes the guide’s role and the setting."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a clear change in posture after the discovery."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an audible change in voice that suits the situation."
+        },
+        {
+          "marks": 1,
+          "description": "Concludes with a clear explanation to the imagined visitor."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music",
+      "subtopic": "Creating music with percussion",
+      "learningObjective": "Create and perform a short percussion pattern while maintaining a regular pulse.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-04-v1",
+      "id": "ndv-186-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Using a teacher-provided hand drum or shaker, create a four-beat pattern with at least one rest. Perform it three times at a steady pace. Before starting, tell the examiner which beat has the rest.",
+      "answer": "One possible pattern is sound, sound, rest, sound. Repeat it three times, keeping the silent third beat as long as each sounding beat.",
+      "explanation": "Keeping time during the rest preserves the four-beat pattern. Other original patterns meeting the constraints are valid.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "supervised-performance",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates a four-beat pattern with an intentional rest."
+        },
+        {
+          "marks": 1,
+          "description": "States the location of the rest correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Maintains an even pulse through sound and silence."
+        },
+        {
+          "marks": 1,
+          "description": "Repeats the same pattern three times."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music",
+      "subtopic": "Creating music with percussion",
+      "learningObjective": "Create and perform a short percussion pattern while maintaining a regular pulse.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-04-v1",
+      "id": "ndv-186-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "With a partner and two teacher-provided percussion instruments, make a four-beat musical exchange. One pupil plays a short call in the first two beats and the other answers in the last two. Repeat the full exchange twice and finish together with a silent hand signal.",
+      "answer": "For example, the first player taps once on each of beats one and two. The second taps on beat three and leaves beat four silent. Both maintain the pulse for a second exchange, then give the agreed stop signal.",
+      "explanation": "The exchange works when the response begins on the planned beat and both performers agree when to finish.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "supervised-performance",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates distinguishable call and response parts."
+        },
+        {
+          "marks": 1,
+          "description": "Places the call and response in the agreed beat positions."
+        },
+        {
+          "marks": 1,
+          "description": "Repeats the exchange without losing the pulse."
+        },
+        {
+          "marks": 1,
+          "description": "Coordinates the agreed finish with the partner."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Fundamentals of Music",
+      "subtopic": "Identifying audible musical changes",
+      "learningObjective": "Identify changes in tempo and dynamics from a short described performance.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-05-v1",
+      "id": "ndv-186-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A group sings the same phrase twice. The second time, the beats occur at the same speed but the singers are noticeably quieter. Which feature changed?",
+      "answer": "The dynamics.",
+      "explanation": "Dynamics describe loudness and softness. The question states that the beat speed stayed the same.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The number of beats.",
+        "The tempo.",
+        "The order of the words.",
+        "The dynamics."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Fundamentals of Music",
+      "subtopic": "Composing and performing a song",
+      "learningObjective": "Compose and sing a short original phrase using a regular pulse and planned contrast.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-06-v1",
+      "id": "ndv-186-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Make up two short lines for a class clean-up song. Sing them over a steady beat. Keep the second line softer than the first and repeat the two lines once using the same tune.",
+      "answer": "Example words: “Stack the books and clear the way / Leave the room ready for today.” A successful performance uses a short singable tune, a steady beat, and a softer second line on both passes.",
+      "explanation": "Repeating the tune preserves the composition. The planned dynamic contrast adds expression without requiring a change in speed.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "supervised-performance",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates two original lines about the activity."
+        },
+        {
+          "marks": 1,
+          "description": "Sings a recognisable tune and repeats it."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps a steady underlying pulse."
+        },
+        {
+          "marks": 1,
+          "description": "Makes the second line audibly softer on both passes."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Drawing a stave",
+      "learningObjective": "Draw a five-line stave and distinguish lines from spaces.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-07-v1",
+      "id": "ndv-186-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw one musical stave on plain paper. Label the bottom line as line 1, then shade only the second space from the bottom. Explain how you counted.",
+      "answer": "Draw five horizontal parallel lines. Count lines upwards from the bottom, then shade the gap between lines 2 and 3.",
+      "explanation": "The five lines enclose four spaces. The first space sits between the first and second lines, so the next gap is the second space.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draws five approximately parallel lines."
+        },
+        {
+          "marks": 1,
+          "description": "Labels the bottom line correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Shades the gap between lines 2 and 3."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the counting direction or the two adjacent lines."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Treble-stave note placement",
+      "learningObjective": "Place named notes on their correct lines or spaces in the treble stave.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-186-08-v1",
+      "id": "ndv-186-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On a teacher-provided blank treble stave, place a notehead for G on its line inside the stave and a notehead for A on the space immediately above it. Write the line and space numbers, counting from the bottom.",
+      "answer": "G goes on line 2 and A goes in space 2, between lines 2 and 3.",
+      "explanation": "The treble clef identifies the second line as G. The next position above it is the second space, A.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "artefact",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places G on the second line."
+        },
+        {
+          "marks": 1,
+          "description": "Places A in the second space."
+        },
+        {
+          "marks": 1,
+          "description": "Labels the two positions accurately."
+        }
+      ]
+    }
+  ]
+}

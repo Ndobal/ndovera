@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4390,
-    "validDrafts": 2711,
+    "raw": 4400,
+    "validDrafts": 2721,
     "reviewed": 0,
     "registeredBanks": 197,
     "target": 179000,
@@ -1242,6 +1242,12 @@
     {
       "path": "original-multisubject-batch-185.json",
       "sha256": "b524d3b74133b97b317d6ca0088673cf6b72cd4c6a0d85e37b86e48c56496f86",
+      "declared": 10,
+      "actual": 10
+    },
+    {
+      "path": "original-multisubject-batch-186.json",
+      "sha256": "7aae79c0a10136e619d05896d2979c7782a81490ff61e1bc0686fee13ea7db06",
       "declared": 10,
       "actual": 10
     },
@@ -5172,19 +5178,19 @@
         "fme-curriculum-review-implementation-2026"
       ],
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 10,
-      "validDrafts": 10,
+      "raw": 20,
+      "validDrafts": 20,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 5,
-        "structured": 5
+        "mcq": 8,
+        "structured": 12
       },
       "difficulty": {
-        "standard": 10
+        "standard": 20
       },
-      "remaining": 990,
-      "mappedObjectives": 8,
-      "representedObjectives": 8,
+      "remaining": 980,
+      "mappedObjectives": 16,
+      "representedObjectives": 16,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7042,18 +7048,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -37898,6 +37904,66 @@
     {
       "id": "ndv-185-010",
       "file": "original-multisubject-batch-185.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-001",
+      "file": "original-multisubject-batch-186.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-002",
+      "file": "original-multisubject-batch-186.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-003",
+      "file": "original-multisubject-batch-186.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-004",
+      "file": "original-multisubject-batch-186.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-005",
+      "file": "original-multisubject-batch-186.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-006",
+      "file": "original-multisubject-batch-186.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-007",
+      "file": "original-multisubject-batch-186.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-008",
+      "file": "original-multisubject-batch-186.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-009",
+      "file": "original-multisubject-batch-186.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-186-010",
+      "file": "original-multisubject-batch-186.json",
       "index": 9,
       "errors": []
     },
@@ -78908,6 +78974,246 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 17, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-186-01-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Scripted and improvised drama",
+      "learningObjective": "Distinguish an agreed script from dialogue invented during performance.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-186-02-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Personnel and responsibilities",
+      "learningObjective": "Identify the work of production personnel in a school drama.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-186-03-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Acting and stage cues",
+      "learningObjective": "Perform a short scene using purposeful voice, movement and cues.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 5"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-186-04-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music",
+      "subtopic": "Creating music with percussion",
+      "learningObjective": "Create and perform a short percussion pattern while maintaining a regular pulse.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 2
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ],
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-186-05-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Fundamentals of Music",
+      "subtopic": "Identifying audible musical changes",
+      "learningObjective": "Identify changes in tempo and dynamics from a short described performance.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-186-06-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Fundamentals of Music",
+      "subtopic": "Composing and performing a song",
+      "learningObjective": "Compose and sing a short original phrase using a regular pulse and planned contrast.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-186-07-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Drawing a stave",
+      "learningObjective": "Draw a five-line stave and distinguish lines from spaces.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-cca-jss1-186-08-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Treble-stave note placement",
+      "learningObjective": "Place named notes on their correct lines or spaces in the treble stave.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 4"
       ],
       "questionCount": 1,
       "validDrafts": 1,

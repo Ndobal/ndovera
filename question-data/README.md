@@ -1094,3 +1094,9 @@ Arts curriculum and adds ten original drafts across eight visual arts
 objectives. Five are multiple-choice and five are practical tasks with
 marking guides. School adoption, assessment formats, remaining objectives
 and independent academic review remain open.
+
+Batch 186 adds ten NERDC JSS 1 Cultural and Creative Arts drafts across
+eight drama and music objectives. It includes three multiple-choice items,
+five supervised performances and two stave tasks. The bank has 20 valid
+drafts across 16 mapped objectives. School adoption, formal assessment
+formats and independent academic review remain open.

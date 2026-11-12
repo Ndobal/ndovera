@@ -2679,9 +2679,14 @@
       "sourceSections": [
         "Cover and imprint, PDF pp. 1–3",
         "Contents, PDF p. 13",
-        "Visual arts, printed pp. 2–5 (PDF pp. 15–18)"
+        "Visual arts, printed pp. 2–5 (PDF pp. 15–18)",
+        "Drama, Music, Fundamentals and Rudiments, printed pp. 8–11 (PDF pp. 21–24)"
       ],
-      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open."
+      "note": "Exact-class official PDF. Initial mapping covers selected tools, drawing and modelling outcomes. National cycle-entry policy is documented separately. School adoption, term allocation, official assessment formats and full objective coverage remain open. Batch 186 maps selected drama and music outcomes. Performance and stave-marking guides are original classroom rubrics. Formal assessment formats remain open.",
+      "latestRecheck": {
+        "date": "2026-11-12",
+        "method": "Direct PDF download matched the registered SHA-256. Verified the performing arts tables on PDF pp. 21–24."
+      }
     }
   ],
   "banks": [
@@ -23173,6 +23178,150 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised JSS 1 curriculum, printed p. 4, PDF p. 17, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-186-01-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Scripted and improvised drama",
+      "learningObjective": "Distinguish an agreed script from dialogue invented during performance.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-186-02-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Personnel and responsibilities",
+      "learningObjective": "Identify the work of production personnel in a school drama.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-186-03-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drama",
+      "subtopic": "Acting and stage cues",
+      "learningObjective": "Perform a short scene using purposeful voice, movement and cues.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-186-04-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music",
+      "subtopic": "Creating music with percussion",
+      "learningObjective": "Create and perform a short percussion pattern while maintaining a regular pulse.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-186-05-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Fundamentals of Music",
+      "subtopic": "Identifying audible musical changes",
+      "learningObjective": "Identify changes in tempo and dynamics from a short described performance.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-186-06-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Fundamentals of Music",
+      "subtopic": "Composing and performing a song",
+      "learningObjective": "Compose and sing a short original phrase using a regular pulse and planned contrast.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-186-07-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Drawing a stave",
+      "learningObjective": "Draw a five-line stave and distinguish lines from spaces.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-cca-jss1-186-08-v1",
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Rudiments of Music",
+      "subtopic": "Treble-stave note placement",
+      "learningObjective": "Place named notes on their correct lines or spaces in the treble stave.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 4"
       ]
     }
   ],
