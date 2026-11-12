@@ -1199,3 +1199,8 @@ Batch 205 adds six NERDC JSS 1 Physical and Health Education drafts on
 hand hygiene, cholera recognition and drinking-water protection. WHO and
 CDC guidance supports the content. School adoption, formal assessment
 formats and independent academic review remain open.
+
+Batch 206 adds six NERDC JSS 1 Physical and Health Education drafts on
+health promotion, oral hygiene and nutrition. WHO oral-health and healthy-diet
+fact sheets support the content. School adoption, formal assessment formats
+and independent academic review remain open.

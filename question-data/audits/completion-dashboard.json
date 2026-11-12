@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4533,
-    "validDrafts": 2854,
+    "raw": 4539,
+    "validDrafts": 2860,
     "reviewed": 0,
     "registeredBanks": 198,
     "target": 180000,
@@ -1362,6 +1362,12 @@
     {
       "path": "original-multisubject-batch-205.json",
       "sha256": "9ff0d3fd10e61023794b7bb7d0a5ca37d0154879f3da3f76e23cb282be1e89a8",
+      "declared": 6,
+      "actual": 6
+    },
+    {
+      "path": "original-multisubject-batch-206.json",
+      "sha256": "645270b9e882b3f17c042a4a537fa6f9b65e30500fb9e48977a3f09c63d26c17",
       "declared": 6,
       "actual": 6
     },
@@ -5736,20 +5742,20 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-phe-jss1-revised-retrieved",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 30,
-      "validDrafts": 30,
+      "raw": 36,
+      "validDrafts": 36,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 9,
-        "structured": 21
+        "mcq": 11,
+        "structured": 25
       },
       "difficulty": {
         "easy": 1,
-        "standard": 29
+        "standard": 35
       },
-      "remaining": 970,
-      "mappedObjectives": 30,
-      "representedObjectives": 30,
+      "remaining": 964,
+      "mappedObjectives": 36,
+      "representedObjectives": 36,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7197,9 +7203,9 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -38902,6 +38908,42 @@
     {
       "id": "ndv-205-006",
       "file": "original-multisubject-batch-205.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-206-001",
+      "file": "original-multisubject-batch-206.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-206-002",
+      "file": "original-multisubject-batch-206.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-206-003",
+      "file": "original-multisubject-batch-206.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-206-004",
+      "file": "original-multisubject-batch-206.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-206-005",
+      "file": "original-multisubject-batch-206.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-206-006",
+      "file": "original-multisubject-batch-206.json",
       "index": 5,
       "errors": []
     },
@@ -84145,6 +84187,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 5, PDF p. 17, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-206-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Health promotion",
+      "subtopic": "Making recreation accessible",
+      "learningObjective": "Explain how school routines can support healthful recreation.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 2, PDF p. 14, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-206-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Personal Health",
+      "subtopic": "Fluoride toothpaste",
+      "learningObjective": "Select a routine that helps protect teeth from decay.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 3, PDF p. 15, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-206-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Personal Health",
+      "subtopic": "Frequency of sweet drinks",
+      "learningObjective": "Explain an oral-health advantage of reducing frequent sugary drinks.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 3, PDF p. 15, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-206-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food and nutrition in Health",
+      "subtopic": "Foods and nutrient contributions",
+      "learningObjective": "Identify complementary nutrient contributions in a familiar meal.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 21, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-206-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food and nutrition in Health",
+      "subtopic": "Variety in meals",
+      "learningObjective": "Explain how adding different foods can increase dietary variety.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 21, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-206-06-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food and nutrition in Health",
+      "subtopic": "Food and nutrition",
+      "learningObjective": "Distinguish food from the process of using nutrients.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 21, performance objective 2"
       ],
       "questionCount": 1,
       "validDrafts": 1,

@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Physical and Health Education health promotion, oral hygiene and nutrition",
+  "questionCount": 6,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Health promotion",
+      "subtopic": "Making recreation accessible",
+      "learningObjective": "Explain how school routines can support healthful recreation.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-206-01-v1",
+      "id": "ndv-206-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class wants to offer a short recreation break. Some pupils prefer quiet activities and others want to move. Suggest two activity choices and explain one change to the school routine that would make the break available to both groups.",
+      "answer": "Offer a quiet puzzle station and an optional walking game. Set aside the same short break for everyone and provide separate spaces so either choice is practical.",
+      "explanation": "Giving time and space to different choices makes it easier for pupils to take part in recreation.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests a quiet activity."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests an active option."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a shared routine or arrangement that makes both accessible."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Personal Health",
+      "subtopic": "Fluoride toothpaste",
+      "learningObjective": "Select a routine that helps protect teeth from decay.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-206-02-v1",
+      "id": "ndv-206-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which reminder belongs on a pupil’s toothbrushing chart for ordinary daily oral care?",
+      "answer": "Brush twice a day using fluoride toothpaste.",
+      "explanation": "Regular brushing with fluoride toothpaste helps prevent tooth decay.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Wait for tooth pain before starting to brush.",
+        "Brush twice a day using fluoride toothpaste.",
+        "Use water alone and brush only at weekends.",
+        "Brush once a week for a longer time."
+      ],
+      "correctOption": "B",
+      "contentSourceId": "who-oral-health-phe"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Personal Health",
+      "subtopic": "Frequency of sweet drinks",
+      "learningObjective": "Explain an oral-health advantage of reducing frequent sugary drinks.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-206-03-v1",
+      "id": "ndv-206-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "During a school club meeting, a pupil plans to sip a sugary drink throughout the session. Suggest a drink for regular sipping and explain why the change can help protect teeth.",
+      "answer": "Choose plain safe drinking water. This reduces repeated exposure to sugar, which plaque bacteria can turn into acids that damage teeth.",
+      "explanation": "Frequent sugar exposure gives bacteria repeated opportunities to produce acids. Plain water avoids that source of sugar.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests plain safe drinking water."
+        },
+        {
+          "marks": 1,
+          "description": "Links the substitution to less frequent sugar exposure."
+        },
+        {
+          "marks": 1,
+          "description": "Connects sugar exposure to acid production or tooth decay."
+        }
+      ],
+      "contentSourceId": "who-oral-health-phe"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food and nutrition in Health",
+      "subtopic": "Foods and nutrient contributions",
+      "learningObjective": "Identify complementary nutrient contributions in a familiar meal.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-206-04-v1",
+      "id": "ndv-206-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A lunch contains boiled yam and cooked beans. Which statement describes typical nutrient contributions from these foods?",
+      "answer": "Yam provides mainly carbohydrate, and beans can contribute protein as well as carbohydrate.",
+      "explanation": "Yam is a starchy food. Beans are pulses and provide a mixture of nutrients including protein and carbohydrate.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Yam provides mainly protein, and beans provide only water.",
+        "Both foods contribute fat alone.",
+        "Yam provides mainly carbohydrate, and beans can contribute protein as well as carbohydrate.",
+        "Beans have no carbohydrate and yam has no carbohydrate."
+      ],
+      "correctOption": "C",
+      "contentSourceId": "who-healthy-diet-phe"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food and nutrition in Health",
+      "subtopic": "Variety in meals",
+      "learningObjective": "Explain how adding different foods can increase dietary variety.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-206-05-v1",
+      "id": "ndv-206-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A canteen usually serves plain rice at lunch. The cook can add beans and cooked leafy vegetables. Explain how each addition can broaden what the meal supplies.",
+      "answer": "Beans contribute protein and fibre, while leafy vegetables can add vitamins, minerals and fibre. The meal then contains a wider variety of foods than rice alone.",
+      "explanation": "Foods contribute different mixes of nutrients. Variety helps the diet provide a wider range over time.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a defensible nutrient contribution from beans."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a defensible nutrient contribution from leafy vegetables."
+        },
+        {
+          "marks": 1,
+          "description": "Links the two additions to greater variety in the meal."
+        }
+      ],
+      "contentSourceId": "who-healthy-diet-phe"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Food and nutrition in Health",
+      "subtopic": "Food and nutrition",
+      "learningObjective": "Distinguish food from the process of using nutrients.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-206-06-v1",
+      "id": "ndv-206-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a lesson, a pupil shows a bowl of cooked beans and says, “This bowl is nutrition.” Use the example to explain the difference between food and nutrition.",
+      "answer": "The cooked beans are food. Nutrition includes how the body takes in and uses nutrients from foods such as beans.",
+      "explanation": "Food is what is eaten. Nutrition describes processes involving the nutrients it provides.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the beans as food."
+        },
+        {
+          "marks": 1,
+          "description": "Explains nutrition as taking in and using nutrients."
+        }
+      ]
+    }
+  ]
+}
