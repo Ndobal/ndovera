@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Physical and Health Education hygiene and disease prevention",
+  "questionCount": 6,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Personal Health",
+      "subtopic": "Environment and hygiene choices",
+      "learningObjective": "Distinguish an environmental barrier from a personal hygiene action.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-205-01-v1",
+      "id": "ndv-205-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At one school wash station there is running water but no soap. Another station has both, and a pupil uses it before lunch. Identify one environmental factor and one personal action that affect hygiene in this example. Explain how the factor and the action work together.",
+      "answer": "Availability of soap is an environmental factor. Choosing to wash hands before lunch is a personal action. Having soap available lets the pupil choose to wash with it.",
+      "explanation": "The available supplies affect what pupils can do, and pupils’ actions affect whether those supplies are used.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "cdc-school-hand-hygiene-phe",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies soap or wash-station supplies as an environmental factor."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies washing hands before lunch as a personal action."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how supplies and actions work together."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Personal Health",
+      "subtopic": "When to wash hands",
+      "learningObjective": "Choose a handwashing opportunity before food handling.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-205-02-v1",
+      "id": "ndv-205-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil finishes sorting used sports bibs and is about to help serve lunch. What should the pupil do before handling the food?",
+      "answer": "Wash hands with soap and running water.",
+      "explanation": "Handwashing before handling food helps prevent transfer of germs from hands to food.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "cdc-school-hand-hygiene-phe",
+      "options": [
+        "Wipe both palms on a used bib.",
+        "Put the serving spoon on the changing-room bench.",
+        "Wash hands with soap and running water.",
+        "Rinse the serving spoon and leave the hands unwashed."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Personal Health",
+      "subtopic": "Handwashing demonstration",
+      "learningObjective": "Demonstrate effective handwashing with soap and water.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-205-03-v1",
+      "id": "ndv-205-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At a supervised handwashing station, demonstrate the sequence taught in class. Show how you cover the backs of your hands and between your fingers as well as your palms. Use the teacher’s timer for the scrubbing step.",
+      "answer": "Wet the hands, apply soap and work it over the palms, backs, between fingers and around the nails. Scrub for at least 20 seconds, then rinse and dry.",
+      "explanation": "Soap and scrubbing help remove germs from areas that a quick rinse may miss.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "cdc-school-hand-hygiene-phe",
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Wets hands and applies soap."
+        },
+        {
+          "marks": 1,
+          "description": "Covers palms, backs and spaces between fingers."
+        },
+        {
+          "marks": 1,
+          "description": "Scrubs for at least 20 seconds."
+        },
+        {
+          "marks": 1,
+          "description": "Rinses and dries hands."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Pathogens, diseases and prevention",
+      "subtopic": "Pathogens and waterborne disease",
+      "learningObjective": "Identify a disease associated with a named bacterial pathogen and transmission route.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-205-04-v1",
+      "id": "ndv-205-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A classroom case card says that Vibrio cholerae can be swallowed in contaminated water. Which disease does this bacterium cause?",
+      "answer": "Cholera.",
+      "explanation": "Vibrio cholerae causes cholera. Contaminated drinking water is one possible route of transmission.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "who-cholera-factsheet-phe",
+      "options": [
+        "Cholera.",
+        "Measles.",
+        "Ringworm.",
+        "Malaria."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Pathogens, diseases and prevention",
+      "subtopic": "Appearance and water safety",
+      "learningObjective": "Explain why visual clarity is insufficient to judge drinking-water safety.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-205-05-v1",
+      "id": "ndv-205-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "During a school outing, pupils find a clear-looking water source whose safety has not been checked. The teacher has brought drinking water from a verified safe supply. Explain why the class should use the supplied water.",
+      "answer": "The clear-looking source may still contain microorganisms or other contaminants that cannot be seen. The supplied water comes from a verified safe source.",
+      "explanation": "Appearance alone cannot establish microbiological safety.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "who-drinking-water-phe",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises that harmful contamination may be invisible."
+        },
+        {
+          "marks": 1,
+          "description": "Selects the verified safe supply."
+        },
+        {
+          "marks": 1,
+          "description": "Links the decision to reducing exposure to contamination."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Pathogens, diseases and prevention",
+      "subtopic": "Protecting water after collection",
+      "learningObjective": "Explain how a dispensing method reduces opportunities for contamination.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-205-06-v1",
+      "id": "ndv-205-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher gives the class two containers of verified safe drinking water. One is open and pupils dip cups into it. The other is covered and has a working tap. Which arrangement better protects the stored water during use, and why?",
+      "answer": "Use the covered container with the tap. The cover helps keep foreign matter out, and dispensing from a tap keeps hands and cups out of the stored water.",
+      "explanation": "Water can become contaminated after collection. A cover and tap reduce contact with the stored supply.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "cdc-safe-water-storage-phe",
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the covered container with the tap."
+        },
+        {
+          "marks": 1,
+          "description": "Explains what the cover helps prevent."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the tap reduces contact with the stored water."
+        }
+      ]
+    }
+  ]
+}

@@ -1194,3 +1194,8 @@ Batch 204 adds five NERDC JSS 1 Physical and Health Education drafts on
 soccer and field events, including supervised receiving and passing. The
 throw-in item cites IFAB Law 15. Field events cover observation and safety.
 Competition-rule comparison, live throws and independent review remain open.
+
+Batch 205 adds six NERDC JSS 1 Physical and Health Education drafts on
+hand hygiene, cholera recognition and drinking-water protection. WHO and
+CDC guidance supports the content. School adoption, formal assessment
+formats and independent academic review remain open.
