@@ -2798,12 +2798,13 @@
         "Health promotion, printed p. 2 (PDF p. 14)",
         "Food and nutrition in Health, printed p. 9 (PDF p. 21)",
         "Posture and postural defects, printed p. 6 (PDF p. 18)",
-        "Food preservation, printed p. 10 (PDF p. 22)"
+        "Food preservation, printed p. 10 (PDF p. 22)",
+        "First aid and Disaster and risk management, printed pp. 17–18 (PDF pp. 29–30)"
       ],
-      "note": "Exact-class revised PDF. Publication date not established from inspected pages. Contents lists these topics as pp. 6–7, while table footers show pp. 7–8. School adoption, term allocation, formal assessment and remaining topics are open. Batch 207 distinguishes observable posture from clinical diagnosis. The table’s general causes list is not used to attribute scoliosis to sitting habits.",
+      "note": "Exact-class revised PDF. Publication date not established from inspected pages. Contents lists these topics as pp. 6–7, while table footers show pp. 7–8. School adoption, term allocation, formal assessment and remaining topics are open. Batch 207 distinguishes observable posture from clinical diagnosis. The table’s general causes list is not used to attribute scoliosis to sitting habits. Batch 208 covers initial response and preparedness. Serious emergencies listed in the First aid table require separate guidance and are outside this batch.",
       "latestRecheck": {
-        "date": "2026-11-12",
-        "method": "Matched registered SHA-256 and verified PDF pp. 18 and 22."
+        "date": "2026-11-13",
+        "method": "Matched registered SHA-256 and checked PDF pp. 29–30."
       }
     },
     {
@@ -2887,6 +2888,24 @@
       "kind": "supplementary_public_health_reference",
       "source": "https://www.nhs.uk/conditions/scoliosis/",
       "retrievedOn": "2026-11-12"
+    },
+    {
+      "id": "red-cross-first-aid-steps-phe",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "kind": "supplementary_safety_reference",
+      "source": "https://production.redcross.org/take-a-class/first-aid/performing-first-aid/first-aid-steps",
+      "retrievedOn": "2026-11-13"
+    },
+    {
+      "id": "undrr-preparedness-phe",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "kind": "supplementary_safety_reference",
+      "source": "https://www.undrr.org/terminology/preparedness",
+      "retrievedOn": "2026-11-13"
     }
   ],
   "banks": [
@@ -26126,6 +26145,96 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 10, PDF p. 22, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-208-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "First aid",
+      "subtopic": "Scene safety",
+      "learningObjective": "Recognise when a hazard prevents safe approach.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 29, performance objective on administering first aid"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-208-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "First aid",
+      "subtopic": "Simulated first-aid handover",
+      "learningObjective": "Communicate the location and observed facts when seeking first-aid help.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 29, performance objective on administering first aid"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-208-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Disaster and risk management",
+      "subtopic": "Preparedness before an emergency",
+      "learningObjective": "Explain how planning and rehearsal prepare people for an emergency.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 18, PDF p. 30, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-208-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Disaster and risk management",
+      "subtopic": "Comparing route risks",
+      "learningObjective": "Use a known hazard to choose a route in a preparedness plan.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 18, PDF p. 30, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-208-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Disaster and risk management",
+      "subtopic": "Evacuation tabletop drill",
+      "learningObjective": "Demonstrate route selection and accountability in a tabletop exercise.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 18, PDF p. 30, performance objective 4"
       ]
     }
   ],

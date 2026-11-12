@@ -1209,3 +1209,8 @@ Batch 207 adds five NERDC JSS 1 Physical and Health Education drafts on
 posture and food preservation. The questions distinguish observed posture
 from clinical diagnosis and use WHO guidance for refrigeration. School
 adoption, formal assessment and independent academic review remain open.
+
+Batch 208 adds five NERDC JSS 1 Physical and Health Education drafts on
+first-aid scene safety, handover and disaster preparedness. Two tasks are
+supervised simulations. Treatment of serious emergencies, school adoption,
+formal assessment and independent academic review remain open.
