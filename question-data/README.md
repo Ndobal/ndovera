@@ -1153,3 +1153,8 @@ formats and independent academic review remain open.
 Batch 196 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
 instrument classification and woven structures, including leno. School
 adoption, formal assessment formats and independent review remain open.
+
+Batch 197 adds six NERDC JSS 1 Cultural and Creative Arts drafts on
+drawing, music and collage, including a supervised mirror self-portrait.
+Collage labels describe examples grouped by materials. School adoption,
+formal assessment formats and independent academic review remain open.

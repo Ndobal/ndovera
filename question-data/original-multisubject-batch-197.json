@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Cultural and Creative Arts drawing, music and collage",
+  "questionCount": 6,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Drawing medium and support",
+      "learningObjective": "Select a drawing medium and support for a revisable sketch.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-197-01-v1",
+      "id": "ndv-197-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "During a quick observation exercise in the school courtyard, a pupil needs to change the position of a window in a sketch and keep the sheet steady while standing. Which kit best meets both needs?",
+      "answer": "Graphite pencil, eraser and a rigid drawing board with a clip.",
+      "explanation": "Light graphite lines can be erased as the sketch changes. The board supports the sheet and the clip holds it in place.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Permanent marker and loose paper.",
+        "Graphite pencil, eraser and a rigid drawing board with a clip.",
+        "Ink pen and a clip without a board.",
+        "Graphite pencil and a soft cloth backing."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Drawing",
+      "subtopic": "Self-portrait from observation",
+      "learningObjective": "Draw a self-portrait from a mirror and revise a feature using observed relationships.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-197-02-v1",
+      "id": "ndv-197-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "With a mirror supplied by your teacher, draw a head-and-shoulders self-portrait. First sketch the main head shape. Compare the placement of the eyes, nose and mouth with what you see, then check one spacing or alignment and show your teacher how you used that check.",
+      "answer": "A pupil could compare the distance from the eyes to the nose with the distance from the nose to the mouth, then move one feature if needed. A model response shows the observed head shape, placed features and a check tied to the reflection.",
+      "explanation": "Checking relative positions helps a pupil draw from the reflection instead of relying on a memorised face outline.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Sketches the observed head and shoulders."
+        },
+        {
+          "marks": 1,
+          "description": "Places the main facial features in a coherent arrangement."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the reflection to check a specific spacing or alignment."
+        },
+        {
+          "marks": 1,
+          "description": "Shows or explains how the check confirmed or changed the drawing."
+        }
+      ],
+      "responseMode": "supervised-performance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music",
+      "subtopic": "Intentional organisation of sound",
+      "learningObjective": "Explain how sound and silence can be organised to make music.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-197-03-v1",
+      "id": "ndv-197-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "In the assembly hall, chairs scrape as pupils move them. Later, a group taps wooden blocks in a repeated pattern with planned pauses. What feature of the second event makes it an example of creating music?",
+      "answer": "The players organise sounds and pauses into a deliberate pattern.",
+      "explanation": "The group chooses when sounds occur and when silence occurs. The deliberate organisation creates a musical pattern.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The players organise sounds and pauses into a deliberate pattern.",
+        "The wooden blocks make a louder sound than the chairs.",
+        "The sound takes place in a hall.",
+        "The sounds are made without voices."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Music",
+      "subtopic": "Music in worship and secular settings",
+      "learningObjective": "Describe sacred and secular uses of music using context.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-197-04-v1",
+      "id": "ndv-197-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One piece is sung as a prayer during a worship service. Another is sung to celebrate a football team after a match. Describe the musical use of each piece and name one clue from each setting that supports your description.",
+      "answer": "The first piece has a sacred use because it serves as a prayer in worship. The second has a secular use because it celebrates a sporting event.",
+      "explanation": "The intended purpose and setting support the distinction. Singing can occur in either context.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the first use as sacred."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the first use to prayer or worship."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the second use as secular."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the second use to celebrating the team or the match."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Collage",
+      "subtopic": "Collages grouped by material",
+      "learningObjective": "Describe collage examples by the materials attached to the support.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-197-05-v1",
+      "id": "ndv-197-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Three artworks are displayed on card. Work P uses cut magazine pictures only. Work Q uses scraps of cloth only. Work R combines cloth with magazine pictures. Give each a short material-based label and name the evidence for your label for R.",
+      "answer": "P is a paper collage, Q is a fabric collage and R is a mixed-material collage. R uses both cloth and paper images.",
+      "explanation": "One way to describe collage examples is to name the attached materials. Combining more than one material supports a mixed-material label.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Labels P as a paper or magazine collage."
+        },
+        {
+          "marks": 1,
+          "description": "Labels Q as a fabric collage."
+        },
+        {
+          "marks": 1,
+          "description": "Labels R as mixed-material or equivalent."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the paper and cloth in R as evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Cultural and Creative Arts",
+      "level": "JSS 1",
+      "topic": "Collage",
+      "subtopic": "Trial arrangement before fixing",
+      "learningObjective": "Explain how a reversible arrangement helps plan a collage.",
+      "specificationId": "nerdc-cca-jss1-revised-2025-retrieved",
+      "objectiveId": "nerdc-cca-jss1-197-06-v1",
+      "id": "ndv-197-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil’s collage uses several scraps to frame the word READ. Some scraps cover the letters while the pupil is still arranging them. What should the pupil do before using glue, and why?",
+      "answer": "Move the loose scraps, then check the word is legible before fixing the arrangement.",
+      "explanation": "A dry layout can be revised easily. Testing the arrangement first helps preserve the intended lettering.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Glue every scrap down in the current position.",
+        "Cover the word with a larger scrap before checking it.",
+        "Add glue under the lettering so the scraps stick more firmly.",
+        "Move the loose scraps, then check the word is legible before fixing the arrangement."
+      ],
+      "correctOption": "D"
+    }
+  ]
+}
