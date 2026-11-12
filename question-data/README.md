@@ -1100,3 +1100,9 @@ eight drama and music objectives. It includes three multiple-choice items,
 five supervised performances and two stave tasks. The bank has 20 valid
 drafts across 16 mapped objectives. School adoption, formal assessment
 formats and independent academic review remain open.
+
+Batch 187 adds eight NERDC JSS 1 Cultural and Creative Arts drafts covering
+dance and introductory choreography, including four supervised performance
+tasks with original marking guides. The exact-class September 2025 curriculum
+supports the mappings. School-level adoption and formal assessment formats
+remain open. Independent academic review is pending.
