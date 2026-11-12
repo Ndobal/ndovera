@@ -1106,3 +1106,8 @@ dance and introductory choreography, including four supervised performance
 tasks with original marking guides. The exact-class September 2025 curriculum
 supports the mappings. School-level adoption and formal assessment formats
 remain open. Independent academic review is pending.
+
+Batch 188 adds twelve NERDC JSS 1 Cultural and Creative Arts drafts on
+craft, weaving, collage and mosaic. Three tasks require supervised artefact
+production using classroom materials and original marking guides. School-level
+adoption, formal assessment formats and independent academic review remain open.
