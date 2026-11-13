@@ -1,0 +1,723 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Mathematics directed numbers and fraction operations",
+  "questionCount": 15,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Regrouping across zeros",
+      "learningObjective": "Subtract a whole number by regrouping through consecutive zero places.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-01-v1",
+      "id": "ndv-212-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A water tank meter showed 6,002 L at the start of a filling period and 9,000 L at the end. How many litres were added?",
+      "answer": "2,998 L",
+      "explanation": "The reading rose by 2,998 L: adding 2,998 to 6,002 gives 9,000.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "2,998 L",
+        "3,002 L",
+        "3,008 L",
+        "2,008 L"
+      ],
+      "correctOption": "A",
+      "verification": [
+        {
+          "expression": "9000-6002",
+          "expected": 2998,
+          "purpose": "Check the increase."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Place value after carrying",
+      "learningObjective": "Explain the place value of a digit created by regrouping in a sum.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-02-v1",
+      "id": "ndv-212-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two carton counts, 5,680 and 2,740, are added. In the total, what is the value of the digit in the thousands place? Explain how the hundreds contribute to this digit.",
+      "answer": "8,000. The 6 hundreds and 7 hundreds make 13 hundreds. The tens also carry 1 hundred, so the hundreds column gives 14 hundreds, which carries 1 thousand.",
+      "explanation": "The tens give 12 tens, so 1 hundred carries. Then 14 hundreds regroup as 1 thousand and 4 hundreds. The thousands are 5 + 2 + 1 = 8.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives the place value as 8,000."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the hundred carried from the tens column."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the thousand carried from the hundreds column."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "5680+2740",
+          "expected": 8420,
+          "purpose": "Check the sum."
+        },
+        {
+          "expression": "6+7+1",
+          "expected": 14,
+          "purpose": "Check the hundreds regrouping."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Coordinates relative to a reference point",
+      "learningObjective": "Represent directed positions on a number line with a defined origin.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-03-v1",
+      "id": "ndv-212-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On a straight path, a gate is the zero point and east is positive. A bench is 3 m west of the gate and a sign is 4 m east. Draw a number line marking the gate, bench and sign. Label the coordinates of all three.",
+      "answer": "With east to the right, the bench is at −3, the gate at 0 and the sign at +4.",
+      "explanation": "West is the negative direction, so the bench is left of zero. East is positive, so the sign is right of zero.",
+      "score": 3,
+      "difficulty": "easy",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draws a number line with equally spaced unit marks and the gate at 0."
+        },
+        {
+          "marks": 1,
+          "description": "Marks the bench at −3."
+        },
+        {
+          "marks": 1,
+          "description": "Marks the sign at +4."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Subtracting a negative on a line",
+      "learningObjective": "Explain the direction of a move when subtracting a negative integer.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-04-v1",
+      "id": "ndv-212-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil marks −5 on a number line. To show −5 − (−4), the pupil moves four units left. Correct the move and name the end point.",
+      "answer": "Move four units right from −5 to −1.",
+      "explanation": "Subtracting −4 undoes a move four units left. The inverse move is four units right.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Specifies a four-unit move to the right from −5."
+        },
+        {
+          "marks": 1,
+          "description": "Gives −1 as the end point."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "-5-(-4)",
+          "expected": -1,
+          "purpose": "Check the end point."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Comparing temperatures across zero",
+      "learningObjective": "Calculate the difference between signed temperatures.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-05-v1",
+      "id": "ndv-212-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Two model cold-room displays read −7°C and +2°C. By how many degrees is the second display warmer than the first?",
+      "answer": "9°C",
+      "explanation": "The rise from −7°C to 0°C is 7 degrees. There are 2 more degrees to +2°C.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "5°C",
+        "−5°C",
+        "9°C",
+        "−9°C"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "2-(-7)",
+          "expected": 9,
+          "purpose": "Check the temperature difference."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Signed changes versus final balance",
+      "learningObjective": "Distinguish net change from final balance in a sequence of transactions.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-06-v1",
+      "id": "ndv-212-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school club cash box starts with ₦2,350. It pays ₦840 for materials, receives ₦510 in dues, and pays ₦275 for transport. Write the net change as a signed amount and give the final balance.",
+      "answer": "Net change −₦605. Final balance ₦1,745.",
+      "explanation": "The transactions sum to −840 + 510 − 275 = −605. The starting balance then falls by ₦605.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Assigns a negative sign to payments and a positive sign to dues."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the net change as −₦605."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the final balance as ₦1,745."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "-840+510-275",
+          "expected": -605,
+          "purpose": "Check the signed net change."
+        },
+        {
+          "expression": "2350-605",
+          "expected": 1745,
+          "purpose": "Check the final balance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Regrouping a mixed number",
+      "learningObjective": "Subtract mixed numbers by exchanging one whole for fractional parts.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-07-v1",
+      "id": "ndv-212-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Work out 4 1/6 − 2 5/6. Show how to regroup the first mixed number so that you can subtract sixths.",
+      "answer": "1 1/3. Rewrite 4 1/6 as 3 7/6.",
+      "explanation": "Exchange one whole for 6/6. Then 3 − 2 = 1 and 7/6 − 5/6 = 2/6 = 1/3.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rewrites 4 1/6 as 3 7/6."
+        },
+        {
+          "marks": 1,
+          "description": "Shows subtraction to get 1 2/6."
+        },
+        {
+          "marks": 1,
+          "description": "Simplifies to 1 1/3."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4+1/6-(2+5/6)",
+          "expected": "4/3",
+          "purpose": "Check the mixed-number difference."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Diagnosing unlike-denominator addition",
+      "learningObjective": "Identify why adding denominators gives an invalid fraction sum.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-08-v1",
+      "id": "ndv-212-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A classmate says 1/4 + 1/6 = 2/10. Which explanation correctly identifies and fixes the error?",
+      "answer": "The pieces are unequal in size. Rewrite as 3/12 + 2/12 = 5/12.",
+      "explanation": "The fractions must count pieces of the same size before their numerators can be added.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The pieces are unequal in size. Rewrite as 3/12 + 2/12 = 5/12.",
+        "The denominators add to 10. Reduce 2/10 to 1/5.",
+        "The smaller denominator sets the unit. Add the numerators to get 2/4.",
+        "The larger denominator sets the unit. Add the numerators to get 2/6."
+      ],
+      "correctOption": "A",
+      "verification": [
+        {
+          "expression": "1/4+1/6",
+          "expected": "5/12",
+          "purpose": "Check the sum in twelfths."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Recovering a removed amount",
+      "learningObjective": "Use fraction subtraction to recover a missing change.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-09-v1",
+      "id": "ndv-212-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A roll of twine initially had 2 3/8 m on it. A pupil cut off a piece and measured 1 5/12 m still on the roll. What was the length of the piece?",
+      "answer": "23/24 m",
+      "explanation": "Use twenty-fourths. The starting length is 57/24 m and the remaining length is 34/24 m. Their difference is 23/24 m.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Models the length cut as the original minus the remainder."
+        },
+        {
+          "marks": 1,
+          "description": "Uses equivalent fractions with a common denominator."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 23/24 m."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "2+3/8-(1+5/12)",
+          "expected": "23/24",
+          "purpose": "Check the length cut."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Combining uses before testing a limit",
+      "learningObjective": "Add and subtract fractions to decide how much of a resource remains available.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-10-v1",
+      "id": "ndv-212-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school paints 2/9 of one wall yellow and a different 1/4 of the same wall blue. Can it still paint exactly 1/2 of the whole wall green without covering either colour? How much wall would then be unpainted?",
+      "answer": "Yes. The unpainted fraction after green is 1/36.",
+      "explanation": "Yellow and blue occupy 8/36 + 9/36 = 17/36. Adding green uses another 18/36. That leaves 1/36.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds that the first two colours occupy 17/36."
+        },
+        {
+          "marks": 1,
+          "description": "Shows that 1/2 more fits and gives 1/36 unpainted."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1-2/9-1/4-1/2",
+          "expected": "1/36",
+          "purpose": "Check the unpainted area."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Area of a fractional rectangle",
+      "learningObjective": "Use an equal-cell area model to explain a product of proper fractions.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-11-v1",
+      "id": "ndv-212-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Divide a unit square into 5 equal columns and 7 equal rows. Shade the first 3 columns with diagonal strokes and the first 2 rows with horizontal strokes. What fraction has both kinds of shading? Explain the multiplication shown.",
+      "answer": "6/35. The overlap shows 3/5 × 2/7.",
+      "explanation": "Each cell has area 1/35. The overlap is 3 columns by 2 rows, which is 6 cells.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draws a 5-by-7 grid and indicates the two shaded regions."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies six overlapping cells."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the overlap to 3/5 × 2/7 and gives 6/35."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3/5*2/7",
+          "expected": "6/35",
+          "purpose": "Check the overlap fraction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Quotient size without calculation",
+      "learningObjective": "Predict how dividing a positive quantity by a proper fraction affects the quotient.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-12-v1",
+      "id": "ndv-212-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which expression gives a result larger than 9/10?",
+      "answer": "(9/10) ÷ (3/5)",
+      "explanation": "A divisor of 3/5 is smaller than one, so a quantity of 9/10 contains more than 9/10 groups of that size. The quotient is 3/2.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "(9/10) × (3/5)",
+        "(9/10) ÷ (3/2)",
+        "(9/10) × (5/6)",
+        "(9/10) ÷ (3/5)"
+      ],
+      "correctOption": "D",
+      "verification": [
+        {
+          "expression": "9/10/(3/5)",
+          "expected": "3/2",
+          "purpose": "Check the selected quotient."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Fraction of a remainder",
+      "learningObjective": "Apply a fractional share to the remaining stock after an initial use.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-13-v1",
+      "id": "ndv-212-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A tailor has 18 m of cloth. She uses one third of it for banners, then uses three quarters of the remaining cloth for table covers. How many metres go to the table covers?",
+      "answer": "9 m",
+      "explanation": "One third of 18 m is 6 m, leaving 12 m. Three quarters of 12 m is 9 m.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "6 m",
+        "9 m",
+        "12 m",
+        "13.5 m"
+      ],
+      "correctOption": "B",
+      "verification": [
+        {
+          "expression": "18*(1-1/3)*3/4",
+          "expected": 9,
+          "purpose": "Check the table-cover allocation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Full portions and a leftover",
+      "learningObjective": "Interpret a fractional quotient as whole portions and convert the remainder back to the original unit.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-14-v1",
+      "id": "ndv-212-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A cook has 5 1/4 L of juice and fills bottles that each hold 2/3 L. How many bottles can be filled completely, and how much juice remains in the jug?",
+      "answer": "7 full bottles and 7/12 L remaining.",
+      "explanation": "The quotient is 63/8 = 7 7/8 bottles. Seven full bottles use 14/3 L. Subtracting this amount from 21/4 L leaves 7/12 L.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Sets up division by the capacity of one bottle or an equivalent model."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies 7 complete bottles."
+        },
+        {
+          "marks": 1,
+          "description": "Computes 7/12 L remaining."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "21/4/(2/3)",
+          "expected": "63/8",
+          "purpose": "Check the quotient in bottle units."
+        },
+        {
+          "expression": "21/4-7*(2/3)",
+          "expected": "7/12",
+          "purpose": "Check the remainder in litres."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Sharing fractional stock equally",
+      "learningObjective": "Divide a mixed-number quantity into a specified number of equal shares.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-212-15-v1",
+      "id": "ndv-212-015",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A weaver divides 3 3/5 m of cord equally among six pupils. A seventh pupil later joins, so they put the cord back together and divide it equally among all seven. How much shorter is each new share than each original share?",
+      "answer": "3/35 m shorter.",
+      "explanation": "The original share is (18/5) ÷ 6 = 3/5 m. The new share is (18/5) ÷ 7 = 18/35 m. Subtracting gives 21/35 − 18/35 = 3/35 m.",
+      "score": 3,
+      "difficulty": "difficult",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds the original share of 3/5 m."
+        },
+        {
+          "marks": 1,
+          "description": "Finds the new share of 18/35 m."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a reduction of 3/35 m."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "18/5/6",
+          "expected": "3/5",
+          "purpose": "Check the first share."
+        },
+        {
+          "expression": "18/5/7",
+          "expected": "18/35",
+          "purpose": "Check the second share."
+        },
+        {
+          "expression": "3/5-18/35",
+          "expected": "3/35",
+          "purpose": "Check the reduction per pupil."
+        }
+      ]
+    }
+  ]
+}

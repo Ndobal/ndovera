@@ -1229,3 +1229,9 @@ base-ten to binary conversion, and fractions. The revised curriculum
 locators cover printed pp. 4–6. The batch includes classroom multiple-choice
 and structured practice. Publication date, school adoption, term placement,
 formal assessment formats and independent academic review remain open.
+
+Batch 212 adds 15 NERDC JSS 1 Mathematics drafts on whole-number and
+directed-number addition and subtraction, and the four operations with
+fractions. The revised curriculum locators cover printed pp. 7–9.
+Number-line and area-model tasks use classroom marking guides. School
+adoption, term placement, formal assessment and independent review remain open.

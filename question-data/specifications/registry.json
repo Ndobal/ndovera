@@ -2925,7 +2925,10 @@
         "Whole Numbers, LCM and HCF, printed pp. 1–3 (PDF pp. 14–16)",
         "Counting in twos, printed p. 4 (PDF p. 17)",
         "Conversion of Base-ten numerals to Binary numbers, printed p. 5 (PDF p. 18)",
-        "Fractions, printed p. 6 (PDF p. 19)"
+        "Fractions, printed p. 6 (PDF p. 19)",
+        "Addition and Subtraction, printed p. 7 (PDF p. 20)",
+        "Addition and Subtraction of Fractions, printed p. 8 (PDF p. 21)",
+        "Multiplication and Division of Fractions, printed p. 9 (PDF p. 22)"
       ],
       "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds."
     }
@@ -26716,6 +26719,276 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Regrouping across zeros",
+      "learningObjective": "Subtract a whole number by regrouping through consecutive zero places.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Place value after carrying",
+      "learningObjective": "Explain the place value of a digit created by regrouping in a sum.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Coordinates relative to a reference point",
+      "learningObjective": "Represent directed positions on a number line with a defined origin.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Subtracting a negative on a line",
+      "learningObjective": "Explain the direction of a move when subtracting a negative integer.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Comparing temperatures across zero",
+      "learningObjective": "Calculate the difference between signed temperatures.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Signed changes versus final balance",
+      "learningObjective": "Distinguish net change from final balance in a sequence of transactions.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Regrouping a mixed number",
+      "learningObjective": "Subtract mixed numbers by exchanging one whole for fractional parts.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Diagnosing unlike-denominator addition",
+      "learningObjective": "Identify why adding denominators gives an invalid fraction sum.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Recovering a removed amount",
+      "learningObjective": "Use fraction subtraction to recover a missing change.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-10-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Combining uses before testing a limit",
+      "learningObjective": "Add and subtract fractions to decide how much of a resource remains available.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-11-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Area of a fractional rectangle",
+      "learningObjective": "Use an equal-cell area model to explain a product of proper fractions.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-12-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Quotient size without calculation",
+      "learningObjective": "Predict how dividing a positive quantity by a proper fraction affects the quotient.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-13-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Fraction of a remainder",
+      "learningObjective": "Apply a fractional share to the remaining stock after an initial use.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-14-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Full portions and a leftover",
+      "learningObjective": "Interpret a fractional quotient as whole portions and convert the remainder back to the original unit.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-212-15-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Sharing fractional stock equally",
+      "learningObjective": "Divide a mixed-number quantity into a specified number of equal shares.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
       ]
     }
   ],

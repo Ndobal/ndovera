@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4574,
-    "validDrafts": 2895,
+    "raw": 4589,
+    "validDrafts": 2910,
     "reviewed": 0,
     "registeredBanks": 198,
     "target": 180000,
@@ -1400,6 +1400,12 @@
       "sha256": "ecfc0ba12401378fd6c87e4b7a282857879912822c3847373ea3b59c8cbe191c",
       "declared": 13,
       "actual": 13
+    },
+    {
+      "path": "original-multisubject-batch-212.json",
+      "sha256": "33ed125d7a00614d5918aec9b8f8412b22686b26d44ca1ed9366fb4282910392",
+      "declared": 15,
+      "actual": 15
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5531,20 +5537,22 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-math-jss1-revised-retrieved",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 21,
-      "validDrafts": 20,
+      "raw": 36,
+      "validDrafts": 35,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 10,
-        "structured": 11
+        "mcq": 15,
+        "structured": 21
       },
       "difficulty": {
-        "standard": 20,
+        "standard": 33,
+        "easy": 1,
+        "difficult": 1,
         "missing": 1
       },
-      "remaining": 980,
-      "mappedObjectives": 20,
-      "representedObjectives": 20,
+      "remaining": 965,
+      "mappedObjectives": 35,
+      "representedObjectives": 35,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7228,21 +7236,21 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 386,
+    "explicitArithmeticClaims": 405,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -39189,6 +39197,96 @@
       "id": "ndv-211-013",
       "file": "original-multisubject-batch-211.json",
       "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-001",
+      "file": "original-multisubject-batch-212.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-002",
+      "file": "original-multisubject-batch-212.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-003",
+      "file": "original-multisubject-batch-212.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-004",
+      "file": "original-multisubject-batch-212.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-005",
+      "file": "original-multisubject-batch-212.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-006",
+      "file": "original-multisubject-batch-212.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-007",
+      "file": "original-multisubject-batch-212.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-008",
+      "file": "original-multisubject-batch-212.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-009",
+      "file": "original-multisubject-batch-212.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-010",
+      "file": "original-multisubject-batch-212.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-011",
+      "file": "original-multisubject-batch-212.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-012",
+      "file": "original-multisubject-batch-212.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-013",
+      "file": "original-multisubject-batch-212.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-014",
+      "file": "original-multisubject-batch-212.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-212-015",
+      "file": "original-multisubject-batch-212.json",
+      "index": 14,
       "errors": []
     },
     {
@@ -85666,6 +85764,456 @@
       "validDrafts": 1,
       "difficulty": {
         "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Regrouping across zeros",
+      "learningObjective": "Subtract a whole number by regrouping through consecutive zero places.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Place value after carrying",
+      "learningObjective": "Explain the place value of a digit created by regrouping in a sum.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Coordinates relative to a reference point",
+      "learningObjective": "Represent directed positions on a number line with a defined origin.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "easy": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Subtracting a negative on a line",
+      "learningObjective": "Explain the direction of a move when subtracting a negative integer.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Comparing temperatures across zero",
+      "learningObjective": "Calculate the difference between signed temperatures.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction",
+      "subtopic": "Signed changes versus final balance",
+      "learningObjective": "Distinguish net change from final balance in a sequence of transactions.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 7, PDF p. 20, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Regrouping a mixed number",
+      "learningObjective": "Subtract mixed numbers by exchanging one whole for fractional parts.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Diagnosing unlike-denominator addition",
+      "learningObjective": "Identify why adding denominators gives an invalid fraction sum.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Recovering a removed amount",
+      "learningObjective": "Use fraction subtraction to recover a missing change.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-10-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition and Subtraction of Fractions",
+      "subtopic": "Combining uses before testing a limit",
+      "learningObjective": "Add and subtract fractions to decide how much of a resource remains available.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 8, PDF p. 21, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-11-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Area of a fractional rectangle",
+      "learningObjective": "Use an equal-cell area model to explain a product of proper fractions.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-12-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Quotient size without calculation",
+      "learningObjective": "Predict how dividing a positive quantity by a proper fraction affects the quotient.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-13-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Fraction of a remainder",
+      "learningObjective": "Apply a fractional share to the remaining stock after an initial use.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-14-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Full portions and a leftover",
+      "learningObjective": "Interpret a fractional quotient as whole portions and convert the remainder back to the original unit.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-212-15-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication and Division of Fractions",
+      "subtopic": "Sharing fractional stock equally",
+      "learningObjective": "Divide a mixed-number quantity into a specified number of equal shares.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
       },
       "tiers": {
         "not_specified": 1
