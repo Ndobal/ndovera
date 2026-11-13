@@ -1313,3 +1313,8 @@ Batch 227 adds eleven JSS 1 Business Studies drafts on honesty and
 chemical-sourcing ethics, mapped to PDF pp. 30–31. The sourcing questions
 use paper exercises and Codex food-category guidance. Medicinal uses,
 vendor requirements and practical handling require further verification.
+
+Batch 228 adds ten JSS 1 Business Studies drafts on introductory marketing
+and the marketing mix, mapped to PDF pp. 32–33. The questions cover customer
+needs, demand and the four Ps. The design task asks pupils to develop a
+marketing mix for a school enterprise within stated constraints.

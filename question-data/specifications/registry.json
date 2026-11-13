@@ -2977,7 +2977,9 @@
         "Ethics in Business, PDF p. 28",
         "Right Attitude to Work, PDF p. 29",
         "Honesty in Business, PDF p. 30",
-        "Ethics in Sourcing and Using Chemicals, PDF p. 31"
+        "Ethics in Sourcing and Using Chemicals, PDF p. 31",
+        "Introduction to Marketing, PDF p. 32",
+        "Marketing Mix, PDF p. 33"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -29998,6 +30000,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 31, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Learning about users before launch",
+      "learningObjective": "Explain marketing as finding out what customers need and responding with an offer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 32, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Reducing unsold stock",
+      "learningObjective": "Explain how customer information can improve a production decision.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 32, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Using customer feedback",
+      "learningObjective": "Use feedback to choose a change and propose a follow-up check.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 32, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Marketing a service",
+      "learningObjective": "Recognise that marketing can apply to a service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 32, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Interest and demand",
+      "learningObjective": "Distinguish wanting a product from being willing and able to buy it at the stated price.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 32, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Buyer and user",
+      "learningObjective": "Distinguish the customer who purchases a product from the consumer who uses it.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 32, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Marketing Mix",
+      "subtopic": "The four decisions in one offer",
+      "learningObjective": "Explain why a marketing mix is a coordinated set of decisions.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 33, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Marketing Mix",
+      "subtopic": "Place versus promotion",
+      "learningObjective": "Distinguish a distribution decision from a communication decision.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 33, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Marketing Mix",
+      "subtopic": "Diagnosing a barrier to purchase",
+      "learningObjective": "Choose which element of the marketing mix to change using evidence.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 33, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-228-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Marketing Mix",
+      "subtopic": "Designing a coherent offer",
+      "learningObjective": "Develop a marketing mix that responds to stated customer constraints.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 33, performance objective 4"
       ]
     }
   ],

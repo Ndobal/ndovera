@@ -1,0 +1,414 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies marketing and marketing mix",
+  "questionCount": 10,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Learning about users before launch",
+      "learningObjective": "Explain marketing as finding out what customers need and responding with an offer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-01-v1",
+      "id": "ndv-228-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club making pencil cases asks pupils what they carry, tries two sample sizes and plans how pupils can order. Explain how this work illustrates marketing before the cases go on sale.",
+      "answer": "The club is learning about its customers, adapting the product to their needs and deciding how to make it available.",
+      "explanation": "Marketing connects what people need with an offer they can obtain. The club is doing that before the first sale.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects the questions or sample trials to learning about customer needs."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the design or ordering plan to meeting those needs."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Reducing unsold stock",
+      "learningObjective": "Explain how customer information can improve a production decision.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-02-v1",
+      "id": "ndv-228-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class makes 40 identical name tags for an open day every year. Last year many were left over. This year the class takes advance requests that specify colours. Explain two ways this could improve its production decision.",
+      "answer": "The requests help the class choose how many tags to make and how many to make in each colour.",
+      "explanation": "Quantity and colour are separate decisions. Advance requests provide evidence about both, though some extra visitors may still buy on the day.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how requests inform the total quantity."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how colour preferences inform the mix of stock."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Using customer feedback",
+      "learningObjective": "Use feedback to choose a change and propose a follow-up check.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-03-v1",
+      "id": "ndv-228-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Families say the school fair map is easy to read but difficult to find at the entrance. Suggest one change for the organiser responsible for marketing, and describe how the organiser could check whether the change helped.",
+      "answer": "Put copies where visitors first queue, then ask a sample of arriving families whether they can find a map without asking for help.",
+      "explanation": "Feedback pinpoints a problem with access. A follow-up check can show whether the change solved that problem.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests a feasible change that improves access to the map."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a check that measures whether visitors can find it."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Marketing a service",
+      "learningObjective": "Recognise that marketing can apply to a service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-04-v1",
+      "id": "ndv-228-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A community library wants more pupils to use its Saturday reading sessions. Name the service being offered and describe two marketing activities the library could carry out before the first session.",
+      "answer": "The service is the Saturday reading session. The library could ask families which time suits them and publicise the agreed time through school notices.",
+      "explanation": "Learning when families can attend and communicating the offer are both marketing activities for a service.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the reading session as the service."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a way to learn about the intended users."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a way to communicate or make the service accessible."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Interest and demand",
+      "learningObjective": "Distinguish wanting a product from being willing and able to buy it at the stated price.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-05-v1",
+      "id": "ndv-228-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Several pupils say they like a ruler costing ₦600. Hauwa has ₦600 and says she would buy at that price. Ibrahim likes it but can only spend ₦400. Which pupil shows demand at ₦600 in this example, and why?",
+      "answer": "Hauwa shows demand at ₦600 because she is willing and able to pay it.",
+      "explanation": "Liking a product shows interest. Demand at a particular price includes willingness and ability to pay that price.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Hauwa."
+        },
+        {
+          "marks": 1,
+          "description": "Uses both willingness and ability to justify the answer."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Marketing",
+      "subtopic": "Buyer and user",
+      "learningObjective": "Distinguish the customer who purchases a product from the consumer who uses it.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-06-v1",
+      "id": "ndv-228-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A parent buys a school diary from the bookshop and gives it to a pupil to use each day. Identify the customer and consumer, and give one reason the shop might ask each person a different question.",
+      "answer": "The parent is the customer and the pupil is the consumer. The shop could ask the parent about price and the pupil about whether the diary is easy to use.",
+      "explanation": "The purchaser and user are different people in this example. Both perspectives can inform decisions about the offer.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the parent as purchaser and the pupil as user."
+        },
+        {
+          "marks": 1,
+          "description": "Gives relevant distinct questions or explains why their perspectives differ."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Marketing Mix",
+      "subtopic": "The four decisions in one offer",
+      "learningObjective": "Explain why a marketing mix is a coordinated set of decisions.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-07-v1",
+      "id": "ndv-228-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A stall plans to sell seedling pots in pairs for ₦800 at the school gate and announce them on the school noticeboard. Identify each of the four Ps in the plan and explain why the decisions should work together.",
+      "answer": "Product is the pair of seedling pots. Price is ₦800. Place is the school gate. Promotion is the noticeboard announcement. The notice should tell the intended buyers what is offered, where and at what price.",
+      "explanation": "The four decisions describe the offer, its cost, where customers can obtain it and how they learn about it.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly identifies product and price."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly identifies place and promotion."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a sensible link between at least two decisions."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Marketing Mix",
+      "subtopic": "Place versus promotion",
+      "learningObjective": "Distinguish a distribution decision from a communication decision.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-08-v1",
+      "id": "ndv-228-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school shop makes notebooks available for collection at the library desk and tells pupils about the change at assembly. Which action changes place and which changes promotion? Explain the difference.",
+      "answer": "Collecting at the library desk changes place. Announcing it at assembly is promotion.",
+      "explanation": "Place concerns where or how customers obtain the notebooks. Promotion concerns how the offer is communicated.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the library desk as place."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the announcement as promotion and explains the distinction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Marketing Mix",
+      "subtopic": "Diagnosing a barrier to purchase",
+      "learningObjective": "Choose which element of the marketing mix to change using evidence.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-09-v1",
+      "id": "ndv-228-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Pupils like a club’s timetable cards and say the price is affordable. The cards are sold only while most pupils are in lessons. Which of the four Ps should the club change first? Give a specific adjustment and explain why.",
+      "answer": "Change place by making the cards available at a collection point pupils can reach during break.",
+      "explanation": "The evidence points to access to the offer. A collection arrangement that pupils can use addresses that obstacle.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies place or distribution."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a workable change and connects it to the access barrier."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Marketing Mix",
+      "subtopic": "Designing a coherent offer",
+      "learningObjective": "Develop a marketing mix that responds to stated customer constraints.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-228-10-v1",
+      "id": "ndv-228-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school enterprise wants to offer reusable book covers to pupils who can spend at most ₦1,000 each and can collect only during lunch. Propose one decision for each of the four Ps. Make the four decisions fit those pupils.",
+      "answer": "Offer a reusable cover sized for the school’s common exercise book. Set the price at ₦1,000 or less, assuming it covers costs. Arrange lunch collection at an accessible school desk. Use a notice to show the cover size, price and collection details.",
+      "explanation": "The offer fits the intended users when it meets a real need, stays within their budget, is accessible at lunch and communicates those details.",
+      "score": 4,
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a suitable product feature."
+        },
+        {
+          "marks": 1,
+          "description": "Sets a price within the stated budget."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a feasible lunch collection arrangement."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes promotion that communicates the offer accurately."
+        }
+      ]
+    }
+  ]
+}
