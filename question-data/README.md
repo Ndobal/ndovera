@@ -1323,3 +1323,8 @@ Batch 229 adds fifteen JSS 1 Business Studies drafts on office practice,
 staff and equipment from PDF pp. 34–36. Practical tasks include a layout
 sketch, a supervised AI drafting exercise using fictional meeting details,
 and equipment care with practice folders or a paper model.
+
+Batch 230 adds fifteen JSS 1 Business Studies drafts on book-keeping
+and source documents from PDF pp. 37–38. The practice includes tracing
+a posting correction, checking a till total, interpreting invoice
+adjustments and preparing a fictional receipt and sales invoice.

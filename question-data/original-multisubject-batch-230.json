@@ -1,0 +1,644 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies book-keeping and source documents",
+  "questionCount": 15,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Book-keeping",
+      "subtopic": "Scope of book-keeping",
+      "learningObjective": "Distinguish systematically recording transactions from related business activities.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-01-v1",
+      "id": "ndv-230-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A shoe repairer takes bookings, fixes shoes and records each customer payment with its date and amount. Which activity is book-keeping? Explain what makes that activity book-keeping.",
+      "answer": "Recording each payment with its date and amount is book-keeping because it creates an organised record of financial transactions.",
+      "explanation": "Bookings and repairs help run the business. The payment record tracks money received.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies recording customer payments."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the systematic recording of financial transactions."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Book-keeping",
+      "subtopic": "Using records to reconstruct spending",
+      "learningObjective": "Explain how transaction records help a business account for its spending.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-02-v1",
+      "id": "ndv-230-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At month-end, a school cooperative treasurer remembers paying for tape and labels but cannot recall which cost more. Describe the entries that would answer the question and give a reason to record them on the day of purchase.",
+      "answer": "Record the date, item and amount for each purchase. The amounts can then be compared. Recording promptly reduces the chance of forgetting which amount belongs to which item.",
+      "explanation": "Records let another reader trace the amounts to the purchases after the details are forgotten.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies entries that link purchases to amounts."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a benefit of prompt recording."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Book-keeping",
+      "subtopic": "Honesty when reporting a difference",
+      "learningObjective": "Explain why integrity is important in book-keeping.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-03-v1",
+      "id": "ndv-230-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "After a market day, the cash counted is less than the balance shown in the records. A friend tells the book-keeper to enter an expense without evidence so the figures agree. What should the book-keeper do, and what quality does that show?",
+      "answer": "Keep the existing record, report the difference and check receipts and entries for its cause. Refusing to invent an expense shows integrity.",
+      "explanation": "An invented expense would conceal the difference and make the records unreliable.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes reporting or investigating the actual difference without inventing an expense."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies honesty or integrity and connects it to the decision."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Book-keeping",
+      "subtopic": "Handling confidential records",
+      "learningObjective": "Apply discretion when responding to an unauthorised request for financial records.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-04-v1",
+      "id": "ndv-230-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "While the treasurer is away, a visitor asks a pupil to share a file listing payments and names of club members. The visitor gives no reason and has no permission. What should the pupil do, and why is this a useful quality in a book-keeper?",
+      "answer": "Keep the file private and direct the visitor to the treasurer or other authorised person. This shows discretion and protects members’ payment information.",
+      "explanation": "Accurate records can contain private information. Access should follow the club’s authorisation process.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Keeps the records private or refers the request to an authorised person."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how discretion protects the recorded information."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Book-keeping",
+      "subtopic": "Checking a posting against its evidence",
+      "learningObjective": "Use a source amount to identify and correct a transcription error.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-05-v1",
+      "id": "ndv-230-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A cloth seller’s payment voucher and cash count both support an expense of ₦1,640. A helper entered ₦1,460. By how much was the expense understated? Give one way to correct the record while keeping a trace of what changed.",
+      "answer": "It was understated by ₦180. Correct the entry to ₦1,640 and retain a dated note linking the change to the voucher and identifying who corrected it.",
+      "explanation": "Subtract ₦1,460 from ₦1,640. An identifiable correction lets a later reader explain the changed figure.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds an understatement of ₦180."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a correction traceable to the original entry and its evidence."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1640-1460",
+          "expected": 180,
+          "purpose": "Check the understatement in the expense record."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Book-keeping",
+      "subtopic": "Choosing a searchable digital record",
+      "learningObjective": "Select a digital tool to meet an everyday book-keeping need.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-06-v1",
+      "id": "ndv-230-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A snack stall keeps daily transactions as separate photos of notebook pages. The owner wants to find all recorded payments to a single supplier within a chosen month. Suggest a suitable digital tool and say how the owner should organise the information in it.",
+      "answer": "Use a spreadsheet with a row per transaction and columns for date, supplier, amount and document reference. Filter the rows by supplier and date.",
+      "explanation": "Structured fields can be filtered directly. Document references help the owner check the results against the evidence.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses a suitable tool, such as a spreadsheet or book-keeping application."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a viable way to find the specified transactions using searchable fields."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Source Documents",
+      "subtopic": "Original evidence and later totals",
+      "learningObjective": "Identify an original transaction document and distinguish it from a later report.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-07-v1",
+      "id": "ndv-230-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club sells used books at a fair. Its treasurer has a sale receipt for each buyer and a sheet made a week later showing the total raised. Which of these records is a source document for one buyer’s payment? Explain.",
+      "answer": "The receipt for that buyer is the source document because it records evidence of the individual payment. The total sheet summarises many payments.",
+      "explanation": "A source document is evidence from which an individual transaction can be recorded or checked.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the receipt for that buyer."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that it evidences the individual transaction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Source Documents",
+      "subtopic": "Checking delivery and payment claims",
+      "learningObjective": "Choose relevant evidence to check a report that a supplier has already been paid.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-08-v1",
+      "id": "ndv-230-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A vendor’s invoice lists school aprons and an amount due. A staff member points to that invoice as evidence that the amount was paid. Explain what the invoice establishes and name a document that could support the payment claim.",
+      "answer": "The invoice shows the vendor’s charge. A receipt issued by the vendor for that invoice could acknowledge payment.",
+      "explanation": "An amount billed and an amount paid are different facts. The payment record should be traceable to the charge.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the invoice establishes the amount billed."
+        },
+        {
+          "marks": 1,
+          "description": "Names suitable linked payment evidence, such as a supplier receipt."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Source Documents",
+      "subtopic": "Sales and purchase invoice perspectives",
+      "learningObjective": "Classify one invoice from the perspectives of seller and buyer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-09-v1",
+      "id": "ndv-230-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A bag maker sends invoice BM-14 to a stationery shop for goods supplied on credit. How should each business describe BM-14 in its records? Explain why the invoice number can be the same on both copies.",
+      "answer": "It is a sales invoice for the bag maker and a purchase invoice for the stationery shop. Both copies concern the same transaction and can carry the supplier’s invoice reference BM-14.",
+      "explanation": "The description reflects the business’s role in the transaction. A shared reference helps match the two copies.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly classifies the invoice for both parties."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the shared transaction reference."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Source Documents",
+      "subtopic": "Reading a cash register tape",
+      "learningObjective": "Use line quantities and prices on a till tape to check a sale total.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-10-v1",
+      "id": "ndv-230-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A cash register tape has two lines: 3 folders at ₦280 each and 1 marker at ₦410. The total on the tape is ₦1,150. Assume no discounts or other charges. Show the expected total and state what should be checked before recording the sale.",
+      "answer": "The folders cost ₦840 and the marker costs ₦410, so the expected total is ₦1,250. Check which quantities, prices and total the till actually recorded before relying on the tape.",
+      "explanation": "Multiply the folder quantity by its unit price and add the marker price. The resulting total differs from the tape by ₦100.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows the correct folder line amount and expected total."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the discrepancy and proposes checking the recorded details."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3*280+410",
+          "expected": 1250,
+          "purpose": "Verify the expected sale amount."
+        },
+        {
+          "expression": "1250-1150",
+          "expected": 100,
+          "purpose": "Verify the size of the discrepancy."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Source Documents",
+      "subtopic": "Credit note after a return",
+      "learningObjective": "Explain the effect of a seller-issued credit note against an unpaid invoice.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-11-v1",
+      "id": "ndv-230-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A supplier bills a shop ₦9,400. Before payment, the supplier accepts a damaged item back and issues a credit note for ₦1,700 against that bill. State the remaining amount due and explain why the shop should keep the credit note with the invoice.",
+      "answer": "The remaining amount due is ₦7,700. Keeping the credit note with the invoice shows why less is due than the original bill states.",
+      "explanation": "The seller’s credit note reduces the amount payable against the invoice.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates the remaining amount due as ₦7,700."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the documented reduction and the link to the invoice."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "9400-1700",
+          "expected": 7700,
+          "purpose": "Verify the remaining unpaid amount."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Source Documents",
+      "subtopic": "Debit note for an undercharge",
+      "learningObjective": "Interpret an agreed seller-issued debit note that increases an invoice amount.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-12-v1",
+      "id": "ndv-230-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A seller and buyer agree that an unpaid invoice omitted a ₦650 delivery charge. The seller issues a debit note for that charge and quotes the original invoice number. Explain the effect on the buyer’s amount due and why the reference matters.",
+      "answer": "The buyer owes ₦650 more. The original invoice number identifies the bill to which the adjustment belongs.",
+      "explanation": "In this scenario the seller issues the note to document a mutually agreed increase in the amount due.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States the increase of ₦650."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the invoice reference links the adjustment to the original bill."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Source Documents",
+      "subtopic": "Cheque details and settlement evidence",
+      "learningObjective": "Identify cheque details and distinguish a payment instruction from confirmed settlement.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-13-v1",
+      "id": "ndv-230-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A shop receives a cheque for a credit sale and makes a practice record of it. Name three details on the cheque that help identify the payment instruction. Explain why the shop might also check its bank record.",
+      "answer": "Record the cheque number, date and amount. The shop checks its bank record to confirm whether the cheque cleared and the amount was credited.",
+      "explanation": "Other useful identifying details include the drawer and payee. Recording a cheque received and confirming settlement are separate steps.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names three valid identifying details."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the bank record can confirm clearance or credit."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Source Documents",
+      "subtopic": "Making a payment receipt",
+      "learningObjective": "Create paper and digital versions of a receipt from a fictional payment brief.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-14-v1",
+      "id": "ndv-230-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On 6 May 2026, the fictional Cedar School Shop received ₦2,300 cash from Nneka Obi as part-payment for order CS-17. Create a paper receipt and a matching typed version. Choose an identifying receipt number and show which order and payment the receipt covers.",
+      "answer": "Receipt R-021. Cedar School Shop received ₦2,300 cash from Nneka Obi on 6 May 2026 as part-payment for order CS-17. The paper and typed versions show the same information.",
+      "explanation": "The receipt acknowledges money actually received. The order reference identifies the transaction, and the receipt number distinguishes this acknowledgement from others.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Supplies both versions with a matching receipt identifier."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the issuer, payer and date."
+        },
+        {
+          "marks": 1,
+          "description": "Records ₦2,300 cash and identifies it as part-payment for CS-17."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Source Documents",
+      "subtopic": "Preparing an invoice for a credit sale",
+      "learningObjective": "Create a simple sales invoice with traceable line items and an unpaid total.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-230-15-v1",
+      "id": "ndv-230-015",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Prepare invoice SW-08 dated 14 May 2026 for Soma Weaving to send to Hill Craft Club. The club received 4 mats at ₦1,350 each and 2 baskets at ₦2,200 each on credit. Assume no taxes or other charges. Show the quantities, unit prices, line amounts and total due.",
+      "answer": "Invoice SW-08, 14 May 2026, from Soma Weaving to Hill Craft Club. Mats: 4 × ₦1,350 = ₦5,400. Baskets: 2 × ₦2,200 = ₦4,400. Total due: ₦9,800.",
+      "explanation": "Each line amount is the quantity multiplied by its unit price. The two amounts sum to the amount billed.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows the invoice identifier, date, seller and buyer."
+        },
+        {
+          "marks": 1,
+          "description": "Shows both correct quantities, unit prices and line amounts."
+        },
+        {
+          "marks": 1,
+          "description": "Shows ₦9,800 as the total due."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4*1350",
+          "expected": 5400,
+          "purpose": "Verify the mats line."
+        },
+        {
+          "expression": "2*2200",
+          "expected": 4400,
+          "purpose": "Verify the baskets line."
+        },
+        {
+          "expression": "5400+4400",
+          "expected": 9800,
+          "purpose": "Verify the invoice total."
+        }
+      ]
+    }
+  ]
+}
