@@ -1,0 +1,430 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies commerce and money",
+  "questionCount": 10,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Commerce",
+      "subtopic": "Trade and its supporting activities",
+      "learningObjective": "Explain commerce by distinguishing making a product from bringing it to buyers.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-01-v1",
+      "id": "ndv-220-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A workshop makes sandals, a van operator takes them to town, and a stall sells them. Identify the production step and explain how the other two steps illustrate commerce.",
+      "answer": "Making sandals is production. Selling them is trade, and transporting them supports the trade by getting the goods to where buyers can obtain them.",
+      "explanation": "Commerce includes exchange and activities that help exchange take place.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies making the sandals as production."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the stall sale as trade."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how delivery supports trade."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Commerce",
+      "subtopic": "Reaching new buyers",
+      "learningObjective": "Explain how commerce gives a producer access to markets.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-02-v1",
+      "id": "ndv-220-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A cooperative can make more woven baskets than its own village can buy. A retailer in another town places regular orders. Explain one benefit for the cooperative and one for customers in the other town.",
+      "answer": "The cooperative gains access to more buyers, giving it another outlet for its baskets. Customers in the other town can buy baskets without travelling to the village.",
+      "explanation": "Commercial links connect producers with customers beyond their immediate area.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the benefit of market access for the producer."
+        },
+        {
+          "marks": 1,
+          "description": "Explains improved access for customers."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Commerce",
+      "subtopic": "Promotion and customer service",
+      "learningObjective": "Distinguish promotion from customer service in a trade scenario.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-03-v1",
+      "id": "ndv-220-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A shop posts a flyer announcing its new school bags. A week later, a worker helps a buyer report a broken zip. Name the activity illustrated by each action and explain its purpose.",
+      "answer": "The flyer is promotion and informs potential customers about the bags. Helping with the complaint is customer service and supports the buyer after purchase.",
+      "explanation": "Promotion communicates an offer. Customer service addresses buyers’ needs or problems.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies promotion and its purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies customer service and its purpose."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Money as a medium of exchange",
+      "learningObjective": "Explain how accepted money allows purchases from different sellers.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-04-v1",
+      "id": "ndv-220-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Bola sells a handmade bookmark to one pupil and uses the payment to buy a pencil from another. Explain why both transactions can go ahead even if the pencil seller has no use for a bookmark.",
+      "answer": "The first pupil pays Bola in money, and the pencil seller accepts that money as payment. The pencil seller only needs to accept the money.",
+      "explanation": "Money separates the sale of the bookmark from the purchase of the pencil.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies money as a commonly accepted means of payment."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how separate sales can occur."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "A difficulty with direct barter",
+      "learningObjective": "Explain a limitation of barter that money helps to address.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-05-v1",
+      "id": "ndv-220-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom barter game, Sade offers beans for a clay pot. The pot maker wants cloth, and the cloth owner wants beans. Explain why Sade’s first offer fails and describe a possible exchange sequence.",
+      "answer": "The pot maker wants cloth, so the first offer fails. Sade can trade beans for cloth, then offer the cloth for the pot.",
+      "explanation": "Direct barter depends on matching wants. A widely accepted medium of exchange can remove the need to find an extra trading partner.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the mismatch between the first two traders’ wants."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the beans-to-cloth and cloth-to-pot sequence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Cash and account balances",
+      "learningObjective": "Distinguish physical cash from funds held in an account.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-06-v1",
+      "id": "ndv-220-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Kemi buys a ruler with a naira note. Her parent pays for a workbook using a transfer from an account. Compare what changes hands or changes in the records in the two transactions.",
+      "answer": "The note physically passes to the seller. With a transfer, the payment moves funds between accounts and appears in the account records.",
+      "explanation": "Both purchases use money. The transfer changes recorded balances, while the cash purchase passes physical currency.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes the physical movement of the note."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the change in recorded account balances."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Sources of money",
+      "learningObjective": "Classify receipts according to how the money was obtained.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-07-v1",
+      "id": "ndv-220-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil receives a birthday cash gift, money for returning an unopened item to a shop, and payment for helping at a family stall. Identify which is earned and explain the sources of the other two receipts.",
+      "answer": "Payment for helping at the stall is earned. The birthday money is a gift, and the returned purchase money is a refund.",
+      "explanation": "These receipts increase the cash available for different reasons. Only the stall payment in this example is received in exchange for work.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the stall payment as earnings."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies the other receipts as a gift and a refund."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Paying for goods and services",
+      "learningObjective": "Distinguish money used for a good from money used for a service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-08-v1",
+      "id": "ndv-220-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Chidi buys a replacement bicycle bell and pays a mechanic separately to fit it. Which payment is for a good, which is for a service, and what does Chidi receive for each?",
+      "answer": "The bell purchase pays for a good, the physical bell. The fitting charge pays for the mechanic’s work, a service.",
+      "explanation": "The payment for the item transfers the item. The fitting fee pays for work performed.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the bell and explains the good received."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies fitting and explains the service received."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Allocating a limited amount",
+      "learningObjective": "Treat money as a limited resource and explain a spending trade-off.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-09-v1",
+      "id": "ndv-220-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class has ₦2,400. Cardboard for a required display costs ₦1,500, and optional stickers cost ₦1,100. If the class buys the cardboard first, how much remains? Explain the choice it faces.",
+      "answer": "₦900 remains. That is ₦200 short of the stickers, so buying the required cardboard means choosing a cheaper decoration or postponing the stickers.",
+      "explanation": "The same money cannot pay for both purchases. The essential expense takes priority in this budget.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Computes the remaining ₦900."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the shortfall and gives a feasible choice."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "2400-1500",
+          "expected": 900,
+          "purpose": "Check the remaining budget."
+        },
+        {
+          "expression": "1100-900",
+          "expected": 200,
+          "purpose": "Check the shortfall."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Responding to excess change",
+      "learningObjective": "Demonstrate honest and courteous conduct in a payment.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-220-10-v1",
+      "id": "ndv-220-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At the canteen, a pupil pays ₦1,000 for a ₦650 meal and is handed ₦450 change. Write what the pupil could say and explain what to do with the extra amount.",
+      "answer": "“Please check my change. I should have received ₦350, but I received ₦450.” Return ₦100 to the cashier after checking.",
+      "explanation": "The correct change is the amount paid minus the price. Pointing out the error politely lets the cashier correct the transaction.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds ₦350 as correct change."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the extra ₦100 and proposes returning it."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a courteous way to raise the error."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1000-650",
+          "expected": 350,
+          "purpose": "Check correct change."
+        },
+        {
+          "expression": "450-350",
+          "expected": 100,
+          "purpose": "Check excess change."
+        }
+      ]
+    }
+  ]
+}

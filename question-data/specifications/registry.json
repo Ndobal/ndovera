@@ -2962,7 +2962,9 @@
         "Title and copyright, PDF front matter",
         "JSS 1 contents, PDF pp. 13–14",
         "Introduction to Business Studies, PDF p. 15",
-        "Digital Technologies in Business, PDF p. 16"
+        "Digital Technologies in Business, PDF p. 16",
+        "Introduction to Commerce, PDF p. 17",
+        "Concept of Money, PDF p. 18"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     }
@@ -28437,6 +28439,186 @@
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 16, performance objective 4"
       ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Commerce",
+      "subtopic": "Trade and its supporting activities",
+      "learningObjective": "Explain commerce by distinguishing making a product from bringing it to buyers.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 17, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Commerce",
+      "subtopic": "Reaching new buyers",
+      "learningObjective": "Explain how commerce gives a producer access to markets.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 17, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Commerce",
+      "subtopic": "Promotion and customer service",
+      "learningObjective": "Distinguish promotion from customer service in a trade scenario.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 17, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Money as a medium of exchange",
+      "learningObjective": "Explain how accepted money allows purchases from different sellers.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 18, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "A difficulty with direct barter",
+      "learningObjective": "Explain a limitation of barter that money helps to address.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 18, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Cash and account balances",
+      "learningObjective": "Distinguish physical cash from funds held in an account.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 18, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Sources of money",
+      "learningObjective": "Classify receipts according to how the money was obtained.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 18, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Paying for goods and services",
+      "learningObjective": "Distinguish money used for a good from money used for a service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 18, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Allocating a limited amount",
+      "learningObjective": "Treat money as a limited resource and explain a spending trade-off.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 18, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-220-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Money",
+      "subtopic": "Responding to excess change",
+      "learningObjective": "Demonstrate honest and courteous conduct in a payment.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 18, performance objective 7"
+      ]
     }
   ],
   "scopeGaps": [
@@ -28483,6 +28665,7 @@
     "PVS access advance2026-11-11: historical official JSS THREE PDF now retrieved and hashed; twelve-topic inventory and eight provisional knowledge mappings recorded. Twenty-four original objective drafts do not establish current cohort adoption, complete NECO scope,8311/8312 topic allocation, option count or practical competence. Revised JSS3 page still404; stock-exchange wording and health/legal/food-safety topics need separate authoritative checks. Igbo foreword checksum unchanged; L1/L2 assignment and current adoption remain unverified.",
     "NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved.",
     "The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved.",
-    "On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation."
+    "On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation.",
+    "JSS 1 offering reconciliation: the listing recorded in batch 219 has eight named subjects with registered exact-class banks. The other eight are Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French, Intermediate Science and Digital Technologies. The Trades link requires separate route verification. The listing recheck in batch 220 returned HTTP 403. This inventory does not establish detailed curricula or school adoption."
   ]
 }

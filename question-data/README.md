@@ -1273,3 +1273,9 @@ and adds eight drafts from PDF pp. 15–16, including a spreadsheet exercise.
 The official subject list loaded and lists 16 named subjects plus a Trades
 link. Full objective coverage, trade options, school adoption, term
 placement, formal assessment formats and independent review remain open.
+
+Batch 220 adds ten JSS 1 Business Studies drafts on commerce and money
+using PDF pp. 17–18. The curriculum PDF was accessible. The JSS 1 subject
+listing recheck returned HTTP 403, so the registry reconciliation uses
+the offering recorded in batch 219. Eight named subjects await bank
+registration and the Trades link requires separate verification.
