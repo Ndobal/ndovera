@@ -2799,12 +2799,13 @@
         "Food and nutrition in Health, printed p. 9 (PDF p. 21)",
         "Posture and postural defects, printed p. 6 (PDF p. 18)",
         "Food preservation, printed p. 10 (PDF p. 22)",
-        "First aid and Disaster and risk management, printed pp. 17–18 (PDF pp. 29–30)"
+        "First aid and Disaster and risk management, printed pp. 17–18 (PDF pp. 29–30)",
+        "Contact sports and Non-contact sports, printed pp. 11–12 (PDF pp. 23–24)"
       ],
-      "note": "Exact-class revised PDF. Publication date not established from inspected pages. Contents lists these topics as pp. 6–7, while table footers show pp. 7–8. School adoption, term allocation, formal assessment and remaining topics are open. Batch 207 distinguishes observable posture from clinical diagnosis. The table’s general causes list is not used to attribute scoliosis to sitting habits. Batch 208 covers initial response and preparedness. Serious emergencies listed in the First aid table require separate guidance and are outside this batch.",
+      "note": "Exact-class revised PDF. Publication date not established from inspected pages. Contents lists these topics as pp. 6–7, while table footers show pp. 7–8. School adoption, term allocation, formal assessment and remaining topics are open. Batch 207 distinguishes observable posture from clinical diagnosis. The table’s general causes list is not used to attribute scoliosis to sitting habits. Batch 208 covers initial response and preparedness. Serious emergencies listed in the First aid table require separate guidance and are outside this batch. Batch 209 adds knowledge and planning practice for the final two topic tables. Live wrestling, judo, gymnastics inversions and swimming require separately verified delivery.",
       "latestRecheck": {
         "date": "2026-11-13",
-        "method": "Matched registered SHA-256 and checked PDF pp. 29–30."
+        "method": "Matched registered SHA-256. Compared the 18 contents topics with mapped table pages and checked PDF pp. 23–24."
       }
     },
     {
@@ -26235,6 +26236,96 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 18, PDF p. 30, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-209-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Contact sports",
+      "subtopic": "Purposeful contact",
+      "learningObjective": "Identify contact as part of the intended action in wrestling.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 23, performance objective 1 and 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-209-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Contact sports",
+      "subtopic": "Cooperation in partner practice",
+      "learningObjective": "Explain how partner practice can develop cooperation and self-control.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 23, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-209-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Contact sports",
+      "subtopic": "Mat readiness",
+      "learningObjective": "Recognise a reason to pause a supervised contact-sport lesson.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 23, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-209-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Non-contact sports",
+      "subtopic": "Classifying individual performance",
+      "learningObjective": "Explain why a lane race and an individual gymnastics routine are non-contact examples.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 12, PDF p. 24, performance objective 1 and 2"
+      ]
+    },
+    {
+      "id": "nerdc-phe-jss1-209-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Non-contact sports",
+      "subtopic": "Control and coordination",
+      "learningObjective": "Link different non-contact activities to movement abilities they practise.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 12, PDF p. 24, performance objective 3"
       ]
     }
   ],

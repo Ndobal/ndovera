@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Physical and Health Education contact and non-contact sports",
+  "questionCount": 5,
+  "note": "Original classroom knowledge and reasoning practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Contact sports",
+      "subtopic": "Purposeful contact",
+      "learningObjective": "Identify contact as part of the intended action in wrestling.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-209-01-v1",
+      "id": "ndv-209-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "At a sports display, pupils watch wrestling and a lane swimming race. In which activity is physical contact with an opponent part of the normal contest?",
+      "answer": "Wrestling, where competitors use permitted holds to contest position.",
+      "explanation": "Wrestling involves deliberate physical interaction under rules. The swimmers race in separate lanes.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Swimming, because each competitor touches the pool wall.",
+        "Wrestling, where competitors use permitted holds to contest position.",
+        "Both, because both require physical effort.",
+        "Neither, because a referee or official can supervise both."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Contact sports",
+      "subtopic": "Cooperation in partner practice",
+      "learningObjective": "Explain how partner practice can develop cooperation and self-control.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-209-02-v1",
+      "id": "ndv-209-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a supervised judo lesson, two pupils take turns practising an exercise already demonstrated by the coach. One pupil notices that their partner needs more time before the next turn. Describe a cooperative response and explain how it shows self-control.",
+      "answer": "Pause, check that the partner is ready and wait for the coach’s signal before restarting. This shows control by delaying action until both pupils can take part as instructed.",
+      "explanation": "Partner practice gives pupils a reason to listen and adjust their own actions to the needs of another person.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests pausing or checking readiness."
+        },
+        {
+          "marks": 1,
+          "description": "Respects the partner’s pace and the coach’s direction."
+        },
+        {
+          "marks": 1,
+          "description": "Links the response to controlling one’s own actions."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Contact sports",
+      "subtopic": "Mat readiness",
+      "learningObjective": "Recognise a reason to pause a supervised contact-sport lesson.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-209-03-v1",
+      "id": "ndv-209-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Before a school wrestling demonstration begins, two mats have separated and a gap lies inside the marked practice space. What should a pupil do?",
+      "answer": "Pause and tell the teacher so the mat area can be checked before practice.",
+      "explanation": "A gap interrupts the intended surface. Reporting it before practice lets the teacher correct the setup.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Step over the gap and start the demonstration.",
+        "Stand in the gap while another pupil practises.",
+        "Cover the gap with a school bag and carry on.",
+        "Pause and tell the teacher so the mat area can be checked before practice."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Non-contact sports",
+      "subtopic": "Classifying individual performance",
+      "learningObjective": "Explain why a lane race and an individual gymnastics routine are non-contact examples.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-209-04-v1",
+      "id": "ndv-209-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school programme includes a swim race in separate lanes and an individual gymnastics routine. Use the way each event is performed to explain why both are examples of non-contact sports.",
+      "answer": "Each swimmer races in an assigned lane without using physical contact to compete. Each gymnast performs their own routine without physical contact with an opponent.",
+      "explanation": "Non-contact here describes how competitors perform. They can compete for time or a score while performing separately.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how separate lanes organise swimming without opponent contact."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the individual routine is performed without opponent contact."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Non-contact sports",
+      "subtopic": "Control and coordination",
+      "learningObjective": "Link different non-contact activities to movement abilities they practise.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "objectiveId": "nerdc-phe-jss1-209-05-v1",
+      "id": "ndv-209-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil compares a familiar floor-balance exercise with a swimming lesson that practises timing the arms and legs together. Identify the main movement ability emphasised in each example and explain your choices.",
+      "answer": "The floor exercise emphasises balance because the pupil controls a steady position. The swimming lesson emphasises coordination because the pupil times different body movements together.",
+      "explanation": "Different practice tasks can emphasise different movement abilities. These examples isolate holding a position and timing movements together.",
+      "score": 4,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies balance for the floor exercise."
+        },
+        {
+          "marks": 1,
+          "description": "Links balance to controlling a steady position."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies coordination for the swimming lesson."
+        },
+        {
+          "marks": 1,
+          "description": "Links coordination to timing arm and leg actions."
+        }
+      ]
+    }
+  ]
+}

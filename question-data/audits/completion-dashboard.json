@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4549,
-    "validDrafts": 2870,
+    "raw": 4554,
+    "validDrafts": 2875,
     "reviewed": 0,
     "registeredBanks": 198,
     "target": 180000,
@@ -1380,6 +1380,12 @@
     {
       "path": "original-multisubject-batch-208.json",
       "sha256": "fb9c150e951d968469e89b10348760854b79039d79b711ef2de48ab0b1ced9d6",
+      "declared": 5,
+      "actual": 5
+    },
+    {
+      "path": "original-multisubject-batch-209.json",
+      "sha256": "fd3c5eff2d354e6477c99dc11f980f11a78c841195996ab99979a5e141c3db78",
       "declared": 5,
       "actual": 5
     },
@@ -5754,20 +5760,20 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-phe-jss1-revised-retrieved",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 46,
-      "validDrafts": 46,
+      "raw": 51,
+      "validDrafts": 51,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 15,
-        "structured": 31
+        "mcq": 17,
+        "structured": 34
       },
       "difficulty": {
         "easy": 1,
-        "standard": 45
+        "standard": 50
       },
-      "remaining": 954,
-      "mappedObjectives": 46,
-      "representedObjectives": 46,
+      "remaining": 949,
+      "mappedObjectives": 51,
+      "representedObjectives": 51,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7206,10 +7212,10 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -39016,6 +39022,36 @@
     {
       "id": "ndv-208-005",
       "file": "original-multisubject-batch-208.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-209-001",
+      "file": "original-multisubject-batch-209.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-209-002",
+      "file": "original-multisubject-batch-209.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-209-003",
+      "file": "original-multisubject-batch-209.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-209-004",
+      "file": "original-multisubject-batch-209.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-209-005",
+      "file": "original-multisubject-batch-209.json",
       "index": 4,
       "errors": []
     },
@@ -84739,6 +84775,156 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 18, PDF p. 30, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-209-01-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Contact sports",
+      "subtopic": "Purposeful contact",
+      "learningObjective": "Identify contact as part of the intended action in wrestling.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 23, performance objective 1 and 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-209-02-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Contact sports",
+      "subtopic": "Cooperation in partner practice",
+      "learningObjective": "Explain how partner practice can develop cooperation and self-control.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 23, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-209-03-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Contact sports",
+      "subtopic": "Mat readiness",
+      "learningObjective": "Recognise a reason to pause a supervised contact-sport lesson.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 23, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-209-04-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Non-contact sports",
+      "subtopic": "Classifying individual performance",
+      "learningObjective": "Explain why a lane race and an individual gymnastics routine are non-contact examples.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 12, PDF p. 24, performance objective 1 and 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-phe-jss1-209-05-v1",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "JSS 1",
+      "topic": "Non-contact sports",
+      "subtopic": "Control and coordination",
+      "learningObjective": "Link different non-contact activities to movement abilities they practise.",
+      "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 12, PDF p. 24, performance objective 3"
       ],
       "questionCount": 1,
       "validDrafts": 1,

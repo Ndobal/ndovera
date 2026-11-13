@@ -1214,3 +1214,8 @@ Batch 208 adds five NERDC JSS 1 Physical and Health Education drafts on
 first-aid scene safety, handover and disaster preparedness. Two tasks are
 supervised simulations. Treatment of serious emergencies, school adoption,
 formal assessment and independent academic review remain open.
+
+Batch 209 adds five NERDC JSS 1 Physical and Health Education drafts on
+contact and non-contact sports. All 18 topic tables now have initial
+practice. Live sport skills, full numbered-objective reconciliation, school
+adoption, formal assessment and independent review remain open.
