@@ -2938,7 +2938,9 @@
         "Simplification of Algebraic Expressions, printed p. 17 (PDF p. 30)",
         "Simple Equations, printed p. 18 (PDF p. 31)",
         "Plane Shapes, PDF p. 32 (printed footer 20; contents entry 19)",
-        "Three dimensional Figures, PDF p. 33 (printed footer 21; contents entry 20)"
+        "Three dimensional Figures, PDF p. 33 (printed footer 21; contents entry 20)",
+        "Construction, PDF p. 34 (printed footer 22; contents entry 21)",
+        "Angles, PDF p. 35 (printed footer 23; contents entry 22)"
       ],
       "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds. The contents and printed footers differ by one page from Plane Shapes onward. Use PDF page indices for these sections."
     }
@@ -27917,6 +27919,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, PDF p. 33, printed footer 21, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Parallel through an external point",
+      "learningObjective": "Construct a parallel through a specified point using a compass and straightedge.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Perpendicular at an on-line point",
+      "learningObjective": "Construct a perpendicular at a specified point on a line.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Constructing 60 degrees with a protractor",
+      "learningObjective": "Construct a 60° angle from a left-pointing baseline.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Constructing a right angle on a sloping baseline",
+      "learningObjective": "Construct a 90° angle relative to a sloping ray.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Bisecting an oblique segment",
+      "learningObjective": "Construct the midpoint of a segment using intersecting arcs.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Measuring an angle from an observed object",
+      "learningObjective": "Trace and measure an angle using a protractor.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Vertical and adjacent angles together",
+      "learningObjective": "Distinguish vertically opposite angles from adjacent supplementary angles.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Locating corresponding and alternate interior angles",
+      "learningObjective": "Identify angle pairs by position on a transversal.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Completing the turn around a point",
+      "learningObjective": "Use a full turn and a right angle to calculate an unknown angle.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-217-10-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Angle of elevation from eye level",
+      "learningObjective": "Identify the horizontal reference for an angle of elevation.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 4"
       ]
     }
   ],

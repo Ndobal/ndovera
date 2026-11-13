@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4640,
-    "validDrafts": 2961,
+    "raw": 4650,
+    "validDrafts": 2971,
     "reviewed": 0,
     "registeredBanks": 198,
     "target": 180000,
@@ -1430,6 +1430,12 @@
       "sha256": "84c59c27480baf696ac446408686439fae87a030d771599e44f4b0f81f035d18",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-217.json",
+      "sha256": "ff1ff3cc7d4dcdb1926cc2f05822f3793f8005553e0c9fd241c6adb255af7d2e",
+      "declared": 10,
+      "actual": 10
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5561,22 +5567,22 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-math-jss1-revised-retrieved",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 87,
-      "validDrafts": 86,
+      "raw": 97,
+      "validDrafts": 96,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 28,
-        "structured": 59
+        "structured": 69
       },
       "difficulty": {
-        "standard": 81,
+        "standard": 91,
         "easy": 2,
         "difficult": 3,
         "missing": 1
       },
-      "remaining": 914,
-      "mappedObjectives": 86,
-      "representedObjectives": 86,
+      "remaining": 904,
+      "mappedObjectives": 96,
+      "representedObjectives": 96,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7260,21 +7266,21 @@
     }
   ],
   "errorCounts": {
+    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 456,
+    "explicitArithmeticClaims": 459,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -39617,6 +39623,66 @@
       "id": "ndv-216-012",
       "file": "original-multisubject-batch-216.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-001",
+      "file": "original-multisubject-batch-217.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-002",
+      "file": "original-multisubject-batch-217.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-003",
+      "file": "original-multisubject-batch-217.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-004",
+      "file": "original-multisubject-batch-217.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-005",
+      "file": "original-multisubject-batch-217.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-006",
+      "file": "original-multisubject-batch-217.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-007",
+      "file": "original-multisubject-batch-217.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-008",
+      "file": "original-multisubject-batch-217.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-009",
+      "file": "original-multisubject-batch-217.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-217-010",
+      "file": "original-multisubject-batch-217.json",
+      "index": 9,
       "errors": []
     },
     {
@@ -88069,6 +88135,306 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, PDF p. 33, printed footer 21, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Parallel through an external point",
+      "learningObjective": "Construct a parallel through a specified point using a compass and straightedge.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Perpendicular at an on-line point",
+      "learningObjective": "Construct a perpendicular at a specified point on a line.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Constructing 60 degrees with a protractor",
+      "learningObjective": "Construct a 60° angle from a left-pointing baseline.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Constructing a right angle on a sloping baseline",
+      "learningObjective": "Construct a 90° angle relative to a sloping ray.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Bisecting an oblique segment",
+      "learningObjective": "Construct the midpoint of a segment using intersecting arcs.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 34, printed footer 22, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Measuring an angle from an observed object",
+      "learningObjective": "Trace and measure an angle using a protractor.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Vertical and adjacent angles together",
+      "learningObjective": "Distinguish vertically opposite angles from adjacent supplementary angles.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Locating corresponding and alternate interior angles",
+      "learningObjective": "Identify angle pairs by position on a transversal.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Completing the turn around a point",
+      "learningObjective": "Use a full turn and a right angle to calculate an unknown angle.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-217-10-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Angle of elevation from eye level",
+      "learningObjective": "Identify the horizontal reference for an angle of elevation.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 4"
       ],
       "questionCount": 1,
       "validDrafts": 1,

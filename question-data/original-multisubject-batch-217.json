@@ -1,0 +1,443 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Mathematics construction and angles",
+  "questionCount": 10,
+  "note": "Original classroom practice. Independent academic review pending. Practical tasks require teacher inspection of the drawing or measurement.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Parallel through an external point",
+      "learningObjective": "Construct a parallel through a specified point using a compass and straightedge.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-01-v1",
+      "id": "ndv-217-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw line AB and mark P about 3 cm above it. Using a compass and straightedge, construct a line through P parallel to AB. Leave the arcs visible and explain why the lines are parallel.",
+      "answer": "A line through P parallel to AB, with construction arcs and a valid parallelism explanation.",
+      "explanation": "One method is to construct a perpendicular from P to AB, then construct the perpendicular to that new line at P. Both AB and the final line are perpendicular to the same line.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Produces the final line through P."
+        },
+        {
+          "marks": 1,
+          "description": "Shows a valid compass-and-straightedge construction, such as two perpendicular constructions or copied corresponding angles."
+        },
+        {
+          "marks": 1,
+          "description": "Justifies parallelism using the construction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Perpendicular at an on-line point",
+      "learningObjective": "Construct a perpendicular at a specified point on a line.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-02-v1",
+      "id": "ndv-217-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw a horizontal line and label a point K on it. Use a compass and straightedge to construct a perpendicular through K. Leave the arcs visible. Explain why the first two marks on the line must be equally far from K.",
+      "answer": "The perpendicular goes through K and the intersection of equal-radius arcs drawn from the two line marks. The marks make K their midpoint.",
+      "explanation": "Mark equal distances on either side of K. The equal-radius arcs from those marks intersect at a point equidistant from both, so joining it to K draws their perpendicular bisector.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Marks points at equal distances on opposite sides of K."
+        },
+        {
+          "marks": 1,
+          "description": "Uses equal-radius arcs from the two marks and joins their intersection to K."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that K is the midpoint."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Constructing 60 degrees with a protractor",
+      "learningObjective": "Construct a 60° angle from a left-pointing baseline.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-03-v1",
+      "id": "ndv-217-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw ray UV pointing left. Use a protractor to draw ray UW above UV so that the smaller angle VUW is 60°. State how you chose the protractor scale.",
+      "answer": "Ray UW points up and left. Use the scale whose zero lies along ray UV.",
+      "explanation": "Centre the protractor on U, align its left-hand zero with UV, mark 60° on that scale and join the mark to U.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses U as the vertex and UV as the baseline."
+        },
+        {
+          "marks": 1,
+          "description": "Draws and labels an angle of 60° within 2°."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the chosen scale starts at zero along UV."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Constructing a right angle on a sloping baseline",
+      "learningObjective": "Construct a 90° angle relative to a sloping ray.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-04-v1",
+      "id": "ndv-217-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw ray CD sloping upward to the right. Use a protractor to draw ray CE so that turning anticlockwise from CD to CE is a quarter-turn. Label the angle in degrees.",
+      "answer": "A ray from C at 90° anticlockwise from CD.",
+      "explanation": "Align the baseline of the protractor with CD. A quarter-turn is 90°, so the second ray is perpendicular to CD and lies on the specified side.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draws CE from C on the anticlockwise side of CD."
+        },
+        {
+          "marks": 1,
+          "description": "Produces an angle within 2° of 90° and labels it 90°."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "360/4",
+          "expected": 90,
+          "purpose": "Verify the stated angle calculation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Construction",
+      "subtopic": "Bisecting an oblique segment",
+      "learningObjective": "Construct the midpoint of a segment using intersecting arcs.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-05-v1",
+      "id": "ndv-217-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw a sloping segment RS about 7 cm long. Without using ruler graduations to locate the midpoint, bisect the segment with a compass and straightedge. Leave arcs visible and label the midpoint M.",
+      "answer": "M is where the line through the two arc intersections crosses RS.",
+      "explanation": "Use the same compass radius from R and S, greater than half RS. Both arc intersections are equidistant from R and S, so their joining line crosses RS at its midpoint.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses equal-radius arcs centred at R and S with two intersections."
+        },
+        {
+          "marks": 1,
+          "description": "Joins the intersections and labels the crossing of RS as M."
+        },
+        {
+          "marks": 1,
+          "description": "Places M so the two halves differ by no more than 2 mm."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Measuring an angle from an observed object",
+      "learningObjective": "Trace and measure an angle using a protractor.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-06-v1",
+      "id": "ndv-217-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Open a notebook partway and view it end-on. Copy the directions of its two covers as rays meeting at the hinge. Measure the smaller angle between your traced rays using a protractor and record it in degrees.",
+      "answer": "Answers vary with the opening. The recorded value should agree with the smaller angle on the pupil’s tracing.",
+      "explanation": "Centre the protractor at the hinge point on the drawing and align a zero mark with one ray. Read the other ray on that same scale.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows two rays meeting at a labelled hinge point."
+        },
+        {
+          "marks": 1,
+          "description": "Aligns the protractor centre and baseline with the vertex and one ray."
+        },
+        {
+          "marks": 1,
+          "description": "Records the smaller angle within 2° of the teacher’s measurement of the tracing."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Vertical and adjacent angles together",
+      "learningObjective": "Distinguish vertically opposite angles from adjacent supplementary angles.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-07-v1",
+      "id": "ndv-217-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Lines AB and CD meet at O, with A and B on opposite sides of O and C and D on opposite sides of O. Angle AOC is 73°. Find BOD and COB and give a reason for each.",
+      "answer": "BOD is 73° because it is vertically opposite AOC. COB is 107° because it is adjacent to AOC on straight line AB.",
+      "explanation": "Opposite angles are equal. The angles AOC and COB share OC, and their other sides make a straight line.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds BOD as 73° and identifies the opposite pair."
+        },
+        {
+          "marks": 1,
+          "description": "Finds COB as 107° and gives the straight-line reason."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "180-73",
+          "expected": 107,
+          "purpose": "Verify the stated angle calculation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Locating corresponding and alternate interior angles",
+      "learningObjective": "Identify angle pairs by position on a transversal.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-08-v1",
+      "id": "ndv-217-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw two horizontal parallel lines and a transversal rising from left to right across both. Mark P in the lower-right region at the upper intersection. At the lower intersection, describe the regions containing the angle corresponding to P and the angle alternate interior to P.",
+      "answer": "The corresponding angle is in the lower-right region. The alternate interior angle is in the upper-left region.",
+      "explanation": "Corresponding angles occupy the same position at their intersections. Alternate interior angles lie between the parallel lines on opposite sides of the transversal.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the lower-right region for the corresponding angle."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the upper-left region for the alternate interior angle."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Completing the turn around a point",
+      "learningObjective": "Use a full turn and a right angle to calculate an unknown angle.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-09-v1",
+      "id": "ndv-217-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Three rays from a point divide a full turn into three sectors. Two sectors measure 148° and 90°. Find the third angle and say whether it is acute, right or obtuse.",
+      "answer": "122°, obtuse.",
+      "explanation": "The sectors total 360°. Subtract 148° and 90° to get 122°, which lies between 90° and 180°.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a total of 360°."
+        },
+        {
+          "marks": 1,
+          "description": "Finds 122°."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies the angle as obtuse."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "360-148-90",
+          "expected": 122,
+          "purpose": "Verify the stated angle calculation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Angles",
+      "subtopic": "Angle of elevation from eye level",
+      "learningObjective": "Identify the horizontal reference for an angle of elevation.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-217-10-v1",
+      "id": "ndv-217-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "From a level school courtyard, Amina looks at the top of a flagpole. Sketch her horizontal line of sight and her sightline to the top. Mark the angle of elevation and explain where its vertex is.",
+      "answer": "The angle is between the horizontal ray from Amina’s eye towards the pole and the upward ray from her eye to the top. Its vertex is at her eye.",
+      "explanation": "The two rays share their starting point at the observer. The angle is measured upwards from the horizontal reference.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draws the horizontal and upward rays from the same eye point."
+        },
+        {
+          "marks": 1,
+          "description": "Marks the angle between those rays at Amina’s eye."
+        }
+      ]
+    }
+  ]
+}

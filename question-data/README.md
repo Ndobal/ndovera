@@ -1256,3 +1256,8 @@ Batch 216 adds 12 NERDC JSS 1 Mathematics drafts on plane and solid
 shapes, perimeter, area and volume. The practical desk-area task uses
 measurements taken by the pupil. PDF pp. 32–33 identify the source tables.
 Their printed footers read 20–21 and the contents entries read 19–20.
+
+Batch 217 adds 10 NERDC JSS 1 Mathematics drafts on geometric
+construction and angles, mapped to PDF pp. 34–35. Practical tasks require
+drawings or measurements for teacher inspection. The marking tolerances
+are classroom rubric choices pending independent academic review.
