@@ -2936,9 +2936,11 @@
         "Multiplication of numbers in base 2, printed p. 14 (PDF p. 27)",
         "Use of Symbols, printed pp. 15–16 (PDF pp. 28–29)",
         "Simplification of Algebraic Expressions, printed p. 17 (PDF p. 30)",
-        "Simple Equations, printed p. 18 (PDF p. 31)"
+        "Simple Equations, printed p. 18 (PDF p. 31)",
+        "Plane Shapes, PDF p. 32 (printed footer 20; contents entry 19)",
+        "Three dimensional Figures, PDF p. 33 (printed footer 21; contents entry 20)"
       ],
-      "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds."
+      "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds. The contents and printed footers differ by one page from Plane Shapes onward. Use PDF page indices for these sections."
     }
   ],
   "banks": [
@@ -27699,6 +27701,222 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 18, PDF p. 31, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Properties shared by squares and rectangles",
+      "learningObjective": "Use angle and side properties to compare squares and rectangles.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 32, printed footer 20, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Parallel sides and right angles",
+      "learningObjective": "Use a counterexample to distinguish a parallelogram from a rectangle.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 32, printed footer 20, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Equal sides inferred from perimeter",
+      "learningObjective": "Find the length of one side of a regular polygon from its perimeter.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 32, printed footer 20, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Perimeter with an excluded boundary section",
+      "learningObjective": "Apply perimeter to find the length of material needed around part of a rectangle.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 32, printed footer 20, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Parallelogram altitude",
+      "learningObjective": "Distinguish perpendicular height from a slanted side when finding area.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 32, printed footer 20, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Circle area from diameter",
+      "learningObjective": "Find the area of a circle from its diameter.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 32, printed footer 20, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Measuring a real rectangular face",
+      "learningObjective": "Measure two perpendicular dimensions and use them to estimate a real area.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 32, printed footer 20, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Distinguishing solids with the same counts",
+      "learningObjective": "Compare cubes and cuboids by face shape after identifying common structural counts.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 33, printed footer 21, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Pyramid and cone comparison",
+      "learningObjective": "Distinguish a square-based pyramid from a cone using their bases and side surfaces.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 33, printed footer 21, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-10-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Flat bases and curved surfaces",
+      "learningObjective": "Distinguish a cylinder from a sphere using flat bases.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 33, printed footer 21, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-11-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Comparing volumes with a common base",
+      "learningObjective": "Use volume differences to compare cuboids with the same base.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 33, printed footer 21, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-216-12-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Scaling all cube edges",
+      "learningObjective": "Explain how doubling all edge lengths changes the volume of a cube.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 33, printed footer 21, performance objective 4"
       ]
     }
   ],

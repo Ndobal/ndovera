@@ -1,0 +1,537 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Mathematics plane shapes and three-dimensional figures",
+  "questionCount": 12,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Properties shared by squares and rectangles",
+      "learningObjective": "Use angle and side properties to compare squares and rectangles.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-01-v1",
+      "id": "ndv-216-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A carpenter cuts a 24 cm by 24 cm tile and a 24 cm by 18 cm tile. Both have four right angles. Give one geometric property they share and one that distinguishes the square from the other tile.",
+      "answer": "Both have four right angles. The square has four equal sides, while the other tile has two pairs of opposite equal sides of different lengths.",
+      "explanation": "The square meets the definition of a rectangle. Equal lengths for all four sides distinguish it from the other tile.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a correct shared property."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the difference in side lengths."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Parallel sides and right angles",
+      "learningObjective": "Use a counterexample to distinguish a parallelogram from a rectangle.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-02-v1",
+      "id": "ndv-216-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil says a frame with two pairs of parallel opposite sides must be rectangular. Describe a frame shape that shows why the claim fails and name one extra condition that would make the frame rectangular.",
+      "answer": "A slanting parallelogram with angles of 60° and 120° is a counterexample. Requiring one right angle would make the frame rectangular.",
+      "explanation": "Opposite angles of a parallelogram are equal and consecutive angles sum to 180°. One right angle therefore forces four right angles.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes a parallelogram with a non-right angle."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a sufficient extra condition, such as one right angle."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Equal sides inferred from perimeter",
+      "learningObjective": "Find the length of one side of a regular polygon from its perimeter.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-03-v1",
+      "id": "ndv-216-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A maker joins a 126 cm strip end to end to make the boundary of a regular hexagonal frame. The strip neither overlaps nor leaves a gap. How long is each side? Explain why dividing by six is appropriate.",
+      "answer": "21 cm. A regular hexagon has six equal sides.",
+      "explanation": "The full boundary is the perimeter. Each of its six equal sides contributes one sixth of 126 cm.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses six equal side lengths."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains 21 cm."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "126/6",
+          "expected": 21,
+          "purpose": "Check each side length."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Perimeter with an excluded boundary section",
+      "learningObjective": "Apply perimeter to find the length of material needed around part of a rectangle.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-04-v1",
+      "id": "ndv-216-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A rectangular school plot is 18 m long and 11 m wide. Fencing follows its boundary except for a 3 m gate opening on a long side. Find the length of fencing required.",
+      "answer": "55 m",
+      "explanation": "The full perimeter is 2 × (18 + 11) = 58 m. The gate opening removes 3 m from the fencing length.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Computes the full perimeter as 58 m."
+        },
+        {
+          "marks": 1,
+          "description": "Subtracts the opening and gives 55 m."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "2*(18+11)-3",
+          "expected": 55,
+          "purpose": "Check the fencing length."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Parallelogram altitude",
+      "learningObjective": "Distinguish perpendicular height from a slanted side when finding area.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-05-v1",
+      "id": "ndv-216-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A parallelogram stencil has a 14 cm base, a 9 cm slanted side and a perpendicular distance of 6 cm between its parallel bases. Find its area and explain which measurement is used with the base.",
+      "answer": "84 cm². Use the perpendicular distance of 6 cm.",
+      "explanation": "The perpendicular distance is the height. Moving a triangular end to the other end makes a rectangle with the same base, height and area.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies 6 cm as the height."
+        },
+        {
+          "marks": 1,
+          "description": "Computes 14 × 6 = 84 cm²."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "14*6",
+          "expected": 84,
+          "purpose": "Check the stencil area."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Circle area from diameter",
+      "learningObjective": "Find the area of a circle from its diameter.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-06-v1",
+      "id": "ndv-216-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A circular paper mat has a diameter of 28 cm. Using π = 22/7, find the area covered by the mat. Show the radius you used.",
+      "answer": "616 cm², using a radius of 14 cm.",
+      "explanation": "The radius is half the diameter. The area is (22/7) × 14².",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds a radius of 14 cm."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the circle area formula and obtains 616 cm²."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "22/7*(28/2)**2",
+          "expected": 616,
+          "purpose": "Check the circular area."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Plane Shapes",
+      "subtopic": "Measuring a real rectangular face",
+      "learningObjective": "Measure two perpendicular dimensions and use them to estimate a real area.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-07-v1",
+      "id": "ndv-216-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Use a ruler or tape to measure the length and width of the flat rectangular top of your desk to the nearest centimetre. Record both measurements and estimate the area in square centimetres.",
+      "answer": "Answers vary. A measured length of 59 cm and width of 42 cm give an estimated area of 2,478 cm².",
+      "explanation": "Multiply the two perpendicular dimensions. The computed area is an estimate because the recorded lengths are rounded.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Measures the two perpendicular sides of the designated top."
+        },
+        {
+          "marks": 1,
+          "description": "Records both measurements in centimetres to the requested precision."
+        },
+        {
+          "marks": 1,
+          "description": "Multiplies the recorded lengths and labels the result in cm²."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "59*42",
+          "expected": 2478,
+          "purpose": "Check the illustrative measurement calculation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Distinguishing solids with the same counts",
+      "learningObjective": "Compare cubes and cuboids by face shape after identifying common structural counts.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-08-v1",
+      "id": "ndv-216-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "An unmarked model has six rectangular faces, 12 edges and eight vertices. Can those counts alone establish that it is a cube? Describe one observation that would settle the question.",
+      "answer": "No. A non-cube cuboid has the same counts. Check whether the three edges meeting at one vertex all have equal length.",
+      "explanation": "For a cuboid the three edges at a vertex represent length, width and height. Equality of all three makes every face a square.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that a non-cube cuboid shares the counts."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a sufficient check, such as equality of the three dimensions."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Pyramid and cone comparison",
+      "learningObjective": "Distinguish a square-based pyramid from a cone using their bases and side surfaces.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-09-v1",
+      "id": "ndv-216-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two models each taper to one apex. One has a square base and four flat triangular sides. The other has a circular base and a curved side. Name both models and state their shared feature.",
+      "answer": "The first is a square-based pyramid. The second is a cone. Both have one apex above the base.",
+      "explanation": "The bases and side surfaces distinguish the models. The pyramid has polygonal faces, while the cone has a curved lateral surface.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names the square-based pyramid."
+        },
+        {
+          "marks": 1,
+          "description": "Names the cone."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the shared apex."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Flat bases and curved surfaces",
+      "learningObjective": "Distinguish a cylinder from a sphere using flat bases.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-10-v1",
+      "id": "ndv-216-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil says a cylinder and a sphere are both round, so both have two flat circular bases. Correct the statement by describing the surfaces of each solid.",
+      "answer": "A cylinder has two flat circular bases and one curved side surface. A sphere has a continuous curved surface and no flat base.",
+      "explanation": "The cylinder has planar ends. No part of the surface of a sphere is a flat circular face.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes both flat bases and the curved side of a cylinder."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a sphere as curved throughout with no flat base."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Comparing volumes with a common base",
+      "learningObjective": "Use volume differences to compare cuboids with the same base.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-11-v1",
+      "id": "ndv-216-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two rectangular moulds have internal bases of 8 cm by 5 cm. Their depths are 3 cm and 7 cm. How much more can the deeper mould hold? Explain how a single extra rectangular layer can represent the difference.",
+      "answer": "160 cm³ more. The extra layer has an 8 cm by 5 cm base and a depth of 4 cm.",
+      "explanation": "The common base area is 40 cm². The deeper mould has 4 cm of additional depth, so the extra volume is 40 × 4 cm³.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds the common base area of 40 cm²."
+        },
+        {
+          "marks": 1,
+          "description": "Models the difference as an extra depth of 4 cm."
+        },
+        {
+          "marks": 1,
+          "description": "Computes 160 cm³."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "8*5*(7-3)",
+          "expected": 160,
+          "purpose": "Check the extra volume."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Three dimensional Figures",
+      "subtopic": "Scaling all cube edges",
+      "learningObjective": "Explain how doubling all edge lengths changes the volume of a cube.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-216-12-v1",
+      "id": "ndv-216-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A model cube is replaced by one with twice the edge length. How many copies of the smaller cube would fill the larger cube exactly? Explain using rows, columns and layers.",
+      "answer": "Eight copies. Two fit along each dimension, so there are four in each layer and two layers.",
+      "explanation": "The ratio of volumes is 2 × 2 × 2. All three dimensions contribute to the volume change.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies two along each of the three dimensions."
+        },
+        {
+          "marks": 1,
+          "description": "Gives eight smaller cubes."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "2**3",
+          "expected": 8,
+          "purpose": "Check the volume scale factor."
+        }
+      ]
+    }
+  ]
+}

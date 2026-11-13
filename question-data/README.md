@@ -1251,3 +1251,8 @@ Batch 215 adds 12 NERDC JSS 1 Mathematics drafts on algebraic
 simplification and simple equations. The revised curriculum locators
 cover printed pp. 17–18. Written tasks include diagnosing errors with
 signed terms and verifying solutions by substitution.
+
+Batch 216 adds 12 NERDC JSS 1 Mathematics drafts on plane and solid
+shapes, perimeter, area and volume. The practical desk-area task uses
+measurements taken by the pupil. PDF pp. 32–33 identify the source tables.
+Their printed footers read 20–21 and the contents entries read 19–20.
