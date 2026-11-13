@@ -1318,3 +1318,8 @@ Batch 228 adds ten JSS 1 Business Studies drafts on introductory marketing
 and the marketing mix, mapped to PDF pp. 32–33. The questions cover customer
 needs, demand and the four Ps. The design task asks pupils to develop a
 marketing mix for a school enterprise within stated constraints.
+
+Batch 229 adds fifteen JSS 1 Business Studies drafts on office practice,
+staff and equipment from PDF pp. 34–36. Practical tasks include a layout
+sketch, a supervised AI drafting exercise using fictional meeting details,
+and equipment care with practice folders or a paper model.

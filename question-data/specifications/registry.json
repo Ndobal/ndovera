@@ -2979,7 +2979,10 @@
         "Honesty in Business, PDF p. 30",
         "Ethics in Sourcing and Using Chemicals, PDF p. 31",
         "Introduction to Marketing, PDF p. 32",
-        "Marketing Mix, PDF p. 33"
+        "Marketing Mix, PDF p. 33",
+        "The Office, PDF p. 34",
+        "Office Staff, PDF p. 35",
+        "Office Equipment, PDF p. 36"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -30180,6 +30183,276 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 33, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Identifying an office by its purpose",
+      "learningObjective": "Recognise an office from the administrative work carried out there.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 34, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Routing correspondence",
+      "learningObjective": "Explain how recording and routing information supports office operations.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 34, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Shared physical workspace",
+      "learningObjective": "Distinguish a co-working space from a business operating virtually.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 34, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Departments working on one purchase",
+      "learningObjective": "Distinguish procurement from accounting in a purchase workflow.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 34, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Designing a reception and records area",
+      "learningObjective": "Design a simple office layout that supports visitors and protects records.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 34, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Remote office staff",
+      "learningObjective": "Explain how a remote worker can perform office duties.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 35, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Visitor reception and secretarial support",
+      "learningObjective": "Match office duties and relevant qualities to a receptionist and a secretary.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 35, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Checking an AI-assisted draft",
+      "learningObjective": "Explain a practical use of AI in preparing office correspondence and identify a check.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 35, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Changing duties after automation",
+      "learningObjective": "Analyse a possible effect of automation on the tasks of office staff.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 35, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Using AI for a supervised secretarial task",
+      "learningObjective": "Use an approved AI tool to draft a notice and verify it against a fictional brief.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 35, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Purpose of office equipment",
+      "learningObjective": "Explain why both furniture and electronic devices count as office equipment.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 36, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-12-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Paper to digital and digital to paper",
+      "learningObjective": "Distinguish the functions of a scanner and a printer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 36, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-13-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Finding records efficiently",
+      "learningObjective": "Explain how using suitable office equipment can improve retrieval.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 36, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-14-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Selecting equipment within constraints",
+      "learningObjective": "Select office equipment by matching features and cost to stated tasks.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 36, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-229-15-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Routine care for shared equipment",
+      "learningObjective": "Demonstrate a simple care routine for office equipment in a classroom simulation.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 36, performance objective 5"
       ]
     }
   ],

@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies office practice, staff and equipment",
+  "questionCount": 15,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Identifying an office by its purpose",
+      "learningObjective": "Recognise an office from the administrative work carried out there.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-01-v1",
+      "id": "ndv-229-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A transport cooperative has one room for repairing bicycles and another for recording bookings, receiving correspondence and assigning jobs. Which room functions as an office? Explain.",
+      "answer": "The bookings room functions as an office because it is where the cooperative keeps information and coordinates its work.",
+      "explanation": "The nature of the work identifies the office. The repair room is used for carrying out repairs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the bookings room."
+        },
+        {
+          "marks": 1,
+          "description": "Uses at least one administrative function to justify the choice."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Routing correspondence",
+      "learningObjective": "Explain how recording and routing information supports office operations.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-02-v1",
+      "id": "ndv-229-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school office receives a letter about a postponed delivery. Describe what the office should record and who should receive the information before staff change the delivery schedule.",
+      "answer": "Record the sender, date and revised delivery information. Pass it to the person responsible for ordering or scheduling the delivery.",
+      "explanation": "The record makes the message traceable. Routing it to the responsible person lets that person act on it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies relevant details to record."
+        },
+        {
+          "marks": 1,
+          "description": "Routes the letter to an appropriate person."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Shared physical workspace",
+      "learningObjective": "Distinguish a co-working space from a business operating virtually.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-03-v1",
+      "id": "ndv-229-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One small firm rents desks in a room shared with other firms. A second handles its correspondence and meetings online, with staff working from separate locations. Name the two arrangements and explain how they differ.",
+      "answer": "The first uses a co-working space with shared physical desks. The second operates a virtual office, coordinating work online from separate places.",
+      "explanation": "Co-working shares a physical workspace. A virtual office can carry out office functions without everyone working from a single site.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies and describes co-working."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies and describes the virtual arrangement."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Departments working on one purchase",
+      "learningObjective": "Distinguish procurement from accounting in a purchase workflow.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-04-v1",
+      "id": "ndv-229-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school needs replacement desks. One department compares quotes and places an approved order. Another records the supplier’s invoice and the payment. Identify the two departments and explain the role of each.",
+      "answer": "Procurement sources the desks and places the order. Accounting records the invoice and the payment.",
+      "explanation": "The departments perform different parts of the same transaction and need to share relevant records.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches sourcing and ordering to procurement."
+        },
+        {
+          "marks": 1,
+          "description": "Matches recording the invoice and payment to accounting."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "The Office",
+      "subtopic": "Designing a reception and records area",
+      "learningObjective": "Design a simple office layout that supports visitors and protects records.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-05-v1",
+      "id": "ndv-229-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A youth association has one room for welcoming visitors and keeping member files. Sketch a layout showing where visitors wait, where a staff member receives them and where files are stored. Explain how the layout helps visitors while keeping files out of their reach.",
+      "answer": "Example: put a waiting area near the entrance, a reception desk facing it and a closed file cabinet behind the desk in the staff area.",
+      "explanation": "The desk directs visitors and separates the public area from the records area.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows a sensible waiting area and reception point."
+        },
+        {
+          "marks": 1,
+          "description": "Places file storage away from visitor access."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the layout serves both needs."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Remote office staff",
+      "learningObjective": "Explain how a remote worker can perform office duties.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-06-v1",
+      "id": "ndv-229-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A cooperative appoints a part-time virtual assistant to confirm appointments and send approved reminders from home. The chairperson says the assistant cannot count as office staff because she rarely visits the premises. Explain how her work fits the office team and identify one record she needs to do it accurately.",
+      "answer": "She carries out administrative duties remotely and is part of the office team. She needs the current appointment diary or schedule.",
+      "explanation": "The role depends on the duties performed. A current appointment record lets the assistant confirm accurate booking details.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why remote administrative duties count as office work."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the current diary, schedule or an equivalent approved record."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Visitor reception and secretarial support",
+      "learningObjective": "Match office duties and relevant qualities to a receptionist and a secretary.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-07-v1",
+      "id": "ndv-229-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A business needs someone to welcome visitors and direct them to the correct room. It also needs someone to prepare meeting minutes accurately. Match each duty to a receptionist or a secretary and give one useful quality for each duty.",
+      "answer": "A receptionist welcomes and directs visitors, for which courtesy helps. A secretary prepares meeting minutes, for which attention to detail helps.",
+      "explanation": "Each quality should support the assigned task. Courtesy helps visitors get assistance, and careful attention helps preserve what a meeting decided.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches visitor duties and a suitable quality to reception."
+        },
+        {
+          "marks": 1,
+          "description": "Matches minute taking and a suitable quality to secretarial support."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Checking an AI-assisted draft",
+      "learningObjective": "Explain a practical use of AI in preparing office correspondence and identify a check.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-08-v1",
+      "id": "ndv-229-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "An office assistant uses AI to draft a notice about a meeting. The office diary says Thursday at 10 a.m., but the draft says Friday at 10 a.m. Describe one useful part of AI assistance and what the assistant should do before releasing the notice.",
+      "answer": "AI can produce a first draft of the wording. The assistant should compare the date and time with the diary and correct the notice to Thursday at 10 a.m.",
+      "explanation": "A draft can speed up writing. The office diary supplies the facts the final notice must reflect.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies drafting or organising wording as a useful application."
+        },
+        {
+          "marks": 1,
+          "description": "Checks the diary and corrects the wrong day."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Changing duties after automation",
+      "learningObjective": "Analyse a possible effect of automation on the tasks of office staff.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-09-v1",
+      "id": "ndv-229-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A device sorts incoming forms into trays based on a printed code. It puts forms with unreadable codes in a separate tray. Explain one duty staff may spend less time doing and one duty they still need to perform.",
+      "answer": "Staff may spend less time sorting clearly coded forms. They still need to inspect and route forms the device cannot read.",
+      "explanation": "Automation can handle routine cases and leave exceptions for staff judgment.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies reduced manual sorting of routine forms."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies checking or resolving unreadable forms."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Staff",
+      "subtopic": "Using AI for a supervised secretarial task",
+      "learningObjective": "Use an approved AI tool to draft a notice and verify it against a fictional brief.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-10-v1",
+      "id": "ndv-229-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Using a teacher-approved AI tool, draft a short notice for a fictional club meeting on Tuesday at 2 p.m. in Room 4. Submit the instruction you gave the tool, your checked final notice and a note on what you checked. Use only the fictional details in this brief.",
+      "answer": "Example instruction: Write a two-sentence notice for a fictional club meeting on Tuesday at 2 p.m. in Room 4. Final notice: The club meets on Tuesday at 2 p.m. in Room 4. Please arrive on time. Check: I compared the day, time and room with the brief.",
+      "explanation": "The instruction supplies the required facts. Checking the output protects the accuracy of the notice.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Submits an instruction using the fictional meeting details."
+        },
+        {
+          "marks": 1,
+          "description": "Submits a clear notice with the correct day, time and room."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the details checked against the brief."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Purpose of office equipment",
+      "learningObjective": "Explain why both furniture and electronic devices count as office equipment.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-11-v1",
+      "id": "ndv-229-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil calls a desktop computer office equipment but leaves a filing cabinet out of the list. Explain why the cabinet belongs on the list too.",
+      "answer": "Office equipment includes tools and furnishings used to carry out office work. The cabinet stores and organises office records.",
+      "explanation": "Equipment can support a task without using electricity. A cabinet provides organised storage.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains what office equipment is in functional terms."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the cabinet’s office use."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Paper to digital and digital to paper",
+      "learningObjective": "Distinguish the functions of a scanner and a printer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-12-v1",
+      "id": "ndv-229-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The secretary needs to turn a signed paper form into a digital file and produce paper copies of a timetable already on the computer. Name the equipment needed for each task and state which direction the information moves.",
+      "answer": "Use a scanner to turn the paper form into a digital file. Use a printer to turn the digital timetable into a paper copy.",
+      "explanation": "Scanning captures an existing document digitally. Printing produces a physical copy from a digital file.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies scanning and its direction."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies printing and its direction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Finding records efficiently",
+      "learningObjective": "Explain how using suitable office equipment can improve retrieval.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-13-v1",
+      "id": "ndv-229-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club keeps folders in mixed piles. The secretary proposes labelled drawers in a cabinet. Explain one benefit during a busy registration period and one condition needed for the benefit to last.",
+      "answer": "Labelled drawers can help staff find the correct folder faster. Staff must file and return folders to their designated drawers.",
+      "explanation": "The cabinet supports the filing method. Consistent use keeps the records findable.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links the cabinet to a concrete retrieval benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies consistent filing or another valid condition."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Selecting equipment within constraints",
+      "learningObjective": "Select office equipment by matching features and cost to stated tasks.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-14-v1",
+      "id": "ndv-229-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A small office has ₦90,000 to buy equipment. Option A is a ₦75,000 printer that cannot scan. Option B is an ₦88,000 device that prints and scans. The office must do both tasks every week. Which option meets both requirements, and why?",
+      "answer": "Option B. It prints and scans and fits within the ₦90,000 budget.",
+      "explanation": "Option A costs less but lacks a required function. Option B meets both the feature requirement and the purchase limit.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses B and identifies both functions."
+        },
+        {
+          "marks": 1,
+          "description": "Checks the price against the budget."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "90000-88000",
+          "expected": 2000,
+          "purpose": "Verify Option B fits the purchase budget."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Office Equipment",
+      "subtopic": "Routine care for shared equipment",
+      "learningObjective": "Demonstrate a simple care routine for office equipment in a classroom simulation.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-229-15-v1",
+      "id": "ndv-229-015",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Using an empty filing cabinet or a paper model, demonstrate how to return three practice folders and leave the cabinet ready for the next group. Describe one sign of damage that you would report to the teacher.",
+      "answer": "Return each practice folder to its labelled location and leave the drawers closed after use. Report damage such as a drawer that will not close properly.",
+      "explanation": "Orderly storage prevents misplaced records. Reporting damage lets the person responsible arrange a check or repair.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Returns folders to the matching locations."
+        },
+        {
+          "marks": 1,
+          "description": "Leaves drawers closed or describes that step in a paper simulation."
+        },
+        {
+          "marks": 1,
+          "description": "Names a relevant fault and says it should be reported."
+        }
+      ]
+    }
+  ]
+}
