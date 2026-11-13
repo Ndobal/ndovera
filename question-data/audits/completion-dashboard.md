@@ -111,7 +111,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Basic Science / Primary 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Primary 5 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Technology / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
-| NERDC | Business Studies / JSS 1 | 1000 | 49 | 49 | 0 | 951 | partial_objective_register |
+| NERDC | Business Studies / JSS 1 | 1000 | 59 | 59 | 0 | 941 | partial_objective_register |
 | NERDC | Chemistry / SS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Christian Religious Studies / JSS 1 | 1000 | 58 | 58 | 0 | 942 | partial_objective_register |
 | NERDC | Computer Studies / JSS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -218,12 +218,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 476 | 441 | 0 | 36000 | 35559 |
-| NERDC | 669 | 604 | 0 | 33000 | 32396 |
+| NERDC | 679 | 614 | 0 | 33000 | 32386 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 4708, "validDrafts": 3029, "reviewed": 0, "registeredBanks": 199, "target": 181000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 4718, "validDrafts": 3039, "reviewed": 0, "registeredBanks": 199, "target": 181000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -274,3 +274,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved.
 - On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation.
 - JSS 1 offering reconciliation: the listing recorded in batch 219 has eight named subjects with registered exact-class banks. The other eight are Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French, Intermediate Science and Digital Technologies. The Trades link requires separate route verification. The listing recheck in batch 220 returned HTTP 403. This inventory does not establish detailed curricula or school adoption.
+- JSS 1 Business Studies Overview of Insurance I has initial practice for objectives 1, 2, 4 and 5. Conventional insurance, takaful and microinsurance under objective 3 require separate authoritative comparison. Policy terms used in the draft are fictional.

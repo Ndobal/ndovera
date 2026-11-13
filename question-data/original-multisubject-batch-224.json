@@ -1,0 +1,402 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies production and introductory insurance",
+  "questionCount": 10,
+  "note": "Original classroom practice with fictional insurance terms. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Production and Service Delivery",
+      "subtopic": "Production stages",
+      "learningObjective": "Distinguish extractive, manufacturing and constructive production.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-01-v1",
+      "id": "ndv-224-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One team takes clay from a deposit. A second moulds and fires the clay into bricks. A third uses the bricks to build a classroom. Classify each team’s activity as extractive, manufacturing or constructive production.",
+      "answer": "Taking clay is extractive. Making bricks is manufacturing. Building the classroom is constructive.",
+      "explanation": "The teams obtain a natural resource, turn it into a product and build a structure, respectively.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies taking clay as extractive."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies brickmaking as manufacturing."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies classroom building as constructive."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Production and Service Delivery",
+      "subtopic": "Local benefits and environmental effects",
+      "learningObjective": "Explain a social benefit and an environmental cost of production.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-02-v1",
+      "id": "ndv-224-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A cassava processing workshop employs four people nearby. During processing it releases dirty wash water into a drainage channel. State one benefit to the community and explain how the discharge can harm the local environment.",
+      "answer": "The workshop provides jobs. Its wash water can pollute the channel and affect water quality downstream.",
+      "explanation": "Production can support employment while generating waste. The water carries that waste beyond the workshop.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies local employment as a benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Links the discharge to pollution or reduced water quality."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Production and Service Delivery",
+      "subtopic": "Capital and entrepreneurship",
+      "learningObjective": "Distinguish production equipment from the role of organising a business.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-03-v1",
+      "id": "ndv-224-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A printer owns a working press. Nneka chooses the products, organises the workers and decides which orders to accept. Which factor of production does the press represent, and which role is Nneka performing?",
+      "answer": "The press is capital. Nneka is acting as an entrepreneur by organising production and making business decisions.",
+      "explanation": "Capital includes equipment used to produce goods. The entrepreneur coordinates resources and makes decisions about the enterprise.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies the press as capital."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies entrepreneurship and links it to Nneka’s actions."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Production and Service Delivery",
+      "subtopic": "Knowledge in a service",
+      "learningObjective": "Explain how specialist knowledge creates value in a service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-04-v1",
+      "id": "ndv-224-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A community group pays a technician to find out why its solar lamp keeps switching off. The technician diagnoses the fault and explains what needs attention. Describe what the group paid for and how the technician’s knowledge helped.",
+      "answer": "The group paid for a diagnostic service. The technician used specialist knowledge to identify the fault and guide the next decision.",
+      "explanation": "The output is a diagnosis and explanation. Specialist knowledge helps the customer understand and address the problem.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies diagnosis or advice as a service."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how specialist knowledge contributes to it."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Production and Service Delivery",
+      "subtopic": "Finding a service opportunity",
+      "learningObjective": "Propose a service opportunity based on a customer need and available skills.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-05-v1",
+      "id": "ndv-224-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two traders can record sales on paper but struggle to prepare weekly totals. A local business assistant knows how to organise figures in a spreadsheet. Suggest a service the assistant could offer and name the output the traders would receive.",
+      "answer": "Offer weekly sales-summary preparation. The traders receive a checked summary showing totals for the week.",
+      "explanation": "A service opportunity links a skill to a problem customers need solved.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a relevant service using the stated skill."
+        },
+        {
+          "marks": 1,
+          "description": "Specifies a usable output for the traders."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Production and Service Delivery",
+      "subtopic": "Robots and quality checks",
+      "learningObjective": "Explain a contribution and a limitation of a robot in production.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-06-v1",
+      "id": "ndv-224-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A bottling workshop introduces a robot to place bottles into trays. Explain one way it could improve production and why workers should still check the trays.",
+      "answer": "The robot can repeat the placement consistently. Workers should still check for missing or damaged bottles because placement alone does not confirm that each tray meets the quality standard.",
+      "explanation": "Automation can improve repeatability. Quality checks address problems that the assigned robot operation may miss.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a plausible benefit such as consistent placement."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant reason for continued quality checks."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance I",
+      "subtopic": "Protection against a covered loss",
+      "learningObjective": "Explain the purpose of insurance without assuming that every loss is covered.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-07-v1",
+      "id": "ndv-224-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A workshop pays for a fictional policy covering fire damage to its equipment. Explain how the arrangement can help if a covered fire damages the equipment.",
+      "answer": "The insurer may pay for the covered loss in line with the policy terms. This can reduce what the workshop must pay itself.",
+      "explanation": "Insurance transfers some financial risk under agreed conditions. Any payment depends on the policy.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links the help to a covered loss."
+        },
+        {
+          "marks": 1,
+          "description": "Explains reduced financial burden subject to policy terms."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance I",
+      "subtopic": "Service before purchase",
+      "learningObjective": "Describe how an insurer can help a prospective customer understand cover.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-08-v1",
+      "id": "ndv-224-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Before choosing cover for a school store, the committee wants to understand a sample policy. State two things it could ask the insurer to explain and why each matters.",
+      "answer": "Ask which events are covered, to understand when a claim may be possible. Ask what is excluded, to know which losses the store would still have to bear.",
+      "explanation": "Explaining policy scope helps the customer judge whether the cover suits the risks it faces.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives one valid question and reason."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct valid question and reason."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance I",
+      "subtopic": "Matching cover to a risk",
+      "learningObjective": "Distinguish fire and burglary cover using stated sample terms.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-09-v1",
+      "id": "ndv-224-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Sample A covers loss of stock from fire. Sample B covers stock stolen after a break-in. No stock burns, but goods are taken during a break-in. Which sample matches the event as described, and what evidence in the question supports your choice?",
+      "answer": "Sample B, burglary cover. The goods were stolen during a break-in, which is the event its terms describe.",
+      "explanation": "Match the facts of the loss to the event named in each sample policy.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects Sample B or burglary cover."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies theft after a break-in as the matching event."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance I",
+      "subtopic": "Life and general insurance",
+      "learningObjective": "Distinguish a life insurance benefit from cover for property loss.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-224-10-v1",
+      "id": "ndv-224-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Policy X promises a benefit if the insured person dies while the policy is in force. Policy Y covers agreed repair costs after a fire damages a shop. Identify which illustrates life insurance and which illustrates general insurance, and explain the distinction.",
+      "answer": "X illustrates life insurance because the specified event concerns the insured person’s life. Y illustrates general insurance because it covers damage to property.",
+      "explanation": "The type of risk covered distinguishes the two fictional policies.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies X and explains its link to the insured life."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies Y and explains its link to property damage."
+        }
+      ]
+    }
+  ]
+}

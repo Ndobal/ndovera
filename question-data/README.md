@@ -1294,3 +1294,8 @@ Batch 223 adds ten JSS 1 Business Studies drafts on credit and informed
 use of financial services, mapped to PDF pp. 23–24. Classroom scenarios
 use fictional offers, due dates and charges. School adoption, formal
 assessment formats and independent academic review remain open.
+
+Batch 224 adds ten JSS 1 Business Studies drafts on production, service
+delivery and introductory insurance from PDF pp. 25–26. Insurance tasks
+use fictional terms. The comparison of conventional insurance, takaful
+and microinsurance awaits authoritative sources.
