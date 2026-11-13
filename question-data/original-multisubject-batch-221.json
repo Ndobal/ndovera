@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies cashless economy and digital currency",
+  "questionCount": 10,
+  "note": "Original classroom practice. Payment exercises are simulations. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Cash use alongside electronic payments",
+      "learningObjective": "Explain the meaning of a cashless economy using a mixed-payment example.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-01-v1",
+      "id": "ndv-221-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A market has ten stalls. Most customers pay by card or transfer, and some customers still use notes. Explain why this market illustrates a move towards a cashless economy.",
+      "answer": "Many payments use electronic channels, reducing reliance on notes and coins. Some transactions still use cash.",
+      "explanation": "Cashless activity describes how people pay and can coexist with cash transactions.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the use of electronic payment methods."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that their use reduces reliance on cash."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Reducing cash handling",
+      "learningObjective": "Explain one purpose of encouraging electronic payments.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-02-v1",
+      "id": "ndv-221-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school uniform shop receives many small payments each afternoon. Explain how offering electronic payments could reduce one task the cashier currently does with notes and coins.",
+      "answer": "The cashier may have fewer notes and coins to count at closing. Some of the receipts are already recorded electronically.",
+      "explanation": "A shift towards electronic payments reduces the physical cash that staff handle. Staff still reconcile the sales and payments.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a cash-handling task."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how electronic payments reduce that task."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Card sale and cash withdrawal",
+      "learningObjective": "Distinguish a digital retail payment from an ATM cash withdrawal.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-03-v1",
+      "id": "ndv-221-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A customer pays for flour by card at a shop terminal. Another person uses a card at an ATM, takes banknotes and later pays for flour with the notes. Which flour purchase was cashless? Explain why the card appears in both examples.",
+      "answer": "The shop terminal purchase was cashless. The second card was used to obtain cash, and the flour was bought with the banknotes.",
+      "explanation": "The payment channel for the sale depends on what settles the purchase with the seller.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the terminal purchase as cashless."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes withdrawing notes from settling the sale."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Connectivity and payment delays",
+      "learningObjective": "Explain how a service interruption affects both buyer and seller.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-04-v1",
+      "id": "ndv-221-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At a school fair, the seller’s payment terminal loses its connection after a parent inserts a card. The screen shows no final result. Give one problem this creates for the parent and one for the seller.",
+      "answer": "The parent cannot tell whether the payment went through. The seller cannot confirm receipt and may need to pause the sale while checking.",
+      "explanation": "A service interruption can leave payment status unclear. The two parties have different decisions to make while the status is unknown.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains uncertainty about the charge for the buyer."
+        },
+        {
+          "marks": 1,
+          "description": "Explains uncertainty about receipt or releasing goods for the seller."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Confirming a pending sale",
+      "learningObjective": "Propose a procedure to avoid recording a pending payment as complete.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-05-v1",
+      "id": "ndv-221-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A buyer shows a screenshot marked pending for a transfer to the school shop. The shop’s own transaction record shows no confirmed receipt. What should the cashier record now, and what should the cashier check before marking the sale paid?",
+      "answer": "Record the payment as pending or unconfirmed. Check the shop’s own official payment record for a confirmed receipt matching the sale before marking it paid.",
+      "explanation": "A pending screenshot gives the status shown on the buyer’s screen. The shop needs confirmation through its own payment channel.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Records the payment as pending or unconfirmed."
+        },
+        {
+          "marks": 1,
+          "description": "Checks the merchant’s confirmed record against the sale."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Matching a simulated transaction",
+      "learningObjective": "Use a mock transfer record to match a completed payment to an order.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-06-v1",
+      "id": "ndv-221-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom payment simulation, the order register lists A14 for ₦850 and A15 for ₦950. The mock payment log shows A14 for ₦850 marked completed and A15 for ₦950 marked pending. Complete the order register by marking each order paid or awaiting confirmation.",
+      "answer": "A14 is paid. A15 is awaiting confirmation.",
+      "explanation": "Both amounts and references match the orders. The completed status supports marking A14 paid, while A15 remains pending.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches and marks A14 paid."
+        },
+        {
+          "marks": 1,
+          "description": "Matches and marks A15 awaiting confirmation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Digital currency and physical cash",
+      "learningObjective": "Explain what makes a central bank currency digital.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-07-v1",
+      "id": "ndv-221-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A learner sees ₦500 shown as eNaira in a wallet and a ₦500 note on a desk. Explain what the two amounts have in common and how the forms differ.",
+      "answer": "Both represent 500 naira. The eNaira is held digitally, while the note is a physical form of naira.",
+      "explanation": "The CBN identifies eNaira as its digital form of the naira. The denomination can be the same even though the form differs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the common naira value."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes digitally held eNaira from a physical note."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Central bank issue",
+      "learningObjective": "Distinguish a CBDC from a cryptocurrency by issuer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-08-v1",
+      "id": "ndv-221-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One digital currency is issued by the Central Bank of Nigeria as eNaira. A second is a privately created cryptocurrency with no central-bank issuer. Which is a CBDC? Give the clue in the description.",
+      "answer": "eNaira is the CBDC because Nigeria’s central bank issues it.",
+      "explanation": "CBDC stands for central bank digital currency. The issuing institution is the distinguishing feature in this example.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects eNaira."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the central-bank issuer to justify the classification."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Payment records and access",
+      "learningObjective": "Assess a potential benefit and a practical constraint of a digital currency payment.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-09-v1",
+      "id": "ndv-221-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school exhibition stall is considering a digital currency payment option. Its treasurer wants to check receipts after the event, but some families may have no access to the wallet. Explain one benefit and one limitation for this stall.",
+      "answer": "A transaction record can help the treasurer reconcile receipts. Families without a usable wallet may need another payment option.",
+      "explanation": "The record can support checking sales. Access to the payment channel affects who can use it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the benefit of a transaction record."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the effect of unavailable wallet access."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Balancing a simulated wallet sale",
+      "learningObjective": "Record changes to buyer and seller balances in a simulated digital currency transaction.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-221-10-v1",
+      "id": "ndv-221-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom eNaira simulation, a buyer has 1,200 units and a seller has 400. The buyer purchases a model for 350 units. Assume the sale completes with no fee. Record both new balances and explain why their combined total is unchanged.",
+      "answer": "The buyer has 850 units and the seller has 750 units. The same 350 units leave one wallet and enter the other, so the total stays at 1,600 units.",
+      "explanation": "The simulation transfers value between the two wallets. The no-fee assumption leaves the sum unchanged.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Records the buyer balance of 850."
+        },
+        {
+          "marks": 1,
+          "description": "Records the seller balance of 750."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the total stays at 1,600."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1200-350",
+          "expected": 850,
+          "purpose": "Verify buyer balance."
+        },
+        {
+          "expression": "400+350",
+          "expected": 750,
+          "purpose": "Verify seller balance."
+        },
+        {
+          "expression": "850+750",
+          "expected": 1600,
+          "purpose": "Verify combined total."
+        }
+      ]
+    }
+  ]
+}

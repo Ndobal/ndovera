@@ -2964,9 +2964,31 @@
         "Introduction to Business Studies, PDF p. 15",
         "Digital Technologies in Business, PDF p. 16",
         "Introduction to Commerce, PDF p. 17",
-        "Concept of Money, PDF p. 18"
+        "Concept of Money, PDF p. 18",
+        "Cashless Economy, PDF p. 19",
+        "Digital Currency, PDF p. 20"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
+    },
+    {
+      "id": "cbn-enaira-definition-2026-11",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://www.cbn.gov.ng/currency/eNaira.html",
+      "retrievedOn": "2026-11-13",
+      "note": "Issuer, denomination and currency functions."
+    },
+    {
+      "id": "cbn-payment-modes-2026-11",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://www.cbn.gov.ng/PaymentsSystem/modes.html",
+      "retrievedOn": "2026-11-13",
+      "note": "Non-cash retail payment channels. Historical channel shares are outside this batch."
     }
   ],
   "banks": [
@@ -28618,6 +28640,193 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 18, performance objective 7"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Cash use alongside electronic payments",
+      "learningObjective": "Explain the meaning of a cashless economy using a mixed-payment example.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Reducing cash handling",
+      "learningObjective": "Explain one purpose of encouraging electronic payments.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 2",
+        "cbn-payment-modes-2026-11"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Card sale and cash withdrawal",
+      "learningObjective": "Distinguish a digital retail payment from an ATM cash withdrawal.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 3",
+        "cbn-payment-modes-2026-11"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Connectivity and payment delays",
+      "learningObjective": "Explain how a service interruption affects both buyer and seller.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Confirming a pending sale",
+      "learningObjective": "Propose a procedure to avoid recording a pending payment as complete.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Matching a simulated transaction",
+      "learningObjective": "Use a mock transfer record to match a completed payment to an order.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 6",
+        "cbn-payment-modes-2026-11"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Digital currency and physical cash",
+      "learningObjective": "Explain what makes a central bank currency digital.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 20, performance objective 1",
+        "cbn-enaira-definition-2026-11"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Central bank issue",
+      "learningObjective": "Distinguish a CBDC from a cryptocurrency by issuer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 20, performance objective 2",
+        "cbn-enaira-definition-2026-11"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Payment records and access",
+      "learningObjective": "Assess a potential benefit and a practical constraint of a digital currency payment.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 20, performance objective 3",
+        "cbn-enaira-definition-2026-11"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-221-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Balancing a simulated wallet sale",
+      "learningObjective": "Record changes to buyer and seller balances in a simulated digital currency transaction.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 20, performance objective 4",
+        "cbn-enaira-definition-2026-11"
       ]
     }
   ],

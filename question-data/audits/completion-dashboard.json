@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4677,
-    "validDrafts": 2998,
+    "raw": 4687,
+    "validDrafts": 3008,
     "reviewed": 0,
     "registeredBanks": 199,
     "target": 181000,
@@ -1452,6 +1452,12 @@
     {
       "path": "original-multisubject-batch-220.json",
       "sha256": "4a428a53ae9c81ddf973c521baaa57ad71e4200c9979f83000e15de73035fe00",
+      "declared": 10,
+      "actual": 10
+    },
+    {
+      "path": "original-multisubject-batch-221.json",
+      "sha256": "1b9e988f85c7e9a6c10ff93e7ba442d820e089e949fcafe3b39eabe00c38d312",
       "declared": 10,
       "actual": 10
     },
@@ -5307,18 +5313,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-business-studies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 18,
-      "validDrafts": 18,
+      "raw": 28,
+      "validDrafts": 28,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 18
+        "structured": 28
       },
       "difficulty": {
-        "standard": 18
+        "standard": 28
       },
-      "remaining": 982,
-      "mappedObjectives": 18,
-      "representedObjectives": 18,
+      "remaining": 972,
+      "mappedObjectives": 28,
+      "representedObjectives": 28,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7307,21 +7313,21 @@
     }
   ],
   "errorCounts": {
+    "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 469,
+    "explicitArithmeticClaims": 472,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -39885,6 +39891,66 @@
     {
       "id": "ndv-220-010",
       "file": "original-multisubject-batch-220.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-001",
+      "file": "original-multisubject-batch-221.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-002",
+      "file": "original-multisubject-batch-221.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-003",
+      "file": "original-multisubject-batch-221.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-004",
+      "file": "original-multisubject-batch-221.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-005",
+      "file": "original-multisubject-batch-221.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-006",
+      "file": "original-multisubject-batch-221.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-007",
+      "file": "original-multisubject-batch-221.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-008",
+      "file": "original-multisubject-batch-221.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-009",
+      "file": "original-multisubject-batch-221.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-221-010",
+      "file": "original-multisubject-batch-221.json",
       "index": 9,
       "errors": []
     },
@@ -89448,6 +89514,313 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 18, performance objective 7"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Cash use alongside electronic payments",
+      "learningObjective": "Explain the meaning of a cashless economy using a mixed-payment example.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Reducing cash handling",
+      "learningObjective": "Explain one purpose of encouraging electronic payments.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 2",
+        "cbn-payment-modes-2026-11"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Card sale and cash withdrawal",
+      "learningObjective": "Distinguish a digital retail payment from an ATM cash withdrawal.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 3",
+        "cbn-payment-modes-2026-11"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Connectivity and payment delays",
+      "learningObjective": "Explain how a service interruption affects both buyer and seller.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Confirming a pending sale",
+      "learningObjective": "Propose a procedure to avoid recording a pending payment as complete.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Cashless Economy",
+      "subtopic": "Matching a simulated transaction",
+      "learningObjective": "Use a mock transfer record to match a completed payment to an order.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 19, performance objective 6",
+        "cbn-payment-modes-2026-11"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Digital currency and physical cash",
+      "learningObjective": "Explain what makes a central bank currency digital.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 20, performance objective 1",
+        "cbn-enaira-definition-2026-11"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Central bank issue",
+      "learningObjective": "Distinguish a CBDC from a cryptocurrency by issuer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 20, performance objective 2",
+        "cbn-enaira-definition-2026-11"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Payment records and access",
+      "learningObjective": "Assess a potential benefit and a practical constraint of a digital currency payment.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 20, performance objective 3",
+        "cbn-enaira-definition-2026-11"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-221-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Currency",
+      "subtopic": "Balancing a simulated wallet sale",
+      "learningObjective": "Record changes to buyer and seller balances in a simulated digital currency transaction.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 20, performance objective 4",
+        "cbn-enaira-definition-2026-11"
       ],
       "questionCount": 1,
       "validDrafts": 1,
