@@ -1333,3 +1333,9 @@ Batch 231 adds thirteen JSS 1 Business Studies drafts on journals and
 double-entry book-keeping from PDF pp. 39–40. The tasks cover selecting
 books of original entry, designing and completing journals, and posting
 transactions to practice ledgers.
+
+Batch 232 adds thirteen JSS 1 Business Studies drafts on financial
+technology and the history of taxation in Nigeria from PDF pp. 41–42.
+The tasks include matching fictional payments in a spreadsheet and
+interpreting a 1913 report and 1961 gazettes. The historical examples
+give partial regional coverage.

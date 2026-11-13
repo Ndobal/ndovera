@@ -1,0 +1,530 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies financial technology and history of taxation",
+  "questionCount": 13,
+  "note": "Original classroom practice. Tax-law examples are historical. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Information technology in financial services",
+      "learningObjective": "Explain how a digital system supports a financial service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-01-v1",
+      "id": "ndv-232-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A credit cooperative replaces handwritten member balances with a computer system that updates balances when staff enter repayments. Explain why this is an example of digital technology used in finance.",
+      "answer": "The computer stores and processes transaction information electronically. The cooperative uses it to manage the money its members owe.",
+      "explanation": "The example links an electronic process to the delivery or management of a financial service.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies an electronic process in the scenario."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the process to a financial task."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Cloud computing and shared records",
+      "learningObjective": "Identify a cloud-hosted financial tool and explain its benefit.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-02-v1",
+      "id": "ndv-232-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A cooperative’s branches use an authorised web account to open the same ledger, which is stored on servers operated by the service provider. Name the kind of computing that makes this possible and give one benefit to the branches.",
+      "answer": "This is cloud computing. The branches can work from one shared ledger instead of sending separately edited copies to each other.",
+      "explanation": "The provider hosts the data and software remotely. Authorised users access it over a network.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies cloud computing."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a relevant benefit of access to the shared ledger."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Connected sensors and insurance data",
+      "learningObjective": "Identify an Internet of Things use and describe the data flow.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-03-v1",
+      "id": "ndv-232-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "With the fleet owner’s agreement, a device in a delivery van sends its distance travelled to the insurer’s system. Identify the type of digital technology illustrated and explain which part of the example shows it.",
+      "answer": "It illustrates the Internet of Things. A physical device in the van measures distance and sends those readings to another system over a network.",
+      "explanation": "A connected sensor can collect and transmit measurements that a financial service may use.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the Internet of Things or a connected sensor system."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the measurement and transmission from the physical device."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Patterns across large transaction records",
+      "learningObjective": "Explain a big-data use in planning a financial service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-04-v1",
+      "id": "ndv-232-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A bank analyses withdrawal records from hundreds of cash machines to identify where demand usually rises before public holidays. Explain one decision the analysis can inform and why using records from many machines matters.",
+      "answer": "The bank can plan where extra cash may be needed. Comparing many machines reveals which locations show recurring increases and which do not.",
+      "explanation": "Records across locations and dates allow the bank to compare demand rather than relying on one machine’s experience.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a plausible cash-planning decision."
+        },
+        {
+          "marks": 1,
+          "description": "Explains what a wider set of records adds to the comparison."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Shared transaction history",
+      "learningObjective": "Explain a use and limitation of a shared blockchain record.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-05-v1",
+      "id": "ndv-232-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class model uses a blockchain shared by participating cooperatives to record transfers. Everyone with the required access sees the same recorded amount, but a clerk supplied an incorrect amount at entry. Explain one benefit of the shared history and why staff still have to check the source document.",
+      "answer": "Participants can compare transfers using a common history. Staff must still check the source document because a shared ledger can preserve an incorrect amount entered by a clerk.",
+      "explanation": "Agreement about what was recorded is different from verifying whether the recorded amount reflects the transaction.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a benefit of a common transaction history."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the source amount still needs to be checked."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Protecting customer details in shared software",
+      "learningObjective": "Propose access arrangements that reduce exposure of financial records.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-06-v1",
+      "id": "ndv-232-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Three authorised staff use an online accounts package. A colleague proposes giving everyone the same login so work can continue during staff changes. Explain one difficulty with a shared login and give a workable alternative.",
+      "answer": "A shared login makes it hard to tell who made an entry and difficult to withdraw access from just one person. Give each staff member a separate account with permissions for their duties.",
+      "explanation": "Individual accounts help the business assign access and trace actions to a specific user.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains an attribution or access-control problem caused by the shared login."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes individual accounts with appropriate access."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Checking a computer-generated alert",
+      "learningObjective": "Explain the need for human checking when a financial system flags unusual activity.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-07-v1",
+      "id": "ndv-232-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A cooperative uses an AI tool to flag unusual payments. It flags a large transfer which the treasurer expected for an annual order. Explain how the alert helps and what the treasurer should do with it.",
+      "answer": "The alert brings the transfer to the treasurer’s attention. The treasurer should match the amount and recipient against the approved order and retain a record of the check.",
+      "explanation": "An unusual pattern is a reason to inspect the transaction. The authorised order and transaction evidence help establish whether it was expected.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how an alert helps prioritise checks."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a check against appropriate evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Matching a practice ledger to a settlement report",
+      "learningObjective": "Use a spreadsheet to identify an unmatched electronic payment by reference.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-08-v1",
+      "id": "ndv-232-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a spreadsheet, enter the fictional ledger payments P-11 ₦1,450, P-12 ₦2,100 and P-13 ₦1,450. The settlement report lists P-11 ₦1,450 and P-12 ₦2,100. Use a formula or lookup to mark which ledger payment has no matching reference. State the total value of matched payments.",
+      "answer": "P-13 has no matching reference. For example, if ledger references are in column A and report references are in F2:F3, use COUNTIF($F$2:$F$3,A2) and copy it down. A zero marks P-13. The two matched payments total ₦3,550.",
+      "explanation": "P-11 and P-13 have equal amounts. Matching by reference distinguishes them.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Enters all records and uses a valid reference-based formula or lookup."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies P-13 as unmatched."
+        },
+        {
+          "marks": 1,
+          "description": "Reports ₦3,550 for the matched payments."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1450+2100",
+          "expected": 3550,
+          "purpose": "Verify the sum of matched payments."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "A tax and the process of taxation",
+      "learningObjective": "Distinguish a compulsory public charge from a voluntary donation and define taxation.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-09-v1",
+      "id": "ndv-232-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A community group invites voluntary donations to repair its meeting hall. A public authority applies a compulsory charge imposed by law. Identify the tax and explain how taxation describes more than the charge itself.",
+      "answer": "The compulsory charge imposed by law is the tax. Taxation is the system or process by which public authorities impose and collect taxes.",
+      "explanation": "A voluntary donation can be declined. A tax is an obligation where its legal conditions apply.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the compulsory charge as the tax."
+        },
+        {
+          "marks": 1,
+          "description": "Defines taxation as the system or process of imposing and collecting taxes."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Continuity and change under colonial administration",
+      "learningObjective": "Use a historical account to identify both continuity and change in taxation.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-10-v1",
+      "id": "ndv-232-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A simplified summary of a 1913 Northern Nigeria report says that collection drew on earlier emirate practices, while British officers supervised how the colonial administration assessed and collected the tax. From the summary give one example each of continuity and change.",
+      "answer": "Continuity is the use of earlier emirate collection practices. Change is the added supervision by British officers.",
+      "explanation": "The two statements describe earlier practices continuing within a changed system of administration. The evidence concerns Northern Nigeria in that report.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies continued use of earlier collection practices."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies colonial supervision as the change."
+        }
+      ],
+      "contentSourceId": "nilds-northern-nigeria-1913-report"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Regional variation in colonial assessment",
+      "learningObjective": "Compare documented assessment practices in different parts of Northern Nigeria.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-11-v1",
+      "id": "ndv-232-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A 1913 report describes an area where officials tried assessing a tax by the area of farmland occupied. It also describes districts where a charge applied per person. What was counted or measured in each approach, and what does the comparison show about the area covered by the report?",
+      "answer": "The first used the area of land occupied. The second used a count of people. The report describes more than one basis for assessing taxes within Northern Nigeria.",
+      "explanation": "An area-based assessment depends on land measurement. A per-person assessment depends on the number of people liable.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies land area and the number of people as the respective bases."
+        },
+        {
+          "marks": 1,
+          "description": "Infers variation in the area covered by the evidence."
+        }
+      ],
+      "contentSourceId": "nilds-northern-nigeria-1913-report"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Post-independence legislation in a timeline",
+      "learningObjective": "Place a historical income-tax law in the correct period and interpret the source.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-12-v1",
+      "id": "ndv-232-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A timeline marks Nigerian independence in 1960. An official gazette lists an Income Tax Management Act in June 1961 and includes sections on which income was taxable. Add the Act to the timeline and explain what the entry shows about taxation after independence.",
+      "answer": "Place the Act in June 1961, after independence. It shows that post-independence legislation set out rules about income subject to taxation.",
+      "explanation": "The timeline establishes the sequence. The sections listed in the gazette identify the Act’s subject.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places the Act in the post-independence period, with its correct year."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the gazette information to explain the focus of the legislation."
+        }
+      ],
+      "contentSourceId": "nigeria-gazette-income-tax-management-1961"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Regional timing of a post-independence change",
+      "learningObjective": "Explain how a historical deferment order qualifies a simple national timeline.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-232-13-v1",
+      "id": "ndv-232-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A December 1961 gazette contains an order that deferred most provisions of the Income Tax Management Act in Northern Nigeria for the assessment year ending 31 March 1962. A class timeline marks 1961 as the year the Act was passed. What information would you add to help a reader understand when it took effect in the region?",
+      "answer": "Add a note that a separate order temporarily deferred most provisions in Northern Nigeria for the stated assessment year. This distinguishes the date the Act was passed from when those provisions applied in the region.",
+      "explanation": "Passing a law and applying particular provisions can occur at different times. The order supplies dated evidence of that distinction.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Mentions the Northern Nigeria deferment and the period specified."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes enactment from regional application."
+        }
+      ],
+      "contentSourceId": "nigeria-gazette-northern-tax-deferment-1961"
+    }
+  ]
+}

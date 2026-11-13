@@ -2986,7 +2986,9 @@
         "Book-keeping, PDF p. 37",
         "Source Documents, PDF p. 38",
         "Journals, PDF p. 39",
-        "Double Entry Book-keeping, PDF p. 40"
+        "Double Entry Book-keeping, PDF p. 40",
+        "Digital Technologies in the Financial Industry, PDF p. 41",
+        "History of Taxation in Nigeria, PDF p. 42"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -3049,6 +3051,36 @@
       "source": "https://codex.fao.org/codex-texts/codex-online-databases/gsfa",
       "retrievedOn": "2026-11-13",
       "note": "General principle that permitted additive uses depend on conditions and food category. Nigerian authorisations and medicinal uses require separate evidence."
+    },
+    {
+      "id": "nilds-northern-nigeria-1913-report",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://ir.nilds.gov.ng/bitstream/handle/123456789/1058/327.pdf?isAllowed=y&sequence=1",
+      "retrievedOn": "2026-11-14",
+      "note": "Colonial Reports—Annual No. 821, Northern Nigeria report for 1913, printed pp. 26–28. Historical evidence limited to what the colonial administration reported."
+    },
+    {
+      "id": "nigeria-gazette-income-tax-management-1961",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://archive.gazettes.africa/archive/ng/1961/ng-government-gazette-supplement-dated-1961-06-30-no-47-part-a.pdf",
+      "retrievedOn": "2026-11-14",
+      "note": "Nigeria Official Gazette, 30 June 1961, historical Income Tax Management Act and arrangement of sections."
+    },
+    {
+      "id": "nigeria-gazette-northern-tax-deferment-1961",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://archive.gazettes.africa/archive/ng/1961/ng-government-gazette-supplement-dated-1961-04-01-no-96-part-b.pdf",
+      "retrievedOn": "2026-11-14",
+      "note": "Nigeria Official Gazette, 12 December 1961, L.N. 158 of 1961, Northern Nigeria deferment order. The printed date identifies the issue; archive URL date differs."
     }
   ],
   "banks": [
@@ -30961,6 +30993,240 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 40, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Information technology in financial services",
+      "learningObjective": "Explain how a digital system supports a financial service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Cloud computing and shared records",
+      "learningObjective": "Identify a cloud-hosted financial tool and explain its benefit.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Connected sensors and insurance data",
+      "learningObjective": "Identify an Internet of Things use and describe the data flow.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Patterns across large transaction records",
+      "learningObjective": "Explain a big-data use in planning a financial service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Shared transaction history",
+      "learningObjective": "Explain a use and limitation of a shared blockchain record.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Protecting customer details in shared software",
+      "learningObjective": "Propose access arrangements that reduce exposure of financial records.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Checking a computer-generated alert",
+      "learningObjective": "Explain the need for human checking when a financial system flags unusual activity.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Matching a practice ledger to a settlement report",
+      "learningObjective": "Use a spreadsheet to identify an unmatched electronic payment by reference.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "A tax and the process of taxation",
+      "learningObjective": "Distinguish a compulsory public charge from a voluntary donation and define taxation.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Continuity and change under colonial administration",
+      "learningObjective": "Use a historical account to identify both continuity and change in taxation.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Regional variation in colonial assessment",
+      "learningObjective": "Compare documented assessment practices in different parts of Northern Nigeria.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-12-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Post-independence legislation in a timeline",
+      "learningObjective": "Place a historical income-tax law in the correct period and interpret the source.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-232-13-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Regional timing of a post-independence change",
+      "learningObjective": "Explain how a historical deferment order qualifies a simple national timeline.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 3"
       ]
     }
   ],

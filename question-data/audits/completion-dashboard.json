@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4802,
-    "validDrafts": 3123,
+    "raw": 4815,
+    "validDrafts": 3136,
     "reviewed": 0,
     "registeredBanks": 199,
     "target": 181000,
@@ -1518,6 +1518,12 @@
     {
       "path": "original-multisubject-batch-231.json",
       "sha256": "a823e06b2d636f2cb216cce49bdf51af2ed3de1058ff3201df7ab25a492ce1f6",
+      "declared": 13,
+      "actual": 13
+    },
+    {
+      "path": "original-multisubject-batch-232.json",
+      "sha256": "54bb0c993634d04ee9290e6ef21e91f28c814630b51f4682738ccecfb189aac1",
       "declared": 13,
       "actual": 13
     },
@@ -5373,19 +5379,19 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-business-studies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 143,
-      "validDrafts": 143,
+      "raw": 156,
+      "validDrafts": 156,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 143
+        "structured": 156
       },
       "difficulty": {
-        "standard": 141,
+        "standard": 154,
         "difficult": 2
       },
-      "remaining": 857,
-      "mappedObjectives": 143,
-      "representedObjectives": 143,
+      "remaining": 844,
+      "mappedObjectives": 156,
+      "representedObjectives": 156,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7374,21 +7380,21 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 498,
+    "explicitArithmeticClaims": 499,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -40702,6 +40708,84 @@
     {
       "id": "ndv-231-013",
       "file": "original-multisubject-batch-231.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-001",
+      "file": "original-multisubject-batch-232.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-002",
+      "file": "original-multisubject-batch-232.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-003",
+      "file": "original-multisubject-batch-232.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-004",
+      "file": "original-multisubject-batch-232.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-005",
+      "file": "original-multisubject-batch-232.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-006",
+      "file": "original-multisubject-batch-232.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-007",
+      "file": "original-multisubject-batch-232.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-008",
+      "file": "original-multisubject-batch-232.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-009",
+      "file": "original-multisubject-batch-232.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-010",
+      "file": "original-multisubject-batch-232.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-011",
+      "file": "original-multisubject-batch-232.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-012",
+      "file": "original-multisubject-batch-232.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-232-013",
+      "file": "original-multisubject-batch-232.json",
       "index": 12,
       "errors": []
     },
@@ -94026,6 +94110,396 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 40, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Information technology in financial services",
+      "learningObjective": "Explain how a digital system supports a financial service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Cloud computing and shared records",
+      "learningObjective": "Identify a cloud-hosted financial tool and explain its benefit.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Connected sensors and insurance data",
+      "learningObjective": "Identify an Internet of Things use and describe the data flow.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Patterns across large transaction records",
+      "learningObjective": "Explain a big-data use in planning a financial service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Shared transaction history",
+      "learningObjective": "Explain a use and limitation of a shared blockchain record.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Protecting customer details in shared software",
+      "learningObjective": "Propose access arrangements that reduce exposure of financial records.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Checking a computer-generated alert",
+      "learningObjective": "Explain the need for human checking when a financial system flags unusual activity.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in the Financial Industry",
+      "subtopic": "Matching a practice ledger to a settlement report",
+      "learningObjective": "Use a spreadsheet to identify an unmatched electronic payment by reference.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 41, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "A tax and the process of taxation",
+      "learningObjective": "Distinguish a compulsory public charge from a voluntary donation and define taxation.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Continuity and change under colonial administration",
+      "learningObjective": "Use a historical account to identify both continuity and change in taxation.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Regional variation in colonial assessment",
+      "learningObjective": "Compare documented assessment practices in different parts of Northern Nigeria.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-12-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Post-independence legislation in a timeline",
+      "learningObjective": "Place a historical income-tax law in the correct period and interpret the source.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-232-13-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "History of Taxation in Nigeria",
+      "subtopic": "Regional timing of a post-independence change",
+      "learningObjective": "Explain how a historical deferment order qualifies a simple national timeline.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 42, performance objective 3"
       ],
       "questionCount": 1,
       "validDrafts": 1,
