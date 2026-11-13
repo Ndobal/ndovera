@@ -1223,3 +1223,9 @@ adoption, formal assessment and independent review remain open.
 Batch 210 registers the revised JSS 1 Mathematics curriculum and adds
 seven drafts on whole numbers, LCM and HCF. Publication date, school-level
 adoption, formal formats and independent review remain open.
+
+Batch 211 adds 13 NERDC JSS 1 Mathematics drafts on counting in twos,
+base-ten to binary conversion, and fractions. The revised curriculum
+locators cover printed pp. 4–6. The batch includes classroom multiple-choice
+and structured practice. Publication date, school adoption, term placement,
+formal assessment formats and independent academic review remain open.

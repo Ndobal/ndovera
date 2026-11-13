@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4561,
-    "validDrafts": 2882,
+    "raw": 4574,
+    "validDrafts": 2895,
     "reviewed": 0,
     "registeredBanks": 198,
     "target": 180000,
@@ -1394,6 +1394,12 @@
       "sha256": "68269c0e3a657026c206797477ffb23eac5ba4a6dee34f7bb5507f41203692cf",
       "declared": 7,
       "actual": 7
+    },
+    {
+      "path": "original-multisubject-batch-211.json",
+      "sha256": "ecfc0ba12401378fd6c87e4b7a282857879912822c3847373ea3b59c8cbe191c",
+      "declared": 13,
+      "actual": 13
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5525,20 +5531,20 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-math-jss1-revised-retrieved",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 8,
-      "validDrafts": 7,
+      "raw": 21,
+      "validDrafts": 20,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 3,
-        "structured": 5
+        "mcq": 10,
+        "structured": 11
       },
       "difficulty": {
-        "standard": 7,
+        "standard": 20,
         "missing": 1
       },
-      "remaining": 993,
-      "mappedObjectives": 7,
-      "representedObjectives": 7,
+      "remaining": 980,
+      "mappedObjectives": 20,
+      "representedObjectives": 20,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7223,9 +7229,9 @@
   ],
   "errorCounts": {
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -7236,7 +7242,7 @@
     "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 371,
+    "explicitArithmeticClaims": 386,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -39105,6 +39111,84 @@
       "id": "ndv-210-007",
       "file": "original-multisubject-batch-210.json",
       "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-001",
+      "file": "original-multisubject-batch-211.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-002",
+      "file": "original-multisubject-batch-211.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-003",
+      "file": "original-multisubject-batch-211.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-004",
+      "file": "original-multisubject-batch-211.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-005",
+      "file": "original-multisubject-batch-211.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-006",
+      "file": "original-multisubject-batch-211.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-007",
+      "file": "original-multisubject-batch-211.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-008",
+      "file": "original-multisubject-batch-211.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-009",
+      "file": "original-multisubject-batch-211.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-010",
+      "file": "original-multisubject-batch-211.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-011",
+      "file": "original-multisubject-batch-211.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-012",
+      "file": "original-multisubject-batch-211.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-211-013",
+      "file": "original-multisubject-batch-211.json",
+      "index": 12,
       "errors": []
     },
     {
@@ -85187,6 +85271,396 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Counting in twos",
+      "subtopic": "Complete pairs and remainder",
+      "learningObjective": "Count complete groups of two and identify an unpaired item.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 4, PDF p. 17, performance objective"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Counting in twos",
+      "subtopic": "Checking successive pair totals",
+      "learningObjective": "Identify and repair an incorrect running count of pairs.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 4, PDF p. 17, performance objective"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Conversion of Base-ten numerals to Binary numbers",
+      "subtopic": "Reading remainders in reverse",
+      "learningObjective": "Convert a decimal numeral to binary using division by two.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Conversion of Base-ten numerals to Binary numbers",
+      "subtopic": "Trailing digit of consecutive numerals",
+      "learningObjective": "Recognise the final-bit pattern in consecutive binary numerals.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Conversion of Base-ten numerals to Binary numbers",
+      "subtopic": "Bits as independent states",
+      "learningObjective": "Interpret a short bit string as a record of on and off states.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 5, PDF p. 18, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Scaling both terms",
+      "learningObjective": "Determine a missing denominator in an equivalent fraction.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Ranking unlike denominators",
+      "learningObjective": "Order fractions that describe equal-sized wholes.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Decimal to fraction in lowest terms",
+      "learningObjective": "Convert a terminating decimal to a reduced fraction using place value.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Percent from eighths",
+      "learningObjective": "Express a fraction as a percentage including a half-percent.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-10-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Percent to fraction",
+      "learningObjective": "Interpret a percentage as a reduced fraction of a whole.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-11-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Equivalent shares of a common fund",
+      "learningObjective": "Use equivalent fractions to compare two shares of the same amount.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-12-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Recovering the whole",
+      "learningObjective": "Find a whole quantity from a known fractional part.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-211-13-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Fraction to decimal on a scale",
+      "learningObjective": "Convert a fraction to the decimal notation used on a scale.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 6, PDF p. 19, performance objective 3"
       ],
       "questionCount": 1,
       "validDrafts": 1,

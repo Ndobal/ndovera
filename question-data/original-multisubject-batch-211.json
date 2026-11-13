@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Mathematics counting in twos, binary numerals and fractions",
+  "questionCount": 13,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Counting in twos",
+      "subtopic": "Complete pairs and remainder",
+      "learningObjective": "Count complete groups of two and identify an unpaired item.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-01-v1",
+      "id": "ndv-211-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Efe has 17 dry seed pods for a counting display. She puts two pods on each card until she cannot fill another card. How many cards are filled and how many pods are left?",
+      "answer": "8 cards and 1 pod",
+      "explanation": "Counting 2, 4, …, 16 fills eight cards. One of the 17 pods is left.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "7 cards and 3 pods",
+        "8 cards and 0 pods",
+        "8 cards and 1 pod",
+        "9 cards and 1 pod"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "8*2+1",
+          "expected": "17",
+          "purpose": "Account for the original number of pods."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Counting in twos",
+      "subtopic": "Checking successive pair totals",
+      "learningObjective": "Identify and repair an incorrect running count of pairs.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-02-v1",
+      "id": "ndv-211-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class records the total number of counters after each pair is placed on a tray: 2, 4, 6, 9, 10, 12. Which entry needs changing? Explain how the entries on either side help you check the change.",
+      "answer": "Replace 9 with 8. It is two more than 6 and two less than 10.",
+      "explanation": "The fourth pair gives eight counters. Checking both neighbouring totals confirms that every step adds two.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Replaces 9 with 8."
+        },
+        {
+          "marks": 1,
+          "description": "Checks the step from 6 to 8 and from 8 to 10."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "8-6",
+          "expected": "2",
+          "purpose": "Check the preceding step."
+        },
+        {
+          "expression": "10-8",
+          "expected": "2",
+          "purpose": "Check the following step."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Conversion of Base-ten numerals to Binary numbers",
+      "subtopic": "Reading remainders in reverse",
+      "learningObjective": "Convert a decimal numeral to binary using division by two.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-03-v1",
+      "id": "ndv-211-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Convert decimal 26 to binary by repeated division by two. Show the remainders and state the order in which you read them.",
+      "answer": "11010 in base two. Read the remainders from last to first.",
+      "explanation": "The successive quotients are 13, 6, 3, 1, 0 and the remainders are 0, 1, 0, 1, 1. Reading upward gives 11010, worth 16 + 8 + 2 = 26.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows successive division by two with the correct quotients and remainders."
+        },
+        {
+          "marks": 1,
+          "description": "States that the last remainder is read first."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 11010 in base two."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "16+8+2",
+          "expected": "26",
+          "purpose": "Check the place values of the converted binary numeral."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Conversion of Base-ten numerals to Binary numbers",
+      "subtopic": "Trailing digit of consecutive numerals",
+      "learningObjective": "Recognise the final-bit pattern in consecutive binary numerals.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-04-v1",
+      "id": "ndv-211-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A board shows consecutive counts in binary: 1000, 1001, 1010, 1011, 1100. How does the rightmost digit change as the count increases by one?",
+      "answer": "It alternates between 0 and 1.",
+      "explanation": "The rightmost place is the ones place. All the places to its left have even values, so the rightmost digit is 0 for an even count and 1 for an odd count.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It stays at 0 until all the other digits change.",
+        "It alternates between 0 and 1.",
+        "It changes only when the leftmost digit changes.",
+        "It stays at 1 once it has reached 1."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Conversion of Base-ten numerals to Binary numbers",
+      "subtopic": "Bits as independent states",
+      "learningObjective": "Interpret a short bit string as a record of on and off states.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-05-v1",
+      "id": "ndv-211-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Four indicator lamps are listed from left to right. The controller records a 1 for a lit lamp and a 0 for an unlit lamp. The record is 0101. Which lamps are lit?",
+      "answer": "The second and fourth lamps.",
+      "explanation": "The digits correspond to the lamps in their listed order. The two 1s are in positions two and four.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The second and fourth lamps.",
+        "The first and third lamps.",
+        "The first and fourth lamps.",
+        "The second and third lamps."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Scaling both terms",
+      "learningObjective": "Determine a missing denominator in an equivalent fraction.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-06-v1",
+      "id": "ndv-211-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pattern uses blue thread for 5/12 of its stitches. On a chart with 15 blue stitches, how many total stitches would keep exactly the same fraction blue?",
+      "answer": "36 stitches",
+      "explanation": "The blue count is tripled from 5 to 15. Tripling the total from 12 to 36 preserves the fraction.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "22 stitches",
+        "27 stitches",
+        "32 stitches",
+        "36 stitches"
+      ],
+      "correctOption": "D",
+      "verification": [
+        {
+          "expression": "15/36-5/12",
+          "expected": "0",
+          "purpose": "Check that the blue fractions are equivalent."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Ranking unlike denominators",
+      "learningObjective": "Order fractions that describe equal-sized wholes.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-07-v1",
+      "id": "ndv-211-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Three teams receive identical strips of cloth. They use 7/12, 5/8 and 2/3 of their strips. List the fractions from least cloth used to most. Use a common denominator to justify your order.",
+      "answer": "7/12, 5/8, 2/3. Their equivalents are 14/24, 15/24 and 16/24.",
+      "explanation": "Because the strips have the same length, comparing their fractions directly is valid. Expressing them in twenty-fourths makes the comparison 14 < 15 < 16.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes all three equivalent fractions with a common denominator."
+        },
+        {
+          "marks": 1,
+          "description": "Lists 7/12, 5/8 and 2/3 in that order."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "7/12-14/24",
+          "expected": "0",
+          "purpose": "Check the first common-denominator fraction."
+        },
+        {
+          "expression": "5/8-15/24",
+          "expected": "0",
+          "purpose": "Check the second common-denominator fraction."
+        },
+        {
+          "expression": "2/3-16/24",
+          "expected": "0",
+          "purpose": "Check the third common-denominator fraction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Decimal to fraction in lowest terms",
+      "learningObjective": "Convert a terminating decimal to a reduced fraction using place value.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-08-v1",
+      "id": "ndv-211-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A gauge shows that a container is 0.36 full. A pupil writes 36/10. Use place value to correct the denominator, then give the fraction in lowest terms.",
+      "answer": "36/100 = 9/25",
+      "explanation": "The last digit of 0.36 is in the hundredths place, so the unreduced fraction is 36/100. Divide both terms by four.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that 0.36 has 36 hundredths and writes 36/100."
+        },
+        {
+          "marks": 1,
+          "description": "Reduces to 9/25."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "36/100-9/25",
+          "expected": "0",
+          "purpose": "Check the reduced fraction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Percent from eighths",
+      "learningObjective": "Express a fraction as a percentage including a half-percent.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-09-v1",
+      "id": "ndv-211-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A club repairs three of the eight identical shelves on its work list. What percentage of its shelves has it repaired?",
+      "answer": "37.5%",
+      "explanation": "Each eighth is 100% ÷ 8 = 12.5%. Three eighths are 37.5%.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "24%",
+        "30%",
+        "37.5%",
+        "62.5%"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "100*3/8",
+          "expected": "37.5",
+          "purpose": "Check the percentage."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Percent to fraction",
+      "learningObjective": "Interpret a percentage as a reduced fraction of a whole.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-10-v1",
+      "id": "ndv-211-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A library sets aside 85% of its display space for pupils’ work. What fraction of the entire display space does this represent in lowest terms?",
+      "answer": "17/20",
+      "explanation": "Eighty-five percent is 85 out of 100. Dividing both terms by five gives 17/20.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "4/5",
+        "17/20",
+        "5/6",
+        "19/20"
+      ],
+      "correctOption": "B",
+      "verification": [
+        {
+          "expression": "85/100-17/20",
+          "expected": "0",
+          "purpose": "Check the reduced fraction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Equivalent shares of a common fund",
+      "learningObjective": "Use equivalent fractions to compare two shares of the same amount.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-11-v1",
+      "id": "ndv-211-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two activity teams get 4/10 and 6/15 of the same ₦15,000 fund respectively. Do their shares have equal value? Show how the fractions tell you and calculate the value of each share.",
+      "answer": "Yes. Both fractions simplify to 2/5, so each team receives ₦6,000.",
+      "explanation": "Divide 4 and 10 by two and 6 and 15 by three. Both fractions become 2/5. One fifth of ₦15,000 is ₦3,000, so two fifths are ₦6,000.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows that 4/10 and 6/15 both equal 2/5 or gives another valid equivalence proof."
+        },
+        {
+          "marks": 1,
+          "description": "Concludes that the two shares have equal value."
+        },
+        {
+          "marks": 1,
+          "description": "Computes each share as ₦6,000."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "15000*4/10",
+          "expected": "6000",
+          "purpose": "Check the first share."
+        },
+        {
+          "expression": "15000*6/15",
+          "expected": "6000",
+          "purpose": "Check the second share."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Recovering the whole",
+      "learningObjective": "Find a whole quantity from a known fractional part.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-12-v1",
+      "id": "ndv-211-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At the end of a shift, 21 finished badges represent seven ninths of the planned output. How many badges must the next shift finish to meet the plan? Show how you find the number of badges represented by one ninth.",
+      "answer": "6 badges. One ninth represents 3 badges.",
+      "explanation": "Seven ninths represent 21 badges, so one ninth represents 21 ÷ 7 = 3 badges. Two ninths remain, which is six badges.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates 21 ÷ 7 = 3 badges for one ninth."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies that two ninths remain."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates six badges remaining."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "21/7*(9-7)",
+          "expected": "6",
+          "purpose": "Check the number of badges remaining."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Fractions",
+      "subtopic": "Fraction to decimal on a scale",
+      "learningObjective": "Convert a fraction to the decimal notation used on a scale.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-211-13-v1",
+      "id": "ndv-211-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A scale from 0 to 1 metre has labels at intervals of 0.05 m. A peg is 11/20 m from the zero mark. What decimal label is beside the peg?",
+      "answer": "0.55 m",
+      "explanation": "Multiplying numerator and denominator by five gives 55/100 m, or 0.55 m.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "0.50 m",
+        "0.52 m",
+        "0.55 m",
+        "0.60 m"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "11/20",
+          "expected": "0.55",
+          "purpose": "Check the decimal scale reading."
+        }
+      ]
+    }
+  ]
+}
