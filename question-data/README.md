@@ -1299,3 +1299,8 @@ Batch 224 adds ten JSS 1 Business Studies drafts on production, service
 delivery and introductory insurance from PDF pp. 25–26. Insurance tasks
 use fictional terms. The comparison of conventional insurance, takaful
 and microinsurance awaits authoritative sources.
+
+Batch 225 adds eight JSS 1 Business Studies drafts on insurance types,
+principles and terms from PDF pp. 26–27. NAICOM references support the
+takaful and microinsurance examples and the motor third-party item.
+Other compulsory insurance categories need separate verification.

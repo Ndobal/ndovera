@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies insurance concepts and principles",
+  "questionCount": 8,
+  "note": "Original classroom practice. Sample policy terms are fictional. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance I",
+      "subtopic": "Mutual protection model",
+      "learningObjective": "Distinguish a takaful risk fund from a conventional insurance contract in a simplified comparison.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-225-01-v1",
+      "id": "ndv-225-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom chart describes two arrangements. In A, customers pay premiums to an insurer that takes on the covered risk under a policy. In B, participants contribute to a common fund that pays eligible losses, and an operator manages the arrangement on takaful principles. Which arrangement illustrates takaful? Explain the distinguishing feature.",
+      "answer": "B. Participants share the covered risk through a common fund managed by an operator.",
+      "explanation": "Both arrangements can protect against losses. B is described as mutual protection through a participant fund.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies B."
+        },
+        {
+          "marks": 1,
+          "description": "Explains risk sharing through the participant fund."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance I",
+      "subtopic": "Purpose of microinsurance",
+      "learningObjective": "Identify how simplified insurance can serve customers with limited incomes.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-225-02-v1",
+      "id": "ndv-225-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional cover for low-income market sellers offers a modest benefit for one clearly stated event. Its cost is designed to be affordable and its terms are short and simple. Explain why this design illustrates microinsurance.",
+      "answer": "It is designed to give low-income sellers access to affordable, easy-to-understand cover for a stated risk.",
+      "explanation": "NAICOM describes microinsurance in terms of accessibility and the customers it serves. The design features work together to reduce barriers.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies low-income sellers as the intended customers."
+        },
+        {
+          "marks": 1,
+          "description": "Connects affordability or simple terms to access."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Disclosing information relevant to cover",
+      "learningObjective": "Explain why an insurance application should accurately describe the intended use of insured property.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-225-03-v1",
+      "id": "ndv-225-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A tailor applies for cover for equipment at home. The form asks whether it is used commercially. She uses it daily for paid orders. What should she record, and why is that information relevant to the insurer?",
+      "answer": "She should record that the equipment is used commercially. Its use helps the insurer assess the risk and decide which terms are suitable.",
+      "explanation": "An insurer needs truthful information relevant to the risk when considering the application.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that paid commercial use should be disclosed."
+        },
+        {
+          "marks": 1,
+          "description": "Connects accurate disclosure to assessment of risk or policy terms."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Restoring a financial position",
+      "learningObjective": "Explain indemnity using a fictional property repair.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-225-04-v1",
+      "id": "ndv-225-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional property policy pays the agreed cost of repairing a covered broken window. Why does paying that cost illustrate indemnity?",
+      "answer": "The payment helps restore the policyholder’s position before the damage by covering the agreed repair cost.",
+      "explanation": "Indemnity aims to compensate for the covered loss. The amount in this example is tied to the repair needed.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects payment to the covered repair cost."
+        },
+        {
+          "marks": 1,
+          "description": "Explains restoration to the pre-loss position."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Premium, policy and peril",
+      "learningObjective": "Identify common terms in a single insurance scenario.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-225-05-v1",
+      "id": "ndv-225-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A trader pays an agreed charge for fire cover. A written contract sets out the conditions. Identify the premium, the policy and the peril.",
+      "answer": "The premium is the agreed charge. The policy is the contract setting out the conditions. Fire is the peril.",
+      "explanation": "The three terms refer to the price, the contract and the event that may cause a loss.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the premium."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the policy."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the peril."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Distinguishing risk and loss",
+      "learningObjective": "Distinguish the chance of damage from damage already suffered.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-225-06-v1",
+      "id": "ndv-225-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Before the rainy season, a shopkeeper worries that water might damage stock. Later, rainwater enters the storeroom and ruins two cartons. Which part of the story describes a risk and which describes a loss?",
+      "answer": "The possibility of water damaging stock is the risk. The two cartons actually ruined are the loss.",
+      "explanation": "Risk concerns an uncertain event or its consequences. A loss is the harm that occurred.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the uncertainty before the rain."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the actual damage as the loss."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Uncertain events and known damage",
+      "learningObjective": "Explain why a policy against future accidental loss differs from a request to cover damage already known.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-225-07-v1",
+      "id": "ndv-225-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional policy is offered for future accidental breakage of shop glass. A shopkeeper applies after a pane has already shattered and asks for payment for that pane. Explain why the damaged pane does not fit the stated cover.",
+      "answer": "The pane broke before cover began, so its damage is already known. The policy described covers uncertain future breakage.",
+      "explanation": "The timing and uncertainty of the event matter when deciding whether it falls within the stated terms.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the damage as already known at application."
+        },
+        {
+          "marks": 1,
+          "description": "Links the decision to the stated future-risk scope."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Third-party protection",
+      "learningObjective": "Explain the purpose of compulsory motor third-party insurance using the stated Nigerian rule.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-225-08-v1",
+      "id": "ndv-225-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Nigeria’s insurance reform law requires third-party motor cover for vehicle use, subject to the provisions of the Act. In a road incident, a driver damages another person’s bicycle. Explain whose interests third-party motor cover is intended to protect in this example.",
+      "answer": "It is intended to protect the other person affected by the vehicle’s use, subject to the applicable cover and circumstances.",
+      "explanation": "The third party is the person outside the insurance agreement who suffers harm. The example illustrates the purpose of compulsory cover.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the bicycle owner as the third party."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the cover to harm suffered by someone outside the insurance agreement."
+        }
+      ]
+    }
+  ]
+}

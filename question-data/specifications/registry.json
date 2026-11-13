@@ -2972,7 +2972,8 @@
         "Concept of Credit, PDF p. 23",
         "Becoming an Informed Consumer of Financial Services, PDF p. 24",
         "Production and Service Delivery, PDF p. 25",
-        "Overview of Insurance I, PDF p. 26"
+        "Overview of Insurance I, PDF p. 26",
+        "Overview of Insurance II, PDF p. 27"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -2995,6 +2996,36 @@
       "source": "https://www.cbn.gov.ng/PaymentsSystem/modes.html",
       "retrievedOn": "2026-11-13",
       "note": "Non-cash retail payment channels. Historical channel shares are outside this batch."
+    },
+    {
+      "id": "naicom-takaful-guide",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://storage.naicom.website/naicom/files/Takaful%20Guidelines%20Approved.pdf",
+      "retrievedOn": "2026-11-13",
+      "note": "Section 1.2 on mutuality. Used for the concept only."
+    },
+    {
+      "id": "naicom-microinsurance-overview",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://naicom.gov.ng/microinsurance/",
+      "retrievedOn": "2026-11-13",
+      "note": "Overview of intended customers and accessible products."
+    },
+    {
+      "id": "naicom-niira-2025-gazette",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://naicom.gov.ng/wp-content/uploads/2025/10/NIGERIA-INDUSTRY-INSURANCE_052600.pdf",
+      "retrievedOn": "2026-11-13",
+      "note": "Gazetted 2025 No. 14, Part X, section 84(1)."
     }
   ],
   "banks": [
@@ -29392,6 +29423,153 @@
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 26, performance objective 5"
       ]
+    },
+    {
+      "id": "nerdc-business-jss1-225-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance I",
+      "subtopic": "Mutual protection model",
+      "learningObjective": "Distinguish a takaful risk fund from a conventional insurance contract in a simplified comparison.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 26, performance objective 3",
+        "naicom-takaful-guide"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-225-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance I",
+      "subtopic": "Purpose of microinsurance",
+      "learningObjective": "Identify how simplified insurance can serve customers with limited incomes.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 26, performance objective 3",
+        "naicom-microinsurance-overview"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-225-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Disclosing information relevant to cover",
+      "learningObjective": "Explain why an insurance application should accurately describe the intended use of insured property.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 27, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-225-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Restoring a financial position",
+      "learningObjective": "Explain indemnity using a fictional property repair.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 27, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-225-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Premium, policy and peril",
+      "learningObjective": "Identify common terms in a single insurance scenario.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 27, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-225-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Distinguishing risk and loss",
+      "learningObjective": "Distinguish the chance of damage from damage already suffered.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 27, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-225-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Uncertain events and known damage",
+      "learningObjective": "Explain why a policy against future accidental loss differs from a request to cover damage already known.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 27, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-225-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Overview of Insurance II",
+      "subtopic": "Third-party protection",
+      "learningObjective": "Explain the purpose of compulsory motor third-party insurance using the stated Nigerian rule.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 27, performance objective 5",
+        "naicom-niira-2025-gazette, Part X, section 84(1)"
+      ]
     }
   ],
   "scopeGaps": [
@@ -29440,6 +29618,7 @@
     "The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved.",
     "On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation.",
     "JSS 1 offering reconciliation: the listing recorded in batch 219 has eight named subjects with registered exact-class banks. The other eight are Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French, Intermediate Science and Digital Technologies. The Trades link requires separate route verification. The listing recheck in batch 220 returned HTTP 403. This inventory does not establish detailed curricula or school adoption.",
-    "JSS 1 Business Studies Overview of Insurance I has initial practice for objectives 1, 2, 4 and 5. Conventional insurance, takaful and microinsurance under objective 3 require separate authoritative comparison. Policy terms used in the draft are fictional."
+    "JSS 1 Business Studies Overview of Insurance I has initial practice for objectives 1, 2, 4 and 5. Conventional insurance, takaful and microinsurance under objective 3 require separate authoritative comparison. Policy terms used in the draft are fictional.",
+    "Batch 225 adds introductory takaful and microinsurance comparisons and one compulsory motor insurance objective mapped to NIIRA 2025 section 84(1). Other compulsory categories, detailed coverage conditions and subsequent implementing instruments require separate verification."
   ]
 }
