@@ -1261,3 +1261,9 @@ Batch 217 adds 10 NERDC JSS 1 Mathematics drafts on geometric
 construction and angles, mapped to PDF pp. 34–35. Practical tasks require
 drawings or measurements for teacher inspection. The marking tolerances
 are classroom rubric choices pending independent academic review.
+
+Batch 218 adds nine NERDC JSS 1 Mathematics drafts on everyday statistics
+and the median, mapped to PDF pp. 36–37. All 23 distinct topics now have
+initial validated practice, counting the Use of Symbols continuation as
+part of that topic. Full objective coverage, formal assessment formats,
+school adoption and independent academic review remain open.

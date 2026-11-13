@@ -1,0 +1,397 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Mathematics everyday statistics and median",
+  "questionCount": 9,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Comparing a service across times",
+      "learningObjective": "Explain how repeated counts support a fair comparison.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-218-01-v1",
+      "id": "ndv-218-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school library extends its opening hours. Its committee wants to know whether pupils now make more visits. Give a useful count to collect before and after the change, and state one condition that would make the comparison fairer.",
+      "answer": "Count pupil visits in each of two comparable school weeks, one before the change and one after. Use weeks with the same number of school days and avoid comparing a normal week with an exam week.",
+      "explanation": "Counting the same event over comparable periods makes the totals easier to interpret. A comparison by itself cannot establish that the hours caused the change.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Specifies counting pupil visits before and after."
+        },
+        {
+          "marks": 1,
+          "description": "States a practical comparability condition."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Collecting observations consistently",
+      "learningObjective": "Collect and record observations using a consistent definition.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-218-02-v1",
+      "id": "ndv-218-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a teacher-approved five-minute observation from inside the school grounds, tally bicycles and motorcycles passing in one chosen direction. Submit your two category tallies and totals. State how you treated a motorcycle that stopped and then continued.",
+      "answer": "Totals vary. Record the two separate tallies for the stated time and direction. Count a motorcycle that stops and continues across the observation point once.",
+      "explanation": "A fixed time window and direction define what enters the count. Counting vehicles as they cross one fixed point prevents a brief stop from becoming a second observation.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States or records the time window, direction and observation point."
+        },
+        {
+          "marks": 1,
+          "description": "Submits two separate tallies with totals consistent with their marks."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a once-per-crossing rule."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Using class counts for planning",
+      "learningObjective": "Use recorded demand and capacity to choose a suitable allocation.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-218-03-v1",
+      "id": "ndv-218-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "For a school reading day, 28 pupils signed up for the story corner and 17 for the poem corner. The rooms hold 20 and 32 pupils respectively. Each activity needs its own room. Allocate the rooms and find how many seats will be free in each.",
+      "answer": "Use the 32-seat room for stories with 4 seats free. Use the 20-seat room for poems with 3 seats free.",
+      "explanation": "The story group exceeds 20 seats. The poem group fits in the smaller room, and subtracting each group from its room capacity gives the spare seats.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Allocates the rooms correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the spare seats for both rooms."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "32-28",
+          "expected": 4,
+          "purpose": "Check spare story seats."
+        },
+        {
+          "expression": "20-17",
+          "expected": 3,
+          "purpose": "Check spare poem seats."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Chance with unequal categories",
+      "learningObjective": "Compare the likelihood of two outcomes in an everyday random selection.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-218-04-v1",
+      "id": "ndv-218-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class activity box has six story cards, three drawing cards and one music card. The cards are the same size, and one is picked without looking after shuffling. Is drawing or music more likely? Give the chance of each as a fraction.",
+      "answer": "Drawing is more likely. Its chance is 3/10 and music’s chance is 1/10.",
+      "explanation": "Each card has the same chance of selection. Three of the ten cards give drawing, and one gives music.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names drawing as the more likely outcome."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 3/10 and 1/10 for the respective outcomes."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "6+3+1",
+          "expected": 10,
+          "purpose": "Check the total number of equally likely cards."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Prediction from observed counts",
+      "learningObjective": "Use earlier counts to make a prediction and explain why it is uncertain.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-218-05-v1",
+      "id": "ndv-218-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Over ten ordinary school mornings, the water dispenser needed a refill before break on seven mornings. Use these records to say whether an early refill seems more likely than not on the next ordinary morning. Give one circumstance that could make your prediction less reliable.",
+      "answer": "An early refill seems more likely than not because it occurred on 7 of 10 mornings. A change in pupil attendance, starting water level or weather could affect the prediction.",
+      "explanation": "Seven observations out of ten exceed half. A past frequency gives an estimate and can change when conditions change.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses seven out of ten to justify the prediction."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a plausible change affecting the prediction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Recording repeated dice outcomes",
+      "learningObjective": "Perform a simple dice experiment and compare observations with equal likelihood.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-218-06-v1",
+      "id": "ndv-218-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Roll one standard six-sided die 18 times. Record the outcomes in order and make a frequency table for faces 1 to 6, including any zero frequencies. Explain whether a face that appeared most often in your table must be most likely on the next roll of a fair die.",
+      "answer": "The recorded outcomes vary. Frequencies should match the sequence and sum to 18. For a fair die each face still has probability 1/6 on the next independent roll.",
+      "explanation": "A short experiment can produce unequal counts even when all outcomes are equally likely on every roll.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Records 18 valid die outcomes in order."
+        },
+        {
+          "marks": 1,
+          "description": "Makes a correct six-face frequency table totalling 18."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the sample leader need not be more likely on the next fair roll."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Data representation",
+      "subtopic": "Median with repeated values",
+      "learningObjective": "Find an odd-sample median while retaining repeated observations.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-218-07-v1",
+      "id": "ndv-218-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The numbers of pages read by seven pupils are 12, 8, 16, 8, 5, 8 and 21. A pupil crosses out repeated values before finding the median. Explain why this changes the data and find the correct median.",
+      "answer": "8 pages. The three readings of 8 represent three pupils and must all be kept.",
+      "explanation": "The ordered readings are 5, 8, 8, 8, 12, 16 and 21. The fourth value is 8.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Keeps all repeated readings."
+        },
+        {
+          "marks": 1,
+          "description": "Orders all seven values and identifies the fourth value as 8."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Data representation",
+      "subtopic": "Median between two recorded counts",
+      "learningObjective": "Determine the median of an even sample and interpret a result absent from the sample.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-218-08-v1",
+      "id": "ndv-218-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Six groups borrow 9, 2, 6, 5, 12 and 4 books. Find the median number borrowed. Explain why the median can be a value that no group recorded.",
+      "answer": "5.5 books. The ordered middle counts are 5 and 6, so the median is their average.",
+      "explanation": "In the ordered list 2, 4, 5, 6, 9, 12, the median lies halfway between the two middle counts. The median summarises the data.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Orders the counts or identifies the middle pair correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Averages 5 and 6 to get 5.5."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that an average of the two middle values can fall between observed counts."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(5+6)/2",
+          "expected": "5.5",
+          "purpose": "Check the median of the even sample."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Data representation",
+      "subtopic": "Median and an altered extreme",
+      "learningObjective": "Explain why changing the largest observation can leave the median unchanged.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-218-09-v1",
+      "id": "ndv-218-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Five waiting times in minutes are 3, 5, 7, 9 and 12. The clerk corrects 12 to 21. Give the median before and after the correction and explain what determines whether it changes.",
+      "answer": "Both medians are 7 minutes. The changed time remains largest, leaving the third ordered value at 7.",
+      "explanation": "The median of five values is the third once sorted. The correction keeps all the earlier positions fixed.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives 7 for both medians."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the correction leaves the third ordered value unchanged."
+        }
+      ]
+    }
+  ]
+}

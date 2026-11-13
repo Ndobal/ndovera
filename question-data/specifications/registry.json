@@ -2940,7 +2940,9 @@
         "Plane Shapes, PDF p. 32 (printed footer 20; contents entry 19)",
         "Three dimensional Figures, PDF p. 33 (printed footer 21; contents entry 20)",
         "Construction, PDF p. 34 (printed footer 22; contents entry 21)",
-        "Angles, PDF p. 35 (printed footer 23; contents entry 22)"
+        "Angles, PDF p. 35 (printed footer 23; contents entry 22)",
+        "Needs for statistics, PDF p. 36 (printed footer 24; contents entry 23)",
+        "Data representation, PDF p. 37 (printed footer 25; contents entry 24)"
       ],
       "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds. The contents and printed footers differ by one page from Plane Shapes onward. Use PDF page indices for these sections."
     }
@@ -28099,6 +28101,168 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, PDF p. 35, printed footer 23, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-218-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Comparing a service across times",
+      "learningObjective": "Explain how repeated counts support a fair comparison.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 36, printed footer 24, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-218-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Collecting observations consistently",
+      "learningObjective": "Collect and record observations using a consistent definition.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 36, printed footer 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-218-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Using class counts for planning",
+      "learningObjective": "Use recorded demand and capacity to choose a suitable allocation.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 36, printed footer 24, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-218-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Chance with unequal categories",
+      "learningObjective": "Compare the likelihood of two outcomes in an everyday random selection.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 36, printed footer 24, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-218-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Prediction from observed counts",
+      "learningObjective": "Use earlier counts to make a prediction and explain why it is uncertain.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 36, printed footer 24, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-218-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Needs for statistics",
+      "subtopic": "Recording repeated dice outcomes",
+      "learningObjective": "Perform a simple dice experiment and compare observations with equal likelihood.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 36, printed footer 24, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-218-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Data representation",
+      "subtopic": "Median with repeated values",
+      "learningObjective": "Find an odd-sample median while retaining repeated observations.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 37, printed footer 25, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-218-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Data representation",
+      "subtopic": "Median between two recorded counts",
+      "learningObjective": "Determine the median of an even sample and interpret a result absent from the sample.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 37, printed footer 25, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-218-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Data representation",
+      "subtopic": "Median and an altered extreme",
+      "learningObjective": "Explain why changing the largest observation can leave the median unchanged.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, PDF p. 37, printed footer 25, performance objective 1"
       ]
     }
   ],
