@@ -1267,3 +1267,9 @@ and the median, mapped to PDF pp. 36–37. All 23 distinct topics now have
 initial validated practice, counting the Use of Symbols continuation as
 part of that topic. Full objective coverage, formal assessment formats,
 school adoption and independent academic review remain open.
+
+Batch 219 registers September 2025 revised NERDC JSS 1 Business Studies
+and adds eight drafts from PDF pp. 15–16, including a spreadsheet exercise.
+The official subject list loaded and lists 16 named subjects plus a Trades
+link. Full objective coverage, trade options, school adoption, term
+placement, formal assessment formats and independent review remain open.

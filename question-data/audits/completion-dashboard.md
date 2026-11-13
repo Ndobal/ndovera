@@ -111,6 +111,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Basic Science / Primary 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Primary 5 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Technology / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
+| NERDC | Business Studies / JSS 1 | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NERDC | Chemistry / SS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Christian Religious Studies / JSS 1 | 1000 | 58 | 58 | 0 | 942 | partial_objective_register |
 | NERDC | Computer Studies / JSS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -217,12 +218,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 476 | 441 | 0 | 36000 | 35559 |
-| NERDC | 620 | 555 | 0 | 32000 | 31445 |
+| NERDC | 628 | 563 | 0 | 33000 | 32437 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 4659, "validDrafts": 2980, "reviewed": 0, "registeredBanks": 198, "target": 180000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 4667, "validDrafts": 2988, "reviewed": 0, "registeredBanks": 199, "target": 181000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -271,3 +272,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - PVS access advance2026-11-11: historical official JSS THREE PDF now retrieved and hashed; twelve-topic inventory and eight provisional knowledge mappings recorded. Twenty-four original objective drafts do not establish current cohort adoption, complete NECO scope,8311/8312 topic allocation, option count or practical competence. Revised JSS3 page still404; stock-exchange wording and health/legal/food-safety topics need separate authoritative checks. Igbo foreword checksum unchanged; L1/L2 assignment and current adoption remain unverified.
 - NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved.
 - The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved.
+- On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation.

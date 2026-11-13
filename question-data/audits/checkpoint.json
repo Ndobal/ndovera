@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_218_automated_validation_passed",
+  "phase": "batch_219_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-219.json",
+  "nextBatch": "original-multisubject-batch-220.json",
   "nextPriorities": [
-    "Verify another underrepresented exact-class non-Mathematics NERDC source and map distinct objectives. For JSS 1 Mathematics, all 23 distinct topics have initial validated practice; reconcile remaining performance objectives, depth and assessment formats. Preserve the Physical and Health Education and Cultural and Creative Arts review backlogs.",
+    "Map JSS 1 Business Studies Introduction to Commerce and Concept of Money from the verified September 2025 PDF. Reconcile the accessible JSS 1 subject list with existing banks, leaving unverified curricula and trade routes explicit.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-218.json",
-  "lastRemoteVerifiedCommit": "c17f75a58e3b4cd492b02793a2f3fc8b75072878",
+  "lastValidatedBatch": "original-multisubject-batch-219.json",
+  "lastRemoteVerifiedCommit": "d261eaff2a061958d876bc23c4dd9d32b59f09e8",
   "verifiedTotals": {
-    "raw": 4659,
-    "validDrafts": 2980,
+    "raw": 4667,
+    "validDrafts": 2988,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-218.json",
+  "lastPopulatedBatch": "original-multisubject-batch-219.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4659,
+  "inventoryRaw": 4667,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "nerdc-math-jss1-revised-retrieved",
+    "id": "nerdc-business-studies-jss1-revised-2025",
     "date": "2026-11-13"
   }
 }

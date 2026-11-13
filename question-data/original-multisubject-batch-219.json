@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies foundations and digital operations",
+  "questionCount": 8,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Business Studies",
+      "subtopic": "Scope of Business Studies",
+      "learningObjective": "Explain the subject using examples of business activities.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-219-01-v1",
+      "id": "ndv-219-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil says Business Studies only teaches how to sell goods. Explain what the subject studies and name two activities in a school stationery shop that illustrate its wider scope.",
+      "answer": "It studies how businesses are organised and run. The shop can record payments and organise customer orders as well as sell stationery.",
+      "explanation": "Business Studies includes activities that support trading, such as book-keeping and office practice.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the subject as studying how businesses operate or are organised."
+        },
+        {
+          "marks": 1,
+          "description": "Gives two suitable activities beyond selling."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Business Studies",
+      "subtopic": "Why business records matter",
+      "learningObjective": "Explain how recording transactions supports a small enterprise.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-219-02-v1",
+      "id": "ndv-219-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class beadwork stall has cash left at closing. The team knows its sales total but kept no record of spending on beads and thread. Explain why its members cannot yet tell whether they made a profit. Name a record that would help.",
+      "answer": "They must compare sales income with costs to determine profit. An expense record listing what they paid for materials would help.",
+      "explanation": "Cash at closing could include money the team started with. Recording expenses lets the team compare the costs of the activity with the income it earned.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that revenue must be compared with costs."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a suitable expense record or record of payments."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Business Studies",
+      "subtopic": "Marketing and book-keeping",
+      "learningObjective": "Match contrasting enterprise tasks to components of Business Studies.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-219-03-v1",
+      "id": "ndv-219-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At a school fair, Aisha asks visitors which notebook designs they prefer. Emeka records each sale and the amount received. Name the Business Studies component illustrated by each pupil and explain the difference in purpose.",
+      "answer": "Aisha illustrates marketing by learning customer preferences. Emeka illustrates book-keeping by recording financial transactions.",
+      "explanation": "Marketing uses information about customers to guide decisions. Book-keeping records transactions for later checking and reporting.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches Aisha to marketing and explains the purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Matches Emeka to book-keeping and explains the purpose."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Business Studies",
+      "subtopic": "Careers and everyday duties",
+      "learningObjective": "Relate a business career to the duties it involves.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-219-04-v1",
+      "id": "ndv-219-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Tomi enjoys arranging appointments and sorting incoming letters. Suggest a business role that uses both skills, and give one example of a daily responsibility in that role.",
+      "answer": "An administrative assistant could maintain the appointment diary or route incoming correspondence to the right staff member.",
+      "explanation": "Office support roles use scheduling and communication skills to coordinate daily work.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names an appropriate office role."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a relevant daily responsibility."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in Business",
+      "subtopic": "Value of a shared digital record",
+      "learningObjective": "Explain an operational benefit of a digital record.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-219-05-v1",
+      "id": "ndv-219-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two staff members sell from the same stock of school uniforms. Both currently keep separate notebooks. Give one way a shared digital stock record could help them avoid promising an unavailable size, and explain what staff must do for it to work.",
+      "answer": "Both can check the latest recorded stock before taking an order. Staff must record sales and new stock promptly so the shared figures stay current.",
+      "explanation": "A shared record gives staff one view of stock. Its usefulness depends on keeping the entries up to date.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies checking the current shared stock before promising an item."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the need for prompt updates."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in Business",
+      "subtopic": "Selecting a tool for stock counts",
+      "learningObjective": "Select a digital tool that supports an operational requirement.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-219-06-v1",
+      "id": "ndv-219-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school shop needs to store stock quantities for 30 items and calculate totals when numbers change. Choose between a spreadsheet, a photo gallery and a video call. Explain which feature makes your choice suitable.",
+      "answer": "Use a spreadsheet. Rows can hold item names and quantities, and a formula can update the total when an entry changes.",
+      "explanation": "A spreadsheet combines a structured table with calculation. This supports both recording and updating totals.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses a spreadsheet."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how rows and calculations meet the requirement."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in Business",
+      "subtopic": "Handling customer information responsibly",
+      "learningObjective": "Choose a responsible way to share business information digitally.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-219-07-v1",
+      "id": "ndv-219-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil wants to post a screenshot of an order sheet in a public group to show which bags are ready. The sheet includes customer names and telephone numbers. Suggest a way to share the update while protecting the customers’ information.",
+      "answer": "Post only non-identifying order references and readiness status, or send each customer a private update through an approved channel.",
+      "explanation": "The audience only needs readiness information. Publicly showing customer details exposes information unrelated to that purpose.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies customer names or phone numbers as details that should be protected."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests an update that avoids public exposure of those details."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in Business",
+      "subtopic": "Checking changes in a practice stock sheet",
+      "learningObjective": "Use a spreadsheet to record a stock movement and check the resulting balance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-219-08-v1",
+      "id": "ndv-219-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a blank spreadsheet, enter headings Item, Opening stock, Sold and Closing stock. Use a fictional item with opening stock 24 and sold quantity 7. Enter a formula for closing stock, then change the sold quantity to 9. Submit the formula and both balances.",
+      "answer": "With the headings in A1:D1 and data in row 2, enter =B2-C2 in D2. Closing stock is first 17, then 15.",
+      "explanation": "Closing stock equals opening stock minus the number sold. Referencing the input cells lets the spreadsheet update the balance when sold quantity changes.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Sets up the four headings and inputs."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a subtraction formula referencing the input cells."
+        },
+        {
+          "marks": 1,
+          "description": "Records 17 and 15 in the correct order."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "24-7",
+          "expected": 17,
+          "purpose": "Check first closing stock."
+        },
+        {
+          "expression": "24-9",
+          "expected": 15,
+          "purpose": "Check updated closing stock."
+        }
+      ]
+    }
+  ]
+}

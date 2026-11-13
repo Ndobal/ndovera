@@ -2945,6 +2945,26 @@
         "Data representation, PDF p. 37 (printed footer 25; contents entry 24)"
       ],
       "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds. The contents and printed footers differ by one page from Plane Shapes onward. Use PDF page indices for these sections."
+    },
+    {
+      "id": "nerdc-business-studies-jss1-revised-2025",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/16.pdf",
+      "retrievedOn": "2026-11-13",
+      "publicationDate": "2025-09",
+      "sourceBytes": 4027120,
+      "pageCount": 48,
+      "sha256": "0a5114133a889c8d358a52efbdd7799a7d111770d2d34ea8f0533212edeb8e6c",
+      "sourceSections": [
+        "Title and copyright, PDF front matter",
+        "JSS 1 contents, PDF pp. 13–14",
+        "Introduction to Business Studies, PDF p. 15",
+        "Digital Technologies in Business, PDF p. 16"
+      ],
+      "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     }
   ],
   "banks": [
@@ -5661,6 +5681,15 @@
       "target": 1000,
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
     }
   ],
@@ -28264,6 +28293,150 @@
       "sourceSections": [
         "Revised JSS 1 curriculum, PDF p. 37, printed footer 25, performance objective 1"
       ]
+    },
+    {
+      "id": "nerdc-business-jss1-219-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Business Studies",
+      "subtopic": "Scope of Business Studies",
+      "learningObjective": "Explain the subject using examples of business activities.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 15, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-219-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Business Studies",
+      "subtopic": "Why business records matter",
+      "learningObjective": "Explain how recording transactions supports a small enterprise.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 15, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-219-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Business Studies",
+      "subtopic": "Marketing and book-keeping",
+      "learningObjective": "Match contrasting enterprise tasks to components of Business Studies.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 15, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-219-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Introduction to Business Studies",
+      "subtopic": "Careers and everyday duties",
+      "learningObjective": "Relate a business career to the duties it involves.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 15, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-219-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in Business",
+      "subtopic": "Value of a shared digital record",
+      "learningObjective": "Explain an operational benefit of a digital record.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 16, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-219-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in Business",
+      "subtopic": "Selecting a tool for stock counts",
+      "learningObjective": "Select a digital tool that supports an operational requirement.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 16, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-219-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in Business",
+      "subtopic": "Handling customer information responsibly",
+      "learningObjective": "Choose a responsible way to share business information digitally.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 16, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-219-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Digital Technologies in Business",
+      "subtopic": "Checking changes in a practice stock sheet",
+      "learningObjective": "Use a spreadsheet to record a stock movement and check the resulting balance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 16, performance objective 4"
+      ]
     }
   ],
   "scopeGaps": [
@@ -28309,6 +28482,7 @@
     "Physics bank reconciliation (batch 147): the observed bank now has an explicit registry entry tied to verified 0625 v2 for 2026–2028, retaining its existing 1000 target. Six author-proposed mappings add mechanics, energy, optics, electromagnetic systems and experimental evaluation. Full objective coverage, Core-only suitability of older items and independent academic review remain unfinished. Written practical work is not laboratory-performance evidence.",
     "PVS access advance2026-11-11: historical official JSS THREE PDF now retrieved and hashed; twelve-topic inventory and eight provisional knowledge mappings recorded. Twenty-four original objective drafts do not establish current cohort adoption, complete NECO scope,8311/8312 topic allocation, option count or practical competence. Revised JSS3 page still404; stock-exchange wording and health/legal/food-safety topics need separate authoritative checks. Igbo foreword checksum unchanged; L1/L2 assignment and current adoption remain unverified.",
     "NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved.",
-    "The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved."
+    "The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved.",
+    "On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation."
   ]
 }
