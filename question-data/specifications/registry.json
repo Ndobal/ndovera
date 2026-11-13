@@ -2975,7 +2975,9 @@
         "Overview of Insurance I, PDF p. 26",
         "Overview of Insurance II, PDF p. 27",
         "Ethics in Business, PDF p. 28",
-        "Right Attitude to Work, PDF p. 29"
+        "Right Attitude to Work, PDF p. 29",
+        "Honesty in Business, PDF p. 30",
+        "Ethics in Sourcing and Using Chemicals, PDF p. 31"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -3028,6 +3030,16 @@
       "source": "https://naicom.gov.ng/wp-content/uploads/2025/10/NIGERIA-INDUSTRY-INSURANCE_052600.pdf",
       "retrievedOn": "2026-11-13",
       "note": "Gazetted 2025 No. 14, Part X, section 84(1)."
+    },
+    {
+      "id": "codex-gsfa-food-additive-conditions",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://codex.fao.org/codex-texts/codex-online-databases/gsfa",
+      "retrievedOn": "2026-11-13",
+      "note": "General principle that permitted additive uses depend on conditions and food category. Nigerian authorisations and medicinal uses require separate evidence."
     }
   ],
   "banks": [
@@ -29788,6 +29800,205 @@
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 29, performance objective 6"
       ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Accurate records",
+      "learningObjective": "Explain honesty when reporting an event in a business record.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 30, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Transparent prices",
+      "learningObjective": "Recognise how displaying the full cost shows transparency.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 30, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Pressure to misreport",
+      "learningObjective": "Explain a cause of dishonesty and propose a way to resist it.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 30, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Trust built over time",
+      "learningObjective": "Explain a possible long-term reward for consistently honest information.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 30, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "False records and planning",
+      "learningObjective": "Explain how a dishonest record can affect a business decision and an individual.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 30, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Making an accurate sales statement",
+      "learningObjective": "Practise describing a product accurately when evidence is limited.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 30, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Chemicals in everyday materials",
+      "learningObjective": "Explain that familiar substances can be described as chemicals.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 31, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Checking suitability for the intended food",
+      "learningObjective": "Explain why a permitted use for one food category does not establish suitability for another.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 31, performance objective 2",
+        "codex-gsfa-food-additive-conditions"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Traceable sourcing",
+      "learningObjective": "Choose a sourcing decision that preserves product identity and traceability.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 31, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Keeping batch records",
+      "learningObjective": "Explain how recording batch details helps a business monitor an ingredient.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 31, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-227-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Responding to an unlabelled item in a simulation",
+      "learningObjective": "Demonstrate responsible handling decisions in a paper-based receiving exercise.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 31, performance objective 6"
+      ]
     }
   ],
   "scopeGaps": [
@@ -29837,6 +30048,7 @@
     "On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation.",
     "JSS 1 offering reconciliation: the listing recorded in batch 219 has eight named subjects with registered exact-class banks. The other eight are Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French, Intermediate Science and Digital Technologies. The Trades link requires separate route verification. The listing recheck in batch 220 returned HTTP 403. This inventory does not establish detailed curricula or school adoption.",
     "JSS 1 Business Studies Overview of Insurance I has initial practice for objectives 1, 2, 4 and 5. Conventional insurance, takaful and microinsurance under objective 3 require separate authoritative comparison. Policy terms used in the draft are fictional.",
-    "Batch 225 adds introductory takaful and microinsurance comparisons and one compulsory motor insurance objective mapped to NIIRA 2025 section 84(1). Other compulsory categories, detailed coverage conditions and subsequent implementing instruments require separate verification."
+    "Batch 225 adds introductory takaful and microinsurance comparisons and one compulsory motor insurance objective mapped to NIIRA 2025 section 84(1). Other compulsory categories, detailed coverage conditions and subsequent implementing instruments require separate verification.",
+    "Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open."
   ]
 }

@@ -1308,3 +1308,8 @@ Other compulsory insurance categories need separate verification.
 Batch 226 adds twelve JSS 1 Business Studies drafts on business ethics
 and attitudes to work, mapped to PDF pp. 28–29. The marking guides
 cover scenario-based decisions and their effects on customers and coworkers.
+
+Batch 227 adds eleven JSS 1 Business Studies drafts on honesty and
+chemical-sourcing ethics, mapped to PDF pp. 30–31. The sourcing questions
+use paper exercises and Codex food-category guidance. Medicinal uses,
+vendor requirements and practical handling require further verification.

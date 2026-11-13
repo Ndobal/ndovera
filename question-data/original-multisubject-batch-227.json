@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies honesty and chemical sourcing",
+  "questionCount": 11,
+  "note": "Original classroom practice. Chemical-sourcing exercises use paper simulations. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Accurate records",
+      "learningObjective": "Explain honesty when reporting an event in a business record.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-01-v1",
+      "id": "ndv-227-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A supplier sends twelve chalk boxes. Only eleven arrive. The receiving clerk writes “eleven received” on the delivery record. Explain how this illustrates honesty.",
+      "answer": "The clerk records what actually arrived, even though the supplier expected twelve to arrive.",
+      "explanation": "Honesty means giving a truthful account. The order and the delivery record can show different quantities when the delivery is short.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the entry as reflecting the actual delivery."
+        },
+        {
+          "marks": 1,
+          "description": "Connects accurate reporting to honesty."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Transparent prices",
+      "learningObjective": "Recognise how displaying the full cost shows transparency.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-02-v1",
+      "id": "ndv-227-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school photo stall advertises a portrait price but charges an unavoidable printing fee. What should the sign show before anyone orders, and which attribute of honesty does this demonstrate?",
+      "answer": "The sign should state the total price including printing. This demonstrates transparency.",
+      "explanation": "A buyer can make an informed decision when unavoidable charges are clear before ordering.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives the full price including the unavoidable fee as the information to display."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies transparency or openness."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Pressure to misreport",
+      "learningObjective": "Explain a cause of dishonesty and propose a way to resist it.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-03-v1",
+      "id": "ndv-227-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil missed a sales target and is tempted to enter a sale that never happened because a teammate might criticise the result. Identify the pressure and suggest a truthful response.",
+      "answer": "Fear of criticism is the pressure. The pupil should record the actual sales and explain the shortfall to the team.",
+      "explanation": "Naming the pressure helps the team address it while keeping accurate figures.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies fear of criticism or pressure to meet the target."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests recording and explaining the actual result."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Trust built over time",
+      "learningObjective": "Explain a possible long-term reward for consistently honest information.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-04-v1",
+      "id": "ndv-227-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A bookshop tells customers which used books have missing pages and prices them accordingly. Give one possible benefit for the shop over time and explain how it could arise.",
+      "answer": "Customers may trust the shop and return because they can rely on its descriptions when choosing books.",
+      "explanation": "Accurate descriptions set realistic expectations. Repeated truthful dealings can build trust.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a plausible longer-term benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Links it to accurate information about the books."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "False records and planning",
+      "learningObjective": "Explain how a dishonest record can affect a business decision and an individual.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-05-v1",
+      "id": "ndv-227-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A worker records that all display stands were returned. One was never returned. The manager uses the record to promise stands for the next event. Explain one likely effect on the next team and one effect on the worker’s relationship with the manager.",
+      "answer": "The next team may find that it has fewer stands than promised. The manager may lose trust in the worker’s future records.",
+      "explanation": "False records can lead to promises the business cannot keep and weaken confidence in the person responsible.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a consequence for the next team."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a distinct consequence for trust in the worker."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Honesty in Business",
+      "subtopic": "Making an accurate sales statement",
+      "learningObjective": "Practise describing a product accurately when evidence is limited.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-06-v1",
+      "id": "ndv-227-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A craft stall tested a paper bag with one notebook only. A customer asks whether the bag can safely hold three notebooks. Write a truthful reply that makes clear what the stall knows.",
+      "answer": "“We tested this bag with one notebook only. We cannot confirm that it will hold three.”",
+      "explanation": "The reply states the observed result and avoids claiming evidence that the stall does not have.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States the actual test result."
+        },
+        {
+          "marks": 1,
+          "description": "Makes clear that the three-notebook claim is unverified."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Chemicals in everyday materials",
+      "learningObjective": "Explain that familiar substances can be described as chemicals.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-07-v1",
+      "id": "ndv-227-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A poster says chemicals are found only in factories. Use water or table salt as a counterexample and explain what the word chemical can mean.",
+      "answer": "Water is a chemical substance. The term can refer to substances found in everyday materials as well as those used in factories.",
+      "explanation": "The place where a substance is found does not determine whether it is a chemical substance.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names water or table salt as a familiar chemical substance."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that chemicals are not limited to factories."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Checking suitability for the intended food",
+      "learningObjective": "Explain why a permitted use for one food category does not establish suitability for another.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-08-v1",
+      "id": "ndv-227-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a paper exercise, one card says an additive is permitted under stated conditions for a certain drink. A pupil wants to approve it for a biscuit on the strength of that card alone. What information must the adult reviewer check first?",
+      "answer": "Check whether the additive is permitted for the biscuit category and what conditions apply to that use.",
+      "explanation": "Codex lists provisions by food category and conditions of use. A provision for a drink does not by itself cover a biscuit.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the need to verify the intended food category."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the need to check the applicable conditions."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Traceable sourcing",
+      "learningObjective": "Choose a sourcing decision that preserves product identity and traceability.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-09-v1",
+      "id": "ndv-227-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A supplier offers a paper description of an ingredient but cannot identify the maker or batch. A second supplier provides a labelled product description and traceable batch details. What should an adult purchaser do before approving either offer for a food business?",
+      "answer": "Hold the untraceable offer. Verify the supplier and confirm that the traceable product is suitable for the intended food use before approving it.",
+      "explanation": "Traceability helps the business check what it received and investigate problems. A traceable label does not by itself prove suitability.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the missing identity or batch information as a reason to pause approval."
+        },
+        {
+          "marks": 1,
+          "description": "Requires verification of the supplier and suitability before purchase."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Keeping batch records",
+      "learningObjective": "Explain how recording batch details helps a business monitor an ingredient.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-10-v1",
+      "id": "ndv-227-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional food business keeps a record linking each ingredient batch to the dated production runs that used it. Why would that record help if the supplier later raises a concern about one batch?",
+      "answer": "The record lets the business identify which production runs used that batch and flag the affected products for review.",
+      "explanation": "Linking a batch to its uses makes it possible to narrow an investigation to the relevant runs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how to identify the affected production runs."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a practical use of that information."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Responding to an unlabelled item in a simulation",
+      "learningObjective": "Demonstrate responsible handling decisions in a paper-based receiving exercise.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-227-11-v1",
+      "id": "ndv-227-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a paper simulation, a delivery card describes a container with a missing label. Complete the status field as “release” or “hold for review”. Write a note to the adult supervisor explaining your choice.",
+      "answer": "Hold for review. The label is missing, so the identity and intended use cannot be confirmed from the delivery card. Ask the supervisor to verify the supplier record.",
+      "explanation": "A hold keeps an unverified item out of use while an adult checks the records.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Marks the simulated item as held."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that identification or suitability is unverified."
+        },
+        {
+          "marks": 1,
+          "description": "Refers the issue to the adult supervisor."
+        }
+      ]
+    }
+  ]
+}
