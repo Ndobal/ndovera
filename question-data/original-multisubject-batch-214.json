@@ -1,0 +1,649 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Mathematics binary operations and open sentences",
+  "questionCount": 14,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition of numbers in base 2",
+      "subtopic": "Carrying through adjacent columns",
+      "learningObjective": "Explain successive carries when adding binary numerals.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-01-v1",
+      "id": "ndv-214-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil adds 111 and 11, both in base two, and gives 110 as the result. Show the correct sum and explain what happens in the twos column.",
+      "answer": "1010 in base two. The twos column contains three twos after the carry, so write 1 and carry 1 to the fours column.",
+      "explanation": "The ones column gives a carry. In the twos column, two of the three twos make a four and one two remains. The fours column then has two fours, making one eight.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the twos column contains three twos."
+        },
+        {
+          "marks": 1,
+          "description": "Writes 1 in that column and carries 1 four."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 1010 in base two."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "7+3",
+          "expected": 10,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition of numbers in base 2",
+      "subtopic": "Non-overlapping place values",
+      "learningObjective": "Recognise when a binary addition requires no carry.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-02-v1",
+      "id": "ndv-214-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "In base two, which pair can be added with no carry in any column?",
+      "answer": "101 and 10",
+      "explanation": "The first number uses the fours and ones places. The second uses the twos place only, so no column contains two 1s.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "110 and 11",
+        "101 and 10",
+        "111 and 10",
+        "101 and 11"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Subtraction of numbers in base 2",
+      "subtopic": "Borrowing through zero",
+      "learningObjective": "Regroup across a zero in binary subtraction.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-03-v1",
+      "id": "ndv-214-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Use binary place values to subtract 11 from 100, with both numerals in base two. Show how the fours place supplies a one for the subtraction.",
+      "answer": "1 in base two. Exchange one four for two twos, then exchange one of those twos for two ones.",
+      "explanation": "After both exchanges, 100 is represented by one two and two ones. Removing one two and one one leaves one one.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Exchanges one four for two twos."
+        },
+        {
+          "marks": 1,
+          "description": "Exchanges one two for two ones."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 1 in base two."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4-3",
+          "expected": 1,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Subtraction of numbers in base 2",
+      "subtopic": "Subtracting by comparison with an addition",
+      "learningObjective": "Check a proposed binary difference using the inverse operation.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-04-v1",
+      "id": "ndv-214-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A board shows 110 − 10 = 101, all in base two. Use addition to show why the displayed difference is wrong and to verify the correct difference.",
+      "answer": "The difference is 100. In base two, 101 + 10 = 111, whereas 100 + 10 = 110.",
+      "explanation": "Adding the amount removed to the proposed difference must recover the starting numeral. Only the corrected difference does so.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows that adding 10 to 101 gives 111."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies 100 as the difference."
+        },
+        {
+          "marks": 1,
+          "description": "Checks it by adding 100 and 10."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "5+2",
+          "expected": 7,
+          "purpose": "Verify the result in decimal notation."
+        },
+        {
+          "expression": "4+2",
+          "expected": 6,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication of numbers in base 2",
+      "subtopic": "Position of a partial product",
+      "learningObjective": "Explain how a binary multiplier shifts a partial product.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-05-v1",
+      "id": "ndv-214-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A pupil multiplies 110 by 101 in base two. The multiplier has a 1 in the fours place. What partial product comes from that digit, before adding the other rows?",
+      "answer": "11000",
+      "explanation": "The digit represents four groups of 110. Multiplying by four shifts the binary digits two places left and fills the ones and twos places with zeros.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "110",
+        "1100",
+        "11000",
+        "11100"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "6*4",
+          "expected": 24,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication of numbers in base 2",
+      "subtopic": "Product by partitioning the multiplier",
+      "learningObjective": "Use binary place values to partition a multiplier and combine partial products.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-06-v1",
+      "id": "ndv-214-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Find the product of 11 and 111 in base two. Split 111 into its fours, twos and ones, and give your result in base two.",
+      "answer": "10101 in base two. The partial products are 1100, 110 and 11.",
+      "explanation": "The three rows represent 12, 6 and 3 in decimal. Their sum is 21, or 16 + 4 + 1, which is 10101 in base two.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Splits the multiplier into four, two and one."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains all three partial products."
+        },
+        {
+          "marks": 1,
+          "description": "Adds them to give 10101 in base two."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3*7",
+          "expected": 21,
+          "purpose": "Verify the result in decimal notation."
+        },
+        {
+          "expression": "16+4+1",
+          "expected": 21,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Recognising an open sentence",
+      "learningObjective": "Identify a statement whose truth depends on the number substituted.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-07-v1",
+      "id": "ndv-214-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which line is an open number sentence that can become true or false when a number is put in the box?",
+      "answer": "19 − □ = 8",
+      "explanation": "The equality is true when the box contains 11 and false for other numbers.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "4 + 7 = 11",
+        "6 × 4",
+        "19 − □ = 8",
+        "9 > 3"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Testing possible values",
+      "learningObjective": "Test candidate numbers against an open sentence.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-08-v1",
+      "id": "ndv-214-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A game card says 42 = □ + □. Both boxes stand for the same whole number. Ada chooses 20, Bala chooses 21 and Ngozi chooses 22. Who makes the equality true? Show the check.",
+      "answer": "Bala. Substituting 21 gives 21 + 21 = 42.",
+      "explanation": "Each box must contain 21 because two equal addends make the total.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses Bala or 21."
+        },
+        {
+          "marks": 1,
+          "description": "Substitutes 21 into both boxes and verifies the total."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "21+21",
+          "expected": 42,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Unknown subtrahend",
+      "learningObjective": "Use the relationship between addition and subtraction to find the number removed.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-09-v1",
+      "id": "ndv-214-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A number sentence reads 36 − n = 14. Write an addition sentence with the same three quantities and use it to find n.",
+      "answer": "14 + n = 36, so n = 22.",
+      "explanation": "The amount remaining plus the amount taken away equals the starting amount.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes 14 + n = 36 or an equivalent addition."
+        },
+        {
+          "marks": 1,
+          "description": "Finds n = 22."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "14+22",
+          "expected": 36,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Reconstructing the dividend",
+      "learningObjective": "Use multiplication to find an unknown dividend from its quotient and divisor.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-10-v1",
+      "id": "ndv-214-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A label reads □ ÷ 7 = 12. Which calculation finds the missing number?",
+      "answer": "12 × 7",
+      "explanation": "The missing total consists of seven equal groups of 12. Their product is 84.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "12 − 7",
+        "12 + 7",
+        "12 ÷ 7",
+        "12 × 7"
+      ],
+      "correctOption": "D",
+      "verification": [
+        {
+          "expression": "12*7",
+          "expected": 84,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Replacing repeated shapes consistently",
+      "learningObjective": "Represent two distinct shapes with letters and preserve repeated occurrences.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-11-v1",
+      "id": "ndv-214-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In the sentence triangle + circle + triangle = 28, use t for triangle and c for circle. Write the sentence using letters. Explain what the two occurrences of t tell you.",
+      "answer": "t + c + t = 28, or 2t + c = 28. Both occurrences of t represent the same value.",
+      "explanation": "A single letter replaces every occurrence of its assigned shape, so the two triangles contribute t twice.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses t in both triangle positions and c in the circle position, or writes the equivalent simplified form."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that both t terms refer to the same value."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Undoing operations in reverse order",
+      "learningObjective": "Solve a two-operation open sentence and check the result by substitution.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-12-v1",
+      "id": "ndv-214-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Solve 5 + x/3 = 14. Show which operation you undo first and check your solution.",
+      "answer": "x = 27. Subtract 5 first, then multiply by 3. The check is 5 + 27/3 = 14.",
+      "explanation": "Removing 5 leaves x/3 = 9. Multiplying both sides by 3 isolates x.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Subtracts 5 before multiplying by 3."
+        },
+        {
+          "marks": 1,
+          "description": "Gets x = 27."
+        },
+        {
+          "marks": 1,
+          "description": "Checks the solution in the original sentence."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "5+27/3",
+          "expected": 14,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Building an equation from a transaction",
+      "learningObjective": "Translate a purchase with a fixed extra cost into an open sentence.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-13-v1",
+      "id": "ndv-214-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club buys four matching folders and pays ₦350 to have all of them delivered. The total is ₦2,150. Use p for the price of one folder. Write and solve an equation for p.",
+      "answer": "4p + 350 = 2,150, so p = ₦450.",
+      "explanation": "Subtract delivery once to get ₦1,800 for the four folders. Dividing by four gives ₦450 each.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes 4p + 350 = 2,150 or an equivalent equation."
+        },
+        {
+          "marks": 1,
+          "description": "Finds ₦1,800 for the four folders."
+        },
+        {
+          "marks": 1,
+          "description": "Gives ₦450 as the unit price."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(2150-350)/4",
+          "expected": 450,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Comparing equal expressions",
+      "learningObjective": "Use a shared unknown on both sides to reason about an equality.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-214-14-v1",
+      "id": "ndv-214-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two trays balance. One holds three identical covered cups and six loose counters. The other holds one of the same cups and 22 loose counters. Each cup contains the same number of counters. Find that number and explain what remains after removing one cup from each tray.",
+      "answer": "8 counters per cup. Removing one cup from each tray leaves two cups and six loose counters balancing 22 loose counters.",
+      "explanation": "With c counters per cup, 3c + 6 = c + 22. Removing one cup and then six loose counters from each side leaves 2c = 16.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Represents the original balance correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the equal removal and obtains 2c = 16."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 8 counters per cup."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3*8+6-(8+22)",
+          "expected": 0,
+          "purpose": "Verify the result in decimal notation."
+        }
+      ]
+    }
+  ]
+}

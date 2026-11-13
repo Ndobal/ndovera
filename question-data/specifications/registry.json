@@ -2930,7 +2930,11 @@
         "Addition and Subtraction of Fractions, printed p. 8 (PDF p. 21)",
         "Multiplication and Division of Fractions, printed p. 9 (PDF p. 22)",
         "Estimation, printed p. 10 (PDF p. 23)",
-        "Approximation, printed p. 11 (PDF p. 24)"
+        "Approximation, printed p. 11 (PDF p. 24)",
+        "Addition of numbers in base 2, printed p. 12 (PDF p. 25)",
+        "Subtraction of numbers in base 2, printed p. 13 (PDF p. 26)",
+        "Multiplication of numbers in base 2, printed p. 14 (PDF p. 27)",
+        "Use of Symbols, printed pp. 15–16 (PDF pp. 28–29)"
       ],
       "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds."
     }
@@ -27225,6 +27229,258 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition of numbers in base 2",
+      "subtopic": "Carrying through adjacent columns",
+      "learningObjective": "Explain successive carries when adding binary numerals.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Addition of numbers in base 2",
+      "subtopic": "Non-overlapping place values",
+      "learningObjective": "Recognise when a binary addition requires no carry.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 12, PDF p. 25, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Subtraction of numbers in base 2",
+      "subtopic": "Borrowing through zero",
+      "learningObjective": "Regroup across a zero in binary subtraction.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Subtraction of numbers in base 2",
+      "subtopic": "Subtracting by comparison with an addition",
+      "learningObjective": "Check a proposed binary difference using the inverse operation.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 13, PDF p. 26, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication of numbers in base 2",
+      "subtopic": "Position of a partial product",
+      "learningObjective": "Explain how a binary multiplier shifts a partial product.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Multiplication of numbers in base 2",
+      "subtopic": "Product by partitioning the multiplier",
+      "learningObjective": "Use binary place values to partition a multiplier and combine partial products.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 14, PDF p. 27, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Recognising an open sentence",
+      "learningObjective": "Identify a statement whose truth depends on the number substituted.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Testing possible values",
+      "learningObjective": "Test candidate numbers against an open sentence.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Unknown subtrahend",
+      "learningObjective": "Use the relationship between addition and subtraction to find the number removed.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-10-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Reconstructing the dividend",
+      "learningObjective": "Use multiplication to find an unknown dividend from its quotient and divisor.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-11-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Replacing repeated shapes consistently",
+      "learningObjective": "Represent two distinct shapes with letters and preserve repeated occurrences.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 15, PDF p. 28, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-12-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Undoing operations in reverse order",
+      "learningObjective": "Solve a two-operation open sentence and check the result by substitution.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 16, PDF p. 29, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-13-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Building an equation from a transaction",
+      "learningObjective": "Translate a purchase with a fixed extra cost into an open sentence.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 16, PDF p. 29, performance objective 7"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-214-14-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Use of Symbols",
+      "subtopic": "Comparing equal expressions",
+      "learningObjective": "Use a shared unknown on both sides to reason about an equality.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 16, PDF p. 29, performance objective 8"
       ]
     }
   ],

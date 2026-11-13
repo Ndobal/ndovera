@@ -1241,3 +1241,8 @@ approximation. The revised curriculum locators cover printed pp. 10–11.
 Tasks include estimating dimensions and quantities, rounding calculated
 results, and choosing a sufficient purchase quantity. School adoption,
 term placement, formal assessment and independent review remain open.
+
+Batch 214 adds 14 NERDC JSS 1 Mathematics drafts on binary addition,
+subtraction and multiplication, and the use of symbols in open sentences.
+The revised curriculum locators cover printed pp. 12–16. Written tasks
+include carrying, borrowing and checking equations by substitution.
