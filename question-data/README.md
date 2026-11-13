@@ -1328,3 +1328,8 @@ Batch 230 adds fifteen JSS 1 Business Studies drafts on book-keeping
 and source documents from PDF pp. 37–38. The practice includes tracing
 a posting correction, checking a till total, interpreting invoice
 adjustments and preparing a fictional receipt and sales invoice.
+
+Batch 231 adds thirteen JSS 1 Business Studies drafts on journals and
+double-entry book-keeping from PDF pp. 39–40. The tasks cover selecting
+books of original entry, designing and completing journals, and posting
+transactions to practice ledgers.

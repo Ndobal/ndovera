@@ -1,0 +1,568 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies journals and double entry",
+  "questionCount": 13,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "From evidence to the first entry",
+      "learningObjective": "Explain what a journal does between a source document and a ledger.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-01-v1",
+      "id": "ndv-231-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school enterprise has supplier invoices, a dated purchases journal and a ledger where amounts are grouped by account. Where does it first enter a credit purchase of goods for resale, and what makes that record a book of original entry?",
+      "answer": "It enters the purchase in the purchases journal. This is the first accounting record prepared from the invoice, before the information is posted to the ledger.",
+      "explanation": "The invoice provides evidence. The journal records the transaction from that evidence, and the ledger groups postings by account.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the purchases journal as the first accounting record in this case."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the journal’s place between evidence and ledger posting."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Cross-referencing invoices",
+      "learningObjective": "Explain how a journal reference supports checking an entry.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-02-v1",
+      "id": "ndv-231-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two purchases from the same supplier on the same day cost the same amount. A pupil proposes leaving the invoice numbers out of the purchases journal. Explain one difficulty this could cause during a check and how keeping the numbers helps.",
+      "answer": "The checker might be unable to tell whether two different invoices were entered or one was entered twice. Invoice numbers let the checker match each entry to its own invoice.",
+      "explanation": "A reference distinguishes transactions whose dates, names and amounts coincide.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a specific checking problem created by the missing references."
+        },
+        {
+          "marks": 1,
+          "description": "Shows how an invoice number links a row to its evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Choosing the first record by payment terms",
+      "learningObjective": "Distinguish a sales journal entry from a cash book entry.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-03-v1",
+      "id": "ndv-231-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A uniform shop sells one shirt for cash and sends a second customer an invoice for shirts payable next week. Under a system with a cash book and a separate credit sales journal, state where each sale is first recorded and why.",
+      "answer": "Record the cash sale in the cash book because money was received immediately. Record the invoiced sale in the sales journal because the customer bought on credit.",
+      "explanation": "In this system the credit sales journal records credit sales of goods, while the cash book records cash receipts and payments.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Routes the cash sale to the cash book with a reason."
+        },
+        {
+          "marks": 1,
+          "description": "Routes the credit sale to the sales journal with a reason."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Distinguishing the two returns journals",
+      "learningObjective": "Select the appropriate returns journal from the business’s perspective.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-04-v1",
+      "id": "ndv-231-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A bookshop accepts exercise books returned by a customer who bought on credit. That afternoon the bookshop returns damaged cartons of stock to its own credit supplier. Name the journal for each return.",
+      "answer": "Record the customer return in the sales returns journal, also called returns inwards. Record the return to the supplier in the purchases returns journal, also called returns outwards.",
+      "explanation": "The first transaction reverses part of a previous credit sale. The second reverses part of a previous credit purchase.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names the sales returns journal for the customer return."
+        },
+        {
+          "marks": 1,
+          "description": "Names the purchases returns journal for the supplier return."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Designing a credit sales journal",
+      "learningObjective": "Prepare a simple credit sales journal with fields that support posting and checking.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-05-v1",
+      "id": "ndv-231-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Design a blank one-page journal for a craft cooperative that sells goods on credit. Give it a title and headings that identify when the sale occurred, whom to charge, which invoice supports it and how much to post. Show where you would put the page total.",
+      "answer": "Use the title Credit Sales Journal. Use headings Date, Customer, Invoice Number and Amount (₦). Place a Total row below the last entry and write the sum in the Amount column.",
+      "explanation": "Separating the four fields lets another pupil trace the sale to an invoice and identify the customer account for posting.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a title that identifies credit sales."
+        },
+        {
+          "marks": 1,
+          "description": "Provides headings that capture date, customer, invoice reference and amount."
+        },
+        {
+          "marks": 1,
+          "description": "Places the total clearly in the amount column below the entries."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Entering credit stock purchases",
+      "learningObjective": "Enter stock purchases chronologically in a purchases journal and total the entries.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-06-v1",
+      "id": "ndv-231-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fruit stall receives invoice G-23 dated 12 June from Goma Farms for ₦6,800 and invoice M-14 dated 10 June from Mina Growers for ₦4,950. Both are credit purchases of stock. A separate receipt shows ₦700 for a cash purchase of string. Enter the appropriate documents in a purchases journal in date order and total the journal.",
+      "answer": "10 June | Mina Growers | M-14 | ₦4,950. 12 June | Goma Farms | G-23 | ₦6,800. Total ₦11,750. The cash purchase belongs in the cash book.",
+      "explanation": "Only the two credit purchases of stock belong in this journal. Put 10 June before 12 June and add the two invoice amounts.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Records both credit invoices with correct dates, suppliers, references and amounts in date order."
+        },
+        {
+          "marks": 1,
+          "description": "Excludes the cash purchase."
+        },
+        {
+          "marks": 1,
+          "description": "Totals the journal at ₦11,750."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4950+6800",
+          "expected": 11750,
+          "purpose": "Verify the purchases journal total."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Two account effects of a transaction",
+      "learningObjective": "Explain double entry using an exchange between two asset accounts.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-07-v1",
+      "id": "ndv-231-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A shoe repair shop pays cash for a sewing machine it will use for several years. Identify the two accounts affected and explain why the same amount appears once as a debit and once as a credit.",
+      "answer": "Equipment is debited and Cash is credited for the same amount. The machine increases equipment, while the money paid reduces cash.",
+      "explanation": "The two entries record different effects of the same exchange. Debits equal credits for the transaction.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Equipment and Cash."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the increase in equipment, decrease in cash and equal debit and credit."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Recognising asset, liability, expense and equity",
+      "learningObjective": "Classify four business account balances.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-08-v1",
+      "id": "ndv-231-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A catering stall keeps accounts for a freezer it owns, a loan it still owes, the stall rent for the current month and the owner’s capital. Classify each as an asset, liability, expense or equity.",
+      "answer": "The freezer is an asset, the outstanding loan is a liability, the current month’s rent is an expense and the owner’s capital is equity.",
+      "explanation": "The freezer is a resource, the loan is an obligation, the rent is a cost of operating for the month and capital records the owner’s interest.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies the freezer and outstanding loan correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies current rent and owner’s capital correctly."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Recovering information from two records",
+      "learningObjective": "Contrast a cash-only record with the accounts kept under double entry.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-09-v1",
+      "id": "ndv-231-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A bicycle hire business receives a tool cabinet on credit in June and pays the supplier in July. One filing system records only cash movements. The other uses double entry and records transactions when they occur. Explain what each can show about the cabinet and the amount owed at the end of June.",
+      "answer": "The cash-only record has no June cash entry for the purchase. Double entry shows the cabinet as equipment and the unpaid amount as a supplier liability at the end of June.",
+      "explanation": "An unpaid purchase changes assets and liabilities before it changes cash.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why the cash-only record has no June entry for this purchase."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies both equipment and an unpaid supplier liability in the double-entry record."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Limits of checking equal totals",
+      "learningObjective": "Explain one error an equality check can expose and one it can miss.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-10-v1",
+      "id": "ndv-231-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil totals all debit and credit entries after posting. Explain how unequal totals could draw attention to a missing posting. Give one example of an error that could still leave the two totals equal.",
+      "answer": "A missing debit or credit side can make the totals unequal. If a complete transaction is omitted on both sides, the totals can still agree.",
+      "explanation": "Checking equality tests whether the amounts balance. Omitting both sides or using the wrong account with the correct amount can preserve equality.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links an unequal total to a plausible one-sided posting error."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a plausible error that leaves debit and credit totals equal."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Checking a compound entry",
+      "learningObjective": "Apply the equal-debits-and-credits rule to a transaction paid partly on credit.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-11-v1",
+      "id": "ndv-231-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A sign maker obtains display equipment costing ₦28,000. The shop pays ₦11,000 from its bank account immediately and owes the rest to the supplier. The full equipment cost is debited. What are the two credits, and how can you verify that the entry balances?",
+      "answer": "Credit Bank ₦11,000 and credit the supplier payable ₦17,000. Their sum is ₦28,000, matching the debit to Equipment.",
+      "explanation": "The payment reduces the bank asset. The unpaid portion increases a liability.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies and amounts the Bank credit."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies and calculates the supplier payable credit."
+        },
+        {
+          "marks": 1,
+          "description": "Checks that total credits equal the Equipment debit."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "28000-11000",
+          "expected": 17000,
+          "purpose": "Verify the amount payable."
+        },
+        {
+          "expression": "11000+17000",
+          "expected": 28000,
+          "purpose": "Verify total credits."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Posting and balancing a cash account",
+      "learningObjective": "Post opening capital and a cash expense to T accounts and find the cash balance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-12-v1",
+      "id": "ndv-231-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On 2 July, an owner puts ₦18,000 cash into a new business. On 4 July the business pays ₦3,750 cash for stall rent covering that day. Draw Cash, Capital and Rent Expense T accounts; post both transactions and give the resulting Cash balance.",
+      "answer": "2 July: Debit Cash ₦18,000 and credit Capital ₦18,000. 4 July: Debit Rent Expense ₦3,750 and credit Cash ₦3,750. Cash has a debit balance of ₦14,250.",
+      "explanation": "The first transaction increases an asset and equity. The second increases an expense and decreases cash.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Posts both sides of the capital contribution with date and amount."
+        },
+        {
+          "marks": 1,
+          "description": "Posts both sides of the rent payment with date and amount."
+        },
+        {
+          "marks": 1,
+          "description": "Finds a ₦14,250 debit Cash balance."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "18000-3750",
+          "expected": 14250,
+          "purpose": "Verify the closing Cash balance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Recording repayment of loan principal",
+      "learningObjective": "Prepare a double-entry record in a practice ledger and verify the resulting liability.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-231-13-v1",
+      "id": "ndv-231-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional craft business owes ₦24,000 on a loan. It repays ₦8,500 of principal from its bank account. Using a teacher-provided practice accounting tool or a two-column paper ledger, show the posting and the remaining principal. No interest or fees apply. Submit the account names, sides and values.",
+      "answer": "Debit Loan Payable ₦8,500 and credit Bank ₦8,500. The remaining Loan Payable balance is ₦15,500 credit.",
+      "explanation": "Debiting the liability records the reduction in what the business owes. Crediting Bank records the outward payment.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Debits Loan Payable ₦8,500."
+        },
+        {
+          "marks": 1,
+          "description": "Credits Bank ₦8,500."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the remaining principal of ₦15,500 as a credit liability balance."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "24000-8500",
+          "expected": 15500,
+          "purpose": "Verify the remaining loan principal."
+        }
+      ]
+    }
+  ]
+}

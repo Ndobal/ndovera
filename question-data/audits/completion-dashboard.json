@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4789,
-    "validDrafts": 3110,
+    "raw": 4802,
+    "validDrafts": 3123,
     "reviewed": 0,
     "registeredBanks": 199,
     "target": 181000,
@@ -1514,6 +1514,12 @@
       "sha256": "73e4c33657a79533c16a35e327684e64064e1712abe387fc51d2610186df2ac0",
       "declared": 15,
       "actual": 15
+    },
+    {
+      "path": "original-multisubject-batch-231.json",
+      "sha256": "a823e06b2d636f2cb216cce49bdf51af2ed3de1058ff3201df7ab25a492ce1f6",
+      "declared": 13,
+      "actual": 13
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5367,19 +5373,19 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-business-studies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 130,
-      "validDrafts": 130,
+      "raw": 143,
+      "validDrafts": 143,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 130
+        "structured": 143
       },
       "difficulty": {
-        "standard": 128,
+        "standard": 141,
         "difficult": 2
       },
-      "remaining": 870,
-      "mappedObjectives": 130,
-      "representedObjectives": 130,
+      "remaining": 857,
+      "mappedObjectives": 143,
+      "representedObjectives": 143,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7377,12 +7383,12 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
-    "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 493,
+    "explicitArithmeticClaims": 498,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -40619,6 +40625,84 @@
       "id": "ndv-230-015",
       "file": "original-multisubject-batch-230.json",
       "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-001",
+      "file": "original-multisubject-batch-231.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-002",
+      "file": "original-multisubject-batch-231.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-003",
+      "file": "original-multisubject-batch-231.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-004",
+      "file": "original-multisubject-batch-231.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-005",
+      "file": "original-multisubject-batch-231.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-006",
+      "file": "original-multisubject-batch-231.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-007",
+      "file": "original-multisubject-batch-231.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-008",
+      "file": "original-multisubject-batch-231.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-009",
+      "file": "original-multisubject-batch-231.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-010",
+      "file": "original-multisubject-batch-231.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-011",
+      "file": "original-multisubject-batch-231.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-012",
+      "file": "original-multisubject-batch-231.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-231-013",
+      "file": "original-multisubject-batch-231.json",
+      "index": 12,
       "errors": []
     },
     {
@@ -93552,6 +93636,396 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 38, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "From evidence to the first entry",
+      "learningObjective": "Explain what a journal does between a source document and a ledger.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Cross-referencing invoices",
+      "learningObjective": "Explain how a journal reference supports checking an entry.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Choosing the first record by payment terms",
+      "learningObjective": "Distinguish a sales journal entry from a cash book entry.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Distinguishing the two returns journals",
+      "learningObjective": "Select the appropriate returns journal from the business’s perspective.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Designing a credit sales journal",
+      "learningObjective": "Prepare a simple credit sales journal with fields that support posting and checking.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Entering credit stock purchases",
+      "learningObjective": "Enter stock purchases chronologically in a purchases journal and total the entries.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Two account effects of a transaction",
+      "learningObjective": "Explain double entry using an exchange between two asset accounts.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Recognising asset, liability, expense and equity",
+      "learningObjective": "Classify four business account balances.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Recovering information from two records",
+      "learningObjective": "Contrast a cash-only record with the accounts kept under double entry.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Limits of checking equal totals",
+      "learningObjective": "Explain one error an equality check can expose and one it can miss.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Checking a compound entry",
+      "learningObjective": "Apply the equal-debits-and-credits rule to a transaction paid partly on credit.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-12-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Posting and balancing a cash account",
+      "learningObjective": "Post opening capital and a cash expense to T accounts and find the cash balance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-231-13-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Recording repayment of loan principal",
+      "learningObjective": "Prepare a double-entry record in a practice ledger and verify the resulting liability.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 6"
       ],
       "questionCount": 1,
       "validDrafts": 1,

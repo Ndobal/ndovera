@@ -2984,7 +2984,9 @@
         "Office Staff, PDF p. 35",
         "Office Equipment, PDF p. 36",
         "Book-keeping, PDF p. 37",
-        "Source Documents, PDF p. 38"
+        "Source Documents, PDF p. 38",
+        "Journals, PDF p. 39",
+        "Double Entry Book-keeping, PDF p. 40"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -30725,6 +30727,240 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 38, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "From evidence to the first entry",
+      "learningObjective": "Explain what a journal does between a source document and a ledger.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Cross-referencing invoices",
+      "learningObjective": "Explain how a journal reference supports checking an entry.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Choosing the first record by payment terms",
+      "learningObjective": "Distinguish a sales journal entry from a cash book entry.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Distinguishing the two returns journals",
+      "learningObjective": "Select the appropriate returns journal from the business’s perspective.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Designing a credit sales journal",
+      "learningObjective": "Prepare a simple credit sales journal with fields that support posting and checking.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Journals",
+      "subtopic": "Entering credit stock purchases",
+      "learningObjective": "Enter stock purchases chronologically in a purchases journal and total the entries.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 39, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Two account effects of a transaction",
+      "learningObjective": "Explain double entry using an exchange between two asset accounts.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Recognising asset, liability, expense and equity",
+      "learningObjective": "Classify four business account balances.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Recovering information from two records",
+      "learningObjective": "Contrast a cash-only record with the accounts kept under double entry.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Limits of checking equal totals",
+      "learningObjective": "Explain one error an equality check can expose and one it can miss.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Checking a compound entry",
+      "learningObjective": "Apply the equal-debits-and-credits rule to a transaction paid partly on credit.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-12-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Posting and balancing a cash account",
+      "learningObjective": "Post opening capital and a cash expense to T accounts and find the cash balance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-231-13-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Double Entry Book-keeping",
+      "subtopic": "Recording repayment of loan principal",
+      "learningObjective": "Prepare a double-entry record in a practice ledger and verify the resulting liability.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 40, performance objective 6"
       ]
     }
   ],
