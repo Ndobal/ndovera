@@ -1235,3 +1235,9 @@ directed-number addition and subtraction, and the four operations with
 fractions. The revised curriculum locators cover printed pp. 7–9.
 Number-line and area-model tasks use classroom marking guides. School
 adoption, term placement, formal assessment and independent review remain open.
+
+Batch 213 adds 13 NERDC JSS 1 Mathematics drafts on estimation and
+approximation. The revised curriculum locators cover printed pp. 10–11.
+Tasks include estimating dimensions and quantities, rounding calculated
+results, and choosing a sufficient purchase quantity. School adoption,
+term placement, formal assessment and independent review remain open.

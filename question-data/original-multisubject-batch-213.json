@@ -1,0 +1,632 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Mathematics estimation and approximation",
+  "questionCount": 13,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Reference lengths and precision",
+      "learningObjective": "Estimate a classroom dimension from a familiar reference length and report suitable precision.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-01-v1",
+      "id": "ndv-213-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom noticeboard looks about five exercise-book widths across. An exercise book is about 18 cm wide. A pupil reports the board width as 90.000 cm. Give a better way to report the estimate and explain why.",
+      "answer": "About 90 cm. The number of widths and the book width are approximate, so the extra decimal places suggest precision the method cannot give.",
+      "explanation": "Five widths of about 18 cm give about 90 cm. Counting approximate widths gives a scale for the answer.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reports the width as about 90 cm or about 0.9 m."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the input estimates cannot justify the displayed precision."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "5*18",
+          "expected": 90,
+          "purpose": "Check the benchmark estimate."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Calibrating a pace",
+      "learningObjective": "Use a measured reference distance to estimate another distance from comparable pace counts.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-02-v1",
+      "id": "ndv-213-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "On a straight walkway, Zainab takes about 16 ordinary paces to cover a marked 12 m stretch. Using the same pace, she counts 44 paces from the assembly area to the tap. Estimate that distance.",
+      "answer": "About 33 m.",
+      "explanation": "The benchmark is 12 ÷ 16 = 0.75 m per pace. Multiply that approximate length by 44.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "About 28 m.",
+        "About 33 m.",
+        "About 48 m.",
+        "About 59 m."
+      ],
+      "correctOption": "B",
+      "verification": [
+        {
+          "expression": "44*12/16",
+          "expected": 33,
+          "purpose": "Check the calibrated distance estimate."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Capacity from repeated fills",
+      "learningObjective": "Estimate a container capacity using a known smaller capacity and a final partial fill.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-03-v1",
+      "id": "ndv-213-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "To fill an empty container to the brim, a pupil pours in nine full 750 mL bottles of water and about half of a tenth bottle. Estimate the container capacity in litres.",
+      "answer": "About 7.1 L.",
+      "explanation": "The nine full bottles supply 6,750 mL and half a bottle supplies about 375 mL. This is about 7.125 L, which is about 7.1 L to the nearest tenth.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Accounts for nine full bottles and approximately half a bottle."
+        },
+        {
+          "marks": 1,
+          "description": "Converts to litres and gives a reasonable approximate value near 7.125 L."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "9.5*750/1000",
+          "expected": "7.125",
+          "purpose": "Check the capacity estimate before rounding."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Mass of contents without the container",
+      "learningObjective": "Estimate the net mass of a collection by removing the container mass.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-04-v1",
+      "id": "ndv-213-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A basket of oranges has a combined mass of about 5 kg. An empty basket of the same type has a mass of about 800 g. Which estimate is closest to the mass of the oranges alone?",
+      "answer": "4.2 kg",
+      "explanation": "The basket accounts for about 0.8 kg. Subtract its mass from the combined estimate.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "3.2 kg",
+        "4.2 kg",
+        "4.9 kg",
+        "5.8 kg"
+      ],
+      "correctOption": "B",
+      "verification": [
+        {
+          "expression": "5-800/1000",
+          "expected": "4.2",
+          "purpose": "Check the estimated net mass."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Estimating elapsed time with transitions",
+      "learningObjective": "Combine approximate durations and transition time to plan a daily activity.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-05-v1",
+      "id": "ndv-213-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club session has three activity stations. Each takes about 9 minutes and changing to the next station takes about 2 minutes. Estimate the total time from starting the first activity to finishing the last. Explain how many changes you counted.",
+      "answer": "About 31 minutes, with two changes.",
+      "explanation": "Three stations take about 27 minutes. There is a change after station one and after station two, adding about 4 minutes.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Counts two station changes."
+        },
+        {
+          "marks": 1,
+          "description": "Adds the three activity times and two changes to estimate about 31 minutes."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3*9+2*2",
+          "expected": 31,
+          "purpose": "Check the planned duration."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Estimating a total from a sample",
+      "learningObjective": "Use a sampled count to estimate a total and identify an assumption.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-06-v1",
+      "id": "ndv-213-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A book drive has 12 cartons of similar size. Three cartons chosen from different stacks contain 26, 29 and 32 books. Estimate the total using the average of the three counts. State one reason the estimate could be too high or too low.",
+      "answer": "About 348 books. The estimate may be off if the chosen cartons have a different average fill from the others.",
+      "explanation": "The sampled counts add to 87, so their mean is 29. At about 29 books per carton, 12 cartons contain about 348.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds the sampled mean of 29."
+        },
+        {
+          "marks": 1,
+          "description": "Scales to about 348 books."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a plausible reason the sample mean could differ from the overall mean."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(26+29+32)/3*12",
+          "expected": 348,
+          "purpose": "Check the sample-based total."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Rounding before or after addition",
+      "learningObjective": "Distinguish an estimate from rounded inputs and a rounded exact sum.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-07-v1",
+      "id": "ndv-213-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A delivery register has 146 books for one school and 147 for another. Seyi rounds each count to the nearest ten before adding. If the register asks for the combined count to the nearest ten, what should Seyi report? Compare it with his first method.",
+      "answer": "290. The exact sum is 293, which rounds to 290. Rounding each count first gives 150 + 150 = 300.",
+      "explanation": "The requested precision applies to the combined count. The two separate upward roundings make the estimate from rounded inputs 7 above the exact sum.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds the exact sum of 293."
+        },
+        {
+          "marks": 1,
+          "description": "Rounds that sum to 290."
+        },
+        {
+          "marks": 1,
+          "description": "Shows that rounding the two counts separately gives 300."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "146+147",
+          "expected": 293,
+          "purpose": "Check the exact total."
+        },
+        {
+          "expression": "150+150",
+          "expected": 300,
+          "purpose": "Check the estimate from rounded inputs."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Rounding a difference across a boundary",
+      "learningObjective": "Subtract two counts and round the result to the nearest hundred.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-08-v1",
+      "id": "ndv-213-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A venue register shows 2,184 entries by the end of the morning and 3,029 entries by closing time. What is the number added after the morning, to the nearest hundred?",
+      "answer": "800",
+      "explanation": "Subtracting gives 845. It is 45 above 800 and 55 below 900, so the nearest hundred is 800.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "700",
+        "800",
+        "900",
+        "1,000"
+      ],
+      "correctOption": "B",
+      "verification": [
+        {
+          "expression": "3029-2184",
+          "expected": 845,
+          "purpose": "Check the exact difference."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Approximating a unit rate",
+      "learningObjective": "Divide to find a unit rate, then round the quotient to a stated place.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-09-v1",
+      "id": "ndv-213-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A school pays ₦7,835 in total for 6 identical rolls of paper, with no extra charges. To the nearest ₦10, what is the cost per roll?",
+      "answer": "₦1,310",
+      "explanation": "The quotient is about ₦1,305.83. It is closer to ₦1,310 than to ₦1,300.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "₦1,300",
+        "₦1,305",
+        "₦1,310",
+        "₦1,320"
+      ],
+      "correctOption": "C",
+      "verification": [
+        {
+          "expression": "6*1315-7835",
+          "expected": 55,
+          "purpose": "Check that the unit rate is below the upper midpoint for rounding to 1,310."
+        },
+        {
+          "expression": "7835-6*1305",
+          "expected": 5,
+          "purpose": "Check that the unit rate exceeds the midpoint."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Product and nearest hundred",
+      "learningObjective": "Round an exact product to the requested degree of accuracy.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-10-v1",
+      "id": "ndv-213-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A print run produces 24 sheets for each of 37 groups. Give the total number of sheets to the nearest hundred and show the unrounded total.",
+      "answer": "900 sheets. The unrounded total is 888 sheets.",
+      "explanation": "Multiplying 37 by 24 gives 888. It is 12 away from 900 and 88 away from 800.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds 888 sheets."
+        },
+        {
+          "marks": 1,
+          "description": "Rounds correctly to 900 sheets."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "24*37",
+          "expected": 888,
+          "purpose": "Check the unrounded product."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Values behind a rounded report",
+      "learningObjective": "Find the integer endpoints that round to a stated multiple of 1,000.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-11-v1",
+      "id": "ndv-213-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A festival report gives attendance as 6,000 people to the nearest thousand. Using the rule that a halfway count rounds up, give the smallest and largest whole-number attendances that could produce the report.",
+      "answer": "5,500 and 6,499.",
+      "explanation": "The lower midpoint, 5,500, rounds up to 6,000. The upper midpoint, 6,500, rounds up to 7,000, so the largest allowed count is one less.",
+      "score": 3,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes 5,500 as the smallest count."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 6,499 as the largest count."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the two halfway values round to different thousands."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "6000-500",
+          "expected": 5500,
+          "purpose": "Check the lower midpoint."
+        },
+        {
+          "expression": "6000+500-1",
+          "expected": 6499,
+          "purpose": "Check the last included whole number."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Choosing a safe whole quantity",
+      "learningObjective": "Distinguish rounding to the nearest ten from rounding up to cover a need.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-12-v1",
+      "id": "ndv-213-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "An art teacher needs one sheet per pupil for 54 pupils. Sheets come only in packs of ten. A pupil rounds 54 to the nearest ten and suggests buying five packs. Explain the issue and state the smallest purchase that serves everyone.",
+      "answer": "Buy six packs. Five packs contain 50 sheets, which is four short. Six packs contain 60 sheets.",
+      "explanation": "The purchase must meet or exceed 54 sheets. The nearest multiple of ten is 50, but the smallest sufficient multiple is 60.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that five packs leave four pupils without a sheet."
+        },
+        {
+          "marks": 1,
+          "description": "Chooses six packs as the minimum sufficient purchase."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "54-5*10",
+          "expected": 4,
+          "purpose": "Check the shortage with five packs."
+        },
+        {
+          "expression": "6*10-54",
+          "expected": 6,
+          "purpose": "Check the surplus with six packs."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Comparing rounding errors",
+      "learningObjective": "Choose the closer approximation by comparing absolute errors.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-213-13-v1",
+      "id": "ndv-213-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A storeroom count is 1,468 tiles. Bisi reports the count to the nearest hundred and Musa reports it to the nearest thousand. Whose reported number is closer to the count, and by how many tiles do the two errors differ?",
+      "answer": "Bisi’s. Her error is 32 tiles and Musa’s is 468 tiles, so the errors differ by 436 tiles.",
+      "explanation": "Bisi reports 1,500, which is 32 above the count. Musa reports 1,000, which is 468 below it. Compare their distances from the count.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rounds to 1,500 and 1,000 respectively."
+        },
+        {
+          "marks": 1,
+          "description": "Compares the two absolute errors correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Names Bisi and gives a difference of 436 tiles."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1500-1468",
+          "expected": 32,
+          "purpose": "Check the nearest-hundred error."
+        },
+        {
+          "expression": "1468-1000",
+          "expected": 468,
+          "purpose": "Check the nearest-thousand error."
+        },
+        {
+          "expression": "468-32",
+          "expected": 436,
+          "purpose": "Check the difference in errors."
+        }
+      ]
+    }
+  ]
+}

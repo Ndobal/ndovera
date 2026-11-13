@@ -2928,7 +2928,9 @@
         "Fractions, printed p. 6 (PDF p. 19)",
         "Addition and Subtraction, printed p. 7 (PDF p. 20)",
         "Addition and Subtraction of Fractions, printed p. 8 (PDF p. 21)",
-        "Multiplication and Division of Fractions, printed p. 9 (PDF p. 22)"
+        "Multiplication and Division of Fractions, printed p. 9 (PDF p. 22)",
+        "Estimation, printed p. 10 (PDF p. 23)",
+        "Approximation, printed p. 11 (PDF p. 24)"
       ],
       "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds."
     }
@@ -26989,6 +26991,240 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 9, PDF p. 22, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Reference lengths and precision",
+      "learningObjective": "Estimate a classroom dimension from a familiar reference length and report suitable precision.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Calibrating a pace",
+      "learningObjective": "Use a measured reference distance to estimate another distance from comparable pace counts.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Capacity from repeated fills",
+      "learningObjective": "Estimate a container capacity using a known smaller capacity and a final partial fill.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Mass of contents without the container",
+      "learningObjective": "Estimate the net mass of a collection by removing the container mass.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Estimating elapsed time with transitions",
+      "learningObjective": "Combine approximate durations and transition time to plan a daily activity.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Estimation",
+      "subtopic": "Estimating a total from a sample",
+      "learningObjective": "Use a sampled count to estimate a total and identify an assumption.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 10, PDF p. 23, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Rounding before or after addition",
+      "learningObjective": "Distinguish an estimate from rounded inputs and a rounded exact sum.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Rounding a difference across a boundary",
+      "learningObjective": "Subtract two counts and round the result to the nearest hundred.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Approximating a unit rate",
+      "learningObjective": "Divide to find a unit rate, then round the quotient to a stated place.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-10-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Product and nearest hundred",
+      "learningObjective": "Round an exact product to the requested degree of accuracy.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-11-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Values behind a rounded report",
+      "learningObjective": "Find the integer endpoints that round to a stated multiple of 1,000.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-12-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Choosing a safe whole quantity",
+      "learningObjective": "Distinguish rounding to the nearest ten from rounding up to cover a need.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-213-13-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Approximation",
+      "subtopic": "Comparing rounding errors",
+      "learningObjective": "Choose the closer approximation by comparing absolute errors.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 11, PDF p. 24, performance objective 5"
       ]
     }
   ],
