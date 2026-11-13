@@ -2934,7 +2934,9 @@
         "Addition of numbers in base 2, printed p. 12 (PDF p. 25)",
         "Subtraction of numbers in base 2, printed p. 13 (PDF p. 26)",
         "Multiplication of numbers in base 2, printed p. 14 (PDF p. 27)",
-        "Use of Symbols, printed pp. 15–16 (PDF pp. 28–29)"
+        "Use of Symbols, printed pp. 15–16 (PDF pp. 28–29)",
+        "Simplification of Algebraic Expressions, printed p. 17 (PDF p. 30)",
+        "Simple Equations, printed p. 18 (PDF p. 31)"
       ],
       "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds."
     }
@@ -27481,6 +27483,222 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 16, PDF p. 29, performance objective 8"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Matching variable parts",
+      "learningObjective": "Identify like terms with the same variable part.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Implicit coefficient",
+      "learningObjective": "Identify the coefficient of a term written without an explicit numerical multiplier.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Signed coefficients",
+      "learningObjective": "Read positive and negative coefficients in a single expression.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Cancellation of variable terms",
+      "learningObjective": "Collect like terms and explain why one variable disappears.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Combining costs of two supplies",
+      "learningObjective": "Build and simplify an expression for items with different unknown unit prices.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Subtracting a bracket",
+      "learningObjective": "Open a bracket preceded by a minus sign and simplify.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Reinserting a bracket after subtraction",
+      "learningObjective": "Choose a bracketed expression equivalent to a given unbracketed expression.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-08-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Comparing successive expressions",
+      "learningObjective": "Find a constant step by simplifying the difference of two expressions.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 17, PDF p. 30, performance objective 7"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-09-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simple Equations",
+      "subtopic": "Order of verbal operations",
+      "learningObjective": "Translate a statement with two ordered operations into an equation.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 18, PDF p. 31, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-10-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simple Equations",
+      "subtopic": "Reading an equation in words",
+      "learningObjective": "Express a bracketed equation as an ordered instruction in words.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 18, PDF p. 31, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-11-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simple Equations",
+      "subtopic": "Detecting an unbalanced simplification",
+      "learningObjective": "Identify and correct a division step that fails to divide every term.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 18, PDF p. 31, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-215-12-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simple Equations",
+      "subtopic": "Solving with a negative coefficient",
+      "learningObjective": "Solve an equation with a negative coefficient and verify the result.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 18, PDF p. 31, performance objective 3"
       ]
     }
   ],

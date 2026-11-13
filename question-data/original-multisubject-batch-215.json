@@ -1,0 +1,539 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Mathematics algebraic expressions and simple equations",
+  "questionCount": 12,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Matching variable parts",
+      "learningObjective": "Identify like terms with the same variable part.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-01-v1",
+      "id": "ndv-215-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A card shows 8a − 5b − 3a + 2. Which two terms should be collected into a single term containing a?",
+      "answer": "8a and −3a",
+      "explanation": "Both terms contain the same variable part a. Their signed coefficients combine to give 5a.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "8a and −5b",
+        "8a and −3a",
+        "−3a and 2",
+        "−5b and 2"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Implicit coefficient",
+      "learningObjective": "Identify the coefficient of a term written without an explicit numerical multiplier.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-02-v1",
+      "id": "ndv-215-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "In p + 9q − 6, what is the coefficient of p?",
+      "answer": "1",
+      "explanation": "The term p means 1 × p. The 9 belongs to the q term.",
+      "score": 1,
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "0",
+        "9",
+        "−6",
+        "1"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Signed coefficients",
+      "learningObjective": "Read positive and negative coefficients in a single expression.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-03-v1",
+      "id": "ndv-215-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "An inventory expression is −7m + 4n − k. Write the coefficients of m, n and k in that order.",
+      "answer": "−7, +4, −1",
+      "explanation": "The minus sign in front of k means −1 times k.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "−7, +4, −1",
+        "+7, +4, +1",
+        "−7, −4, −1",
+        "−7, +4, 0"
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Cancellation of variable terms",
+      "learningObjective": "Collect like terms and explain why one variable disappears.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-04-v1",
+      "id": "ndv-215-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Simplify 9u − 4v − 9u + 7v − 2. Explain why there is no u term in the result.",
+      "answer": "3v − 2. The coefficient of u is 9 − 9 = 0.",
+      "explanation": "The two u terms cancel. The v terms combine to give (−4 + 7)v, and the constant remains −2.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows that the u terms cancel."
+        },
+        {
+          "marks": 1,
+          "description": "Combines the v terms to make 3v."
+        },
+        {
+          "marks": 1,
+          "description": "Retains −2 and gives 3v − 2."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "9-9",
+          "expected": 0,
+          "purpose": "Check cancellation."
+        },
+        {
+          "expression": "-4+7",
+          "expected": 3,
+          "purpose": "Check the remaining coefficient."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Combining costs of two supplies",
+      "learningObjective": "Build and simplify an expression for items with different unknown unit prices.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-05-v1",
+      "id": "ndv-215-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two class groups buy craft supplies. The first buys three rolls of tape and five sheets of card. The second buys four rolls and two sheets. A roll costs t naira and a sheet costs c naira. Write a simplified expression for the combined bill.",
+      "answer": "7t + 7c naira",
+      "explanation": "The groups buy seven rolls and seven sheets. Tape and card have their own unit prices, so each count multiplies its own price.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Represents the two bills as 3t + 5c and 4t + 2c or models the combined quantities directly."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 7t + 7c or an equivalent expression."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3+4",
+          "expected": 7,
+          "purpose": "Check the roll count."
+        },
+        {
+          "expression": "5+2",
+          "expected": 7,
+          "purpose": "Check the sheet count."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Subtracting a bracket",
+      "learningObjective": "Open a bracket preceded by a minus sign and simplify.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-06-v1",
+      "id": "ndv-215-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil writes (8r + 3) − (5r − 4) as 3r − 1. Correct the result and explain what happens to the −4.",
+      "answer": "3r + 7. Subtracting −4 gives +4.",
+      "explanation": "Removing the second bracket changes 5r to −5r and −4 to +4. Then 8r − 5r = 3r and 3 + 4 = 7.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Changes the sign of both terms in the second bracket."
+        },
+        {
+          "marks": 1,
+          "description": "Collects the terms to obtain 3r + 7."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "8-5",
+          "expected": 3,
+          "purpose": "Check the coefficient."
+        },
+        {
+          "expression": "3-(-4)",
+          "expected": 7,
+          "purpose": "Check the constant."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Reinserting a bracket after subtraction",
+      "learningObjective": "Choose a bracketed expression equivalent to a given unbracketed expression.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-07-v1",
+      "id": "ndv-215-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "Which expression has the same value as 6w − 2w + 9 for every value of w?",
+      "answer": "6w − (2w − 9)",
+      "explanation": "Subtracting the bracket subtracts 2w and adds 9.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "6w − (2w + 9)",
+        "6w + (2w + 9)",
+        "6w − (2w − 9)",
+        "6w + (2w − 9)"
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simplification of Algebraic Expressions",
+      "subtopic": "Comparing successive expressions",
+      "learningObjective": "Find a constant step by simplifying the difference of two expressions.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-08-v1",
+      "id": "ndv-215-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A sequence begins 4j + 1, 5j − 2, 6j − 5. The difference found by subtracting each term from the next is constant. Find that difference and write the fourth term in simplest form.",
+      "answer": "The common difference is j − 3. The fourth term is 7j − 8.",
+      "explanation": "Subtract the first expression from the second to get j − 3. The third minus the second gives the same step. Adding this step to the third expression gives 7j − 8.",
+      "score": 3,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Subtracts consecutive expressions in the correct order."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains j − 3."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 7j − 8."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "-2-1",
+          "expected": -3,
+          "purpose": "Check the change in the constant."
+        },
+        {
+          "expression": "-5-3",
+          "expected": -8,
+          "purpose": "Check the fourth constant."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simple Equations",
+      "subtopic": "Order of verbal operations",
+      "learningObjective": "Translate a statement with two ordered operations into an equation.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-09-v1",
+      "id": "ndv-215-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "A number is decreased by six. The result is then doubled to give 18. If the original number is n, which equation matches the instruction?",
+      "answer": "2(n − 6) = 18",
+      "explanation": "The result after subtracting six is n − 6. Doubling applies to that entire result.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "2n − 6 = 18",
+        "2(n + 6) = 18",
+        "n − 12 = 18",
+        "2(n − 6) = 18"
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simple Equations",
+      "subtopic": "Reading an equation in words",
+      "learningObjective": "Express a bracketed equation as an ordered instruction in words.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-10-v1",
+      "id": "ndv-215-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Describe 3(x + 4) = 27 in words. Make clear when the multiplication takes place.",
+      "answer": "Add four to a number, then multiply the result by three to get 27.",
+      "explanation": "The parentheses show that the addition happens first. The factor three multiplies the sum.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that four is added to the unknown first."
+        },
+        {
+          "marks": 1,
+          "description": "States that the result is multiplied by three to give 27."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simple Equations",
+      "subtopic": "Detecting an unbalanced simplification",
+      "learningObjective": "Identify and correct a division step that fails to divide every term.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-11-v1",
+      "id": "ndv-215-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "While solving 6x + 12 = 30, Kene divides both sides by six and writes x + 12 = 5. Correct that step, find x and check it in the original equation.",
+      "answer": "x + 2 = 5, so x = 3. Check: 6 × 3 + 12 = 30.",
+      "explanation": "Dividing by six applies to the whole left-hand expression, so 12 must also be divided by six.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Corrects the line to x + 2 = 5."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains x = 3."
+        },
+        {
+          "marks": 1,
+          "description": "Checks by substituting into the original equation."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "12/6",
+          "expected": 2,
+          "purpose": "Check the divided constant."
+        },
+        {
+          "expression": "6*3+12",
+          "expected": 30,
+          "purpose": "Check the solution."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Simple Equations",
+      "subtopic": "Solving with a negative coefficient",
+      "learningObjective": "Solve an equation with a negative coefficient and verify the result.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-215-12-v1",
+      "id": "ndv-215-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Solve 7 − 4z = 19 and verify your answer by substitution.",
+      "answer": "z = −3. Substitution gives 7 − 4(−3) = 19.",
+      "explanation": "Subtract seven from both sides to get −4z = 12. Dividing by −4 gives −3.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gets −4z = 12."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains z = −3."
+        },
+        {
+          "marks": 1,
+          "description": "Checks the answer in the original equation."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "12/(-4)",
+          "expected": -3,
+          "purpose": "Check the signed quotient."
+        },
+        {
+          "expression": "7-4*(-3)",
+          "expected": 19,
+          "purpose": "Check substitution."
+        }
+      ]
+    }
+  ]
+}

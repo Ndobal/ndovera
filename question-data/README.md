@@ -1246,3 +1246,8 @@ Batch 214 adds 14 NERDC JSS 1 Mathematics drafts on binary addition,
 subtraction and multiplication, and the use of symbols in open sentences.
 The revised curriculum locators cover printed pp. 12–16. Written tasks
 include carrying, borrowing and checking equations by substitution.
+
+Batch 215 adds 12 NERDC JSS 1 Mathematics drafts on algebraic
+simplification and simple equations. The revised curriculum locators
+cover printed pp. 17–18. Written tasks include diagnosing errors with
+signed terms and verifying solutions by substitution.
