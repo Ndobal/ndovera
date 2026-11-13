@@ -1289,3 +1289,8 @@ Batch 222 adds eleven JSS 1 Business Studies drafts on saving and savings
 plans, mapped to PDF pp. 21–22. Tasks include recording simulated deposits,
 building a schedule and revising it after an interruption. School adoption,
 formal assessment formats and independent academic review remain open.
+
+Batch 223 adds ten JSS 1 Business Studies drafts on credit and informed
+use of financial services, mapped to PDF pp. 23–24. Classroom scenarios
+use fictional offers, due dates and charges. School adoption, formal
+assessment formats and independent academic review remain open.

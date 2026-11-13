@@ -2968,7 +2968,9 @@
         "Cashless Economy, PDF p. 19",
         "Digital Currency, PDF p. 20",
         "Concept of Saving, PDF p. 21",
-        "Savings Plan, PDF p. 22"
+        "Savings Plan, PDF p. 22",
+        "Concept of Credit, PDF p. 23",
+        "Becoming an Informed Consumer of Financial Services, PDF p. 24"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -29027,6 +29029,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 22, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Goods now and payment later",
+      "learningObjective": "Recognise credit when a seller delivers goods before payment is due.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 23, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Fixed loan and overdraft",
+      "learningObjective": "Distinguish a fixed-sum loan from an agreed overdraft.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 23, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Identifying the lender",
+      "learningObjective": "Identify the source of credit when repayment and paperwork are handled by different parties.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 23, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Financing equipment before earnings arrive",
+      "learningObjective": "Explain a potential benefit of credit when an expense comes before expected revenue.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 23, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Comparing total repayment",
+      "learningObjective": "Compare fictional credit offers using both instalments and an additional mandatory fee.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 23, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Repayment timing and cash flow",
+      "learningObjective": "Identify a repayment risk when a due date precedes expected income.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 23, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Becoming an Informed Consumer of Financial Services",
+      "subtopic": "Using a financial service",
+      "learningObjective": "Explain why a person using a money-transfer service is a consumer of financial services.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 24, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Becoming an Informed Consumer of Financial Services",
+      "subtopic": "Goods and financial services in one purchase",
+      "learningObjective": "Distinguish the product bought from a financial service used to pay.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Becoming an Informed Consumer of Financial Services",
+      "subtopic": "Unclear terms",
+      "learningObjective": "Identify an information gap in a fictional financial offer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 24, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-223-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Becoming an Informed Consumer of Financial Services",
+      "subtopic": "Documenting a disputed charge",
+      "learningObjective": "Describe how to prepare a clear query about an unexpected financial charge.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 24, performance objective 4"
       ]
     }
   ],

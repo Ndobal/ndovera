@@ -1,0 +1,423 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies credit and financial services",
+  "questionCount": 10,
+  "note": "Original classroom practice with fictional financial terms. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Goods now and payment later",
+      "learningObjective": "Recognise credit when a seller delivers goods before payment is due.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-01-v1",
+      "id": "ndv-223-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A chalk supplier delivers two boxes to a school today and agrees to receive the full price on Friday. The school has already taken the boxes. Explain why the arrangement counts as credit even though no money was handed to the school.",
+      "answer": "The school receives the goods now and owes the agreed payment later.",
+      "explanation": "Credit can take the form of a deferred payment for goods. The obligation begins when the seller supplies them under that agreement.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies that the school receives the goods immediately."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the obligation to pay later."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Fixed loan and overdraft",
+      "learningObjective": "Distinguish a fixed-sum loan from an agreed overdraft.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-02-v1",
+      "id": "ndv-223-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Arrangement A gives a trader a fixed sum for a sewing machine, to be repaid over six months. Arrangement B lets the trader’s account go below zero up to an agreed limit. Name each arrangement and identify a feature that distinguishes them.",
+      "answer": "A is a term loan and B is an overdraft. A supplies a fixed sum with a repayment period. B allows the trader to draw beyond the available balance within a limit.",
+      "explanation": "An agreed overdraft permits a negative account balance within its terms, while the term loan advances the fixed amount described.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names and describes the term loan."
+        },
+        {
+          "marks": 1,
+          "description": "Names and describes the overdraft."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Identifying the lender",
+      "learningObjective": "Identify the source of credit when repayment and paperwork are handled by different parties.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-03-v1",
+      "id": "ndv-223-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A market association helps a member fill in a loan form. A cooperative supplies the money and the member must repay the cooperative. Which organisation is the source of credit? Justify your answer.",
+      "answer": "The cooperative is the source. It provides the funds and is owed repayment. The association only helps with the form.",
+      "explanation": "The lender is the party providing the credit under the agreement.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the cooperative."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes providing funds from helping with the application."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Financing equipment before earnings arrive",
+      "learningObjective": "Explain a potential benefit of credit when an expense comes before expected revenue.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-04-v1",
+      "id": "ndv-223-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A tailor has confirmed orders but cannot complete them until a broken machine is repaired. Explain one way short-term credit could help and one uncertainty that could affect repayment.",
+      "answer": "Credit could pay for repairs before the orders bring in money. Repayment could become harder if customers pay late or cancel.",
+      "explanation": "Credit can bridge a timing gap. Expected income may arrive later or be lower than planned.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects credit to earlier repair and continued work."
+        },
+        {
+          "marks": 1,
+          "description": "Names a plausible repayment uncertainty."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Comparing total repayment",
+      "learningObjective": "Compare fictional credit offers using both instalments and an additional mandatory fee.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-05-v1",
+      "id": "ndv-223-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two fictional lenders each advance ₦6,000. Offer A requires three instalments of ₦2,200 and no fee. Offer B requires two instalments of ₦3,100 and a ₦500 fee. Which costs less overall and by how much?",
+      "answer": "Offer A costs ₦100 less. A requires ₦6,600 in total and B requires ₦6,700.",
+      "explanation": "Add all instalments and mandatory fees before comparing. The amount borrowed is the same in both offers.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Totals Offer A as ₦6,600."
+        },
+        {
+          "marks": 1,
+          "description": "Totals Offer B as ₦6,700."
+        },
+        {
+          "marks": 1,
+          "description": "Selects A and gives the ₦100 difference."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3*2200",
+          "expected": 6600,
+          "purpose": "Check Offer A total."
+        },
+        {
+          "expression": "2*3100+500",
+          "expected": 6700,
+          "purpose": "Check Offer B total."
+        },
+        {
+          "expression": "6700-6600",
+          "expected": 100,
+          "purpose": "Check cost difference."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Credit",
+      "subtopic": "Repayment timing and cash flow",
+      "learningObjective": "Identify a repayment risk when a due date precedes expected income.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-06-v1",
+      "id": "ndv-223-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A shop expects a customer payment on the 25th and owes a loan instalment on the 20th. The shop has no spare cash on the 20th. Explain the problem even if the expected payment is larger than the instalment.",
+      "answer": "The instalment falls due before the expected income arrives. The shop may miss the deadline unless it has another agreed way to cover the gap.",
+      "explanation": "Affordability depends on timing as well as total income.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the order of the two dates."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why a late receipt may lead to a missed payment."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Becoming an Informed Consumer of Financial Services",
+      "subtopic": "Using a financial service",
+      "learningObjective": "Explain why a person using a money-transfer service is a consumer of financial services.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-07-v1",
+      "id": "ndv-223-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A parent pays a provider to transfer money to a relative in another town. What service has the parent used, and why is the parent a consumer of financial services?",
+      "answer": "The parent has used a money-transfer service and is its customer because the provider carries out the transfer on the parent’s behalf.",
+      "explanation": "Moving funds for a customer is a financial service, even when the customer receives no physical product.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies money transfer."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the parent’s use to being a consumer."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Becoming an Informed Consumer of Financial Services",
+      "subtopic": "Goods and financial services in one purchase",
+      "learningObjective": "Distinguish the product bought from a financial service used to pay.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-08-v1",
+      "id": "ndv-223-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A customer buys a bag of rice from a shop and uses a payment provider to send the price. Describe what the customer obtains from the shop and what the customer obtains from the payment provider.",
+      "answer": "The shop supplies the rice. The payment provider supplies the service of transferring the payment to the shop.",
+      "explanation": "One transaction can involve a physical good from a seller and a financial service from a separate provider.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies rice as the good supplied."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies processing the payment as the financial service."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Becoming an Informed Consumer of Financial Services",
+      "subtopic": "Unclear terms",
+      "learningObjective": "Identify an information gap in a fictional financial offer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-09-v1",
+      "id": "ndv-223-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "An advert says a transfer is “free”, but its small print says a charge may apply and gives no amount or conditions. What information is missing, and why does its absence make comparing providers harder?",
+      "answer": "It does not say when the charge applies or how much it would be. A customer cannot reliably compare the total cost.",
+      "explanation": "A headline price is insufficient when another charge could change what the consumer pays.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a missing amount or condition."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the effect on cost comparison."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Becoming an Informed Consumer of Financial Services",
+      "subtopic": "Documenting a disputed charge",
+      "learningObjective": "Describe how to prepare a clear query about an unexpected financial charge.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-223-10-v1",
+      "id": "ndv-223-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom case study, an account record shows two charges for one transfer. What records should the consumer compare, and what details could they give the provider when asking it to investigate?",
+      "answer": "Compare the transfer receipt with the account record. Give the transfer reference, date, amount and the two entries through the provider’s official support channel.",
+      "explanation": "Specific records let the provider identify the transaction and check whether the charges refer to one transfer.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names suitable records to compare."
+        },
+        {
+          "marks": 1,
+          "description": "Gives at least two useful transaction details."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies an official provider channel."
+        }
+      ]
+    }
+  ]
+}
