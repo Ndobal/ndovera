@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4554,
-    "validDrafts": 2875,
+    "raw": 4561,
+    "validDrafts": 2882,
     "reviewed": 0,
     "registeredBanks": 198,
     "target": 180000,
@@ -1388,6 +1388,12 @@
       "sha256": "fd3c5eff2d354e6477c99dc11f980f11a78c841195996ab99979a5e141c3db78",
       "declared": 5,
       "actual": 5
+    },
+    {
+      "path": "original-multisubject-batch-210.json",
+      "sha256": "68269c0e3a657026c206797477ffb23eac5ba4a6dee34f7bb5507f41203692cf",
+      "declared": 7,
+      "actual": 7
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5516,21 +5522,25 @@
       "subject": "Mathematics",
       "level": "JSS 1",
       "target": 1000,
-      "scopeStatus": "observed_only_specification_unresolved",
-      "raw": 1,
-      "validDrafts": 0,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "raw": 8,
+      "validDrafts": 7,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 1
+        "mcq": 3,
+        "structured": 5
       },
       "difficulty": {
+        "standard": 7,
         "missing": 1
       },
-      "remaining": 1000,
-      "mappedObjectives": 0,
-      "representedObjectives": 0,
-      "coverage": "specification_unresolved",
-      "completionStatus": "blocked_or_unmapped"
+      "remaining": 993,
+      "mappedObjectives": 7,
+      "representedObjectives": 7,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
     },
     {
       "exam": "NERDC",
@@ -7213,17 +7223,17 @@
   ],
   "errorCounts": {
     "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 371,
@@ -39053,6 +39063,48 @@
       "id": "ndv-209-005",
       "file": "original-multisubject-batch-209.json",
       "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-210-001",
+      "file": "original-multisubject-batch-210.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-210-002",
+      "file": "original-multisubject-batch-210.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-210-003",
+      "file": "original-multisubject-batch-210.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-210-004",
+      "file": "original-multisubject-batch-210.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-210-005",
+      "file": "original-multisubject-batch-210.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-210-006",
+      "file": "original-multisubject-batch-210.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-210-007",
+      "file": "original-multisubject-batch-210.json",
+      "index": 6,
       "errors": []
     },
     {
@@ -84925,6 +84977,216 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 12, PDF p. 24, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-210-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Whole Numbers",
+      "subtopic": "Omitted place-value groups",
+      "learningObjective": "Write a number in figures when an entire three-digit group is zero.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-210-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Whole Numbers",
+      "subtopic": "Crossing the trillion boundary",
+      "learningObjective": "Continue a counting sequence across a trillion boundary.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-210-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Whole Numbers",
+      "subtopic": "Comparing two proposed readings",
+      "learningObjective": "Use place value to explain a large-number transcription error.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-210-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Lowest Common Multiples (LCM)",
+      "subtopic": "Common multiples without listing",
+      "learningObjective": "Test whether a candidate is a common multiple using division.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-210-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Lowest Common Multiples (LCM)",
+      "subtopic": "Synchronising three activities",
+      "learningObjective": "Use the LCM to find the first simultaneous recurrence of three events.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-210-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Highest Common Factor (HCF)",
+      "subtopic": "Identical supply packs",
+      "learningObjective": "Use the HCF to find a maximum number of identical packs.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-math-jss1-210-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Highest Common Factor (HCF)",
+      "subtopic": "Choosing factor or multiple",
+      "learningObjective": "Distinguish equal partitioning from repeated-event alignment.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 3"
       ],
       "questionCount": 1,
       "validDrafts": 1,

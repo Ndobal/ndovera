@@ -1219,3 +1219,7 @@ Batch 209 adds five NERDC JSS 1 Physical and Health Education drafts on
 contact and non-contact sports. All 18 topic tables now have initial
 practice. Live sport skills, full numbered-objective reconciliation, school
 adoption, formal assessment and independent review remain open.
+
+Batch 210 registers the revised JSS 1 Mathematics curriculum and adds
+seven drafts on whole numbers, LCM and HCF. Publication date, school-level
+adoption, formal formats and independent review remain open.

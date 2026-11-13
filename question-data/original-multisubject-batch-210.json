@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Mathematics whole numbers, LCM and HCF",
+  "questionCount": 7,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Whole Numbers",
+      "subtopic": "Omitted place-value groups",
+      "learningObjective": "Write a number in figures when an entire three-digit group is zero.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-210-01-v1",
+      "id": "ndv-210-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "An archive register gives a total as four billion and twenty-six thousand. Which figure preserves the zero millions group?",
+      "answer": "4,000,026,000",
+      "explanation": "The groups from left to right are 4 billion, 000 million, 026 thousand and 000 units.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "4,026,000,000",
+        "4,000,026,000",
+        "4,000,260,000",
+        "4,000,000,026"
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Whole Numbers",
+      "subtopic": "Crossing the trillion boundary",
+      "learningObjective": "Continue a counting sequence across a trillion boundary.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-210-02-v1",
+      "id": "ndv-210-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A counting display increases by one billion at each step. It currently shows 999,000,000,000. Write the next two readings and explain the regrouping at the first step.",
+      "answer": "1,000,000,000,000 and 1,001,000,000,000. One thousand billions make one trillion.",
+      "explanation": "Adding one billion to 999 billion makes 1,000 billion, which can be regrouped as a trillion.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives the first reading as 1,000,000,000,000."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the second as 1,001,000,000,000."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that 1,000 billions make one trillion."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Whole Numbers",
+      "subtopic": "Comparing two proposed readings",
+      "learningObjective": "Use place value to explain a large-number transcription error.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-210-03-v1",
+      "id": "ndv-210-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A label should say 7,040,006,000. A pupil reads it as seven billion, forty thousand and six. Identify the two wrongly named non-zero groups.",
+      "answer": "The 040 group is forty million and the 006 group is six thousand. The final units group is zero.",
+      "explanation": "Each group’s value depends on its position, even when some positions contain zeros.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies forty million."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies six thousand."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the group positions or zero units group to explain the error."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Lowest Common Multiples (LCM)",
+      "subtopic": "Common multiples without listing",
+      "learningObjective": "Test whether a candidate is a common multiple using division.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-210-04-v1",
+      "id": "ndv-210-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A stationery club can pack labels in sets of 8 or in sets of 15. A pupil proposes a delivery of 90 labels. Explain whether both pack sizes would use all 90 without leftovers.",
+      "answer": "No. 90 is divisible by 15, giving 6 packs, but dividing by 8 leaves 2 labels.",
+      "explanation": "A common multiple must be divisible by both pack sizes.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows 90 divides exactly by 15."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the remainder of 2 for division by 8."
+        },
+        {
+          "marks": 1,
+          "description": "Concludes that 90 is not a common multiple."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Lowest Common Multiples (LCM)",
+      "subtopic": "Synchronising three activities",
+      "learningObjective": "Use the LCM to find the first simultaneous recurrence of three events.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-210-05-v1",
+      "id": "ndv-210-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Three reading-club teams ring their bells together at the start. They then ring every 6, 10 and 14 minutes respectively. After how many minutes will all three bells first ring together again?",
+      "answer": "210 minutes. The periods are 2 × 3, 2 × 5 and 2 × 7. Their LCM is 2 × 3 × 5 × 7 = 210.",
+      "explanation": "The first positive common multiple is the first shared time after the start.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the need for a common multiple."
+        },
+        {
+          "marks": 1,
+          "description": "Shows a valid method establishing the least one."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 210 minutes."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Highest Common Factor (HCF)",
+      "subtopic": "Identical supply packs",
+      "learningObjective": "Use the HCF to find a maximum number of identical packs.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-210-06-v1",
+      "id": "ndv-210-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class has 54 pencils, 72 erasers and 90 rulers. It wants the largest number of identical packs with none of the items left over. Find the number of packs and their contents.",
+      "answer": "18 packs, each with 3 pencils, 4 erasers and 5 rulers.",
+      "explanation": "The number of packs must divide all three counts. Their HCF is 18. Divide each count by 18 to find the contents.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the HCF or an equivalent common-factor method."
+        },
+        {
+          "marks": 1,
+          "description": "Finds 18 packs."
+        },
+        {
+          "marks": 1,
+          "description": "Gives all three correct per-pack quantities."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Highest Common Factor (HCF)",
+      "subtopic": "Choosing factor or multiple",
+      "learningObjective": "Distinguish equal partitioning from repeated-event alignment.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "objectiveId": "nerdc-math-jss1-210-07-v1",
+      "id": "ndv-210-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "mcq",
+      "prompt": "One pupil needs the longest equal strip length that cuts both of two ribbons without waste. Another needs the smallest total length that can be made using whole strips of either of two given lengths. Which calculation fits each pupil?",
+      "answer": "Use HCF for the first pupil and LCM for the second.",
+      "explanation": "The cut length must divide both ribbon lengths. The total length must be a multiple of both strip lengths.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Use LCM for the first pupil and HCF for the second.",
+        "Use HCF for both pupils.",
+        "Use LCM for both pupils.",
+        "Use HCF for the first pupil and LCM for the second."
+      ],
+      "correctOption": "D"
+    }
+  ]
+}

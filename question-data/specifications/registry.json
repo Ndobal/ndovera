@@ -2907,6 +2907,24 @@
       "kind": "supplementary_safety_reference",
       "source": "https://www.undrr.org/terminology/preparedness",
       "retrievedOn": "2026-11-13"
+    },
+    {
+      "id": "nerdc-math-jss1-revised-retrieved",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/2.pdf",
+      "retrievedOn": "2026-11-13",
+      "sourceBytes": 5564941,
+      "pageCount": 38,
+      "sha256": "278b771e2e41fa2101b6b11627eb3df8466cb5994bec457221de128eac7a26e6",
+      "sourceSections": [
+        "Title, PDF pp. 1–3",
+        "Contents, PDF p. 13",
+        "Whole Numbers, LCM and HCF, printed pp. 1–3 (PDF pp. 14–16)"
+      ],
+      "note": "Exact-class official revised PDF. Publication date, school adoption, term assignment and formal assessment formats remain unverified. The prior legacy item remains subject to its existing validation holds."
     }
   ],
   "banks": [
@@ -5614,6 +5632,15 @@
       "target": 1000,
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-phe-jss1-revised-retrieved",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
     }
   ],
@@ -26326,6 +26353,132 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "Revised JSS 1 curriculum, printed p. 12, PDF p. 24, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-210-01-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Whole Numbers",
+      "subtopic": "Omitted place-value groups",
+      "learningObjective": "Write a number in figures when an entire three-digit group is zero.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-210-02-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Whole Numbers",
+      "subtopic": "Crossing the trillion boundary",
+      "learningObjective": "Continue a counting sequence across a trillion boundary.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-210-03-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Whole Numbers",
+      "subtopic": "Comparing two proposed readings",
+      "learningObjective": "Use place value to explain a large-number transcription error.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 1, PDF p. 14, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-210-04-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Lowest Common Multiples (LCM)",
+      "subtopic": "Common multiples without listing",
+      "learningObjective": "Test whether a candidate is a common multiple using division.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-210-05-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Lowest Common Multiples (LCM)",
+      "subtopic": "Synchronising three activities",
+      "learningObjective": "Use the LCM to find the first simultaneous recurrence of three events.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 2, PDF p. 15, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-210-06-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Highest Common Factor (HCF)",
+      "subtopic": "Identical supply packs",
+      "learningObjective": "Use the HCF to find a maximum number of identical packs.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-math-jss1-210-07-v1",
+      "exam": "NERDC",
+      "subject": "Mathematics",
+      "level": "JSS 1",
+      "topic": "Highest Common Factor (HCF)",
+      "subtopic": "Choosing factor or multiple",
+      "learningObjective": "Distinguish equal partitioning from repeated-event alignment.",
+      "specificationId": "nerdc-math-jss1-revised-retrieved",
+      "questionTypes": [
+        "mcq"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 curriculum, printed p. 3, PDF p. 16, performance objective 3"
       ]
     }
   ],

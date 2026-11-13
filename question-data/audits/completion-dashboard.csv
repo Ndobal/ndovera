@@ -114,7 +114,7 @@ NERDC,English Studies,Primary 4,,1000,1,0,0,1000,0,0,specification_unresolved,ob
 NERDC,Financial Accounting,SS,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NERDC,Literacy,Nursery,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NERDC,Mathematics,JSS,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NERDC,Mathematics,JSS 1,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Mathematics,JSS 1,,1000,8,7,0,993,7,7,partial_objective_register,official_revised_exact_class_partial_mapping
 NERDC,Mathematics,JSS 2,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NERDC,Mathematics,JSS 3,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NERDC,Mathematics,Primary,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
