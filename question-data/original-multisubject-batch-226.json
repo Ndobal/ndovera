@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies ethics and attitudes to work",
+  "questionCount": 12,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Standards for business decisions",
+      "learningObjective": "Explain business ethics using a decision about how to treat a customer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-01-v1",
+      "id": "ndv-226-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A repair shop finds a fault it missed during its first inspection. What does it mean for the shop to use business ethics when deciding what to tell the customer? Give one action that illustrates your answer.",
+      "answer": "Business ethics are principles that guide responsible decisions in business. The shop can explain the newly found fault and seek the customer’s agreement before doing extra work.",
+      "explanation": "An ethical decision considers truthful communication and the customer’s ability to make an informed choice.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains business ethics as principles guiding responsible decisions."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant action that protects informed choice."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Fair access to limited stock",
+      "learningObjective": "Explain how a clear and consistently applied rule supports trust.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-02-v1",
+      "id": "ndv-226-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school shop has fewer exercise books than its customers have requested. It announces that requests will be filled in the order received. Explain why applying that rule consistently matters to the customers.",
+      "answer": "Customers can understand how the books will be allocated and expect their requests to be treated under the same rule. This supports trust in the shop.",
+      "explanation": "A known rule limits the scope for favouritism and lets customers see how a decision was made.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects consistency to equal treatment under the rule."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a consequence such as trust or confidence in the allocation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Taking responsibility for a mix-up",
+      "learningObjective": "Explain accountability through corrective action after a business mistake.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-03-v1",
+      "id": "ndv-226-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club stall sends a customer the wrong colour of folder. The team member who packed the order notices the mistake. Describe two actions that would show accountability.",
+      "answer": "Tell the team and customer about the mistake, then arrange the correct folder or agree another remedy with the customer.",
+      "explanation": "Accountability involves owning an action and taking responsibility for putting the problem right.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes acknowledging or reporting the mistake."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a feasible step to correct the order or agree a remedy."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Conflicts of interest",
+      "learningObjective": "Distinguish an ethical disclosure from secretly favouring a relative.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-04-v1",
+      "id": "ndv-226-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A committee member is comparing suppliers for a school fair. One supplier is the member’s cousin. Compare two actions: secretly giving the cousin’s bid extra points, or disclosing the relationship and letting other members score that bid. Which is ethical and why?",
+      "answer": "Disclosure and independent scoring are ethical because the other members can apply the agreed criteria. Secretly awarding extra points gives the cousin an unfair advantage.",
+      "explanation": "A personal relationship can affect impartial judgment. Disclosure and independent scoring make the decision fairer.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies disclosure and independent scoring as ethical."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the secret extra points are unfair."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Consequences of concealing defects",
+      "learningObjective": "Explain how unethical conduct can affect workers and a business differently.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-05-v1",
+      "id": "ndv-226-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A shop supervisor tells staff to hide damaged items among sound ones. Customers discover the damage after buying. Give one likely consequence for the workers and one for the business.",
+      "answer": "Workers may have to deal with complaints or feel pressure to keep misleading customers. The shop may lose repeat customers or spend time and money resolving complaints.",
+      "explanation": "Concealment affects the people carrying it out and the shop’s relationship with its customers.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a plausible worker consequence linked to the concealment."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a distinct plausible business consequence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Checking stock transfers",
+      "learningObjective": "Design a simple control that discourages unrecorded removal of stock.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-06-v1",
+      "id": "ndv-226-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school enterprise keeps fabric in a shared cupboard. Pieces are being removed without any record. Design a simple procedure that makes it easier to check who took fabric and whether the remaining stock is correct.",
+      "answer": "Record each issue with the date, quantity and name of the person collecting it. Have a second team member check the remaining stock against the issue record at the end of the day.",
+      "explanation": "A record makes transactions traceable. Comparing it with the physical stock reveals discrepancies.",
+      "score": 2,
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a record with enough information to trace a stock issue."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a check against the actual stock."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Responsible behaviour at work",
+      "learningObjective": "Identify behaviour that shows a responsible attitude to an assigned task.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-07-v1",
+      "id": "ndv-226-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil helping at a bookstall notices that the price labels are mixed up. The stall opens shortly. What action would show a responsible attitude to the work, and why?",
+      "answer": "Inform the stall leader promptly and help check and correct the labels before serving customers. This takes responsibility for preventing errors.",
+      "explanation": "A responsible worker pays attention to the task and acts promptly when an issue affects the team or its customers.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests a timely and appropriate action."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how it shows responsibility."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Punctuality and regularity",
+      "learningObjective": "Distinguish punctuality from consistent attendance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-08-v1",
+      "id": "ndv-226-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Lami arrives before opening on every shift she attends but misses several scheduled shifts. Tunde attends every scheduled shift but usually arrives after opening. Which pupil shows punctuality on attended days, and which shows regular attendance?",
+      "answer": "Lami shows punctuality when she attends. Tunde shows regular attendance.",
+      "explanation": "Punctuality concerns arriving at the agreed time. Regularity concerns attending consistently.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Lami and links punctuality to arriving on time."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies Tunde and links regularity to consistent attendance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Readiness before opening",
+      "learningObjective": "Explain why punctuality and regular attendance matter to a service team.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-09-v1",
+      "id": "ndv-226-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At a school fair, one pupil must collect the order book from a teammate before the sales table can open. Explain how late arrival and an unplanned absence would each affect opening.",
+      "answer": "Late arrival delays the handover and opening. An unplanned absence may leave the team without the book until it finds the pupil or arranges a replacement.",
+      "explanation": "A task that depends on another person’s attendance can be disrupted by both lateness and absence.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the effect of lateness on the handover."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the effect of absence on staffing, access or opening."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Building consistent attendance",
+      "learningObjective": "Identify habits that support promptness and consistent attendance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-10-v1",
+      "id": "ndv-226-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Musa often forgets which days he is due at the club shop and starts gathering his materials when his shift begins. Suggest one habit to help him remember his days and one to help him be ready on time.",
+      "answer": "Keep a written duty roster with reminders for scheduled days. Gather materials before the agreed starting time.",
+      "explanation": "A roster supports consistent attendance. Preparing early supports promptness at the start of each shift.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests a workable habit for remembering scheduled days."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a separate habit for being ready on time."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Completing a duty and arranging handover",
+      "learningObjective": "Explain devotion to duty through completion and handover.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-11-v1",
+      "id": "ndv-226-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A stock count is unfinished when the next team takes over. The outgoing pupil cannot stay. Explain what the pupil should hand over to show devotion to duty and why it matters.",
+      "answer": "Hand over the recorded count, point out the shelves already checked and list what remains. The next team can finish without missing shelves or counting the same shelf twice.",
+      "explanation": "Devotion to duty includes caring about the accuracy and continuity of the task, including an orderly handover when another person must finish it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives useful handover information on completed and outstanding work."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the handover helps the next team finish accurately."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Effects of neglecting checks",
+      "learningObjective": "Explain the effects of poor work habits on coworkers and business operations.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-226-12-v1",
+      "id": "ndv-226-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "An assistant repeatedly leaves packed orders unchecked. The next worker must reopen the packages before dispatch and finds some wrong items. Explain one effect on the next worker and one on the business.",
+      "answer": "The next worker spends time repeating checks that should have been done earlier. The business may dispatch orders late or have to replace items sent in error.",
+      "explanation": "Unfinished checks pass extra work to others and can disrupt service to customers.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the extra workload or time for the next worker."
+        },
+        {
+          "marks": 1,
+          "description": "Links poor checking to a plausible effect on the business."
+        }
+      ]
+    }
+  ]
+}

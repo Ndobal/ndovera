@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4726,
-    "validDrafts": 3047,
+    "raw": 4738,
+    "validDrafts": 3059,
     "reviewed": 0,
     "registeredBanks": 199,
     "target": 181000,
@@ -1484,6 +1484,12 @@
       "sha256": "195d0d49113998189eeaacccfae46b521b55681a63403e9ccba819a0eea9b972",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-226.json",
+      "sha256": "23f3ef10883570c2e327c5ebd44aaaccd01be5483ad66b08a2e855705fcfcbff",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5337,18 +5343,19 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-business-studies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 67,
-      "validDrafts": 67,
+      "raw": 79,
+      "validDrafts": 79,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 67
+        "structured": 79
       },
       "difficulty": {
-        "standard": 67
+        "standard": 78,
+        "difficult": 1
       },
-      "remaining": 933,
-      "mappedObjectives": 67,
-      "representedObjectives": 67,
+      "remaining": 921,
+      "mappedObjectives": 79,
+      "representedObjectives": 79,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7337,10 +7344,10 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -40210,6 +40217,78 @@
       "id": "ndv-225-008",
       "file": "original-multisubject-batch-225.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-001",
+      "file": "original-multisubject-batch-226.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-002",
+      "file": "original-multisubject-batch-226.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-003",
+      "file": "original-multisubject-batch-226.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-004",
+      "file": "original-multisubject-batch-226.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-005",
+      "file": "original-multisubject-batch-226.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-006",
+      "file": "original-multisubject-batch-226.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-007",
+      "file": "original-multisubject-batch-226.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-008",
+      "file": "original-multisubject-batch-226.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-009",
+      "file": "original-multisubject-batch-226.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-010",
+      "file": "original-multisubject-batch-226.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-011",
+      "file": "original-multisubject-batch-226.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-226-012",
+      "file": "original-multisubject-batch-226.json",
+      "index": 11,
       "errors": []
     },
     {
@@ -91252,6 +91331,366 @@
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 27, performance objective 5",
         "naicom-niira-2025-gazette, Part X, section 84(1)"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Standards for business decisions",
+      "learningObjective": "Explain business ethics using a decision about how to treat a customer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Fair access to limited stock",
+      "learningObjective": "Explain how a clear and consistently applied rule supports trust.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Taking responsibility for a mix-up",
+      "learningObjective": "Explain accountability through corrective action after a business mistake.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Conflicts of interest",
+      "learningObjective": "Distinguish an ethical disclosure from secretly favouring a relative.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Consequences of concealing defects",
+      "learningObjective": "Explain how unethical conduct can affect workers and a business differently.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Checking stock transfers",
+      "learningObjective": "Design a simple control that discourages unrecorded removal of stock.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Responsible behaviour at work",
+      "learningObjective": "Identify behaviour that shows a responsible attitude to an assigned task.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Punctuality and regularity",
+      "learningObjective": "Distinguish punctuality from consistent attendance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Readiness before opening",
+      "learningObjective": "Explain why punctuality and regular attendance matter to a service team.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Building consistent attendance",
+      "learningObjective": "Identify habits that support promptness and consistent attendance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Completing a duty and arranging handover",
+      "learningObjective": "Explain devotion to duty through completion and handover.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-226-12-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Effects of neglecting checks",
+      "learningObjective": "Explain the effects of poor work habits on coworkers and business operations.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 6"
       ],
       "questionCount": 1,
       "validDrafts": 1,

@@ -2973,7 +2973,9 @@
         "Becoming an Informed Consumer of Financial Services, PDF p. 24",
         "Production and Service Delivery, PDF p. 25",
         "Overview of Insurance I, PDF p. 26",
-        "Overview of Insurance II, PDF p. 27"
+        "Overview of Insurance II, PDF p. 27",
+        "Ethics in Business, PDF p. 28",
+        "Right Attitude to Work, PDF p. 29"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -29569,6 +29571,222 @@
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 27, performance objective 5",
         "naicom-niira-2025-gazette, Part X, section 84(1)"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Standards for business decisions",
+      "learningObjective": "Explain business ethics using a decision about how to treat a customer.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Fair access to limited stock",
+      "learningObjective": "Explain how a clear and consistently applied rule supports trust.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Taking responsibility for a mix-up",
+      "learningObjective": "Explain accountability through corrective action after a business mistake.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Conflicts of interest",
+      "learningObjective": "Distinguish an ethical disclosure from secretly favouring a relative.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Consequences of concealing defects",
+      "learningObjective": "Explain how unethical conduct can affect workers and a business differently.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Business",
+      "subtopic": "Checking stock transfers",
+      "learningObjective": "Design a simple control that discourages unrecorded removal of stock.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 28, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Responsible behaviour at work",
+      "learningObjective": "Identify behaviour that shows a responsible attitude to an assigned task.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Punctuality and regularity",
+      "learningObjective": "Distinguish punctuality from consistent attendance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Readiness before opening",
+      "learningObjective": "Explain why punctuality and regular attendance matter to a service team.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Building consistent attendance",
+      "learningObjective": "Identify habits that support promptness and consistent attendance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Completing a duty and arranging handover",
+      "learningObjective": "Explain devotion to duty through completion and handover.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-226-12-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Right Attitude to Work",
+      "subtopic": "Effects of neglecting checks",
+      "learningObjective": "Explain the effects of poor work habits on coworkers and business operations.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 29, performance objective 6"
       ]
     }
   ],

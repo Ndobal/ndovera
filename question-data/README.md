@@ -1304,3 +1304,7 @@ Batch 225 adds eight JSS 1 Business Studies drafts on insurance types,
 principles and terms from PDF pp. 26–27. NAICOM references support the
 takaful and microinsurance examples and the motor third-party item.
 Other compulsory insurance categories need separate verification.
+
+Batch 226 adds twelve JSS 1 Business Studies drafts on business ethics
+and attitudes to work, mapped to PDF pp. 28–29. The marking guides
+cover scenario-based decisions and their effects on customers and coworkers.
