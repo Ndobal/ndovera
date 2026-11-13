@@ -2966,7 +2966,9 @@
         "Introduction to Commerce, PDF p. 17",
         "Concept of Money, PDF p. 18",
         "Cashless Economy, PDF p. 19",
-        "Digital Currency, PDF p. 20"
+        "Digital Currency, PDF p. 20",
+        "Concept of Saving, PDF p. 21",
+        "Savings Plan, PDF p. 22"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -28827,6 +28829,204 @@
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 20, performance objective 4",
         "cbn-enaira-definition-2026-11"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Setting money aside",
+      "learningObjective": "Distinguish money already saved from an intention to save.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 21, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Formal and informal arrangements",
+      "learningObjective": "Classify saving arrangements by how they are organised.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 21, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Planned expenses and unexpected needs",
+      "learningObjective": "Distinguish two reasons for setting money aside.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 21, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Benefits of building a reserve",
+      "learningObjective": "Explain how existing savings can reduce the need to borrow.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 21, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Expenses and room for saving",
+      "learningObjective": "Compare saving capacity when income and essential expenses both differ.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 21, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Comparing interest on equal balances",
+      "learningObjective": "Explain how interest can affect the amount accumulated under equal assumptions.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 21, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Recording deposits in a simulation",
+      "learningObjective": "Practise saving by setting aside and recording part of two fictional receipts.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 21, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Responding to uneven receipts",
+      "learningObjective": "Suggest a way to keep a saving habit when income varies.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 21, performance objective 7"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Savings Plan",
+      "subtopic": "Recognising a complete plan",
+      "learningObjective": "Explain what a savings plan adds to a savings goal.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 22, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Savings Plan",
+      "subtopic": "Building a schedule from an existing balance",
+      "learningObjective": "Develop a plan that credits savings already accumulated.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 22, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-222-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Savings Plan",
+      "subtopic": "Revising a plan after a missed deposit",
+      "learningObjective": "Revise a savings schedule after an interruption.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 22, performance objective 2"
       ]
     }
   ],

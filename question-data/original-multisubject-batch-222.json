@@ -1,0 +1,513 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies saving and savings plans",
+  "questionCount": 11,
+  "note": "Original classroom practice. Financial figures are fictional. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Setting money aside",
+      "learningObjective": "Distinguish money already saved from an intention to save.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-01-v1",
+      "id": "ndv-222-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "After a craft sale, Ebi puts part of her earnings into an envelope for next month’s materials. Sola plans to save part of next week’s earnings but has set nothing aside. Who has already saved money? Explain.",
+      "answer": "Ebi has already saved. She kept some current earnings for a future use. Sola has made a plan.",
+      "explanation": "Saving happens when money is kept for later use. A plan describes a future action.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Ebi."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that she has actually kept some money for later."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Formal and informal arrangements",
+      "learningObjective": "Classify saving arrangements by how they are organised.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-02-v1",
+      "id": "ndv-222-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One family keeps savings in an account at a commercial bank. Another keeps savings through an informal neighbourhood esusu group. Classify the two arrangements and explain how their organisation differs.",
+      "answer": "The bank account is formal and is administered by a financial institution. The esusu in this example is informal and operates under arrangements agreed by its members.",
+      "explanation": "The examples differ in who administers the arrangement and how it is organised.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies the bank account as formal."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies the neighbourhood group as informal and explains its member arrangement."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Planned expenses and unexpected needs",
+      "learningObjective": "Distinguish two reasons for setting money aside.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-03-v1",
+      "id": "ndv-222-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school club saves in two labelled envelopes. One is for replacing worn aprons at the end of term. The other is for any urgent repair that arises before then. Why does the club have two envelopes?",
+      "answer": "The first prepares for a known future purchase. The second reserves money for an unexpected need.",
+      "explanation": "A savings purpose can be planned in advance or provide a reserve when the exact expense is uncertain.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the planned purpose of the apron envelope."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the reserve purpose of the repair envelope."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Benefits of building a reserve",
+      "learningObjective": "Explain how existing savings can reduce the need to borrow.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-04-v1",
+      "id": "ndv-222-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club’s display stand needs an unplanned ₦3,000 repair. The club already has ₦3,400 set aside for unexpected expenses. Explain one benefit of those savings and state the amount left if it pays for the repair.",
+      "answer": "The club can cover the repair without borrowing and will have ₦400 left.",
+      "explanation": "The reserve exceeds the repair cost. Subtract the cost to find what remains.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how the reserve helps the club meet the cost."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates ₦400 left."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3400-3000",
+          "expected": 400,
+          "purpose": "Check the remaining reserve."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Expenses and room for saving",
+      "learningObjective": "Compare saving capacity when income and essential expenses both differ.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-05-v1",
+      "id": "ndv-222-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom budget, Team A receives ₦3,500 and needs ₦2,900 for essentials. Team B receives ₦3,000 and needs ₦2,100. Which can set aside more this week? Show why the higher income alone does not settle the question.",
+      "answer": "Team B can set aside ₦900, compared with ₦600 for Team A. Its essential expenses leave a larger balance.",
+      "explanation": "Subtract essential expenses from income for each team before comparing possible saving.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds Team A’s ₦600 balance."
+        },
+        {
+          "marks": 1,
+          "description": "Finds Team B’s ₦900 balance."
+        },
+        {
+          "marks": 1,
+          "description": "Uses both income and expenses to justify the comparison."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3500-2900",
+          "expected": 600,
+          "purpose": "Check Team A balance."
+        },
+        {
+          "expression": "3000-2100",
+          "expected": 900,
+          "purpose": "Check Team B balance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Comparing interest on equal balances",
+      "learningObjective": "Explain how interest can affect the amount accumulated under equal assumptions.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-06-v1",
+      "id": "ndv-222-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two fictional accounts each start with ₦10,000 for one year. Assume no deposits, withdrawals or fees. One adds 2% of the starting balance and the other adds 4%. How much more does the second add?",
+      "answer": "₦200 more. The first adds ₦200 and the second adds ₦400.",
+      "explanation": "With equal starting balances and time periods, the difference is two percentage points of ₦10,000.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates or identifies both additions."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the difference of ₦200."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "10000*(4-2)/100",
+          "expected": 200,
+          "purpose": "Check the interest difference."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Recording deposits in a simulation",
+      "learningObjective": "Practise saving by setting aside and recording part of two fictional receipts.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-07-v1",
+      "id": "ndv-222-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Use counters to represent naira in a classroom simulation. On Monday you receive 300 and set 80 aside. On Wednesday you receive 200 and set 50 aside. Begin with no savings. Make a two-row record showing each deposit and the running savings balance.",
+      "answer": "Monday: deposit 80, balance 80. Wednesday: deposit 50, balance 130.",
+      "explanation": "Only the amounts set aside enter the savings balance. Add each deposit to the previous balance.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Records Monday’s deposit and running balance."
+        },
+        {
+          "marks": 1,
+          "description": "Records Wednesday’s deposit and the resulting balance."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "80+50",
+          "expected": 130,
+          "purpose": "Check the closing savings balance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Concept of Saving",
+      "subtopic": "Responding to uneven receipts",
+      "learningObjective": "Suggest a way to keep a saving habit when income varies.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-08-v1",
+      "id": "ndv-222-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil sometimes receives enough pocket money to save, but some weeks all of it is needed for agreed essential expenses. Suggest a saving rule that can work across both kinds of week and explain why.",
+      "answer": "After meeting essentials, set aside a share of whatever is left. In a week with no remainder, record zero and resume when there is a surplus.",
+      "explanation": "A flexible rule responds to variation and avoids promising money that is needed for essentials.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a feasible rule for weeks with money left."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the rule handles a week without a surplus."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Savings Plan",
+      "subtopic": "Recognising a complete plan",
+      "learningObjective": "Explain what a savings plan adds to a savings goal.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-09-v1",
+      "id": "ndv-222-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Ada writes “Buy a drawing set for ₦4,800.” Chuka writes “Save ₦600 every week for eight weeks to buy a ₦4,800 drawing set.” Which statement is a savings plan? Identify two details that make it a plan.",
+      "answer": "Chuka’s statement. It gives a regular amount of ₦600 and specifies weekly saving over eight weeks.",
+      "explanation": "A plan links a goal to a schedule of amounts and a time for reaching it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Chuka’s statement."
+        },
+        {
+          "marks": 1,
+          "description": "Names two distinct scheduling details such as amount, frequency or duration."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "600*8",
+          "expected": 4800,
+          "purpose": "Check the stated plan reaches its target."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Savings Plan",
+      "subtopic": "Building a schedule from an existing balance",
+      "learningObjective": "Develop a plan that credits savings already accumulated.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-10-v1",
+      "id": "ndv-222-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class aims to save ₦7,500 for exhibition materials by the end of six weeks. It already has ₦2,100 and can make equal deposits at the end of each week. State the weekly deposit and what the savings record should show halfway through, after the third deposit.",
+      "answer": "Save ₦900 weekly. After the third deposit the balance should be ₦4,800.",
+      "explanation": "The remaining target is ₦5,400. Dividing it by six gives the weekly deposit. Three deposits add ₦2,700 to the starting balance.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates the remaining target of ₦5,400."
+        },
+        {
+          "marks": 1,
+          "description": "Specifies a weekly deposit of ₦900 for six weeks."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the halfway balance of ₦4,800."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(7500-2100)/6",
+          "expected": 900,
+          "purpose": "Check weekly deposit."
+        },
+        {
+          "expression": "2100+3*900",
+          "expected": 4800,
+          "purpose": "Check halfway balance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Savings Plan",
+      "subtopic": "Revising a plan after a missed deposit",
+      "learningObjective": "Revise a savings schedule after an interruption.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-222-11-v1",
+      "id": "ndv-222-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club plans to save ₦4,200 in four weeks by depositing ₦1,050 each week. It saves as planned in week one but deposits nothing in week two. It can now save at most ₦1,400 per week. Show whether it can meet the original deadline and propose a revised schedule that reaches the same target.",
+      "answer": "It cannot meet the original deadline. Even two deposits of ₦1,400 bring the total only to ₦3,850. Add ₦350 in week five after those deposits to reach ₦4,200.",
+      "explanation": "Compare the maximum possible deposits before the deadline with the target, then carry the outstanding amount into a later week.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds the maximum four-week balance of ₦3,850."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the ₦350 shortfall."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a schedule within the stated weekly cap that reaches ₦4,200."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1050+2*1400",
+          "expected": 3850,
+          "purpose": "Check maximum at deadline."
+        },
+        {
+          "expression": "4200-3850",
+          "expected": 350,
+          "purpose": "Check shortfall."
+        }
+      ]
+    }
+  ]
+}

@@ -1284,3 +1284,8 @@ Batch 221 adds ten JSS 1 Business Studies drafts on cashless payments and
 digital currency, mapped to PDF pp. 19–20. CBN references support the
 payment-channel and eNaira distinctions. The practical tasks simulate
 payments using fictional records and balances.
+
+Batch 222 adds eleven JSS 1 Business Studies drafts on saving and savings
+plans, mapped to PDF pp. 21–22. Tasks include recording simulated deposits,
+building a schedule and revising it after an interruption. School adoption,
+formal assessment formats and independent academic review remain open.
