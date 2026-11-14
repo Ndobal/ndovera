@@ -1,0 +1,402 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies intellectual property and device security",
+  "questionCount": 10,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Creative works and identifiers",
+      "learningObjective": "Distinguish copyright from trademarks in familiar examples.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-01-v1",
+      "id": "ndv-250-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil writes an original story. A local business uses a distinctive symbol to identify its products. Which kind of intellectual property is most directly associated with the story and which with the symbol used to identify the business?",
+      "answer": "Copyright is associated with the original story. Trademark protection is associated with a distinctive sign used to identify goods or services.",
+      "explanation": "Copyright concerns creative works. Trademarks distinguish the goods or services of one provider from those of others.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches the story to copyright."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the identifying sign to trademark and explains its purpose."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Checking permission and credit",
+      "learningObjective": "Explain how to comply with stated conditions for reuse.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-02-v1",
+      "id": "ndv-250-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional illustrator offers a drawing for classroom use if the illustrator and source are credited. A class wants to put it on a public club page too. What must pupils do for the classroom use, and what should they check before posting publicly?",
+      "answer": "Credit the illustrator and identify the source for classroom use. Check whether public posting is permitted and ask for permission or choose another drawing if that use is outside the stated terms.",
+      "explanation": "Credit identifies the creator. Permission establishes what reuse is allowed under the stated terms.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes both creator and source in the credit."
+        },
+        {
+          "marks": 1,
+          "description": "Checks permission specifically for public posting."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Helping readers trace the source",
+      "learningObjective": "Explain a benefit of crediting a creator.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-03-v1",
+      "id": "ndv-250-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A science club uses a drawing with permission and credits its illustrator and original publication. Explain how the credit helps the illustrator and how it helps readers.",
+      "answer": "It acknowledges the illustrator’s work. It also helps readers find the original publication and check the drawing in context.",
+      "explanation": "Credit can support recognition and make a source traceable.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains recognition of the illustrator."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how readers can trace or check the source."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Plagiarism after paraphrasing",
+      "learningObjective": "Recognise unattributed use of another person’s ideas in schoolwork.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-04-v1",
+      "id": "ndv-250-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil closely follows another group’s explanation of a project, rewrites it in different words and presents the reasoning as their own. Explain why the work can still be plagiarism and how to acknowledge the source.",
+      "answer": "The reasoning is borrowed and is being presented as original. Credit the group where its reasoning is used and identify the source so the reader can tell what was borrowed.",
+      "explanation": "Plagiarism can concern ideas as well as wording. Paraphrasing changes the language but does not remove the need to acknowledge borrowed reasoning.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the unacknowledged borrowed reasoning."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a clear way to attribute it."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Consequences for a school submission",
+      "learningObjective": "Explain consequences of falsely claiming authorship and exceeding reuse permission.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-05-v1",
+      "id": "ndv-250-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A poster contest accepts only pupils’ own artwork. A pupil submits an artist’s illustration as their own. The organiser learns that the artist had only permitted classroom viewing. Give one possible consequence for the entry and one concern for the artist.",
+      "answer": "The organiser could withdraw the entry for breaking the contest rules. The artist loses credit and has their illustration used beyond the permission they gave.",
+      "explanation": "The contest rules govern eligibility. The stated permission governs this use of the illustration.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a plausible contest consequence tied to the rules."
+        },
+        {
+          "marks": 1,
+          "description": "Explains harm to the artist or use beyond the stated permission."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Matching features to their purposes",
+      "learningObjective": "Distinguish a device usability feature from an access control.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-06-v1",
+      "id": "ndv-250-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A tablet has an anti-glare screen and an automatic screen lock. Which feature helps pupils read near a bright window, and which protects an unattended tablet from casual access?",
+      "answer": "The anti-glare screen reduces reflections near the window. The automatic screen lock protects an unattended tablet by requiring someone to unlock it before use.",
+      "explanation": "The two features address different problems: glare and unwanted access.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the anti-glare screen and its function."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the screen lock and its function."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Using location for a supervised collection",
+      "learningObjective": "Explain how a location reading can support a safety decision.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-07-v1",
+      "id": "ndv-250-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school trip leader checks the location shown on a school device to tell an authorised driver where the group is waiting. State how GPS can help and what to check before sharing the location.",
+      "answer": "GPS can estimate where the device is and help identify the collection point. Confirm the point using a nearby landmark and send it only to the authorised driver or organiser.",
+      "explanation": "Location readings can be approximate and can reveal where the group is. A landmark and a restricted recipient list make the information more useful and limit exposure.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how GPS helps identify the collection point."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a practical accuracy or privacy check."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Selecting two complementary safeguards",
+      "learningObjective": "Propose protections for a shared device and explain their distinct functions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-08-v1",
+      "id": "ndv-250-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school tablet sometimes sits unattended and also receives operating-system updates from the school technician. Suggest a safeguard for each situation and explain what each addresses.",
+      "answer": "Use an automatic screen lock to reduce access while the device is unattended. Let the school technician apply approved operating-system updates, which can fix known security weaknesses.",
+      "explanation": "A screen lock controls access to an unattended device. Updates can repair weaknesses in software.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a screen access safeguard and explains its role."
+        },
+        {
+          "marks": 1,
+          "description": "Names approved updates and explains their role."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Protecting work and authorship",
+      "learningObjective": "Explain why a device lock matters even when a file contains no personal details.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-09-v1",
+      "id": "ndv-250-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil saves an unfinished club poster on a tablet. The poster contains no personal details. Explain two ways locking the unattended tablet still protects the work.",
+      "answer": "It can reduce the chance that someone deletes the draft or changes it and makes the changes appear to come from the pupil.",
+      "explanation": "Device security protects the availability and integrity of work in addition to keeping information private.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains one realistic risk to the draft being available."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a distinct risk involving unintended changes or misuse of the session."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Demonstrating automatic locking",
+      "learningObjective": "Activate and verify automatic screen locking on a supervised training device.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-250-10-v1",
+      "id": "ndv-250-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On a teacher-provided training device, use the approved settings to enable automatic locking with the interval set by the teacher. Wait without touching the device and demonstrate that it locks and requires the normal unlock method. The teacher handles any credentials.",
+      "answer": "The teacher observes the approved interval and sees the idle device reach its locked state. Returning to the session requires the configured unlock method.",
+      "explanation": "A blank screen alone can indicate sleep. The unlock requirement shows that the access control is active.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Enables the requested automatic lock setting on the training device."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates locking after inactivity."
+        },
+        {
+          "marks": 1,
+          "description": "Verifies the unlock requirement with teacher handling of credentials."
+        }
+      ]
+    }
+  ]
+}

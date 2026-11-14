@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4972,
-    "validDrafts": 3293,
+    "raw": 4982,
+    "validDrafts": 3303,
     "reviewed": 0,
     "registeredBanks": 200,
     "target": 182000,
@@ -1628,6 +1628,12 @@
       "sha256": "4acb157e601d105f67bf3a4cd03c1e56a50ebc25e872044dd807775fcef922d0",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-250.json",
+      "sha256": "9374b751b30d8aa3c3cc0e6abdbe4a2eb1778370d1287aa520a498a0eab16d44",
+      "declared": 10,
+      "actual": 10
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5605,18 +5611,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 119,
-      "validDrafts": 119,
+      "raw": 129,
+      "validDrafts": 129,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 119
+        "structured": 129
       },
       "difficulty": {
-        "standard": 119
+        "standard": 129
       },
-      "remaining": 881,
-      "mappedObjectives": 119,
-      "representedObjectives": 119,
+      "remaining": 871,
+      "mappedObjectives": 129,
+      "representedObjectives": 129,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7506,9 +7512,9 @@
   ],
   "errorCounts": {
     "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -41854,6 +41860,66 @@
       "id": "ndv-249-008",
       "file": "original-multisubject-batch-249.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-001",
+      "file": "original-multisubject-batch-250.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-002",
+      "file": "original-multisubject-batch-250.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-003",
+      "file": "original-multisubject-batch-250.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-004",
+      "file": "original-multisubject-batch-250.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-005",
+      "file": "original-multisubject-batch-250.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-006",
+      "file": "original-multisubject-batch-250.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-007",
+      "file": "original-multisubject-batch-250.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-008",
+      "file": "original-multisubject-batch-250.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-009",
+      "file": "original-multisubject-batch-250.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-250-010",
+      "file": "original-multisubject-batch-250.json",
+      "index": 9,
       "errors": []
     },
     {
@@ -100277,6 +100343,306 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 44, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Creative works and identifiers",
+      "learningObjective": "Distinguish copyright from trademarks in familiar examples.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Checking permission and credit",
+      "learningObjective": "Explain how to comply with stated conditions for reuse.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Helping readers trace the source",
+      "learningObjective": "Explain a benefit of crediting a creator.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Plagiarism after paraphrasing",
+      "learningObjective": "Recognise unattributed use of another person’s ideas in schoolwork.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Consequences for a school submission",
+      "learningObjective": "Explain consequences of falsely claiming authorship and exceeding reuse permission.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Matching features to their purposes",
+      "learningObjective": "Distinguish a device usability feature from an access control.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Using location for a supervised collection",
+      "learningObjective": "Explain how a location reading can support a safety decision.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Selecting two complementary safeguards",
+      "learningObjective": "Propose protections for a shared device and explain their distinct functions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Protecting work and authorship",
+      "learningObjective": "Explain why a device lock matters even when a file contains no personal details.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-250-10-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Demonstrating automatic locking",
+      "learningObjective": "Activate and verify automatic screen locking on a supervised training device.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 5"
       ],
       "questionCount": 1,
       "validDrafts": 1,

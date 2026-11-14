@@ -3164,7 +3164,9 @@
         "Internet Communication Practices, PDF p. 41",
         "Spam, PDF p. 42",
         "Online Safety Rules, PDF p. 43",
-        "Online Privacy and Security, PDF p. 44"
+        "Online Privacy and Security, PDF p. 44",
+        "Intellectual Property, PDF p. 45",
+        "Safety and Security Features on Digital Devices, PDF p. 46"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -34188,6 +34190,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 44, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Creative works and identifiers",
+      "learningObjective": "Distinguish copyright from trademarks in familiar examples.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Checking permission and credit",
+      "learningObjective": "Explain how to comply with stated conditions for reuse.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Helping readers trace the source",
+      "learningObjective": "Explain a benefit of crediting a creator.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Plagiarism after paraphrasing",
+      "learningObjective": "Recognise unattributed use of another person’s ideas in schoolwork.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Intellectual Property",
+      "subtopic": "Consequences for a school submission",
+      "learningObjective": "Explain consequences of falsely claiming authorship and exceeding reuse permission.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 45, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Matching features to their purposes",
+      "learningObjective": "Distinguish a device usability feature from an access control.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Using location for a supervised collection",
+      "learningObjective": "Explain how a location reading can support a safety decision.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Selecting two complementary safeguards",
+      "learningObjective": "Propose protections for a shared device and explain their distinct functions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Protecting work and authorship",
+      "learningObjective": "Explain why a device lock matters even when a file contains no personal details.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-250-10-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Safety and Security Features on Digital Devices",
+      "subtopic": "Demonstrating automatic locking",
+      "learningObjective": "Activate and verify automatic screen locking on a supervised training device.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 46, performance objective 5"
       ]
     }
   ],

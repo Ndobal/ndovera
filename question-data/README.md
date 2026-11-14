@@ -1429,3 +1429,7 @@ Batch 249 adds eight JSS 1 Digital Technologies drafts from PDF pp. 43–44.
 The cases cover connection warnings, safe downloads, permissions,
 password exposure and audience controls. The password item focuses on
 compromise-based replacement, supported by NIST guidance.
+
+Batch 250 adds ten JSS 1 Digital Technologies drafts from PDF pp. 45–46.
+The tasks cover creative rights and attribution, device safeguards and a
+teacher-observed automatic-lock demonstration.
