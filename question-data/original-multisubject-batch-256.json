@@ -1,0 +1,562 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science energy and energy resources",
+  "questionCount": 14,
+  "note": "Original structured classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Energy and work",
+      "learningObjective": "Relate energy to doing work in an everyday setting.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-001",
+      "objectiveId": "nerdc-intermediate-jss1-256-01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A porter raises a crate from the ground onto a loading platform. Explain what energy allows the porter to do and identify where the porter gets the energy used by their muscles.",
+      "answer": "Energy allows the porter to do work by lifting the crate against gravity. The muscles use energy made available from food.",
+      "explanation": "Raising the crate increases its gravitational potential energy. The porter transfers energy to the crate while lifting it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects energy to doing work on the crate."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies food as the source for the muscles."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Stored elastic energy",
+      "learningObjective": "Identify energy stored by changing an object's shape.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-002",
+      "objectiveId": "nerdc-intermediate-jss1-256-02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A foam cushion is held compressed under a board. Name the form of energy stored because of the compression and predict what the cushion will do when the board is lifted away.",
+      "answer": "The compressed cushion stores elastic potential energy. It expands towards its earlier shape when the load is removed.",
+      "explanation": "Deforming an elastic object stores energy that can cause movement as its shape recovers.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names elastic potential energy."
+        },
+        {
+          "marks": 1,
+          "description": "Predicts expansion towards the original shape."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Gravitational and kinetic energy",
+      "learningObjective": "Distinguish energy due to height from energy due to motion.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-003",
+      "objectiveId": "nerdc-intermediate-jss1-256-03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A marble is held still at the top of a ramp. Later it rolls near the bottom. Identify the energy it has because of its height at the start and the energy it has because it is rolling later.",
+      "answer": "At the top it has gravitational potential energy relative to the bottom. While rolling it has kinetic energy.",
+      "explanation": "The two observations refer to different properties of the marble: its position and its motion.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies gravitational potential energy."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies kinetic energy."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Changes of energy form",
+      "learningObjective": "Explain energy transformation using evidence from a device.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-004",
+      "objectiveId": "nerdc-intermediate-jss1-256-04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil says that a buzzer creates energy when connected to a cell because the room was quiet before. Correct the pupil's explanation and use the sound as evidence of an energy transformation.",
+      "answer": "The buzzer receives energy electrically and transforms part of it into sound energy as its vibrating part moves. The sound shows that energy has appeared in a different form.",
+      "explanation": "The silence before connection says nothing about the energy available from the cell. The buzzer needs energy supplied through the circuit.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies that energy is supplied electrically rather than created."
+        },
+        {
+          "marks": 1,
+          "description": "Connects vibration or sound with output in another form."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Hand-cranked generator",
+      "learningObjective": "Trace useful energy changes through a generator and lamp.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-005",
+      "objectiveId": "nerdc-intermediate-jss1-256-05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A torch has a hand crank, a small generator and a lamp. It lights while the handle is being turned. Give the energy change at the generator and then the change that gives the user light.",
+      "answer": "The generator converts mechanical energy from the turning handle to electrical energy. The lamp converts some of the electrical energy to light.",
+      "explanation": "The generator and lamp carry out different steps in the energy pathway.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives mechanical to electrical at the generator."
+        },
+        {
+          "marks": 1,
+          "description": "Gives electrical to light at the lamp."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Useful and unwanted sound",
+      "learningObjective": "Explain why the usefulness of an energy output depends on the intended task.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-006",
+      "objectiveId": "nerdc-intermediate-jss1-256-06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fan motor makes a loud hum while moving air. A door alarm makes a similar hum while warning a shopkeeper. Explain why the sound output is useful in one device and may be unwanted in the other.",
+      "answer": "The alarm's sound alerts the shopkeeper. The fan is intended to move air, so its hum can be a distraction and is an output that does not directly cool the user.",
+      "explanation": "The same form of output can be desired in one device and incidental in another.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the sound's intended role in the alarm."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies airflow as the purpose of the fan and explains why its noise may be unwanted."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Electric heating",
+      "learningObjective": "Connect an energy transformation to a practical use.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-007",
+      "objectiveId": "nerdc-intermediate-jss1-256-07-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A tailor uses an electric iron to smooth a creased cotton uniform. Identify the energy transformation in the heating element and explain how its output helps the tailor.",
+      "answer": "The element transforms electrical energy into thermal energy. The hot soleplate transfers energy to the cloth while it is pressed, helping to relax the creases.",
+      "explanation": "The useful result combines heat with pressure on the fabric.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies electrical to thermal energy."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how heating helps smooth the fabric during pressing."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Replenishment and depletion",
+      "learningObjective": "Explain renewable and non-renewable sources using their replenishment times.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-008",
+      "objectiveId": "nerdc-intermediate-jss1-256-08-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A community uses sunlight to dry cassava slices and natural gas to heat water. Explain why these sources fall into different groups even if cloudy days interrupt cassava drying.",
+      "answer": "Sunlight is renewable because it is continually supplied on human timescales despite changes in availability. Natural gas is non-renewable because deposits form far more slowly than people use them.",
+      "explanation": "Renewability refers to replenishment. Availability at a given time depends on local conditions.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies sunlight and connects it to replenishment on a human timescale."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies natural gas and compares formation with use."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Classifying sources at generation sites",
+      "learningObjective": "Classify wind and coal by their underlying energy sources.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-009",
+      "objectiveId": "nerdc-intermediate-jss1-256-09-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A wall map marks a station whose turbines turn in moving air and another that burns coal to make steam. Identify the source in each case and group it as renewable or non-renewable.",
+      "answer": "Moving air, or wind, is a renewable source. Coal is a non-renewable fuel.",
+      "explanation": "Both stations may produce electricity through rotating machinery, while the original sources differ.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies wind as renewable."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies coal as non-renewable."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Direct solar water heating",
+      "learningObjective": "Describe a use of renewable energy that does not involve generating electricity.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-010",
+      "objectiveId": "nerdc-intermediate-jss1-256-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A hostel has a solar collector through which water passes on its way to an insulated tank. Explain how sunlight helps provide warm water and why the tank is insulated.",
+      "answer": "The collector absorbs energy from sunlight and transfers thermal energy to the water. Insulation reduces the rate at which the stored water loses heat.",
+      "explanation": "Solar energy can heat water directly. The tank helps retain that heat until the water is needed.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains transfer of energy from sunlight to the water through the collector."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the purpose of the insulation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Harvest faster than replacement",
+      "learningObjective": "Explain how overusing a potentially renewable resource can reduce its supply and affect land.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-011",
+      "objectiveId": "nerdc-intermediate-jss1-256-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A village gets fuelwood from a woodlot. Each year more trees are cut than grow to replace them. Predict what happens to its fuelwood supply over several years and explain one consequence of losing ground cover.",
+      "answer": "The supply of harvestable trees declines. Where less vegetation covers the ground, rain can wash away more exposed soil.",
+      "explanation": "Renewable resources can be depleted locally when use exceeds recovery.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Predicts declining supply and links it to harvesting faster than replacement."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a plausible effect of reduced ground cover."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Energy access for food storage",
+      "learningObjective": "Explain how reliable energy for refrigeration can improve a community service.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-012",
+      "objectiveId": "nerdc-intermediate-jss1-256-12-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A farmers' cooperative starts operating a reliably powered cold room for vegetables that it will sell the next day. Describe how the energy service can affect both the produce and the sellers.",
+      "answer": "Refrigeration slows spoilage in suitable produce. Keeping more of it saleable may reduce sellers' losses and allow more vegetables to reach buyers.",
+      "explanation": "The outcome depends on maintaining appropriate storage conditions for the produce.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects refrigeration with slower spoilage."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a reasoned benefit for the sellers or their customers."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Reading two energy pathways",
+      "learningObjective": "Demonstrate how two sources can supply a common service through different pathways.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-013",
+      "objectiveId": "nerdc-intermediate-jss1-256-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw two labelled arrow diagrams for lighting a classroom. In one, sunlight reaches a photovoltaic panel that powers a lamp during the day. In the other, diesel runs a generator that powers a lamp. Show the route to the light and label the source in each diagram as renewable or non-renewable.",
+      "answer": "Sunlight (renewable) → photovoltaic panel → electrical energy → lamp → light. Diesel (non-renewable) → engine and generator → electrical energy → lamp → light.",
+      "explanation": "Both pathways supply electrical energy to the lamp. In the diesel system the engine first provides mechanical energy to turn the generator.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows the solar route through the panel and electricity to light."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the diesel route through the generator and electricity to light."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly labels both source categories."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Solar power for a health service",
+      "learningObjective": "Explain an application of renewable energy and storage in healthcare technology.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-256-014",
+      "objectiveId": "nerdc-intermediate-jss1-256-14-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A clinic uses solar panels and a charged battery to power a refrigerator that stores vaccines. Explain the jobs of the panel and battery and why maintaining the required storage temperature matters.",
+      "answer": "The panel produces electrical energy from sunlight. The battery stores energy chemically and can later supply electricity to the refrigerator. Keeping the required temperature helps preserve the vaccines' effectiveness.",
+      "explanation": "The panel and battery support the refrigerator at different times. The refrigerator uses electricity to remove heat from the storage compartment.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how the panel supplies electrical energy."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the battery provides electricity later."
+        },
+        {
+          "marks": 1,
+          "description": "Links suitable storage temperature to protecting vaccine effectiveness."
+        }
+      ]
+    }
+  ]
+}

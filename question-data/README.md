@@ -1458,3 +1458,7 @@ Batch 255 adds 13 JSS 1 Intermediate Science drafts on living and
 non-living matter from PDF pp. 20–22. The illustrated album uses
 drawings or existing pictures. The curriculum’s nature-walk activity
 remains open.
+
+Batch 256 adds 14 JSS 1 Intermediate Science drafts on energy and
+renewable and non-renewable sources from PDF pp. 23–24. The energy
+pathway diagrams are paper practice. Hands-on demonstration remains open.

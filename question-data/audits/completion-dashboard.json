@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5028,
-    "validDrafts": 3349,
+    "raw": 5042,
+    "validDrafts": 3363,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1664,6 +1664,12 @@
       "sha256": "95777954efe9fe3fff5ba90e589c4fd062d921560e0ca6938726d2d849db6ea8",
       "declared": 13,
       "actual": 13
+    },
+    {
+      "path": "original-multisubject-batch-256.json",
+      "sha256": "b47c7c20b183e60d5bb9660074b0a2ac50fb090d3610f12692ad0f1d43410591",
+      "declared": 14,
+      "actual": 14
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5799,18 +5805,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-intermediate-science-jss1-revised",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 31,
-      "validDrafts": 31,
+      "raw": 45,
+      "validDrafts": 45,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 31
+        "structured": 45
       },
       "difficulty": {
-        "standard": 31
+        "standard": 45
       },
-      "remaining": 969,
-      "mappedObjectives": 31,
-      "representedObjectives": 31,
+      "remaining": 955,
+      "mappedObjectives": 45,
+      "representedObjectives": 45,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7564,18 +7570,18 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 512,
@@ -42249,6 +42255,90 @@
       "id": "ndv-255-013",
       "file": "original-multisubject-batch-255.json",
       "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-001",
+      "file": "original-multisubject-batch-256.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-002",
+      "file": "original-multisubject-batch-256.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-003",
+      "file": "original-multisubject-batch-256.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-004",
+      "file": "original-multisubject-batch-256.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-005",
+      "file": "original-multisubject-batch-256.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-006",
+      "file": "original-multisubject-batch-256.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-007",
+      "file": "original-multisubject-batch-256.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-008",
+      "file": "original-multisubject-batch-256.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-009",
+      "file": "original-multisubject-batch-256.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-010",
+      "file": "original-multisubject-batch-256.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-011",
+      "file": "original-multisubject-batch-256.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-012",
+      "file": "original-multisubject-batch-256.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-013",
+      "file": "original-multisubject-batch-256.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-256-014",
+      "file": "original-multisubject-batch-256.json",
+      "index": 13,
       "errors": []
     },
     {
@@ -102365,6 +102455,426 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Energy and work",
+      "learningObjective": "Relate energy to doing work in an everyday setting.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Stored elastic energy",
+      "learningObjective": "Identify energy stored by changing an object's shape.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Gravitational and kinetic energy",
+      "learningObjective": "Distinguish energy due to height from energy due to motion.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Changes of energy form",
+      "learningObjective": "Explain energy transformation using evidence from a device.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Hand-cranked generator",
+      "learningObjective": "Trace useful energy changes through a generator and lamp.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Useful and unwanted sound",
+      "learningObjective": "Explain why the usefulness of an energy output depends on the intended task.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Electric heating",
+      "learningObjective": "Connect an energy transformation to a practical use.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Replenishment and depletion",
+      "learningObjective": "Explain renewable and non-renewable sources using their replenishment times.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-09-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Classifying sources at generation sites",
+      "learningObjective": "Classify wind and coal by their underlying energy sources.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-10-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Direct solar water heating",
+      "learningObjective": "Describe a use of renewable energy that does not involve generating electricity.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-11-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Harvest faster than replacement",
+      "learningObjective": "Explain how overusing a potentially renewable resource can reduce its supply and affect land.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-12-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Energy access for food storage",
+      "learningObjective": "Explain how reliable energy for refrigeration can improve a community service.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-13-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Reading two energy pathways",
+      "learningObjective": "Demonstrate how two sources can supply a common service through different pathways.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-14-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Solar power for a health service",
+      "learningObjective": "Explain an application of renewable energy and storage in healthcare technology.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 7"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -102419,6 +102929,7 @@
     "JSS 1 Digital Technologies PDF p. 22 names Paint 3D, which Microsoft removed from the Store on 4 November 2024. Batch 239 includes transferable modelling and drawing practice. Paint 3D interface-specific objective 2 remains open; classroom software availability and formal formats are unverified.",
     "JSS 1 Digital Technologies PDF p. 40 uses image and voice learning activities. Batch 247 practical training uses drawn symbols in a teacher-approved image classifier. Availability of the curriculum activity guides, local software and voice-processing practical delivery remains unverified.",
     "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 on bush-burning and deforestation regulations require jurisdiction-specific primary evidence. Batch 254 maps environmental effects, drivers, prevention and poster design using paper scenarios. The erosion and flooding field-visit objectives remain open.",
-    "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures."
+    "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures.",
+    "JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open."
   ]
 }

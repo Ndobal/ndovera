@@ -3270,7 +3270,9 @@
         "Environmental Degradation: Bush Burning, PDF pp. 17–18",
         "Matter-Basic Concepts, PDF p. 19",
         "Living Matter, PDF pp. 20–21",
-        "Non-Living Matter, PDF p. 22"
+        "Non-Living Matter, PDF p. 22",
+        "Energy, PDF p. 23",
+        "Renewable and Non-Renewable Energy, PDF p. 24"
       ],
       "note": "Exact class and subject verified in the direct revised PDF. Publication date, school adoption, term placement and formal formats remain unverified."
     },
@@ -35282,6 +35284,258 @@
       "sourceSections": [
         "Revised JSS 1 Intermediate Science, PDF p. 22, performance objective 4"
       ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Energy and work",
+      "learningObjective": "Relate energy to doing work in an everyday setting.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Stored elastic energy",
+      "learningObjective": "Identify energy stored by changing an object's shape.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Gravitational and kinetic energy",
+      "learningObjective": "Distinguish energy due to height from energy due to motion.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Changes of energy form",
+      "learningObjective": "Explain energy transformation using evidence from a device.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Hand-cranked generator",
+      "learningObjective": "Trace useful energy changes through a generator and lamp.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Useful and unwanted sound",
+      "learningObjective": "Explain why the usefulness of an energy output depends on the intended task.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Energy",
+      "subtopic": "Electric heating",
+      "learningObjective": "Connect an energy transformation to a practical use.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 23, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Replenishment and depletion",
+      "learningObjective": "Explain renewable and non-renewable sources using their replenishment times.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-09-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Classifying sources at generation sites",
+      "learningObjective": "Classify wind and coal by their underlying energy sources.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-10-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Direct solar water heating",
+      "learningObjective": "Describe a use of renewable energy that does not involve generating electricity.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-11-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Harvest faster than replacement",
+      "learningObjective": "Explain how overusing a potentially renewable resource can reduce its supply and affect land.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-12-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Energy access for food storage",
+      "learningObjective": "Explain how reliable energy for refrigeration can improve a community service.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-13-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Reading two energy pathways",
+      "learningObjective": "Demonstrate how two sources can supply a common service through different pathways.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-256-14-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Renewable and Non-Renewable Energy",
+      "subtopic": "Solar power for a health service",
+      "learningObjective": "Explain an application of renewable energy and storage in healthcare technology.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 7"
+      ]
     }
   ],
   "scopeGaps": [
@@ -35336,6 +35590,7 @@
     "JSS 1 Digital Technologies PDF p. 22 names Paint 3D, which Microsoft removed from the Store on 4 November 2024. Batch 239 includes transferable modelling and drawing practice. Paint 3D interface-specific objective 2 remains open; classroom software availability and formal formats are unverified.",
     "JSS 1 Digital Technologies PDF p. 40 uses image and voice learning activities. Batch 247 practical training uses drawn symbols in a teacher-approved image classifier. Availability of the curriculum activity guides, local software and voice-processing practical delivery remains unverified.",
     "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 on bush-burning and deforestation regulations require jurisdiction-specific primary evidence. Batch 254 maps environmental effects, drivers, prevention and poster design using paper scenarios. The erosion and flooding field-visit objectives remain open.",
-    "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures."
+    "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures.",
+    "JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open."
   ]
 }
