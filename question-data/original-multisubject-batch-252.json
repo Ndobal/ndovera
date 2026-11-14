@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies computer history and professional bodies",
+  "questionCount": 5,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Ordering hardware milestones",
+      "learningObjective": "Order four hardware technologies in a conventional introductory account of computer generations.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-252-01-v1",
+      "id": "ndv-252-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A museum display has mixed up four cards: microprocessor, vacuum tubes, integrated circuits and individual transistors. Put the cards in the usual order of the hardware milestones and explain what changed when individual transistors gave way to integrated circuits.",
+      "answer": "Vacuum tubes, individual transistors, integrated circuits, microprocessors. Integrated circuits put multiple electronic components together on one chip instead of building the logic entirely from separately packaged devices.",
+      "explanation": "These labels describe major developments. Actual machines could use a mixture of technologies during transitions.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Orders all four milestones correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Explains integration of multiple components onto a chip."
+        }
+      ],
+      "contentSourceId": "chm-digital-logic"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Comparing tube and transistor designs",
+      "learningObjective": "Explain a physical advantage of switching technology in early computers.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-252-02-v1",
+      "id": "ndv-252-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A display shows two early computer assemblies that perform similar switching work. One uses rows of glass vacuum tubes. The other uses much smaller semiconductor transistors. Give two reasons why a designer might choose the transistor assembly for a machine that must fit in less space.",
+      "answer": "Smaller transistors can fit more switching components in a given space. Their lower power use can also reduce the heat that needs to be removed.",
+      "explanation": "Component size affects packing density, and power use affects cooling needs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects smaller components to a concrete space advantage."
+        },
+        {
+          "marks": 1,
+          "description": "Connects lower power use to reduced cooling needs."
+        }
+      ],
+      "contentSourceId": "chm-digital-logic"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Distinguishing a processor chip from a logic chip",
+      "learningObjective": "Explain what distinguishes a microprocessor from an integrated circuit used for a smaller function.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-252-03-v1",
+      "id": "ndv-252-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A display includes one chip that performs a single logic function and another chip that executes the instructions for an entire computer as its central processor. Both are integrated circuits. Which is a microprocessor in this example, and why?",
+      "answer": "The second chip is a microprocessor because it implements the central processor on one chip and executes instructions.",
+      "explanation": "Integrated circuit is the broader term. Computing instructions are the distinguishing function in this example.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the central processor chip."
+        },
+        {
+          "marks": 1,
+          "description": "Explains its role in executing instructions."
+        }
+      ],
+      "contentSourceId": "chm-digital-logic"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Career opportunities in IT",
+      "subtopic": "Finding the relevant professional body",
+      "learningObjective": "Identify the Nigerian body associated with professional computing registration.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-252-04-v1",
+      "id": "ndv-252-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil is preparing a careers display and needs an official source on registration of computing professionals in Nigeria. Which body should the pupil consult, and why is a job advertisement a weaker source?",
+      "answer": "Consult the Computer Professionals Registration Council of Nigeria, or CPN. It publishes information about professional registration and oversight. A job advertisement states an employer’s requirements for a vacancy.",
+      "explanation": "The council describes its own registration responsibilities. The advertisement has a different purpose.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names CPN."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the council is the relevant source for registration."
+        }
+      ],
+      "contentSourceId": "cpn-registration-compliance"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Career opportunities in IT",
+      "subtopic": "Finding a professional community",
+      "learningObjective": "Identify a Nigerian professional society and explain a reason to consult it.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-252-05-v1",
+      "id": "ndv-252-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher wants a Nigerian professional society to consult for a careers event that introduces pupils to computing practitioners and professional networking. Name a body that fits and explain the connection.",
+      "answer": "The Nigeria Computer Society fits because it brings together computing and IT professionals and stakeholders and supports professional cooperation.",
+      "explanation": "A professional society is a source of information about its community and activities.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names the Nigeria Computer Society."
+        },
+        {
+          "marks": 1,
+          "description": "Connects its professional community or cooperation to the careers event."
+        }
+      ],
+      "contentSourceId": "ncs-about"
+    }
+  ]
+}

@@ -1438,3 +1438,8 @@ Batch 251 adds ten JSS 1 Digital Technologies drafts from PDF pp. 47–48.
 Graphic design tasks assess layout, contrast, Canva tools and template
 adaptation. E-waste tasks use paper scenarios to assess classification,
 potential pollution and responsible collection.
+
+Batch 252 adds five JSS 1 Digital Technologies drafts on early computing
+hardware and Nigerian computing professional bodies. The external
+references corroborate the four hardware milestones and the roles of CPN
+and NCS. Fifth-generation terminology and practical gaps remain open.
