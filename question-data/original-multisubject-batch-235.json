@@ -1,0 +1,406 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies forms of business organisation",
+  "questionCount": 10,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Ownership versus employment",
+      "learningObjective": "Identify a sole proprietorship when the owner hires assistants.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-01-v1",
+      "id": "ndv-235-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Zainab owns a printing kiosk by herself. Two assistants are paid weekly and own no part of the business. Name the form of business and give the detail that establishes it.",
+      "answer": "It is a sole proprietorship because Zainab alone owns the business.",
+      "explanation": "The number of workers can differ from the number of owners.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names sole proprietorship."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the presence of one owner to justify it."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Partners or service providers",
+      "learningObjective": "Identify evidence of a partnership in a fictional venture.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-02-v1",
+      "id": "ndv-235-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two photographers buy a camera together for a shared studio. Their agreement says both run the studio and share its profits and losses. Identify their form of business and give two details that support your answer.",
+      "answer": "It is a partnership. The photographers run one venture together and agree to share its profits and losses.",
+      "explanation": "Their roles and agreement show joint operation as owners.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies partnership."
+        },
+        {
+          "marks": 1,
+          "description": "Uses two details from the ownership or operating arrangement as evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Recognising a cooperative",
+      "learningObjective": "Identify a cooperative from its purpose and governance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-03-v1",
+      "id": "ndv-235-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A group of growers jointly owns a weighing and bagging centre. The centre was organised to serve member farms, and the members elect its committee. Identify the form of organisation and explain which details support the choice.",
+      "answer": "It is a cooperative society. The members jointly own the centre to meet a common need and elect those who oversee it.",
+      "explanation": "Member benefit and member control are both relevant to the classification.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a cooperative society."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the shared member purpose and member control shown in the case."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Ownership and delegated management",
+      "learningObjective": "Distinguish ownership from management in a company limited by shares.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-04-v1",
+      "id": "ndv-235-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A company limited by shares runs a small packaging factory. Its shareholders appoint directors, and a manager hired by the company organises daily shifts. Identify who holds shares and who runs day-to-day production. Explain why those groups can be different.",
+      "answer": "The shareholders hold shares. The manager organises day-to-day production. The company can assign operating duties to a manager who does not hold shares.",
+      "explanation": "Ownership interests and day-to-day duties are distinct roles in the scenario.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the shareholders and the manager’s respective roles."
+        },
+        {
+          "marks": 1,
+          "description": "Explains delegation of daily work."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Unpaid share amount",
+      "learningObjective": "Calculate the unpaid amount and link it to the limit on liability as a shareholder.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-05-v1",
+      "id": "ndv-235-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil studies a fictional company limited by shares. A member holds shares with a total nominal value of ₦20,000 and has paid ₦15,000 towards those shares. How much remains unpaid? Explain how this amount relates to liability in the member’s capacity as shareholder.",
+      "answer": "₦5,000 remains unpaid. The member’s liability as a shareholder is limited to the amount still unpaid on those shares.",
+      "explanation": "Section 21(1)(a) of the Companies and Allied Matters Act, 2020 defines the limit by reference to any amount unpaid on the shares held. Here that amount is ₦20,000 minus ₦15,000.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates ₦5,000."
+        },
+        {
+          "marks": 1,
+          "description": "Links the liability in the capacity as shareholder to the unpaid amount."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "20000-15000",
+          "expected": 5000,
+          "purpose": "Check the unpaid share amount."
+        }
+      ],
+      "contentSourceId": "cac-cama-2020-section-21"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Control and continuity in sole ownership",
+      "learningObjective": "Explain a control advantage and an operating risk of sole ownership.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-06-v1",
+      "id": "ndv-235-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A shoe repair stall has one owner who sets prices and opens the stall each morning. She has nobody trained to take over when she is away. Explain one benefit of this ownership arrangement and one difficulty illustrated by the case.",
+      "answer": "She can decide prices quickly because she does not need another owner’s agreement. The stall may remain closed in her absence unless she arranges cover.",
+      "explanation": "Concentrating authority can speed decisions. Relying on one person can also complicate continuity.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a benefit tied to individual control."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the risk of relying on the owner to operate the stall."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Complementary skills and disagreements",
+      "learningObjective": "Evaluate a partnership advantage and a governance difficulty.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-07-v1",
+      "id": "ndv-235-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pair of partners opens a framing workshop. One is skilled at making frames and the other handles estimates and bookings. They disagree on whether to take a large order. Explain one benefit of the partnership and one step that could help deal with the disagreement.",
+      "answer": "Their skills cover both making frames and getting work organised. They can agree in advance who decides on large orders or what evidence and agreement are needed before accepting one.",
+      "explanation": "Complementary skills can help the venture, while clear decision rules can reduce delays when partners disagree.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a concrete benefit of the partners’ different skills."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a workable decision rule for the disagreement."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Pooling capital and sharing ownership",
+      "learningObjective": "Explain a trade-off in bringing in shareholders.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-08-v1",
+      "id": "ndv-235-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A small packaging venture plans to raise money for a new machine by issuing additional shares to new investors. The new shares carry voting rights. Explain one possible advantage and one trade-off for the existing owners.",
+      "answer": "New shareholders can contribute money towards the machine. Existing owners may hold a smaller share of the voting rights after the new shares are issued.",
+      "explanation": "Potential access to more capital can come with a change in how voting power is shared.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how new shares may provide capital."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how ownership or voting influence could be shared more widely."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Shared equipment and competing schedules",
+      "learningObjective": "Explain a cooperative advantage and a coordination cost.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-09-v1",
+      "id": "ndv-235-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fish sellers’ cooperative rents one cold room and charges members for use. On busy days several members want the same space at the same time. Explain one benefit of arranging storage jointly and propose a rule that would make access fairer.",
+      "answer": "Joint rental may let members use storage they could not afford separately. The committee could publish a booking schedule with a maximum space per member on busy days.",
+      "explanation": "Sharing a facility can lower individual costs, and agreed rules help allocate scarce capacity.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a realistic benefit of pooling demand or costs."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a fair, practical rule addressing limited space."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Selecting a form for a shared purpose",
+      "learningObjective": "Recommend a business form using stated ownership and control priorities.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-235-10-v1",
+      "id": "ndv-235-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Twelve growers want a permanent buying group to obtain seed together. They want the buying service to exist for the members’ shared benefit and want each member to have a say. An investor offers to own and run the service alone. Recommend a form of business and explain one consequence of choosing it.",
+      "answer": "A cooperative fits because the growers can jointly organise the buying service and participate in its decisions. They will need to agree how to make decisions and share costs.",
+      "explanation": "The choice follows the stated aims of member benefit and participation. Joint governance requires coordination.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recommends a cooperative and relates it to the growers’ stated aims."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a realistic consequence of joint operation."
+        }
+      ]
+    }
+  ]
+}

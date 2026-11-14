@@ -2992,7 +2992,8 @@
         "Taxes in Nigeria, PDF p. 43",
         "Voluntary Tax Compliance, PDF p. 44",
         "Entrepreneurship, PDF p. 45",
-        "Generating and Selecting Business Ideas, PDF p. 46"
+        "Generating and Selecting Business Ideas, PDF p. 46",
+        "Forms of Business Organisation, PDF p. 47"
       ],
       "note": "Listed under Business Studies in the official revised JSS 1 offering at https://lmis.nerdcportals.com.ng/jss_1/. School adoption, terms and formal assessment formats remain unverified."
     },
@@ -3105,6 +3106,16 @@
       "source": "https://nass.gov.ng/documents/download/11250",
       "retrievedOn": "2026-11-14",
       "note": "Nigeria Tax Administration Act, 2025, National Assembly copy. Sections 1, 15, 31 and 34 for compliance, simplified returns, records and self-assessment. Classroom examples omit deadlines and penalties."
+    },
+    {
+      "id": "cac-cama-2020-section-21",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://www.cac.gov.ng/wp-content/uploads/2020/12/CAMA-NOTE-BOOK-FULL-VERSION.pdf",
+      "retrievedOn": "2026-11-14",
+      "note": "Companies and Allied Matters Act, 2020, Act No. 3, Official Gazette, section 21(1)(a), hosted by the Corporate Affairs Commission. Used for the defined limit on liability as a member of a company limited by shares."
     }
   ],
   "banks": [
@@ -31701,6 +31712,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 46, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Ownership versus employment",
+      "learningObjective": "Identify a sole proprietorship when the owner hires assistants.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Partners or service providers",
+      "learningObjective": "Identify evidence of a partnership in a fictional venture.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Recognising a cooperative",
+      "learningObjective": "Identify a cooperative from its purpose and governance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Ownership and delegated management",
+      "learningObjective": "Distinguish ownership from management in a company limited by shares.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Unpaid share amount",
+      "learningObjective": "Calculate the unpaid amount and link it to the limit on liability as a shareholder.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Control and continuity in sole ownership",
+      "learningObjective": "Explain a control advantage and an operating risk of sole ownership.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Complementary skills and disagreements",
+      "learningObjective": "Evaluate a partnership advantage and a governance difficulty.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Pooling capital and sharing ownership",
+      "learningObjective": "Explain a trade-off in bringing in shareholders.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Shared equipment and competing schedules",
+      "learningObjective": "Explain a cooperative advantage and a coordination cost.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-business-jss1-235-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Selecting a form for a shared purpose",
+      "learningObjective": "Recommend a business form using stated ownership and control priorities.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
       ]
     }
   ],

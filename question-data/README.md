@@ -1350,3 +1350,11 @@ Batch 234 adds twelve JSS 1 Business Studies drafts on entrepreneurship
 and generating and selecting business ideas from PDF pp. 45–46. Pupils
 identify customer needs, compare pilot options against resource and
 budget constraints, and design a trial with a continuation criterion.
+
+Batch 235 adds ten JSS 1 Business Studies drafts on forms of business
+organisation from PDF p. 47. The new tasks compare sole proprietorships,
+partnerships, companies limited by shares and cooperatives. All 33
+curriculum topic pages now have initial practice. Full objective coverage
+remains open, including the consequences of unethical chemical use on
+PDF p. 31. The contents omit the three topics on PDF pp. 41–43. The topic
+count uses the actual teaching pages, PDF pp. 15–47.

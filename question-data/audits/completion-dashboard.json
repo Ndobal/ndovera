@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4840,
-    "validDrafts": 3161,
+    "raw": 4850,
+    "validDrafts": 3171,
     "reviewed": 0,
     "registeredBanks": 199,
     "target": 181000,
@@ -1538,6 +1538,12 @@
       "sha256": "1868659b9d87d385dde8e67eb4acf3feef41e7ffc9ffa386cd2762df5053f0cb",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-235.json",
+      "sha256": "d5a98d73eb18e1316ae407c369f15436dabbe3a1638f3cac5ca01e0c7f30beba",
+      "declared": 10,
+      "actual": 10
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5391,19 +5397,19 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-business-studies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 181,
-      "validDrafts": 181,
+      "raw": 191,
+      "validDrafts": 191,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 181
+        "structured": 191
       },
       "difficulty": {
-        "standard": 179,
+        "standard": 189,
         "difficult": 2
       },
-      "remaining": 819,
-      "mappedObjectives": 181,
-      "representedObjectives": 181,
+      "remaining": 809,
+      "mappedObjectives": 191,
+      "representedObjectives": 191,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7392,21 +7398,21 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 501,
+    "explicitArithmeticClaims": 502,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -40949,6 +40955,66 @@
       "id": "ndv-234-012",
       "file": "original-multisubject-batch-234.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-001",
+      "file": "original-multisubject-batch-235.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-002",
+      "file": "original-multisubject-batch-235.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-003",
+      "file": "original-multisubject-batch-235.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-004",
+      "file": "original-multisubject-batch-235.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-005",
+      "file": "original-multisubject-batch-235.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-006",
+      "file": "original-multisubject-batch-235.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-007",
+      "file": "original-multisubject-batch-235.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-008",
+      "file": "original-multisubject-batch-235.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-009",
+      "file": "original-multisubject-batch-235.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-235-010",
+      "file": "original-multisubject-batch-235.json",
+      "index": 9,
       "errors": []
     },
     {
@@ -95412,6 +95478,306 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 46, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Ownership versus employment",
+      "learningObjective": "Identify a sole proprietorship when the owner hires assistants.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Partners or service providers",
+      "learningObjective": "Identify evidence of a partnership in a fictional venture.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Recognising a cooperative",
+      "learningObjective": "Identify a cooperative from its purpose and governance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Ownership and delegated management",
+      "learningObjective": "Distinguish ownership from management in a company limited by shares.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Unpaid share amount",
+      "learningObjective": "Calculate the unpaid amount and link it to the limit on liability as a shareholder.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Control and continuity in sole ownership",
+      "learningObjective": "Explain a control advantage and an operating risk of sole ownership.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Complementary skills and disagreements",
+      "learningObjective": "Evaluate a partnership advantage and a governance difficulty.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Pooling capital and sharing ownership",
+      "learningObjective": "Explain a trade-off in bringing in shareholders.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Shared equipment and competing schedules",
+      "learningObjective": "Explain a cooperative advantage and a coordination cost.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-235-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Forms of Business Organisation",
+      "subtopic": "Selecting a form for a shared purpose",
+      "learningObjective": "Recommend a business form using stated ownership and control priorities.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
       ],
       "questionCount": 1,
       "validDrafts": 1,
