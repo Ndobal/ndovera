@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies Word and PowerPoint practical tasks",
+  "questionCount": 9,
+  "note": "Original practical classroom tasks with manual marking. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Creating and reopening a document",
+      "learningObjective": "Create a document, save it in a specified location and reopen it.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-238-01-v1",
+      "id": "ndv-238-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create a Word document with the title “Art Club Materials” and one sentence asking members to bring pencils. Save it as ArtClubMaterials.docx in the teacher’s practice folder, close it and reopen the saved file. Show the reopened document and its folder location.",
+      "answer": "The reopened ArtClubMaterials.docx shows the title and a sentence such as “Please bring a pencil to the next art club meeting.” It is stored in the specified folder.",
+      "explanation": "Reopening from the folder shows that the document was saved with the intended name and location.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates a document containing the requested title and message."
+        },
+        {
+          "marks": 1,
+          "description": "Saves a Word document with the specified file name and location."
+        },
+        {
+          "marks": 1,
+          "description": "Reopens the saved copy and shows the correct contents."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Making a targeted revision",
+      "learningObjective": "Edit specified details while preserving the rest of a notice.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-238-02-v1",
+      "id": "ndv-238-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Type this practice notice in Word: “The book swap opens at 10 a.m. in Room 3. Please bring one book.” Duplicate the file. In the copy change the opening to 11 a.m. and the venue to Room 5. Keep the final sentence. Submit both files.",
+      "answer": "The original stays as given. The edited copy reads: “The book swap opens at 11 a.m. in Room 5. Please bring one book.”",
+      "explanation": "Using a copy preserves the earlier version. Checking the entire notice confirms the unchanged instruction still appears.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Preserves the original in a separate file."
+        },
+        {
+          "marks": 1,
+          "description": "Changes both the time and room correctly in the revised file."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the final sentence in the revised file."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Using typography for reading order",
+      "learningObjective": "Format a Word notice so readers can identify its title and three instructions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-238-03-v1",
+      "id": "ndv-238-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create a Word notice titled “Before returning a library book”. Put “Check for loose pages”, “Remove your bookmark” and “Hand the book to the librarian” on separate lines. Format the title as a heading and the instructions as a numbered list.",
+      "answer": "A heading displays the requested title. The three instructions appear as one numbered list in the given order.",
+      "explanation": "Heading formatting distinguishes the notice title. List formatting gives the instructions a clear order.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a heading style for the specified title."
+        },
+        {
+          "marks": 1,
+          "description": "Uses Word’s numbered-list formatting for all three instructions in order."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Building a Word inventory table",
+      "learningObjective": "Insert and populate a table with headers and a row for each item.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-238-04-v1",
+      "id": "ndv-238-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a Word practice file, insert a table with the columns Item and Shelf. Enter the stock-room records “Brushes, Shelf B”, “Card, Shelf A” and “Glue sticks, Shelf C”. Keep each item and shelf in its own cell and bold the header row.",
+      "answer": "The table has two columns and four rows. The bold header reads Item | Shelf, followed by Brushes | Shelf B, Card | Shelf A and Glue sticks | Shelf C.",
+      "explanation": "Separating the fields into columns makes it easy to scan down the item or shelf list.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Inserts an actual table with two columns and a separate header row."
+        },
+        {
+          "marks": 1,
+          "description": "Places all three item-shelf pairs in the correct cells."
+        },
+        {
+          "marks": 1,
+          "description": "Makes the header row bold."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Creating a two-slide sequence",
+      "learningObjective": "Create and save a short presentation with a title and an action slide.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-238-05-v1",
+      "id": "ndv-238-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create a PowerPoint file called WaterStation.pptx. Use a title slide headed “Water Station”. On slide 2, add the title “After use” and two instructions: turn off the tap and wipe up spills. Save the file and present both slides in order.",
+      "answer": "The saved file opens in PowerPoint. Its first slide introduces Water Station, and its second slide lists the two requested actions.",
+      "explanation": "An opening slide establishes the topic. The second slide gives the audience actions to take.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates and saves a presentation with the requested name."
+        },
+        {
+          "marks": 1,
+          "description": "Uses two slides with the requested titles and instructions."
+        },
+        {
+          "marks": 1,
+          "description": "Shows both slides in the specified order."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Editing an image and checking its caption",
+      "learningObjective": "Replace a slide image and revise its caption consistently.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-238-06-v1",
+      "id": "ndv-238-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create a slide titled “Colour signs” with a blue rectangle and the caption “Blue marker”. Save a copy for editing. In the copy replace the rectangle with a yellow circle and edit the caption to describe the new marker. Show which slide you changed.",
+      "answer": "The original remains a blue rectangle with its caption. The revised slide has a yellow circle and a caption such as “Yellow marker”. The title remains “Colour signs”.",
+      "explanation": "The edit needs to change both the visual and the text that describes it.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Keeps an original and identifies the revised copy."
+        },
+        {
+          "marks": 1,
+          "description": "Replaces the blue rectangle with a yellow circle in the copy."
+        },
+        {
+          "marks": 1,
+          "description": "Updates the caption to match and retains the title."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Improving the readability of a slide",
+      "learningObjective": "Format a slide for projection and explain the purpose of the changes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-238-07-v1",
+      "id": "ndv-238-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Make a practice slide with a pale yellow background and the sentence “Return sports bibs to the blue basket” in small white type. Duplicate the slide. On the copy, improve its readability from the back of a classroom by changing the text colour and size. Present the two slides and explain your choices.",
+      "answer": "Use larger, dark text on the pale background. The larger letters and stronger contrast make the message easier to see at a distance.",
+      "explanation": "The edit changes how easily the audience can read the message while preserving the words.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates the original and a version with the same message."
+        },
+        {
+          "marks": 1,
+          "description": "Applies a legible, higher-contrast text colour and increases the size."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the effect of size or contrast when comparing slides."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Showing sequence with a simple reveal",
+      "learningObjective": "Format a slide to reveal the next instruction only after the first appears.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-238-08-v1",
+      "id": "ndv-238-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In PowerPoint, make a slide titled “Receiving a club kit” with two separate text boxes: “Check the label” and “Count the items”. Apply a simple entrance effect so the first box appears on the first click and the second on the next click. Demonstrate it in Slide Show view.",
+      "answer": "The title is visible at the start. “Check the label” appears on the first click and “Count the items” on the second, in that order.",
+      "explanation": "Two separate entrance events let a speaker discuss the first instruction before displaying the second.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes the title and both requested instructions."
+        },
+        {
+          "marks": 1,
+          "description": "Configures separate click-triggered entrances in the correct order."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates the sequence in Slide Show view."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Showing a timetable as a slide table",
+      "learningObjective": "Insert a readable PowerPoint table and verify the displayed information.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-238-09-v1",
+      "id": "ndv-238-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create a PowerPoint slide headed “Practice rota”. Insert a table showing Tuesday with Choir and Thursday with Drama under the column headings Day and Group. Run the slide show and check that the header and both rows can be read without overlapping the slide title.",
+      "answer": "The slide contains a table with header Day | Group, followed by Tuesday | Choir and Thursday | Drama. The table fits below the title and remains readable in Slide Show view.",
+      "explanation": "A native table aligns related entries. Checking the projected view helps verify that the text and layout work at presentation size.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Inserts a native table with both headers."
+        },
+        {
+          "marks": 1,
+          "description": "Enters both correct day-group pairs."
+        },
+        {
+          "marks": 1,
+          "description": "Shows a readable table below the title in Slide Show view."
+        }
+      ]
+    }
+  ]
+}

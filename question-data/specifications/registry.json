@@ -3145,7 +3145,9 @@
         "Historical Development of Digital Devices, PDF pp. 14–15",
         "Career opportunities in IT, PDF pp. 16–17",
         "Basic Computer Hardware Components I, PDF p. 18",
-        "Basic Computer Hardware Components II: Storage Units, PDF p. 19"
+        "Basic Computer Hardware Components II: Storage Units, PDF p. 19",
+        "MS Word, PDF p. 20",
+        "MS PowerPoint, PDF p. 21"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     }
@@ -32203,6 +32205,168 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 19, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-238-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Creating and reopening a document",
+      "learningObjective": "Create a document, save it in a specified location and reopen it.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 20, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-238-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Making a targeted revision",
+      "learningObjective": "Edit specified details while preserving the rest of a notice.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 20, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-238-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Using typography for reading order",
+      "learningObjective": "Format a Word notice so readers can identify its title and three instructions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 20, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-238-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Building a Word inventory table",
+      "learningObjective": "Insert and populate a table with headers and a row for each item.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 20, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-238-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Creating a two-slide sequence",
+      "learningObjective": "Create and save a short presentation with a title and an action slide.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-238-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Editing an image and checking its caption",
+      "learningObjective": "Replace a slide image and revise its caption consistently.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-238-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Improving the readability of a slide",
+      "learningObjective": "Format a slide for projection and explain the purpose of the changes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-238-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Showing sequence with a simple reveal",
+      "learningObjective": "Format a slide to reveal the next instruction only after the first appears.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-238-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Showing a timetable as a slide table",
+      "learningObjective": "Insert a readable PowerPoint table and verify the displayed information.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 4"
       ]
     }
   ],

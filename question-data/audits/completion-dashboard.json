@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4865,
-    "validDrafts": 3186,
+    "raw": 4874,
+    "validDrafts": 3195,
     "reviewed": 0,
     "registeredBanks": 200,
     "target": 182000,
@@ -1556,6 +1556,12 @@
       "sha256": "2a7bbe8127a27e2dcd25b558e2dde25cc87f4d37ba77f8b5d6578b787c3e84fc",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-238.json",
+      "sha256": "9280e81f6a87429114d7759a0b1262ac12982e4d9bb54bfadf9d326980567088",
+      "declared": 9,
+      "actual": 9
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5533,18 +5539,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 12,
-      "validDrafts": 12,
+      "raw": 21,
+      "validDrafts": 21,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 12
+        "structured": 21
       },
       "difficulty": {
-        "standard": 12
+        "standard": 21
       },
-      "remaining": 988,
-      "mappedObjectives": 12,
-      "representedObjectives": 12,
+      "remaining": 979,
+      "mappedObjectives": 21,
+      "representedObjectives": 21,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7433,18 +7439,18 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 505,
@@ -41140,6 +41146,60 @@
       "id": "ndv-237-012",
       "file": "original-multisubject-batch-237.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-238-001",
+      "file": "original-multisubject-batch-238.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-238-002",
+      "file": "original-multisubject-batch-238.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-238-003",
+      "file": "original-multisubject-batch-238.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-238-004",
+      "file": "original-multisubject-batch-238.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-238-005",
+      "file": "original-multisubject-batch-238.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-238-006",
+      "file": "original-multisubject-batch-238.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-238-007",
+      "file": "original-multisubject-batch-238.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-238-008",
+      "file": "original-multisubject-batch-238.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-238-009",
+      "file": "original-multisubject-batch-238.json",
+      "index": 8,
       "errors": []
     },
     {
@@ -96353,6 +96413,276 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 19, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-238-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Creating and reopening a document",
+      "learningObjective": "Create a document, save it in a specified location and reopen it.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 20, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-238-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Making a targeted revision",
+      "learningObjective": "Edit specified details while preserving the rest of a notice.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 20, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-238-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Using typography for reading order",
+      "learningObjective": "Format a Word notice so readers can identify its title and three instructions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 20, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-238-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS Word",
+      "subtopic": "Building a Word inventory table",
+      "learningObjective": "Insert and populate a table with headers and a row for each item.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 20, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-238-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Creating a two-slide sequence",
+      "learningObjective": "Create and save a short presentation with a title and an action slide.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-238-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Editing an image and checking its caption",
+      "learningObjective": "Replace a slide image and revise its caption consistently.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-238-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Improving the readability of a slide",
+      "learningObjective": "Format a slide for projection and explain the purpose of the changes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-238-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Showing sequence with a simple reveal",
+      "learningObjective": "Format a slide to reveal the next instruction only after the first appears.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-238-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "MS PowerPoint",
+      "subtopic": "Showing a timetable as a slide table",
+      "learningObjective": "Insert a readable PowerPoint table and verify the displayed information.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 21, performance objective 4"
       ],
       "questionCount": 1,
       "validDrafts": 1,

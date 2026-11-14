@@ -1372,3 +1372,8 @@ Technologies curriculum and adds twelve drafts from PDF pp. 14–19.
 Initial coverage includes early devices, IT roles, hardware and storage.
 Computer-generation history, professional bodies, full objective coverage,
 school adoption and formal assessment formats remain open.
+
+Batch 238 adds nine JSS 1 Digital Technologies practical drafts for
+Word and PowerPoint from PDF pp. 20–21. The original tasks use fictional
+records. Marking guides assess document and slide creation, editing,
+formatting, table insertion and a simple presentation sequence.
