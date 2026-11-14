@@ -1383,3 +1383,8 @@ data processing from PDF pp. 22–23. Practical tasks assess transferable
 modelling and drawing skills using teacher-approved tools. Paint 3D
 interface-specific coverage remains open. Data-processing cases assess
 collation, input, processing, storage, output and input validation.
+
+Batch 240 adds nine JSS 1 Digital Technologies drafts on computer
+communication and network components from PDF pp. 24–25. Pupils trace
+message roles and distinguish local links, switches and routers using
+fictional classroom scenarios and paper diagrams.

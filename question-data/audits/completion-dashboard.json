@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4883,
-    "validDrafts": 3204,
+    "raw": 4892,
+    "validDrafts": 3213,
     "reviewed": 0,
     "registeredBanks": 200,
     "target": 182000,
@@ -1566,6 +1566,12 @@
     {
       "path": "original-multisubject-batch-239.json",
       "sha256": "c40f9a91eac6a18e5dc492e5592e19738eebb64f3a87b5e8d38c882ef408cb90",
+      "declared": 9,
+      "actual": 9
+    },
+    {
+      "path": "original-multisubject-batch-240.json",
+      "sha256": "c9c56e4832fde279825350e78f023a2a270ed9aad4517860117e354b46eb106a",
       "declared": 9,
       "actual": 9
     },
@@ -5545,18 +5551,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 30,
-      "validDrafts": 30,
+      "raw": 39,
+      "validDrafts": 39,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 30
+        "structured": 39
       },
       "difficulty": {
-        "standard": 30
+        "standard": 39
       },
-      "remaining": 970,
-      "mappedObjectives": 30,
-      "representedObjectives": 30,
+      "remaining": 961,
+      "mappedObjectives": 39,
+      "representedObjectives": 39,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7445,8 +7451,8 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
@@ -7454,8 +7460,8 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "explanation_missing": 81,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
@@ -41259,6 +41265,60 @@
     {
       "id": "ndv-239-009",
       "file": "original-multisubject-batch-239.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-240-001",
+      "file": "original-multisubject-batch-240.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-240-002",
+      "file": "original-multisubject-batch-240.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-240-003",
+      "file": "original-multisubject-batch-240.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-240-004",
+      "file": "original-multisubject-batch-240.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-240-005",
+      "file": "original-multisubject-batch-240.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-240-006",
+      "file": "original-multisubject-batch-240.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-240-007",
+      "file": "original-multisubject-batch-240.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-240-008",
+      "file": "original-multisubject-batch-240.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-240-009",
+      "file": "original-multisubject-batch-240.json",
       "index": 8,
       "errors": []
     },
@@ -97013,6 +97073,276 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 23, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-240-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Identifying a transfer",
+      "learningObjective": "Explain what makes an action computer communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 24, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-240-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Following a request and reply",
+      "learningObjective": "Identify sender and receiver separately for each direction of communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 24, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-240-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Distinguishing data from the medium",
+      "learningObjective": "Identify the content and path of a wireless transfer.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 24, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-240-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Modelling the parts of communication",
+      "learningObjective": "Create a labelled paper model of a single data transfer.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 24, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-240-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Recognising a local network",
+      "learningObjective": "Describe a network using connected computers and a shared resource.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-240-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Identifying hardware from its position",
+      "learningObjective": "Distinguish a network interface from cable and connector.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-240-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Connecting devices on one local network",
+      "learningObjective": "Explain the role of a switch in wired local communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-240-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Linking separate networks",
+      "learningObjective": "Explain the role of a router when data must leave a local network.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-240-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Checking a disconnected link",
+      "learningObjective": "Use a model to explain why one local device loses communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 3"
       ],
       "questionCount": 1,
       "validDrafts": 1,

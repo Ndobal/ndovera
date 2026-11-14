@@ -3149,7 +3149,9 @@
         "MS Word, PDF p. 20",
         "MS PowerPoint, PDF p. 21",
         "3D Modelling with Paint 3D, PDF p. 22",
-        "Data Processing, PDF p. 23"
+        "Data Processing, PDF p. 23",
+        "Basic Computer communication, PDF p. 24",
+        "Basic Computer Network Components, PDF p. 25"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -32551,6 +32553,168 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 23, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-240-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Identifying a transfer",
+      "learningObjective": "Explain what makes an action computer communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 24, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-240-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Following a request and reply",
+      "learningObjective": "Identify sender and receiver separately for each direction of communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-240-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Distinguishing data from the medium",
+      "learningObjective": "Identify the content and path of a wireless transfer.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-240-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Modelling the parts of communication",
+      "learningObjective": "Create a labelled paper model of a single data transfer.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 24, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-240-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Recognising a local network",
+      "learningObjective": "Describe a network using connected computers and a shared resource.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-240-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Identifying hardware from its position",
+      "learningObjective": "Distinguish a network interface from cable and connector.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-240-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Connecting devices on one local network",
+      "learningObjective": "Explain the role of a switch in wired local communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-240-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Linking separate networks",
+      "learningObjective": "Explain the role of a router when data must leave a local network.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-240-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Checking a disconnected link",
+      "learningObjective": "Use a model to explain why one local device loses communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 25, performance objective 3"
       ]
     }
   ],

@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies computer communication and network components",
+  "questionCount": 9,
+  "note": "Original classroom practice using fictional records and diagrams. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Identifying a transfer",
+      "learningObjective": "Explain what makes an action computer communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-240-01-v1",
+      "id": "ndv-240-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil types a notice and saves it on a laptop, then sends a copy to a display computer in the assembly hall. Which action illustrates computer communication between the two devices? Explain.",
+      "answer": "Sending the copy to the display computer illustrates communication because data travels from one device to another.",
+      "explanation": "Saving locally stores data on the laptop. Sending the copy transfers it to a separate device.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies sending the notice."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the transfer between devices."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Following a request and reply",
+      "learningObjective": "Identify sender and receiver separately for each direction of communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-240-02-v1",
+      "id": "ndv-240-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A library tablet asks the catalogue computer for a book title. The catalogue computer replies with the shelf location. Name the sender and receiver for each message and state what the reply contains.",
+      "answer": "For the request the tablet sends and the catalogue computer receives. For the reply the catalogue computer sends and the tablet receives. The reply carries the shelf location.",
+      "explanation": "Sender and receiver roles depend on which message is being considered.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies both roles for the request."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies both roles for the reply."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the reply data."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Distinguishing data from the medium",
+      "learningObjective": "Identify the content and path of a wireless transfer.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-240-03-v1",
+      "id": "ndv-240-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher’s computer sends the school bell timetable to a classroom display over Wi-Fi. Identify the message and the communication medium in this example.",
+      "answer": "The timetable data is the message. The Wi-Fi radio link is the wireless medium.",
+      "explanation": "The message is the content carried. The wireless link provides the path between devices.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the timetable as the message."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the wireless link as the medium."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer communication",
+      "subtopic": "Modelling the parts of communication",
+      "learningObjective": "Create a labelled paper model of a single data transfer.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-240-04-v1",
+      "id": "ndv-240-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw a paper model showing an attendance terminal sending a fictional headcount of 28 to an office computer along a wired connection. Mark the sender, receiver and message. Draw an arrow showing the direction of transfer.",
+      "answer": "Attendance terminal (sender) → office computer (receiver). The arrow represents the wired path and carries the message “headcount 28”.",
+      "explanation": "Labels show the roles, and the arrow indicates the direction of this particular message.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Labels both endpoints correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the headcount as the message."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the wired path and correct direction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Recognising a local network",
+      "learningObjective": "Describe a network using connected computers and a shared resource.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-240-05-v1",
+      "id": "ndv-240-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two classroom computers and a printer are connected to the same switch. Both computers can print. The room has no Internet service. Explain why the devices still form a computer network.",
+      "answer": "The devices are connected so they can exchange data and share the printer. The local connections can work without Internet service.",
+      "explanation": "A network connects devices for communication or resource sharing. It can be local to one room.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the local connection among devices."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the demonstrated resource sharing without Internet service."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Identifying hardware from its position",
+      "learningObjective": "Distinguish a network interface from cable and connector.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-240-06-v1",
+      "id": "ndv-240-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On a training diagram, label A points to a desktop’s board that sends and receives network data, label B points to the flexible lead connecting it to a switch and label C points to the detachable plug at the end of the lead. Match A, B and C to network interface, network cable and RJ45-style connector. Describe how B and C work together.",
+      "answer": "A is the network interface, B the cable and C the RJ45-style connector. The connector terminates the cable and plugs it into a matching Ethernet socket.",
+      "explanation": "The interface enables the computer to connect. The connector makes the physical connection for the cable.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches all three labels to the components."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the plug terminates the cable and fits the socket."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Connecting devices on one local network",
+      "learningObjective": "Explain the role of a switch in wired local communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-240-07-v1",
+      "id": "ndv-240-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Four classroom computers each have an Ethernet cable leading to a central box. Their file-sharing traffic stays within one local network. Name the device that connects them and explain what it does with traffic addressed to another connected computer.",
+      "answer": "A network switch connects the computers. For a known destination, it forwards traffic through the connection leading to that computer.",
+      "explanation": "In this example the switch carries traffic locally between connected devices.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the device as a switch."
+        },
+        {
+          "marks": 1,
+          "description": "Explains forwarding between connected computers on the local network."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Linking separate networks",
+      "learningObjective": "Explain the role of a router when data must leave a local network.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-240-08-v1",
+      "id": "ndv-240-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school puts its library and office on separate networks. The two networks already have switches for local devices. What type of equipment can forward data between these networks, and how does its role differ from that of the local switches in the example?",
+      "answer": "A router can forward data from one network to the other. Each local switch connects devices within its own network.",
+      "explanation": "Routing directs traffic between networks. The switches in this example handle local connections.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a router."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes forwarding between networks from the local switches’ role."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Network Components",
+      "subtopic": "Checking a disconnected link",
+      "learningObjective": "Use a model to explain why one local device loses communication.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-240-09-v1",
+      "id": "ndv-240-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom diagram, three computers are wired separately to a switch. The cable between Computer B and the switch is removed. Assume there are no alternative connections. Explain which computer loses communication with the others and what happens to the link between the other two.",
+      "answer": "Computer B cannot communicate with the others because its only link is gone. The other two can still communicate through the switch.",
+      "explanation": "Each computer has its own link to the switch. Removing one does not remove the others.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies B and explains the loss of its only connection."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the other two can still communicate."
+        }
+      ]
+    }
+  ]
+}
