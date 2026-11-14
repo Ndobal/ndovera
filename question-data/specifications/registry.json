@@ -3151,7 +3151,9 @@
         "3D Modelling with Paint 3D, PDF p. 22",
         "Data Processing, PDF p. 23",
         "Basic Computer communication, PDF p. 24",
-        "Basic Computer Network Components, PDF p. 25"
+        "Basic Computer Network Components, PDF p. 25",
+        "Digital Media, PDF p. 26",
+        "Coding (Programming), PDF p. 27"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -32715,6 +32717,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 25, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Recognising digital media platforms",
+      "learningObjective": "Identify two forms of digital media platform from how information appears.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 26, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Choosing a channel for a school notice",
+      "learningObjective": "Match a communication channel to the audience and purpose.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 26, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Benefits and limitations of online instructions",
+      "learningObjective": "Assess a benefit and an access barrier of a digital classroom resource.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 26, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Writing a privacy-conscious group message",
+      "learningObjective": "Compose and check a group message using only information intended for the recipients.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 26, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Handling a correction in a group chat",
+      "learningObjective": "Draft a responsible correction once a changed detail has been confirmed.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 26, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Block-based and text-based programming",
+      "learningObjective": "Compare two ways to express a programming instruction.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 27, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Finding, assembling and observing blocks",
+      "learningObjective": "Distinguish three areas of a visual programming interface.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 27, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Starting a script with an event",
+      "learningObjective": "Assemble a block program that runs in response to a specified action.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 27, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Comparing blocks that affect different properties",
+      "learningObjective": "Use Motion and Looks blocks and observe which property each changes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 27, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-241-10-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Putting message blocks in order",
+      "learningObjective": "Repair a block sequence whose visible messages appear in the wrong order.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 27, performance objective 3"
       ]
     }
   ],

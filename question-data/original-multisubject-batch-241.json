@@ -1,0 +1,414 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies digital media and introductory coding",
+  "questionCount": 10,
+  "note": "Original classroom practice using mock chats and visual programming. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Recognising digital media platforms",
+      "learningObjective": "Identify two forms of digital media platform from how information appears.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-01-v1",
+      "id": "ndv-241-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A youth centre publishes its opening hours on a public web page. Its debate team uses a private group chat to agree on practice times. Name the two kinds of digital media platform illustrated.",
+      "answer": "The centre uses a website. The debate team uses a messaging platform with a group chat.",
+      "explanation": "A website can publish information for readers to look up. A group messaging platform lets invited participants exchange messages.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the website."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the messaging platform or group chat."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Choosing a channel for a school notice",
+      "learningObjective": "Match a communication channel to the audience and purpose.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-02-v1",
+      "id": "ndv-241-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school wants new families to find the date of an open day. It also wants debate club members to discuss who will set out chairs. Which task suits the public school website and which suits a teacher-supervised club chat? Explain both choices.",
+      "answer": "Put the open-day date on the website so new families can find it. Use the supervised chat to let members reply and share the work.",
+      "explanation": "The website suits a public announcement. The chat suits a discussion among a particular group.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses the website and explains why it reaches new families."
+        },
+        {
+          "marks": 1,
+          "description": "Chooses the supervised chat and connects it to arranging the club task."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Benefits and limitations of online instructions",
+      "learningObjective": "Assess a benefit and an access barrier of a digital classroom resource.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-03-v1",
+      "id": "ndv-241-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher posts a short video showing how to fold a paper model. Several pupils replay the tricky step, but some cannot stream the clip at home. Explain one benefit and one limitation shown by the example.",
+      "answer": "Replaying helps pupils review a difficult step at their own pace. Pupils without enough data or a suitable connection may be unable to watch the clip.",
+      "explanation": "Playback can help learning when the resource is accessible. Access conditions affect who can benefit.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the specific learning benefit of replay."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a relevant barrier to access."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Writing a privacy-conscious group message",
+      "learningObjective": "Compose and check a group message using only information intended for the recipients.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-04-v1",
+      "id": "ndv-241-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Use a teacher-provided mock group chat. Write a reminder that art club starts at 3 p.m. in Room B and that members should bring pencils. A fictional planning note also contains one pupil’s home address. Show the reminder and explain your choice about that address.",
+      "answer": "“Art club starts at 3 p.m. in Room B. Please bring a pencil.” Leave out the home address because group members do not need it to attend.",
+      "explanation": "The reminder gives the group what it needs without sharing unrelated personal information.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes the correct time, room and materials."
+        },
+        {
+          "marks": 1,
+          "description": "Produces a clear reminder in the mock chat."
+        },
+        {
+          "marks": 1,
+          "description": "Omits the private detail and explains why it is unnecessary."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Digital Media",
+      "subtopic": "Handling a correction in a group chat",
+      "learningObjective": "Draft a responsible correction once a changed detail has been confirmed.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-05-v1",
+      "id": "ndv-241-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional class chat says the rehearsal is on Wednesday. The teacher confirms that it is on Friday and asks for a correction in the mock chat. Write a message that identifies the change clearly and gives classmates a way to check it.",
+      "answer": "“Rehearsal is on Friday. The Wednesday message is out of date. Please check the teacher’s updated notice for confirmation.”",
+      "explanation": "A clear correction tells readers which information to use and points to the source that confirmed it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States the confirmed Friday date and identifies the earlier information as outdated."
+        },
+        {
+          "marks": 1,
+          "description": "Points classmates to a reliable source for checking."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Block-based and text-based programming",
+      "learningObjective": "Compare two ways to express a programming instruction.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-06-v1",
+      "id": "ndv-241-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In one editor a pupil fits a Move block below a Start block. In another editor a pupil types a movement command in Python. Identify which example is block based and which is text based, and describe one difference in how the instruction is entered.",
+      "answer": "The first is block based because the pupil assembles graphical blocks. The Python example is text based because the pupil types the command using the language’s written syntax.",
+      "explanation": "Both approaches express instructions. Their editing interfaces represent those instructions differently.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly identifies both programming approaches."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the instructions are entered differently."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Finding, assembling and observing blocks",
+      "learningObjective": "Distinguish three areas of a visual programming interface.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-07-v1",
+      "id": "ndv-241-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil needs to find a Motion block, attach it to a script and see what the sprite does. Identify the interface area used for each step in a Scratch-style editor.",
+      "answer": "Find the block in the block palette, assemble it in the Code area and watch the sprite on the Stage.",
+      "explanation": "The palette offers instructions, the Code area holds the assembled script and the Stage shows its visible effects.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the palette for finding a block."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the Code area for assembling the script."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the Stage for observing the sprite."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Starting a script with an event",
+      "learningObjective": "Assemble a block program that runs in response to a specified action.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-08-v1",
+      "id": "ndv-241-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom Scratch project, make a sprite say “Welcome to science club” for two seconds when the green flag is clicked. Show the connected blocks and demonstrate one run.",
+      "answer": "Connect the Events block “when green flag clicked” to the Looks block “say Welcome to science club for 2 seconds”. Clicking the flag shows the message for the requested time.",
+      "explanation": "The event sets when the script runs. The Looks block controls what is displayed.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the green-flag event block."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the correct message and duration in a Looks block."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates that the connected script runs when triggered."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Comparing blocks that affect different properties",
+      "learningObjective": "Use Motion and Looks blocks and observe which property each changes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-09-v1",
+      "id": "ndv-241-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom block editor, start a sprite facing right at the middle of the Stage. Build a script that moves it 30 steps and then changes to its second costume when Space is pressed. Show the script and explain what would stay the same if you removed only the costume block.",
+      "answer": "Use a Space-key event connected to move 30 steps and switch costume to costume 2. Removing the costume block leaves the movement intact, so the sprite still changes position but keeps its original appearance.",
+      "explanation": "Motion changes position. Choosing a costume changes appearance.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the specified key event and motion."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a costume change after the movement."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly predicts the effect of removing the costume block."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Coding (Programming)",
+      "subtopic": "Putting message blocks in order",
+      "learningObjective": "Repair a block sequence whose visible messages appear in the wrong order.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-241-10-v1",
+      "id": "ndv-241-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A block script starts on the green flag and shows “Finished” for one second before showing “Ready” for one second. Reorder the blocks so the sprite says “Ready” first. Demonstrate how you checked the result.",
+      "answer": "Keep the green-flag trigger and place the timed Ready block before the timed Finished block. Start the script once and observe that Ready appears before Finished.",
+      "explanation": "The connected blocks run from top to bottom. The trigger and timing can stay the same when only the order needs to change.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Preserves the trigger and places the messages in the required order."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates a run showing both messages in that order."
+        }
+      ]
+    }
+  ]
+}

@@ -1388,3 +1388,8 @@ Batch 240 adds nine JSS 1 Digital Technologies drafts on computer
 communication and network components from PDF pp. 24–25. Pupils trace
 message roles and distinguish local links, switches and routers using
 fictional classroom scenarios and paper diagrams.
+
+Batch 241 adds ten JSS 1 Digital Technologies drafts on digital media
+and introductory coding from PDF pp. 26–27. The tasks use mock group
+chats and classroom block programs. They assess channel selection,
+responsible messaging, and basic visual programming.
