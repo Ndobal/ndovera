@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies loops in programming",
+  "questionCount": 8,
+  "note": "Original classroom block-programming practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "One pass through a loop",
+      "learningObjective": "Describe an iteration in a repeated sequence.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-244-01-v1",
+      "id": "ndv-244-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A block program places a seed icon in a row and then moves the drawing position to the next space. It repeats those two actions six times. What is one iteration here?",
+      "answer": "One iteration is placing one seed icon and moving once to the next space.",
+      "explanation": "An iteration is one complete pass through the actions inside the loop.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a single complete pass."
+        },
+        {
+          "marks": 1,
+          "description": "Includes both actions in their given order."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Keeping repeated instructions consistent",
+      "learningObjective": "Explain how a loop makes a repeated sequence easier to maintain.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-244-02-v1",
+      "id": "ndv-244-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom animation currently contains ten separate copies of the instruction “wait one second”. Each wait should be half a second. Explain how storing the wait inside a repeat block would make this change easier.",
+      "answer": "Put the wait inside a ten-repeat block. Change the single wait instruction to half a second and every iteration uses the new duration.",
+      "explanation": "A single repeated body avoids editing ten separate copies and reduces the chance of overlooking one.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses one wait instruction in a repeat block."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how a single edit affects every repetition."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Selecting a count-controlled loop",
+      "learningObjective": "Recognise when the required number of repetitions is known.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-244-03-v1",
+      "id": "ndv-244-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One display must blink once for every day of a seven-day timetable. Another must continue blinking until a pupil presses Stop, and the wait is unknown. Which display can use a fixed-count loop directly? Explain.",
+      "answer": "The timetable display can use a fixed-count loop of seven iterations because the count is known. The other display needs to check whether Stop has been pressed.",
+      "explanation": "The first task specifies an exact count. The second is governed by an event whose timing is unknown.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the timetable display and gives the fixed count."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the other task needs a stopping condition."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Drawing a rectangle with paired moves",
+      "learningObjective": "Construct a count-controlled script that draws unequal adjacent sides.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-244-04-v1",
+      "id": "ndv-244-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a pen-enabled block editor, begin with the sprite facing right and its pen down. Use one repeat block to draw a rectangle with horizontal sides of 60 steps and vertical sides of 25 steps. Give the block sequence and show why the sprite returns to its start.",
+      "answer": "Repeat twice: move 60, turn right 90°, move 25, turn right 90°. The second pass draws the matching sides in the opposite directions and closes the rectangle.",
+      "explanation": "Each body draws one long and one short side. Four quarter-turns complete a full turn.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a loop of two iterations."
+        },
+        {
+          "marks": 1,
+          "description": "Gives both distances and both right turns in the correct order."
+        },
+        {
+          "marks": 1,
+          "description": "Explains closure using matching opposite moves."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4*90",
+          "expected": 360,
+          "purpose": "Verify total turning angle."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Resetting a counter between runs",
+      "learningObjective": "Repair a count-controlled routine that should produce the same result on each run.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-244-05-v1",
+      "id": "ndv-244-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A block project starts with stamps at 0. Every time the green flag is clicked, it repeats “change stamps by 1” four times, then shows stamps. The displays on the first two clicks are 4 and 8. Where should a reset go so every click shows 4, and why?",
+      "answer": "Put “set stamps to 0” after the green-flag event and before the repeat block. Each run then starts at zero and the four increments produce 4.",
+      "explanation": "The counter retains its previous value unless reset. Resetting inside the loop would erase earlier increments in that run.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places the reset at the start of each run outside the loop."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why four increments then produce the intended value."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Tracing a pre-test loop",
+      "learningObjective": "Trace a while loop and identify why it can run zero times.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-244-06-v1",
+      "id": "ndv-244-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A simulation begins with emptySpaces equal to 3. While emptySpaces is greater than 0, it displays “Fill one space” and subtracts 1. How many messages appear? What happens if emptySpaces begins at 0?",
+      "answer": "It displays the message three times from 3. From 0 it displays no messages because the condition fails before the body runs.",
+      "explanation": "The values at the start of the successful iterations are 3, 2 and 1. The next test at 0 stops the loop.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives three messages and explains the reduction to zero."
+        },
+        {
+          "marks": 1,
+          "description": "Gives zero messages when the initial test fails."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Repairing a loop whose condition never changes",
+      "learningObjective": "Diagnose a missing update and propose a terminating loop.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-244-07-v1",
+      "id": "ndv-244-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A sorting simulation sets unsorted to 5. While unsorted is greater than 0, it adds one to sorted. No other instruction changes unsorted. Explain why the loop does not stop and give one change that makes it model sorting correctly.",
+      "answer": "The condition stays true because unsorted remains 5. On each pass, subtract one from unsorted as one object is added to sorted.",
+      "explanation": "A loop controlled by a remaining count must update that count as work is completed.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why the condition remains true."
+        },
+        {
+          "marks": 1,
+          "description": "Supplies an update inside the body that models sorting an object."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Counting work in nested loops",
+      "learningObjective": "Trace nested count-controlled loops and distinguish inner and outer work.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-244-08-v1",
+      "id": "ndv-244-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A badge simulator repeats once for each of three boards. Inside that loop it repeats “draw a badge” four times, then advances to the next board. How many badges are drawn and how many advance instructions run?",
+      "answer": "It draws 12 badges and executes the advance instruction three times.",
+      "explanation": "The inner loop draws four badges on each of three passes through the outer loop. Advance is outside the inner loop, so it runs once per board.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates 12 badges from the nested counts."
+        },
+        {
+          "marks": 1,
+          "description": "Gives three advances and explains why the inner repeat does not multiply them."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3*4",
+          "expected": 12,
+          "purpose": "Verify number of badges."
+        }
+      ]
+    }
+  ]
+}

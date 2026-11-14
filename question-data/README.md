@@ -1402,3 +1402,7 @@ variable names, data types, scope, assignment and arithmetic.
 Batch 243 adds eight JSS 1 Digital Technologies drafts from PDF p. 32
 on conditions and logical operators. Pupils interpret comparisons,
 test inclusive OR, and build or trace grouped and nested conditions.
+
+Batch 244 adds eight JSS 1 Digital Technologies drafts from PDF p. 34.
+Learners trace, design and repair count-controlled, conditional and
+nested loops using classroom block-programming examples.

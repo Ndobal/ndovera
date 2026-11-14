@@ -3156,7 +3156,8 @@
         "Coding (Programming), PDF p. 27",
         "Basic Algorithm for creating programs (Block Coding), PDF p. 28",
         "Variables in Programming, PDF p. 30",
-        "Control with Conditions in programming, PDF p. 32"
+        "Control with Conditions in programming, PDF p. 32",
+        "Loops in Programming, PDF p. 34"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -33296,6 +33297,150 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 32, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-244-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "One pass through a loop",
+      "learningObjective": "Describe an iteration in a repeated sequence.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 34, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-244-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Keeping repeated instructions consistent",
+      "learningObjective": "Explain how a loop makes a repeated sequence easier to maintain.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 34, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-244-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Selecting a count-controlled loop",
+      "learningObjective": "Recognise when the required number of repetitions is known.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 34, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-244-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Drawing a rectangle with paired moves",
+      "learningObjective": "Construct a count-controlled script that draws unequal adjacent sides.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 34, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-244-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Resetting a counter between runs",
+      "learningObjective": "Repair a count-controlled routine that should produce the same result on each run.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 34, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-244-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Tracing a pre-test loop",
+      "learningObjective": "Trace a while loop and identify why it can run zero times.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 34, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-244-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Repairing a loop whose condition never changes",
+      "learningObjective": "Diagnose a missing update and propose a terminating loop.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 34, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-244-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Loops in Programming",
+      "subtopic": "Counting work in nested loops",
+      "learningObjective": "Trace nested count-controlled loops and distinguish inner and outer work.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 34, performance objective 4"
       ]
     }
   ],
