@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4850,
-    "validDrafts": 3171,
+    "raw": 4853,
+    "validDrafts": 3174,
     "reviewed": 0,
     "registeredBanks": 199,
     "target": 181000,
@@ -1544,6 +1544,12 @@
       "sha256": "d5a98d73eb18e1316ae407c369f15436dabbe3a1638f3cac5ca01e0c7f30beba",
       "declared": 10,
       "actual": 10
+    },
+    {
+      "path": "original-multisubject-batch-236.json",
+      "sha256": "955a6e9dfff2981e167b310ef22e46fa72e2cac91707e2ec267fc17ebb05f130",
+      "declared": 3,
+      "actual": 3
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5397,19 +5403,19 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-business-studies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 191,
-      "validDrafts": 191,
+      "raw": 194,
+      "validDrafts": 194,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 191
+        "structured": 194
       },
       "difficulty": {
-        "standard": 189,
+        "standard": 192,
         "difficult": 2
       },
-      "remaining": 809,
-      "mappedObjectives": 191,
-      "representedObjectives": 191,
+      "remaining": 806,
+      "mappedObjectives": 194,
+      "representedObjectives": 194,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7398,8 +7404,8 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
@@ -7407,9 +7413,9 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "explanation_missing": 81,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 502,
@@ -41015,6 +41021,24 @@
       "id": "ndv-235-010",
       "file": "original-multisubject-batch-235.json",
       "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-236-001",
+      "file": "original-multisubject-batch-236.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-236-002",
+      "file": "original-multisubject-batch-236.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-236-003",
+      "file": "original-multisubject-batch-236.json",
+      "index": 2,
       "errors": []
     },
     {
@@ -95778,6 +95802,96 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 47, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-236-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Consumer health and business consequences",
+      "learningObjective": "Explain effects of unethical use of an unverified ingredient on consumers and a business.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 31, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-236-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Batch records and the cost of finding affected stock",
+      "learningObjective": "Explain how missing traceability can widen the consequences of unsafe ingredient use.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 31, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-236-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Consequences across the supply chain",
+      "learningObjective": "Trace how a supplier’s false assurance can affect retailers and consumers.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 31, performance objective 4"
       ],
       "questionCount": 1,
       "validDrafts": 1,

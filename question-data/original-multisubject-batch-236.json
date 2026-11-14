@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies consequences of unethical chemical use",
+  "questionCount": 3,
+  "note": "Original paper-based classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Consumer health and business consequences",
+      "learningObjective": "Explain effects of unethical use of an unverified ingredient on consumers and a business.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-236-01-v1",
+      "id": "ndv-236-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional snack producer labels a batch as made with an approved ingredient. An internal check later confirms the batch contains an unverified substitute that may be unsafe. Some packets have already been sold. Explain one possible consequence for customers and one possible consequence for the producer.",
+      "answer": "Customers could become ill if they eat affected snacks. The producer could lose sales or have to spend money removing and replacing affected stock.",
+      "explanation": "The incorrect label prevents customers from making an informed choice. Unsafe food can harm consumers and create direct costs or loss of trust for a business.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a plausible health consequence for consumers."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a distinct, plausible financial or trust consequence for the producer."
+        }
+      ],
+      "contentSourceId": "who-food-safety-2026-06"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Batch records and the cost of finding affected stock",
+      "learningObjective": "Explain how missing traceability can widen the consequences of unsafe ingredient use.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-236-02-v1",
+      "id": "ndv-236-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two fictional bakeries discover that an unsafe ingredient reached some stock. One bakery recorded which batches used each delivery. The other combined supplies without recording which batches used them. Explain how the missing records could affect customers and increase the second bakery’s losses.",
+      "answer": "The second bakery may struggle to tell which customers bought affected stock. It may also have to withdraw a wider range of products because it cannot reliably identify the affected batches.",
+      "explanation": "Traceability narrows the search for affected stock. Missing records can slow a response and increase the amount that needs to be checked or withdrawn.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links missing batch information to difficulty identifying or notifying affected customers."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a business loss created by the wider scope of the response."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Ethics in Sourcing and Using Chemicals",
+      "subtopic": "Consequences across the supply chain",
+      "learningObjective": "Trace how a supplier’s false assurance can affect retailers and consumers.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-236-03-v1",
+      "id": "ndv-236-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A distributor falsely assures shopkeepers that ingredients in sealed cartons meet food-use requirements. An independent check later finds a safety problem. Explain why the shopkeepers could face losses even though they trusted the distributor, and why the consumers were exposed to risk.",
+      "answer": "The shops may have to refund customers or remove products from sale, losing revenue and time. Consumers could have bought and used the ingredient because the cartons were sold for food use despite the safety problem.",
+      "explanation": "An inaccurate assurance can pass risk along the supply chain. Shops bear practical costs when affected stock reaches their shelves.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a concrete cost or loss for the shopkeepers and links it to the false assurance."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the false assurance exposed consumers to unsafe stock."
+        }
+      ],
+      "contentSourceId": "who-food-safety-2026-06"
+    }
+  ]
+}

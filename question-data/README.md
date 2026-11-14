@@ -1358,3 +1358,11 @@ curriculum topic pages now have initial practice. Full objective coverage
 remains open, including the consequences of unethical chemical use on
 PDF p. 31. The contents omit the three topics on PDF pp. 41–43. The topic
 count uses the actual teaching pages, PDF pp. 15–47.
+
+Batch 236 adds three paper-based JSS 1 Business Studies drafts for the
+consequences of unethical chemical use (PDF p. 31, performance objective
+4). The numbered performance-objective register now has initial mapped
+practice across PDF pp. 15–47. This is a check of objective references.
+Content depth, broader regional tax history, school adoption, formal
+assessment formats and independent review remain open. The revised JSS 1
+listing recheck returned HTTP 403 on 14 November 2026.
