@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_236_automated_validation_passed",
+  "phase": "batch_237_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-237.json",
+  "nextBatch": "original-multisubject-batch-238.json",
   "nextPriorities": [
-    "Retrieve the official revised JSS 1 Digital Technologies or another unrepresented named subject PDF and register only verified exact-class mappings. The JSS 1 listing returned HTTP 403 on 2026-11-14. Preserve unresolved Business Studies content depth, tax history, statutory insurance and Trades evidence gaps.",
+    "Map the next JSS 1 Digital Technologies objectives for word processing and presentations. Seek authoritative evidence for remaining computer-history attributions and IT professional bodies. Continue reconciling seven unregistered named subjects and Trades.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-236.json",
-  "lastRemoteVerifiedCommit": "2bda44b9d5a98c20a8c54e97788ba3e9cab809f2",
+  "lastValidatedBatch": "original-multisubject-batch-237.json",
+  "lastRemoteVerifiedCommit": "46028ca3ceef5efe7ecb906b525d0cd618654001",
   "verifiedTotals": {
-    "raw": 4853,
-    "validDrafts": 3174,
+    "raw": 4865,
+    "validDrafts": 3186,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-236.json",
+  "lastPopulatedBatch": "original-multisubject-batch-237.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4853,
+  "inventoryRaw": 4865,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "nerdc-business-studies-jss1-revised-2025",
+    "id": "nerdc-digital-technologies-jss1-revised-2025",
     "date": "2026-11-14"
   }
 }

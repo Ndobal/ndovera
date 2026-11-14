@@ -116,6 +116,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Christian Religious Studies / JSS 1 | 1000 | 58 | 58 | 0 | 942 | partial_objective_register |
 | NERDC | Computer Studies / JSS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Cultural and Creative Arts / JSS 1 | 1000 | 123 | 123 | 0 | 877 | partial_objective_register |
+| NERDC | Digital Technologies / JSS 1 | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | NERDC | Economics / SS 1 | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English / Primary | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English Studies / JSS 1 | 1000 | 56 | 55 | 0 | 945 | partial_objective_register |
@@ -218,12 +219,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 476 | 441 | 0 | 36000 | 35559 |
-| NERDC | 814 | 749 | 0 | 33000 | 32251 |
+| NERDC | 826 | 761 | 0 | 34000 | 33239 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 4853, "validDrafts": 3174, "reviewed": 0, "registeredBanks": 199, "target": 181000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 4865, "validDrafts": 3186, "reviewed": 0, "registeredBanks": 200, "target": 182000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -273,7 +274,7 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved.
 - The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved.
 - On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation.
-- JSS 1 offering reconciliation: the listing recorded in batch 219 has eight named subjects with registered exact-class banks. The other eight are Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French, Intermediate Science and Digital Technologies. The Trades link requires separate route verification. The listing recheck in batch 220 returned HTTP 403. This inventory does not establish detailed curricula or school adoption.
+- JSS 1 offering reconciliation: nine of the 16 named subjects in the batch 219 official listing have exact-class banks after registration of Digital Technologies. Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French and Intermediate Science still require exact-class mapping. Trades remain unresolved. The listing returned HTTP 403 in batch 236; the Digital Technologies direct PDF was accessible in batch 237.
 - JSS 1 Business Studies Overview of Insurance I has initial practice for objectives 1, 2, 4 and 5. Conventional insurance, takaful and microinsurance under objective 3 require separate authoritative comparison. Policy terms used in the draft are fictional.
 - Batch 225 adds introductory takaful and microinsurance comparisons and one compulsory motor insurance objective mapped to NIIRA 2025 section 84(1). Other compulsory categories, detailed coverage conditions and subsequent implementing instruments require separate verification.
 - Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open.

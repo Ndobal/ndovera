@@ -1366,3 +1366,9 @@ practice across PDF pp. 15–47. This is a check of objective references.
 Content depth, broader regional tax history, school adoption, formal
 assessment formats and independent review remain open. The revised JSS 1
 listing recheck returned HTTP 403 on 14 November 2026.
+
+Batch 237 registers the official September 2025 revised JSS 1 Digital
+Technologies curriculum and adds twelve drafts from PDF pp. 14–19.
+Initial coverage includes early devices, IT roles, hardware and storage.
+Computer-generation history, professional bodies, full objective coverage,
+school adoption and formal assessment formats remain open.

@@ -3126,6 +3126,28 @@
       "source": "https://www.who.int/news-room/fact-sheets/detail/food-safety",
       "retrievedOn": "2026-11-14",
       "note": "WHO Food safety fact sheet, 4 June 2026. Supports general consumer health and economic consequences of chemical contamination."
+    },
+    {
+      "id": "nerdc-digital-technologies-jss1-revised-2025",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/15.pdf",
+      "retrievedOn": "2026-11-14",
+      "publicationDate": "2025-09",
+      "sourceBytes": 3575772,
+      "pageCount": 49,
+      "sha256": "9f6a5292a6f111df1576fc1c34b990177123619d8f90af7a22c2bf61619897f4",
+      "sourceSections": [
+        "Title and copyright, PDF front matter",
+        "JSS 1 contents, PDF p. 13",
+        "Historical Development of Digital Devices, PDF pp. 14–15",
+        "Career opportunities in IT, PDF pp. 16–17",
+        "Basic Computer Hardware Components I, PDF p. 18",
+        "Basic Computer Hardware Components II: Storage Units, PDF p. 19"
+      ],
+      "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     }
   ],
   "banks": [
@@ -5851,6 +5873,15 @@
       "target": 1000,
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
     }
   ],
@@ -31957,6 +31988,222 @@
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 31, performance objective 4"
       ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Counting with movable counters",
+      "learningObjective": "Explain one-to-one counting using an early counting tool.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 14, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Mechanisms used for calculation",
+      "learningObjective": "Differentiate manual bead tracking from a geared adding mechanism.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 14, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Combining electricity and moving parts",
+      "learningObjective": "Recognise an electromechanical counter from its operation.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 14, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Dedicated counter and programmable computer",
+      "learningObjective": "Distinguish a fixed-purpose electronic counter from a programmable computer.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 14, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Career opportunities in IT",
+      "subtopic": "Matching roles to evidence",
+      "learningObjective": "Distinguish data analysis and software engineering in a school project.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 16, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Career opportunities in IT",
+      "subtopic": "Confidentiality in a support role",
+      "learningObjective": "Apply confidentiality when configuring a school device.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 16, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components I",
+      "subtopic": "Processing and working memory",
+      "learningObjective": "Distinguish the jobs of the CPU and RAM while a program runs.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 18, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components I",
+      "subtopic": "Retaining saved work after power loss",
+      "learningObjective": "Explain the different behaviour of RAM and persistent storage after a loss of power.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 18, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components II: Storage Units",
+      "subtopic": "Comparing bits and bytes",
+      "learningObjective": "Relate a bit to a byte in a representation.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 19, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-10-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components II: Storage Units",
+      "subtopic": "Capacity compared with free space",
+      "learningObjective": "Distinguish total capacity and available storage when checking a file move.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 19, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-11-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components II: Storage Units",
+      "subtopic": "Combining mixed decimal storage units",
+      "learningObjective": "Convert decimal kilobytes to bytes before adding file sizes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 19, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-237-12-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components II: Storage Units",
+      "subtopic": "Planning space for binary-sized files",
+      "learningObjective": "Use binary storage units to find remaining space.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 19, performance objective 4"
+      ]
     }
   ],
   "scopeGaps": [
@@ -32004,7 +32251,7 @@
     "NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved.",
     "The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved.",
     "On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation.",
-    "JSS 1 offering reconciliation: the listing recorded in batch 219 has eight named subjects with registered exact-class banks. The other eight are Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French, Intermediate Science and Digital Technologies. The Trades link requires separate route verification. The listing recheck in batch 220 returned HTTP 403. This inventory does not establish detailed curricula or school adoption.",
+    "JSS 1 offering reconciliation: nine of the 16 named subjects in the batch 219 official listing have exact-class banks after registration of Digital Technologies. Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French and Intermediate Science still require exact-class mapping. Trades remain unresolved. The listing returned HTTP 403 in batch 236; the Digital Technologies direct PDF was accessible in batch 237.",
     "JSS 1 Business Studies Overview of Insurance I has initial practice for objectives 1, 2, 4 and 5. Conventional insurance, takaful and microinsurance under objective 3 require separate authoritative comparison. Policy terms used in the draft are fictional.",
     "Batch 225 adds introductory takaful and microinsurance comparisons and one compulsory motor insurance objective mapped to NIIRA 2025 section 84(1). Other compulsory categories, detailed coverage conditions and subsequent implementing instruments require separate verification.",
     "Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open."

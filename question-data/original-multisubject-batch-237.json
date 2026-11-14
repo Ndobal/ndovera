@@ -1,0 +1,499 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies basics of computing",
+  "questionCount": 12,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Counting with movable counters",
+      "learningObjective": "Explain one-to-one counting using an early counting tool.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-01-v1",
+      "id": "ndv-237-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil puts one pebble in a cup for each basket delivered. Later the pupil pairs every pebble with a mark on a page. Explain how this method could help compare deliveries with a written list.",
+      "answer": "One pebble stands for one delivered basket. If a written mark or a pebble is left unmatched, the two records represent different totals.",
+      "explanation": "Pairing objects compares quantities without needing the baskets in front of the pupil.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the one-to-one representation."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an unmatched pebble or mark to detect a difference."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Mechanisms used for calculation",
+      "learningObjective": "Differentiate manual bead tracking from a geared adding mechanism.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-02-v1",
+      "id": "ndv-237-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One classroom model tracks a number by moving beads along rods. Another turns numbered wheels and makes the next wheel move when the first passes nine. Explain how the models handle a change from nine to ten differently.",
+      "answer": "In the bead model, the user changes the beads representing ones and tens. In the geared model, turning past nine mechanically moves the tens wheel.",
+      "explanation": "Both models represent place value, but the geared mechanism can carry to the next place automatically.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes a manual change in the bead model."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the automatic carry in the wheel model."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Combining electricity and moving parts",
+      "learningObjective": "Recognise an electromechanical counter from its operation.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-03-v1",
+      "id": "ndv-237-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Each time a school gate opens, a switch sends an electrical pulse. The pulse moves a metal arm that advances a numbered wheel. Explain why the counter is electromechanical.",
+      "answer": "The switch and pulse provide the electrical action, and the arm and wheel move mechanically to change the displayed count.",
+      "explanation": "An electromechanical device combines electrical action with physical movement in the working mechanism.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the electrical part of the operation."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies movement of the arm or wheel as the mechanical action."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Historical Development of Digital Devices",
+      "subtopic": "Dedicated counter and programmable computer",
+      "learningObjective": "Distinguish a fixed-purpose electronic counter from a programmable computer.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-04-v1",
+      "id": "ndv-237-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A sealed electronic counter increases a display by one when a button is pressed. A laptop runs an attendance program today and a drawing program tomorrow. Explain one capability shown by the laptop that the sealed counter lacks.",
+      "answer": "The laptop can run different programs and therefore perform different tasks. The counter is built to carry out the same counting operation each time.",
+      "explanation": "Electronic operation alone does not show whether a device can run different programs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the ability to run different programs."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the difference to the described counter and laptop."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Career opportunities in IT",
+      "subtopic": "Matching roles to evidence",
+      "learningObjective": "Distinguish data analysis and software engineering in a school project.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-05-v1",
+      "id": "ndv-237-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One technician studies a year of library records to identify when books are most in demand. A colleague builds and tests the program that pupils use to reserve books. Match each task to data analysis or software engineering and explain the difference.",
+      "answer": "Studying demand in existing records is data analysis. Building and testing the reservations program is software engineering.",
+      "explanation": "The first task extracts patterns from records. The second develops a tool people use.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies analysis of demand and explains its purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies program development and explains its purpose."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Career opportunities in IT",
+      "subtopic": "Confidentiality in a support role",
+      "learningObjective": "Apply confidentiality when configuring a school device.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-06-v1",
+      "id": "ndv-237-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A colleague asks the school computer technician for a copy of the pupils’ address list to practise formatting at home. Explain how the technician can protect confidentiality and still provide practice material.",
+      "answer": "Decline to share the genuine address list and provide an example file with invented entries.",
+      "explanation": "The actual records contain private information. Fictional records can have the same structure without exposing families’ details.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Protects or withholds the genuine records."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a workable practice alternative using fictional data."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components I",
+      "subtopic": "Processing and working memory",
+      "learningObjective": "Distinguish the jobs of the CPU and RAM while a program runs.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-07-v1",
+      "id": "ndv-237-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "When a drawing program opens, the computer keeps the current drawing in RAM and uses the CPU as the pupil changes its colours. Explain what each component contributes.",
+      "answer": "RAM temporarily holds the program data in use. The CPU carries out the instructions that apply the changes.",
+      "explanation": "The processor executes operations and working memory holds data that needs to be available quickly.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains RAM as temporary working memory."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the CPU as executing instructions."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components I",
+      "subtopic": "Retaining saved work after power loss",
+      "learningObjective": "Explain the different behaviour of RAM and persistent storage after a loss of power.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-08-v1",
+      "id": "ndv-237-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil saves a story to the computer’s solid-state drive, then adds a paragraph without saving again. The computer loses power. Assume there is no recovery or autosave feature. Which version should the pupil expect to find after restarting and why?",
+      "answer": "The last saved version should still be on the solid-state drive. The new paragraph was only in working memory, which requires power to retain its contents.",
+      "explanation": "Persistent storage retains saved data without power. Unsaved changes in volatile RAM can be lost.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the last saved version."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the difference between RAM and solid-state storage in the scenario."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components II: Storage Units",
+      "subtopic": "Comparing bits and bytes",
+      "learningObjective": "Relate a bit to a byte in a representation.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-09-v1",
+      "id": "ndv-237-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil draws eight switches in a line, each with an on or off state. If each switch represents one bit, explain why the line can represent one byte.",
+      "answer": "Each switch represents one binary digit. A byte contains eight bits, so the eight positions together represent one byte.",
+      "explanation": "The two possible states can stand for 0 and 1 in each position.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how one switch represents one bit."
+        },
+        {
+          "marks": 1,
+          "description": "States that eight bits form one byte."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components II: Storage Units",
+      "subtopic": "Capacity compared with free space",
+      "learningObjective": "Distinguish total capacity and available storage when checking a file move.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-10-v1",
+      "id": "ndv-237-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A tablet has 32 GB of storage capacity and 2 GB free. A pupil needs to copy a 3 GB file to it. Can the copy fit as it stands, and which number controls that decision?",
+      "answer": "It cannot fit because the available space is 2 GB and the file needs 3 GB. The 32 GB figure is total capacity.",
+      "explanation": "Storage already occupied is part of capacity but is unavailable for a new copy.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly decides that the copy cannot fit."
+        },
+        {
+          "marks": 1,
+          "description": "Uses free space and distinguishes it from total capacity."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components II: Storage Units",
+      "subtopic": "Combining mixed decimal storage units",
+      "learningObjective": "Convert decimal kilobytes to bytes before adding file sizes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-11-v1",
+      "id": "ndv-237-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A practice folder has a text file of 375 bytes and a second file of 2.4 kB. Use the decimal convention of 1 kB = 1,000 bytes. What is the combined size in bytes?",
+      "answer": "2.4 kB is 2,400 bytes. Adding 375 gives 2,775 bytes.",
+      "explanation": "Convert both quantities to the same unit before adding.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Converts 2.4 kB to 2,400 bytes."
+        },
+        {
+          "marks": 1,
+          "description": "Adds to obtain 2,775 bytes."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "24*1000/10",
+          "expected": 2400,
+          "purpose": "Check decimal kilobyte conversion."
+        },
+        {
+          "expression": "2400+375",
+          "expected": 2775,
+          "purpose": "Check combined size."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Computer Hardware Components II: Storage Units",
+      "subtopic": "Planning space for binary-sized files",
+      "learningObjective": "Use binary storage units to find remaining space.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-237-12-v1",
+      "id": "ndv-237-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom storage model has 5 MiB free. Three audio clips each need 1,250 KiB. Using 1 MiB = 1,024 KiB, determine how much space will remain in KiB after copying them.",
+      "answer": "The available space is 5,120 KiB. The clips need 3,750 KiB, leaving 1,370 KiB.",
+      "explanation": "Convert MiB to KiB, total the clips and subtract their total from the available space.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Converts 5 MiB to 5,120 KiB using the supplied convention."
+        },
+        {
+          "marks": 1,
+          "description": "Finds that the three clips need 3,750 KiB."
+        },
+        {
+          "marks": 1,
+          "description": "Finds 1,370 KiB remaining."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "5*1024-3*1250",
+          "expected": 1370,
+          "purpose": "Check remaining binary storage."
+        }
+      ]
+    }
+  ]
+}
