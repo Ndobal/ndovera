@@ -3158,7 +3158,8 @@
         "Variables in Programming, PDF p. 30",
         "Control with Conditions in programming, PDF p. 32",
         "Loops in Programming, PDF p. 34",
-        "Game Development with Visual Programming, PDF p. 36"
+        "Game Development with Visual Programming, PDF p. 36",
+        "Basics of Robotics, PDF p. 38"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -33604,6 +33605,132 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 36, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-246-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Consistent repeated work",
+      "learningObjective": "Explain one advantage of using a robot for a repetitive task.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 38, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-246-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Explaining an application",
+      "learningObjective": "Describe how a robot can assist with inspection.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 38, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-246-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Identify the sensing, decision and action components",
+      "learningObjective": "Identify the main components of a simple robot from their functions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 38, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-246-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Interpreting evidence from two trials",
+      "learningObjective": "Distinguish the roles of robot components using observations from a test.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 38, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-246-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Assembling a supervised robot-car kit",
+      "learningObjective": "Assemble a classroom robot car and show evidence of the physical build.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 38, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-246-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Programming a route in a classroom simulator",
+      "learningObjective": "Build and test a simulated robot routine with a turn and stop.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 38, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-246-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Testing an automatic stop in simulation",
+      "learningObjective": "Test a simulated robot’s response to different sensor readings.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 38, performance objective 6"
       ]
     }
   ],

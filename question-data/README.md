@@ -1410,3 +1410,8 @@ nested loops using classroom block-programming examples.
 Batch 245 adds nine JSS 1 Digital Technologies drafts from PDF p. 36.
 Learners identify game elements, decompose a design, build player
 controls and automatic paths, and test fixes for scoring or restart bugs.
+
+Batch 246 adds seven JSS 1 Digital Technologies drafts from PDF p. 38.
+Coverage includes robot applications, sensing, control and actuation.
+The assembly task requires teacher observation of a physical kit.
+Movement and threshold programming use a classroom simulator.

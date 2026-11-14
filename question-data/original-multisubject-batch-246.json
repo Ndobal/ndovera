@@ -1,0 +1,297 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies basics of robotics",
+  "questionCount": 7,
+  "note": "Original classroom practice. The assembly task requires a physical kit and teacher observation; programming tasks use simulation. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Consistent repeated work",
+      "learningObjective": "Explain one advantage of using a robot for a repetitive task.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-246-01-v1",
+      "id": "ndv-246-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A workshop needs the same small label placed in the same position on each tray. A robot can run the placement routine repeatedly. Explain one benefit and give one check that would help the workshop verify it.",
+      "answer": "The robot can place the labels consistently. Staff can compare labels on a sample of trays with a placement guide to check the result.",
+      "explanation": "Repeating the same controlled motion can reduce variation. A check still matters because setup errors can be repeated.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a benefit connected to repeated placement."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a practical check for that benefit."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Explaining an application",
+      "learningObjective": "Describe how a robot can assist with inspection.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-246-02-v1",
+      "id": "ndv-246-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school demonstration uses a small robot to inspect the underside of a low shelf where a person cannot easily see. The robot carries a camera. Explain how the robot and camera together help the caretaker.",
+      "answer": "The robot carries the camera into the hard-to-view space. The camera provides an image the caretaker can inspect from outside.",
+      "explanation": "Movement brings the sensor to the inspection area. The sensor supplies information for a person to interpret.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why movement into the space is useful."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the camera supports the inspection."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Identify the sensing, decision and action components",
+      "learningObjective": "Identify the main components of a simple robot from their functions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-246-03-v1",
+      "id": "ndv-246-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom model detects whether a box is present, checks the reading against a stored rule and raises a flag when the box arrives. Name the type of component responsible for each of these three jobs.",
+      "answer": "A sensor detects the box. A microcontroller reads and checks the signal. An actuator raises the flag.",
+      "explanation": "The sensor provides input, the microcontroller processes it and the actuator produces a physical action.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the sensor and its job."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the microcontroller and its job."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the actuator and its job."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Interpreting evidence from two trials",
+      "learningObjective": "Distinguish the roles of robot components using observations from a test.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-246-04-v1",
+      "id": "ndv-246-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a tabletop model, the display shows that its light reading changes when a card covers the light sensor. The controller also displays “Turn” at the correct moment, but the flag stays still. Which part of the system should be checked next? Explain what the two observations establish.",
+      "answer": "Check the flag’s actuator or its connection first. The reading changes as expected and the controller indicates the correct decision, so those observations point towards the action stage.",
+      "explanation": "The test separates input and decision evidence from evidence of actual movement.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses both observations to explain what is working."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the actuator or its connection as a sensible next check."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Assembling a supervised robot-car kit",
+      "learningObjective": "Assemble a classroom robot car and show evidence of the physical build.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-246-05-v1",
+      "id": "ndv-246-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Using a teacher-provided classroom robot-car kit and its manual, assemble the chassis and secure the wheels, motors and controller as directed. Keep power disconnected during assembly and ask the teacher to inspect the build. Show the physical model and demonstrate that its wheels turn freely by hand when the kit manual permits that check.",
+      "answer": "A teacher-observed build has the chassis assembled and the wheels, motors and controller secured as the manual specifies. The model passes the manual’s unpowered wheel check, or the teacher verifies assembly using the kit’s specified alternative.",
+      "explanation": "The evidence is the assembled model and teacher observation. Inspection before power is applied can reveal loose parts or blocked movement.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows the physical chassis and components secured according to the supplied manual."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps power disconnected and obtains teacher inspection."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates the permitted wheel check or equivalent inspection specified by the manual."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Programming a route in a classroom simulator",
+      "learningObjective": "Build and test a simulated robot routine with a turn and stop.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-246-06-v1",
+      "id": "ndv-246-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Set a simulated robot car at the start of an empty square grid, heading north. Use one-square moves to drive forward two squares, turn right, move one square and stop. Submit the block sequence and a trace that shows the final heading.",
+      "answer": "Move forward one square twice, turn right by 90°, move forward one square and stop. The car finishes two squares north and one square east of its start, facing east.",
+      "explanation": "The turn changes heading without changing position. The last move follows the new heading.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Implements the two forward moves before turning."
+        },
+        {
+          "marks": 1,
+          "description": "Implements the correct right turn, final move and stop."
+        },
+        {
+          "marks": 1,
+          "description": "Trace shows the correct final position and eastward heading."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Testing an automatic stop in simulation",
+      "learningObjective": "Test a simulated robot’s response to different sensor readings.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-246-07-v1",
+      "id": "ndv-246-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom robot simulator follows a straight line until its distance sensor reports a toy barrier at less than 15 cm. It should then stop. Write the decision rule and show the expected action for readings of 14 cm, 15 cm and 20 cm.",
+      "answer": "If distance is less than 15 cm, stop. Otherwise continue along the line. At 14 cm it stops. At 15 cm and 20 cm it continues.",
+      "explanation": "The threshold uses a strict comparison, so an exact reading of 15 cm does not trigger the stop.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes the correct condition and both actions."
+        },
+        {
+          "marks": 1,
+          "description": "Gives correct outcomes for 14 cm and 20 cm."
+        },
+        {
+          "marks": 1,
+          "description": "Handles the equality case at 15 cm correctly."
+        }
+      ]
+    }
+  ]
+}
