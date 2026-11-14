@@ -3155,7 +3155,8 @@
         "Digital Media, PDF p. 26",
         "Coding (Programming), PDF p. 27",
         "Basic Algorithm for creating programs (Block Coding), PDF p. 28",
-        "Variables in Programming, PDF p. 30"
+        "Variables in Programming, PDF p. 30",
+        "Control with Conditions in programming, PDF p. 32"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -33151,6 +33152,150 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 30, performance objective 8"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-243-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Conditional and unconditional actions",
+      "learningObjective": "Explain which action depends on the outcome of a test.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 32, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-243-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Relational comparison at the boundary",
+      "learningObjective": "Interpret a comparison that includes equality.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 32, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-243-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Identifying the parts of a compound test",
+      "learningObjective": "Identify a conditional statement, relational operators and a logical operator in a short programme.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 32, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-243-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Using inclusive OR",
+      "learningObjective": "Interpret inclusive OR when either or both inputs are true.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 32, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-243-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Testing both required conditions",
+      "learningObjective": "Build and test a visual programme that requires two independent conditions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 32, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-243-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Correcting a reversed flag",
+      "learningObjective": "Correct a condition whose Boolean flag is opposite to the intended action.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 32, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-243-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Checking a condition at the correct time",
+      "learningObjective": "Implement a nested decision with a branch that runs only when an earlier test succeeds.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 32, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-243-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Grouping a choice before combining it with a requirement",
+      "learningObjective": "Use grouped logical operators to match a stated decision rule.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 32, performance objective 3"
       ]
     }
   ],

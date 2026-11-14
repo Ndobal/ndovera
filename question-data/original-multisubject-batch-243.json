@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies conditions and logical operators",
+  "questionCount": 8,
+  "note": "Original classroom block-programming practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Conditional and unconditional actions",
+      "learningObjective": "Explain which action depends on the outcome of a test.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-243-01-v1",
+      "id": "ndv-243-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A practice programme checks whether a borrowed stool has been returned. If it has, the programme displays “Return recorded”. After the check it always displays “Session ended”. Which message is conditional and why?",
+      "answer": "“Return recorded” is conditional because it appears only when the stool has been returned. “Session ended” appears for either outcome.",
+      "explanation": "A conditional action runs when its test is satisfied. Here the second message follows the entire check.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Return recorded."
+        },
+        {
+          "marks": 1,
+          "description": "Explains its dependence on the check and the role of the final message."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Relational comparison at the boundary",
+      "learningObjective": "Interpret a comparison that includes equality.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-243-02-v1",
+      "id": "ndv-243-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A workshop simulation issues a “Stock sufficient” message when spareParts ≥ 6. Explain what ≥ means and say whether the message appears when exactly six parts are available.",
+      "answer": "It means greater than or equal to. The message appears at six because equality is included.",
+      "explanation": "The boundary value meets the rule as written.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the symbol."
+        },
+        {
+          "marks": 1,
+          "description": "Applies it correctly at six."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Identifying the parts of a compound test",
+      "learningObjective": "Identify a conditional statement, relational operators and a logical operator in a short programme.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-243-03-v1",
+      "id": "ndv-243-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Read: IF (tables > 2) AND (chairs = 8) THEN display “Layout ready”. Identify the conditional statement, name its two relational operators, and explain what AND requires.",
+      "answer": "The IF … THEN instruction is the conditional statement. The comparisons use > and =. AND requires both comparisons to be true.",
+      "explanation": "The relational operators each compare values. The logical operator combines the results.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the IF … THEN statement."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies > and =."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that both comparisons must be true."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Using inclusive OR",
+      "learningObjective": "Interpret inclusive OR when either or both inputs are true.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-243-04-v1",
+      "id": "ndv-243-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom display shows a rehearsal reminder when dramaDay OR choirDay is true. Treat true as 1 and false as 0. Give the output for neither activity, drama alone, choir alone and both activities.",
+      "answer": "Neither: 0. Drama alone: 1. Choir alone: 1. Both: 1.",
+      "explanation": "Inclusive OR is true when at least one input is true, including when both are true.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives 0 for neither."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 1 for each single activity."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 1 when both are scheduled."
+        }
+      ],
+      "verification": [
+        {
+          "kind": "truth-table",
+          "purpose": "Verify inclusive OR for all inputs.",
+          "operator": "OR",
+          "rows": [
+            {
+              "inputs": [
+                0,
+                0
+              ],
+              "output": 0
+            },
+            {
+              "inputs": [
+                1,
+                0
+              ],
+              "output": 1
+            },
+            {
+              "inputs": [
+                0,
+                1
+              ],
+              "output": 1
+            },
+            {
+              "inputs": [
+                1,
+                1
+              ],
+              "output": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Testing both required conditions",
+      "learningObjective": "Build and test a visual programme that requires two independent conditions.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-243-05-v1",
+      "id": "ndv-243-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom label printer simulation should display “Print label” only if a label has been entered and paper is loaded. Otherwise it should display “Check inputs”. Use an IF/ELSE and an AND block. Demonstrate a run with both conditions true and another with paper loaded but a blank label.",
+      "answer": "IF labelEntered AND paperLoaded THEN display Print label ELSE display Check inputs. The first demo prints the message Print label. The second displays Check inputs.",
+      "explanation": "One true input cannot satisfy AND when the other input is false.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses an IF/ELSE that combines both conditions with AND."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the correct feedback in both branches."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates both requested cases with the expected output."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Correcting a reversed flag",
+      "learningObjective": "Correct a condition whose Boolean flag is opposite to the intended action.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-243-06-v1",
+      "id": "ndv-243-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A visual programme has a flag called closed. It should show “You may enter” only while closed is false. At present the condition is IF closed THEN show the message. Correct the condition and give its result for each possible flag value.",
+      "answer": "Use IF NOT closed THEN show the message. When closed is false, show the message. When closed is true, do not show it.",
+      "explanation": "NOT reverses the input flag, so an open room satisfies the new test.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses NOT closed or an equivalent comparison with false."
+        },
+        {
+          "marks": 1,
+          "description": "Predicts the correct outcome for both flag values."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Checking a condition at the correct time",
+      "learningObjective": "Implement a nested decision with a branch that runs only when an earlier test succeeds.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-243-07-v1",
+      "id": "ndv-243-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A library collection programme first checks whether an order exists. If none exists, it displays “No order”. For an existing order, it displays “Bring bag” if the order has more than four books, otherwise “Collect books”. Draw or assemble nested conditional blocks and give the outputs for no order and an order with four books.",
+      "answer": "Outer IF order exists: inner IF books > 4, display Bring bag, ELSE display Collect books. Outer ELSE display No order. The examples display No order and Collect books respectively.",
+      "explanation": "The count is checked only for an existing order. Exactly four does not satisfy > 4.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places the count test inside the existing-order branch."
+        },
+        {
+          "marks": 1,
+          "description": "Assigns all three outputs to the correct branches."
+        },
+        {
+          "marks": 1,
+          "description": "Predicts both requested outputs."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Control with Conditions in programming",
+      "subtopic": "Grouping a choice before combining it with a requirement",
+      "learningObjective": "Use grouped logical operators to match a stated decision rule.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-243-08-v1",
+      "id": "ndv-243-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A study-room programme should show “Use room” if a teacher is present and either the reading group or the maths group has booked. Write a single grouped condition and say what happens when the maths group has booked but no teacher is present.",
+      "answer": "teacherPresent AND (readingBooked OR mathsBooked). With only the maths booking and no teacher, the condition is false and the programme does not show Use room.",
+      "explanation": "The grouped alternatives establish whether there is a booking. AND then requires a teacher as well.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes the grouped alternatives joined by OR."
+        },
+        {
+          "marks": 1,
+          "description": "Combines the group with teacherPresent using AND."
+        },
+        {
+          "marks": 1,
+          "description": "Predicts the false outcome in the stated case."
+        }
+      ]
+    }
+  ]
+}

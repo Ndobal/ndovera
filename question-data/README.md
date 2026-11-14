@@ -1398,3 +1398,7 @@ Batch 242 adds fourteen JSS 1 Digital Technologies drafts on flowcharts,
 pseudocode and variables, mapped to PDF pp. 28 and 30. Learners trace
 decision paths, design and test a short algorithm, and work with
 variable names, data types, scope, assignment and arithmetic.
+
+Batch 243 adds eight JSS 1 Digital Technologies drafts from PDF p. 32
+on conditions and logical operators. Pupils interpret comparisons,
+test inclusive OR, and build or trace grouped and nested conditions.
