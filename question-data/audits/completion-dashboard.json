@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4874,
-    "validDrafts": 3195,
+    "raw": 4883,
+    "validDrafts": 3204,
     "reviewed": 0,
     "registeredBanks": 200,
     "target": 182000,
@@ -1560,6 +1560,12 @@
     {
       "path": "original-multisubject-batch-238.json",
       "sha256": "9280e81f6a87429114d7759a0b1262ac12982e4d9bb54bfadf9d326980567088",
+      "declared": 9,
+      "actual": 9
+    },
+    {
+      "path": "original-multisubject-batch-239.json",
+      "sha256": "c40f9a91eac6a18e5dc492e5592e19738eebb64f3a87b5e8d38c882ef408cb90",
       "declared": 9,
       "actual": 9
     },
@@ -5539,18 +5545,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 21,
-      "validDrafts": 21,
+      "raw": 30,
+      "validDrafts": 30,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 21
+        "structured": 30
       },
       "difficulty": {
-        "standard": 21
+        "standard": 30
       },
-      "remaining": 979,
-      "mappedObjectives": 21,
-      "representedObjectives": 21,
+      "remaining": 970,
+      "mappedObjectives": 30,
+      "representedObjectives": 30,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7440,16 +7446,16 @@
   ],
   "errorCounts": {
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "invalid_score": 81,
+    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
@@ -41199,6 +41205,60 @@
     {
       "id": "ndv-238-009",
       "file": "original-multisubject-batch-238.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-239-001",
+      "file": "original-multisubject-batch-239.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-239-002",
+      "file": "original-multisubject-batch-239.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-239-003",
+      "file": "original-multisubject-batch-239.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-239-004",
+      "file": "original-multisubject-batch-239.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-239-005",
+      "file": "original-multisubject-batch-239.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-239-006",
+      "file": "original-multisubject-batch-239.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-239-007",
+      "file": "original-multisubject-batch-239.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-239-008",
+      "file": "original-multisubject-batch-239.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-239-009",
+      "file": "original-multisubject-batch-239.json",
       "index": 8,
       "errors": []
     },
@@ -96696,6 +96756,276 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-239-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "3D Modelling with Paint 3D",
+      "subtopic": "Choosing a model for a design check",
+      "learningObjective": "Describe how a rotatable 3D model helps communicate a design.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 22, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-239-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "3D Modelling with Paint 3D",
+      "subtopic": "Combining shapes to model a desk",
+      "learningObjective": "Create and inspect a digital model made of simple solid shapes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 22, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-239-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "3D Modelling with Paint 3D",
+      "subtopic": "Correcting intersecting objects",
+      "learningObjective": "Inspect a 3D arrangement and adjust a part to match the design.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 22, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-239-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "3D Modelling with Paint 3D",
+      "subtopic": "Representing a path with straight segments and a curve",
+      "learningObjective": "Draw and distinguish straight and curved parts of a digital line drawing.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 22, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-239-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Turning observations into information",
+      "learningObjective": "Identify a processing operation that makes recorded data useful.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 23, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-239-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Gathering and collating forms",
+      "learningObjective": "Distinguish collecting records from organising them before input.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 23, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-239-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Input, processing, output and storage",
+      "learningObjective": "Match four actions to stages of a data processing cycle.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 23, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-239-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Repeating a rule across many records",
+      "learningObjective": "Explain a benefit of automated processing and the need for an input check.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 23, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-239-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Using saved data to make a comparison",
+      "learningObjective": "Explain how structured digital storage supports retrieval and comparison.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 23, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -96746,6 +97076,7 @@
     "JSS 1 offering reconciliation: nine of the 16 named subjects in the batch 219 official listing have exact-class banks after registration of Digital Technologies. Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French and Intermediate Science still require exact-class mapping. Trades remain unresolved. The listing returned HTTP 403 in batch 236; the Digital Technologies direct PDF was accessible in batch 237.",
     "JSS 1 Business Studies Overview of Insurance I has initial practice for objectives 1, 2, 4 and 5. Conventional insurance, takaful and microinsurance under objective 3 require separate authoritative comparison. Policy terms used in the draft are fictional.",
     "Batch 225 adds introductory takaful and microinsurance comparisons and one compulsory motor insurance objective mapped to NIIRA 2025 section 84(1). Other compulsory categories, detailed coverage conditions and subsequent implementing instruments require separate verification.",
-    "Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open."
+    "Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open.",
+    "JSS 1 Digital Technologies PDF p. 22 names Paint 3D, which Microsoft removed from the Store on 4 November 2024. Batch 239 includes transferable modelling and drawing practice. Paint 3D interface-specific objective 2 remains open; classroom software availability and formal formats are unverified."
   ]
 }

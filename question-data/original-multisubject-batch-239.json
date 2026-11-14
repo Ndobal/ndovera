@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies 3D modelling and data processing",
+  "questionCount": 9,
+  "note": "Original classroom tasks with manual marking. Modelling tasks assess transferable skills. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "3D Modelling with Paint 3D",
+      "subtopic": "Choosing a model for a design check",
+      "learningObjective": "Describe how a rotatable 3D model helps communicate a design.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-239-01-v1",
+      "id": "ndv-239-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class has a drawing of the front of a proposed book return box. The caretaker wants to see whether the proposed side handle sticks out into a walkway. Explain what a rotatable 3D model could show that the front drawing alone cannot.",
+      "answer": "The model can show the box from the side or above, revealing how far the handle projects. With scale information, the class can compare that projection with the space available.",
+      "explanation": "A 3D model represents depth as well as height and width. A front view alone may hide the projection.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a useful additional view or dimension."
+        },
+        {
+          "marks": 1,
+          "description": "Connects that view or dimension to the handle and walkway decision."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "3D Modelling with Paint 3D",
+      "subtopic": "Combining shapes to model a desk",
+      "learningObjective": "Create and inspect a digital model made of simple solid shapes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-239-02-v1",
+      "id": "ndv-239-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a teacher-approved 3D modeller, create a desk from a flat rectangular top and four box-shaped legs. Place one leg near each corner beneath the top. Submit two views from different angles that make the legs and their positions clear.",
+      "answer": "A rectangular top is supported by four vertical box shapes near its corners. An angled view shows how the parts fit together, and a second opposite or underside view makes any hidden leg visible.",
+      "explanation": "Starting with box shapes lets a pupil focus on scale and placement. Multiple views make the construction easier to mark.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a solid rectangular top and four solid legs."
+        },
+        {
+          "marks": 1,
+          "description": "Places all legs under the top with a sensible arrangement."
+        },
+        {
+          "marks": 1,
+          "description": "Supplies two views showing the model’s depth and leg positions."
+        }
+      ],
+      "contentSourceId": "blender-manual-mesh-primitives-45"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "3D Modelling with Paint 3D",
+      "subtopic": "Correcting intersecting objects",
+      "learningObjective": "Inspect a 3D arrangement and adjust a part to match the design.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-239-03-v1",
+      "id": "ndv-239-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Make a model of a short cylindrical cup standing on a rectangular tray in a teacher-approved modeller. First position the cup partly inside the tray. Then correct the model so the base rests on the top surface. Show before and after from a low side angle.",
+      "answer": "The before view shows part of the cup extending below the tray’s top. In the after view the bottom of the cup meets the tray surface, with no visible deep intersection or gap.",
+      "explanation": "The low view helps reveal height errors that may be hidden in a top view.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Builds the tray and cup using suitable solid shapes."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the original intersection and the corrected placement."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a view that makes the placement checkable."
+        }
+      ],
+      "contentSourceId": "blender-manual-mesh-primitives-45"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "3D Modelling with Paint 3D",
+      "subtopic": "Representing a path with straight segments and a curve",
+      "learningObjective": "Draw and distinguish straight and curved parts of a digital line drawing.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-239-04-v1",
+      "id": "ndv-239-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a teacher-approved drawing tool, draw a route that begins with two connected straight segments turning at a right angle and ends in a smooth curved segment. Label the straight and curved parts and submit the image.",
+      "answer": "The drawing has two straight segments with a visible corner, followed by a smooth bend without a gap. The labels distinguish the line types.",
+      "explanation": "A sharp turn has a corner, while a smooth curve gradually changes direction.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates two connected straight segments meeting at a right angle."
+        },
+        {
+          "marks": 1,
+          "description": "Extends the route with a visibly smooth curve."
+        },
+        {
+          "marks": 1,
+          "description": "Labels the line types correctly."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Turning observations into information",
+      "learningObjective": "Identify a processing operation that makes recorded data useful.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-239-05-v1",
+      "id": "ndv-239-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A librarian has a list showing one entry for each book borrowed on Friday, with the book category beside each entry. The librarian wants the category with the most loans. Describe how to process the list to answer the question.",
+      "answer": "Group entries by category, count each group and compare the totals. The category with the highest count had the most loans, or report a tie if the highest counts are equal.",
+      "explanation": "Processing transforms the separate observations into information that answers a particular question.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes grouping and counting the entries."
+        },
+        {
+          "marks": 1,
+          "description": "Compares the totals to identify the leading category or a tie."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Gathering and collating forms",
+      "learningObjective": "Distinguish collecting records from organising them before input.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-239-06-v1",
+      "id": "ndv-239-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Class monitors pick up choice slips from three rooms. Before typing the slips, they group them by room and put each group in roll-number order. Name the data processing stage illustrated by picking up the slips and the stage illustrated by grouping them.",
+      "answer": "Picking the slips up is data gathering. Grouping and ordering them before typing is collation.",
+      "explanation": "Gathering obtains the records. Collation arranges them into a useful set for later input.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies data gathering with the collection action."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies collation with grouping or ordering."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Input, processing, output and storage",
+      "learningObjective": "Match four actions to stages of a data processing cycle.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-239-07-v1",
+      "id": "ndv-239-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a class recycling survey, a pupil types the counts into a worksheet, a formula finds the total, the total is displayed at assembly and the worksheet is saved for next month. Match each action to input, processing, output or storage.",
+      "answer": "Typing the counts is input. Calculating the total is processing. Displaying the total is output. Saving the worksheet is storage.",
+      "explanation": "Each stage describes what is happening to the survey data or result.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly matches typing and calculating."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly matches displaying and saving."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Repeating a rule across many records",
+      "learningObjective": "Explain a benefit of automated processing and the need for an input check.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-239-08-v1",
+      "id": "ndv-239-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school groups sports sign-ups by preferred activity every week. A worksheet applies the same counting formula to each week, but one pupil typed “vollyball” in a category meant for volleyball. Explain one advantage of the worksheet and one check that would prevent the error from affecting the count.",
+      "answer": "The worksheet can repeat the same count quickly every week. A teacher can use a list of allowed activity names or check and correct inconsistent spellings before counting.",
+      "explanation": "Automatic processing is consistent for the rule it receives. Misspelt categories can still produce a misleading count.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a specific benefit of the repeated formula."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a practical check to detect or prevent inconsistent input."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Data Processing",
+      "subtopic": "Using saved data to make a comparison",
+      "learningObjective": "Explain how structured digital storage supports retrieval and comparison.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-239-09-v1",
+      "id": "ndv-239-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school canteen saves weekly files showing the date, item and number sold. The head cook wants to compare sales of fruit on two Mondays from different months. Explain how the stored fields help answer the question and name one detail needed to make the comparison fair.",
+      "answer": "Filter or retrieve the two dates and select the fruit rows, then compare their quantities. Check that both totals refer to the same fruit category and unit, for example the number of pieces sold.",
+      "explanation": "Consistent fields support quick retrieval. Comparable category definitions and units make the result meaningful.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how dates and item fields locate the records."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a relevant condition for comparing the quantities."
+        }
+      ]
+    }
+  ]
+}

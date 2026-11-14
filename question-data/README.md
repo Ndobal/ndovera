@@ -1377,3 +1377,9 @@ Batch 238 adds nine JSS 1 Digital Technologies practical drafts for
 Word and PowerPoint from PDF pp. 20–21. The original tasks use fictional
 records. Marking guides assess document and slide creation, editing,
 formatting, table insertion and a simple presentation sequence.
+
+Batch 239 adds nine JSS 1 Digital Technologies drafts on 3D modelling and
+data processing from PDF pp. 22–23. Practical tasks assess transferable
+modelling and drawing skills using teacher-approved tools. Paint 3D
+interface-specific coverage remains open. Data-processing cases assess
+collation, input, processing, storage, output and input validation.
