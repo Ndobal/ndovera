@@ -3268,7 +3268,9 @@
         "Environmental Degradation: Erosion, PDF pp. 13–14",
         "Environmental Degradation: Flooding, PDF pp. 15–16",
         "Environmental Degradation: Bush Burning, PDF pp. 17–18",
-        "Matter-Basic Concepts, PDF p. 19"
+        "Matter-Basic Concepts, PDF p. 19",
+        "Living Matter, PDF pp. 20–21",
+        "Non-Living Matter, PDF p. 22"
       ],
       "note": "Exact class and subject verified in the direct revised PDF. Publication date, school adoption, term placement and formal formats remain unverified."
     },
@@ -35046,6 +35048,240 @@
       "sourceSections": [
         "Revised JSS 1 Intermediate Science, PDF p. 19, performance objective 6"
       ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Organism and shelter",
+      "learningObjective": "Identify living organisms separately from the structures around them.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 20, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Recognising an attached animal",
+      "learningObjective": "Classify a familiar example in each group from its structures and behaviour.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 20, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Making and obtaining food",
+      "learningObjective": "Compare how a green plant and an animal obtain food.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 20, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Response to touch",
+      "learningObjective": "Recognise response to a stimulus in both plants and animals.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 20, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Farm shade",
+      "learningObjective": "Explain the value of a living plant to a person using an outdoor space.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 20, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Insect visitors and seed production",
+      "learningObjective": "Explain one service an animal can provide to a flowering crop.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 20, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Water and air around roots",
+      "learningObjective": "Explain how a change in a non-living condition can affect a plant.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 20, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Shade and a resting animal",
+      "learningObjective": "Relate a non-living environmental factor to animal behaviour.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 20, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-09-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Local living-things album",
+      "learningObjective": "Create an illustrated album page that communicates an observation about each organism.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 20, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-10-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Non-Living Matter",
+      "subtopic": "Non-living parts of a habitat",
+      "learningObjective": "Identify non-living components in a described habitat.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 22, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-11-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Non-Living Matter",
+      "subtopic": "Changes in objects without life processes",
+      "learningObjective": "Distinguish a physical change in a non-living material from a life process.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 22, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-12-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Non-Living Matter",
+      "subtopic": "Selecting material by use",
+      "learningObjective": "Choose a suitable non-living material using a property needed for a particular task.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 22, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-255-13-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Non-Living Matter",
+      "subtopic": "Sorting named materials",
+      "learningObjective": "Sort specified solid samples into metallic and non-metallic materials.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 22, performance objective 4"
+      ]
     }
   ],
   "scopeGaps": [
@@ -35099,6 +35335,7 @@
     "Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open.",
     "JSS 1 Digital Technologies PDF p. 22 names Paint 3D, which Microsoft removed from the Store on 4 November 2024. Batch 239 includes transferable modelling and drawing practice. Paint 3D interface-specific objective 2 remains open; classroom software availability and formal formats are unverified.",
     "JSS 1 Digital Technologies PDF p. 40 uses image and voice learning activities. Batch 247 practical training uses drawn symbols in a teacher-approved image classifier. Availability of the curriculum activity guides, local software and voice-processing practical delivery remains unverified.",
-    "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 on bush-burning and deforestation regulations require jurisdiction-specific primary evidence. Batch 254 maps environmental effects, drivers, prevention and poster design using paper scenarios. The erosion and flooding field-visit objectives remain open."
+    "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 on bush-burning and deforestation regulations require jurisdiction-specific primary evidence. Batch 254 maps environmental effects, drivers, prevention and poster design using paper scenarios. The erosion and flooding field-visit objectives remain open.",
+    "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures."
   ]
 }

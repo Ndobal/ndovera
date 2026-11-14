@@ -1453,3 +1453,8 @@ remain unverified.
 Batch 254 adds ten JSS 1 Intermediate Science drafts on bush-burning
 prevention and matter from PDF pp. 17–19. The paper-based prevention
 tasks leave jurisdiction-specific regulations and fieldwork open.
+
+Batch 255 adds 13 JSS 1 Intermediate Science drafts on living and
+non-living matter from PDF pp. 20–22. The illustrated album uses
+drawings or existing pictures. The curriculum’s nature-walk activity
+remains open.

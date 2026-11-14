@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science living and non-living matter",
+  "questionCount": 13,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Organism and shelter",
+      "learningObjective": "Identify living organisms separately from the structures around them.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-01-v1",
+      "id": "ndv-255-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Under the eaves of a classroom, a pupil sees a live swallow, its dry mud nest and an empty eggshell. Which is a living organism at the time of the observation? Explain why the nest belongs in a different group.",
+      "answer": "The swallow is living. The nest is a structure made of mud and other materials and does not carry out the life processes of the bird.",
+      "explanation": "A structure made by an organism can be counted separately from the organism.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the swallow alone."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the nest itself is a structure without life processes."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Recognising an attached animal",
+      "learningObjective": "Classify a familiar example in each group from its structures and behaviour.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-02-v1",
+      "id": "ndv-255-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a picture of a brackish creek, one organism has roots, stems and green leaves. Another is an oyster fixed to a post. It closes its shell when disturbed and filters food from the water. Assign each organism to the plant or animal group and give one clue for each.",
+      "answer": "The first organism is a plant, as indicated by its stem, roots and green leaves. The oyster is an animal and obtains food by filtering particles from the water.",
+      "explanation": "Some adult animals stay attached to a surface. Their feeding and body structures give better clues than where they stay.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies both organisms correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant clue for the plant."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant clue for the oyster."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Making and obtaining food",
+      "learningObjective": "Compare how a green plant and an animal obtain food.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-03-v1",
+      "id": "ndv-255-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "An okra plant and a caterpillar both produce new body material as they grow. Describe how each obtains the food that supports its growth.",
+      "answer": "The green okra plant makes sugars using light, water and carbon dioxide. The caterpillar obtains food by eating plant material.",
+      "explanation": "Growth is shared by the two organisms, while their sources of food differ.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that the green plant uses light to make sugars or food."
+        },
+        {
+          "marks": 1,
+          "description": "States that the caterpillar eats plant material."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Response to touch",
+      "learningObjective": "Recognise response to a stimulus in both plants and animals.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-04-v1",
+      "id": "ndv-255-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A touch-sensitive plant folds some of its leaflets after contact. A snail pulls into its shell after contact. Identify a characteristic of living things shown in both cases and explain how the examples show it.",
+      "answer": "Both respond to a stimulus. Contact is the stimulus, and the leaflet folding and withdrawal into a shell are the respective responses.",
+      "explanation": "Plants and animals can react to changes in their surroundings in different ways.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies response to a stimulus."
+        },
+        {
+          "marks": 1,
+          "description": "Connects touch with both observable responses."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Farm shade",
+      "learningObjective": "Explain the value of a living plant to a person using an outdoor space.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-05-v1",
+      "id": "ndv-255-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A roadside vegetable seller moves her stall under a broad tree canopy on a sunny afternoon. Which part of the tree makes this spot useful, and how does it help?",
+      "answer": "The canopy of leaves and branches intercepts some direct sunlight, shading the seller and produce.",
+      "explanation": "A plant can provide a useful service while it remains alive and growing.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the canopy or leaves and branches."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that intercepted sunlight provides shade."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Insect visitors and seed production",
+      "learningObjective": "Explain one service an animal can provide to a flowering crop.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-06-v1",
+      "id": "ndv-255-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Bees move between cucumber flowers in a garden. What can they carry from one flower to another, and how can this help the crop?",
+      "answer": "Bees can transfer pollen to the receptive part of another flower. Successful pollination can help the plant produce seeds and fruit.",
+      "explanation": "This is an example of the value of an animal to people growing a crop.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies pollen transfer."
+        },
+        {
+          "marks": 1,
+          "description": "Links pollination to seed or fruit production."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Water and air around roots",
+      "learningObjective": "Explain how a change in a non-living condition can affect a plant.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-07-v1",
+      "id": "ndv-255-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two healthy potted pepper plants receive the same light. One pot drains well. The other has blocked holes, and its soil stays waterlogged for several days. Explain why the roots in the waterlogged pot may struggle.",
+      "answer": "Standing water fills many soil spaces that normally contain air. Less oxygen reaches the roots, making it harder for them to carry out respiration.",
+      "explanation": "Plants need water, but roots also depend on oxygen for respiration.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains loss of air spaces or reduced oxygen around roots."
+        },
+        {
+          "marks": 1,
+          "description": "Links oxygen availability to root respiration."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Shade and a resting animal",
+      "learningObjective": "Relate a non-living environmental factor to animal behaviour.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-08-v1",
+      "id": "ndv-255-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On a hot afternoon, a lizard moves from a sunlit wall to the shaded side of a stone step. Name one non-living factor that differs between the spots and explain how the move could help the lizard.",
+      "answer": "Direct sunlight is weaker in the shade, so the lizard may gain heat more slowly. Accept an explanation based on the shaded surface being cooler if linked to heat exchange.",
+      "explanation": "Moving between sunny and shaded spots is one way a lizard can help regulate its body temperature.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies light exposure or relevant temperature."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a plausible reduction in heat gain or exposure."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Living Matter",
+      "subtopic": "Local living-things album",
+      "learningObjective": "Create an illustrated album page that communicates an observation about each organism.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-09-v1",
+      "id": "ndv-255-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create two entries for a schoolyard nature album using plants or animals you already know from your area. Include one plant and one animal. For each, draw it, label one feature you would use to recognise it, and record where it could be seen. Use drawings or existing pictures.",
+      "answer": "An example page shows a hibiscus beside a fence with a labelled projecting flower column, and a domestic chicken in a compound with a labelled comb. Other consistent local examples are acceptable.",
+      "explanation": "Names, visible features and locations let readers use the album to recognise and look for each organism.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes separate illustrated entries for a plausible local plant and animal."
+        },
+        {
+          "marks": 1,
+          "description": "Labels a useful visible feature in each entry."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a plausible location for each entry."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Non-Living Matter",
+      "subtopic": "Non-living parts of a habitat",
+      "learningObjective": "Identify non-living components in a described habitat.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-10-v1",
+      "id": "ndv-255-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A shallow ditch contains tadpoles, pondweed, rainwater and pieces of brick. Pick out two non-living components, then identify a living component that depends directly on one of them.",
+      "answer": "Rainwater and brick are non-living. Tadpoles depend directly on the water as the medium in which they live and swim.",
+      "explanation": "Habitats contain organisms as well as physical materials that can affect them.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names rainwater and brick."
+        },
+        {
+          "marks": 1,
+          "description": "Links a living component to one of those materials in a scientifically plausible way."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Non-Living Matter",
+      "subtopic": "Changes in objects without life processes",
+      "learningObjective": "Distinguish a physical change in a non-living material from a life process.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-11-v1",
+      "id": "ndv-255-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A bar of soap left in a shallow dish of water becomes smaller. A pupil says that the soap is alive because its size changed. Explain the change and assess the claim.",
+      "answer": "Some of the soap dissolves in the water. A change in size caused by dissolving gives no evidence that the soap carries out life processes.",
+      "explanation": "Non-living materials can change in size because of physical processes.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies dissolving as a plausible cause of the size loss."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the observed change does not establish that the soap is living."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Non-Living Matter",
+      "subtopic": "Selecting material by use",
+      "learningObjective": "Choose a suitable non-living material using a property needed for a particular task.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-12-v1",
+      "id": "ndv-255-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A caretaker needs a small window panel that will let daylight through while blocking wind. The options are clear glass and opaque ceramic tile. Which is the better fit? Explain using a property of each option.",
+      "answer": "Clear glass is better because it transmits visible light and a fitted solid panel blocks wind. Opaque ceramic tile could block wind but would block the daylight as well.",
+      "explanation": "Selecting a material involves checking all of the requirements it must meet.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses clear glass."
+        },
+        {
+          "marks": 1,
+          "description": "Links glass transparency to daylight and a fitted solid panel to blocking wind."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the tile’s opacity as the limitation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Non-Living Matter",
+      "subtopic": "Sorting named materials",
+      "learningObjective": "Sort specified solid samples into metallic and non-metallic materials.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-255-13-v1",
+      "id": "ndv-255-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom display has four labelled samples: aluminium sheet, copper wire, rubber strip and ceramic tile. Sort them into metallic and non-metallic materials. A classmate says the copper wire belongs with rubber because both can bend. Explain why that is a poor rule.",
+      "answer": "Aluminium and copper are metallic. Rubber and ceramic are non-metallic materials. Flexibility alone does not classify a material because both a thin metal wire and a rubber strip may bend.",
+      "explanation": "The categories describe the materials. The ease with which a sample bends also depends on its shape and thickness.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly groups both metallic samples."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly groups both non-metallic samples."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why bending does not distinguish the groups in this example."
+        }
+      ]
+    }
+  ]
+}
