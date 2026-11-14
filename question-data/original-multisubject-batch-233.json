@@ -1,0 +1,525 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies taxes in Nigeria and voluntary tax compliance",
+  "questionCount": 13,
+  "note": "Original classroom practice. Classroom examples stipulate the relevant facts. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Revenue for public infrastructure",
+      "learningObjective": "Explain how tax revenue can support a public service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-01-v1",
+      "id": "ndv-233-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A council’s classroom budget shows tax revenue going into a common public fund. The spending plan includes clearing blocked drains near the market. Explain how the tax revenue and the drain work are connected.",
+      "answer": "Tax payments add to the public fund. The council can use money allocated through its budget to pay workers or buy equipment to clear drains.",
+      "explanation": "Revenue is money received by the public authority. A spending decision directs some of that money to a service.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that taxes contribute to public revenue."
+        },
+        {
+          "marks": 1,
+          "description": "Links a budget allocation to a concrete cost of the public service."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Redistribution through spending",
+      "learningObjective": "Recognise redistribution in a tax-funded programme.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-02-v1",
+      "id": "ndv-233-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a model budget, taxes are collected across a town and some revenue funds school transport for pupils from low-income households. Explain why this can be described as redistribution.",
+      "answer": "The town pools revenue from taxpayers and directs part of it to households with fewer resources. Those pupils receive support that makes school travel more affordable.",
+      "explanation": "Redistribution can happen through how tax revenue is spent and who benefits.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the pooling and targeted allocation of revenue."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the resulting change in access or burden for the households."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Taxation and incentives",
+      "learningObjective": "Explain how a hypothetical tax can influence a choice.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-03-v1",
+      "id": "ndv-233-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom model adds a charge per disposable bag sold, and shops pass the charge on to shoppers. Reusable bags have no new charge in the model. What choice might the charge encourage, and why?",
+      "answer": "It may encourage shoppers to bring a reusable bag because buying a disposable one costs more.",
+      "explanation": "In this model the charge changes relative prices and can influence behaviour. The effect depends on how shoppers respond.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a plausible shift towards reuse."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the shift using the change in relative cost."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Direct and indirect taxation",
+      "learningObjective": "Distinguish taxes on income from taxes collected through a supply.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-04-v1",
+      "id": "ndv-233-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A display includes a tax assessed on a person’s earnings and VAT collected by a seller on a taxable purchase. Label each direct or indirect and explain the difference using what is taxed.",
+      "answer": "The tax on earnings is direct because it is assessed on the person’s income. VAT is indirect because it applies to the taxable supply and is collected through the sale.",
+      "explanation": "The examples use different tax bases. The seller’s role in collecting VAT differs from liability for a tax assessed on income.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies the tax on earnings and identifies its base."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies VAT and explains its connection to a taxable supply."
+        }
+      ],
+      "contentSourceId": "nass-nigeria-tax-act-2025-edition-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Tax classes can overlap",
+      "learningObjective": "Compare the tax base and policy purpose of a hypothetical charge.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-05-v1",
+      "id": "ndv-233-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teaching example describes a tax assessed directly on a factory for each tonne of waste it sends to landfill. A pupil calls it an environmental tax, while another calls it a direct tax. Explain how both descriptions can apply in this example.",
+      "answer": "Environmental describes the waste-related purpose or base. Direct describes how the tax is assessed on the factory itself. The terms answer different questions about the same charge.",
+      "explanation": "A classification by subject matter can overlap with one based on who is assessed.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the environmental description using waste or landfill."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the direct description using assessment on the factory and recognises the overlap."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Personal and company income taxes",
+      "learningObjective": "Name income taxes by identifying whose income is assessed.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-06-v1",
+      "id": "ndv-233-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A practice exercise describes tax assessed on a worker’s taxable employment income and tax assessed on a limited company’s taxable profits. Name the type of income tax in each case.",
+      "answer": "The first is personal income tax. The second is company income tax.",
+      "explanation": "The distinction here is between the individual’s income and the company’s profits.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies personal income tax for the worker."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies company income tax for the company."
+        }
+      ],
+      "contentSourceId": "nass-nigeria-tax-act-2025-edition-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "VAT and import duty",
+      "learningObjective": "Distinguish VAT on a taxable local supply from import customs duty.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-07-v1",
+      "id": "ndv-233-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional retailer’s documents show VAT on a domestic taxable sale and customs import duty on goods brought into the country. Which tax is linked to the sale, and which is linked to bringing the goods across the border?",
+      "answer": "VAT in the first document is linked to the taxable sale. Import customs duty in the second is linked to importing the goods.",
+      "explanation": "The documents describe different transactions. The fact that the example uses a domestic sale for VAT does not rule out VAT on imports.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies VAT on the taxable sale described."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies import customs duty on the import described."
+        }
+      ],
+      "contentSourceId": "nass-nigeria-tax-act-2025-edition-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Compliance initiated by the taxpayer",
+      "learningObjective": "Explain voluntary tax compliance in a scenario where an obligation already exists.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-08-v1",
+      "id": "ndv-233-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Assume two shops have the same filing obligation. One submits an accurate return on time on its own initiative. The other files only after enforcement begins. Which behaviour illustrates voluntary compliance, and what does voluntary mean here?",
+      "answer": "The first shop shows voluntary compliance. It fulfils an existing obligation on its own initiative and on time.",
+      "explanation": "Voluntary describes how the taxpayer complies with a legal obligation.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the first shop."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that compliance is self-initiated and the obligation still applies."
+        }
+      ],
+      "contentSourceId": "nass-nigeria-tax-administration-act-2025-edition-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Timely compliance and budget planning",
+      "learningObjective": "Explain why timely filing and payment can help public planning.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-09-v1",
+      "id": "ndv-233-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A model public authority plans to pay sanitation workers each month. Most taxpayers file accurate returns and pay amounts due by the stated dates. Explain one reason this helps the authority plan.",
+      "answer": "Timely and accurate compliance makes expected receipts more predictable, so the authority can better plan when money may be available for wages and supplies.",
+      "explanation": "The timing and reliability of receipts matter when a public authority budgets for recurring costs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links timely accurate compliance to more predictable receipts."
+        },
+        {
+          "marks": 1,
+          "description": "Connects predictability to a concrete planning decision."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Records and accurate returns",
+      "learningObjective": "Explain how keeping ordinary transaction records supports voluntary compliance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-10-v1",
+      "id": "ndv-233-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A trading business keeps sales receipts in date order and compares them with its ledger before preparing a return it is required to file. Explain two ways the practice can improve the accuracy of the return.",
+      "answer": "The receipts help the business detect omitted or repeated sales. Their dates help it include transactions for the correct reporting period.",
+      "explanation": "Traceable records help verify the amount and timing of relevant transactions.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a way records help check amounts or completeness."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a distinct benefit such as checking dates or verifying an entry."
+        }
+      ],
+      "contentSourceId": "nass-nigeria-tax-administration-act-2025-edition-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Simpler instructions and taxpayer support",
+      "learningObjective": "Propose ways of making a required filing process easier to complete.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-11-v1",
+      "id": "ndv-233-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A practice tax office learns that some eligible traders abandon a form because its instructions use unfamiliar terms. Propose one change to the form and one form of support. Explain how each could help.",
+      "answer": "Use plain-language instructions and show a filled fictional example next to difficult fields. Offer a help desk that explains which records to use. These changes help traders understand and complete the form.",
+      "explanation": "Simplifying a procedure and supporting taxpayers can reduce accidental errors and incomplete filings.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a specific form or instruction improvement and explains its use."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a distinct support method and explains its use."
+        }
+      ],
+      "contentSourceId": "nass-nigeria-tax-administration-act-2025-edition-2026"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Showing what public revenue supports",
+      "learningObjective": "Explain how reporting on spending may encourage compliance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-12-v1",
+      "id": "ndv-233-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A local authority wants residents to see how public revenue was used for a completed market repair. Suggest two details a public report could show and explain how making them clear may help encourage compliance.",
+      "answer": "Show the amount allocated and the work actually completed, such as the stalls repaired. This gives residents information they can use to check how public money was spent and may build trust.",
+      "explanation": "Transparent reporting can strengthen confidence in public administration. Trust can be one factor that encourages voluntary compliance.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names two meaningful and distinct report details."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a plausible connection between clear reporting, trust and compliance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Creating an awareness poster",
+      "learningObjective": "Create a voluntary compliance message with an actionable next step.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-233-13-v1",
+      "id": "ndv-233-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Sketch a small poster for adults who are unsure how to meet a tax filing obligation. Write a heading, one reason for filing accurately and a practical step for checking the official instructions. Use a fictional layout and leave out rates and dates.",
+      "answer": "Example heading: Check before you file. Keep your records and report accurately so your return can be checked against the transactions. Use the relevant tax authority’s published guidance or ask its help desk which form applies.",
+      "explanation": "The poster combines an explanation with a step the intended audience can take to find current instructions.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a heading relevant to voluntary compliance."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a reason for accurate filing."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a practical way to check instructions through the relevant authority."
+        }
+      ]
+    }
+  ]
+}

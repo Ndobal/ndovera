@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4815,
-    "validDrafts": 3136,
+    "raw": 4828,
+    "validDrafts": 3149,
     "reviewed": 0,
     "registeredBanks": 199,
     "target": 181000,
@@ -1524,6 +1524,12 @@
     {
       "path": "original-multisubject-batch-232.json",
       "sha256": "54bb0c993634d04ee9290e6ef21e91f28c814630b51f4682738ccecfb189aac1",
+      "declared": 13,
+      "actual": 13
+    },
+    {
+      "path": "original-multisubject-batch-233.json",
+      "sha256": "647e01bedb1e7e5c73d8a91163cab05abf97b89ce956cde39583818071bd05f6",
       "declared": 13,
       "actual": 13
     },
@@ -5379,19 +5385,19 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-business-studies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 156,
-      "validDrafts": 156,
+      "raw": 169,
+      "validDrafts": 169,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 156
+        "structured": 169
       },
       "difficulty": {
-        "standard": 154,
+        "standard": 167,
         "difficult": 2
       },
-      "remaining": 844,
-      "mappedObjectives": 156,
-      "representedObjectives": 156,
+      "remaining": 831,
+      "mappedObjectives": 169,
+      "representedObjectives": 169,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7380,10 +7386,10 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -40786,6 +40792,84 @@
     {
       "id": "ndv-232-013",
       "file": "original-multisubject-batch-232.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-001",
+      "file": "original-multisubject-batch-233.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-002",
+      "file": "original-multisubject-batch-233.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-003",
+      "file": "original-multisubject-batch-233.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-004",
+      "file": "original-multisubject-batch-233.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-005",
+      "file": "original-multisubject-batch-233.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-006",
+      "file": "original-multisubject-batch-233.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-007",
+      "file": "original-multisubject-batch-233.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-008",
+      "file": "original-multisubject-batch-233.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-009",
+      "file": "original-multisubject-batch-233.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-010",
+      "file": "original-multisubject-batch-233.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-011",
+      "file": "original-multisubject-batch-233.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-012",
+      "file": "original-multisubject-batch-233.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-233-013",
+      "file": "original-multisubject-batch-233.json",
       "index": 12,
       "errors": []
     },
@@ -94500,6 +94584,396 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 42, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Revenue for public infrastructure",
+      "learningObjective": "Explain how tax revenue can support a public service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 43, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Redistribution through spending",
+      "learningObjective": "Recognise redistribution in a tax-funded programme.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 43, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Taxation and incentives",
+      "learningObjective": "Explain how a hypothetical tax can influence a choice.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 43, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Direct and indirect taxation",
+      "learningObjective": "Distinguish taxes on income from taxes collected through a supply.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 43, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Tax classes can overlap",
+      "learningObjective": "Compare the tax base and policy purpose of a hypothetical charge.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 43, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "Personal and company income taxes",
+      "learningObjective": "Name income taxes by identifying whose income is assessed.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 43, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Taxes in Nigeria",
+      "subtopic": "VAT and import duty",
+      "learningObjective": "Distinguish VAT on a taxable local supply from import customs duty.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 43, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Compliance initiated by the taxpayer",
+      "learningObjective": "Explain voluntary tax compliance in a scenario where an obligation already exists.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 44, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Timely compliance and budget planning",
+      "learningObjective": "Explain why timely filing and payment can help public planning.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 44, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Records and accurate returns",
+      "learningObjective": "Explain how keeping ordinary transaction records supports voluntary compliance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 44, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Simpler instructions and taxpayer support",
+      "learningObjective": "Propose ways of making a required filing process easier to complete.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 44, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-12-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Showing what public revenue supports",
+      "learningObjective": "Explain how reporting on spending may encourage compliance.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 44, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-233-13-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Voluntary Tax Compliance",
+      "subtopic": "Creating an awareness poster",
+      "learningObjective": "Create a voluntary compliance message with an actionable next step.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 44, performance objective 3"
       ],
       "questionCount": 1,
       "validDrafts": 1,

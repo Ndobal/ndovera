@@ -1339,3 +1339,9 @@ technology and the history of taxation in Nigeria from PDF pp. 41–42.
 The tasks include matching fictional payments in a spreadsheet and
 interpreting a 1913 report and 1961 gazettes. The historical examples
 give partial regional coverage.
+
+Batch 233 adds thirteen JSS 1 Business Studies drafts on taxes in
+Nigeria and voluntary tax compliance from PDF pp. 43–44. The tasks use
+fictional budgets, tax classifications and filing scenarios. Two National
+Assembly statutory sources support the legal examples, which omit tax
+rates, thresholds, penalties and filing deadlines.
