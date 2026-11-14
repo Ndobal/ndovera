@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4982,
-    "validDrafts": 3303,
+    "raw": 4992,
+    "validDrafts": 3313,
     "reviewed": 0,
     "registeredBanks": 200,
     "target": 182000,
@@ -1632,6 +1632,12 @@
     {
       "path": "original-multisubject-batch-250.json",
       "sha256": "9374b751b30d8aa3c3cc0e6abdbe4a2eb1778370d1287aa520a498a0eab16d44",
+      "declared": 10,
+      "actual": 10
+    },
+    {
+      "path": "original-multisubject-batch-251.json",
+      "sha256": "b0e7335c9207307ec2a603dede246b20f36d21761bfc7cbd2622635e8d4aa32c",
       "declared": 10,
       "actual": 10
     },
@@ -5611,18 +5617,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 129,
-      "validDrafts": 129,
+      "raw": 139,
+      "validDrafts": 139,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 129
+        "structured": 139
       },
       "difficulty": {
-        "standard": 129
+        "standard": 139
       },
-      "remaining": 871,
-      "mappedObjectives": 129,
-      "representedObjectives": 129,
+      "remaining": 861,
+      "mappedObjectives": 139,
+      "representedObjectives": 139,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7511,17 +7517,17 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
@@ -41919,6 +41925,66 @@
     {
       "id": "ndv-250-010",
       "file": "original-multisubject-batch-250.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-001",
+      "file": "original-multisubject-batch-251.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-002",
+      "file": "original-multisubject-batch-251.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-003",
+      "file": "original-multisubject-batch-251.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-004",
+      "file": "original-multisubject-batch-251.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-005",
+      "file": "original-multisubject-batch-251.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-006",
+      "file": "original-multisubject-batch-251.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-007",
+      "file": "original-multisubject-batch-251.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-008",
+      "file": "original-multisubject-batch-251.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-009",
+      "file": "original-multisubject-batch-251.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-251-010",
+      "file": "original-multisubject-batch-251.json",
       "index": 9,
       "errors": []
     },
@@ -100643,6 +100709,306 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 46, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Design for quick reading",
+      "learningObjective": "Explain how graphic design communicates information visually.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Repairing balance and alignment",
+      "learningObjective": "Apply balance and alignment without changing a poster’s wording.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Choosing tools to build a label",
+      "learningObjective": "Identify Canva tools appropriate for assembling a small graphic.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Adapting a template to an event",
+      "learningObjective": "Use a Canva template and replace its sample content.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Building a poster around the next action",
+      "learningObjective": "Create a poster with visible hierarchy and contrast.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Distinguishing use from discard",
+      "learningObjective": "Explain when an electrical or electronic item becomes e-waste.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Sorting a paper inventory",
+      "learningObjective": "Identify examples of e-waste in a mixed inventory of discarded objects.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Recognising hazardous substances",
+      "learningObjective": "Name examples of harmful substances that may occur in discarded electronics.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Tracing pollution from unsafe disposal",
+      "learningObjective": "Explain two routes by which unsafe e-waste disposal can affect the environment.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-251-10-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Choosing reuse or a collection route",
+      "learningObjective": "Select appropriate management routes for usable and unusable equipment.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 5"
       ],
       "questionCount": 1,
       "validDrafts": 1,

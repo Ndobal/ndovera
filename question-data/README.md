@@ -1433,3 +1433,8 @@ compromise-based replacement, supported by NIST guidance.
 Batch 250 adds ten JSS 1 Digital Technologies drafts from PDF pp. 45–46.
 The tasks cover creative rights and attribution, device safeguards and a
 teacher-observed automatic-lock demonstration.
+
+Batch 251 adds ten JSS 1 Digital Technologies drafts from PDF pp. 47–48.
+Graphic design tasks assess layout, contrast, Canva tools and template
+adaptation. E-waste tasks use paper scenarios to assess classification,
+potential pollution and responsible collection.

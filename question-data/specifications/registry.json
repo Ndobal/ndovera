@@ -3166,7 +3166,9 @@
         "Online Safety Rules, PDF p. 43",
         "Online Privacy and Security, PDF p. 44",
         "Intellectual Property, PDF p. 45",
-        "Safety and Security Features on Digital Devices, PDF p. 46"
+        "Safety and Security Features on Digital Devices, PDF p. 46",
+        "Introduction to Graphic Design and Canva, PDF p. 47",
+        "Management of e-Waste, PDF p. 48"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -3209,6 +3211,16 @@
       "source": "https://pages.nist.gov/800-63-4/sp800-63b.html",
       "retrievedOn": "2026-11-14",
       "note": "Password guidance in section 3.1.1.2, including replacement when compromise is evidenced. Used to qualify the curriculum wording on regular changes."
+    },
+    {
+      "id": "who-electronic-waste-fact-sheet",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://www.who.int/news-room/fact-sheets/detail/electronic-waste-(e-waste)",
+      "retrievedOn": "2026-11-14",
+      "note": "WHO fact sheet on hazardous substances and pollution pathways in unsafe e-waste management."
     }
   ],
   "banks": [
@@ -34370,6 +34382,186 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 46, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Design for quick reading",
+      "learningObjective": "Explain how graphic design communicates information visually.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Repairing balance and alignment",
+      "learningObjective": "Apply balance and alignment without changing a poster’s wording.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Choosing tools to build a label",
+      "learningObjective": "Identify Canva tools appropriate for assembling a small graphic.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Adapting a template to an event",
+      "learningObjective": "Use a Canva template and replace its sample content.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Building a poster around the next action",
+      "learningObjective": "Create a poster with visible hierarchy and contrast.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 47, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Distinguishing use from discard",
+      "learningObjective": "Explain when an electrical or electronic item becomes e-waste.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Sorting a paper inventory",
+      "learningObjective": "Identify examples of e-waste in a mixed inventory of discarded objects.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Recognising hazardous substances",
+      "learningObjective": "Name examples of harmful substances that may occur in discarded electronics.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Tracing pollution from unsafe disposal",
+      "learningObjective": "Explain two routes by which unsafe e-waste disposal can affect the environment.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-251-10-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Choosing reuse or a collection route",
+      "learningObjective": "Select appropriate management routes for usable and unusable equipment.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 48, performance objective 5"
       ]
     }
   ],

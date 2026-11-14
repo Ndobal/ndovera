@@ -1,0 +1,412 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies graphic design and e-waste",
+  "questionCount": 10,
+  "note": "Original classroom practice. E-waste scenarios use paper inventories. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Design for quick reading",
+      "learningObjective": "Explain how graphic design communicates information visually.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-01-v1",
+      "id": "ndv-251-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A timetable notice uses one long paragraph. A designer instead puts the day in a large heading and puts times in a column beside activities. Explain how this illustrates graphic design and why it helps readers.",
+      "answer": "It arranges text and space to communicate visually. Readers can find the day quickly and match each time to an activity.",
+      "explanation": "Visual organisation helps readers find related information and decide what to read first.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies purposeful visual arrangement."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a concrete benefit for finding information."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Repairing balance and alignment",
+      "learningObjective": "Apply balance and alignment without changing a poster’s wording.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-02-v1",
+      "id": "ndv-251-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A practice poster has icons in one crowded corner and three activity labels starting at different horizontal positions. Sketch a revision that shares space more evenly and lines up the labels. Explain both changes.",
+      "answer": "Distribute the icons beside the relevant activities and put the labels on a common left edge. The distribution reduces crowding and the common edge makes the list easier to scan.",
+      "explanation": "Visual balance concerns the distribution of elements. Alignment gives related items a common edge.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Redistributes the elements coherently."
+        },
+        {
+          "marks": 1,
+          "description": "Aligns the labels to a common edge and explains its effect."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Choosing tools to build a label",
+      "learningObjective": "Identify Canva tools appropriate for assembling a small graphic.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-03-v1",
+      "id": "ndv-251-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil needs to insert the words “Art supplies”, add a rectangle behind them and include a teacher-provided image. Name the tools or panel functions in Canva for the three actions.",
+      "answer": "Use the text tool for the words, the shapes function for the rectangle and the upload or image function to bring in the teacher-provided image.",
+      "explanation": "Each function adds a different kind of editable content to the design.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies suitable text and shape tools."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a suitable function for adding the supplied image."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Adapting a template to an event",
+      "learningObjective": "Use a Canva template and replace its sample content.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-04-v1",
+      "id": "ndv-251-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a teacher-managed Canva workspace, choose a flyer template and adapt it for a fictional bookmark exchange. Include Wednesday, 12 noon, Library, and “Bring one bookmark”. Submit the flyer and name one layout feature you kept from the template.",
+      "answer": "A flyer titled Bookmark Exchange shows all four details. A pupil may keep the template’s two-column grid or framed title while replacing the sample text.",
+      "explanation": "A template gives a starting layout. The submitted flyer should use the new event details and show how the template was adapted.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a template and names a retained feature."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly includes the time, day, venue and instruction."
+        },
+        {
+          "marks": 1,
+          "description": "Removes unrelated sample text and submits a readable flyer."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Introduction to Graphic Design and Canva",
+      "subtopic": "Building a poster around the next action",
+      "learningObjective": "Create a poster with visible hierarchy and contrast.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-05-v1",
+      "id": "ndv-251-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Create a small digital poster for a classroom paper collection point. Use “Used paper here” as the headline and “Remove clips first” as the instruction. Include an arrow pointing towards the opening on the right. Demonstrate how the headline and arrow stand out.",
+      "answer": "The headline is prominent, the instruction is legible and a right-facing arrow is easy to spot. For example, use dark text and a dark arrow against a pale background with space around the arrow.",
+      "explanation": "Contrast and placement guide the viewer from the purpose of the poster to the next action.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes the two exact messages and a right-facing arrow."
+        },
+        {
+          "marks": 1,
+          "description": "Uses visual hierarchy and contrast so the headline and arrow stand out."
+        },
+        {
+          "marks": 1,
+          "description": "Explains one design decision that supports the intended action."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Distinguishing use from discard",
+      "learningObjective": "Explain when an electrical or electronic item becomes e-waste.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-06-v1",
+      "id": "ndv-251-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One tablet has been set aside to be repaired and returned to class use. A second tablet has been taken out of use permanently and set aside for disposal. Which is e-waste in this example and what fact determines the classification?",
+      "answer": "The second tablet is e-waste because it is discarded electronic equipment. The first is still intended for use after repair.",
+      "explanation": "E-waste concerns items that have been discarded. A fault by itself does not establish that an item is waste.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the tablet set aside for disposal."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that discarding, rather than the fault alone, determines this classification."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Sorting a paper inventory",
+      "learningObjective": "Identify examples of e-waste in a mixed inventory of discarded objects.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-07-v1",
+      "id": "ndv-251-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A paper cleanup list shows a broken computer keyboard, a discarded mobile phone, used drawing paper and an empty water bottle. Which items belong on the e-waste list and why?",
+      "answer": "The keyboard and mobile phone belong on the e-waste list because they are discarded electronic equipment. The paper and bottle are other kinds of waste.",
+      "explanation": "Sorting by the nature of the item helps keep discarded electronics in the intended collection stream.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies both e-waste items."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the basis for excluding paper and the bottle."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Recognising hazardous substances",
+      "learningObjective": "Name examples of harmful substances that may occur in discarded electronics.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-08-v1",
+      "id": "ndv-251-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom display claims that all discarded electronic equipment contains only harmless materials. Name two harmful substances that can be present in some e-waste and explain why the word “some” matters.",
+      "answer": "Lead and mercury are possible examples. Equipment varies, so the presence or amount of a substance depends on the particular device and its components.",
+      "explanation": "Identifying potential hazards supports careful handling without assuming that every device has the same composition.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names two supported substances such as lead and mercury."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the composition can vary by device."
+        }
+      ],
+      "contentSourceId": "who-electronic-waste-fact-sheet"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Tracing pollution from unsafe disposal",
+      "learningObjective": "Explain two routes by which unsafe e-waste disposal can affect the environment.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-09-v1",
+      "id": "ndv-251-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a fictional town, discarded electronics are burned in the open. Ash remains on bare ground near a drain. Explain one possible effect on the air and one way pollution could spread after rain.",
+      "answer": "Burning can release harmful particles or fumes into the air. Rain can carry contaminated ash or material from the ground into the drain and nearby water.",
+      "explanation": "Airborne emissions and runoff are distinct pathways. A contaminant can move beyond the original disposal site.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a plausible air-pollution effect."
+        },
+        {
+          "marks": 1,
+          "description": "Traces rain runoff from the site to the drain or water."
+        }
+      ],
+      "contentSourceId": "who-electronic-waste-fact-sheet"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Management of e-Waste",
+      "subtopic": "Choosing reuse or a collection route",
+      "learningObjective": "Select appropriate management routes for usable and unusable equipment.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-251-10-v1",
+      "id": "ndv-251-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school has working keyboards it no longer needs and damaged electronic equipment it has decided to discard. Suggest one route for each group and explain why the routes differ.",
+      "answer": "The school can offer the working keyboards to another class or an approved donation programme. Staff should send the damaged equipment to an approved e-waste collection programme. The first route extends useful life while the second keeps discarded devices in an appropriate waste stream.",
+      "explanation": "Reuse and collection solve different problems. The route depends on whether an item remains suitable for use.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a suitable reuse or donation route for working equipment."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes an appropriate e-waste collection route for damaged equipment."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how condition affects the choice."
+        }
+      ]
+    }
+  ]
+}
