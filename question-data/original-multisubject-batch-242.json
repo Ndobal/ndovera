@@ -1,0 +1,579 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies flowcharts, pseudocode and variables",
+  "questionCount": 14,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Flowchart symbols and arrows",
+      "learningObjective": "Explain how flowchart symbols represent a decision and its outcomes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-01-v1",
+      "id": "ndv-242-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A library-return flowchart shows a diamond labelled “Is the book damaged?” Arrows labelled Yes and No leave the diamond. What does the diamond represent, and what do the two arrows tell the reader?",
+      "answer": "The diamond represents a decision. The labelled arrows show which path to follow for each answer.",
+      "explanation": "The symbol identifies a test, and the arrows connect its possible results to later steps.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the decision symbol."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the role of both labelled arrows."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Finding a missing outcome",
+      "learningObjective": "Explain how a flowchart helps check that a plan covers possible outcomes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-02-v1",
+      "id": "ndv-242-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club draws a flowchart before building a practice program. The decision “Are spare aprons available?” has a Yes arrow to “Lend an apron” but no No arrow. Explain what the chart reveals and suggest a suitable missing action.",
+      "answer": "The picture makes it visible that there is no plan for the No outcome. That path could display “No spare aprons today” and end.",
+      "explanation": "Drawing each outcome before writing code helps expose incomplete plans.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the diagram exposes an unhandled outcome."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a reasonable No path."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Tracing a two-decision path",
+      "learningObjective": "Trace a sequence of decisions for a stated case.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-03-v1",
+      "id": "ndv-242-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A diagram reads: Start → Is the reading club open? No → Show Opening hours → End. Yes → Is a seat free? Yes → Show Take a seat → End. No → Show Wait outside → End. Trace the route when the club is open and every seat is occupied.",
+      "answer": "Start, take Yes at the first decision, take No at the second, show Wait outside, then end.",
+      "explanation": "An open club passes the first test. With every seat occupied, the second test is false.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Traces Yes at the first decision and No at the second."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the output and end of the route."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Recognising pseudocode",
+      "learningObjective": "Describe the purpose and form of pseudocode.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-04-v1",
+      "id": "ndv-242-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil gives a partner these instructions: READ the number of empty trays; ADD the number of full trays; DISPLAY the total. The partner can follow them on paper. Explain why they are pseudocode.",
+      "answer": "They describe ordered algorithm steps in readable words. A person can trace them without needing the exact syntax of a programming language.",
+      "explanation": "Pseudocode expresses the plan at a level that can be translated into code later.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the ordered algorithm steps."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the readable, language-independent form."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Sharing a plan across tools",
+      "learningObjective": "Explain a benefit of pseudocode for pupils using different programming tools.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-05-v1",
+      "id": "ndv-242-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One group will use a block editor and another a text editor to build the same classroom timer. Explain why writing a shared pseudocode plan first could help them check that both versions do the same thing.",
+      "answer": "They can agree on when timing starts, when it ends and what is displayed. Each group can compare its program with the same agreed steps even though its tool expresses them differently.",
+      "explanation": "A shared algorithm gives the groups expected behaviour they can check before or after implementation.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains what the shared plan can establish."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the common steps to checking both implementations."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Writing and dry-running an algorithm",
+      "learningObjective": "Write pseudocode for a calculation and test it with specified inputs.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-06-v1",
+      "id": "ndv-242-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school store wants to display how many exercise books remain after a class collects some. Write pseudocode to read the opening stock and number collected, then display the remainder. Test it with 48 books at opening and 19 collected.",
+      "answer": "READ opening stock; READ number collected; SET remainder to opening stock minus number collected; DISPLAY remainder. The trial displays 29.",
+      "explanation": "The steps collect the two inputs, subtract the collected stock and display the result.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reads both inputs."
+        },
+        {
+          "marks": 1,
+          "description": "Computes and displays the difference."
+        },
+        {
+          "marks": 1,
+          "description": "Traces the sample to 29."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "48-19",
+          "expected": 29,
+          "purpose": "Verify the trial output."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "A reusable name for a current value",
+      "learningObjective": "Explain why a program uses a variable for changing information.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-07-v1",
+      "id": "ndv-242-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A display program shows the number of chairs available as people arrive and leave. Why should it read the value from a variable each time the display refreshes?",
+      "answer": "A variable can hold the current number and be updated when availability changes. Reading it on refresh lets the display show the latest stored number.",
+      "explanation": "The name can stay the same while its stored value changes.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the variable stores a value that can change."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the current value to the refreshed display."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Choosing readable names",
+      "learningObjective": "Choose a valid, descriptive variable name under supplied rules.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-08-v1",
+      "id": "ndv-242-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A text-based classroom language allows letters, digits and underscores in names, but the first character must be a letter. For the total number of library loans, choose among 2loans, total_loans and total-loans. Explain your choice.",
+      "answer": "total_loans begins with a letter, uses permitted characters and describes the value.",
+      "explanation": "The first alternative starts with a digit. The third uses a hyphen, which the given rules exclude.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects total_loans."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the relevant naming rules and descriptive meaning."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Selecting data types",
+      "learningObjective": "Match number, text and Boolean data to values in a classroom model.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-09-v1",
+      "id": "ndv-242-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "For a school fair program, choose a suitable type for each value: the number of filled tables, the name of an activity and whether the hall is open.",
+      "answer": "Use an integer for the number of tables, text for the activity name and a Boolean for whether the hall is open.",
+      "explanation": "An integer represents a whole count, text preserves words, and a Boolean represents true or false.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses an integer and text for the count and name."
+        },
+        {
+          "marks": 1,
+          "description": "Chooses Boolean for the open-or-closed state."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Choosing local or shared scope",
+      "learningObjective": "Distinguish shared variables from sprite-only variables in a visual project.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-10-v1",
+      "id": "ndv-242-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two sprites both need to read the same team score. One sprite also keeps a separate count of how many times it has changed costume. In a block editor with “for all sprites” and “for this sprite only” settings, choose a setting for each variable and explain.",
+      "answer": "Use for all sprites for team score. Use for this sprite only for the costume count, because only that sprite needs to read or update it.",
+      "explanation": "Shared scope makes one value available to both scripts. Sprite-only scope limits the variable to the sprite that needs it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Makes the team score shared and explains why."
+        },
+        {
+          "marks": 1,
+          "description": "Makes the costume counter sprite-only and explains why."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Predicting an output after overwrite",
+      "learningObjective": "Predict the displayed value after a variable is overwritten.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-11-v1",
+      "id": "ndv-242-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A program sets tickets to 12, displays tickets, sets tickets to 5 and displays tickets again. What two values appear in order? Explain the second output.",
+      "answer": "It displays 12, then 5. Setting tickets to 5 replaces the previous value held under that name.",
+      "explanation": "Each display uses the value held at that point in the sequence.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Predicts both values in the correct order."
+        },
+        {
+          "marks": 1,
+          "description": "Explains replacement by assignment."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Tracing a copied value",
+      "learningObjective": "Trace two variables after one receives a copy of the other.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-12-v1",
+      "id": "ndv-242-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom pseudocode program, set remaining to 16, set saved to remaining, then set remaining to remaining minus 6. Write the values of both variables after the last step. Explain why they differ.",
+      "answer": "remaining is 10 and saved is 16. The second step copies the value at that moment. The last step changes only remaining.",
+      "explanation": "A copied numeric value does not track later changes to the original variable.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives remaining as 10 and saved as 16."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why only remaining changes."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "16-6",
+          "expected": 10,
+          "purpose": "Verify the updated remaining count."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Using arithmetic on stored amounts",
+      "learningObjective": "Use multiplication and addition to compute a total from variables.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-13-v1",
+      "id": "ndv-242-013",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Let packs be 4, itemsPerPack be 7 and looseItems be 3. Write an expression for the total number of items and calculate its value.",
+      "answer": "packs × itemsPerPack + looseItems gives 4 × 7 + 3 = 31.",
+      "explanation": "Multiply the number of packs by the number in a pack, then add the loose items.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Builds the correct expression using the three variables."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates 31."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4*7+3",
+          "expected": 31,
+          "purpose": "Verify the total."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Increment and decrement in a block sequence",
+      "learningObjective": "Recognise an increase and a decrease written as variable changes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-242-14-v1",
+      "id": "ndv-242-014",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A block script contains “change waiting by 1” and later “change waiting by −1”. Which is an increment and which is a decrement? Give one event at a school help desk that could trigger each block.",
+      "answer": "Changing by 1 increments the count when a pupil joins the queue. Changing by −1 decrements it when a pupil leaves the queue.",
+      "explanation": "Adding a positive amount raises the value. Adding a negative amount lowers it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly names both changes."
+        },
+        {
+          "marks": 1,
+          "description": "Gives plausible contrasting events for the two changes."
+        }
+      ]
+    }
+  ]
+}

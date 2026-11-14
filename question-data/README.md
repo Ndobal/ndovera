@@ -1393,3 +1393,8 @@ Batch 241 adds ten JSS 1 Digital Technologies drafts on digital media
 and introductory coding from PDF pp. 26–27. The tasks use mock group
 chats and classroom block programs. They assess channel selection,
 responsible messaging, and basic visual programming.
+
+Batch 242 adds fourteen JSS 1 Digital Technologies drafts on flowcharts,
+pseudocode and variables, mapped to PDF pp. 28 and 30. Learners trace
+decision paths, design and test a short algorithm, and work with
+variable names, data types, scope, assignment and arithmetic.

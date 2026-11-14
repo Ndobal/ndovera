@@ -3153,7 +3153,9 @@
         "Basic Computer communication, PDF p. 24",
         "Basic Computer Network Components, PDF p. 25",
         "Digital Media, PDF p. 26",
-        "Coding (Programming), PDF p. 27"
+        "Coding (Programming), PDF p. 27",
+        "Basic Algorithm for creating programs (Block Coding), PDF p. 28",
+        "Variables in Programming, PDF p. 30"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -32897,6 +32899,258 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 27, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Flowchart symbols and arrows",
+      "learningObjective": "Explain how flowchart symbols represent a decision and its outcomes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Finding a missing outcome",
+      "learningObjective": "Explain how a flowchart helps check that a plan covers possible outcomes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Tracing a two-decision path",
+      "learningObjective": "Trace a sequence of decisions for a stated case.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Recognising pseudocode",
+      "learningObjective": "Describe the purpose and form of pseudocode.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Sharing a plan across tools",
+      "learningObjective": "Explain a benefit of pseudocode for pupils using different programming tools.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Writing and dry-running an algorithm",
+      "learningObjective": "Write pseudocode for a calculation and test it with specified inputs.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "A reusable name for a current value",
+      "learningObjective": "Explain why a program uses a variable for changing information.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Choosing readable names",
+      "learningObjective": "Choose a valid, descriptive variable name under supplied rules.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Selecting data types",
+      "learningObjective": "Match number, text and Boolean data to values in a classroom model.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-10-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Choosing local or shared scope",
+      "learningObjective": "Distinguish shared variables from sprite-only variables in a visual project.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-11-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Predicting an output after overwrite",
+      "learningObjective": "Predict the displayed value after a variable is overwritten.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-12-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Tracing a copied value",
+      "learningObjective": "Trace two variables after one receives a copy of the other.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-13-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Using arithmetic on stored amounts",
+      "learningObjective": "Use multiplication and addition to compute a total from variables.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 7"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-242-14-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Increment and decrement in a block sequence",
+      "learningObjective": "Recognise an increase and a decrease written as variable changes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 8"
       ]
     }
   ],

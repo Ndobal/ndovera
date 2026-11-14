@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4902,
-    "validDrafts": 3223,
+    "raw": 4916,
+    "validDrafts": 3237,
     "reviewed": 0,
     "registeredBanks": 200,
     "target": 182000,
@@ -1580,6 +1580,12 @@
       "sha256": "49e1d9dbfe624601e00165166a83224e1ad8bc8e660cb8712b7d064fb138bc4a",
       "declared": 10,
       "actual": 10
+    },
+    {
+      "path": "original-multisubject-batch-242.json",
+      "sha256": "8f911af57e0052f2f3b01aac6ec45932d34633a9c1eca3bada43211e513ec19e",
+      "declared": 14,
+      "actual": 14
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5557,18 +5563,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 49,
-      "validDrafts": 49,
+      "raw": 63,
+      "validDrafts": 63,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 49
+        "structured": 63
       },
       "difficulty": {
-        "standard": 49
+        "standard": 63
       },
-      "remaining": 951,
-      "mappedObjectives": 49,
-      "representedObjectives": 49,
+      "remaining": 937,
+      "mappedObjectives": 63,
+      "representedObjectives": 63,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7457,21 +7463,21 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 505,
+    "explicitArithmeticClaims": 508,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -41386,6 +41392,90 @@
       "id": "ndv-241-010",
       "file": "original-multisubject-batch-241.json",
       "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-001",
+      "file": "original-multisubject-batch-242.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-002",
+      "file": "original-multisubject-batch-242.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-003",
+      "file": "original-multisubject-batch-242.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-004",
+      "file": "original-multisubject-batch-242.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-005",
+      "file": "original-multisubject-batch-242.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-006",
+      "file": "original-multisubject-batch-242.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-007",
+      "file": "original-multisubject-batch-242.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-008",
+      "file": "original-multisubject-batch-242.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-009",
+      "file": "original-multisubject-batch-242.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-010",
+      "file": "original-multisubject-batch-242.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-011",
+      "file": "original-multisubject-batch-242.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-012",
+      "file": "original-multisubject-batch-242.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-013",
+      "file": "original-multisubject-batch-242.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-242-014",
+      "file": "original-multisubject-batch-242.json",
+      "index": 13,
       "errors": []
     },
     {
@@ -97709,6 +97799,426 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 27, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Flowchart symbols and arrows",
+      "learningObjective": "Explain how flowchart symbols represent a decision and its outcomes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Finding a missing outcome",
+      "learningObjective": "Explain how a flowchart helps check that a plan covers possible outcomes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Tracing a two-decision path",
+      "learningObjective": "Trace a sequence of decisions for a stated case.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Recognising pseudocode",
+      "learningObjective": "Describe the purpose and form of pseudocode.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Sharing a plan across tools",
+      "learningObjective": "Explain a benefit of pseudocode for pupils using different programming tools.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Basic Algorithm for creating programs (Block Coding)",
+      "subtopic": "Writing and dry-running an algorithm",
+      "learningObjective": "Write pseudocode for a calculation and test it with specified inputs.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 28, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "A reusable name for a current value",
+      "learningObjective": "Explain why a program uses a variable for changing information.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Choosing readable names",
+      "learningObjective": "Choose a valid, descriptive variable name under supplied rules.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Selecting data types",
+      "learningObjective": "Match number, text and Boolean data to values in a classroom model.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-10-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Choosing local or shared scope",
+      "learningObjective": "Distinguish shared variables from sprite-only variables in a visual project.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-11-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Predicting an output after overwrite",
+      "learningObjective": "Predict the displayed value after a variable is overwritten.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-12-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Tracing a copied value",
+      "learningObjective": "Trace two variables after one receives a copy of the other.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-13-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Using arithmetic on stored amounts",
+      "learningObjective": "Use multiplication and addition to compute a total from variables.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 7"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-242-14-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Variables in Programming",
+      "subtopic": "Increment and decrement in a block sequence",
+      "learningObjective": "Recognise an increase and a decrease written as variable changes.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 30, performance objective 8"
       ],
       "questionCount": 1,
       "validDrafts": 1,
