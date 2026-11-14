@@ -1449,3 +1449,7 @@ curriculum and adds eight drafts on erosion and flooding from PDF
 pp. 13–16. The practical erosion task uses a classroom tray model.
 Field visits, publication date, school adoption and formal formats
 remain unverified.
+
+Batch 254 adds ten JSS 1 Intermediate Science drafts on bush-burning
+prevention and matter from PDF pp. 17–19. The paper-based prevention
+tasks leave jurisdiction-specific regulations and fieldwork open.

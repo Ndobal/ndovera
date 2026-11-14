@@ -1,0 +1,403 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science bush-burning prevention and matter",
+  "questionCount": 10,
+  "note": "Original classroom practice. Bush-burning tasks use paper scenarios. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Soil cover after vegetation loss",
+      "learningObjective": "Explain a possible effect of vegetation burning on farmland.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-01-v1",
+      "id": "ndv-254-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A field loses much of its plant cover after a vegetation fire. Rain later leaves muddy water at the field’s lower edge. Explain how losing the plant cover could contribute to that observation.",
+      "answer": "With less plant cover, raindrops strike more bare soil and runoff can carry loose particles downhill. Those particles can make the runoff muddy.",
+      "explanation": "Changes in cover can affect how easily water removes soil after a fire.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links the fire to reduced cover and exposed soil."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how runoff can carry soil into the observed water."
+        }
+      ],
+      "contentSourceId": "fao-wildfire-soil-impact"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Why a community practice persists",
+      "learningObjective": "Explain an agricultural or economic pressure that can encourage bush burning.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-02-v1",
+      "id": "ndv-254-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional farming group wants to prepare its plots before the rains. Clearing by hand takes longer and the group has little money for equipment. Explain why some members may consider burning and give one way the group could address the pressure without burning.",
+      "answer": "Members may think burning is a fast, low-cost way to clear the plots. Sharing tools or organising a group clearing day could reduce delays and costs.",
+      "explanation": "People may choose a method because of the resources or time they have. Addressing the constraint can make other methods more practical.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a pressure from the example."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a non-burning response that addresses it."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Managing leftover vegetation",
+      "learningObjective": "Explain how an alternative to open burning can prevent a vegetation fire.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-03-v1",
+      "id": "ndv-254-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "After a school garden is cleared, staff have a pile of cut leaves and stems. Suggest a non-burning way to manage suitable material and explain one environmental benefit.",
+      "answer": "Staff could compost suitable plant material under the school’s garden plan. This avoids starting a vegetation fire and can produce material to improve the soil.",
+      "explanation": "Composting can put suitable cut vegetation to use and avoids smoke from burning the pile.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a realistic non-burning method."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a related environmental benefit."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Creating a prevention poster",
+      "learningObjective": "Create a paper campaign poster with an accurate effect and clear action.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-04-v1",
+      "id": "ndv-254-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Design a paper poster for families near a school garden. Add a heading, a drawing or caption showing one harmful effect of bush burning, and one realistic prevention action. Work entirely on paper.",
+      "answer": "An example heading is “Keep our garden smoke-free”. A drawing shows smoke drifting towards nearby homes. The caption asks adults to take suitable cut plants to the approved compost area instead of burning.",
+      "explanation": "The image or caption shows why the campaign matters and the suggested action gives the audience something specific to do.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes an appropriate heading for the audience."
+        },
+        {
+          "marks": 1,
+          "description": "Shows a scientifically plausible effect."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a practical non-burning prevention action."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Matter-Basic Concepts",
+      "subtopic": "Evidence that air is matter",
+      "learningObjective": "Use a familiar observation to explain that air occupies space.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-05-v1",
+      "id": "ndv-254-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil pumps air into a soft football and it becomes firm and larger. Explain which property of matter the change helps demonstrate. Give a second property that matter has.",
+      "answer": "The air takes up space inside the football. Matter also has mass.",
+      "explanation": "The change makes the occupied space easier to notice even though the air is invisible.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links the observation to air occupying space."
+        },
+        {
+          "marks": 1,
+          "description": "States that matter has mass."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Matter-Basic Concepts",
+      "subtopic": "Matter and a sound event",
+      "learningObjective": "Distinguish a material object from a form of energy transfer.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-06-v1",
+      "id": "ndv-254-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A drum is struck during assembly. Which is an example of matter, the drum or the sound travelling across the hall? Explain using mass and space.",
+      "answer": "The drum is matter because it has mass and takes up space. The sound is a disturbance travelling through the air, which is itself matter.",
+      "explanation": "The drum and the surrounding air are material. Sound transfers energy through vibrations.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the drum as matter using its properties."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the sound from the material carrying it."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Matter-Basic Concepts",
+      "subtopic": "Recognising three familiar states",
+      "learningObjective": "Classify three samples as solid, liquid and gas.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-07-v1",
+      "id": "ndv-254-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A demonstration uses a chalk stick, water in a cup and air inside a sealed bag. Name the state of each sample and identify which sample can spread to fill the available space in its container.",
+      "answer": "Chalk is solid, the water is liquid and the air is gas. Air spreads to fill the available space in the bag.",
+      "explanation": "A liquid can change shape to fit part of a container. A gas can fill the available space.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies all three samples correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the gas as the sample that fills the available space."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Matter-Basic Concepts",
+      "subtopic": "Evaporation and condensation",
+      "learningObjective": "Interpret two opposite changes of state in everyday observations.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-08-v1",
+      "id": "ndv-254-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A wet cloth dries on a line. On the same day, droplets appear on the outside of a cold sealed bottle. Name the change of state in each case and explain where the bottle droplets come from.",
+      "answer": "The cloth dries by evaporation. Water vapour in the surrounding air cools near the bottle and condenses into liquid droplets.",
+      "explanation": "Evaporation changes liquid water into vapour. Condensation changes vapour back into liquid.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies evaporation from the cloth and condensation at the bottle."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the nearby air as the source of the water vapour."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Matter-Basic Concepts",
+      "subtopic": "Sorting living and non-living examples",
+      "learningObjective": "Classify examples using observable evidence.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-09-v1",
+      "id": "ndv-254-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A class observes a living bean seedling, a stone and a working wind-up toy. Sort the three as living or non-living and give one observation that could support the seedling classification.",
+      "answer": "The seedling is living. The stone and wind-up toy are non-living. The seedling can produce new leaves over several days.",
+      "explanation": "Growth of new plant structures is evidence of life. The toy’s movement comes from a mechanism.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies all three correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant observation supporting the seedling classification."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Matter-Basic Concepts",
+      "subtopic": "Why movement alone is insufficient",
+      "learningObjective": "Explain why a single observation of movement cannot establish that an object is living.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-254-10-v1",
+      "id": "ndv-254-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil sees a loose wrapper move across a courtyard and a potted plant remain still. Explain why this observation alone gives a poor basis for deciding which is living. Suggest one further observation of the plant.",
+      "answer": "Wind can move the non-living wrapper. A plant can be alive without moving from place to place. Check whether the plant produces new leaves or grows over time.",
+      "explanation": "Movement can have an outside cause. Several characteristics provide better evidence than one brief observation.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the weakness of judging by movement alone."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests an observation that would provide relevant evidence of life."
+        }
+      ]
+    }
+  ]
+}
