@@ -1420,3 +1420,7 @@ Batch 247 adds eight JSS 1 Digital Technologies drafts from PDF p. 40.
 Tasks cover AI and human judgement, machine-learning applications,
 training examples and tests on unseen drawings. Tool availability and
 voice-processing practical delivery remain open.
+
+Batch 248 adds eight JSS 1 Digital Technologies drafts from PDF pp. 41–42.
+Fictional messages support practice in respectful communication,
+recognising spam and verifying unexpected claims through known channels.

@@ -3160,7 +3160,9 @@
         "Loops in Programming, PDF p. 34",
         "Game Development with Visual Programming, PDF p. 36",
         "Basics of Robotics, PDF p. 38",
-        "Artificial Intelligence (AI), PDF p. 40"
+        "Artificial Intelligence (AI), PDF p. 40",
+        "Internet Communication Practices, PDF p. 41",
+        "Spam, PDF p. 42"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -33876,6 +33878,150 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 40, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-248-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Internet Communication Practices",
+      "subtopic": "Recognising repeated targeting",
+      "learningObjective": "Identify online bullying from a pattern of behaviour.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 41, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-248-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Internet Communication Practices",
+      "subtopic": "Responding without amplifying a hurtful post",
+      "learningObjective": "Explain why a bystander should avoid forwarding a hurtful post and identify a supportive action.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 41, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-248-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Internet Communication Practices",
+      "subtopic": "Tracing the effects of an unverified claim",
+      "learningObjective": "Explain how sharing unverified information can affect individuals and a school community.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 41, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-248-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Internet Communication Practices",
+      "subtopic": "Rewriting criticism for a group discussion",
+      "learningObjective": "Revise a personal attack into respectful, specific feedback.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 41, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-248-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Spam",
+      "subtopic": "Distinguishing spam from a requested notice",
+      "learningObjective": "Explain spam by comparing an unsolicited bulk message with an opted-in update.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 42, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-248-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Spam",
+      "subtopic": "Recognising common spam categories",
+      "learningObjective": "Classify fake delivery and prize messages from their claims.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 42, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-248-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Spam",
+      "subtopic": "Checking a suspicious message separately",
+      "learningObjective": "Choose a safe way to verify an unexpected message that may concern a real service.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 42, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-248-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Spam",
+      "subtopic": "Reducing address exposure",
+      "learningObjective": "Propose a change to a public post that reduces unwanted contact.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 42, performance objective 3"
       ]
     }
   ],

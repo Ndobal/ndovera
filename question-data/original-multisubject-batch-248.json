@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies internet communication and spam",
+  "questionCount": 8,
+  "note": "Original classroom practice using fictional messages. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Internet Communication Practices",
+      "subtopic": "Recognising repeated targeting",
+      "learningObjective": "Identify online bullying from a pattern of behaviour.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-248-01-v1",
+      "id": "ndv-248-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a fictional club chat, one pupil receives mocking comments on each drawing they submit. The same classmates continue after being asked to stop. Name the behaviour and cite two signs from the example.",
+      "answer": "It is online bullying. The comments repeatedly target one pupil, and the classmates continue after being asked to stop.",
+      "explanation": "Repeated targeting and persistence distinguish the pattern from a single disagreement over a drawing.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies online bullying."
+        },
+        {
+          "marks": 1,
+          "description": "Cites two relevant signs from the scenario."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Internet Communication Practices",
+      "subtopic": "Responding without amplifying a hurtful post",
+      "learningObjective": "Explain why a bystander should avoid forwarding a hurtful post and identify a supportive action.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-248-02-v1",
+      "id": "ndv-248-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classmate sees a humiliating photo of a pupil in a fictional group chat. Another member offers to forward it to a second group so more people can complain. Explain one risk of forwarding it and give a way to help without increasing its audience.",
+      "answer": "Forwarding exposes the photo to more people and can deepen the humiliation. The classmate can report it through the group or tell a trusted adult, and check in privately with the pupil.",
+      "explanation": "A bystander can help stop the behaviour and support the pupil without distributing the image again.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how forwarding can increase the harm."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a realistic supportive or reporting action that avoids forwarding."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Internet Communication Practices",
+      "subtopic": "Tracing the effects of an unverified claim",
+      "learningObjective": "Explain how sharing unverified information can affect individuals and a school community.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-248-03-v1",
+      "id": "ndv-248-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional message claims the school library will be closed all week. Several pupils cancel planned study sessions. The librarian later confirms it is open. Explain one effect on pupils and one effect on the school community.",
+      "answer": "Pupils may miss study time or rearrange their plans unnecessarily. The school may have to spend time correcting the claim, and families may start doubting messages about opening hours.",
+      "explanation": "An unverified claim can change decisions immediately and later reduce trust in shared information.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a concrete effect on pupils."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a separate community effect, such as confusion, correction work or lost trust."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Internet Communication Practices",
+      "subtopic": "Rewriting criticism for a group discussion",
+      "learningObjective": "Revise a personal attack into respectful, specific feedback.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-248-04-v1",
+      "id": "ndv-248-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a mock group chat, a pupil writes “You are useless at planning” after finding that a rehearsal schedule lacks a venue. Rewrite the reply so it addresses the actual problem. Explain why your revision is more useful.",
+      "answer": "“The rehearsal schedule does not show a venue yet. Can we confirm the room before sharing it?” This identifies the missing detail and gives the group something it can fix.",
+      "explanation": "Specific feedback focuses on the work and lets the group respond to the issue.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Replaces the insult with a clear reference to the missing venue."
+        },
+        {
+          "marks": 1,
+          "description": "Adds a constructive request or next step."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the benefit of addressing the work directly."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Spam",
+      "subtopic": "Distinguishing spam from a requested notice",
+      "learningObjective": "Explain spam by comparing an unsolicited bulk message with an opted-in update.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-248-05-v1",
+      "id": "ndv-248-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A mock inbox has an update from a reading club the pupil signed up for. It also has the same unwanted sales offer sent to the pupil and many other recipients who did not request it. Which is spam in this example and why?",
+      "answer": "The unwanted mass sales offer is spam because it was sent indiscriminately without the recipients asking for it. The reading-club update was requested.",
+      "explanation": "Whether the message was solicited matters. Sending a requested notice to many subscribers does not by itself make it spam.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the unwanted offer."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the relevance of unsolicited bulk sending."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Spam",
+      "subtopic": "Recognising common spam categories",
+      "learningObjective": "Classify fake delivery and prize messages from their claims.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-248-06-v1",
+      "id": "ndv-248-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two fictional messages arrive unexpectedly. One claims a parcel delivery failed, although the recipient ordered nothing. The other says the recipient has won a prize in a contest they did not enter. Identify the spam category illustrated by each.",
+      "answer": "The first illustrates fake delivery-failure spam. The second illustrates fake prize spam.",
+      "explanation": "One claim uses a supposed delivery problem and the other a supposed prize. The exercise asks pupils to recognise both common categories.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies the first as a fake delivery or delivery-failure message."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies the second as a fake prize or gift message."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Spam",
+      "subtopic": "Checking a suspicious message separately",
+      "learningObjective": "Choose a safe way to verify an unexpected message that may concern a real service.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-248-07-v1",
+      "id": "ndv-248-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil expects a book parcel. A surprise message claims there is a delivery problem and asks the pupil to open a link. Describe how the pupil could check the parcel status without using the link or responding to the message.",
+      "answer": "Ask a trusted adult to help check the seller’s order page or the courier’s official tracking channel using details already supplied with the original order.",
+      "explanation": "A known channel lets the pupil check whether the claim is genuine without relying on the unexpected message.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Avoids interacting with the link or sender."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an independently known order or courier channel, with adult help where appropriate."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Spam",
+      "subtopic": "Reducing address exposure",
+      "learningObjective": "Propose a change to a public post that reduces unwanted contact.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-248-08-v1",
+      "id": "ndv-248-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional science club plans to publish a poster on its public page. The draft includes a pupil’s personal email address. Suggest a way for interested families to contact the club while reducing exposure of the pupil’s address.",
+      "answer": "Remove the pupil’s email and direct families to the school office or a school-approved club contact form.",
+      "explanation": "A public page can be read beyond the intended audience. A managed contact route lets people make enquiries without publishing a pupil’s address.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Removes the personal address from the public post."
+        },
+        {
+          "marks": 1,
+          "description": "Offers a plausible managed contact route."
+        }
+      ]
+    }
+  ]
+}
