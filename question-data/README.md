@@ -1345,3 +1345,8 @@ Nigeria and voluntary tax compliance from PDF pp. 43–44. The tasks use
 fictional budgets, tax classifications and filing scenarios. Two National
 Assembly statutory sources support the legal examples, which omit tax
 rates, thresholds, penalties and filing deadlines.
+
+Batch 234 adds twelve JSS 1 Business Studies drafts on entrepreneurship
+and generating and selecting business ideas from PDF pp. 45–46. Pupils
+identify customer needs, compare pilot options against resource and
+budget constraints, and design a trial with a continuation criterion.

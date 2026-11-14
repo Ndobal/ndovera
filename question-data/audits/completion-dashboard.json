@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4828,
-    "validDrafts": 3149,
+    "raw": 4840,
+    "validDrafts": 3161,
     "reviewed": 0,
     "registeredBanks": 199,
     "target": 181000,
@@ -1532,6 +1532,12 @@
       "sha256": "647e01bedb1e7e5c73d8a91163cab05abf97b89ce956cde39583818071bd05f6",
       "declared": 13,
       "actual": 13
+    },
+    {
+      "path": "original-multisubject-batch-234.json",
+      "sha256": "1868659b9d87d385dde8e67eb4acf3feef41e7ffc9ffa386cd2762df5053f0cb",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5385,19 +5391,19 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-business-studies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 169,
-      "validDrafts": 169,
+      "raw": 181,
+      "validDrafts": 181,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 169
+        "structured": 181
       },
       "difficulty": {
-        "standard": 167,
+        "standard": 179,
         "difficult": 2
       },
-      "remaining": 831,
-      "mappedObjectives": 169,
-      "representedObjectives": 169,
+      "remaining": 819,
+      "mappedObjectives": 181,
+      "representedObjectives": 181,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7386,21 +7392,21 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 499,
+    "explicitArithmeticClaims": 501,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 1
@@ -40871,6 +40877,78 @@
       "id": "ndv-233-013",
       "file": "original-multisubject-batch-233.json",
       "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-001",
+      "file": "original-multisubject-batch-234.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-002",
+      "file": "original-multisubject-batch-234.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-003",
+      "file": "original-multisubject-batch-234.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-004",
+      "file": "original-multisubject-batch-234.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-005",
+      "file": "original-multisubject-batch-234.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-006",
+      "file": "original-multisubject-batch-234.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-007",
+      "file": "original-multisubject-batch-234.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-008",
+      "file": "original-multisubject-batch-234.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-009",
+      "file": "original-multisubject-batch-234.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-010",
+      "file": "original-multisubject-batch-234.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-011",
+      "file": "original-multisubject-batch-234.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-234-012",
+      "file": "original-multisubject-batch-234.json",
+      "index": 11,
       "errors": []
     },
     {
@@ -94974,6 +95052,366 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Business Studies, PDF p. 44, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-01-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Entrepreneur, enterprise and activity",
+      "learningObjective": "Distinguish the person, venture and process in a business case.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 45, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-02-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Enterprise and local work",
+      "learningObjective": "Explain employment and customer benefits from a new enterprise.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 45, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-03-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Persistence with adaptation",
+      "learningObjective": "Infer an entrepreneurial characteristic from a response to setbacks.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 45, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-04-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Calculated risk",
+      "learningObjective": "Explain how an entrepreneur can limit risk while testing an idea.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 45, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-05-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Recording orders before expansion",
+      "learningObjective": "Explain how keeping order records can support a growth decision.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 45, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-06-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Planning for a late supplier",
+      "learningObjective": "Explain how contingency planning can support reliable service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 45, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-07-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "From a product name to a business idea",
+      "learningObjective": "Explain what turns a product name into a business idea.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 46, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-08-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Generating options for one need",
+      "learningObjective": "Generate distinct offers from an observed customer problem.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 46, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-09-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Asking for evidence about a need",
+      "learningObjective": "Design a question to learn whether a reported customer problem is common.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 46, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-10-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Checking skills and equipment",
+      "learningObjective": "Screen business ideas using practical production constraints.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 46, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-11-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Screening against a spending limit",
+      "learningObjective": "Compare customer interest and affordability when selecting a pilot.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 46, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-business-jss1-234-12-v1",
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Designing a testable pilot",
+      "learningObjective": "Propose a viable business idea and a trial with a decision criterion.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Business Studies, PDF p. 46, performance objective 4"
       ],
       "questionCount": 1,
       "validDrafts": 1,

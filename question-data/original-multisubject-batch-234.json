@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Business Studies entrepreneurship and business idea selection",
+  "questionCount": 12,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Entrepreneur, enterprise and activity",
+      "learningObjective": "Distinguish the person, venture and process in a business case.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-01-v1",
+      "id": "ndv-234-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Bisi notices that market traders often need signs changed quickly. She organises a small sign-writing service, buys materials and tests which signs customers order. Identify the entrepreneur, the enterprise and one action illustrating entrepreneurship.",
+      "answer": "Bisi is the entrepreneur. The sign-writing service is the enterprise. Spotting the need and organising materials to offer the service illustrates entrepreneurship.",
+      "explanation": "The entrepreneur is the person, the enterprise is the venture and entrepreneurship is the process of finding an opportunity and organising a response.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Bisi as the entrepreneur."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the sign-writing service as the enterprise."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies an entrepreneurial action and connects it to creating or operating the venture."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Enterprise and local work",
+      "learningObjective": "Explain employment and customer benefits from a new enterprise.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-02-v1",
+      "id": "ndv-234-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A bicycle repairer begins offering scheduled repairs near a market and pays an apprentice to help. Explain one benefit to a customer and one benefit to the apprentice.",
+      "answer": "Customers can arrange repairs locally and plan when to bring their bicycles. The apprentice gains paid work and can learn repair skills.",
+      "explanation": "Entrepreneurship can meet a customer need while creating work or training opportunities.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a concrete benefit for customers."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a distinct benefit for the apprentice."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Persistence with adaptation",
+      "learningObjective": "Infer an entrepreneurial characteristic from a response to setbacks.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-03-v1",
+      "id": "ndv-234-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A maker’s first batch of cloth lunch bags tears at the handle. She checks where the seams failed, adjusts the design and tests a sample before producing again. Identify one entrepreneurial characteristic shown and explain the evidence for it.",
+      "answer": "Adaptability is shown when she changes the design after inspecting the failure. Persistence is also supported because she continues with a revised test after the setback.",
+      "explanation": "The evidence should show how the maker responded to the problem.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a suitable characteristic."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a specific action in the case to justify it."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Calculated risk",
+      "learningObjective": "Explain how an entrepreneur can limit risk while testing an idea.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-04-v1",
+      "id": "ndv-234-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A badge maker can afford to test a small batch. A supplier also offers a discount if she buys enough materials for 400 badges, but she has no orders yet. Explain how a small trial illustrates calculated risk.",
+      "answer": "A small trial uses some money and could fail, but it limits the amount at risk. Actual orders from the trial can guide a later decision about buying more materials.",
+      "explanation": "The entrepreneur accepts a manageable uncertainty to gather evidence before committing more resources.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies an uncertainty or possible loss."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the trial limits exposure and provides evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Recording orders before expansion",
+      "learningObjective": "Explain how keeping order records can support a growth decision.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-05-v1",
+      "id": "ndv-234-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A furniture repairer wants to add a second weekly collection trip. His notebook shows when each order was accepted and collected. Explain how he could use the notebook to decide whether the extra trip would solve a real problem.",
+      "answer": "Compare the dates to see how long customers wait and whether delays cluster between collection days. If the records show a recurring long wait, a second trip may improve service.",
+      "explanation": "Tracking waiting time tests whether the proposal addresses a repeated problem.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a relevant comparison using the order dates."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the pattern found to the proposed decision."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Entrepreneurship",
+      "subtopic": "Planning for a late supplier",
+      "learningObjective": "Explain how contingency planning can support reliable service.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-06-v1",
+      "id": "ndv-234-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school uniform repair service receives buttons late twice in a month. The owner promises customers a collection date before confirming supplies. Suggest one change to purchasing and one change to how the owner communicates with customers.",
+      "answer": "Keep a small buffer or identify an approved backup supplier for common buttons. Confirm supplies before promising a date and notify customers promptly if the plan changes.",
+      "explanation": "Planning for supply interruptions helps the owner make commitments the business can meet.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a workable purchasing contingency."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes communication that makes collection promises more reliable."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "From a product name to a business idea",
+      "learningObjective": "Explain what turns a product name into a business idea.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-07-v1",
+      "id": "ndv-234-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One pupil writes “notebooks” on an idea board. Another proposes selling refill pages at a school club where members already own reusable covers. Explain why the second proposal is a clearer business idea.",
+      "answer": "It identifies a product, a group of customers and a use for the product. The refill pages let club members continue using the covers they already have.",
+      "explanation": "A business idea describes an offer and the customer need it could meet.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the proposed offer and customer group."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the customer need or benefit."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Generating options for one need",
+      "learningObjective": "Generate distinct offers from an observed customer problem.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-08-v1",
+      "id": "ndv-234-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Several bus commuters near a repair kiosk report that they cannot wait there while their umbrellas are fixed. State the need and suggest two different services the kiosk could offer that address it.",
+      "answer": "Commuters need repairs without waiting at the kiosk. One service could take repairs by appointment with a short collection window. Another could accept umbrellas before the morning commute and make them available for collection after work.",
+      "explanation": "Both offers respond to the time constraint in different ways. Other workable proposals can earn credit.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States the need in terms of avoiding a long wait."
+        },
+        {
+          "marks": 1,
+          "description": "Gives one realistic service response."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second, meaningfully different service response."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Asking for evidence about a need",
+      "learningObjective": "Design a question to learn whether a reported customer problem is common.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-09-v1",
+      "id": "ndv-234-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A group hears one worker say that market baskets are difficult to carry when wet. Before designing a product, write one neutral question the group could ask several shoppers and say how the replies would help.",
+      "answer": "Ask, “What difficulty, if any, did you have carrying your shopping the last time it rained?” Replies can show whether the reported problem recurs and whether shoppers face other problems.",
+      "explanation": "A neutral question lets respondents describe their actual experience without being pushed to agree.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes a neutral question relevant to the reported problem."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how several answers can inform idea generation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Checking skills and equipment",
+      "learningObjective": "Screen business ideas using practical production constraints.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-10-v1",
+      "id": "ndv-234-010",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A group has hand tools and knows how to mend canvas. Customers need bag repairs and replacement metal buckles. Making new buckles would require casting equipment the group cannot access. Which idea can the group offer first using its current resources, and what change would make the other idea worth reconsidering?",
+      "answer": "Offer bag repairs first because the group already has the tools and skills. Reconsider buckles if the group obtains suitable equipment and skills or finds a reliable source of finished buckles.",
+      "explanation": "An idea is more feasible when the team can obtain the equipment, skills and materials it needs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects repairs and cites the existing tools or skills."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a concrete way to remove the constraint on the second idea."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Screening against a spending limit",
+      "learningObjective": "Compare customer interest and affordability when selecting a pilot.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-11-v1",
+      "id": "ndv-234-011",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school club can spend at most ₦8,000 on a pilot and has agreed to consider only ideas at or below that limit. Estimate A is ₦5,800 for a repair stall, with 9 expressions of interest. Estimate B is ₦8,450 for a lending stand, with 15 expressions of interest. Which idea should the club screen in first and how much of its limit remains?",
+      "answer": "Screen in A. It costs less than the limit, leaving ₦2,200. B has more interest but exceeds the spending limit by ₦450.",
+      "explanation": "Apply the agreed budget screen before comparing interest. Expressions of interest are evidence to follow up during the pilot.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects A using the stated limit."
+        },
+        {
+          "marks": 1,
+          "description": "Explains where B fails the screen."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates that ₦2,200 remains for A."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "8000-5800",
+          "expected": 2200,
+          "purpose": "Verify money remaining for A."
+        },
+        {
+          "expression": "8450-8000",
+          "expected": 450,
+          "purpose": "Verify the amount by which B exceeds the limit."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Business Studies",
+      "level": "JSS 1",
+      "topic": "Generating and Selecting Business Ideas",
+      "subtopic": "Designing a testable pilot",
+      "learningObjective": "Propose a viable business idea and a trial with a decision criterion.",
+      "specificationId": "nerdc-business-studies-jss1-revised-2025",
+      "objectiveId": "nerdc-business-jss1-234-12-v1",
+      "id": "ndv-234-012",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom simulation, pupils frequently need a ruler during art club. The club has permission to use a spare table and already owns ten extra rulers. Propose a small enterprise to meet the need, describe a one-week pilot and name one result that would justify continuing.",
+      "answer": "Offer a supervised ruler loan service from the art-club table. For one week, record when a ruler goes out, when it returns and whether anyone is turned away. Continue if pupils use the service and most rulers come back on time. A trial can set a clear minimum for both.",
+      "explanation": "The model uses resources already available. Demand and return records help the club decide whether the offer is workable.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a specific offer that uses available resources."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a realistic pilot and what it records."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a measurable continuation criterion tied to demand or operation."
+        }
+      ]
+    }
+  ]
+}
