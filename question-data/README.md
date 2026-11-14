@@ -1443,3 +1443,9 @@ Batch 252 adds five JSS 1 Digital Technologies drafts on early computing
 hardware and Nigerian computing professional bodies. The external
 references corroborate the four hardware milestones and the roles of CPN
 and NCS. Fifth-generation terminology and practical gaps remain open.
+
+Batch 253 registers the official revised JSS 1 Intermediate Science
+curriculum and adds eight drafts on erosion and flooding from PDF
+pp. 13–16. The practical erosion task uses a classroom tray model.
+Field visits, publication date, school adoption and formal formats
+remain unverified.

@@ -3251,6 +3251,24 @@
       "source": "https://www.ncs.org.ng/about-ncs/",
       "retrievedOn": "2026-11-14",
       "note": "Society description of its professional community and objectives."
+    },
+    {
+      "id": "nerdc-intermediate-science-jss1-revised",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/jss_1/necurrdc/14.pdf",
+      "retrievedOn": "2026-11-14",
+      "sourceBytes": 5576886,
+      "pageCount": 38,
+      "sha256": "d52b9b9a7914b4e089a51fb6bfe25fbf9baff29a90263b36d255927fabef270a",
+      "sourceSections": [
+        "Title and revised curriculum, PDF pp. 1–3",
+        "Environmental Degradation: Erosion, PDF pp. 13–14",
+        "Environmental Degradation: Flooding, PDF pp. 15–16"
+      ],
+      "note": "Exact class and subject verified in the direct revised PDF. Publication date, school adoption, term placement and formal formats remain unverified."
     }
   ],
   "banks": [
@@ -5985,6 +6003,15 @@
       "target": 1000,
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
     }
   ],
@@ -34683,6 +34710,150 @@
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 16, performance objective 3"
       ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-253-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Erosion",
+      "subtopic": "Erosion and deposition",
+      "learningObjective": "Use observations to distinguish removal of soil from later deposition.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 13, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-253-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Erosion",
+      "subtopic": "Rain and exposed soil",
+      "learningObjective": "Explain how rainfall and a human action can combine to increase erosion.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 13, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-253-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Erosion",
+      "subtopic": "Reducing concentrated runoff",
+      "learningObjective": "Recommend a measure that reduces erosion caused by concentrated roof runoff.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 13, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-253-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Erosion",
+      "subtopic": "Testing the effect of ground cover",
+      "learningObjective": "Compare runoff from a covered and uncovered classroom model.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 13, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-253-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Recognising flooding",
+      "learningObjective": "Identify flooding in a local example and explain why it qualifies.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 15, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-253-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Runoff from a changed surface",
+      "learningObjective": "Explain how surface changes can increase flood risk.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 15, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-253-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Comparing drainage systems",
+      "learningObjective": "Distinguish open and covered drainage in a school layout.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 15, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-253-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Flood effects on crops and access",
+      "learningObjective": "Explain two distinct consequences of flooding on farmland.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 15, performance objective 5"
+      ]
     }
   ],
   "scopeGaps": [
@@ -34730,7 +34901,7 @@
     "NECO 2027 SSCE Internal timetable evidence is recorded for 36 matched banks and 97 paper codes. General Mathematics retains 1023 objective and 1022 essay. Livestock Farming uses 5031–5034 in 2027 and 5041–5044 in 2026. The 2027 registration guide identifies a separate syllabus. Topic objectives, assessment blueprint and full External scope remain unresolved.",
     "The September 2025 revised Social and Citizenship Studies JSS 1 PDF was retrieved directly. Six initial outcomes from three topics have draft practice. Full class scope, school adoption, performance delivery and independent review remain open. The unspecified JSS 1 subject-list row remains unresolved.",
     "On 2026-11-13 the official revised JSS 1 subject-offering page loaded and listed 16 named subjects plus a Trades link. Business Studies now has verified exact-class source evidence. Other unmapped subjects, trade options, school adoption and formal formats require separate reconciliation.",
-    "JSS 1 offering reconciliation: nine of the 16 named subjects in the batch 219 official listing have exact-class banks after registration of Digital Technologies. Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language, French and Intermediate Science still require exact-class mapping. Trades remain unresolved. The listing returned HTTP 403 in batch 236; the Digital Technologies direct PDF was accessible in batch 237.",
+    "JSS 1 offering reconciliation: ten of the 16 named subjects in the batch 219 official listing have exact-class banks after registration of Intermediate Science. Hausa Language, Igbo Language, Yoruba Language, Islamic Studies, Arabic Language and French still require exact-class mapping. Trades remain unresolved. The listing returned HTTP 403 in batch 236; the direct Intermediate Science PDF was accessible in batch 253.",
     "JSS 1 Business Studies Overview of Insurance I has initial practice for objectives 1, 2, 4 and 5. Conventional insurance, takaful and microinsurance under objective 3 require separate authoritative comparison. Policy terms used in the draft are fictional.",
     "Batch 225 adds introductory takaful and microinsurance comparisons and one compulsory motor insurance objective mapped to NIIRA 2025 section 84(1). Other compulsory categories, detailed coverage conditions and subsequent implementing instruments require separate verification.",
     "Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open.",

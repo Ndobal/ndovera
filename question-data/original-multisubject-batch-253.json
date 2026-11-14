@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science erosion and flooding",
+  "questionCount": 8,
+  "note": "Original classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Erosion",
+      "subtopic": "Erosion and deposition",
+      "learningObjective": "Use observations to distinguish removal of soil from later deposition.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-253-01-v1",
+      "id": "ndv-253-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "After rain, shallow grooves appear on a bare slope and a fan of loose sand appears at its foot. Which observation shows where erosion occurred? Explain how the other observation is related.",
+      "answer": "The grooves show where runoff removed soil. The fan shows where water dropped some of the transported sediment.",
+      "explanation": "Erosion removes and transports material. Deposition occurs where that material settles.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the grooves as evidence of removal."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the sand fan to deposition after transport."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Erosion",
+      "subtopic": "Rain and exposed soil",
+      "learningObjective": "Explain how rainfall and a human action can combine to increase erosion.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-253-02-v1",
+      "id": "ndv-253-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two similar slopes receive the same rainfall. On one, grass was removed to build a footpath. Explain why this slope may lose more soil than the slope still covered in grass.",
+      "answer": "Rain and runoff can carry exposed soil away. Removing the grass reduced the cover that intercepts raindrops and the roots that help hold soil in place.",
+      "explanation": "The same rain can produce different amounts of erosion if surface protection differs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies rainfall or runoff as a natural agent."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a specific effect of removing vegetation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Erosion",
+      "subtopic": "Reducing concentrated runoff",
+      "learningObjective": "Recommend a measure that reduces erosion caused by concentrated roof runoff.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-253-03-v1",
+      "id": "ndv-253-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Water from a roof pipe lands at one spot on a school garden and is cutting a small channel. Suggest one way staff could reduce erosion there and explain how it works.",
+      "answer": "Staff could route the outlet to a suitable existing drain or a protected surface that spreads the flow. This reduces the force of water hitting the same patch of bare soil.",
+      "explanation": "Concentrated runoff can remove loose soil faster than dispersed flow.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests an appropriate way to redirect or spread the flow."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how it protects the exposed soil."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Erosion",
+      "subtopic": "Testing the effect of ground cover",
+      "learningObjective": "Compare runoff from a covered and uncovered classroom model.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-253-04-v1",
+      "id": "ndv-253-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "With teacher-provided shallow trays, put equal amounts of the same soil on two equal slopes. Cover one with dry leaves. Pour equal amounts of water gently from the same height, collect each runoff in a cup and record the observed sediment after settling. State one prediction.",
+      "answer": "The uncovered tray will generally produce more visible sediment. Record the setup and the observed sediment for both trays, even if the results differ from the prediction.",
+      "explanation": "The leaf cover can break the impact of water and slow surface flow. Keeping the slope, soil and water comparable helps isolate the effect of cover.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Changes ground cover while controlling soil, slope and water."
+        },
+        {
+          "marks": 1,
+          "description": "Collects and compares the two runoff samples."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a reasoned prediction and reports observations separately."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Recognising flooding",
+      "learningObjective": "Identify flooding in a local example and explain why it qualifies.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-253-05-v1",
+      "id": "ndv-253-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A stream normally stays within its banks. After sustained rain, water spreads over a nearby playing field that is usually dry. Describe what happened and identify the detail that makes it flooding.",
+      "answer": "The stream overflowed and covered normally dry ground. The spread onto the field is evidence of flooding.",
+      "explanation": "Flooding involves water covering land that is normally dry.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies water covering the field."
+        },
+        {
+          "marks": 1,
+          "description": "Connects flooding to the land normally being dry."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Runoff from a changed surface",
+      "learningObjective": "Explain how surface changes can increase flood risk.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-253-06-v1",
+      "id": "ndv-253-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A courtyard changes from grass to tightly laid paving. The nearby drain stays the same size. Explain why heavy rainfall may now produce more pooling.",
+      "answer": "Less water can soak into the ground through the paved surface, so more reaches the drain quickly. Pooling can occur if inflow exceeds the drain’s capacity.",
+      "explanation": "Changing the surface can increase rapid runoff even when rainfall and drain size stay the same.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links paving to reduced infiltration or increased runoff."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the increased flow to the drain capacity and pooling."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Comparing drainage systems",
+      "learningObjective": "Distinguish open and covered drainage in a school layout.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-253-07-v1",
+      "id": "ndv-253-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One school channel is visible along the edge of a walkway. Another carries water in a pipe under the walkway. Name each type and state what the two systems have in common.",
+      "answer": "The visible channel is open drainage. The buried pipe is covered or underground drainage. Both carry surplus water away from the area they serve.",
+      "explanation": "The difference concerns how the channel is built. Both provide a route for runoff.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly distinguishes open and covered drainage."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the shared function."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Flood effects on crops and access",
+      "learningObjective": "Explain two distinct consequences of flooding on farmland.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "objectiveId": "nerdc-intermediate-jss1-253-08-v1",
+      "id": "ndv-253-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Floodwater covers the roots of young vegetable plants and washes across the road used to reach the farm. Explain one possible effect on the plants and one on the farmer’s work.",
+      "answer": "Plants may grow poorly if roots remain waterlogged and receive too little oxygen. A flooded or damaged road may delay access or transport of produce.",
+      "explanation": "Flooding can affect crop growth and the ability to reach or operate the farm.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a plausible crop effect and its cause."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a distinct access or work effect."
+        }
+      ]
+    }
+  ]
+}

@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_252_automated_validation_passed",
+  "phase": "batch_253_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-253.json",
+  "nextBatch": "original-multisubject-batch-254.json",
   "nextPriorities": [
-    "Reconcile deferred Digital Technologies practical objectives and verify an unrepresented exact-class subject. Fifth-generation terminology and wider IT-body coverage still require verification. Paint 3D interface-specific practice, computer history attributions, IT professional bodies and seven unregistered named subjects remain open.",
+    "Continue JSS 1 Intermediate Science with non-practical bush-burning prevention and matter objectives. Verify local regulatory claims and record deferred fieldwork. Digital Technologies practical gaps remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-252.json",
-  "lastRemoteVerifiedCommit": "621b453466a2d06ea8f994c242b6448ff217f53d",
+  "lastValidatedBatch": "original-multisubject-batch-253.json",
+  "lastRemoteVerifiedCommit": "6856d9d1c23a5f8a12f52cfd5b3302b13d726a64",
   "verifiedTotals": {
-    "raw": 4997,
-    "validDrafts": 3318,
+    "raw": 5005,
+    "validDrafts": 3326,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-252.json",
+  "lastPopulatedBatch": "original-multisubject-batch-253.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 4997,
+  "inventoryRaw": 5005,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "nerdc-digital-technologies-jss1-revised-2025",
+    "id": "nerdc-intermediate-science-jss1-revised",
     "date": "2026-11-14"
   }
 }
