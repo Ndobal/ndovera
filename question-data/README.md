@@ -1415,3 +1415,8 @@ Batch 246 adds seven JSS 1 Digital Technologies drafts from PDF p. 38.
 Coverage includes robot applications, sensing, control and actuation.
 The assembly task requires teacher observation of a physical kit.
 Movement and threshold programming use a classroom simulator.
+
+Batch 247 adds eight JSS 1 Digital Technologies drafts from PDF p. 40.
+Tasks cover AI and human judgement, machine-learning applications,
+training examples and tests on unseen drawings. Tool availability and
+voice-processing practical delivery remain open.

@@ -3159,7 +3159,8 @@
         "Control with Conditions in programming, PDF p. 32",
         "Loops in Programming, PDF p. 34",
         "Game Development with Visual Programming, PDF p. 36",
-        "Basics of Robotics, PDF p. 38"
+        "Basics of Robotics, PDF p. 38",
+        "Artificial Intelligence (AI), PDF p. 40"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -33732,6 +33733,150 @@
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 38, performance objective 6"
       ]
+    },
+    {
+      "id": "nerdc-digital-jss1-247-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Human judgement after a prediction",
+      "learningObjective": "Distinguish a model prediction from a human decision in context.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 40, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-247-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Matching language tasks to a field",
+      "learningObjective": "Identify natural language processing and explain its role in a classroom application.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 40, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-247-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Relating deep learning to machine learning",
+      "learningObjective": "Explain how deep learning fits within machine learning.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 40, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-247-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Learning from examples versus following a fixed rule",
+      "learningObjective": "Distinguish model training from manually specifying a classification rule.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 40, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-247-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Distinguishing image and voice applications",
+      "learningObjective": "Identify machine-learning applications by the type of data they process.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 40, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-247-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Testing a classifier on new drawings",
+      "learningObjective": "Train a classroom image classifier and report performance on examples it did not see during training.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 40, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-247-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Improving a biased training set",
+      "learningObjective": "Diagnose a possible shortcut learned from an image dataset.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 40, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-247-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Comparing results across two test groups",
+      "learningObjective": "Use a simple test log to identify where a model needs more checking.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 40, performance objective 5"
+      ]
     }
   ],
   "scopeGaps": [
@@ -33783,6 +33928,7 @@
     "JSS 1 Business Studies Overview of Insurance I has initial practice for objectives 1, 2, 4 and 5. Conventional insurance, takaful and microinsurance under objective 3 require separate authoritative comparison. Policy terms used in the draft are fictional.",
     "Batch 225 adds introductory takaful and microinsurance comparisons and one compulsory motor insurance objective mapped to NIIRA 2025 section 84(1). Other compulsory categories, detailed coverage conditions and subsequent implementing instruments require separate verification.",
     "Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open.",
-    "JSS 1 Digital Technologies PDF p. 22 names Paint 3D, which Microsoft removed from the Store on 4 November 2024. Batch 239 includes transferable modelling and drawing practice. Paint 3D interface-specific objective 2 remains open; classroom software availability and formal formats are unverified."
+    "JSS 1 Digital Technologies PDF p. 22 names Paint 3D, which Microsoft removed from the Store on 4 November 2024. Batch 239 includes transferable modelling and drawing practice. Paint 3D interface-specific objective 2 remains open; classroom software availability and formal formats are unverified.",
+    "JSS 1 Digital Technologies PDF p. 40 uses image and voice learning activities. Batch 247 practical training uses drawn symbols in a teacher-approved image classifier. Availability of the curriculum activity guides, local software and voice-processing practical delivery remains unverified."
   ]
 }

@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies artificial intelligence",
+  "questionCount": 8,
+  "note": "Original classroom practice. Image training uses drawn symbols and a teacher-approved tool. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Human judgement after a prediction",
+      "learningObjective": "Distinguish a model prediction from a human decision in context.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-247-01-v1",
+      "id": "ndv-247-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A classroom image classifier labels a torn paper arrow “left”. A pupil notices that the torn point makes the intended direction unclear. Explain what each contributed and what the pupil should do before using the label.",
+      "answer": "The classifier produced a prediction from features of the image. The pupil noticed the missing evidence and can inspect the original drawing or ask its maker before relying on the prediction.",
+      "explanation": "The two contributions differ: a prediction applies learned patterns, and a person can investigate context beyond the image.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes the model output as a prediction based on the image."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a sensible human check using context or additional evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Matching language tasks to a field",
+      "learningObjective": "Identify natural language processing and explain its role in a classroom application.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-247-02-v1",
+      "id": "ndv-247-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional library assistant accepts the typed question “When do you close today?” and works out that the visitor is asking for closing time. Name the AI field most directly concerned with interpreting the typed request and explain why.",
+      "answer": "Natural language processing. It deals with computing tasks involving human language, such as identifying what a question asks.",
+      "explanation": "The key input is a written sentence and the system must interpret its meaning for the task.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names natural language processing."
+        },
+        {
+          "marks": 1,
+          "description": "Connects it to interpreting the written request."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Relating deep learning to machine learning",
+      "learningObjective": "Explain how deep learning fits within machine learning.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-247-03-v1",
+      "id": "ndv-247-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil says a drawing classifier can be called either a machine-learning system or a deep-learning system, but never both. Is that correct if the classifier learns using a neural network with many layers? Explain.",
+      "answer": "It can be both. Deep learning is a type of machine learning that uses neural networks with multiple processing layers.",
+      "explanation": "Machine learning describes the broader approach of learning patterns from data. Deep learning describes a particular family of models within it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that both descriptions can apply."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that deep learning is a subset using layered neural networks."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Learning from examples versus following a fixed rule",
+      "learningObjective": "Distinguish model training from manually specifying a classification rule.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-247-04-v1",
+      "id": "ndv-247-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One sorting program is told to send any drawing with three sides to Tray A. A second program studies labelled drawings before learning how to assign new drawings to trays. Which illustrates machine learning, and what information do the labels provide?",
+      "answer": "The second program illustrates machine learning. The labels tell it the intended tray for each example so it can learn patterns associated with each tray.",
+      "explanation": "The first uses a rule specified directly. In supervised learning, the training examples connect inputs with target outputs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the program that learns from examples."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the labels as expected outputs during training."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Distinguishing image and voice applications",
+      "learningObjective": "Identify machine-learning applications by the type of data they process.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-247-05-v1",
+      "id": "ndv-247-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One classroom tool predicts which shape appears in a photo. Another turns a recording of the words “open menu” into written words. Name the application used in each case and identify its input.",
+      "answer": "The first uses image recognition or image classification with a photo as input. The second uses speech recognition with recorded audio as input.",
+      "explanation": "The image system labels visual content. The speech system recognises spoken words in an audio signal.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies an image recognition application and its input."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies speech recognition and its audio input."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Testing a classifier on new drawings",
+      "learningObjective": "Train a classroom image classifier and report performance on examples it did not see during training.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-247-06-v1",
+      "id": "ndv-247-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "With a teacher-approved image classifier, draw training examples for two categories, circle and triangle, using fictional classroom cards. Keep two new drawings of each category separate for testing. Train the classifier, test all four held-back drawings, and submit expected and predicted labels. Explain one result or one further test you would try. Use drawings only.",
+      "answer": "A valid submission has two labelled sets used for training and a test table with four new drawings, their expected labels and the labels the tool actually returned. A pupil might observe that a tilted triangle was mislabelled and propose testing another tilted triangle.",
+      "explanation": "New examples test whether the model generalises beyond its training set. Marks depend on evidence and interpretation, so a model error can be informative.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses labelled drawings from both categories to train the model."
+        },
+        {
+          "marks": 1,
+          "description": "Tests four drawings that were kept out of training and records both labels."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a result or proposes a relevant follow-up test."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Improving a biased training set",
+      "learningObjective": "Diagnose a possible shortcut learned from an image dataset.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-247-07-v1",
+      "id": "ndv-247-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A draft classifier trains on arrows pointing left or right. All left arrows are on blue paper and all right arrows on yellow paper. It often labels right arrows on blue paper as left. Propose one training-set change and one test that could show whether the change helped.",
+      "answer": "Include both arrow directions on both paper colours during training. Test it on new left and right arrows drawn on both colours and compare whether the mistakes decrease.",
+      "explanation": "The original examples made colour a clue for direction. Varying the background within each class helps separate the two signals.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes varying colour within both direction labels."
+        },
+        {
+          "marks": 1,
+          "description": "Uses new examples in a relevant comparison."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Comparing results across two test groups",
+      "learningObjective": "Use a simple test log to identify where a model needs more checking.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-247-08-v1",
+      "id": "ndv-247-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil tests a shape classifier on two equal groups of drawings. It labels 7 of 8 large shapes correctly and 4 of 8 small shapes correctly. Find the total number of correct labels and explain which group should receive additional testing.",
+      "answer": "There are 11 correct labels. Test more small shapes because the model made more errors in that group on this trial.",
+      "explanation": "Adding the counts gives overall correct labels. The group counts reveal where errors were more frequent under the conditions tested.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates 11 correct labels."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies small shapes and explains using the given comparison."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "7+4",
+          "expected": 11,
+          "purpose": "Check total correct labels."
+        }
+      ]
+    }
+  ]
+}
