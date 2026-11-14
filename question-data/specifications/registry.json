@@ -3157,7 +3157,8 @@
         "Basic Algorithm for creating programs (Block Coding), PDF p. 28",
         "Variables in Programming, PDF p. 30",
         "Control with Conditions in programming, PDF p. 32",
-        "Loops in Programming, PDF p. 34"
+        "Loops in Programming, PDF p. 34",
+        "Game Development with Visual Programming, PDF p. 36"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -33441,6 +33442,168 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 34, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-245-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "The work of developing a game",
+      "learningObjective": "Explain how a game idea becomes a playable project.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-245-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Distinguishing goal, decision and reward",
+      "learningObjective": "Identify three design elements in a game description.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-245-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Designing progression",
+      "learningObjective": "Explain how to make a later level build on an earlier skill.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-245-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Splitting a game into testable behaviours",
+      "learningObjective": "Decompose a collection game into independently testable parts.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-245-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Separating an asset from a rule",
+      "learningObjective": "Identify the assets and interactive rules needed for a game feature.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-245-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Adding player control",
+      "learningObjective": "Create and test a two-direction controller for a game sprite.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-245-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Following waypoints in order",
+      "learningObjective": "Build an automatic path and demonstrate its order.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-245-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Debugging repeated collection",
+      "learningObjective": "Diagnose repeated scoring and propose a check for a single-use collectible.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-245-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Testing restart behaviour",
+      "learningObjective": "Find and test a missing game-state reset.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 5"
       ]
     }
   ],

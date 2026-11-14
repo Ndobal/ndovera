@@ -1406,3 +1406,7 @@ test inclusive OR, and build or trace grouped and nested conditions.
 Batch 244 adds eight JSS 1 Digital Technologies drafts from PDF p. 34.
 Learners trace, design and repair count-controlled, conditional and
 nested loops using classroom block-programming examples.
+
+Batch 245 adds nine JSS 1 Digital Technologies drafts from PDF p. 36.
+Learners identify game elements, decompose a design, build player
+controls and automatic paths, and test fixes for scoring or restart bugs.

@@ -1,0 +1,386 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies visual game development",
+  "questionCount": 9,
+  "note": "Original classroom block-programming practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "The work of developing a game",
+      "learningObjective": "Explain how a game idea becomes a playable project.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-245-01-v1",
+      "id": "ndv-245-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A group has drawn a backdrop for a game about sorting books. The picture shows three shelves, but a player cannot yet do anything. Describe two kinds of work the group must do to turn the picture into a playable game.",
+      "answer": "Decide what players can do and how they succeed, then program the sprite to respond to player actions. The group should test the response to see whether it matches the rules.",
+      "explanation": "Development includes deciding how a game works and building and checking the behaviour that makes it playable.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes a rule or player action to design."
+        },
+        {
+          "marks": 1,
+          "description": "Describes implementing or testing player interaction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Distinguishing goal, decision and reward",
+      "learningObjective": "Identify three design elements in a game description.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-245-02-v1",
+      "id": "ndv-245-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom game, a player guides a courier to the hall before the clock runs out. At a junction the player chooses between a narrow shortcut and a longer open path. Arriving on time awards a badge. Identify the goal, the decision and the reward.",
+      "answer": "The goal is to reach the hall before time runs out. The decision is which route to take. The badge is the reward.",
+      "explanation": "The goal is the success condition, the decision is a choice made during play, and the reward recognises success.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the goal and its time condition."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the route choice."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the badge as the reward."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Designing progression",
+      "learningObjective": "Explain how to make a later level build on an earlier skill.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-245-03-v1",
+      "id": "ndv-245-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A shape-sorting game begins with one moving shape and two bins. Propose a level 2 change that demands more from the player while keeping the same main skill. Explain why it makes the level harder.",
+      "answer": "Add a third bin with a new shape and keep the same control keys and pace. The player must recognise an extra category and choose among three destinations.",
+      "explanation": "Progression can increase challenge by extending an existing decision instead of changing the entire task.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a specific increase in challenge that retains shape sorting."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the new demand on the player."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Splitting a game into testable behaviours",
+      "learningObjective": "Decompose a collection game into independently testable parts.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-245-04-v1",
+      "id": "ndv-245-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A sprite should move under player control, collect shells and show “Complete” once three shells have been collected. Split the work into three behaviours. For each, state one observation that would show it works.",
+      "answer": "Movement: pressing a direction key moves the sprite the intended way. Collection: touching a shell increases the score once and hides that shell. Completion: collecting the third shell displays Complete.",
+      "explanation": "Testing one behaviour at a time helps a learner locate which part needs changing.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Pairs movement with an observable check."
+        },
+        {
+          "marks": 1,
+          "description": "Pairs collection with an observable check."
+        },
+        {
+          "marks": 1,
+          "description": "Pairs completion with a check at the target count."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Separating an asset from a rule",
+      "learningObjective": "Identify the assets and interactive rules needed for a game feature.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-245-05-v1",
+      "id": "ndv-245-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A team wants a school-garden game to show a gate that opens when the player picks up a key. Identify two visual assets and describe one rule that must be programmed.",
+      "answer": "Create a key sprite and a gate sprite with closed and open appearances. Program the gate to change to its open appearance when the player collects the key.",
+      "explanation": "An asset supplies what the player sees. A rule determines when it changes.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies two suitable assets."
+        },
+        {
+          "marks": 1,
+          "description": "States a rule linking key collection to a change at the gate."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Adding player control",
+      "learningObjective": "Create and test a two-direction controller for a game sprite.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-245-06-v1",
+      "id": "ndv-245-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a classroom block editor, put a cart sprite at x = 0. Make each right-arrow press move it 12 steps right and each left-arrow press move it 12 steps left, with one move per press. Start the project and show the result of right, right, left.",
+      "answer": "Set x to 0 at the start. On a right press add 12 to x. On a left press subtract 12 from x. The test ends at x = 12.",
+      "explanation": "Horizontal movement changes x. The two opposing controls cancel one pair of moves.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Starts the cart at x = 0."
+        },
+        {
+          "marks": 1,
+          "description": "Implements both key events with the specified signed changes."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates the test sequence and final x = 12."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "12+12-12",
+          "expected": 12,
+          "purpose": "Check the final horizontal position."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Following waypoints in order",
+      "learningObjective": "Build an automatic path and demonstrate its order.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-245-07-v1",
+      "id": "ndv-245-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Place a guide sprite at (−80, −40). After the green flag, make it glide in order to (0, −40), (0, 40) and (80, 40). Show the path and explain what the player would see if the middle waypoint were omitted.",
+      "answer": "Use a start-position block followed by three glide blocks in the given order. Without (0, 40), the sprite glides diagonally from (0, −40) to (80, 40) instead of moving up and then right.",
+      "explanation": "Each glide goes directly to its target. The middle waypoint creates the corner.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Initialises the sprite at the stated start position."
+        },
+        {
+          "marks": 1,
+          "description": "Implements and demonstrates the three glides in order."
+        },
+        {
+          "marks": 1,
+          "description": "Explains what changes if the middle waypoint is omitted."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Debugging repeated collection",
+      "learningObjective": "Diagnose repeated scoring and propose a check for a single-use collectible.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-245-08-v1",
+      "id": "ndv-245-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A game adds one point every time its loop finds the basket touching the same token. One token is meant to score once, but remaining over it immediately adds several points. Explain the cause, propose a fix and give a test.",
+      "answer": "The loop keeps seeing the same collision. Mark the token collected as soon as it scores, then exclude collected tokens from the scoring check. Hold the basket over one token and confirm the score rises by exactly one.",
+      "explanation": "A per-token collected state distinguishes a first pickup from later checks of the same token.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains repeated detection of the same contact."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a fix that prevents the same token from scoring again."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a repeatable test with an expected one-point increase."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Testing restart behaviour",
+      "learningObjective": "Find and test a missing game-state reset.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-245-09-v1",
+      "id": "ndv-245-009",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A matching game begins with all cards visible. Matched cards are hidden. When the green flag is clicked for a second game, previously matched cards stay hidden even though the score resets. What must the start script do, and how would you test the repair?",
+      "answer": "At the start, show every card and reset its matched state to false. Match some cards, restart, and verify that all cards are visible and can be matched again.",
+      "explanation": "Restart must restore the card state as well as the score so a new game begins under the same rules.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Restores visibility and clears matched state."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a test that plays, restarts and verifies that prior matches no longer affect the new round."
+        }
+      ]
+    }
+  ]
+}

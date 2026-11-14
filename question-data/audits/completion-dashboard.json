@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 4932,
-    "validDrafts": 3253,
+    "raw": 4941,
+    "validDrafts": 3262,
     "reviewed": 0,
     "registeredBanks": 200,
     "target": 182000,
@@ -1598,6 +1598,12 @@
       "sha256": "ba6b845b64d0ef3a5ee96da3f8c32bdd984f6c41d9981f6a1f908a00eb24e87e",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-245.json",
+      "sha256": "2c3676211ad7cc1a30da24b0677fc542869f171f285346c53f16e268f2e1644b",
+      "declared": 9,
+      "actual": 9
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5575,18 +5581,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 79,
-      "validDrafts": 79,
+      "raw": 88,
+      "validDrafts": 88,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 79
+        "structured": 88
       },
       "difficulty": {
-        "standard": 79
+        "standard": 88
       },
-      "remaining": 921,
-      "mappedObjectives": 79,
-      "representedObjectives": 79,
+      "remaining": 912,
+      "mappedObjectives": 88,
+      "representedObjectives": 88,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7475,21 +7481,21 @@
     }
   ],
   "errorCounts": {
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81,
     "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 510,
+    "explicitArithmeticClaims": 511,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 2
@@ -41584,6 +41590,60 @@
       "id": "ndv-244-008",
       "file": "original-multisubject-batch-244.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-245-001",
+      "file": "original-multisubject-batch-245.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-245-002",
+      "file": "original-multisubject-batch-245.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-245-003",
+      "file": "original-multisubject-batch-245.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-245-004",
+      "file": "original-multisubject-batch-245.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-245-005",
+      "file": "original-multisubject-batch-245.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-245-006",
+      "file": "original-multisubject-batch-245.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-245-007",
+      "file": "original-multisubject-batch-245.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-245-008",
+      "file": "original-multisubject-batch-245.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-245-009",
+      "file": "original-multisubject-batch-245.json",
+      "index": 8,
       "errors": []
     },
     {
@@ -98807,6 +98867,276 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 34, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-245-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "The work of developing a game",
+      "learningObjective": "Explain how a game idea becomes a playable project.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-245-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Distinguishing goal, decision and reward",
+      "learningObjective": "Identify three design elements in a game description.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-245-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Designing progression",
+      "learningObjective": "Explain how to make a later level build on an earlier skill.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-245-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Splitting a game into testable behaviours",
+      "learningObjective": "Decompose a collection game into independently testable parts.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-245-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Separating an asset from a rule",
+      "learningObjective": "Identify the assets and interactive rules needed for a game feature.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-245-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Adding player control",
+      "learningObjective": "Create and test a two-direction controller for a game sprite.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-245-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Following waypoints in order",
+      "learningObjective": "Build an automatic path and demonstrate its order.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-245-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Debugging repeated collection",
+      "learningObjective": "Diagnose repeated scoring and propose a check for a single-use collectible.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-digital-jss1-245-09-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Game Development with Visual Programming",
+      "subtopic": "Testing restart behaviour",
+      "learningObjective": "Find and test a missing game-state reset.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 36, performance objective 5"
       ],
       "questionCount": 1,
       "validDrafts": 1,
