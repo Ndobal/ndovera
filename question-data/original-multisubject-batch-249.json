@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Digital Technologies online safety and privacy",
+  "questionCount": 8,
+  "note": "Original classroom practice using fictional scenarios. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Connection security and site identity",
+      "learningObjective": "Explain what HTTPS protects and why the site address still matters.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-249-01-v1",
+      "id": "ndv-249-001",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A practice browser shows a secure connection, but its address is different from the school portal address printed on a teacher’s handout. What does the secure connection protect? What should the pupil do before entering a password?",
+      "answer": "HTTPS protects data in transit to the displayed site. Open the address from the trusted school handout and check that it matches the intended portal before signing in.",
+      "explanation": "Connection encryption protects the exchange with the site shown in the browser. The actual address helps a pupil check whether it is the intended site.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains protection of data in transit."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the known school address to verify the intended site before entering credentials."
+        }
+      ],
+      "contentSourceId": "mozilla-connection-security"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Responding to a browser warning",
+      "learningObjective": "Interpret a connection warning and protect sensitive information.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-249-02-v1",
+      "id": "ndv-249-002",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil opens a familiar school portal on a shared tablet, but the browser warns that the connection cannot be verified. A classmate suggests continuing because the page looks familiar. Explain what the pupil should do and why.",
+      "answer": "Stop before entering details and ask a teacher or school technician to check the warning. The page design does not establish that the connection is trustworthy.",
+      "explanation": "A connection warning means the browser could not verify protection as expected. A pupil can wait for the school to check the issue.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Avoids entering details or bypassing the warning."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why appearance is insufficient and seeks appropriate help."
+        }
+      ],
+      "contentSourceId": "mozilla-connection-security"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Choosing an approved download source",
+      "learningObjective": "Apply a safe browsing rule to a download decision.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-249-03-v1",
+      "id": "ndv-249-003",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A club’s teacher has provided a link to a practice worksheet. While looking for it, a pupil sees a pop-up asking them to install a tool first. Explain how to obtain the worksheet safely and what to do with the unexpected pop-up.",
+      "answer": "Dismiss the pop-up without accepting its request. Open the teacher’s known resource directly and ask the teacher if the worksheet cannot be accessed there.",
+      "explanation": "Using the approved source avoids installing unrelated software simply because a pop-up asks for it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Avoids the unexpected installation."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the teacher-provided source or verifies the requirement with the teacher."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Reading before giving permission",
+      "learningObjective": "Make a safer choice when an optional permission does not match an activity.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-249-04-v1",
+      "id": "ndv-249-004",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A practice drawing site asks for permission to access the tablet’s microphone. The planned activity is to upload a picture with no sound. What choice should the pupil make, and what could they check if the site refuses to continue?",
+      "answer": "Decline microphone access for the drawing task. If blocked, check the site’s explanation or ask the teacher for an approved alternative.",
+      "explanation": "An app permission should make sense for the task. The exercise provides no reason to record sound.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Declines the unrelated permission."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests checking the reason or asking for an alternative."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Writing a class safety pledge",
+      "learningObjective": "Create practical online safety commitments with a reporting step.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-249-05-v1",
+      "id": "ndv-249-005",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Write a three-line pledge for pupils using shared school tablets. Include one rule before downloading, one rule for handling personal information and one action if a browser shows a warning.",
+      "answer": "Use only teacher-approved downloads. Keep personal details out of public forms and posts. Stop and tell a teacher if the browser warns that a connection cannot be verified.",
+      "explanation": "A pledge is useful when each commitment describes an action a pupil can take.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes a concrete download rule."
+        },
+        {
+          "marks": 1,
+          "description": "Includes a specific rule protecting personal details."
+        },
+        {
+          "marks": 1,
+          "description": "Includes a workable action in response to a warning."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Privacy and Security",
+      "subtopic": "Deciding which details a form needs",
+      "learningObjective": "Explain the privacy benefit of sharing only information relevant to an activity.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-249-06-v1",
+      "id": "ndv-249-006",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional club artwork form needs the title of a drawing and the artist’s class code. An optional field asks for the artist’s home address. Explain which details are enough and one privacy benefit of leaving the address blank.",
+      "answer": "Provide the artwork title and class code. Leaving the home address blank reduces how much personal information the form operator keeps or might later share.",
+      "explanation": "Sharing fewer unrelated details reduces exposure if a record is copied, shared or mishandled.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the two relevant details."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a concrete privacy benefit of omitting the address."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Privacy and Security",
+      "subtopic": "Responding to password exposure",
+      "learningObjective": "Choose a new password after compromise and explain why it should be unique.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-249-07-v1",
+      "id": "ndv-249-007",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil discovers that someone saw the password for a classroom practice account. What change should the pupil make through the official account settings with teacher help? Explain why reusing a password from another account is a poor choice.",
+      "answer": "Replace the exposed password with a long, unique password through the official settings. Reuse could put another account at risk if the same password becomes known.",
+      "explanation": "An exposed password should be replaced. A unique replacement limits the effect of exposure across accounts.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Replaces the exposed password using the official account route."
+        },
+        {
+          "marks": 1,
+          "description": "Chooses a long, unique replacement and explains the risk of reuse."
+        }
+      ],
+      "contentSourceId": "nist-sp800-63b-4-passwords"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Privacy and Security",
+      "subtopic": "Reviewing who can see a link",
+      "learningObjective": "Choose audience settings that limit access to a classroom submission.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "objectiveId": "nerdc-digital-jss1-249-08-v1",
+      "id": "ndv-249-008",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil must share a presentation with the teacher. The sharing menu offers “Anyone with the link” and “Only people added”. Choose a setting, explain how to give the teacher access, and say what the pupil should check before submitting.",
+      "answer": "Choose Only people added and add the teacher’s school account as a viewer. Check that the correct account is listed and the presentation is still restricted to intended people.",
+      "explanation": "Restricted sharing lets the intended person read the file without granting access to everyone who obtains the link.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses restricted sharing."
+        },
+        {
+          "marks": 1,
+          "description": "Adds the teacher with suitable viewing permission."
+        },
+        {
+          "marks": 1,
+          "description": "Checks the intended audience or access list."
+        }
+      ]
+    }
+  ]
+}

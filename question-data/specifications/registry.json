@@ -3162,7 +3162,9 @@
         "Basics of Robotics, PDF p. 38",
         "Artificial Intelligence (AI), PDF p. 40",
         "Internet Communication Practices, PDF p. 41",
-        "Spam, PDF p. 42"
+        "Spam, PDF p. 42",
+        "Online Safety Rules, PDF p. 43",
+        "Online Privacy and Security, PDF p. 44"
       ],
       "note": "Exact subject and class read from the official direct PDF. Formal formats, term placement and school adoption remain unverified. Historical attributions require corroboration."
     },
@@ -3185,6 +3187,26 @@
       "source": "https://learn.microsoft.com/en-us/windows/uwp/maps-and-location/display-poi",
       "retrievedOn": "2026-11-14",
       "note": "Microsoft reports Paint 3D removed from the Store on 4 November 2024. Existing installations can still be used. Alternative app tasks do not assess its specific interface."
+    },
+    {
+      "id": "mozilla-connection-security",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://support.mozilla.org/en-US/kb/how-do-i-tell-if-my-connection-is-secure",
+      "retrievedOn": "2026-11-14",
+      "note": "Browser connection encryption and warnings. Assess connection security separately from trust in a site."
+    },
+    {
+      "id": "nist-sp800-63b-4-passwords",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://pages.nist.gov/800-63-4/sp800-63b.html",
+      "retrievedOn": "2026-11-14",
+      "note": "Password guidance in section 3.1.1.2, including replacement when compromise is evidenced. Used to qualify the curriculum wording on regular changes."
     }
   ],
   "banks": [
@@ -34022,6 +34044,150 @@
       "mappingStatus": "author_paraphrase_exact_class",
       "sourceSections": [
         "September 2025 revised Digital Technologies, PDF p. 42, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-249-01-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Connection security and site identity",
+      "learningObjective": "Explain what HTTPS protects and why the site address still matters.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 43, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-249-02-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Responding to a browser warning",
+      "learningObjective": "Interpret a connection warning and protect sensitive information.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 43, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-249-03-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Choosing an approved download source",
+      "learningObjective": "Apply a safe browsing rule to a download decision.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 43, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-249-04-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Reading before giving permission",
+      "learningObjective": "Make a safer choice when an optional permission does not match an activity.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 43, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-249-05-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Safety Rules",
+      "subtopic": "Writing a class safety pledge",
+      "learningObjective": "Create practical online safety commitments with a reporting step.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 43, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-249-06-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Privacy and Security",
+      "subtopic": "Deciding which details a form needs",
+      "learningObjective": "Explain the privacy benefit of sharing only information relevant to an activity.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 44, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-249-07-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Privacy and Security",
+      "subtopic": "Responding to password exposure",
+      "learningObjective": "Choose a new password after compromise and explain why it should be unique.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 44, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-digital-jss1-249-08-v1",
+      "exam": "NERDC",
+      "subject": "Digital Technologies",
+      "level": "JSS 1",
+      "topic": "Online Privacy and Security",
+      "subtopic": "Reviewing who can see a link",
+      "learningObjective": "Choose audience settings that limit access to a classroom submission.",
+      "specificationId": "nerdc-digital-technologies-jss1-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "September 2025 revised Digital Technologies, PDF p. 44, performance objective 2"
       ]
     }
   ],

@@ -1424,3 +1424,8 @@ voice-processing practical delivery remain open.
 Batch 248 adds eight JSS 1 Digital Technologies drafts from PDF pp. 41–42.
 Fictional messages support practice in respectful communication,
 recognising spam and verifying unexpected claims through known channels.
+
+Batch 249 adds eight JSS 1 Digital Technologies drafts from PDF pp. 43–44.
+The cases cover connection warnings, safe downloads, permissions,
+password exposure and audience controls. The password item focuses on
+compromise-based replacement, supported by NIST guidance.
