@@ -37258,6 +37258,42 @@
         "IELTS Academic Reading, question type 9",
         "Flow-chart completion"
       ]
+    },
+    {
+      "id": "ielts-academic-reading-276-sound-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Table completion",
+      "learningObjective": "Locate exact words in a passage and use them to complete a condensed account within a word limit.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 9",
+        "Table completion"
+      ]
+    },
+    {
+      "id": "ielts-academic-reading-276-printing-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Table completion",
+      "learningObjective": "Locate exact words in a passage and use them to complete a condensed account within a word limit.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 9",
+        "Table completion"
+      ]
     }
   ],
   "scopeGaps": [
@@ -37329,6 +37365,7 @@
     "Batch 272 adds IELTS General Training Section 2 short-answer and Section 3 matching-headings practice. The set represents two task formats. Full test assembly, broader passage coverage and independent review remain open.",
     "IELTS General Training Reading batch 273 adds Section 2 matching features using original workplace texts. Full test assembly and independent review remain open.",
     "Batch 274 adds IELTS Academic Reading matching sentence endings. The two original passages and ordered item sets are section-style practice. Full test assembly and independent review remain open.",
-    "IELTS Academic Reading batch 275 adds passage-word summary and flow-chart completion. These are original drill sets. Full test assembly and independent review remain open."
+    "IELTS Academic Reading batch 275 adds passage-word summary and flow-chart completion. These are original drill sets. Full test assembly and independent review remain open.",
+    "IELTS Academic Reading batch 276 adds table completion using original passages and exact two-word keys. Diagram labelling, rendered table delivery and full timed test assembly remain open."
   ]
 }

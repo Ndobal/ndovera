@@ -1548,3 +1548,7 @@ and has unused endings. Full test assembly remains open.
 Batch 275 adds ten IELTS Academic Reading summary and flow-chart
 completion drafts based on two original passages. Each answer is
 taken from the text within a two-word limit.
+
+Batch 276 adds eight IELTS Academic Reading table-completion drafts
+across two original passages. Answers use no more than two words from
+the passage. Diagram labelling and delivery checks remain open.
