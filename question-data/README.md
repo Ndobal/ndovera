@@ -1527,3 +1527,7 @@ integrated playback and timing remain open.
 Batch 270 adds six IELTS Speaking drafts across two Part 2 cue cards and
 four related Part 3 prompts. Models are illustrative transcripts. Scoring
 the practice rubrics requires live or recorded candidate speech.
+
+Batch 271 adds twelve IELTS Speaking Part 1 drafts for Academic and
+General Training. Three familiar-topic clusters include model responses
+and a practice rubric for live or recorded speech.

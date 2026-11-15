@@ -1,0 +1,800 @@
+{
+  "schemaVersion": 2,
+  "collection": "IELTS Academic and General Training Speaking Part 1 practice",
+  "questionCount": 12,
+  "note": "Three original familiar-topic clusters with illustrative spoken models and practice rubrics. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Everyday messages",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-001",
+      "objectiveId": "ielts-speaking-271-messages-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Who do you usually send short messages to during the day?",
+      "answer": "Mostly my younger brother. We leave home at different times, so I send him quick messages about things like who has the house key or whether someone has collected a parcel.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-messages",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 31,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 1,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Everyday messages",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-002",
+      "objectiveId": "ielts-speaking-271-messages-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "What kind of message do you prefer to answer with a phone call?",
+      "answer": "I usually call if someone is trying to explain directions. On a call I can ask which landmark they mean and check the answer immediately, which saves a long exchange.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-messages",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 30,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 2,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Everyday messages",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-003",
+      "objectiveId": "ielts-speaking-271-messages-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Has the way you keep in touch with friends changed since you were at school?",
+      "answer": "Yes. At school I saw most friends in person every day. Now a few have moved away, so we send photos of everyday things that we probably wouldn’t have thought to share before.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-messages",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 33,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 3,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Everyday messages",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-004",
+      "objectiveId": "ielts-speaking-271-messages-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Do you find it easy to notice when a written message is meant as a joke?",
+      "answer": "Only with friends whose sense of humour I know well. If someone is being dry or sarcastic, the same words can seem quite serious on a screen.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-messages",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 27,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 4,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Time outdoors",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-005",
+      "objectiveId": "ielts-speaking-271-outdoors-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Where do you usually go when you want to spend a little time outdoors?",
+      "answer": "I go to a public garden near my bus stop in Abuja. It has a paved path around a lawn, so I can walk a few laps without having to plan a long outing.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-outdoors",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 34,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 1,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Time outdoors",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-006",
+      "objectiveId": "ielts-speaking-271-outdoors-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "What time of day do you most enjoy being outdoors?",
+      "answer": "Early evening suits me because the air feels cooler. I can take a walk after work without stopping so often to look for shade.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-outdoors",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 24,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 2,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Time outdoors",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-007",
+      "objectiveId": "ielts-speaking-271-outdoors-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "What did you enjoy doing outside when you were younger?",
+      "answer": "My neighbours and I drew a court in the dust behind our houses and played with a tennis ball. We spent as much time arguing about the lines as we did playing.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-outdoors",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 32,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 3,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Time outdoors",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-008",
+      "objectiveId": "ielts-speaking-271-outdoors-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Is there something you would like to have in an outdoor space near your home?",
+      "answer": "I would like some benches under trees. There is a path nearby, but anyone who gets tired has to turn back because there is nowhere comfortable to sit.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-outdoors",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 28,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 4,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Breakfast habits",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-009",
+      "objectiveId": "ielts-speaking-271-breakfast-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Do you eat the same breakfast on most days?",
+      "answer": "On workdays I usually have bread and fruit because I can prepare them quickly. On weekends I sometimes make akara with my sister because we have time to sit down together.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-breakfast",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 31,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 1,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Breakfast habits",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-010",
+      "objectiveId": "ielts-speaking-271-breakfast-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Who usually decides what to buy for breakfast in your household?",
+      "answer": "We take turns buying groceries, though my father usually adds things to the list because he gets up earliest and notices when something has run out.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-breakfast",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 26,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 2,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Breakfast habits",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-011",
+      "objectiveId": "ielts-speaking-271-breakfast-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "What do you do about breakfast when you need to leave home very early?",
+      "answer": "I pack something the night before, usually a banana and some groundnuts. I can eat them once I get to work instead of trying to finish a meal while watching the clock.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-breakfast",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 32,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 3,
+      "groupSize": 4
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 1",
+      "subtopic": "Breakfast habits",
+      "learningObjective": "Respond to familiar interview questions with relevant personal information and clear spoken detail.",
+      "specificationId": "ielts-speaking-part1-271-2026",
+      "id": "ndv-271-012",
+      "objectiveId": "ielts-speaking-271-breakfast-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Would you rather have breakfast at home or somewhere else on a free morning?",
+      "answer": "I would rather eat at home. On a free morning I can put music on and take my time, while a busy café sometimes makes me feel that I should finish quickly.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 1 interview question",
+      "practiceGroupId": "ndv-271-breakfast",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 32,
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "After an introduction for the practice interview, ask each prompt aloud one at a time. Listen to the response before continuing. The timing range is for the whole Part 1, not for a single question.",
+      "groupItem": 4,
+      "groupSize": 4
+    }
+  ]
+}

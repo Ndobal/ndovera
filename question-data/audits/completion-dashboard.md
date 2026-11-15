@@ -28,7 +28,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | Yoruba (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | IELTS | Listening | 1000 | 40 | 40 | 0 | 960 | partial_objective_register |
 | IELTS | Reading | 1000 | 68 | 62 | 0 | 938 | partial_objective_register |
-| IELTS | Speaking | 1000 | 22 | 22 | 0 | 978 | partial_objective_register |
+| IELTS | Speaking | 1000 | 34 | 34 | 0 | 966 | partial_objective_register |
 | IELTS | Writing | 1000 | 21 | 18 | 0 | 982 | partial_objective_register |
 | IGCSE | Biology [0610] | 1000 | 78 | 74 | 0 | 926 | partial_objective_register |
 | IGCSE | Chemistry [0620] | 1000 | 76 | 74 | 0 | 926 | partial_objective_register |
@@ -215,7 +215,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
 | BECE | 153 | 153 | 0 | 18000 | 17847 |
-| IELTS | 151 | 142 | 0 | 4000 | 3858 |
+| IELTS | 163 | 154 | 0 | 4000 | 3846 |
 | IGCSE | 310 | 289 | 0 | 5000 | 4711 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
@@ -225,7 +225,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 171 | 162 | 0 | 4000 | 3838 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5164, "validDrafts": 3485, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5176, "validDrafts": 3497, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -295,3 +295,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - TOEFL Speaking batch 268 supplies two original four-question Take an Interview sets for live examiner delivery at 45 seconds per response. Recorded interviewer audio, playback and timer integration, and independent review remain open.
 - TOEFL Speaking batch 269 adds two Listen and Repeat sets for live oral delivery. Keep prompt transcripts hidden from learners. Recorded audio, illustrated scenario progression, integrated playback and timing, delivery trials and independent review remain open.
 - IELTS Speaking batch 270 extends two linked Part 2 and Part 3 practice themes. The written models and examiner guides require live or recorded candidate speech for scoring. Full Part 3 examiner delivery and timing, as well as independent review, remain open.
+- IELTS Speaking batch 271 adds three familiar-topic Part 1 practice clusters. These may be combined in a supervised session, with timing confirmed through delivery trials. Full recorded test assembly and independent review remain open.
