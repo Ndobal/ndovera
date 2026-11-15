@@ -1509,3 +1509,7 @@ Batch 266 adds five original TOEFL iBT Write an Email tasks with
 seven-minute instructions, model emails and task-specific practice
 rubrics. The practice rubrics use a ten-point scale with no official
 TOEFL score equivalence.
+
+Batch 267 adds four original TOEFL iBT Academic Discussion tasks.
+Each has an instructor question, two peer posts, a ten-minute prompt,
+a model of at least 100 words and an original practice rubric.

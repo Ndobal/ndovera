@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 2,
+  "collection": "TOEFL iBT Academic Discussion practice",
+  "questionCount": 4,
+  "note": "Original ten-minute discussion tasks with model posts and practice rubrics. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-267-001",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You have 10 minutes to contribute to the class discussion. State and support your view, respond meaningfully to a point raised in the thread, and add an idea in your own words. Aim for at least 100 words.",
+      "passage": "Professor Mensah: A university museum has funds for either a detailed audio guide or a shorter printed guide. Both would cover the same displays. Which guide should the museum develop first, and why?\n\nLara: Audio would let visitors listen while looking closely at the displays. A printed guide divides their attention.\n\nOwen: A printed guide lets a visitor find a particular detail quickly without replaying a recording.",
+      "answer": "I would start with the printed guide because visitors can set their own pace even when an exhibit is crowded. Owen is right that a page makes a particular detail easy to locate, but it can also work as a reference after the visit. A student who sees an unfamiliar tool could note its name and look it up later without trying to remember where it appeared in a recording. Lara’s point about keeping visitors’ eyes on the display is important. To address it, the museum could give each exhibit a short heading and a single opening sentence in large type, with details underneath for people who want them. That layout would give visitors a quick orientation and leave them free to look closely.",
+      "explanation": "The model weighs retrieval and attention and proposes a concrete layout that responds to the audio argument. A supported case for audio or a defensible sequencing plan can also earn full credit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Position: 2 for a clear choice and priority, 1 for an implied preference, 0 for no relevant position."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Discussion: 2 for accurately using a peer’s point to advance the comparison, 1 for mentioning a point with little connection, 0 for no relevant engagement."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Development: 2 for explaining a concrete visitor use or design implication, 1 for a general benefit, 0 for unsupported assertions."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Coherence: 2 for a clear progression of ideas and connections, 1 for an understandable but uneven progression, 0 when the progression cannot be followed."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language: 2 for clear, suitably precise wording and generally controlled sentences, 1 for uneven control with meaning still accessible, 0 when errors prevent meaningful assessment."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-267-002",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You have 10 minutes to contribute to the class discussion. State and support your view, respond meaningfully to a point raised in the thread, and add an idea in your own words. Aim for at least 100 words.",
+      "passage": "Professor Li: Our town is choosing how to improve its bus service with a limited budget. It can run buses more frequently on existing routes or add a route to an area currently without service. Which change should it make first?\n\nMira: More frequent buses would reduce long waits for people already using the service.\n\nJude: A new route would help people who currently have no bus within walking distance.",
+      "answer": "I would add the route first if it connects the unserved area with a stop where passengers can transfer to several existing routes. Mira makes a strong point about waiting time, but faster service elsewhere offers little benefit to someone who cannot get to a bus at all. A route that connects the neighbourhood to the main network could help residents reach evening classes or shops without paying for a taxi. Still, simply drawing a new line on the map is not enough. If the last connecting bus leaves before the new route arrives, the connection is much less useful. I would start with a limited schedule and check whether the transfer times work before the town commits to a permanent timetable.",
+      "explanation": "The model adds a condition about viable transfers and explains how it changes the argument for extending access. A well-developed case for frequency can earn the same credit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Position: 2 for a clear recommendation and its priority or condition, 1 for an unclear preference, 0 for no relevant choice."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Discussion: 2 for using a peer’s access or frequency argument in the reasoning, 1 for a bare reference, 0 for no meaningful response."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Development: 2 for explaining a concrete service effect and why it matters, 1 for a loosely supported effect, 0 for no support."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Coherence: 2 for a clear progression of ideas and connections, 1 for an understandable but uneven progression, 0 when the progression cannot be followed."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language: 2 for clear, suitably precise wording and generally controlled sentences, 1 for uneven control with meaning still accessible, 0 when errors prevent meaningful assessment."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-267-003",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You have 10 minutes to contribute to the class discussion. State and support your view, respond meaningfully to a point raised in the thread, and add an idea in your own words. Aim for at least 100 words.",
+      "passage": "Professor Bello: A course team is planning a final assessment. Students could submit one revised project or a portfolio of several shorter exercises. Which would give the teacher better evidence of learning?\n\nNia: One project lets a student show how their work improves after substantial feedback.\n\nSam: Several exercises show whether a student can use the same skills across different situations.",
+      "answer": "I would choose a portfolio for this course because it can show whether a skill carries over when the task changes. Sam points out the value of seeing several situations, and I think the format can also address Nia’s concern about revision. For example, the teacher could ask students to include three exercises and a short note showing how they revised one of them after feedback. A learner who explains why a chart label was confusing and then applies that insight to a second chart shows more than an ability to follow a correction. To keep the portfolio manageable, the teacher could use the same criteria for all three pieces and ask students to identify the strongest evidence in each.",
+      "explanation": "The model treats revision and transfer as observable features and links both to an assessment choice. A post can instead defend a revised project using concrete evidence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Position: 2 for a clear assessment choice linked to evidence of learning, 1 for an implied choice, 0 for no relevant preference."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Discussion: 2 for developing or qualifying a peer’s point about feedback or transfer, 1 for a brief acknowledgement, 0 for no meaningful engagement."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Development: 2 for explaining a concrete work sample or assessment mechanism, 1 for a general advantage, 0 for no connected support."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Coherence: 2 for a clear progression of ideas and connections, 1 for an understandable but uneven progression, 0 when the progression cannot be followed."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language: 2 for clear, suitably precise wording and generally controlled sentences, 1 for uneven control with meaning still accessible, 0 when errors prevent meaningful assessment."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-267-004",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You have 10 minutes to contribute to the class discussion. State and support your view, respond meaningfully to a point raised in the thread, and add an idea in your own words. Aim for at least 100 words.",
+      "passage": "Professor Ortiz: A community garden wants more residents to participate in planning. It can hold an in-person meeting or gather ideas through a written form first. Which should be the first step?\n\nLeila: A meeting lets people ask follow-up questions before making suggestions.\n\nDaniel: A form lets people take part even if they are busy at the meeting time.",
+      "answer": "I would gather ideas through a form first and use the replies to plan a focused meeting. Daniel’s point about scheduling matters because the people who water the garden after work may have different concerns from those who visit on weekends. For instance, an evening visitor might identify a gate that is difficult to open in low light, an issue that a weekend group would not think to discuss. Leila is right that a form cannot answer every question, so the first form should ask for a short description of the problem and let people mark it for follow-up. The organisers could then bring the recurring concerns to a meeting where residents can discuss possible solutions.",
+      "explanation": "The model uses the two formats at different stages and explains how the initial written replies can improve the later discussion. A reasoned meeting-first proposal is equally admissible.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Position: 2 for choosing a clear first step and explaining its role, 1 for an unclear sequence, 0 for no relevant choice."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Discussion: 2 for developing a peer’s point about access or follow-up, 1 for an undeveloped mention, 0 for no meaningful engagement."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Development: 2 for a concrete example of how the method affects participation or decisions, 1 for a general claim, 0 for no support."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Coherence: 2 for a clear progression of ideas and connections, 1 for an understandable but uneven progression, 0 when the progression cannot be followed."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language: 2 for clear, suitably precise wording and generally controlled sentences, 1 for uneven control with meaning still accessible, 0 when errors prevent meaningful assessment."
+        }
+      ]
+    }
+  ]
+}

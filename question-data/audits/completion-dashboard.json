@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5132,
-    "validDrafts": 3453,
+    "raw": 5136,
+    "validDrafts": 3457,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1730,6 +1730,12 @@
       "sha256": "eb462bdd1456b1f6b7bdafc1cb1bec814c179ec248d54b3abea6775a825b9f31",
       "declared": 5,
       "actual": 5
+    },
+    {
+      "path": "original-multisubject-batch-267.json",
+      "sha256": "8c32fd3cc2c243d098310b6a3a988fb91780f6c7c6d1e07f5951b0a12f55dd16",
+      "declared": 4,
+      "actual": 4
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6639,19 +6645,19 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 54,
-      "validDrafts": 51,
+      "raw": 58,
+      "validDrafts": 55,
       "reviewed": 0,
       "questionTypes": {
         "shortanswer": 29,
-        "essay": 22,
+        "essay": 26,
         "mcq": 3
       },
       "difficulty": {
-        "standard": 51,
+        "standard": 55,
         "missing": 3
       },
-      "remaining": 949,
+      "remaining": 945,
       "mappedObjectives": 3,
       "representedObjectives": 3,
       "coverage": "partial_objective_register",
@@ -7630,9 +7636,9 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
@@ -42942,6 +42948,30 @@
       "errors": []
     },
     {
+      "id": "ndv-267-001",
+      "file": "original-multisubject-batch-267.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-267-002",
+      "file": "original-multisubject-batch-267.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-267-003",
+      "file": "original-multisubject-batch-267.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-267-004",
+      "file": "original-multisubject-batch-267.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -57377,21 +57407,21 @@
       "learningObjective": "Contribute a relevant supported view to an academic discussion.",
       "specificationId": "toefl-2026",
       "questionTypes": {
-        "essay": 9
+        "essay": 13
       },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceSections": [
         "ETS Updated TOEFL iBT Test Overview, PDF p15"
       ],
-      "lastSourceRecheck": "2026-11-08",
-      "questionCount": 9,
-      "validDrafts": 9,
+      "lastSourceRecheck": "2026-11-15",
+      "questionCount": 13,
+      "validDrafts": 13,
       "difficulty": {
-        "standard": 9
+        "standard": 13
       },
       "tiers": {
-        "not_specified": 9
+        "not_specified": 13
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
