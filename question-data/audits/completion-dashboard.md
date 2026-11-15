@@ -123,7 +123,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | English Studies / Primary 3 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English Studies / Primary 4 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Financial Accounting / SS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
-| NERDC | Intermediate Science / JSS 1 | 1000 | 102 | 102 | 0 | 898 | partial_objective_register |
+| NERDC | Intermediate Science / JSS 1 | 1000 | 110 | 110 | 0 | 890 | partial_objective_register |
 | NERDC | Literacy / Nursery | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / JSS | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / JSS 1 | 1000 | 106 | 105 | 0 | 895 | partial_objective_register |
@@ -220,12 +220,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 476 | 441 | 0 | 36000 | 35559 |
-| NERDC | 1060 | 995 | 0 | 35000 | 34005 |
+| NERDC | 1068 | 1003 | 0 | 35000 | 33997 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5099, "validDrafts": 3420, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5107, "validDrafts": 3428, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -289,3 +289,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 259 maps written interpretation and selection of technology materials. Direct specimen examination and timber-yard or industry visits from PDF pp. 30–31 remain open. A hardness observation alone does not establish botanical hardwood or softwood classification.
 - Batch 260 maps Workshop Processes drawing and board practice. Pencil-point preparation (PDF p. 33, objective 2) remains open. Drawing and board-handling tasks require teacher observation or manual inspection of the submitted work.
 - Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open.
+- Batch 262 maps maintenance concepts and a supervised routine-care task for a non-powered tool. Machine servicing and lubrication demonstrations on PDF p. 37 remain open.

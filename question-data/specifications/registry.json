@@ -3281,7 +3281,8 @@
         "Workshop Processes: Drawing Practice, PDF p. 32",
         "Workshop Processes: Board Practice, PDF pp. 33–34",
         "Machines and Tools: Woodwork Hand Tools, PDF p. 35",
-        "Machines and Tools: Metalwork Hand Tools, PDF p. 36"
+        "Machines and Tools: Metalwork Hand Tools, PDF p. 36",
+        "Machines and Tools: Maintenance of Tools and Machines, PDF p. 37"
       ],
       "note": "Exact class and subject verified in the direct revised PDF. Publication date, school adoption, term placement and formal formats remain unverified."
     },
@@ -36571,6 +36572,150 @@
       "sourceSections": [
         "Revised JSS 1 Intermediate Science, PDF p. 36, performance objective 5"
       ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Maintenance versus modification",
+      "learningObjective": "Explain the purpose of maintaining an existing tool or machine.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Calendar-based maintenance",
+      "learningObjective": "Identify preventive maintenance from the timing and purpose of an action.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Reading a condition trend",
+      "learningObjective": "Identify predictive maintenance from a measured trend.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Restoring a failed mechanism",
+      "learningObjective": "Identify corrective maintenance in response to a failure.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Accuracy after inspection",
+      "learningObjective": "Explain why regularly checking a measuring tool matters.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Planning access to shared equipment",
+      "learningObjective": "Explain how regular maintenance can reduce disruption.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Writing a maintenance record",
+      "learningObjective": "Record an observed equipment problem and its disposition without inventing a diagnosis.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Supervised routine care",
+      "learningObjective": "Demonstrate simple cleaning and inspection of a non-powered workshop tool.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 4"
+      ]
     }
   ],
   "scopeGaps": [
@@ -36631,6 +36776,7 @@
     "Batch 258 adds written laboratory and workshop familiarisation and safety scenarios (PDF pp. 28–29). A supervised facility visit, direct observation of safety devices and first-aid practicals remain open. Verify first-aid content with authoritative guidance before adding it.",
     "Batch 259 maps written interpretation and selection of technology materials. Direct specimen examination and timber-yard or industry visits from PDF pp. 30–31 remain open. A hardness observation alone does not establish botanical hardwood or softwood classification.",
     "Batch 260 maps Workshop Processes drawing and board practice. Pencil-point preparation (PDF p. 33, objective 2) remains open. Drawing and board-handling tasks require teacher observation or manual inspection of the submitted work.",
-    "Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open."
+    "Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open.",
+    "Batch 262 maps maintenance concepts and a supervised routine-care task for a non-powered tool. Machine servicing and lubrication demonstrations on PDF p. 37 remain open."
   ]
 }

@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5099,
-    "validDrafts": 3420,
+    "raw": 5107,
+    "validDrafts": 3428,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1700,6 +1700,12 @@
       "sha256": "7778497d6942c4e582d5a860b2449325423de2875eed21d45e3ca57d1ee2bf70",
       "declared": 10,
       "actual": 10
+    },
+    {
+      "path": "original-multisubject-batch-262.json",
+      "sha256": "31a061053872d0240a6bba940db00b9952f654a525a64d0b0aeafee2b4a84502",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5835,18 +5841,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-intermediate-science-jss1-revised",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 102,
-      "validDrafts": 102,
+      "raw": 110,
+      "validDrafts": 110,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 102
+        "structured": 110
       },
       "difficulty": {
-        "standard": 102
+        "standard": 110
       },
-      "remaining": 898,
-      "mappedObjectives": 102,
-      "representedObjectives": 102,
+      "remaining": 890,
+      "mappedObjectives": 110,
+      "representedObjectives": 110,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7601,16 +7607,16 @@
   ],
   "errorCounts": {
     "independent_review_evidence_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
@@ -42711,6 +42717,54 @@
       "id": "ndv-261-010",
       "file": "original-multisubject-batch-261.json",
       "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-262-001",
+      "file": "original-multisubject-batch-262.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-262-002",
+      "file": "original-multisubject-batch-262.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-262-003",
+      "file": "original-multisubject-batch-262.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-262-004",
+      "file": "original-multisubject-batch-262.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-262-005",
+      "file": "original-multisubject-batch-262.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-262-006",
+      "file": "original-multisubject-batch-262.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-262-007",
+      "file": "original-multisubject-batch-262.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-262-008",
+      "file": "original-multisubject-batch-262.json",
+      "index": 7,
       "errors": []
     },
     {
@@ -104957,6 +105011,246 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Maintenance versus modification",
+      "learningObjective": "Explain the purpose of maintaining an existing tool or machine.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Calendar-based maintenance",
+      "learningObjective": "Identify preventive maintenance from the timing and purpose of an action.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Reading a condition trend",
+      "learningObjective": "Identify predictive maintenance from a measured trend.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Restoring a failed mechanism",
+      "learningObjective": "Identify corrective maintenance in response to a failure.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Accuracy after inspection",
+      "learningObjective": "Explain why regularly checking a measuring tool matters.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Planning access to shared equipment",
+      "learningObjective": "Explain how regular maintenance can reduce disruption.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Writing a maintenance record",
+      "learningObjective": "Record an observed equipment problem and its disposition without inventing a diagnosis.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-262-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Supervised routine care",
+      "learningObjective": "Demonstrate simple cleaning and inspection of a non-powered workshop tool.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 37, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -105017,6 +105311,7 @@
     "Batch 258 adds written laboratory and workshop familiarisation and safety scenarios (PDF pp. 28–29). A supervised facility visit, direct observation of safety devices and first-aid practicals remain open. Verify first-aid content with authoritative guidance before adding it.",
     "Batch 259 maps written interpretation and selection of technology materials. Direct specimen examination and timber-yard or industry visits from PDF pp. 30–31 remain open. A hardness observation alone does not establish botanical hardwood or softwood classification.",
     "Batch 260 maps Workshop Processes drawing and board practice. Pencil-point preparation (PDF p. 33, objective 2) remains open. Drawing and board-handling tasks require teacher observation or manual inspection of the submitted work.",
-    "Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open."
+    "Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open.",
+    "Batch 262 maps maintenance concepts and a supervised routine-care task for a non-powered tool. Machine servicing and lubrication demonstrations on PDF p. 37 remain open."
   ]
 }

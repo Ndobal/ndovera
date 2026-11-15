@@ -1485,3 +1485,8 @@ preparation remains open.
 Batch 261 adds ten JSS 1 Intermediate Science drafts on woodwork and
 metalwork hand tools from PDF pp. 35–36, including a labelled sketch.
 Supervised product-making projects remain open.
+
+Batch 262 adds eight JSS 1 Intermediate Science drafts on tool and
+machine maintenance from PDF p. 37, including supervised care of a
+non-powered tool. Machine servicing and lubrication demonstrations
+remain open.

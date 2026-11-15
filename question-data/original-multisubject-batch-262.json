@@ -1,0 +1,328 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science maintenance of tools and machines",
+  "questionCount": 8,
+  "note": "Original structured practice with manual marking guides. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Maintenance versus modification",
+      "learningObjective": "Explain the purpose of maintaining an existing tool or machine.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-262-001",
+      "objectiveId": "nerdc-intermediate-jss1-262-01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school opens two job cards for the same hand-operated paper punch. One asks the technician to restore its normal movement. The other asks for a redesign so it can make an extra hole. Which job is maintenance, and what is its purpose?",
+      "answer": "Restoring normal movement is maintenance. Its purpose is to keep or return the existing equipment to a condition in which it performs its intended job.",
+      "explanation": "The redesign changes what the punch is intended to do. The maintenance job restores an existing function.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the restoration job."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that maintenance preserves or restores intended function."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Calendar-based maintenance",
+      "learningObjective": "Identify preventive maintenance from the timing and purpose of an action.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-262-002",
+      "objectiveId": "nerdc-intermediate-jss1-262-02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The school technician inspects the library trolley's wheels on the first Monday of every month, even when it rolls normally. Identify this maintenance practice and explain the clue that identifies it.",
+      "answer": "This is scheduled preventive maintenance. It takes place at planned intervals to detect or avoid problems before a breakdown.",
+      "explanation": "The timetable triggers the inspection irrespective of any current fault.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies preventive maintenance."
+        },
+        {
+          "marks": 1,
+          "description": "Links regular planned timing to preventing problems."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Reading a condition trend",
+      "learningObjective": "Identify predictive maintenance from a measured trend.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-262-003",
+      "objectiveId": "nerdc-intermediate-jss1-262-03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A technician records the vibration of a workshop fan during four routine inspections. The readings rise steadily even though the fan still works. The technician uses the trend to plan an examination before the next busy period. Identify the maintenance approach and the evidence for it.",
+      "answer": "This is predictive maintenance. A trend in measured condition is used to anticipate a possible problem and decide when to inspect further.",
+      "explanation": "The readings are evidence of a change. They do not by themselves identify the faulty part.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies predictive maintenance."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the measured trend informs timing."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Restoring a failed mechanism",
+      "learningObjective": "Identify corrective maintenance in response to a failure.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-262-004",
+      "objectiveId": "nerdc-intermediate-jss1-262-04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A manual stapler stops feeding staples after a small spring breaks. An authorised technician replaces the spring and verifies that the stapler feeds again. What type of maintenance is this, and what event triggered it?",
+      "answer": "Corrective maintenance. The stapler had already stopped feeding staples, so the technician acted to restore the lost function.",
+      "explanation": "Corrective work responds to a fault that has already occurred.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies corrective maintenance."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the existing failure as the trigger."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Accuracy after inspection",
+      "learningObjective": "Explain why regularly checking a measuring tool matters.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-262-005",
+      "objectiveId": "nerdc-intermediate-jss1-262-05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A workshop uses the same try square to check several pupils' wooden frames. The blade has worked loose and can shift away from its normal angle. Explain how using it might affect the pupils' work and why a regular check helps.",
+      "answer": "The square could make an incorrect corner appear square or a correct one appear faulty. A regular check helps detect the loose blade before multiple frames are checked against it.",
+      "explanation": "A reference instrument can pass its error on to every item checked against it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a plausible effect on the angle checks."
+        },
+        {
+          "marks": 1,
+          "description": "Links regular inspection to catching the defect before it affects repeated work."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Planning access to shared equipment",
+      "learningObjective": "Explain how regular maintenance can reduce disruption.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-262-006",
+      "objectiveId": "nerdc-intermediate-jss1-262-06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Three classes share one workshop trolley for delivering materials. A teacher arranges a routine condition check between classes. Explain one benefit of checking it early and one benefit of scheduling the check in the gap.",
+      "answer": "Early checking may reveal worn or loose parts before the trolley becomes unusable. The gap keeps it available during lessons and allows faults to be reported before the next class.",
+      "explanation": "Planned checks can reduce unexpected downtime while limiting the disruption caused by the check itself.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a reliability benefit of early checking."
+        },
+        {
+          "marks": 1,
+          "description": "Explains an availability benefit of the chosen time."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Writing a maintenance record",
+      "learningObjective": "Record an observed equipment problem and its disposition without inventing a diagnosis.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-262-007",
+      "objectiveId": "nerdc-intermediate-jss1-262-07-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "During a teacher-led inspection, a pupil notices that a named hand-operated classroom model jams halfway through its movement. No part has been identified as faulty. Write a short log entry giving the observation, the decision about use and who should be told.",
+      "answer": "Hand-operated classroom model. Movement jams halfway during the supervised inspection. Set aside from use and report to the supervising teacher for follow-up.",
+      "explanation": "A useful log records what was observed and what happened next. A diagnosis requires further evidence.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Records the equipment and observed symptom accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Records that the model is set aside from use."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the supervising teacher for follow-up."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Maintenance of Tools and Machines",
+      "subtopic": "Supervised routine care",
+      "learningObjective": "Demonstrate simple cleaning and inspection of a non-powered workshop tool.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-262-008",
+      "objectiveId": "nerdc-intermediate-jss1-262-08-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Under teacher supervision, clean a teacher-approved, non-powered bench tool with no sharp edges, using the materials provided. Check its condition, report any visible defect, and return it to storage only if the teacher clears it. The teacher will observe the task.",
+      "answer": "A successful performance uses the approved material and method, leaves the tool clean and dry where appropriate, and reports the observed condition before storing it in the designated place.",
+      "explanation": "The condition check and report determine whether the tool is ready for storage or requires follow-up.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the approved method and materials correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Checks and reports the tool's condition accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Follows the teacher's decision on storage or setting the tool aside."
+        }
+      ]
+    }
+  ]
+}
