@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science skill acquisition and science ethics",
+  "questionCount": 13,
+  "note": "Original structured classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Evidence of learning a skill",
+      "learningObjective": "Explain skill acquisition using evidence of increasingly independent performance.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-001",
+      "objectiveId": "nerdc-intermediate-jss1-257-01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At first Amina needs help to save her class notes in the correct folder. After practising with feedback, she can save and retrieve a new file by herself. Explain what skill acquisition means and use one detail to show it here.",
+      "answer": "Skill acquisition is learning how to perform a task through instruction and practice. Amina can now save and retrieve a new file independently.",
+      "explanation": "Applying the procedure independently to a new file shows that her ability has developed.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that skill acquisition involves developing an ability through learning or practice."
+        },
+        {
+          "marks": 1,
+          "description": "Cites evidence of independent performance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Choosing a skill for a shared need",
+      "learningObjective": "Identify why a group would learn a skill for decision-making.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-002",
+      "objectiveId": "nerdc-intermediate-jss1-257-02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school club regularly has too few materials for its craft sessions because it buys supplies without checking what is left. Why would learning to keep a stock record help the club decide what to buy?",
+      "answer": "A stock record shows what is available and what is running low. The club can use that information to buy needed supplies and avoid unnecessary purchases.",
+      "explanation": "Keeping records helps the club make purchasing decisions from evidence.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains what a stock record tells the club."
+        },
+        {
+          "marks": 1,
+          "description": "Links that information to a purchasing decision."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Communicating an urgent problem",
+      "learningObjective": "Explain a reason for practising clear communication before an emergency.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-003",
+      "objectiveId": "nerdc-intermediate-jss1-257-03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a school drill, one pupil reports a problem but leaves out the location. Explain why a class should practise giving a clear location when reporting an emergency and say what an informative location could include.",
+      "answer": "A clear location helps an adult find the right place promptly. A report could include the building name, room number or a familiar landmark.",
+      "explanation": "Practising clear reports can help people communicate essential information under pressure.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links a clear location to prompt help."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a useful identifying detail."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Matching skills to products",
+      "learningObjective": "Identify distinct types of skills used to develop a community display.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-004",
+      "objectiveId": "nerdc-intermediate-jss1-257-04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At a school exhibition, one team takes clear pictures of garden produce and another arranges the pictures, headings and descriptions on a printable page. Name the skill used by each team and explain how the tasks differ.",
+      "answer": "The first team uses photography to capture the images. The second uses desktop publishing or page layout to organise images and text for printing.",
+      "explanation": "Capturing visual evidence and laying it out for readers are separate parts of making the display.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names photography and describes its role."
+        },
+        {
+          "marks": 1,
+          "description": "Names desktop publishing or page layout and describes its role."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Repair skills and everyday costs",
+      "learningObjective": "Explain a practical benefit of acquiring a repair skill.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-005",
+      "objectiveId": "nerdc-intermediate-jss1-257-05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A learner acquires the skill of hand-stitching and uses it to mend an open seam on a school bag. Explain one benefit to the household and one benefit related to use of materials.",
+      "answer": "The household may avoid paying for an immediate replacement. Keeping the bag in service also reduces waste from discarding it early.",
+      "explanation": "A useful repair skill can extend the life of an item and reduce replacement costs.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a plausible household benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a distinct benefit involving waste or material use."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Recognising an ethical decision",
+      "learningObjective": "Explain an ethical issue in a science activity.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-006",
+      "objectiveId": "nerdc-intermediate-jss1-257-06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A team borrows measuring equipment. One member accidentally damages it and suggests returning it quietly so the team can present its project on time. Identify the ethical issue and propose a responsible action.",
+      "answer": "The team must decide whether to disclose the damage and take responsibility. It should tell the teacher or owner what happened and ask how to put it right.",
+      "explanation": "The decision concerns honesty and responsibility to people who own or may later use the equipment.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the ethical issue of disclosure or responsibility."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes reporting the damage to the responsible person."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Observing living things with care",
+      "learningObjective": "Choose an observation method that reduces unnecessary disturbance.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-007",
+      "objectiveId": "nerdc-intermediate-jss1-257-07-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A group wants to record how ants move along a path outside a classroom. One plan blocks the path with tape and another records their movement from a distance. Choose a plan and explain how it respects living things.",
+      "answer": "Record from a distance. This allows observation without obstructing the ants or changing their route unnecessarily.",
+      "explanation": "Low-disturbance observation protects the animals and can give a better record of ordinary behaviour.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects observation from a distance."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a plausible effect of blocking the path or a benefit of minimising disturbance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Planning for worn-out components",
+      "learningObjective": "Explain an environmental consequence of a technology and a practical mitigation.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-008",
+      "objectiveId": "nerdc-intermediate-jss1-257-08-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school installs solar lamps whose batteries can be taken out by a technician when worn out. The purchase plan covers installation only. Identify one environmental concern at the end of battery life and propose one addition to the plan.",
+      "answer": "Discarded batteries can contribute to pollution if mishandled. Arrange a return through the supplier or an appropriate battery collection programme.",
+      "explanation": "Planning for worn-out components reduces the risk of improper disposal.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a plausible environmental problem linked to discarded batteries."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes an appropriate collection or return arrangement."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Reporting an unexpected trial",
+      "learningObjective": "Explain how retaining unexpected results supports honest scientific reporting.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-009",
+      "objectiveId": "nerdc-intermediate-jss1-257-09-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In two trials a paper bridge holds a stack of washers. In a third trial the bridge collapses much earlier. The group wants to leave out the third result because it spoils the pattern. What should it record, and why?",
+      "answer": "Record all three results and note any known difference in how the third trial was performed. An unexpected result may reveal variation or a problem worth checking.",
+      "explanation": "Reporting results with relevant notes lets readers assess the evidence and decide whether more trials are needed.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Says to retain and label the unexpected result."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a reason connected to the reliability or transparency of the evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Consulting users about a change",
+      "learningObjective": "Explain how sensitivity to local practices can improve a design decision.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-010",
+      "objectiveId": "nerdc-intermediate-jss1-257-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A proposed school water point would use the part of a courtyard where community groups meet. What should the design team ask users before choosing the site, and how could the answers affect its decision?",
+      "answer": "Ask when, where and how the space is used and whether the proposed location would cause problems. The answers could support another layout or location that keeps meeting space available.",
+      "explanation": "Listening to people who use the site can identify impacts that are invisible on a site drawing.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a relevant consultation question."
+        },
+        {
+          "marks": 1,
+          "description": "Shows one way the answer could change the design decision."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Spotting a trip hazard",
+      "learningObjective": "Identify a hazard, possible harm and control before a classroom experiment.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-011",
+      "objectiveId": "nerdc-intermediate-jss1-257-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Before a demonstration, pupils notice that a projector cable runs across the aisle they will use to reach their tables. Identify the hazard and possible harm, then give one control to arrange before the demonstration.",
+      "answer": "The cable crossing the aisle is a trip hazard. Someone could fall and be injured. Ask the teacher to reroute the cable out of the walkway or secure it with a suitable cable cover.",
+      "explanation": "A risk check connects the hazard to a possible injury and identifies how to reduce the risk before people are exposed.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the cable across the aisle as the hazard."
+        },
+        {
+          "marks": 1,
+          "description": "States a plausible harm from tripping."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes an appropriate preventive control."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Considering impacts beyond the user",
+      "learningObjective": "Explain why a design team should consider effects on nearby people.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-012",
+      "objectiveId": "nerdc-intermediate-jss1-257-12-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A community workshop plans to run a loud testing machine late in the evening. Name someone beyond the operators who could be affected and explain how changing the test arrangements could reduce the impact.",
+      "answer": "Nearby residents could lose sleep because of noise. Scheduling tests earlier or using a suitable quieter enclosure could reduce disturbance.",
+      "explanation": "Technical work can affect people who receive none of its immediate benefits. Planning can reduce that burden.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies an affected group and explains the likely impact."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a feasible change linked to reduced disturbance."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Fair access to shared equipment",
+      "learningObjective": "Identify an unequal effect of a science project and propose a fair response.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-257-013",
+      "objectiveId": "nerdc-intermediate-jss1-257-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school introduces a weather station. Only pupils with a smartphone can see its readings. Identify who is excluded and propose a way for them to use the data in class.",
+      "answer": "Pupils without smartphone access are excluded. Sharing a printout, a classroom chart or access through a school computer would let them use the readings too.",
+      "explanation": "Making shared data available in more than one way can give learners more equal access to the same project.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the group excluded by phone-only access."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a realistic way to give that group access."
+        }
+      ]
+    }
+  ]
+}

@@ -3272,7 +3272,9 @@
         "Living Matter, PDF pp. 20–21",
         "Non-Living Matter, PDF p. 22",
         "Energy, PDF p. 23",
-        "Renewable and Non-Renewable Energy, PDF p. 24"
+        "Renewable and Non-Renewable Energy, PDF p. 24",
+        "Skill Acquisition, PDF p. 25",
+        "Ethical Issues in Science and Development, PDF pp. 26–27"
       ],
       "note": "Exact class and subject verified in the direct revised PDF. Publication date, school adoption, term placement and formal formats remain unverified."
     },
@@ -35536,6 +35538,240 @@
       "sourceSections": [
         "Revised JSS 1 Intermediate Science, PDF p. 24, performance objective 7"
       ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Evidence of learning a skill",
+      "learningObjective": "Explain skill acquisition using evidence of increasingly independent performance.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 25, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Choosing a skill for a shared need",
+      "learningObjective": "Identify why a group would learn a skill for decision-making.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 25, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Communicating an urgent problem",
+      "learningObjective": "Explain a reason for practising clear communication before an emergency.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 25, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Matching skills to products",
+      "learningObjective": "Identify distinct types of skills used to develop a community display.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 25, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Skill Acquisition",
+      "subtopic": "Repair skills and everyday costs",
+      "learningObjective": "Explain a practical benefit of acquiring a repair skill.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 25, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Recognising an ethical decision",
+      "learningObjective": "Explain an ethical issue in a science activity.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 26, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Observing living things with care",
+      "learningObjective": "Choose an observation method that reduces unnecessary disturbance.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 26, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Planning for worn-out components",
+      "learningObjective": "Explain an environmental consequence of a technology and a practical mitigation.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 26, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-09-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Reporting an unexpected trial",
+      "learningObjective": "Explain how retaining unexpected results supports honest scientific reporting.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 26, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-10-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Consulting users about a change",
+      "learningObjective": "Explain how sensitivity to local practices can improve a design decision.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 26, performance objective 5"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-11-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Spotting a trip hazard",
+      "learningObjective": "Identify a hazard, possible harm and control before a classroom experiment.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 26, performance objective 6"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-12-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Considering impacts beyond the user",
+      "learningObjective": "Explain why a design team should consider effects on nearby people.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 27, performance objective 7"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-257-13-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Ethical Issues in Science and Development",
+      "subtopic": "Fair access to shared equipment",
+      "learningObjective": "Identify an unequal effect of a science project and propose a fair response.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 27, performance objective 8"
+      ]
     }
   ],
   "scopeGaps": [
@@ -35591,6 +35827,7 @@
     "JSS 1 Digital Technologies PDF p. 40 uses image and voice learning activities. Batch 247 practical training uses drawn symbols in a teacher-approved image classifier. Availability of the curriculum activity guides, local software and voice-processing practical delivery remains unverified.",
     "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 on bush-burning and deforestation regulations require jurisdiction-specific primary evidence. Batch 254 maps environmental effects, drivers, prevention and poster design using paper scenarios. The erosion and flooding field-visit objectives remain open.",
     "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures.",
-    "JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open."
+    "JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open.",
+    "Batch 257 assesses reasoning about skill acquisition and science ethics in written scenarios. It supplies no observation of pupils performing vocational skills or demonstrating experimental safety."
   ]
 }
