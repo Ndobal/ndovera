@@ -37294,6 +37294,23 @@
         "IELTS Academic Reading, question type 9",
         "Table completion"
       ]
+    },
+    {
+      "id": "ielts-academic-reading-277-diagram-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Diagram label completion",
+      "learningObjective": "Relate a written description to locations in a diagram and extract the words that label them.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 10: Diagram label completion"
+      ]
     }
   ],
   "scopeGaps": [
@@ -37366,6 +37383,7 @@
     "IELTS General Training Reading batch 273 adds Section 2 matching features using original workplace texts. Full test assembly and independent review remain open.",
     "Batch 274 adds IELTS Academic Reading matching sentence endings. The two original passages and ordered item sets are section-style practice. Full test assembly and independent review remain open.",
     "IELTS Academic Reading batch 275 adds passage-word summary and flow-chart completion. These are original drill sets. Full test assembly and independent review remain open.",
-    "IELTS Academic Reading batch 276 adds table completion using original passages and exact two-word keys. Diagram labelling, rendered table delivery and full timed test assembly remain open."
+    "IELTS Academic Reading batch 276 adds table completion using original passages and exact two-word keys. Diagram labelling, rendered table delivery and full timed test assembly remain open.",
+    "Batch 277 adds IELTS Academic Reading diagram label completion with an original repository SVG and a text alternative. The asset is for offline drafts. App rendering, full test assembly and independent review remain open."
   ]
 }

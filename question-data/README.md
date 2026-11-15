@@ -1552,3 +1552,7 @@ taken from the text within a two-word limit.
 Batch 276 adds eight IELTS Academic Reading table-completion drafts
 across two original passages. Answers use no more than two words from
 the passage. Diagram labelling and delivery checks remain open.
+
+Batch 277 adds four IELTS Academic Reading diagram-label drafts using
+an original archive cabinet drawing and an accessible text alternative.
+The SVG was rendered and checked offline. App delivery remains open.

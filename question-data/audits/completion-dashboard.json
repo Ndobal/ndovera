@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5222,
-    "validDrafts": 3543,
+    "raw": 5226,
+    "validDrafts": 3547,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1792,6 +1792,12 @@
       "actual": 8
     },
     {
+      "path": "original-multisubject-batch-277.json",
+      "sha256": "47cfe409c4ca183e3537b661dfe06fa44cf4412436ed9c7f13ab0a6c50fb46e9",
+      "declared": 4,
+      "actual": 4
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2522,23 +2528,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "academic_and_general_training_formats_verified_partial_coverage",
-      "raw": 114,
-      "validDrafts": 108,
+      "raw": 118,
+      "validDrafts": 112,
       "reviewed": 0,
       "questionTypes": {
-        "shortanswer": 102,
+        "shortanswer": 106,
         "mcq": 12
       },
       "difficulty": {
-        "standard": 95,
+        "standard": 99,
         "easy": 13,
         "missing": 3,
         "difficult": 1,
         "very difficult": 2
       },
-      "remaining": 892,
-      "mappedObjectives": 19,
-      "representedObjectives": 19,
+      "remaining": 888,
+      "mappedObjectives": 20,
+      "representedObjectives": 20,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7690,17 +7696,17 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81,
     "explanation_missing": 81
   },
   "mathematicalVerification": {
@@ -43539,6 +43545,30 @@
       "id": "ndv-276-008",
       "file": "original-multisubject-batch-276.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-277-001",
+      "file": "original-multisubject-batch-277.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-277-002",
+      "file": "original-multisubject-batch-277.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-277-003",
+      "file": "original-multisubject-batch-277.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-277-004",
+      "file": "original-multisubject-batch-277.json",
+      "index": 3,
       "errors": []
     },
     {
@@ -106926,6 +106956,35 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-reading-277-diagram-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Diagram label completion",
+      "learningObjective": "Relate a written description to locations in a diagram and extract the words that label them.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 4
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 10: Diagram label completion"
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -106998,6 +107057,7 @@
     "IELTS General Training Reading batch 273 adds Section 2 matching features using original workplace texts. Full test assembly and independent review remain open.",
     "Batch 274 adds IELTS Academic Reading matching sentence endings. The two original passages and ordered item sets are section-style practice. Full test assembly and independent review remain open.",
     "IELTS Academic Reading batch 275 adds passage-word summary and flow-chart completion. These are original drill sets. Full test assembly and independent review remain open.",
-    "IELTS Academic Reading batch 276 adds table completion using original passages and exact two-word keys. Diagram labelling, rendered table delivery and full timed test assembly remain open."
+    "IELTS Academic Reading batch 276 adds table completion using original passages and exact two-word keys. Diagram labelling, rendered table delivery and full timed test assembly remain open.",
+    "Batch 277 adds IELTS Academic Reading diagram label completion with an original repository SVG and a text alternative. The asset is for offline drafts. App rendering, full test assembly and independent review remain open."
   ]
 }

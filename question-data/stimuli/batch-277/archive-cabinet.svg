@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="370" viewBox="0 0 660 370" role="img" aria-labelledby="title desc">
+  <title id="title">Cross-section of an archive display cabinet</title>
+  <desc id="desc">Four numbered callouts point to a strip high inside the front, a band along the closing edge, a tray beneath the display platform, and a small fitting at the rear.</desc>
+  <rect width="660" height="370" fill="#ffffff"/>
+  <text x="330" y="34" text-anchor="middle" font-family="DejaVu Sans" font-size="20" fill="#172330">Archive display cabinet · side section</text>
+  <g stroke="#243749" stroke-width="3">
+    <rect x="190" y="76" width="278" height="248" fill="#edf4fa"/>
+    <rect x="203" y="89" width="252" height="222" fill="#ffffff"/>
+    <rect x="214" y="110" width="67" height="12" fill="#f8dc81"/>
+    <path d="M195 146V268" stroke="#735355" stroke-width="7"/>
+    <path d="M204 223H455" fill="none"/>
+    <rect x="230" y="254" width="154" height="20" fill="#b4c8db"/>
+    <rect x="450" y="166" width="17" height="21" fill="#b4c8db"/>
+    <path d="M119 99H167L235 116 M119 191H195 M119 296H178L260 264 M542 150H506L460 176" fill="none"/>
+  </g>
+  <g font-family="DejaVu Sans" font-size="17" fill="#172330">
+    <text x="67" y="104">[A]</text><text x="67" y="196">[B]</text>
+    <text x="67" y="301">[C]</text><text x="555" y="155">[D]</text>
+    <text x="80" y="339">Front</text><text x="550" y="339">Rear</text>
+  </g>
+</svg>
