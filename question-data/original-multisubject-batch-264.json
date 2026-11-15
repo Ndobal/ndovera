@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science federal bush-fire and charcoal regulation",
+  "questionCount": 6,
+  "note": "Original classroom practice based on cited Nigerian federal regulations. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Permission versus notice",
+      "learningObjective": "Distinguish notification of a proposed burn from permission under a Nigerian federal regulation.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-264-001",
+      "objectiveId": "nerdc-intermediate-jss1-264-01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "For a civics display, a pupil writes that a farmer's letter telling neighbours about an intended open burn counts as a permit. Under regulations 3 and 4 of Nigeria's federal 2011 bush and forest fire regulations, what is missing and which agency issues the permit?",
+      "answer": "The letter is missing a permit from the National Environmental Standards and Regulations Enforcement Agency, NESREA. Telling neighbours about a proposal does not supply the agency's permission.",
+      "explanation": "The regulations identify the issuing body and require permission for open burning.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the missing permit."
+        },
+        {
+          "marks": 1,
+          "description": "Names NESREA or gives its full name."
+        }
+      ],
+      "contentSourceId": "nesrea-bush-forest-fire-open-burning-2011"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Distinguishing a prohibited purpose",
+      "learningObjective": "Recognise a purpose expressly prohibited by the federal bush-fire text.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-264-002",
+      "objectiveId": "nerdc-intermediate-jss1-264-02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional account says a group planned to burn bush to drive out animals for hunting. The group argues that the general permit rules make this purpose acceptable. How does regulation 19 of Nigeria's federal 2011 bush and forest fire regulations address the plan?",
+      "answer": "Regulation 19 expressly prohibits burning bush or forest to hunt animals. The general provisions about permits do not erase that prohibition.",
+      "explanation": "The purpose of the burning is decisive for applying this provision.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies hunting animals as the purpose covered by regulation 19."
+        },
+        {
+          "marks": 1,
+          "description": "States that bush or forest burning for that purpose is prohibited."
+        }
+      ],
+      "contentSourceId": "nesrea-bush-forest-fire-open-burning-2011"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Information after a vegetation fire",
+      "learningObjective": "Explain why the fire notification provision asks for factual details.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-264-003",
+      "objectiveId": "nerdc-intermediate-jss1-264-03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A case study describes a bush fire on occupied land. A draft notification gives the location but leaves out both when the fire happened and any information about its origin. Identify the two missing details listed in regulation 20(1)(a) and (b) of Nigeria's federal 2011 bush and forest fire regulations.",
+      "answer": "The draft omits the date of the fire and its cause or origin. If the cause is unknown, the writer should say so instead of guessing.",
+      "explanation": "A dated account and an accurate description of known evidence help a reader understand the incident.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the date."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the cause or origin."
+        }
+      ],
+      "contentSourceId": "nesrea-bush-forest-fire-open-burning-2011"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Restoring the source area",
+      "learningObjective": "Explain a federal measure that addresses habitat loss from charcoal production.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-264-004",
+      "objectiveId": "nerdc-intermediate-jss1-264-04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional commercial charcoal proposal includes plans for production and sales but says nothing about restoring the area where the trees would come from. Under regulation 6(3) of Nigeria's federal 2014 charcoal regulations, which plan is missing and why is it relevant to deforestation?",
+      "answer": "A reforestation and rehabilitation plan for the source area is missing. It addresses how tree cover and affected land could be restored after removal.",
+      "explanation": "The cited provision makes planning for restoration a condition of a production permit.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names reforestation and rehabilitation for the source area."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the plan to loss and restoration of tree cover or habitat."
+        }
+      ],
+      "contentSourceId": "nesrea-charcoal-production-export-2014"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Choosing where production must be excluded",
+      "learningObjective": "Explain how a source restriction protects a fragile ecosystem.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-264-005",
+      "objectiveId": "nerdc-intermediate-jss1-264-05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A fictional commercial charcoal producer submits a restoration plan but proposes obtaining the trees from an area identified as a fragile ecosystem. Under regulation 6(4) of Nigeria's federal 2014 charcoal regulations, why does the restoration plan leave a problem?",
+      "answer": "Regulation 6(4) forbids producing charcoal from fragile ecosystems. The proposal still relies on an excluded source even though it includes a restoration plan.",
+      "explanation": "The source exclusion and the restoration condition are separate safeguards.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies fragile ecosystems as excluded sources."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the restoration plan does not remove the source restriction."
+        }
+      ],
+      "contentSourceId": "nesrea-charcoal-production-export-2014"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Recognising the scope of a rule",
+      "learningObjective": "Distinguish a specific federal charcoal rule from a universal rule about trees.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-264-006",
+      "objectiveId": "nerdc-intermediate-jss1-264-06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school poster says the federal 2014 regulations on charcoal prove that every tree-felling decision in Nigeria is governed by those regulations. Use regulations 1 and 2 to explain what is wrong with the poster.",
+      "answer": "These regulations address charcoal production and handling, including tree felling for charcoal and specified trade and export activities. They also exclude charcoal used for subsistence purposes. Other tree-felling activity needs its own applicable source.",
+      "explanation": "A claim about all tree felling goes beyond the stated application of this instrument.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the charcoal-related scope."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the instrument alone cannot establish a rule for all tree felling."
+        }
+      ],
+      "contentSourceId": "nesrea-charcoal-production-export-2014"
+    }
+  ]
+}

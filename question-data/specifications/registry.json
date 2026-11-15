@@ -3295,6 +3295,26 @@
       "source": "https://www.fao.org/family-farming/detail/en/c/1724752/",
       "retrievedOn": "2026-11-14",
       "note": "FAO evidence on heating, ash and vegetation cover as pathways affecting soil after vegetation fires."
+    },
+    {
+      "id": "nesrea-bush-forest-fire-open-burning-2011",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://nesrea.gov.ng/wp-content/uploads/2025/05/CONTROL_OF_BUSH_FOREST_FIRE_AND_OPEN_BURNING.pdf",
+      "retrievedOn": "2026-11-15",
+      "note": "Nigeria federal S.I. No. 15 of 2011. Verified the NESREA-hosted gazette text and agency listing for classroom examples based on regulations 3, 4, 19 and 20."
+    },
+    {
+      "id": "nesrea-charcoal-production-export-2014",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "kind": "official_supplementary_reference",
+      "source": "https://nesrea.gov.ng/wp-content/uploads/2025/05/control_of_charcoal_production_and_export.pdf",
+      "retrievedOn": "2026-11-15",
+      "note": "Nigeria federal S.I. No. 62 of 2014. Verified NESREA-hosted text and listing for regulations 1, 2 and 6(3)–(4). Scope is charcoal-related, with the subsistence exclusion in regulation 2(2)."
     }
   ],
   "banks": [
@@ -36860,6 +36880,120 @@
       "sourceSections": [
         "Revised JSS 1 Intermediate Science, PDF p. 15, performance objective 5"
       ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Permission versus notice",
+      "learningObjective": "Distinguish notification of a proposed burn from permission under a Nigerian federal regulation.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 4",
+        "S.I. No. 15 of 2011, regulations 3(2) and 4(1)"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Distinguishing a prohibited purpose",
+      "learningObjective": "Recognise a purpose expressly prohibited by the federal bush-fire text.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 4",
+        "S.I. No. 15 of 2011, regulation 19"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Information after a vegetation fire",
+      "learningObjective": "Explain why the fire notification provision asks for factual details.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 4",
+        "S.I. No. 15 of 2011, regulation 20(1)(a)–(b)"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Restoring the source area",
+      "learningObjective": "Explain a federal measure that addresses habitat loss from charcoal production.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 5",
+        "S.I. No. 62 of 2014, regulation 6(3)"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Choosing where production must be excluded",
+      "learningObjective": "Explain how a source restriction protects a fragile ecosystem.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 5",
+        "S.I. No. 62 of 2014, regulation 6(4)"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Recognising the scope of a rule",
+      "learningObjective": "Distinguish a specific federal charcoal rule from a universal rule about trees.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 5",
+        "S.I. No. 62 of 2014, regulations 1–2"
+      ]
     }
   ],
   "scopeGaps": [
@@ -36913,7 +37047,7 @@
     "Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open.",
     "JSS 1 Digital Technologies PDF p. 22 names Paint 3D, which Microsoft removed from the Store on 4 November 2024. Batch 239 includes transferable modelling and drawing practice. Paint 3D interface-specific objective 2 remains open; classroom software availability and formal formats are unverified.",
     "JSS 1 Digital Technologies PDF p. 40 uses image and voice learning activities. Batch 247 practical training uses drawn symbols in a teacher-approved image classifier. Availability of the curriculum activity guides, local software and voice-processing practical delivery remains unverified.",
-    "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 on bush-burning and deforestation regulations require jurisdiction-specific primary evidence. Batch 254 maps environmental effects, drivers, prevention and poster design using paper scenarios. The erosion and flooding field-visit objectives remain open.",
+    "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 have Nigeria federal examples in batch 264 on bush-fire regulation and charcoal-related deforestation controls. State and local rules and other forms of tree felling require separate primary evidence. The erosion and flooding field-visit objectives remain open.",
     "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures.",
     "JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open.",
     "Batch 257 assesses reasoning about skill acquisition and science ethics in written scenarios. It supplies no observation of pupils performing vocational skills or demonstrating experimental safety.",

@@ -1494,3 +1494,8 @@ remain open.
 Batch 263 adds eight JSS 1 Intermediate Science drafts on flood
 prevention and control from PDF p. 15. The supervised tabletop model
 uses clean water to compare available storage. Field excursions remain open.
+
+Batch 264 adds six JSS 1 Intermediate Science drafts mapped to PDF p. 17
+objectives 4 and 5. They use Nigeria federal examples from two gazetted
+regulations published by NESREA. State and local rules and tree felling
+outside the charcoal context still require separate source evidence.

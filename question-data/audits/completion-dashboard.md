@@ -123,7 +123,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | English Studies / Primary 3 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English Studies / Primary 4 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Financial Accounting / SS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
-| NERDC | Intermediate Science / JSS 1 | 1000 | 118 | 118 | 0 | 882 | partial_objective_register |
+| NERDC | Intermediate Science / JSS 1 | 1000 | 124 | 124 | 0 | 876 | partial_objective_register |
 | NERDC | Literacy / Nursery | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / JSS | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / JSS 1 | 1000 | 106 | 105 | 0 | 895 | partial_objective_register |
@@ -220,12 +220,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 476 | 441 | 0 | 36000 | 35559 |
-| NERDC | 1076 | 1011 | 0 | 35000 | 33989 |
+| NERDC | 1082 | 1017 | 0 | 35000 | 33983 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5115, "validDrafts": 3436, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5121, "validDrafts": 3442, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -281,7 +281,7 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open.
 - JSS 1 Digital Technologies PDF p. 22 names Paint 3D, which Microsoft removed from the Store on 4 November 2024. Batch 239 includes transferable modelling and drawing practice. Paint 3D interface-specific objective 2 remains open; classroom software availability and formal formats are unverified.
 - JSS 1 Digital Technologies PDF p. 40 uses image and voice learning activities. Batch 247 practical training uses drawn symbols in a teacher-approved image classifier. Availability of the curriculum activity guides, local software and voice-processing practical delivery remains unverified.
-- JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 on bush-burning and deforestation regulations require jurisdiction-specific primary evidence. Batch 254 maps environmental effects, drivers, prevention and poster design using paper scenarios. The erosion and flooding field-visit objectives remain open.
+- JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 have Nigeria federal examples in batch 264 on bush-fire regulation and charcoal-related deforestation controls. State and local rules and other forms of tree felling require separate primary evidence. The erosion and flooding field-visit objectives remain open.
 - JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures.
 - JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open.
 - Batch 257 assesses reasoning about skill acquisition and science ethics in written scenarios. It supplies no observation of pupils performing vocational skills or demonstrating experimental safety.

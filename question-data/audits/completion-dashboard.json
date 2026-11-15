@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5115,
-    "validDrafts": 3436,
+    "raw": 5121,
+    "validDrafts": 3442,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1712,6 +1712,12 @@
       "sha256": "ac3a2662bbbf8f36649877227be1a7a6ae89bc66eb649abfa39854b2947c79b5",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-264.json",
+      "sha256": "67759568c66cd590ab275b956f612d97ef3f1fa196f2fedad508b7bd95e390d8",
+      "declared": 6,
+      "actual": 6
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5847,18 +5853,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-intermediate-science-jss1-revised",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 118,
-      "validDrafts": 118,
+      "raw": 124,
+      "validDrafts": 124,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 118
+        "structured": 124
       },
       "difficulty": {
-        "standard": 118
+        "standard": 124
       },
-      "remaining": 882,
-      "mappedObjectives": 118,
-      "representedObjectives": 118,
+      "remaining": 876,
+      "mappedObjectives": 124,
+      "representedObjectives": 124,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7612,18 +7618,18 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 512,
@@ -42819,6 +42825,42 @@
       "id": "ndv-263-008",
       "file": "original-multisubject-batch-263.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-264-001",
+      "file": "original-multisubject-batch-264.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-264-002",
+      "file": "original-multisubject-batch-264.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-264-003",
+      "file": "original-multisubject-batch-264.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-264-004",
+      "file": "original-multisubject-batch-264.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-264-005",
+      "file": "original-multisubject-batch-264.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-264-006",
+      "file": "original-multisubject-batch-264.json",
+      "index": 5,
       "errors": []
     },
     {
@@ -105545,6 +105587,192 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Permission versus notice",
+      "learningObjective": "Distinguish notification of a proposed burn from permission under a Nigerian federal regulation.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 4",
+        "S.I. No. 15 of 2011, regulations 3(2) and 4(1)"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Distinguishing a prohibited purpose",
+      "learningObjective": "Recognise a purpose expressly prohibited by the federal bush-fire text.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 4",
+        "S.I. No. 15 of 2011, regulation 19"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Information after a vegetation fire",
+      "learningObjective": "Explain why the fire notification provision asks for factual details.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 4",
+        "S.I. No. 15 of 2011, regulation 20(1)(a)–(b)"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Restoring the source area",
+      "learningObjective": "Explain a federal measure that addresses habitat loss from charcoal production.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 5",
+        "S.I. No. 62 of 2014, regulation 6(3)"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Choosing where production must be excluded",
+      "learningObjective": "Explain how a source restriction protects a fragile ecosystem.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 5",
+        "S.I. No. 62 of 2014, regulation 6(4)"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-264-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Bush Burning",
+      "subtopic": "Recognising the scope of a rule",
+      "learningObjective": "Distinguish a specific federal charcoal rule from a universal rule about trees.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 5",
+        "S.I. No. 62 of 2014, regulations 1–2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -105598,7 +105826,7 @@
     "Batch 227 covers food-additive suitability and traceability in paper exercises. Medicinal ingredient authorisation, Nigerian vendor requirements, chemical disposal and practical handling remain open.",
     "JSS 1 Digital Technologies PDF p. 22 names Paint 3D, which Microsoft removed from the Store on 4 November 2024. Batch 239 includes transferable modelling and drawing practice. Paint 3D interface-specific objective 2 remains open; classroom software availability and formal formats are unverified.",
     "JSS 1 Digital Technologies PDF p. 40 uses image and voice learning activities. Batch 247 practical training uses drawn symbols in a teacher-approved image classifier. Availability of the curriculum activity guides, local software and voice-processing practical delivery remains unverified.",
-    "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 on bush-burning and deforestation regulations require jurisdiction-specific primary evidence. Batch 254 maps environmental effects, drivers, prevention and poster design using paper scenarios. The erosion and flooding field-visit objectives remain open.",
+    "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 have Nigeria federal examples in batch 264 on bush-fire regulation and charcoal-related deforestation controls. State and local rules and other forms of tree felling require separate primary evidence. The erosion and flooding field-visit objectives remain open.",
     "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures.",
     "JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open.",
     "Batch 257 assesses reasoning about skill acquisition and science ethics in written scenarios. It supplies no observation of pupils performing vocational skills or demonstrating experimental safety.",
