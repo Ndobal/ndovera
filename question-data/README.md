@@ -1467,3 +1467,8 @@ Batch 257 adds 13 JSS 1 Intermediate Science drafts on skill acquisition
 and ethical issues in science and development from PDF pp. 25–27.
 Written scenarios assess reasoning about skills, safety and ethics.
 Observed vocational performance and safety demonstrations remain open.
+
+Batch 258 adds 12 JSS 1 Intermediate Science drafts on laboratory and
+workshop familiarisation and safety from PDF pp. 28–29. A supervised
+facility visit, direct safety-device observation and first-aid practicals
+remain open.

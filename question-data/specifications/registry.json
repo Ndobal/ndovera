@@ -3274,7 +3274,9 @@
         "Energy, PDF p. 23",
         "Renewable and Non-Renewable Energy, PDF p. 24",
         "Skill Acquisition, PDF p. 25",
-        "Ethical Issues in Science and Development, PDF pp. 26–27"
+        "Ethical Issues in Science and Development, PDF pp. 26–27",
+        "Laboratory and Workshop Familiarisation, PDF p. 28",
+        "Workshop Accidents and Safety, PDF p. 29"
       ],
       "note": "Exact class and subject verified in the direct revised PDF. Publication date, school adoption, term placement and formal formats remain unverified."
     },
@@ -35772,6 +35774,222 @@
       "sourceSections": [
         "Revised JSS 1 Intermediate Science, PDF p. 27, performance objective 8"
       ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Choosing a vessel for volume",
+      "learningObjective": "Select a laboratory tool suited to measuring a liquid volume.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 28, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Finding the measuring instrument",
+      "learningObjective": "Distinguish an instrument for mass from one for temperature.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 28, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Holding a workpiece steady",
+      "learningObjective": "Identify workshop equipment suited to securing a workpiece.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 28, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Light for a specimen",
+      "learningObjective": "Explain the role of illumination in viewing a slide.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 28, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Comparing samples at a lab station",
+      "learningObjective": "Explain how a laboratory setup supports a systematic comparison.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 28, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Testing a model before use",
+      "learningObjective": "Explain a purpose of a school workshop in developing and improving a model.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 28, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Rules for storage and bench space",
+      "learningObjective": "Write rules that keep shared workstations usable.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 28, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Classifying accident reports",
+      "learningObjective": "Distinguish accident types from short workshop records.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 29, performance objective 1"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-09-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Tracing the cause of a falling object",
+      "learningObjective": "Explain how an unsafe storage condition can cause an accident.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 29, performance objective 2"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-10-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Acting on defective equipment",
+      "learningObjective": "Propose a preventive measure for a damaged hand tool before use.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 29, performance objective 3"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-11-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Safety when instructions are missed",
+      "learningObjective": "Apply a workshop rule about supervision and permission.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 29, performance objective 4"
+      ]
+    },
+    {
+      "id": "nerdc-intermediate-jss1-258-12-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Responding to unknown broken glass",
+      "learningObjective": "Apply a classroom laboratory rule to prevent harm after glass breaks.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": [
+        "structured"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 29, performance objective 6"
+      ]
     }
   ],
   "scopeGaps": [
@@ -35828,6 +36046,7 @@
     "JSS 1 Intermediate Science PDF p. 17 objectives 4 and 5 on bush-burning and deforestation regulations require jurisdiction-specific primary evidence. Batch 254 maps environmental effects, drivers, prevention and poster design using paper scenarios. The erosion and flooding field-visit objectives remain open.",
     "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures.",
     "JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open.",
-    "Batch 257 assesses reasoning about skill acquisition and science ethics in written scenarios. It supplies no observation of pupils performing vocational skills or demonstrating experimental safety."
+    "Batch 257 assesses reasoning about skill acquisition and science ethics in written scenarios. It supplies no observation of pupils performing vocational skills or demonstrating experimental safety.",
+    "Batch 258 adds written laboratory and workshop familiarisation and safety scenarios (PDF pp. 28–29). A supervised facility visit, direct observation of safety devices and first-aid practicals remain open. Verify first-aid content with authoritative guidance before adding it."
   ]
 }

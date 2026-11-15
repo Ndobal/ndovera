@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science laboratory equipment and workshop safety",
+  "questionCount": 12,
+  "note": "Original structured classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Choosing a vessel for volume",
+      "learningObjective": "Select a laboratory tool suited to measuring a liquid volume.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-001",
+      "objectiveId": "nerdc-intermediate-jss1-258-01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A group must measure 35 mL of water before pouring it into a wide container for a classroom activity. A beaker with markings every 50 mL and a measuring cylinder with markings every 1 mL are available. Which should they use to measure the water, and why?",
+      "answer": "Use the measuring cylinder. Its finer graduations let the group read 35 mL directly, while the beaker's coarse markings would require a rough estimate.",
+      "explanation": "Graduation spacing matters when selecting a tool for a measurement.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the measuring cylinder."
+        },
+        {
+          "marks": 1,
+          "description": "Compares the graduations and explains why they suit the task."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Finding the measuring instrument",
+      "learningObjective": "Distinguish an instrument for mass from one for temperature.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-002",
+      "objectiveId": "nerdc-intermediate-jss1-258-02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil records two observations about a sealed sample bag: 82 g and 27 °C. Identify the instrument that could give each reading and name the quantity each instrument measures.",
+      "answer": "A balance measures mass and could give 82 g. A thermometer measures temperature and could give 27 °C.",
+      "explanation": "The units help identify what each instrument measured.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Pairs a balance and mass with 82 g."
+        },
+        {
+          "marks": 1,
+          "description": "Pairs a thermometer and temperature with 27 °C."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Holding a workpiece steady",
+      "learningObjective": "Identify workshop equipment suited to securing a workpiece.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-003",
+      "objectiveId": "nerdc-intermediate-jss1-258-03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher needs to hold a small piece of wood steady at a bench during a demonstration. Choose between a bench vice and a try square. Explain the job of the chosen tool and what the other tool is for.",
+      "answer": "A bench vice grips the wood to limit movement. A try square checks or marks a right angle.",
+      "explanation": "One tool holds a workpiece in position. The other helps check the relationship between edges.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses the vice and explains how it holds the wood."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a use of the try square involving a right angle."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Light for a specimen",
+      "learningObjective": "Explain the role of illumination in viewing a slide.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-004",
+      "objectiveId": "nerdc-intermediate-jss1-258-04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A prepared slide is in place on a classroom microscope, but the view is dark because the lamp is off. What is the lamp for, and how does its job differ from the objective lens?",
+      "answer": "The lamp provides light to illuminate the specimen. The objective lens helps form a magnified image so the viewer can see details.",
+      "explanation": "Illumination makes the specimen visible. The lens changes how large its detail appears.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the lamp's role in illuminating the specimen."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the objective's role in forming a magnified image."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Comparing samples at a lab station",
+      "learningObjective": "Explain how a laboratory setup supports a systematic comparison.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-005",
+      "objectiveId": "nerdc-intermediate-jss1-258-05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two groups compare how quickly identical cubes dissolve in water. One group works at a lab station with matching cups and a timer. Explain one way the matching cups and one way the timer improve the comparison.",
+      "answer": "Matching cups help keep the shape and size of the containers consistent. The timer lets each group record the dissolving time using the same unit and start rule.",
+      "explanation": "A laboratory station can provide both equipment for controlling conditions and instruments for recording observations.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how matching cups hold a relevant condition constant."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the timer gives comparable duration measurements."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Testing a model before use",
+      "learningObjective": "Explain a purpose of a school workshop in developing and improving a model.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-006",
+      "objectiveId": "nerdc-intermediate-jss1-258-06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "During a school workshop session, a team discovers that its cardboard display stand tips forward when it holds a book. Explain how the team could use the workshop session to improve the stand before the exhibition.",
+      "answer": "The team could observe when the stand tips, then alter the base or support and test the revised model with the book again.",
+      "explanation": "The workshop lets pupils try a design, observe a problem, and check whether a change improves the model.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a relevant design change or observation that guides a change."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests retesting the revised model against the same purpose."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Laboratory and Workshop Familiarisation",
+      "subtopic": "Rules for storage and bench space",
+      "learningObjective": "Write rules that keep shared workstations usable.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-007",
+      "objectiveId": "nerdc-intermediate-jss1-258-07-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A workshop has crowded benches and small tools frequently go missing between lessons. Write two short poster rules, one for bench space and one for returning tools. Explain which problem each rule addresses.",
+      "answer": "Keep only the materials needed for the current task on the bench, to leave space to work. Return each tool to its labelled place after use, so the next class can find it and missing tools stand out.",
+      "explanation": "An effective rule tells people what to do and addresses a specific problem.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes a practical rule that addresses crowded benches."
+        },
+        {
+          "marks": 1,
+          "description": "Writes a practical rule for tracking or returning tools."
+        },
+        {
+          "marks": 1,
+          "description": "Connects both rules to their intended effects."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Classifying accident reports",
+      "learningObjective": "Distinguish accident types from short workshop records.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-008",
+      "objectiveId": "nerdc-intermediate-jss1-258-08-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two records describe a pupil who fell after losing footing on a damp floor and a pupil whose finger was pinched between a drawer and its frame. Name the type of accident in each record.",
+      "answer": "The first is a slip and fall. The second is a pinch or trapping incident.",
+      "explanation": "Classifying incidents by how harm occurred helps people identify which controls to check.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a slip and fall."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies pinching or trapping."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Tracing the cause of a falling object",
+      "learningObjective": "Explain how an unsafe storage condition can cause an accident.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-009",
+      "objectiveId": "nerdc-intermediate-jss1-258-09-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A heavy box is left partly hanging over the front edge of a shelf. It falls when someone brushes against the shelf. Explain the storage condition that contributed to the accident and how the movement could lead to a fall.",
+      "answer": "The box was projecting beyond the support of the shelf. A disturbance could make it shift far enough that the shelf no longer supported it securely.",
+      "explanation": "An incident can have both an unsafe condition and a movement that triggers it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the overhanging or unstable placement."
+        },
+        {
+          "marks": 1,
+          "description": "Links the disturbance to loss of support and the fall."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Acting on defective equipment",
+      "learningObjective": "Propose a preventive measure for a damaged hand tool before use.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-010",
+      "objectiveId": "nerdc-intermediate-jss1-258-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "During a teacher-led check, a pupil notices that a hammer head is loose. What should the pupil do before work starts, and what injury risk does that action reduce?",
+      "answer": "Leave the hammer out of use and tell the teacher so it can be replaced or checked. A loose head can come off and strike a person.",
+      "explanation": "Removing defective equipment from use prevents people from encountering the defect during work.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes removing the tool from use and reporting it."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the defect to a plausible striking injury."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Safety when instructions are missed",
+      "learningObjective": "Apply a workshop rule about supervision and permission.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-011",
+      "objectiveId": "nerdc-intermediate-jss1-258-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil arrives late and misses the teacher's explanation of a tool. A friend says to begin by copying another group's movements. State what the pupil should do and explain why.",
+      "answer": "Wait and ask the supervising teacher for instructions and permission before starting. Another group's movements may omit checks or precautions that the pupil needs to know.",
+      "explanation": "Supervision helps ensure that learners understand the method and precautions for the task they are assigned.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that the pupil should wait for instruction and permission."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how this addresses the missed precautions or procedure."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Accidents and Safety",
+      "subtopic": "Responding to unknown broken glass",
+      "learningObjective": "Apply a classroom laboratory rule to prevent harm after glass breaks.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-258-012",
+      "objectiveId": "nerdc-intermediate-jss1-258-12-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A glass container breaks beside a laboratory bench. Its contents are unknown. A pupil with a broom volunteers to clear it immediately. Give two actions the class should take first and explain why.",
+      "answer": "Keep people away from the affected area and promptly tell the teacher what happened. Broken glass can cut, and the unknown contents may require a different response from ordinary sweeping.",
+      "explanation": "Preventing access and reporting the incident lets a responsible adult assess both the debris and the contents before cleanup.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that people should stay clear."
+        },
+        {
+          "marks": 1,
+          "description": "States that the teacher should be alerted promptly."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a real risk from the glass or unknown contents."
+        }
+      ]
+    }
+  ]
+}
