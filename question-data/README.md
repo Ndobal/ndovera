@@ -1504,3 +1504,8 @@ Batch 265 adds six NECO General Mathematics statistics drafts under
 existing provisional objectives. The public NECO recheck confirmed
 paper formats and a separate SSCE syllabus. Topic objectives and BECE
 BST practical instructions remain open.
+
+Batch 266 adds five original TOEFL iBT Write an Email tasks with
+seven-minute instructions, model emails and task-specific practice
+rubrics. The practice rubrics use a ten-point scale with no official
+TOEFL score equivalence.

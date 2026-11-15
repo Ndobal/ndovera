@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_265_automated_validation_passed",
+  "phase": "batch_266_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-266.json",
+  "nextBatch": "original-multisubject-batch-267.json",
   "nextPriorities": [
-    "Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions. Extend other source-supported underrepresented banks while these specifications are pending. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
+    "Extend TOEFL Writing with another production-task batch, prioritising Academic Discussion. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-265.json",
-  "lastRemoteVerifiedCommit": "c27e281e0655e81ee86b628731eaca23cb6a5003",
+  "lastValidatedBatch": "original-multisubject-batch-266.json",
+  "lastRemoteVerifiedCommit": "c4d3ac2cb07efee2ef83164427e8baee6dd735b7",
   "verifiedTotals": {
-    "raw": 5127,
-    "validDrafts": 3448,
+    "raw": 5132,
+    "validDrafts": 3453,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-265.json",
+  "lastPopulatedBatch": "original-multisubject-batch-266.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 5127,
+  "inventoryRaw": 5132,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "neco-ssce-internal-syllabus-access-2027",
+    "id": "toefl-writing-production-recheck-157-2026",
     "date": "2026-11-15"
   }
 }

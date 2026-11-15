@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 2,
+  "collection": "TOEFL iBT Write an Email practice",
+  "questionCount": 5,
+  "note": "Original seven-minute composition tasks, models and practice rubrics. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-266-001",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You agreed to take notes at a student committee meeting tomorrow. You can attend only the first half because you have an appointment. You have already made a template for recording decisions.\n\nWrite an email to the committee chair. In your email:\n- Give advance notice of when you will leave and why.\n- Offer a way for another member to continue using the template.\n- Ask the chair to confirm who will finish the notes and how the notes should be shared.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Dear Committee Chair,\n\nI can take notes at the beginning of tomorrow’s meeting, but I will need to leave halfway through for an appointment. I have prepared a template with space for each decision and the person responsible for following it up. I can share it with the member who takes over and show them which discussion points are still open before I leave.\n\nCould you let me know who will finish the notes and whether we should send the final copy to you or share it with the whole committee?\n\nBest wishes,\nAda",
+      "explanation": "The model gives notice, offers a concrete handover and asks two questions that help the chair coordinate the work. Credit other workable handovers.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "States when the student will leave and gives the reason. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Offers the prepared template and explains how to hand it over. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Asks who will finish and how the notes should be shared. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a connected, easily followed message with an appropriate tone, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences with appropriate wording and mechanics, 1 if errors sometimes obscure the message, or 0 if assessable meaning is absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-266-002",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "A workshop facilitator has asked permission to show your class project poster in a training session. You are happy to share the poster, but it includes photographs of two classmates whose permission has not been requested.\n\nWrite an email to the facilitator. In your email:\n- Give a conditional reply and explain your concern.\n- Offer an alternative version and say what it would contain.\n- Ask whether that version is suitable and when it would be needed.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Dear Workshop Facilitator,\n\nI would be happy for you to discuss our class project during the training session. The current poster contains photographs of two classmates, however, and I have not asked them whether those images can be shown. I can send a version that uses a photograph of the finished model and retains the chart and captions that explain our findings.\n\nWould that version meet your needs? Please let me know when you would need it so that I can prepare the revised file in time.\n\nKind regards,\nIbrahim",
+      "explanation": "The message sets a clear condition and proposes a substitute that still serves the facilitator’s teaching purpose.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Communicates conditional permission and explains the classmates’ photo issue. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Offers an alternative version and identifies appropriate replacement or retained content. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Asks about suitability and deadline. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a connected, easily followed message with an appropriate tone, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences with appropriate wording and mechanics, 1 if errors sometimes obscure the message, or 0 if assessable meaning is absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-266-003",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You borrowed a library book for a class and now realise you may have left your study notes inside it before someone else returned the book for you. You can identify the book and describe where you left the notes.\n\nWrite an email to the library desk. In your email:\n- Explain how the notes may have been left and identify the book.\n- Describe the notes and their likely location inside the book.\n- Request a way to recover them if they are found and explain when you can collect them.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Dear Library Team,\n\nMy classmate returned a copy of City Waterways for me this morning. I have since realised that I may have left my study notes in it before giving it to her. They are two folded sheets with HABITATS written at the top. I last used them to mark the chapter on riverbanks, so I think that is where they might be.\n\nIf you find the sheets, could you hold them at the desk and let me know? I can collect them after my class tomorrow afternoon.\n\nThank you,\nTari",
+      "explanation": "The model identifies the book and gives enough information to distinguish and return the notes. A plausible invented title and collection time are acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Explains the return and identifies the book. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Describes the notes and where they may be. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Makes a recovery request and gives a collection time. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a connected, easily followed message with an appropriate tone, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences with appropriate wording and mechanics, 1 if errors sometimes obscure the message, or 0 if assessable meaning is absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-266-004",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "The organisers of a student craft fair assigned you a table. You have decided to withdraw because you will be away. A classmate is on the waiting list and has asked whether your space could become available.\n\nWrite an email to the fair organiser. In your email:\n- Cancel your table and identify your booking.\n- Explain why you are withdrawing and mention the classmate’s interest.\n- Ask the organiser to handle any reassignment and confirm the cancellation.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Dear Fair Organiser,\n\nPlease cancel my booking for table B6 at next Friday’s craft fair. I will be away that day and cannot run the table. My classmate Femi told me that he is on the waiting list and would still like to take part. Could you release the space through your usual waiting-list process? I have told Femi to wait for your reply before bringing anything.\n\nPlease confirm when the table is no longer listed under my name. Thank you for organising the event.\n\nBest regards,\nChinwe",
+      "explanation": "The message releases the booking clearly and leaves control of the waiting list with the organiser.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Cancels and gives an identifiable booking detail. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Explains the withdrawal and mentions the classmate’s interest. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Leaves reassignment with the organiser and requests confirmation. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a connected, easily followed message with an appropriate tone, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences with appropriate wording and mechanics, 1 if errors sometimes obscure the message, or 0 if assessable meaning is absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-266-005",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "A student association offered a travel allowance to everyone who attended an off-campus seminar. You received two payment notifications for the same allowance. You can see both transaction references in your payment history.\n\nWrite an email to the association treasurer. In your email:\n- Report what you received and state that you expected one allowance.\n- Provide useful identifying details without sharing sensitive account information.\n- Ask the treasurer to verify what happened and explain how you can cooperate with any correction.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Dear Treasurer,\n\nI expected one travel allowance for Tuesday’s seminar, but my payment history shows two entries labelled Seminar Transport. They were posted on Wednesday with the references TR-184 and TR-192. Could you check whether the association sent two payments or whether the entries refer to the same payment?\n\nI have kept a record of both references. If a payment needs to be returned, please let me know the association’s approved procedure so that we can correct it.\n\nRegards,\nEfe",
+      "explanation": "The model describes the apparent duplicate without assigning blame. It gives references that help verification and offers a responsible way to resolve it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Reports two notifications or entries and the expected single allowance. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Gives useful non-sensitive details to identify the records. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Requests verification and offers a practical next step for correction. Award 2 for both parts, 1 for one part, or 0 for neither."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a connected, easily followed message with an appropriate tone, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences with appropriate wording and mechanics, 1 if errors sometimes obscure the message, or 0 if assessable meaning is absent."
+        }
+      ]
+    }
+  ]
+}
