@@ -709,7 +709,9 @@
       "source": "https://www.ets.org/toefl/test-takers/ibt/about/content/speaking.html",
       "formatGuide": "https://www.in.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-specifications-2026.pdf",
       "retrievedOn": "2026-11-04",
-      "note": "Take an Interview prompts are original examiner scripts. Listen and Repeat awaits audio assets."
+      "note": "Take an Interview and Listen and Repeat have original scripts for live delivery. The ETS overview supports seven progressively longer sentences and response windows of 8 to 12 seconds for Listen and Repeat. Exact practice windows within that range are local design choices.",
+      "speakingOverviewReference": "https://www.jp.ets.org/pdfs/toefl/toefl-ibt-test-at-a-glance.pdf",
+      "speakingOverviewCheckedOn": "2026-11-15"
     },
     {
       "id": "cambridge-0580-2025-2027-v3",
@@ -37030,6 +37032,40 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-repeat-269-1-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Preparing a ceramics studio",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "ETS Updated TOEFL iBT Test Overview, Listen and Repeat, printed p. 17"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-repeat-269-2-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Sorting campus archive materials",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "ETS Updated TOEFL iBT Test Overview, Listen and Repeat, printed p. 17"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -37094,6 +37130,7 @@
     "Batch 262 maps maintenance concepts and a supervised routine-care task for a non-powered tool. Machine servicing and lubrication demonstrations on PDF p. 37 remain open.",
     "Batch 263 extends flooding prevention and control on PDF p. 15 and adds a supervised tabletop model. Objective 7 still requires a supervised field excursion. Model observations do not establish performance at a real site.",
     "On 2026-11-15 the NECO 2027 SSCE Internal registration guide section 7 was rechecked. It identifies a separate school syllabus. The 2027 timetable confirms General Mathematics formats 1022 and 1023 only. Public NECO BECE pages and the 2026 timetable establish the BST paper names and codes, but no current objective list, practical equipment instructions or marking scheme was retrieved. Batch 265 uses existing provisional statistics mappings.",
-    "TOEFL Speaking batch 268 supplies two original four-question Take an Interview sets for live examiner delivery at 45 seconds per response. Recorded interviewer audio, playback and timer integration, and independent review remain open."
+    "TOEFL Speaking batch 268 supplies two original four-question Take an Interview sets for live examiner delivery at 45 seconds per response. Recorded interviewer audio, playback and timer integration, and independent review remain open.",
+    "TOEFL Speaking batch 269 adds two Listen and Repeat sets for live oral delivery. Keep prompt transcripts hidden from learners. Recorded audio, illustrated scenario progression, integrated playback and timing, delivery trials and independent review remain open."
   ]
 }

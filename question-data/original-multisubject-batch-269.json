@@ -1,0 +1,682 @@
+{
+  "schemaVersion": 2,
+  "collection": "TOEFL iBT Listen and Repeat live practice",
+  "questionCount": 14,
+  "note": "Examiner-facing scripts for two original seven-sentence sets. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Preparing a ceramics studio",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-001",
+      "objectiveId": "toefl-repeat-269-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "The studio opens at nine.",
+      "answer": "The studio opens at nine.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-1",
+      "groupItem": 1,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 8,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "interviewerIntroduction": "You are helping prepare a university ceramics studio for a class. Listen to the studio assistant and repeat each sentence once."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Preparing a ceramics studio",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-002",
+      "objectiveId": "toefl-repeat-269-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Place the clean boards beside the sink.",
+      "answer": "Place the clean boards beside the sink.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-1",
+      "groupItem": 2,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 8,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Preparing a ceramics studio",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-003",
+      "objectiveId": "toefl-repeat-269-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "The instructor will bring fresh clay before the lesson.",
+      "answer": "The instructor will bring fresh clay before the lesson.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-1",
+      "groupItem": 3,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 9,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Preparing a ceramics studio",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-004",
+      "objectiveId": "toefl-repeat-269-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Put the finished samples on the shelves along the far wall.",
+      "answer": "Put the finished samples on the shelves along the far wall.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-1",
+      "groupItem": 4,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 9,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Preparing a ceramics studio",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-005",
+      "objectiveId": "toefl-repeat-269-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "If a board has dried clay on it, leave it on the cleaning table.",
+      "answer": "If a board has dried clay on it, leave it on the cleaning table.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-1",
+      "groupItem": 5,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 10,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Preparing a ceramics studio",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-006",
+      "objectiveId": "toefl-repeat-269-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "The students who arrive early can collect their aprons before the instructor unlocks the main room.",
+      "answer": "The students who arrive early can collect their aprons before the instructor unlocks the main room.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-1",
+      "groupItem": 6,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 11,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Preparing a ceramics studio",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-007",
+      "objectiveId": "toefl-repeat-269-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "When the afternoon class finishes, check that every tray has a label before you return it to the storage cupboard.",
+      "answer": "When the afternoon class finishes, check that every tray has a label before you return it to the storage cupboard.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-1",
+      "groupItem": 7,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 12,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Sorting campus archive materials",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-008",
+      "objectiveId": "toefl-repeat-269-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "This drawer holds campus maps.",
+      "answer": "This drawer holds campus maps.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-2",
+      "groupItem": 1,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 8,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "interviewerIntroduction": "You are learning how to sort materials in a university archive. Listen to the archive assistant and repeat each sentence once."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Sorting campus archive materials",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-009",
+      "objectiveId": "toefl-repeat-269-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Keep the folders in date order.",
+      "answer": "Keep the folders in date order.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-2",
+      "groupItem": 2,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 8,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Sorting campus archive materials",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-010",
+      "objectiveId": "toefl-repeat-269-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Use the blue tray for items without dates.",
+      "answer": "Use the blue tray for items without dates.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-2",
+      "groupItem": 3,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 9,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Sorting campus archive materials",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-011",
+      "objectiveId": "toefl-repeat-269-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "The oldest photographs are stored separately from the student newspapers.",
+      "answer": "The oldest photographs are stored separately from the student newspapers.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-2",
+      "groupItem": 4,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 9,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Sorting campus archive materials",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-012",
+      "objectiveId": "toefl-repeat-269-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "If the label is hard to read, ask the archive assistant for help.",
+      "answer": "If the label is hard to read, ask the archive assistant for help.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-2",
+      "groupItem": 5,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 10,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Sorting campus archive materials",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-013",
+      "objectiveId": "toefl-repeat-269-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Place the large maps on the wide table so that visitors can look at them without folding them.",
+      "answer": "Place the large maps on the wide table so that visitors can look at them without folding them.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-2",
+      "groupItem": 6,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 11,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Sorting campus archive materials",
+      "subtopic": "Listen and Repeat",
+      "learningObjective": "Repeat a heard sentence accurately and intelligibly in a campus setting.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-269-014",
+      "objectiveId": "toefl-repeat-269-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Before you close the box, make sure the list inside matches the documents that were returned to the shelf this morning.",
+      "answer": "Before you close the box, make sure the list inside matches the documents that were returned to the shelf this morning.",
+      "explanation": "The reference answer is the full sentence in its original word order. Mark the spoken response.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Wording and order: 2 for exact repetition, 1 for limited changes with most of the sentence retained in order, 0 if little or none of the sentence is reproduced."
+        },
+        {
+          "marks": 2,
+          "description": "Intelligibility: 2 if the words are clear throughout, 1 if some words are difficult to understand, 0 if the response is largely unintelligible or absent. Accept accent variation when the words are intelligible."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-269-repeat-2",
+      "groupItem": 7,
+      "groupSize": 7,
+      "taskType": "Listen and Repeat",
+      "responseTimeSeconds": 12,
+      "deliveryNote": "Examiner only. Keep all transcripts out of view. Read the sentence once at a natural pace, then start the response timer. Ask for one spoken repetition.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    }
+  ]
+}

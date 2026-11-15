@@ -1518,3 +1518,8 @@ Batch 268 adds eight original TOEFL iBT Speaking interview prompts across
 two four-question sets for live delivery. Each response has 45 seconds,
 a model and a practice rubric. Recorded audio, playback and timer
 integration remain open.
+
+Batch 269 adds 14 TOEFL iBT Listen and Repeat sentence drafts across two
+seven-sentence examiner scripts. The examiner reads each line once while
+keeping its text hidden. Recorded audio, illustrated progression and
+integrated playback and timing remain open.

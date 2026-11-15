@@ -160,7 +160,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | SAT | Reading and Writing | 1000 | 60 | 57 | 0 | 943 | partial_objective_register |
 | TOEFL | Listening | 1000 | 48 | 48 | 0 | 952 | partial_objective_register |
 | TOEFL | Reading | 1000 | 27 | 21 | 0 | 979 | partial_objective_register |
-| TOEFL | Speaking | 1000 | 24 | 24 | 0 | 976 | partial_objective_register |
+| TOEFL | Speaking | 1000 | 38 | 38 | 0 | 962 | partial_objective_register |
 | TOEFL | Writing | 1000 | 58 | 55 | 0 | 945 | partial_objective_register |
 | WAEC | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Animal Husbandry | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -222,10 +222,10 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | 482 | 447 | 0 | 36000 | 35553 |
 | NERDC | 1082 | 1017 | 0 | 35000 | 33983 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
-| TOEFL | 157 | 148 | 0 | 4000 | 3852 |
+| TOEFL | 171 | 162 | 0 | 4000 | 3838 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5144, "validDrafts": 3465, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5158, "validDrafts": 3479, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -293,3 +293,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 263 extends flooding prevention and control on PDF p. 15 and adds a supervised tabletop model. Objective 7 still requires a supervised field excursion. Model observations do not establish performance at a real site.
 - On 2026-11-15 the NECO 2027 SSCE Internal registration guide section 7 was rechecked. It identifies a separate school syllabus. The 2027 timetable confirms General Mathematics formats 1022 and 1023 only. Public NECO BECE pages and the 2026 timetable establish the BST paper names and codes, but no current objective list, practical equipment instructions or marking scheme was retrieved. Batch 265 uses existing provisional statistics mappings.
 - TOEFL Speaking batch 268 supplies two original four-question Take an Interview sets for live examiner delivery at 45 seconds per response. Recorded interviewer audio, playback and timer integration, and independent review remain open.
+- TOEFL Speaking batch 269 adds two Listen and Repeat sets for live oral delivery. Keep prompt transcripts hidden from learners. Recorded audio, illustrated scenario progression, integrated playback and timing, delivery trials and independent review remain open.
