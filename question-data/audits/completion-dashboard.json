@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5196,
-    "validDrafts": 3517,
+    "raw": 5204,
+    "validDrafts": 3525,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1774,6 +1774,12 @@
       "actual": 10
     },
     {
+      "path": "original-multisubject-batch-274.json",
+      "sha256": "9bba433d1a80def74e5e106e37d62b5886a218746aa5b21863e242042bb218f9",
+      "declared": 8,
+      "actual": 8
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2504,23 +2510,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "academic_and_general_training_formats_verified_partial_coverage",
-      "raw": 88,
-      "validDrafts": 82,
+      "raw": 96,
+      "validDrafts": 90,
       "reviewed": 0,
       "questionTypes": {
-        "shortanswer": 76,
+        "shortanswer": 84,
         "mcq": 12
       },
       "difficulty": {
-        "standard": 69,
+        "standard": 77,
         "easy": 13,
         "missing": 3,
         "difficult": 1,
         "very difficult": 2
       },
-      "remaining": 918,
-      "mappedObjectives": 14,
-      "representedObjectives": 14,
+      "remaining": 910,
+      "mappedObjectives": 15,
+      "representedObjectives": 15,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7672,18 +7678,18 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 526,
@@ -43365,6 +43371,54 @@
       "id": "ndv-273-010",
       "file": "original-multisubject-batch-273.json",
       "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-274-001",
+      "file": "original-multisubject-batch-274.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-274-002",
+      "file": "original-multisubject-batch-274.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-274-003",
+      "file": "original-multisubject-batch-274.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-274-004",
+      "file": "original-multisubject-batch-274.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-274-005",
+      "file": "original-multisubject-batch-274.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-274-006",
+      "file": "original-multisubject-batch-274.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-274-007",
+      "file": "original-multisubject-batch-274.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-274-008",
+      "file": "original-multisubject-batch-274.json",
+      "index": 7,
       "errors": []
     },
     {
@@ -106603,6 +106657,35 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-reading-endings-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Matching sentence endings",
+      "learningObjective": "Complete passage-based statements by matching each beginning to the ending supported by the text.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 8
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 7: Matching sentence endings"
+      ],
+      "questionCount": 8,
+      "validDrafts": 8,
+      "difficulty": {
+        "standard": 8
+      },
+      "tiers": {
+        "not_specified": 8
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -106672,6 +106755,7 @@
     "IELTS Speaking batch 270 extends two linked Part 2 and Part 3 practice themes. The written models and examiner guides require live or recorded candidate speech for scoring. Full Part 3 examiner delivery and timing, as well as independent review, remain open.",
     "IELTS Speaking batch 271 adds three familiar-topic Part 1 practice clusters. These may be combined in a supervised session, with timing confirmed through delivery trials. Full recorded test assembly and independent review remain open.",
     "Batch 272 adds IELTS General Training Section 2 short-answer and Section 3 matching-headings practice. The set represents two task formats. Full test assembly, broader passage coverage and independent review remain open.",
-    "IELTS General Training Reading batch 273 adds Section 2 matching features using original workplace texts. Full test assembly and independent review remain open."
+    "IELTS General Training Reading batch 273 adds Section 2 matching features using original workplace texts. Full test assembly and independent review remain open.",
+    "Batch 274 adds IELTS Academic Reading matching sentence endings. The two original passages and ordered item sets are section-style practice. Full test assembly and independent review remain open."
   ]
 }

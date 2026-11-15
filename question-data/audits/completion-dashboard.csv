@@ -18,7 +18,7 @@ BECE,Pre-Vocational Studies,JSS 3,,1000,24,24,0,976,8,8,partial_objective_regist
 BECE,Yoruba (L1),JSS 3,,1000,8,8,0,992,2,2,partial_objective_register,official_2026_formats_provisional_historical_topics
 BECE,Yoruba (L2),JSS 3,,1000,0,0,0,1000,0,0,specification_unresolved,official_2026_timetable_subject_and_formats_verified_objectives_missing
 IELTS,Listening,,,1000,40,40,0,960,36,36,partial_objective_register,official_part_1_format_mapped_live_delivery
-IELTS,Reading,,,1000,88,82,0,918,14,14,partial_objective_register,academic_and_general_training_formats_verified_partial_coverage
+IELTS,Reading,,,1000,96,90,0,910,15,15,partial_objective_register,academic_and_general_training_formats_verified_partial_coverage
 IELTS,Speaking,,,1000,34,34,0,966,6,6,partial_objective_register,official_skill_structure_seen_version_or_variant_mapping_pending
 IELTS,Writing,,,1000,21,18,0,982,15,15,partial_objective_register,official_skill_structure_seen_version_or_variant_mapping_pending
 IGCSE,Biology,,0610,1000,78,74,0,926,16,16,partial_objective_register,selected_qualification_code_current_source_retrieved

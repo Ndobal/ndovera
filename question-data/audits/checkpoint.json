@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_273_automated_validation_passed",
+  "phase": "batch_274_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-274.json",
+  "nextBatch": "original-multisubject-batch-275.json",
   "nextPriorities": [
-    "Extend an underrepresented IELTS Academic Reading response format, prioritising matching sentence endings if its objective is absent. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
+    "Add IELTS Academic Reading summary or flow-chart completion if the format is underrepresented. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-273.json",
-  "lastRemoteVerifiedCommit": "b65914c9b637e2c948400e9a2e6d60a74f8d9301",
+  "lastValidatedBatch": "original-multisubject-batch-274.json",
+  "lastRemoteVerifiedCommit": "bd79f8f5673677813849de59520983996aefb709",
   "verifiedTotals": {
-    "raw": 5196,
-    "validDrafts": 3517,
+    "raw": 5204,
+    "validDrafts": 3525,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-273.json",
+  "lastPopulatedBatch": "original-multisubject-batch-274.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 5196,
+  "inventoryRaw": 5204,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "ielts-general-training-reading-official-format",
+    "id": "ielts-academic-reading-official-format",
     "date": "2026-11-15"
   }
 }

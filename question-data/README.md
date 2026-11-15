@@ -1540,3 +1540,7 @@ Batch 273 adds ten IELTS General Training Reading Section 2 matching-
 features drafts across original staff development and courier texts.
 The instructions allow repeated option letters. Full test assembly
 remains open.
+
+Batch 274 adds eight IELTS Academic Reading matching sentence endings
+drafts across two original passages. Each set follows the passage order
+and has unused endings. Full test assembly remains open.

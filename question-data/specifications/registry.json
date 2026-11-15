@@ -673,7 +673,8 @@
       "source": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-reading",
       "retrievedOn": "2026-11-03",
       "variant": "Academic",
-      "note": "Official public format page. Author-created excerpt drills with one mark per item. General Training, full paper timing, band conversion and other task families are outside this batch."
+      "note": "Official public format page. Author-created excerpt drills with one mark per item. General Training, full paper timing, band conversion and other task families are outside this batch.",
+      "lastSourceRecheck": "2026-11-15"
     },
     {
       "id": "ielts-general-training-reading-official-format",
@@ -37204,6 +37205,23 @@
         "Section 2 workplace texts",
         "Question type 5: Matching features"
       ]
+    },
+    {
+      "id": "ielts-academic-reading-endings-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Matching sentence endings",
+      "learningObjective": "Complete passage-based statements by matching each beginning to the ending supported by the text.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 7: Matching sentence endings"
+      ]
     }
   ],
   "scopeGaps": [
@@ -37273,6 +37291,7 @@
     "IELTS Speaking batch 270 extends two linked Part 2 and Part 3 practice themes. The written models and examiner guides require live or recorded candidate speech for scoring. Full Part 3 examiner delivery and timing, as well as independent review, remain open.",
     "IELTS Speaking batch 271 adds three familiar-topic Part 1 practice clusters. These may be combined in a supervised session, with timing confirmed through delivery trials. Full recorded test assembly and independent review remain open.",
     "Batch 272 adds IELTS General Training Section 2 short-answer and Section 3 matching-headings practice. The set represents two task formats. Full test assembly, broader passage coverage and independent review remain open.",
-    "IELTS General Training Reading batch 273 adds Section 2 matching features using original workplace texts. Full test assembly and independent review remain open."
+    "IELTS General Training Reading batch 273 adds Section 2 matching features using original workplace texts. Full test assembly and independent review remain open.",
+    "Batch 274 adds IELTS Academic Reading matching sentence endings. The two original passages and ordered item sets are section-style practice. Full test assembly and independent review remain open."
   ]
 }
