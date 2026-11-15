@@ -37130,6 +37130,42 @@
       "sourceSections": [
         "IELTS Academic and General Training Speaking format: Part 1 and assessment criteria"
       ]
+    },
+    {
+      "id": "ielts-gt-reading-272-section-2-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "General Training Reading",
+      "subtopic": "Workplace equipment loans",
+      "learningObjective": "Locate precise factual details in workplace instructions and answer within the stated word limit.",
+      "specificationId": "ielts-general-training-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "Section 2",
+        "short-answer questions"
+      ]
+    },
+    {
+      "id": "ielts-gt-reading-272-section-3-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "General Training Reading",
+      "subtopic": "General interest article: local museum",
+      "learningObjective": "Identify each paragraph’s main idea and match it to a heading while distinguishing it from supporting details.",
+      "specificationId": "ielts-general-training-reading-official-format",
+      "questionTypes": [
+        "shortanswer"
+      ],
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "Section 3",
+        "matching headings"
+      ]
     }
   ],
   "scopeGaps": [
@@ -37197,6 +37233,7 @@
     "TOEFL Speaking batch 268 supplies two original four-question Take an Interview sets for live examiner delivery at 45 seconds per response. Recorded interviewer audio, playback and timer integration, and independent review remain open.",
     "TOEFL Speaking batch 269 adds two Listen and Repeat sets for live oral delivery. Keep prompt transcripts hidden from learners. Recorded audio, illustrated scenario progression, integrated playback and timing, delivery trials and independent review remain open.",
     "IELTS Speaking batch 270 extends two linked Part 2 and Part 3 practice themes. The written models and examiner guides require live or recorded candidate speech for scoring. Full Part 3 examiner delivery and timing, as well as independent review, remain open.",
-    "IELTS Speaking batch 271 adds three familiar-topic Part 1 practice clusters. These may be combined in a supervised session, with timing confirmed through delivery trials. Full recorded test assembly and independent review remain open."
+    "IELTS Speaking batch 271 adds three familiar-topic Part 1 practice clusters. These may be combined in a supervised session, with timing confirmed through delivery trials. Full recorded test assembly and independent review remain open.",
+    "Batch 272 adds IELTS General Training Section 2 short-answer and Section 3 matching-headings practice. The set represents two task formats. Full test assembly, broader passage coverage and independent review remain open."
   ]
 }

@@ -1531,3 +1531,7 @@ the practice rubrics requires live or recorded candidate speech.
 Batch 271 adds twelve IELTS Speaking Part 1 drafts for Academic and
 General Training. Three familiar-topic clusters include model responses
 and a practice rubric for live or recorded speech.
+
+Batch 272 adds ten IELTS General Training Reading drafts based on two
+original texts. Section 2 uses short answers and Section 3 uses matching
+headings with unused options. Full test assembly remains open.

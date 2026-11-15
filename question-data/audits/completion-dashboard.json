@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5176,
-    "validDrafts": 3497,
+    "raw": 5186,
+    "validDrafts": 3507,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1762,6 +1762,12 @@
       "actual": 12
     },
     {
+      "path": "original-multisubject-batch-272.json",
+      "sha256": "19e89a81e13df22e83719ca196aaf95a01cd373ebe7910228bfe3f4349fea4b0",
+      "declared": 10,
+      "actual": 10
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2492,23 +2498,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "academic_and_general_training_formats_verified_partial_coverage",
-      "raw": 68,
-      "validDrafts": 62,
+      "raw": 78,
+      "validDrafts": 72,
       "reviewed": 0,
       "questionTypes": {
-        "shortanswer": 56,
+        "shortanswer": 66,
         "mcq": 12
       },
       "difficulty": {
-        "standard": 49,
+        "standard": 59,
         "easy": 13,
         "missing": 3,
         "difficult": 1,
         "very difficult": 2
       },
-      "remaining": 938,
-      "mappedObjectives": 10,
-      "representedObjectives": 10,
+      "remaining": 928,
+      "mappedObjectives": 12,
+      "representedObjectives": 12,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7660,18 +7666,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 526,
@@ -43233,6 +43239,66 @@
       "id": "ndv-271-012",
       "file": "original-multisubject-batch-271.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-001",
+      "file": "original-multisubject-batch-272.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-002",
+      "file": "original-multisubject-batch-272.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-003",
+      "file": "original-multisubject-batch-272.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-004",
+      "file": "original-multisubject-batch-272.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-005",
+      "file": "original-multisubject-batch-272.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-006",
+      "file": "original-multisubject-batch-272.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-007",
+      "file": "original-multisubject-batch-272.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-008",
+      "file": "original-multisubject-batch-272.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-009",
+      "file": "original-multisubject-batch-272.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-272-010",
+      "file": "original-multisubject-batch-272.json",
+      "index": 9,
       "errors": []
     },
     {
@@ -106351,6 +106417,66 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-gt-reading-272-section-2-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "General Training Reading",
+      "subtopic": "Workplace equipment loans",
+      "learningObjective": "Locate precise factual details in workplace instructions and answer within the stated word limit.",
+      "specificationId": "ielts-general-training-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 5
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "Section 2",
+        "short-answer questions"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-gt-reading-272-section-3-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "General Training Reading",
+      "subtopic": "General interest article: local museum",
+      "learningObjective": "Identify each paragraph’s main idea and match it to a heading while distinguishing it from supporting details.",
+      "specificationId": "ielts-general-training-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 5
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "Section 3",
+        "matching headings"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -106418,6 +106544,7 @@
     "TOEFL Speaking batch 268 supplies two original four-question Take an Interview sets for live examiner delivery at 45 seconds per response. Recorded interviewer audio, playback and timer integration, and independent review remain open.",
     "TOEFL Speaking batch 269 adds two Listen and Repeat sets for live oral delivery. Keep prompt transcripts hidden from learners. Recorded audio, illustrated scenario progression, integrated playback and timing, delivery trials and independent review remain open.",
     "IELTS Speaking batch 270 extends two linked Part 2 and Part 3 practice themes. The written models and examiner guides require live or recorded candidate speech for scoring. Full Part 3 examiner delivery and timing, as well as independent review, remain open.",
-    "IELTS Speaking batch 271 adds three familiar-topic Part 1 practice clusters. These may be combined in a supervised session, with timing confirmed through delivery trials. Full recorded test assembly and independent review remain open."
+    "IELTS Speaking batch 271 adds three familiar-topic Part 1 practice clusters. These may be combined in a supervised session, with timing confirmed through delivery trials. Full recorded test assembly and independent review remain open.",
+    "Batch 272 adds IELTS General Training Section 2 short-answer and Section 3 matching-headings practice. The set represents two task formats. Full test assembly, broader passage coverage and independent review remain open."
   ]
 }
