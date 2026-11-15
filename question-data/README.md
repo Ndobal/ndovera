@@ -1472,3 +1472,7 @@ Batch 258 adds 12 JSS 1 Intermediate Science drafts on laboratory and
 workshop familiarisation and safety from PDF pp. 28–29. A supervised
 facility visit, direct safety-device observation and first-aid practicals
 remain open.
+
+Batch 259 adds 12 JSS 1 Intermediate Science drafts on wood, metals,
+ceramics, glass and building materials from PDF pp. 30–31. Specimen
+examination and timber-yard or industry visits remain open.

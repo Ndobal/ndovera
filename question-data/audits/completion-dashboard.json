@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5067,
-    "validDrafts": 3388,
+    "raw": 5079,
+    "validDrafts": 3400,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1680,6 +1680,12 @@
     {
       "path": "original-multisubject-batch-258.json",
       "sha256": "7d546cc1d9b9e5708c424bab78c9364699341a96c8b0783b6694ebef52ab6d8b",
+      "declared": 12,
+      "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-259.json",
+      "sha256": "175d05facff2ed6a99e91fee90e2ebd85c50e705afb021206ce494e3c6e6387b",
       "declared": 12,
       "actual": 12
     },
@@ -5817,18 +5823,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-intermediate-science-jss1-revised",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 70,
-      "validDrafts": 70,
+      "raw": 82,
+      "validDrafts": 82,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 70
+        "structured": 82
       },
       "difficulty": {
-        "standard": 70
+        "standard": 82
       },
-      "remaining": 930,
-      "mappedObjectives": 70,
-      "representedObjectives": 70,
+      "remaining": 918,
+      "mappedObjectives": 82,
+      "representedObjectives": 82,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7583,16 +7589,16 @@
   ],
   "errorCounts": {
     "numeric_template_hold": 1256,
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81,
     "invalid_score": 81
   },
   "mathematicalVerification": {
@@ -42500,6 +42506,78 @@
     {
       "id": "ndv-258-012",
       "file": "original-multisubject-batch-258.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-001",
+      "file": "original-multisubject-batch-259.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-002",
+      "file": "original-multisubject-batch-259.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-003",
+      "file": "original-multisubject-batch-259.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-004",
+      "file": "original-multisubject-batch-259.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-005",
+      "file": "original-multisubject-batch-259.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-006",
+      "file": "original-multisubject-batch-259.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-007",
+      "file": "original-multisubject-batch-259.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-008",
+      "file": "original-multisubject-batch-259.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-009",
+      "file": "original-multisubject-batch-259.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-010",
+      "file": "original-multisubject-batch-259.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-011",
+      "file": "original-multisubject-batch-259.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-259-012",
+      "file": "original-multisubject-batch-259.json",
       "index": 11,
       "errors": []
     },
@@ -103787,6 +103865,366 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Observing grain",
+      "learningObjective": "Identify a visible wood property from a sample description.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Sorting wood observations",
+      "learningObjective": "Group observations about wood by the property they describe.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Uneven moisture and shape",
+      "learningObjective": "Describe a way moisture can affect the shape of wood.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Comparing equal-volume samples",
+      "learningObjective": "Infer relative density from equal volumes and different masses.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Sheet and wire",
+      "learningObjective": "Distinguish malleability and ductility from how a material is formed.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Identifying a polished surface",
+      "learningObjective": "Describe lustre and explain why surface condition affects it.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Moving heat away",
+      "learningObjective": "Explain the relevance of a metal's thermal conductivity.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Brittle and hard",
+      "learningObjective": "Use observed failure to distinguish brittleness from hardness.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 7"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-09-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Different kinds of glass",
+      "learningObjective": "Explain why one test of glass does not support a conclusion about all glass.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 7"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-10-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Recognising site materials",
+      "learningObjective": "Identify common building materials from a delivery description.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 30, performance objective 8"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-11-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Binder and aggregate",
+      "learningObjective": "Distinguish the functions of cement and coarse aggregate in concrete.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 31, performance objective 9"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-259-12-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Surface choice for a wash area",
+      "learningObjective": "Justify a building surface for a damp school location.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 31, performance objective 9"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -103844,6 +104282,7 @@
     "JSS 1 Intermediate Science PDF p. 22 nature-walk observation and sample collection remain open. Batch 255 uses supplied descriptions and a classroom album with drawings or existing pictures.",
     "JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open.",
     "Batch 257 assesses reasoning about skill acquisition and science ethics in written scenarios. It supplies no observation of pupils performing vocational skills or demonstrating experimental safety.",
-    "Batch 258 adds written laboratory and workshop familiarisation and safety scenarios (PDF pp. 28–29). A supervised facility visit, direct observation of safety devices and first-aid practicals remain open. Verify first-aid content with authoritative guidance before adding it."
+    "Batch 258 adds written laboratory and workshop familiarisation and safety scenarios (PDF pp. 28–29). A supervised facility visit, direct observation of safety devices and first-aid practicals remain open. Verify first-aid content with authoritative guidance before adding it.",
+    "Batch 259 maps written interpretation and selection of technology materials. Direct specimen examination and timber-yard or industry visits from PDF pp. 30–31 remain open. A hardness observation alone does not establish botanical hardwood or softwood classification."
   ]
 }

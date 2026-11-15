@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science technology materials",
+  "questionCount": 12,
+  "note": "Original structured classroom practice. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Observing grain",
+      "learningObjective": "Identify a visible wood property from a sample description.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-001",
+      "objectiveId": "nerdc-intermediate-jss1-259-01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A carpenter gives a class a smooth wooden offcut with long alternating light and dark lines running along its face. What feature do the lines show, and how could the class record their direction?",
+      "answer": "The lines show the visible grain pattern. Draw an arrow along the length of the lines on a sketch of the sample.",
+      "explanation": "Colour variation can help make the direction of the grain visible.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the grain."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a way to record its direction."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Sorting wood observations",
+      "learningObjective": "Group observations about wood by the property they describe.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-002",
+      "objectiveId": "nerdc-intermediate-jss1-259-02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One sample looks dark brown, another feels coarse, and a third takes up water at an unsealed end. Assign each observation to one category: colour, surface texture or water absorption.",
+      "answer": "Dark brown describes colour. Coarse describes surface texture. Taking up water describes water absorption.",
+      "explanation": "The categories distinguish a visual feature, how the surface feels, and a response to water.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches colour."
+        },
+        {
+          "marks": 1,
+          "description": "Matches texture."
+        },
+        {
+          "marks": 1,
+          "description": "Matches absorption."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Uneven moisture and shape",
+      "learningObjective": "Describe a way moisture can affect the shape of wood.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-003",
+      "objectiveId": "nerdc-intermediate-jss1-259-03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A thin unfinished wooden board left on damp ground later curves across its width. The lower face was damp while the top stayed drier. Explain why this difference could contribute to bending.",
+      "answer": "Wood takes up moisture and can swell. If one side changes size more than the other, the board can curve.",
+      "explanation": "The uneven change across the board explains why it may warp.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links moisture uptake to swelling."
+        },
+        {
+          "marks": 1,
+          "description": "Links unequal change to curvature."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Comparing equal-volume samples",
+      "learningObjective": "Infer relative density from equal volumes and different masses.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-004",
+      "objectiveId": "nerdc-intermediate-jss1-259-04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two solid metal cubes have the same volume. A balance shows that cube P has greater mass than cube Q. Which cube is denser, and how can you tell without knowing the exact volume?",
+      "answer": "Cube P is denser because it has more mass for the same volume.",
+      "explanation": "Density compares mass per unit volume. Equal volumes let the masses be compared directly.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies P."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the equal-volume comparison."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Sheet and wire",
+      "learningObjective": "Distinguish malleability and ductility from how a material is formed.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-005",
+      "objectiveId": "nerdc-intermediate-jss1-259-05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A display describes metal pressed into a thin sheet and metal drawn into a long wire. Name the property illustrated by each process.",
+      "answer": "Making a sheet by pressing illustrates malleability. Drawing a wire illustrates ductility.",
+      "explanation": "Both processes change a metal's shape permanently, but they involve different kinds of deformation.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches malleability to the sheet."
+        },
+        {
+          "marks": 1,
+          "description": "Matches ductility to the wire."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Identifying a polished surface",
+      "learningObjective": "Describe lustre and explain why surface condition affects it.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-006",
+      "objectiveId": "nerdc-intermediate-jss1-259-06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A newly polished patch on a metal plate reflects light clearly while a dirty patch on the same plate looks dull. Name the property displayed by the polished patch and explain what can cause the difference.",
+      "answer": "The polished area shows lustre, or shininess. Dirt or roughness can dull the surface by reducing clear reflection. The patches can still be the same metal.",
+      "explanation": "Surface condition can mask a property used when describing materials.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names lustre or shininess."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why dirt or roughness can affect apparent shininess."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Moving heat away",
+      "learningObjective": "Explain the relevance of a metal's thermal conductivity.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-007",
+      "objectiveId": "nerdc-intermediate-jss1-259-07-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A lamp casing has a metal plate in contact with a part that warms during use. Explain why a metal that conducts heat well can help spread warmth away from that part.",
+      "answer": "Thermal energy moves from the warmer part into and through the plate. Spreading it over a larger area can help the casing release heat to the surroundings.",
+      "explanation": "Thermal conductivity describes how readily heat moves through a material.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Relates conductivity to heat moving through the plate."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why spreading heat can help."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Brittle and hard",
+      "learningObjective": "Use observed failure to distinguish brittleness from hardness.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-008",
+      "objectiveId": "nerdc-intermediate-jss1-259-08-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A glazed floor tile resists surface scratches in a classroom example. A separate record shows that a similar tile fractured when struck. Explain how the same material can be both hard and brittle.",
+      "answer": "Hardness describes resistance to scratching in this example. Brittleness means the material can break under a blow with little bending or permanent deformation beforehand.",
+      "explanation": "A test of surface scratching and a record of fracture describe different properties.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects hardness to scratch resistance."
+        },
+        {
+          "marks": 1,
+          "description": "Connects brittleness to fracture with little deformation."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Different kinds of glass",
+      "learningObjective": "Explain why one test of glass does not support a conclusion about all glass.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-009",
+      "objectiveId": "nerdc-intermediate-jss1-259-09-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher shows a record of a heat-resistant glass vessel staying intact while warmed under its specified conditions. A pupil thinks the result proves that a glass bottle from a shop can be used in the same way. Assess the conclusion.",
+      "answer": "The result applies to the tested vessel and conditions. Different glasses are made for different uses. A bottle might crack when heated, particularly if the temperature changes unevenly.",
+      "explanation": "Suitability for heating depends on the type of glass and the product's intended conditions.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Limits the evidence to the tested vessel and conditions."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a sound reason the result may differ for the bottle."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Recognising site materials",
+      "learningObjective": "Identify common building materials from a delivery description.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-010",
+      "objectiveId": "nerdc-intermediate-jss1-259-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A delivery note for a school repair lists a bag of fine grey binder marked for mortar, loose coarse stone pieces and hollow masonry units. Give the usual building-material name for each.",
+      "answer": "The binder is cement, the coarse stone pieces are gravel or coarse aggregate, and the hollow units are blocks.",
+      "explanation": "Common site materials can be identified by their form and the work they are supplied for.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies cement."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies gravel or coarse aggregate."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies blocks."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Binder and aggregate",
+      "learningObjective": "Distinguish the functions of cement and coarse aggregate in concrete.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-011",
+      "objectiveId": "nerdc-intermediate-jss1-259-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A builder describes hardened concrete as a mixture in which particles of gravel are held together. Explain the roles of cement paste and gravel.",
+      "answer": "Cement mixed with water forms a paste that hardens and binds the aggregate. Gravel is the coarse aggregate held in that hardened paste.",
+      "explanation": "The paste and gravel play different roles in the composite material.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes the binding role of the cement paste."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies gravel as coarse aggregate."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Materials: Wood, Metals, Ceramics and Building Materials",
+      "subtopic": "Surface choice for a wash area",
+      "learningObjective": "Justify a building surface for a damp school location.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-259-012",
+      "objectiveId": "nerdc-intermediate-jss1-259-12-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school is choosing between a smooth glazed wall tile and a textured floor tile for the floor next to a handwashing point. The floor tile is rated for wet areas. Which should the school choose and why?",
+      "answer": "Use the textured floor tile rated for wet areas. Its surface and intended use make it a better choice for grip where water can collect.",
+      "explanation": "A suitable finish depends on where the product is used and what conditions it must handle.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses the floor tile."
+        },
+        {
+          "marks": 1,
+          "description": "Connects its texture or wet-area rating to grip in damp conditions."
+        }
+      ]
+    }
+  ]
+}
