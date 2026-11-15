@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5158,
-    "validDrafts": 3479,
+    "raw": 5164,
+    "validDrafts": 3485,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1750,6 +1750,12 @@
       "actual": 14
     },
     {
+      "path": "original-multisubject-batch-270.json",
+      "sha256": "0feb8a8b5209a5e1de435fa722ba8adc91f23e3e2c6966ffeb335a2bfa4a8fee",
+      "declared": 6,
+      "actual": 6
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2506,16 +2512,16 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 16,
-      "validDrafts": 16,
+      "raw": 22,
+      "validDrafts": 22,
       "reviewed": 0,
       "questionTypes": {
-        "longanswer": 16
+        "longanswer": 22
       },
       "difficulty": {
-        "standard": 16
+        "standard": 22
       },
-      "remaining": 984,
+      "remaining": 978,
       "mappedObjectives": 3,
       "representedObjectives": 3,
       "coverage": "partial_objective_register",
@@ -7648,18 +7654,18 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 526,
@@ -43113,6 +43119,42 @@
       "id": "ndv-269-014",
       "file": "original-multisubject-batch-269.json",
       "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-270-001",
+      "file": "original-multisubject-batch-270.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-270-002",
+      "file": "original-multisubject-batch-270.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-270-003",
+      "file": "original-multisubject-batch-270.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-270-004",
+      "file": "original-multisubject-batch-270.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-270-005",
+      "file": "original-multisubject-batch-270.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-270-006",
+      "file": "original-multisubject-batch-270.json",
+      "index": 5,
       "errors": []
     },
     {
@@ -78610,20 +78652,20 @@
       "learningObjective": "Sustain an organised spoken long turn on a familiar topic, developing the task-card points and explanation.",
       "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
       "questionTypes": {
-        "longanswer": 4
+        "longanswer": 6
       },
       "sourceSections": [
         "IELTS official Academic and General Training Speaking format: Part 2; four assessment criteria"
       ],
       "mappingStatus": "author_proposed_from_official_task_description_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 4,
-      "validDrafts": 4,
+      "questionCount": 6,
+      "validDrafts": 6,
       "difficulty": {
-        "standard": 4
+        "standard": 6
       },
       "tiers": {
-        "not_specified": 4
+        "not_specified": 6
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -78639,20 +78681,20 @@
       "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
       "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
       "questionTypes": {
-        "longanswer": 8
+        "longanswer": 12
       },
       "sourceSections": [
         "IELTS official Academic and General Training Speaking format: Part 3; four assessment criteria"
       ],
       "mappingStatus": "author_proposed_from_official_task_description_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 8,
-      "validDrafts": 8,
+      "questionCount": 12,
+      "validDrafts": 12,
       "difficulty": {
-        "standard": 8
+        "standard": 12
       },
       "tiers": {
-        "not_specified": 8
+        "not_specified": 12
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -106209,6 +106251,7 @@
     "Batch 263 extends flooding prevention and control on PDF p. 15 and adds a supervised tabletop model. Objective 7 still requires a supervised field excursion. Model observations do not establish performance at a real site.",
     "On 2026-11-15 the NECO 2027 SSCE Internal registration guide section 7 was rechecked. It identifies a separate school syllabus. The 2027 timetable confirms General Mathematics formats 1022 and 1023 only. Public NECO BECE pages and the 2026 timetable establish the BST paper names and codes, but no current objective list, practical equipment instructions or marking scheme was retrieved. Batch 265 uses existing provisional statistics mappings.",
     "TOEFL Speaking batch 268 supplies two original four-question Take an Interview sets for live examiner delivery at 45 seconds per response. Recorded interviewer audio, playback and timer integration, and independent review remain open.",
-    "TOEFL Speaking batch 269 adds two Listen and Repeat sets for live oral delivery. Keep prompt transcripts hidden from learners. Recorded audio, illustrated scenario progression, integrated playback and timing, delivery trials and independent review remain open."
+    "TOEFL Speaking batch 269 adds two Listen and Repeat sets for live oral delivery. Keep prompt transcripts hidden from learners. Recorded audio, illustrated scenario progression, integrated playback and timing, delivery trials and independent review remain open.",
+    "IELTS Speaking batch 270 extends two linked Part 2 and Part 3 practice themes. The written models and examiner guides require live or recorded candidate speech for scoring. Full Part 3 examiner delivery and timing, as well as independent review, remain open."
   ]
 }

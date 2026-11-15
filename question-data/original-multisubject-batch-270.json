@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 2,
+  "collection": "IELTS Academic and General Training Speaking practice",
+  "questionCount": 6,
+  "note": "Two original Part 2 cue cards with related Part 3 prompts and original practice rubrics. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 2",
+      "subtopic": "Individual long turn",
+      "learningObjective": "Sustain an organised spoken long turn on a familiar topic, developing the task-card points and explanation.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-270-001",
+      "objectiveId": "ielts-speaking-159-part2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 2 task card: Describe a public place where you found it easy to concentrate.\nYou should say:\n- where the place was\n- what you went there to do\n- what features helped you concentrate\nAnd explain whether you would use it regularly.\n\nTake one minute to prepare. You may make notes. Then speak for up to two minutes.",
+      "answer": "I first used the reading room at a public library in Abuja when my relatives were visiting and there was very little quiet space at home. I needed to read several articles for a course and decide which ones were relevant to a short presentation.\n\nI expected the room to be silent, but what helped most was that the sounds were predictable. There was a fan beside the window and every so often someone would move a chair. Nobody had a long conversation near the tables. I could read for twenty minutes without wondering whether someone was about to ask me a question.\n\nThe furniture also made a difference. The tables were wide enough to leave my notes open beside a book. I chose a seat that faced the window, so when I needed a break I could look outside without getting up or opening my phone. By the time I left, I had finished my reading and written a rough outline for my talk.\n\nI would use the room again for work that needs a long stretch of attention. For quick tasks, the trip there and back would probably cost more time than it saves. I also would not use it for group work, because we would need to talk. For me it is valuable precisely because it offers a kind of space that is difficult to find at home.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 2 cue card",
+      "practiceGroupId": "ndv-270-quiet-space",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 231,
+      "preparationTimeSeconds": 60,
+      "longTurnMaximumSeconds": 120,
+      "partDurationSeconds": {
+        "minimum": 180,
+        "maximum": 240
+      },
+      "examinerDelivery": "Allow one minute for notes, invite the long turn, stop at two minutes, and optionally ask one or two brief rounding-off questions. Part duration includes preparation and interaction; do not treat model word count as a timing guarantee."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-270-002",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: How should libraries balance the needs of people working quietly and people working together?",
+      "answer": "If a library has several rooms, I would give each kind of activity a clear place. A group that needs to talk can use a room with a door, while people reading independently can choose a quiet area. A small library may not have enough rooms for that, so it might reserve a few times for group activities and post the timetable. The important thing is to tell users what to expect before they arrive.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-270-quiet-space",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 75,
+      "linkedPart2QuestionId": "ndv-270-001",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-270-003",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: Why might people still need public places to study even when books and courses are available online?",
+      "answer": "Online access solves one problem, which is getting material, but people still need somewhere to pay attention. Someone may share a room with younger siblings or have an unreliable connection at home. A public space can provide a desk, a steady connection and help when equipment fails. The benefit is therefore likely to be greater for people whose homes offer fewer options.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-270-quiet-space",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 62,
+      "linkedPart2QuestionId": "ndv-270-001",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 2",
+      "subtopic": "Individual long turn",
+      "learningObjective": "Sustain an organised spoken long turn on a familiar topic, developing the task-card points and explanation.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-270-004",
+      "objectiveId": "ielts-speaking-159-part2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 2 task card: Describe a meal you learned to prepare from someone else.\nYou should say:\n- who showed you how to make it\n- what part you found difficult at first\n- how you practised\nAnd explain what you would change if you showed another person how to make it.\n\nTake one minute to prepare. You may make notes. Then speak for up to two minutes.",
+      "answer": "My aunt showed me how to make yam porridge during a visit to her house. I had eaten it many times, so I thought the main job would be remembering the ingredients. I soon realised that the harder part was knowing when to stop cooking it.\n\nThe first time I helped, I cut the pieces quite unevenly. The smallest ones were already soft while the larger pieces still needed time. My aunt pressed one against the side of the pot with a spoon and showed me what she was looking for. Then she let me check another one myself. That was more useful than hearing a fixed number of minutes, because the pieces I had cut were all different.\n\nWhen I tried at home, I cut all the pieces first and compared their sizes before putting them in the pot. I made a small amount so it would be easier to watch. I also wrote down what the yam looked like just before I turned off the heat. On the next attempt I could recognise that stage without consulting the note.\n\nIf I were teaching someone else, I would ask them to compare two pieces before cutting the rest. Later I would let them test a piece with the spoon and describe what they notice. That way they could learn the signs I missed instead of relying entirely on a recipe.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 2 cue card",
+      "practiceGroupId": "ndv-270-saved-meal",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 231,
+      "preparationTimeSeconds": 60,
+      "longTurnMaximumSeconds": 120,
+      "partDurationSeconds": {
+        "minimum": 180,
+        "maximum": 240
+      },
+      "examinerDelivery": "Allow one minute for notes, invite the long turn, stop at two minutes, and optionally ask one or two brief rounding-off questions. Part duration includes preparation and interaction; do not treat model word count as a timing guarantee."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-270-005",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: When is a written guide more useful than learning a practical skill from another person?",
+      "answer": "A guide is useful when the steps are consistent and you need to check a detail more than once. For instance, you can return to a diagram of how parts fit together without asking the instructor to repeat the whole explanation. A person is more helpful when an unexpected problem occurs. They can watch what you are doing and tell you which part needs attention. I would use the guide as a reference after an initial demonstration.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-270-saved-meal",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 77,
+      "linkedPart2QuestionId": "ndv-270-004",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    },
+    {
+      "exam": "IELTS",
+      "subject": "Speaking",
+      "topic": "Speaking Part 3",
+      "subtopic": "Abstract discussion",
+      "learningObjective": "Explain, compare and qualify spoken opinions on general issues linked to a preceding long-turn topic.",
+      "specificationId": "ielts-speaking-parts2-3-recheck-159-2026",
+      "id": "ndv-270-006",
+      "objectiveId": "ielts-speaking-159-part3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic and General Training",
+      "type": "longanswer",
+      "prompt": "Part 3 spoken discussion: What could communities lose when fewer people pass on everyday skills in person?",
+      "answer": "They might lose judgement that people rarely write down, such as how to adapt a recipe when a familiar ingredient is unavailable. They may also lose a reason for different generations to spend time together. However, passing on a skill in person is not the only way to keep it. A useful recording could show the result at several stages and capture an explanation of why the method changes with the circumstances.",
+      "explanation": "Original illustrative response, not a required life story or the only acceptable position. Assess the candidate’s own spoken language across the interaction. The written model does not demonstrate pronunciation, fluency or a verified speaking duration.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "description": "Fluency/coherence in the actual spoken response: sustained, logically connected development earns 2; uneven development or frequent disruptive hesitation earns 1; no assessable connected speech earns 0. Natural pauses are acceptable.",
+          "marks": 2
+        },
+        {
+          "description": "Lexical resource in speech: appropriate range with effective paraphrase earns 2; limited or sometimes inappropriate choices earn 1; too little intelligible language to assess earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Grammatical range/accuracy in speech: varied structures with generally clear meaning earn 2; a narrower range or errors sometimes obscuring meaning earn 1; largely unassessable language earns 0.",
+          "marks": 2
+        },
+        {
+          "description": "Pronunciation from live speech or recording only: intelligible phrasing, sounds and stress without undue listener effort earn 2; recurring difficulty that requires effort earns 1; largely unintelligible or no spoken evidence earns 0. Do not score this from a transcript or require imitation of a particular national accent.",
+          "marks": 2
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskType": "Speaking Part 3 discussion question",
+      "practiceGroupId": "ndv-270-saved-meal",
+      "ieltsVariants": [
+        "Academic",
+        "General Training"
+      ],
+      "rubricStatus": "original_practice_not_official_mark_scheme",
+      "rubricScale": "Eight analytic practice points only; no IELTS band conversion or official certification.",
+      "modelResponseStatus": "illustrative_transcript_not_recorded_or_time_validated",
+      "modelAnswerWordCount": 72,
+      "linkedPart2QuestionId": "ndv-270-004",
+      "partDurationSeconds": {
+        "minimum": 240,
+        "maximum": 300
+      },
+      "examinerDelivery": "Use this question and probe flexibly in a wider Part 3 conversation linked to the long turn. Ask for clarification or further reasoning where needed. No per-question time limit is imposed by this practice item."
+    }
+  ]
+}

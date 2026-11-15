@@ -1523,3 +1523,7 @@ Batch 269 adds 14 TOEFL iBT Listen and Repeat sentence drafts across two
 seven-sentence examiner scripts. The examiner reads each line once while
 keeping its text hidden. Recorded audio, illustrated progression and
 integrated playback and timing remain open.
+
+Batch 270 adds six IELTS Speaking drafts across two Part 2 cue cards and
+four related Part 3 prompts. Models are illustrative transcripts. Scoring
+the practice rubrics requires live or recorded candidate speech.
