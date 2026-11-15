@@ -97,7 +97,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Literature in English | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | NECO | Livestock Farming | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Marketing | 1000 | 9 | 9 | 0 | 991 | partial_objective_register |
-| NECO | Mathematics | 1000 | 38 | 24 | 0 | 976 | partial_objective_register |
+| NECO | Mathematics | 1000 | 44 | 30 | 0 | 970 | partial_objective_register |
 | NECO | Music | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | NECO | Nigerian History | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | NECO | Physical Education | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
@@ -219,13 +219,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 310 | 289 | 0 | 5000 | 4711 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
-| NECO | 476 | 441 | 0 | 36000 | 35559 |
+| NECO | 482 | 447 | 0 | 36000 | 35553 |
 | NERDC | 1082 | 1017 | 0 | 35000 | 33983 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 140 | 131 | 0 | 4000 | 3869 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5121, "validDrafts": 3442, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5127, "validDrafts": 3448, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -291,3 +291,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open.
 - Batch 262 maps maintenance concepts and a supervised routine-care task for a non-powered tool. Machine servicing and lubrication demonstrations on PDF p. 37 remain open.
 - Batch 263 extends flooding prevention and control on PDF p. 15 and adds a supervised tabletop model. Objective 7 still requires a supervised field excursion. Model observations do not establish performance at a real site.
+- On 2026-11-15 the NECO 2027 SSCE Internal registration guide section 7 was rechecked. It identifies a separate school syllabus. The 2027 timetable confirms General Mathematics formats 1022 and 1023 only. Public NECO BECE pages and the 2026 timetable establish the BST paper names and codes, but no current objective list, practical equipment instructions or marking scheme was retrieved. Batch 265 uses existing provisional statistics mappings.

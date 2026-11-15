@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5121,
-    "validDrafts": 3442,
+    "raw": 5127,
+    "validDrafts": 3448,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1716,6 +1716,12 @@
     {
       "path": "original-multisubject-batch-264.json",
       "sha256": "67759568c66cd590ab275b956f612d97ef3f1fa196f2fedad508b7bd95e390d8",
+      "declared": 6,
+      "actual": 6
+    },
+    {
+      "path": "original-multisubject-batch-265.json",
+      "sha256": "6f06dcbf570967ac9b1d5e4f0f06156d57a8169eed64512245482134dd2b2f58",
       "declared": 6,
       "actual": 6
     },
@@ -5004,21 +5010,21 @@
           "timetableSubject": "General Mathematics"
         }
       },
-      "raw": 38,
-      "validDrafts": 24,
+      "raw": 44,
+      "validDrafts": 30,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 12,
+        "structured": 18,
         "mcq": 26
       },
       "difficulty": {
-        "standard": 14,
+        "standard": 19,
         "easy": 5,
-        "difficult": 6,
+        "difficult": 7,
         "missing": 12,
         "very difficult": 1
       },
-      "remaining": 976,
+      "remaining": 970,
       "mappedObjectives": 6,
       "representedObjectives": 6,
       "coverage": "partial_objective_register",
@@ -7627,12 +7633,12 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "explanation_missing": 81,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 512,
+    "explicitArithmeticClaims": 526,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 2
@@ -42864,6 +42870,42 @@
       "errors": []
     },
     {
+      "id": "ndv-265-001",
+      "file": "original-multisubject-batch-265.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-265-002",
+      "file": "original-multisubject-batch-265.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-265-003",
+      "file": "original-multisubject-batch-265.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-265-004",
+      "file": "original-multisubject-batch-265.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-265-005",
+      "file": "original-multisubject-batch-265.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-265-006",
+      "file": "original-multisubject-batch-265.json",
+      "index": 5,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -65031,7 +65073,7 @@
       "learningObjective": "Recover frequencies and interpret totals, categories and cumulative counts.",
       "specificationId": "neco-mathematics-statistics-reference-2026",
       "questionTypes": {
-        "structured": 2,
+        "structured": 4,
         "mcq": 2
       },
       "sourceSections": [
@@ -65040,14 +65082,15 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 4,
-      "validDrafts": 4,
+      "questionCount": 6,
+      "validDrafts": 6,
       "difficulty": {
-        "standard": 3,
-        "easy": 1
+        "standard": 4,
+        "easy": 1,
+        "difficult": 1
       },
       "tiers": {
-        "not_specified": 4
+        "not_specified": 6
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -65063,7 +65106,7 @@
       "learningObjective": "Use class intervals, frequencies and midpoints to estimate and interpret summaries.",
       "specificationId": "neco-mathematics-statistics-reference-2026",
       "questionTypes": {
-        "structured": 2,
+        "structured": 4,
         "mcq": 2
       },
       "sourceSections": [
@@ -65072,15 +65115,15 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 4,
-      "validDrafts": 4,
+      "questionCount": 6,
+      "validDrafts": 6,
       "difficulty": {
-        "standard": 2,
+        "standard": 4,
         "difficult": 1,
         "easy": 1
       },
       "tiers": {
-        "not_specified": 4
+        "not_specified": 6
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -65096,7 +65139,7 @@
       "learningObjective": "Calculate and compare measures of centre and reason about changes to a data set.",
       "specificationId": "neco-mathematics-statistics-reference-2026",
       "questionTypes": {
-        "structured": 2,
+        "structured": 4,
         "mcq": 2
       },
       "sourceSections": [
@@ -65105,14 +65148,14 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 4,
-      "validDrafts": 4,
+      "questionCount": 6,
+      "validDrafts": 6,
       "difficulty": {
-        "standard": 3,
+        "standard": 5,
         "difficult": 1
       },
       "tiers": {
-        "not_specified": 4
+        "not_specified": 6
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -105835,6 +105878,7 @@
     "Batch 260 maps Workshop Processes drawing and board practice. Pencil-point preparation (PDF p. 33, objective 2) remains open. Drawing and board-handling tasks require teacher observation or manual inspection of the submitted work.",
     "Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open.",
     "Batch 262 maps maintenance concepts and a supervised routine-care task for a non-powered tool. Machine servicing and lubrication demonstrations on PDF p. 37 remain open.",
-    "Batch 263 extends flooding prevention and control on PDF p. 15 and adds a supervised tabletop model. Objective 7 still requires a supervised field excursion. Model observations do not establish performance at a real site."
+    "Batch 263 extends flooding prevention and control on PDF p. 15 and adds a supervised tabletop model. Objective 7 still requires a supervised field excursion. Model observations do not establish performance at a real site.",
+    "On 2026-11-15 the NECO 2027 SSCE Internal registration guide section 7 was rechecked. It identifies a separate school syllabus. The 2027 timetable confirms General Mathematics formats 1022 and 1023 only. Public NECO BECE pages and the 2026 timetable establish the BST paper names and codes, but no current objective list, practical equipment instructions or marking scheme was retrieved. Batch 265 uses existing provisional statistics mappings."
   ]
 }

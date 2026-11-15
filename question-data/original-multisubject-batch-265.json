@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO General Mathematics statistics practice",
+  "questionCount": 6,
+  "note": "Original structured practice with provisional cross-board topic mapping. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Frequency tables",
+      "learningObjective": "Recover frequencies and interpret totals, categories and cumulative counts.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-265-001",
+      "objectiveId": "neco-math-070-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A survey of 64 pupils allows each pupil to choose drumming, drama, both or neither. The table reports 30 choosing drumming and 26 choosing drama, with 9 choosing both. Find the number choosing neither and explain why subtracting 30 and 26 from 64 separately would be incorrect.",
+      "answer": "17 pupils chose neither. The union has 30 + 26 − 9 = 47 pupils, leaving 64 − 47 = 17.",
+      "explanation": "The nine pupils who chose both appear in both column totals. Subtract their count once to find the number of distinct pupils who chose an activity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the double counting."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates the union as 47."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains 17 choosing neither."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "30+26-9",
+          "expected": "47",
+          "purpose": "Union count"
+        },
+        {
+          "expression": "64-(30+26-9)",
+          "expected": "17",
+          "purpose": "Neither count"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Frequency tables",
+      "learningObjective": "Recover frequencies and interpret totals, categories and cumulative counts.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-265-002",
+      "objectiveId": "neco-math-070-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A closed response table has three mutually exclusive choices with counts 18, 17 and 15. The first option leads before nine uncounted responses are added. What is the smallest number of those nine responses that must go to the third option for it to finish strictly ahead of both others? Give one valid allocation.",
+      "answer": "Six. Send one response to the first option, two to the second and six to the third. The final counts are 19, 19 and 21.",
+      "explanation": "With five for the third, four remain, but the first two can accept at most one and two respectively before either reaches 20. With four for the third, five remain and the others can accept at most zero and one while staying below 19. Three or fewer cannot beat the original lead of 18.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds that five leaves too many responses for the other options to stay below 20."
+        },
+        {
+          "marks": 1,
+          "description": "Justifies why smaller counts also fail."
+        },
+        {
+          "marks": 1,
+          "description": "Gives six and a valid allocation."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "9-5",
+          "expected": "4",
+          "purpose": "Responses left with five"
+        },
+        {
+          "expression": "(19-18)+(19-17)",
+          "expected": "3",
+          "purpose": "Capacity below twenty"
+        },
+        {
+          "expression": "15+6",
+          "expected": "21",
+          "purpose": "Winning count"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Grouped data",
+      "learningObjective": "Use class intervals, frequencies and midpoints to estimate and interpret summaries.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-265-003",
+      "objectiveId": "neco-math-070-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A market cooperative estimates a mean sack mass from this grouped table: 20 ≤ m < 24 kg, 8 sacks, and 24 ≤ m < 28 kg, 12 sacks. Later it merges the two classes into one class of width 8 kg and recomputes the midpoint estimate. Find both estimates and explain why merging changes the result.",
+      "answer": "The original estimate is 24.4 kg. The merged class has midpoint 24 kg, so its estimate is 24 kg.",
+      "explanation": "The original estimate weights midpoint 26 more heavily than midpoint 22. Merging replaces both midpoints with 24 for every sack.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses weighted midpoints to obtain 24.4 kg."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains 24 kg after merging."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the change in midpoint representation."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(22*8+26*12)/20",
+          "expected": "122/5",
+          "purpose": "Original estimate"
+        },
+        {
+          "expression": "(20+28)/2",
+          "expected": "24",
+          "purpose": "Merged midpoint"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Grouped data",
+      "learningObjective": "Use class intervals, frequencies and midpoints to estimate and interpret summaries.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-265-004",
+      "objectiveId": "neco-math-070-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "An analyst reconstructs a frequency table from a histogram. The first interval runs from 0 to 4 minutes with density 3 per minute. The next runs from 4 to 10 minutes with density 2.5 per minute. The analyst says more observations lie in the first interval because its bar is taller. Check the claim and give the actual counts.",
+      "answer": "The first count is 12 and the second is 15. The second interval contains more observations.",
+      "explanation": "Frequency is the bar area, found by multiplying frequency density by class width. The shorter second bar is wider.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates 12 from the first bar area."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates 15 from the second bar area."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects the height-only comparison with a correct reason."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4*3",
+          "expected": "12",
+          "purpose": "First bar area"
+        },
+        {
+          "expression": "(10-4)*5/2",
+          "expected": "15",
+          "purpose": "Second bar area"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Measures of centre",
+      "learningObjective": "Calculate and compare measures of centre and reason about changes to a data set.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-265-005",
+      "objectiveId": "neco-math-070-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "For five sorted queue times of 4, 6, 8, 10 and 30 minutes, the highest reading is verified as a genuine delay. Compare the mean with the median. If the noticeboard is to describe a typical visit while acknowledging unusually long waits, what would you report?",
+      "answer": "The mean is 11.6 minutes and the median is 8 minutes. Report the median as a description of the middle visit and mention that one wait reached 30 minutes.",
+      "explanation": "The genuine long wait pulls the mean above the centre of the ordered sample. Keeping it visible preserves information that the median alone omits.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates the mean."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the median."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a justified summary that also acknowledges the long wait."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(4+6+8+10+30)/5",
+          "expected": "58/5",
+          "purpose": "Mean"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Statistics",
+      "subtopic": "Measures of centre",
+      "learningObjective": "Calculate and compare measures of centre and reason about changes to a data set.",
+      "specificationId": "neco-mathematics-statistics-reference-2026",
+      "id": "ndv-265-006",
+      "objectiveId": "neco-math-070-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two groups each recorded four quiz scores. Group X recorded 2, 2, 8 and 8. Group Y recorded 4, 4, 4 and 8. Find each group’s mean and median. How does choosing the median instead of the mean affect the comparison?",
+      "answer": "X has mean 5 and median 5. Y has mean 5 and median 4. The means tie, while the medians put X ahead, so the choice changes a tie into a ranking.",
+      "explanation": "Average the middle two scores for the median of each four-value set. The totals are equal, but the middle values differ.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates both means."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates both medians."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the change from a tie to X ranking ahead."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(2+2+8+8)/4",
+          "expected": "5",
+          "purpose": "X mean"
+        },
+        {
+          "expression": "(4+4+4+8)/4",
+          "expected": "5",
+          "purpose": "Y mean"
+        },
+        {
+          "expression": "(2+8)/2",
+          "expected": "5",
+          "purpose": "X median"
+        },
+        {
+          "expression": "(4+4)/2",
+          "expected": "4",
+          "purpose": "Y median"
+        }
+      ]
+    }
+  ]
+}

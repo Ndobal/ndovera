@@ -1499,3 +1499,8 @@ Batch 264 adds six JSS 1 Intermediate Science drafts mapped to PDF p. 17
 objectives 4 and 5. They use Nigeria federal examples from two gazetted
 regulations published by NESREA. State and local rules and tree felling
 outside the charcoal context still require separate source evidence.
+
+Batch 265 adds six NECO General Mathematics statistics drafts under
+existing provisional objectives. The public NECO recheck confirmed
+paper formats and a separate SSCE syllabus. Topic objectives and BECE
+BST practical instructions remain open.
