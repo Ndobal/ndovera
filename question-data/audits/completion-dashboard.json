@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5226,
-    "validDrafts": 3547,
+    "raw": 5234,
+    "validDrafts": 3555,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1798,6 +1798,12 @@
       "actual": 4
     },
     {
+      "path": "original-multisubject-batch-278.json",
+      "sha256": "187c4746a22ae84d836f7ad0bee09e14959dbe24ff672bc54f1aa9e6015e93f4",
+      "declared": 8,
+      "actual": 8
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2528,23 +2534,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "academic_and_general_training_formats_verified_partial_coverage",
-      "raw": 118,
-      "validDrafts": 112,
+      "raw": 126,
+      "validDrafts": 120,
       "reviewed": 0,
       "questionTypes": {
-        "shortanswer": 106,
+        "shortanswer": 114,
         "mcq": 12
       },
       "difficulty": {
-        "standard": 99,
+        "standard": 107,
         "easy": 13,
         "missing": 3,
         "difficult": 1,
         "very difficult": 2
       },
-      "remaining": 888,
-      "mappedObjectives": 20,
-      "representedObjectives": 20,
+      "remaining": 880,
+      "mappedObjectives": 22,
+      "representedObjectives": 22,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7697,17 +7703,17 @@
   ],
   "errorCounts": {
     "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81,
     "invalid_score": 81,
-    "explanation_missing": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 526,
@@ -43569,6 +43575,54 @@
       "id": "ndv-277-004",
       "file": "original-multisubject-batch-277.json",
       "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-278-001",
+      "file": "original-multisubject-batch-278.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-278-002",
+      "file": "original-multisubject-batch-278.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-278-003",
+      "file": "original-multisubject-batch-278.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-278-004",
+      "file": "original-multisubject-batch-278.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-278-005",
+      "file": "original-multisubject-batch-278.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-278-006",
+      "file": "original-multisubject-batch-278.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-278-007",
+      "file": "original-multisubject-batch-278.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-278-008",
+      "file": "original-multisubject-batch-278.json",
+      "index": 7,
       "errors": []
     },
     {
@@ -106985,6 +107039,66 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-reading-278-markets-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Note completion",
+      "learningObjective": "Locate exact words in a passage and use them to complete a condensed account within a word limit.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 4
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 9",
+        "Note completion"
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-reading-278-paths-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Note completion",
+      "learningObjective": "Locate exact words in a passage and use them to complete a condensed account within a word limit.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 4
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 9",
+        "Note completion"
+      ],
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -107058,6 +107172,7 @@
     "Batch 274 adds IELTS Academic Reading matching sentence endings. The two original passages and ordered item sets are section-style practice. Full test assembly and independent review remain open.",
     "IELTS Academic Reading batch 275 adds passage-word summary and flow-chart completion. These are original drill sets. Full test assembly and independent review remain open.",
     "IELTS Academic Reading batch 276 adds table completion using original passages and exact two-word keys. Diagram labelling, rendered table delivery and full timed test assembly remain open.",
-    "Batch 277 adds IELTS Academic Reading diagram label completion with an original repository SVG and a text alternative. The asset is for offline drafts. App rendering, full test assembly and independent review remain open."
+    "Batch 277 adds IELTS Academic Reading diagram label completion with an original repository SVG and a text alternative. The asset is for offline drafts. App rendering, full test assembly and independent review remain open.",
+    "IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open."
   ]
 }
