@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science drawing and board practice",
+  "questionCount": 10,
+  "note": "Original structured practice with practical marking guides. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Copying a curve through points",
+      "learningObjective": "Identify an instrument suited to tracing a non-circular curve.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-001",
+      "objectiveId": "nerdc-intermediate-jss1-260-01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil has marked points for the curved edge of a cardboard sign. The edge changes its bend along the way. Choose between a French curve and a pair of compasses, and explain why your choice suits the outline.",
+      "answer": "Use a French curve, moving it to match successive sections so the joins are smooth. A compass set to one opening draws an arc of constant radius.",
+      "explanation": "The outline described needs sections with different curvature.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses a French curve."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why a fixed compass opening is less suitable."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Transferring a gap",
+      "learningObjective": "Identify a drawing instrument that transfers a distance without reading a scale.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-002",
+      "objectiveId": "nerdc-intermediate-jss1-260-02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On the class drawing, two reference marks are a fixed distance apart. A pupil must mark the same gap on a second drawing without reading the number of millimetres. Which drawing instrument has two points for this job, and how does it preserve the gap?",
+      "answer": "Use dividers. Put the points on the reference marks, keep that opening, then use the same spacing to locate the new mark from its starting point.",
+      "explanation": "The distance between the points serves as a physical copy of the original gap.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies dividers."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the opening is set from the reference and retained during transfer."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Diagnosing a changing compass radius",
+      "learningObjective": "Explain how to handle a compass to keep a constant radius.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-003",
+      "objectiveId": "nerdc-intermediate-jss1-260-03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil traces part of a circle and notices its end is farther from the marked centre than its start. The centre mark was unchanged. Name a likely problem with the compass and describe a check before trying again.",
+      "answer": "The compass opening may have widened. Set the opening again, check that the hinge holds the setting, then rotate gently around the centre without squeezing or spreading the legs.",
+      "explanation": "A fixed tip position and constant distance between the tips produce a constant radius.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a changed compass opening as a plausible cause."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a check or handling action to preserve the opening."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Constructing a rectangle from a baseline",
+      "learningObjective": "Use drawing instruments to construct a rectangle of specified dimensions.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-004",
+      "objectiveId": "nerdc-intermediate-jss1-260-04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On plain paper, draw a rectangle 60 mm long and 35 mm wide using a ruler and set square. Show light construction marks, and label one long side and one short side with their lengths. The teacher will check the drawing.",
+      "answer": "Draw a 60 mm baseline. At both ends construct perpendiculars on the same side, mark 35 mm along each, and join those marks. Label adjacent sides 60 mm and 35 mm.",
+      "explanation": "Equal distances measured along perpendiculars make the opposite edge parallel to the baseline.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows a closed rectangle with right angles within 2 degrees."
+        },
+        {
+          "marks": 1,
+          "description": "Shows lengths within 1 mm of 60 mm and 35 mm."
+        },
+        {
+          "marks": 1,
+          "description": "Labels adjacent sides correctly and retains visible construction marks."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Protecting working edges",
+      "learningObjective": "Explain a storage routine that protects drawing equipment.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-005",
+      "objectiveId": "nerdc-intermediate-jss1-260-05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "The straight edge of a shared set square has a nick that leaves a kink in pencil lines. Give one way to store the replacement between lessons and explain how this protects the quality of later drawings.",
+      "answer": "Store it flat in a sleeve or a designated case away from loose metal tools. This protects the working edge from dents that would interrupt straight strokes.",
+      "explanation": "Small damage at the edge can transfer directly to a drawn line.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes suitable protected storage."
+        },
+        {
+          "marks": 1,
+          "description": "Links a sound working edge to line quality."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Fixing a sheet square to a board",
+      "learningObjective": "Show how to align and secure a drawing sheet for board work.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-006",
+      "objectiveId": "nerdc-intermediate-jss1-260-06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Using a board, a T-square and removable drafting tape, fix a sheet ready for a drawing. The teacher will check that the page is aligned, flat and secure before you begin.",
+      "answer": "Seat the T-square head on the board's working edge. Align the sheet's upper edge with the blade, smooth it flat, and secure its corners near the edges so the drawing area remains clear.",
+      "explanation": "Aligning the paper to the same reference used to guide the instruments makes it easier to keep parallel lines consistent.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Aligns the paper with the correctly seated T-square."
+        },
+        {
+          "marks": 1,
+          "description": "Secures the corners while keeping the sheet flat and the drawing area clear."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Vertical lines from a shared reference",
+      "learningObjective": "Draw perpendicular lines with a T-square and set square.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-007",
+      "objectiveId": "nerdc-intermediate-jss1-260-07-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On a prepared drawing board, use the T-square to draw one horizontal line. Mark two different points on it. Use the set square against the T-square to draw an upright line through each point. Leave the three lines visible for checking.",
+      "answer": "The T-square guides the horizontal line. Keep it seated and place one leg of the set square along its blade. Draw the two upright lines using the perpendicular edge.",
+      "explanation": "Using the same reference for both uprights keeps them parallel to one another.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Draws a horizontal line with the T-square correctly seated."
+        },
+        {
+          "marks": 1,
+          "description": "Shows each upright through its marked point."
+        },
+        {
+          "marks": 1,
+          "description": "Shows both uprights perpendicular to the horizontal within 2 degrees."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Drawing an identifiable title block",
+      "learningObjective": "Lay out a title block within a drawing border.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-008",
+      "objectiveId": "nerdc-intermediate-jss1-260-08-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Your teacher asks for a layout sheet titled WATER POINT SHELTER. On a sheet with a border, rule a title block inside the bottom-right corner. Put the drawing title, your initials and 1:20 as the scale into separate labelled spaces.",
+      "answer": "The block lies inside the bottom-right corner and contains separate fields headed Title, Drawn by and Scale, filled with WATER POINT SHELTER, the pupil's initials, and 1:20.",
+      "explanation": "A separate scale field makes the drawing ratio easy to find without reading the project title.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places the ruled block inside the bottom-right corner."
+        },
+        {
+          "marks": 1,
+          "description": "Uses three distinct labelled fields."
+        },
+        {
+          "marks": 1,
+          "description": "Records the requested content accurately."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Distinguishing similar letterforms",
+      "learningObjective": "Produce legible freehand technical lettering and numerals.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-009",
+      "objectiveId": "nerdc-intermediate-jss1-260-09-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Draw two light horizontal guidelines and write STORE 05 between them in freehand capitals and numerals. Leave a gap between the word and number, and make the letter O distinguishable from the zero.",
+      "answer": "A clear example uses even upright strokes and a recognisable distinction, such as a narrower zero than the letter O. The characters sit on the same baseline and have consistent height.",
+      "explanation": "Consistent height, spacing and distinguishable characters help readers interpret drawing labels.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes the complete text freehand with a clear word–number space."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the forms aligned and reasonably consistent in height."
+        },
+        {
+          "marks": 1,
+          "description": "Makes the O and zero distinguishable."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Sketching an irregular outline",
+      "learningObjective": "Make a freehand plan showing straight edges and a curved section.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-260-010",
+      "objectiveId": "nerdc-intermediate-jss1-260-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Sketch the outline of a school reading corner as seen from above. Include a straight back edge, two side edges and a curved front joining the sides. Use freehand lines and label the front and back.",
+      "answer": "An example shows a closed outline with one straight rear edge, two sides that run forward, and a continuous rounded front joining the ends of the sides.",
+      "explanation": "The sketch communicates the basic outline and orientation without requiring measured dimensions.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows a closed freehand outline with a continuous curve joining the sides."
+        },
+        {
+          "marks": 1,
+          "description": "Includes a straight back and two identifiable sides."
+        },
+        {
+          "marks": 1,
+          "description": "Labels front and back at the correct places."
+        }
+      ]
+    }
+  ]
+}

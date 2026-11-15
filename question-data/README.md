@@ -1476,3 +1476,8 @@ remain open.
 Batch 259 adds 12 JSS 1 Intermediate Science drafts on wood, metals,
 ceramics, glass and building materials from PDF pp. 30–31. Specimen
 examination and timber-yard or industry visits remain open.
+
+Batch 260 adds ten JSS 1 Intermediate Science drafts on drawing
+instruments and board practice from PDF pp. 32–34. The construction
+and sketching tasks have manual marking guides. Pencil-point
+preparation remains open.

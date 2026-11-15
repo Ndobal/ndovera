@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5079,
-    "validDrafts": 3400,
+    "raw": 5089,
+    "validDrafts": 3410,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1688,6 +1688,12 @@
       "sha256": "175d05facff2ed6a99e91fee90e2ebd85c50e705afb021206ce494e3c6e6387b",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-260.json",
+      "sha256": "4432559962167cfd666c168aaea345e2409b46707bea604c6d753e0e60a4a208",
+      "declared": 10,
+      "actual": 10
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5823,18 +5829,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-intermediate-science-jss1-revised",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 82,
-      "validDrafts": 82,
+      "raw": 92,
+      "validDrafts": 92,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 82
+        "structured": 92
       },
       "difficulty": {
-        "standard": 82
+        "standard": 92
       },
-      "remaining": 918,
-      "mappedObjectives": 82,
-      "representedObjectives": 82,
+      "remaining": 908,
+      "mappedObjectives": 92,
+      "representedObjectives": 92,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7588,10 +7594,10 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -42579,6 +42585,66 @@
       "id": "ndv-259-012",
       "file": "original-multisubject-batch-259.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-001",
+      "file": "original-multisubject-batch-260.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-002",
+      "file": "original-multisubject-batch-260.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-003",
+      "file": "original-multisubject-batch-260.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-004",
+      "file": "original-multisubject-batch-260.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-005",
+      "file": "original-multisubject-batch-260.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-006",
+      "file": "original-multisubject-batch-260.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-007",
+      "file": "original-multisubject-batch-260.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-008",
+      "file": "original-multisubject-batch-260.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-009",
+      "file": "original-multisubject-batch-260.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-260-010",
+      "file": "original-multisubject-batch-260.json",
+      "index": 9,
       "errors": []
     },
     {
@@ -104225,6 +104291,306 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Copying a curve through points",
+      "learningObjective": "Identify an instrument suited to tracing a non-circular curve.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 32, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Transferring a gap",
+      "learningObjective": "Identify a drawing instrument that transfers a distance without reading a scale.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 32, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Diagnosing a changing compass radius",
+      "learningObjective": "Explain how to handle a compass to keep a constant radius.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 32, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Constructing a rectangle from a baseline",
+      "learningObjective": "Use drawing instruments to construct a rectangle of specified dimensions.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 32, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Drawing Practice",
+      "subtopic": "Protecting working edges",
+      "learningObjective": "Explain a storage routine that protects drawing equipment.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 32, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Fixing a sheet square to a board",
+      "learningObjective": "Show how to align and secure a drawing sheet for board work.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 33, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Vertical lines from a shared reference",
+      "learningObjective": "Draw perpendicular lines with a T-square and set square.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 33, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Drawing an identifiable title block",
+      "learningObjective": "Lay out a title block within a drawing border.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 33, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-09-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Distinguishing similar letterforms",
+      "learningObjective": "Produce legible freehand technical lettering and numerals.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 33, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-260-10-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Workshop Processes: Board Practice",
+      "subtopic": "Sketching an irregular outline",
+      "learningObjective": "Make a freehand plan showing straight edges and a curved section.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 33, performance objective 6"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -104283,6 +104649,7 @@
     "JSS 1 Intermediate Science PDF p. 24 objective 6 has paper diagram practice in batch 256. Hands-on demonstration evidence remains open.",
     "Batch 257 assesses reasoning about skill acquisition and science ethics in written scenarios. It supplies no observation of pupils performing vocational skills or demonstrating experimental safety.",
     "Batch 258 adds written laboratory and workshop familiarisation and safety scenarios (PDF pp. 28–29). A supervised facility visit, direct observation of safety devices and first-aid practicals remain open. Verify first-aid content with authoritative guidance before adding it.",
-    "Batch 259 maps written interpretation and selection of technology materials. Direct specimen examination and timber-yard or industry visits from PDF pp. 30–31 remain open. A hardness observation alone does not establish botanical hardwood or softwood classification."
+    "Batch 259 maps written interpretation and selection of technology materials. Direct specimen examination and timber-yard or industry visits from PDF pp. 30–31 remain open. A hardness observation alone does not establish botanical hardwood or softwood classification.",
+    "Batch 260 maps Workshop Processes drawing and board practice. Pencil-point preparation (PDF p. 33, objective 2) remains open. Drawing and board-handling tasks require teacher observation or manual inspection of the submitted work."
   ]
 }
