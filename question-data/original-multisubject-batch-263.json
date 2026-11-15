@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science flood prevention and control",
+  "questionCount": 8,
+  "note": "Original structured practice with manual marking guides. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Reducing runoff at its source",
+      "learningObjective": "Explain how collecting roof runoff can reduce flooding near a building.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-263-001",
+      "objectiveId": "nerdc-intermediate-jss1-263-01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A school roof drains directly onto a courtyard that floods during brief storms. Adults are considering a covered rainwater tank connected to the roof downpipe. Explain how the tank can reduce the amount of water reaching the courtyard during a storm and why its available space matters.",
+      "answer": "The tank temporarily stores some runoff, so less reaches the courtyard immediately. If the tank is already full, incoming water will pass to its overflow and the tank provides little extra storage.",
+      "explanation": "Storage can reduce immediate runoff only while there is space to receive it.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains interception or storage of roof runoff."
+        },
+        {
+          "marks": 1,
+          "description": "Links the benefit to available capacity."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Keeping a drainage route open",
+      "learningObjective": "Choose preventive action when runoff has no clear exit.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-263-002",
+      "objectiveId": "nerdc-intermediate-jss1-263-02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "On a dry inspection day, school staff find a litter-covered grille at the entrance to a drain below a sloping assembly area. Why should they arrange for the grille to be cleared before heavy rain, and what can the school do to reduce a repeat blockage?",
+      "answer": "Litter can restrict entry to the drain and cause runoff to back up above the grille. Provide covered bins where litter collects or arrange routine adult inspection and clearing before storms.",
+      "explanation": "Preventing a blockage preserves the route runoff needs to leave the area.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links the obstructed inlet to backed-up runoff."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a feasible preventive action."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Protecting an open floodplain",
+      "learningObjective": "Explain how a land-use decision can reduce flood exposure.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-263-003",
+      "objectiveId": "nerdc-intermediate-jss1-263-03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "One proposed location for a school store is on low land beside a stream that spreads over its banks each rainy season. The other is outside the mapped floodplain on higher ground. Recommend a site and explain why leaving the low land open can also help.",
+      "answer": "Choose the higher site outside the mapped floodplain because the store is less exposed to overbank water. An open floodplain gives spreading water space without placing a new building in its path.",
+      "explanation": "The decision reduces exposure and preserves room for floodwater.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the higher site with a relevant reason."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a benefit of leaving the floodplain open."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Runoff sent to a neighbour",
+      "learningObjective": "Evaluate the downstream effect of a proposed flood-control measure.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-263-004",
+      "objectiveId": "nerdc-intermediate-jss1-263-04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A proposal would send water out of a frequently flooded school entrance more quickly. The proposed outlet is directly above a neighbouring compound that already receives runoff. What should the designers check before approving the proposal, and why?",
+      "answer": "Check where the additional discharge will travel and whether the receiving drainage can carry it without flooding the neighbour. Faster drainage at the school can increase flow at another location.",
+      "explanation": "Judging a drainage plan includes its effects wherever the released water goes.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a relevant downstream check."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the proposal could shift or worsen flooding."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Finding the failed section",
+      "learningObjective": "Use observations to locate a likely obstruction in a drainage route.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-263-005",
+      "objectiveId": "nerdc-intermediate-jss1-263-05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "In a tabletop drainage model, water collects just upstream of a short covered channel, while its visible outlet releases only a trickle. The receiving tray is empty except for that trickle. Which part should be checked first, and why?",
+      "answer": "Check the channel entrance and the covered section for an obstruction. Water backs up upstream even though the receiving tray has room, and very little gets through.",
+      "explanation": "The two observations together point to restricted passage through or into the channel.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names the entrance or covered section."
+        },
+        {
+          "marks": 1,
+          "description": "Uses upstream pooling and low outlet flow as evidence."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Testing a low-point storage area",
+      "learningObjective": "Use a classroom model to test whether storage delays runoff reaching a downstream location.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-263-006",
+      "objectiveId": "nerdc-intermediate-jss1-263-06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Under teacher supervision, compare two runs with clean water in the same shallow tray. A teacher provides a removable shallow storage cup at the tray's low point. In one run the cup is empty and in the other it is already filled to its overflow level. Pour the same measured amount at the same place and rate. Record which run sends water past the cup first and explain the result.",
+      "answer": "The prefilled cup should overflow sooner. The empty cup can store water before its level reaches the overflow. Report the observed order and note any leaking, bypass or uneven pouring if it affected the comparison.",
+      "explanation": "The comparison changes initial storage capacity while the incoming water and route are kept comparable.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Keeps the incoming volume, position and pouring rate comparable."
+        },
+        {
+          "marks": 1,
+          "description": "Records the observed order of overflow for both runs."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the expected role of storage or gives a plausible evidence-based account of an unexpected result."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Comparing two control proposals",
+      "learningObjective": "Interpret model results using the location a flood-control measure is meant to protect.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-263-007",
+      "objectiveId": "nerdc-intermediate-jss1-263-07-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A model covers two places on a slope: a classroom entrance and a lower footpath. Without changes, both become wet. With channel A, the classroom stays dry but the footpath floods earlier. With storage area B, the classroom stays dry and the footpath floods later. Which model result better supports a plan to protect both places, and what would you test next?",
+      "answer": "Storage area B better serves both places in the trial because it protects the classroom without bringing earlier flooding to the path. Repeat with a longer or heavier model storm to check when the storage fills and whether the path still benefits.",
+      "explanation": "A short trial gives evidence for the tested rain conditions. It cannot show how the system will behave under every load.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects B and uses evidence for both places."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a sensible further test that checks a limit of the finding."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Environmental Degradation: Flooding",
+      "subtopic": "Using a route log after heavy rain",
+      "learningObjective": "Distinguish a flooding consequence from a proposed response in an observation record.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-263-008",
+      "objectiveId": "nerdc-intermediate-jss1-263-08-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A head teacher records that after a storm, the footbridge approach remained under water and pupils arrived late after using a longer dry route. The school then changed its entry arrangements. Identify one observed effect of the flooding and one action taken in response.",
+      "answer": "The flooded approach delayed or blocked usual access and pupils arrived late. The school changed how pupils entered.",
+      "explanation": "Separating observed effects from later decisions makes a flooding record easier to interpret.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the access interruption or delay."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the change to entry arrangements."
+        }
+      ]
+    }
+  ]
+}

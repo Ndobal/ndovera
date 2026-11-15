@@ -1490,3 +1490,7 @@ Batch 262 adds eight JSS 1 Intermediate Science drafts on tool and
 machine maintenance from PDF p. 37, including supervised care of a
 non-powered tool. Machine servicing and lubrication demonstrations
 remain open.
+
+Batch 263 adds eight JSS 1 Intermediate Science drafts on flood
+prevention and control from PDF p. 15. The supervised tabletop model
+uses clean water to compare available storage. Field excursions remain open.
