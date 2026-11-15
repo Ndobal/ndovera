@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC JSS 1 Intermediate Science woodwork and metalwork hand tools",
+  "questionCount": 10,
+  "note": "Original structured practice with manual marking guides. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Grouping tools by function",
+      "learningObjective": "Classify woodwork hand tools by their main function.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-001",
+      "objectiveId": "nerdc-intermediate-jss1-261-01-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A bench tray contains a steel rule, a tenon saw and a G-cramp. Match each tool to the job it is designed for: measuring stock, cutting wood or holding work steady.",
+      "answer": "The steel rule measures stock. The tenon saw cuts wood. The G-cramp holds work steady.",
+      "explanation": "The groups describe what the tools do during the job.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches the steel rule to measuring."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the tenon saw to cutting."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the G-cramp to holding."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Reading a marking-gauge line",
+      "learningObjective": "Explain how a marking gauge produces a line at a constant offset from a straight edge.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-002",
+      "objectiveId": "nerdc-intermediate-jss1-261-02-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A carpenter shows a marked line running 12 mm from a straight board edge. On the marking gauge, which part follows the edge and which part makes the line? Explain why the gap stays constant.",
+      "answer": "The stock or fence follows the edge. The pin makes the mark. The distance from the fence to the pin stays fixed when the gauge is locked.",
+      "explanation": "The fence uses the board edge as a reference for the position of the pin.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the stock or fence."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the marking pin."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how a fixed setting maintains the offset."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Selecting a clamp for a glue-up",
+      "learningObjective": "Explain why a clamp must have sufficient working capacity.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-003",
+      "objectiveId": "nerdc-intermediate-jss1-261-03-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A project panel is 45 cm wide. A G-cramp in the tray can open to 15 cm and a sash cramp can open to 60 cm. Which tool can span the panel across its width, and why?",
+      "answer": "The 60 cm sash cramp can span 45 cm. The 15 cm G-cramp cannot open wide enough.",
+      "explanation": "The deciding dimension is the usable gap between the jaws.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the sash cramp."
+        },
+        {
+          "marks": 1,
+          "description": "Compares the openings with the panel width."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Mallet and hammer in an assembly",
+      "learningObjective": "Describe a reason to choose an appropriate driving tool for a task.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-004",
+      "objectiveId": "nerdc-intermediate-jss1-261-04-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A teacher is assembling a fitted wooden joint without nails. Explain why a wooden mallet and a scrap wood pad could be suitable for settling the pieces together.",
+      "answer": "A wooden mallet delivers controlled taps. A pad spreads the contact and protects the visible surface from direct blows and dents.",
+      "explanation": "The choice depends on the material and the finish the worker wants to preserve.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why a mallet is suitable."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the pad protects the surface."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Returning tools after a damp lesson",
+      "learningObjective": "Explain a routine to protect woodwork hand tools after use.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-005",
+      "objectiveId": "nerdc-intermediate-jss1-261-05-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "At the end of a workshop lesson, a steel rule is damp and a tenon saw has loose sawdust on it. Describe how the tools should be prepared and stored.",
+      "answer": "Dry the rule and remove loose sawdust from the saw using the teacher-approved cleaning method. Return the rule flat and the saw to its designated rack with its teeth protected.",
+      "explanation": "Dry, protected storage reduces corrosion and prevents tools being knocked together.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that the damp rule should be dried."
+        },
+        {
+          "marks": 1,
+          "description": "Describes suitable saw cleaning."
+        },
+        {
+          "marks": 1,
+          "description": "Gives protected storage for both tools."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Identifying a tool for a fine line",
+      "learningObjective": "Identify the metalwork tool used to mark a line on sheet metal.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-006",
+      "objectiveId": "nerdc-intermediate-jss1-261-06-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A technician needs to mark a fine line on a flat metal specimen. The tray contains a scriber, a spanner and a file. Which is intended to mark the line? Give one feature that suits it to the job.",
+      "answer": "The scriber. Its hard pointed tip can make a fine visible mark on suitable metal.",
+      "explanation": "A scriber transfers layout information to the material's surface.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the scriber."
+        },
+        {
+          "marks": 1,
+          "description": "Links its pointed tip to making a fine line."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Fit before turning a nut",
+      "learningObjective": "Explain the importance of choosing a correctly fitting spanner.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-007",
+      "objectiveId": "nerdc-intermediate-jss1-261-07-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A pupil at a supervised bench finds that the open-ended spanner rocks from side to side on a hexagonal nut. What should the pupil check before using it and what problem would that prevent?",
+      "answer": "Check that the spanner size fits the nut closely. A loose fit can slip or damage the corners of the nut.",
+      "explanation": "Correct fit lets the jaws engage the nut's flats securely.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that the spanner should fit the nut closely."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the risk of slipping or rounding the corners."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Distinguishing tools by the marks they leave",
+      "learningObjective": "Describe different purposes of a centre punch and a file.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-008",
+      "objectiveId": "nerdc-intermediate-jss1-261-08-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "Two specimens show different workshop operations. One has a small indentation exactly where a hole is planned. On the other, a rough projecting burr has been smoothed. Which tool is associated with each operation: centre punch or file?",
+      "answer": "A centre punch makes the starting indentation. A file removes material to smooth the burr.",
+      "explanation": "The punch makes a local mark, while the file removes small amounts from an edge or surface.",
+      "score": 2,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches the centre punch to the indentation."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the file to smoothing the burr."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Sketching a spanner",
+      "learningObjective": "Draw a recognisable labelled sketch of a metalwork hand tool.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-009",
+      "objectiveId": "nerdc-intermediate-jss1-261-09-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "From a teacher-provided example, sketch an open-ended spanner on paper. Label the jaws and the handle. Add one sentence explaining what the opening fits.",
+      "answer": "A suitable sketch shows a handle ending in two jaws with an open gap. The opening fits across opposite flats of a suitably sized nut or bolt head.",
+      "explanation": "The visible jaw opening distinguishes an open-ended spanner from a ring spanner.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Produces a recognisable open-ended profile."
+        },
+        {
+          "marks": 1,
+          "description": "Labels jaws and handle correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Explains what the opening fits."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Caring for a clogged file",
+      "learningObjective": "Explain how cleaning and storing a file preserve its cutting surface.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "id": "ndv-261-010",
+      "objectiveId": "nerdc-intermediate-jss1-261-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC revised basic education",
+      "type": "structured",
+      "prompt": "A metalwork file has small filings trapped among its teeth. Identify a suitable cleaning tool and explain how to store the file afterwards so its cutting surface is protected.",
+      "answer": "Use a file card or suitable file brush under the teacher's direction. Store the file dry in its own slot or sleeve so its teeth do not rub against other tools.",
+      "explanation": "Removing trapped particles lets the teeth work properly. Keeping tools apart protects their working surfaces.",
+      "score": 3,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a file card or suitable file brush."
+        },
+        {
+          "marks": 1,
+          "description": "Describes separate, dry storage."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how either action protects performance."
+        }
+      ]
+    }
+  ]
+}

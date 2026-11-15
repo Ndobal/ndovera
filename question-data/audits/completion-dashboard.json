@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5089,
-    "validDrafts": 3410,
+    "raw": 5099,
+    "validDrafts": 3420,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1692,6 +1692,12 @@
     {
       "path": "original-multisubject-batch-260.json",
       "sha256": "4432559962167cfd666c168aaea345e2409b46707bea604c6d753e0e60a4a208",
+      "declared": 10,
+      "actual": 10
+    },
+    {
+      "path": "original-multisubject-batch-261.json",
+      "sha256": "7778497d6942c4e582d5a860b2449325423de2875eed21d45e3ca57d1ee2bf70",
       "declared": 10,
       "actual": 10
     },
@@ -5829,18 +5835,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-intermediate-science-jss1-revised",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 92,
-      "validDrafts": 92,
+      "raw": 102,
+      "validDrafts": 102,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 92
+        "structured": 102
       },
       "difficulty": {
-        "standard": 92
+        "standard": 102
       },
-      "remaining": 908,
-      "mappedObjectives": 92,
-      "representedObjectives": 92,
+      "remaining": 898,
+      "mappedObjectives": 102,
+      "representedObjectives": 102,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7595,9 +7601,9 @@
   ],
   "errorCounts": {
     "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -42644,6 +42650,66 @@
     {
       "id": "ndv-260-010",
       "file": "original-multisubject-batch-260.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-001",
+      "file": "original-multisubject-batch-261.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-002",
+      "file": "original-multisubject-batch-261.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-003",
+      "file": "original-multisubject-batch-261.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-004",
+      "file": "original-multisubject-batch-261.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-005",
+      "file": "original-multisubject-batch-261.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-006",
+      "file": "original-multisubject-batch-261.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-007",
+      "file": "original-multisubject-batch-261.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-008",
+      "file": "original-multisubject-batch-261.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-009",
+      "file": "original-multisubject-batch-261.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-261-010",
+      "file": "original-multisubject-batch-261.json",
       "index": 9,
       "errors": []
     },
@@ -104591,6 +104657,306 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-01-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Grouping tools by function",
+      "learningObjective": "Classify woodwork hand tools by their main function.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 35, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-02-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Reading a marking-gauge line",
+      "learningObjective": "Explain how a marking gauge produces a line at a constant offset from a straight edge.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 35, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-03-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Selecting a clamp for a glue-up",
+      "learningObjective": "Explain why a clamp must have sufficient working capacity.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 35, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-04-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Mallet and hammer in an assembly",
+      "learningObjective": "Describe a reason to choose an appropriate driving tool for a task.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 35, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-05-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Woodwork Hand Tools",
+      "subtopic": "Returning tools after a damp lesson",
+      "learningObjective": "Explain a routine to protect woodwork hand tools after use.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 35, performance objective 4"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-06-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Identifying a tool for a fine line",
+      "learningObjective": "Identify the metalwork tool used to mark a line on sheet metal.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 36, performance objective 1"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-07-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Fit before turning a nut",
+      "learningObjective": "Explain the importance of choosing a correctly fitting spanner.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 36, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-08-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Distinguishing tools by the marks they leave",
+      "learningObjective": "Describe different purposes of a centre punch and a file.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 36, performance objective 2"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-09-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Sketching a spanner",
+      "learningObjective": "Draw a recognisable labelled sketch of a metalwork hand tool.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 36, performance objective 3"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-intermediate-jss1-261-10-v1",
+      "exam": "NERDC",
+      "subject": "Intermediate Science",
+      "level": "JSS 1",
+      "topic": "Machines and Tools: Metalwork Hand Tools",
+      "subtopic": "Caring for a clogged file",
+      "learningObjective": "Explain how cleaning and storing a file preserve its cutting surface.",
+      "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "questionTypes": {
+        "structured": 1
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_paraphrase_exact_class",
+      "sourceSections": [
+        "Revised JSS 1 Intermediate Science, PDF p. 36, performance objective 5"
+      ],
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -104650,6 +105016,7 @@
     "Batch 257 assesses reasoning about skill acquisition and science ethics in written scenarios. It supplies no observation of pupils performing vocational skills or demonstrating experimental safety.",
     "Batch 258 adds written laboratory and workshop familiarisation and safety scenarios (PDF pp. 28–29). A supervised facility visit, direct observation of safety devices and first-aid practicals remain open. Verify first-aid content with authoritative guidance before adding it.",
     "Batch 259 maps written interpretation and selection of technology materials. Direct specimen examination and timber-yard or industry visits from PDF pp. 30–31 remain open. A hardness observation alone does not establish botanical hardwood or softwood classification.",
-    "Batch 260 maps Workshop Processes drawing and board practice. Pencil-point preparation (PDF p. 33, objective 2) remains open. Drawing and board-handling tasks require teacher observation or manual inspection of the submitted work."
+    "Batch 260 maps Workshop Processes drawing and board practice. Pencil-point preparation (PDF p. 33, objective 2) remains open. Drawing and board-handling tasks require teacher observation or manual inspection of the submitted work.",
+    "Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open."
   ]
 }

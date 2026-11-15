@@ -1481,3 +1481,7 @@ Batch 260 adds ten JSS 1 Intermediate Science drafts on drawing
 instruments and board practice from PDF pp. 32–34. The construction
 and sketching tasks have manual marking guides. Pencil-point
 preparation remains open.
+
+Batch 261 adds ten JSS 1 Intermediate Science drafts on woodwork and
+metalwork hand tools from PDF pp. 35–36, including a labelled sketch.
+Supervised product-making projects remain open.
