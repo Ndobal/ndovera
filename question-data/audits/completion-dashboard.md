@@ -27,7 +27,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | BECE | Yoruba (L1) / JSS 3 | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
 | BECE | Yoruba (L2) / JSS 3 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | IELTS | Listening | 1000 | 40 | 40 | 0 | 960 | partial_objective_register |
-| IELTS | Reading | 1000 | 96 | 90 | 0 | 910 | partial_objective_register |
+| IELTS | Reading | 1000 | 106 | 100 | 0 | 900 | partial_objective_register |
 | IELTS | Speaking | 1000 | 34 | 34 | 0 | 966 | partial_objective_register |
 | IELTS | Writing | 1000 | 21 | 18 | 0 | 982 | partial_objective_register |
 | IGCSE | Biology [0610] | 1000 | 78 | 74 | 0 | 926 | partial_objective_register |
@@ -215,7 +215,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | Examination | Raw | Valid drafts | Reviewed | Registered target | Remaining |
 |---|---:|---:|---:|---:|---:|
 | BECE | 153 | 153 | 0 | 18000 | 17847 |
-| IELTS | 191 | 182 | 0 | 4000 | 3818 |
+| IELTS | 201 | 192 | 0 | 4000 | 3808 |
 | IGCSE | 310 | 289 | 0 | 5000 | 4711 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
@@ -225,7 +225,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 171 | 162 | 0 | 4000 | 3838 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5204, "validDrafts": 3525, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5214, "validDrafts": 3535, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -299,3 +299,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 272 adds IELTS General Training Section 2 short-answer and Section 3 matching-headings practice. The set represents two task formats. Full test assembly, broader passage coverage and independent review remain open.
 - IELTS General Training Reading batch 273 adds Section 2 matching features using original workplace texts. Full test assembly and independent review remain open.
 - Batch 274 adds IELTS Academic Reading matching sentence endings. The two original passages and ordered item sets are section-style practice. Full test assembly and independent review remain open.
+- IELTS Academic Reading batch 275 adds passage-word summary and flow-chart completion. These are original drill sets. Full test assembly and independent review remain open.

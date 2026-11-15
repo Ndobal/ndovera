@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5204,
-    "validDrafts": 3525,
+    "raw": 5214,
+    "validDrafts": 3535,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1780,6 +1780,12 @@
       "actual": 8
     },
     {
+      "path": "original-multisubject-batch-275.json",
+      "sha256": "9450569b92ebf16d3dd710494570583d57b27053789c346cea5c01b87abe1977",
+      "declared": 10,
+      "actual": 10
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2510,23 +2516,23 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "academic_and_general_training_formats_verified_partial_coverage",
-      "raw": 96,
-      "validDrafts": 90,
+      "raw": 106,
+      "validDrafts": 100,
       "reviewed": 0,
       "questionTypes": {
-        "shortanswer": 84,
+        "shortanswer": 94,
         "mcq": 12
       },
       "difficulty": {
-        "standard": 77,
+        "standard": 87,
         "easy": 13,
         "missing": 3,
         "difficult": 1,
         "very difficult": 2
       },
-      "remaining": 910,
-      "mappedObjectives": 15,
-      "representedObjectives": 15,
+      "remaining": 900,
+      "mappedObjectives": 17,
+      "representedObjectives": 17,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7678,17 +7684,17 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81
   },
   "mathematicalVerification": {
@@ -43419,6 +43425,66 @@
       "id": "ndv-274-008",
       "file": "original-multisubject-batch-274.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-001",
+      "file": "original-multisubject-batch-275.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-002",
+      "file": "original-multisubject-batch-275.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-003",
+      "file": "original-multisubject-batch-275.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-004",
+      "file": "original-multisubject-batch-275.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-005",
+      "file": "original-multisubject-batch-275.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-006",
+      "file": "original-multisubject-batch-275.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-007",
+      "file": "original-multisubject-batch-275.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-008",
+      "file": "original-multisubject-batch-275.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-009",
+      "file": "original-multisubject-batch-275.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-275-010",
+      "file": "original-multisubject-batch-275.json",
+      "index": 9,
       "errors": []
     },
     {
@@ -106686,6 +106752,66 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-reading-275-dyes-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Summary completion",
+      "learningObjective": "Locate exact words in a passage and use them to complete a condensed account within a word limit.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 5
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 9",
+        "Summary completion"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "ielts-academic-reading-275-seed-trays-v1",
+      "exam": "IELTS",
+      "subject": "Reading",
+      "topic": "Academic Reading",
+      "subtopic": "Flow-chart completion",
+      "learningObjective": "Locate exact words in a passage and use them to complete a condensed account within a word limit.",
+      "specificationId": "ielts-academic-reading-official-format",
+      "questionTypes": {
+        "shortanswer": 5
+      },
+      "officialObjectiveCode": null,
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "sourceSections": [
+        "IELTS Academic Reading, question type 9",
+        "Flow-chart completion"
+      ],
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -106756,6 +106882,7 @@
     "IELTS Speaking batch 271 adds three familiar-topic Part 1 practice clusters. These may be combined in a supervised session, with timing confirmed through delivery trials. Full recorded test assembly and independent review remain open.",
     "Batch 272 adds IELTS General Training Section 2 short-answer and Section 3 matching-headings practice. The set represents two task formats. Full test assembly, broader passage coverage and independent review remain open.",
     "IELTS General Training Reading batch 273 adds Section 2 matching features using original workplace texts. Full test assembly and independent review remain open.",
-    "Batch 274 adds IELTS Academic Reading matching sentence endings. The two original passages and ordered item sets are section-style practice. Full test assembly and independent review remain open."
+    "Batch 274 adds IELTS Academic Reading matching sentence endings. The two original passages and ordered item sets are section-style practice. Full test assembly and independent review remain open.",
+    "IELTS Academic Reading batch 275 adds passage-word summary and flow-chart completion. These are original drill sets. Full test assembly and independent review remain open."
   ]
 }

@@ -1544,3 +1544,7 @@ remains open.
 Batch 274 adds eight IELTS Academic Reading matching sentence endings
 drafts across two original passages. Each set follows the passage order
 and has unused endings. Full test assembly remains open.
+
+Batch 275 adds ten IELTS Academic Reading summary and flow-chart
+completion drafts based on two original passages. Each answer is
+taken from the text within a two-word limit.
