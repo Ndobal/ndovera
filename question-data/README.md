@@ -1535,3 +1535,8 @@ and a practice rubric for live or recorded speech.
 Batch 272 adds ten IELTS General Training Reading drafts based on two
 original texts. Section 2 uses short answers and Section 3 uses matching
 headings with unused options. Full test assembly remains open.
+
+Batch 273 adds ten IELTS General Training Reading Section 2 matching-
+features drafts across original staff development and courier texts.
+The instructions allow repeated option letters. Full test assembly
+remains open.
