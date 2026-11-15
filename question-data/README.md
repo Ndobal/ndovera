@@ -1560,3 +1560,8 @@ The SVG was rendered and checked offline. App delivery remains open.
 Batch 278 adds eight IELTS Academic Reading note-completion drafts
 across two original passages. Answers use up to three words from the
 passage. Full timed test assembly remains open.
+
+Batch 279 adds eight Cambridge IGCSE Economics (0455) Paper 1 drafts on
+Workers for the 2027–2029 syllabus, covering occupational choice, wage
+determination and differentials, labour mobility, and division of labour.
+Paper 2 Workers tasks remain open.

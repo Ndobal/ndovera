@@ -1942,10 +1942,10 @@
         2029
       ],
       "note": "Untiered. Paper 1 has 40 multiple-choice questions in 60 minutes and assesses AO1/AO2. Paper 2 has 80 marks in 120 minutes and assesses AO1/AO2/AO3. The 2026 syllabus remains separately mapped.",
-      "lastRecheckedOn": "2026-11-11",
+      "lastRecheckedOn": "2026-11-15",
       "sourceBytes": 695606,
       "pageCount": 37,
-      "latestRecheck": "Official syllabus PDF checked for sections 6.3–6.4 (pp. 25–26) and Paper 1 and Paper 2 assessment (pp. 27–28)."
+      "latestRecheck": "Official syllabus PDF checked for sections 3.3.1–3.3.5 (p. 16) and Paper 1 assessment (p. 27)."
     },
     {
       "id": "neco-bece-bst-2026-historical-nerdc-reference",
@@ -37347,6 +37347,146 @@
         "IELTS Academic Reading, question type 9",
         "Note completion"
       ]
+    },
+    {
+      "id": "igcse-0455-279-01-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Occupational choice",
+      "learningObjective": "Compare wage and non-wage influences on occupational choice.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "3.3.1, printed p. 16",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-279-02-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage determination",
+      "learningObjective": "Analyse influences on wages and employment in a labour market.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "3.3.2, printed p. 16",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-279-03-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage differences",
+      "learningObjective": "Explain how demand, supply or bargaining can cause wage differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "3.3.3, printed p. 17",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-279-04-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Mobility of labour",
+      "learningObjective": "Distinguish occupational and geographical mobility and identify their influences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "3.3.4, printed p. 17",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "igcse-0455-279-05-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Division of labour",
+      "learningObjective": "Identify benefits and costs of worker specialisation.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": [
+        "Untiered"
+      ],
+      "sourceSections": [
+        "3.3.5, printed p. 17",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -37421,6 +37561,7 @@
     "IELTS Academic Reading batch 275 adds passage-word summary and flow-chart completion. These are original drill sets. Full test assembly and independent review remain open.",
     "IELTS Academic Reading batch 276 adds table completion using original passages and exact two-word keys. Diagram labelling, rendered table delivery and full timed test assembly remain open.",
     "Batch 277 adds IELTS Academic Reading diagram label completion with an original repository SVG and a text alternative. The asset is for offline drafts. App rendering, full test assembly and independent review remain open.",
-    "IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open."
+    "IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open.",
+    "Batch 279 adds Cambridge IGCSE Economics 0455 2027–2029 Workers Paper 1 practice for sections 3.3.1–3.3.5. Labour-market diagram interpretation, structured Paper 2 coverage and independent review remain open."
   ]
 }

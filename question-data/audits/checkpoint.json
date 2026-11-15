@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_278_automated_validation_passed",
+  "phase": "batch_279_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-279.json",
+  "nextBatch": "original-multisubject-batch-280.json",
   "nextPriorities": [
-    "Move to an underrepresented source-supported IGCSE or NCEE subject. Check remaining IELTS Academic Reading response formats during assembly. Diagram delivery in the app remains open. Table rendering and full test assembly remain open. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
+    "Add Cambridge IGCSE Economics 0455 Paper 2 Workers tasks with marking guides, including labour-market diagrams. Check remaining IELTS Academic Reading response formats during assembly. Diagram delivery in the app remains open. Table rendering and full test assembly remain open. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-278.json",
-  "lastRemoteVerifiedCommit": "7cd03ce9e92b3986ea65baf306483676e7c970c1",
+  "lastValidatedBatch": "original-multisubject-batch-279.json",
+  "lastRemoteVerifiedCommit": "a6f65be834f775cd2ad9bc784f6e59d40773a580",
   "verifiedTotals": {
-    "raw": 5234,
-    "validDrafts": 3555,
+    "raw": 5242,
+    "validDrafts": 3563,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-278.json",
+  "lastPopulatedBatch": "original-multisubject-batch-279.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 5234,
+  "inventoryRaw": 5242,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "ielts-academic-reading-official-format",
+    "id": "cambridge-0455-2027-2029-v1",
     "date": "2026-11-15"
   }
 }

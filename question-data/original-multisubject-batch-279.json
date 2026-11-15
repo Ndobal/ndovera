@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Economics 0455 Workers",
+  "questionCount": 8,
+  "note": "Original untiered Paper 1 practice for 2027–2029. Numerical data are fictional. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Occupational choice",
+      "learningObjective": "Compare wage and non-wage influences on occupational choice.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-279-001",
+      "objectiveId": "igcse-0455-279-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A print worker turns down a higher-paying night job because the daytime post makes it possible to attend evening lessons. Which factor explains the choice?",
+      "options": [
+        "A higher money wage at the daytime post",
+        "A lower national minimum wage",
+        "The compatibility of working hours with study",
+        "A rise in the supply of night workers"
+      ],
+      "answer": "The compatibility of working hours with study",
+      "correctOption": "C",
+      "explanation": "Hours that permit attendance at lessons are a non-wage benefit to this worker.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage determination",
+      "learningObjective": "Analyse influences on wages and employment in a labour market.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-279-002",
+      "objectiveId": "igcse-0455-279-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A new packaging plant starts recruiting trained machine operators in a town. Other employers continue hiring as before. In a competitive labour market, what is the likely initial effect if the market supply curve is unchanged and slopes upward?",
+      "options": [
+        "Demand shifts right and the equilibrium wage rises",
+        "Supply shifts right and the equilibrium wage falls",
+        "Demand shifts left and the equilibrium wage falls",
+        "Supply shifts left and the equilibrium wage rises"
+      ],
+      "answer": "Demand shifts right and the equilibrium wage rises",
+      "correctOption": "A",
+      "explanation": "The additional employer increases demand for operators at each wage, shifting the demand curve right.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage determination",
+      "learningObjective": "Analyse influences on wages and employment in a labour market.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-279-003",
+      "objectiveId": "igcse-0455-279-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "At a minimum wage above the original equilibrium, firms in a fictional market want to hire 370 workers and 450 workers offer their labour. On these figures, how many more workers offer labour than firms want to hire?",
+      "options": [
+        "40",
+        "370",
+        "80",
+        "820"
+      ],
+      "answer": "80",
+      "correctOption": "C",
+      "explanation": "The excess supply at that wage is 450 − 370 = 80.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "450-370",
+          "expected": "80",
+          "purpose": "Excess supply at the minimum wage"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage differences",
+      "learningObjective": "Explain how demand, supply or bargaining can cause wage differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-279-004",
+      "objectiveId": "igcse-0455-279-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Two sets of workers have similar skills and productivity. One union represents nearly all workers in its occupation, and employers have few alternative recruits. The other union represents only a small share. Which reason best explains why the first union may negotiate higher pay?",
+      "options": [
+        "Its workers necessarily have higher productivity",
+        "Its workers can more easily be replaced",
+        "Its members must be in the public sector",
+        "Its relative bargaining power is stronger"
+      ],
+      "answer": "Its relative bargaining power is stronger",
+      "correctOption": "D",
+      "explanation": "Widespread membership and limited replacement options can strengthen a union’s bargaining position.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage differences",
+      "learningObjective": "Explain how demand, supply or bargaining can cause wage differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-279-005",
+      "objectiveId": "igcse-0455-279-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Two local occupations initially have the same wage. Demand for lift technicians then rises while training limits entry in the short run. Demand and supply in the other occupation remain unchanged. What best explains a rise in the relative wage of lift technicians?",
+      "options": [
+        "Their supply immediately expands faster than demand",
+        "Employers compete for workers whose supply is slow to expand",
+        "The supply of workers in both occupations must decrease",
+        "The increase in labour demand shifts the supply curve right"
+      ],
+      "answer": "Employers compete for workers whose supply is slow to expand",
+      "correctOption": "B",
+      "explanation": "With limited entry, firms trying to recruit can bid wages up for technicians relative to the other occupation.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Mobility of labour",
+      "learningObjective": "Distinguish occupational and geographical mobility and identify their influences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-279-006",
+      "objectiveId": "igcse-0455-279-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A laboratory assistant completes a qualification that lets her take a job as an accounting technician without moving to a different town. Which type of mobility does this illustrate?",
+      "options": [
+        "Occupational mobility",
+        "Geographical mobility",
+        "International migration",
+        "Division of labour"
+      ],
+      "answer": "Occupational mobility",
+      "correctOption": "A",
+      "explanation": "The worker changes occupation. The example describes no change of location.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Mobility of labour",
+      "learningObjective": "Distinguish occupational and geographical mobility and identify their influences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-279-007",
+      "objectiveId": "igcse-0455-279-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A company cannot fill vacancies in another city because prospective workers say they cannot find affordable accommodation there. Which change would most directly reduce the barrier described?",
+      "options": [
+        "Requiring additional training for the same role",
+        "Replacing interviews with written tests",
+        "Increasing the shift length",
+        "Providing temporary accommodation near the vacancies"
+      ],
+      "answer": "Providing temporary accommodation near the vacancies",
+      "correctOption": "D",
+      "explanation": "Temporary accommodation addresses the housing obstacle to working in a different city.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Division of labour",
+      "learningObjective": "Identify benefits and costs of worker specialisation.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-279-008",
+      "objectiveId": "igcse-0455-279-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A bakery assigns mixing, shaping and packing to separate workers. Which outcome illustrates a possible disadvantage of this division of labour?",
+      "options": [
+        "Workers spend less time changing tools between operations",
+        "The production line stops when the only employee trained to shape dough is absent",
+        "Workers become more proficient at their repeated task",
+        "Training for each narrow task takes less time"
+      ],
+      "answer": "The production line stops when the only employee trained to shape dough is absent",
+      "correctOption": "B",
+      "explanation": "Specialisation can make stages dependent on one another when there is no trained replacement.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

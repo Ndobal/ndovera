@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5234,
-    "validDrafts": 3555,
+    "raw": 5242,
+    "validDrafts": 3563,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1804,6 +1804,12 @@
       "actual": 8
     },
     {
+      "path": "original-multisubject-batch-279.json",
+      "sha256": "b807d6ec2471c5c2654b543cb0823c7f76fd2e16eefc0976b6b295d8eaf0b400",
+      "declared": 8,
+      "actual": 8
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2673,20 +2679,20 @@
       "additionalSpecificationIds": [
         "cambridge-0455-2027-2029-v1"
       ],
-      "raw": 69,
-      "validDrafts": 69,
+      "raw": 77,
+      "validDrafts": 77,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 25,
+        "mcq": 33,
         "structured": 44
       },
       "difficulty": {
-        "standard": 42,
+        "standard": 50,
         "difficult": 27
       },
-      "remaining": 931,
-      "mappedObjectives": 27,
-      "representedObjectives": 27,
+      "remaining": 923,
+      "mappedObjectives": 32,
+      "representedObjectives": 32,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7702,21 +7708,21 @@
     }
   ],
   "errorCounts": {
+    "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 526,
+    "explicitArithmeticClaims": 527,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 2
@@ -43622,6 +43628,54 @@
     {
       "id": "ndv-278-008",
       "file": "original-multisubject-batch-278.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-279-001",
+      "file": "original-multisubject-batch-279.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-279-002",
+      "file": "original-multisubject-batch-279.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-279-003",
+      "file": "original-multisubject-batch-279.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-279-004",
+      "file": "original-multisubject-batch-279.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-279-005",
+      "file": "original-multisubject-batch-279.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-279-006",
+      "file": "original-multisubject-batch-279.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-279-007",
+      "file": "original-multisubject-batch-279.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-279-008",
+      "file": "original-multisubject-batch-279.json",
       "index": 7,
       "errors": []
     },
@@ -107099,6 +107153,202 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-279-01-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Occupational choice",
+      "learningObjective": "Compare wage and non-wage influences on occupational choice.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.1, printed p. 16",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-279-02-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage determination",
+      "learningObjective": "Analyse influences on wages and employment in a labour market.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 2
+      },
+      "sourceSections": [
+        "3.3.2, printed p. 16",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO2": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-279-03-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage differences",
+      "learningObjective": "Explain how demand, supply or bargaining can cause wage differences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 2
+      },
+      "sourceSections": [
+        "3.3.3, printed p. 17",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO2": 2
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-279-04-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Mobility of labour",
+      "learningObjective": "Distinguish occupational and geographical mobility and identify their influences.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "mcq": 2
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 2
+      },
+      "sourceSections": [
+        "3.3.4, printed p. 17",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "assessmentObjectives": {
+        "AO1": 1,
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-279-05-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Division of labour",
+      "learningObjective": "Identify benefits and costs of worker specialisation.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "mcq": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.5, printed p. 17",
+        "Paper 1, printed p. 27"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -107173,6 +107423,7 @@
     "IELTS Academic Reading batch 275 adds passage-word summary and flow-chart completion. These are original drill sets. Full test assembly and independent review remain open.",
     "IELTS Academic Reading batch 276 adds table completion using original passages and exact two-word keys. Diagram labelling, rendered table delivery and full timed test assembly remain open.",
     "Batch 277 adds IELTS Academic Reading diagram label completion with an original repository SVG and a text alternative. The asset is for offline drafts. App rendering, full test assembly and independent review remain open.",
-    "IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open."
+    "IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open.",
+    "Batch 279 adds Cambridge IGCSE Economics 0455 2027–2029 Workers Paper 1 practice for sections 3.3.1–3.3.5. Labour-market diagram interpretation, structured Paper 2 coverage and independent review remain open."
   ]
 }
