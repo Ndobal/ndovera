@@ -36994,6 +36994,42 @@
         "Revised JSS 1 Intermediate Science, PDF p. 17, performance objective 5",
         "S.I. No. 62 of 2014, regulations 1–2"
       ]
+    },
+    {
+      "id": "toefl-interview-268-1-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Borrowing shared campus equipment",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "ETS TOEFL iBT Speaking: Take an Interview",
+        "ETS updated test overview: four questions with 45 seconds per response"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "toefl-interview-268-2-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus repair events",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": [
+        "longanswer"
+      ],
+      "sourceSections": [
+        "ETS TOEFL iBT Speaking: Take an Interview",
+        "ETS updated test overview: four questions with 45 seconds per response"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -37057,6 +37093,7 @@
     "Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open.",
     "Batch 262 maps maintenance concepts and a supervised routine-care task for a non-powered tool. Machine servicing and lubrication demonstrations on PDF p. 37 remain open.",
     "Batch 263 extends flooding prevention and control on PDF p. 15 and adds a supervised tabletop model. Objective 7 still requires a supervised field excursion. Model observations do not establish performance at a real site.",
-    "On 2026-11-15 the NECO 2027 SSCE Internal registration guide section 7 was rechecked. It identifies a separate school syllabus. The 2027 timetable confirms General Mathematics formats 1022 and 1023 only. Public NECO BECE pages and the 2026 timetable establish the BST paper names and codes, but no current objective list, practical equipment instructions or marking scheme was retrieved. Batch 265 uses existing provisional statistics mappings."
+    "On 2026-11-15 the NECO 2027 SSCE Internal registration guide section 7 was rechecked. It identifies a separate school syllabus. The 2027 timetable confirms General Mathematics formats 1022 and 1023 only. Public NECO BECE pages and the 2026 timetable establish the BST paper names and codes, but no current objective list, practical equipment instructions or marking scheme was retrieved. Batch 265 uses existing provisional statistics mappings.",
+    "TOEFL Speaking batch 268 supplies two original four-question Take an Interview sets for live examiner delivery at 45 seconds per response. Recorded interviewer audio, playback and timer integration, and independent review remain open."
   ]
 }

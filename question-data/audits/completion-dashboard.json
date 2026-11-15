@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5136,
-    "validDrafts": 3457,
+    "raw": 5144,
+    "validDrafts": 3465,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1736,6 +1736,12 @@
       "sha256": "8c32fd3cc2c243d098310b6a3a988fb91780f6c7c6d1e07f5951b0a12f55dd16",
       "declared": 4,
       "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-268.json",
+      "sha256": "46be2444bea8ca5fd4e10d8c631578d4c86258937527043c416706cba9e0222d",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6624,18 +6630,18 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "post_january_2026_interview_mapped_listen_and_repeat_audio_pending",
-      "raw": 16,
-      "validDrafts": 16,
+      "raw": 24,
+      "validDrafts": 24,
       "reviewed": 0,
       "questionTypes": {
-        "longanswer": 16
+        "longanswer": 24
       },
       "difficulty": {
-        "standard": 16
+        "standard": 24
       },
-      "remaining": 984,
-      "mappedObjectives": 4,
-      "representedObjectives": 4,
+      "remaining": 976,
+      "mappedObjectives": 6,
+      "representedObjectives": 6,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7636,18 +7642,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81,
     "invalid_score": 81,
-    "explanation_missing": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 526,
@@ -42969,6 +42975,54 @@
       "id": "ndv-267-004",
       "file": "original-multisubject-batch-267.json",
       "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-268-001",
+      "file": "original-multisubject-batch-268.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-268-002",
+      "file": "original-multisubject-batch-268.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-268-003",
+      "file": "original-multisubject-batch-268.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-268-004",
+      "file": "original-multisubject-batch-268.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-268-005",
+      "file": "original-multisubject-batch-268.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-268-006",
+      "file": "original-multisubject-batch-268.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-268-007",
+      "file": "original-multisubject-batch-268.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-268-008",
+      "file": "original-multisubject-batch-268.json",
+      "index": 7,
       "errors": []
     },
     {
@@ -105882,6 +105936,66 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "toefl-interview-268-1-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Borrowing shared campus equipment",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": {
+        "longanswer": 4
+      },
+      "sourceSections": [
+        "ETS TOEFL iBT Speaking: Take an Interview",
+        "ETS updated test overview: four questions with 45 seconds per response"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "toefl-interview-268-2-v1",
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus repair events",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "questionTypes": {
+        "longanswer": 4
+      },
+      "sourceSections": [
+        "ETS TOEFL iBT Speaking: Take an Interview",
+        "ETS updated test overview: four questions with 45 seconds per response"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -105945,6 +106059,7 @@
     "Batch 261 assesses selection, function and care of woodwork and metalwork hand tools, with a labelled sketch. Supervised product-making projects from PDF pp. 35–36 remain open.",
     "Batch 262 maps maintenance concepts and a supervised routine-care task for a non-powered tool. Machine servicing and lubrication demonstrations on PDF p. 37 remain open.",
     "Batch 263 extends flooding prevention and control on PDF p. 15 and adds a supervised tabletop model. Objective 7 still requires a supervised field excursion. Model observations do not establish performance at a real site.",
-    "On 2026-11-15 the NECO 2027 SSCE Internal registration guide section 7 was rechecked. It identifies a separate school syllabus. The 2027 timetable confirms General Mathematics formats 1022 and 1023 only. Public NECO BECE pages and the 2026 timetable establish the BST paper names and codes, but no current objective list, practical equipment instructions or marking scheme was retrieved. Batch 265 uses existing provisional statistics mappings."
+    "On 2026-11-15 the NECO 2027 SSCE Internal registration guide section 7 was rechecked. It identifies a separate school syllabus. The 2027 timetable confirms General Mathematics formats 1022 and 1023 only. Public NECO BECE pages and the 2026 timetable establish the BST paper names and codes, but no current objective list, practical equipment instructions or marking scheme was retrieved. Batch 265 uses existing provisional statistics mappings.",
+    "TOEFL Speaking batch 268 supplies two original four-question Take an Interview sets for live examiner delivery at 45 seconds per response. Recorded interviewer audio, playback and timer integration, and independent review remain open."
   ]
 }

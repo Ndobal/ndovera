@@ -1513,3 +1513,8 @@ TOEFL score equivalence.
 Batch 267 adds four original TOEFL iBT Academic Discussion tasks.
 Each has an instructor question, two peer posts, a ten-minute prompt,
 a model of at least 100 words and an original practice rubric.
+
+Batch 268 adds eight original TOEFL iBT Speaking interview prompts across
+two four-question sets for live delivery. Each response has 45 seconds,
+a model and a practice rubric. Recorded audio, playback and timer
+integration remain open.

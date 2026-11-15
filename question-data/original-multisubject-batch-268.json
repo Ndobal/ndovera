@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 2,
+  "collection": "TOEFL iBT Take an Interview live practice",
+  "questionCount": 8,
+  "note": "Two original four-question interviews for supervised live delivery. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Borrowing shared campus equipment",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-268-001",
+      "objectiveId": "toefl-interview-268-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Tell me about a time you needed equipment for a class project. What did you do to get it?",
+      "answer": "For a geography project my group needed a tripod to take photographs from the same height. None of us owned one, so I asked the media desk whether it lent equipment to students outside the film course. The assistant showed me how to reserve it. I booked the tripod for one afternoon, and we finished all the photographs in that session.",
+      "explanation": "Illustrative spoken response. Credit other relevant views and examples. Describes a specific equipment need and an action taken to meet it.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes a specific equipment need and an action taken to meet it."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the answer with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Connect ideas in a clear order and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly at a pace the listener can follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-268-interview-1",
+      "groupItem": 1,
+      "groupSize": 4,
+      "taskType": "Take an Interview",
+      "responseTimeSeconds": 45,
+      "interviewerIntroduction": "We are interviewing students about a service that lends equipment for class projects.",
+      "deliveryNote": "Live examiner practice. Read this prompt aloud once and allow up to 45 seconds for the spoken response before continuing. Keep the script and model out of view.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Borrowing shared campus equipment",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-268-002",
+      "objectiveId": "toefl-interview-268-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "When several students want to borrow the same item, what information would help them plan ahead?",
+      "answer": "I would want to know when the item is due back and whether there is already a queue. If a recorder is booked until Friday and two groups are waiting, I can look for another way to do my project. A notice that says only that the recorder is unavailable leaves me guessing. An estimated next date would make that information useful.",
+      "explanation": "Illustrative spoken response. Credit other relevant views and examples. Identifies useful availability information and connects it to planning.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies useful availability information and connects it to planning."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the answer with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Connect ideas in a clear order and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly at a pace the listener can follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-268-interview-1",
+      "groupItem": 2,
+      "groupSize": 4,
+      "taskType": "Take an Interview",
+      "responseTimeSeconds": 45,
+      "deliveryNote": "Live examiner practice. Read this prompt aloud once and allow up to 45 seconds for the spoken response before continuing. Keep the script and model out of view.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Borrowing shared campus equipment",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-268-003",
+      "objectiveId": "toefl-interview-268-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Some students suggest short loans so more people get a turn. Others say longer loans let people finish their work. Which approach would you favour?",
+      "answer": "I would start with short loans for equipment people can use in one session, such as a portable microphone. A short booking gives more people a chance to record. But a longer loan could make sense for a camera used to document several stages of a project. I would let students request extra time and approve it when nobody else is waiting.",
+      "explanation": "Illustrative spoken response. Credit other relevant views and examples. Takes a position or proposes a conditional policy about loan length.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Takes a position or proposes a conditional policy about loan length."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the answer with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Connect ideas in a clear order and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly at a pace the listener can follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-268-interview-1",
+      "groupItem": 3,
+      "groupSize": 4,
+      "taskType": "Take an Interview",
+      "responseTimeSeconds": 45,
+      "deliveryNote": "Live examiner practice. Read this prompt aloud once and allow up to 45 seconds for the spoken response before continuing. Keep the script and model out of view.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Borrowing shared campus equipment",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-268-004",
+      "objectiveId": "toefl-interview-268-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "How could the campus find out whether its equipment lending service is helping the students who need it most?",
+      "answer": "The campus could ask people who booked items and people who tried but could not get one. A short survey could ask how they would have completed the project without the service. I would compare those answers with records of requests that could not be filled. That would show which students had few alternatives and whether the service actually reached them.",
+      "explanation": "Illustrative spoken response. Credit other relevant views and examples. Proposes a feasible way to assess access for students with few alternatives.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a feasible way to assess access for students with few alternatives."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the answer with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Connect ideas in a clear order and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly at a pace the listener can follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-268-interview-1",
+      "groupItem": 4,
+      "groupSize": 4,
+      "taskType": "Take an Interview",
+      "responseTimeSeconds": 45,
+      "deliveryNote": "Live examiner practice. Read this prompt aloud once and allow up to 45 seconds for the spoken response before continuing. Keep the script and model out of view.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus repair events",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-268-005",
+      "objectiveId": "toefl-interview-268-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Think of an item you would prefer to repair rather than replace. What is it and why would you keep it?",
+      "answer": "I would repair my old backpack. The zipper sticks, but the straps are comfortable and the fabric is still strong. A new bag would cost more and might not sit as well on my shoulders. If the problem is limited to the zipper, fixing that one part would let me keep using the bag I already know.",
+      "explanation": "Illustrative spoken response. Credit other relevant views and examples. Names an item and gives a reason to keep it.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names an item and gives a reason to keep it."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the answer with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Connect ideas in a clear order and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly at a pace the listener can follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-268-interview-2",
+      "groupItem": 1,
+      "groupSize": 4,
+      "taskType": "Take an Interview",
+      "responseTimeSeconds": 45,
+      "interviewerIntroduction": "We are talking to students about events where people learn to repair everyday belongings.",
+      "deliveryNote": "Live examiner practice. Read this prompt aloud once and allow up to 45 seconds for the spoken response before continuing. Keep the script and model out of view.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus repair events",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-268-006",
+      "objectiveId": "toefl-interview-268-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "What could an organiser do to help a student who feels embarrassed about having no repair experience?",
+      "answer": "I would set up a welcome table where a volunteer asks what the student would like to fix and explains what will happen. The organiser could also offer a short demonstration using a practice item before anyone works on their own belongings. That way a beginner can ask a simple question or try a step without feeling that the whole room is watching.",
+      "explanation": "Illustrative spoken response. Credit other relevant views and examples. Identifies a specific way to make the event approachable for a beginner.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a specific way to make the event approachable for a beginner."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the answer with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Connect ideas in a clear order and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly at a pace the listener can follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-268-interview-2",
+      "groupItem": 2,
+      "groupSize": 4,
+      "taskType": "Take an Interview",
+      "responseTimeSeconds": 45,
+      "deliveryNote": "Live examiner practice. Read this prompt aloud once and allow up to 45 seconds for the spoken response before continuing. Keep the script and model out of view.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus repair events",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-268-007",
+      "objectiveId": "toefl-interview-268-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "Should volunteers complete simple repairs for visitors or teach visitors to do the repairs themselves? Explain your preference.",
+      "answer": "For a simple task, I would usually teach the visitor how to do it. Someone who learns to attach a button may be able to fix another shirt at home. The volunteer can demonstrate the first step and then let the visitor try it with guidance. If the job needs specialist equipment, the volunteer should explain why it is outside the event’s scope.",
+      "explanation": "Illustrative spoken response. Credit other relevant views and examples. States and supports a preference about how volunteers should help.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States and supports a preference about how volunteers should help."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the answer with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Connect ideas in a clear order and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly at a pace the listener can follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-268-interview-2",
+      "groupItem": 3,
+      "groupSize": 4,
+      "taskType": "Take an Interview",
+      "responseTimeSeconds": 45,
+      "deliveryNote": "Live examiner practice. Read this prompt aloud once and allow up to 45 seconds for the spoken response before continuing. Keep the script and model out of view.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Speaking",
+      "topic": "Campus repair events",
+      "subtopic": "Take an Interview",
+      "learningObjective": "Respond spontaneously to campus interview questions with relevant and coherent spoken elaboration.",
+      "specificationId": "toefl-ibt-speaking-2026",
+      "id": "ndv-268-008",
+      "objectiveId": "toefl-interview-268-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "iBT",
+      "type": "longanswer",
+      "prompt": "If the repair event became very popular, what change could help it serve more people while keeping the advice useful?",
+      "answer": "I would ask people to describe their item before they arrive. A volunteer could then send them to a table for clothing, bags or another suitable category. This would reduce the time people spend waiting in the wrong line. It would also help organisers say in advance when they cannot help, so visitors do not carry an unsuitable item across campus.",
+      "explanation": "Illustrative spoken response. Credit other relevant views and examples. Proposes a way to handle higher demand while preserving relevant help.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a way to handle higher demand while preserving relevant help."
+        },
+        {
+          "marks": 1,
+          "description": "Develop the answer with a relevant reason, example or detail."
+        },
+        {
+          "marks": 1,
+          "description": "Connect ideas in a clear order and use language that conveys the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Speak intelligibly at a pace the listener can follow."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresManualReview": true,
+      "taskGroupId": "ndv-268-interview-2",
+      "groupItem": 4,
+      "groupSize": 4,
+      "taskType": "Take an Interview",
+      "responseTimeSeconds": 45,
+      "deliveryNote": "Live examiner practice. Read this prompt aloud once and allow up to 45 seconds for the spoken response before continuing. Keep the script and model out of view.",
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence."
+    }
+  ]
+}
