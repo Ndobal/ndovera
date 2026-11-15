@@ -1565,3 +1565,8 @@ Batch 279 adds eight Cambridge IGCSE Economics (0455) Paper 1 drafts on
 Workers for the 2027–2029 syllabus, covering occupational choice, wage
 determination and differentials, labour mobility, and division of labour.
 Paper 2 Workers tasks remain open.
+
+Batch 280 adds six Cambridge IGCSE Economics (0455) Paper 2 Section B
+practice parts on Workers for 2027–2029. Two ask candidates to draw and
+explain labour-market diagrams. All six have original marking guides.
+Full structured sets and Workers evaluation tasks remain open.

@@ -1,0 +1,384 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Economics 0455 Workers — Paper 2",
+  "questionCount": 6,
+  "note": "Original standalone practice for selected Paper 2 Section B skills, 2027–2029. Contexts and marking guides are author-created. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Labour supply and equilibrium",
+      "learningObjective": "Use a labour-market diagram to analyse the effects of an increase in the supply of qualified workers.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-280-001",
+      "objectiveId": "igcse-0455-280-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A technical college in Jos starts a free evening course that qualifies more people to repair commercial refrigerators. Assume more qualified repairers offer their labour at each wage and employers’ demand for these workers stays the same. Draw a labour-market diagram and use it to analyse the effects on equilibrium wages and employment.",
+      "answer": "Plot wage on the vertical axis and quantity of labour on the horizontal axis. Draw downward-sloping D and upward-sloping S₁. Draw S₂ to the right of S₁. The intersection of D and S₂ lies below and to the right of the original intersection. Equilibrium wage falls and employment rises.",
+      "explanation": "At the old wage, the increase in supply creates excess supply of labour. A lower wage increases the quantity of labour demanded along the unchanged demand curve until it matches the quantity supplied on S₂.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Label both axes correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Draw and label the initial labour demand and supply curves."
+        },
+        {
+          "marks": 1,
+          "description": "Draw a rightward supply shift and leave demand unchanged."
+        },
+        {
+          "marks": 1,
+          "description": "Show the original and new equilibria at the respective intersections."
+        },
+        {
+          "marks": 1,
+          "description": "Identify the lower equilibrium wage and higher equilibrium employment."
+        },
+        {
+          "marks": 1,
+          "description": "Explain adjustment via excess supply or a rise in quantity demanded along the unchanged demand curve."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "National minimum wage",
+      "learningObjective": "Use a labour-market diagram to identify the quantity employed and excess labour supply under a binding wage floor.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-280-002",
+      "objectiveId": "igcse-0455-280-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "Consider a competitive market for entry-level catering staff in a fictional economy. All jobs in the market are covered by a fully enforced national minimum wage above the initial equilibrium wage. Draw a labour-market diagram and use it to explain how much labour employers hire and why some people willing to work at the new wage cannot get a job.",
+      "answer": "Draw wage vertically and quantity of labour horizontally, with downward-sloping D and upward-sloping S. Draw a horizontal minimum-wage line above the intersection. Its crossing with D gives Qd and its crossing with S gives Qs, where Qs > Qd. Employers hire Qd. The horizontal gap Qs − Qd is excess labour supply.",
+      "explanation": "At the higher wage, employers want fewer workers than before, while more people offer labour. The legal floor prevents the wage from falling back to the market-clearing level.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Label wage and quantity of labour axes."
+        },
+        {
+          "marks": 1,
+          "description": "Draw labelled labour demand and supply curves and show the initial equilibrium."
+        },
+        {
+          "marks": 1,
+          "description": "Place and label the horizontal wage floor above equilibrium."
+        },
+        {
+          "marks": 1,
+          "description": "Mark Qd and Qs correctly and identify Qd as employment."
+        },
+        {
+          "marks": 1,
+          "description": "Identify Qs − Qd as excess supply at the minimum wage."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how the wage floor prevents the wage adjustment that would clear the market."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage discrimination",
+      "learningObjective": "Explain how discrimination can cause a wage difference between workers with comparable productivity.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-280-003",
+      "objectiveId": "igcse-0455-280-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "Two groups of toolmakers in the same town have equivalent qualifications and experience. Their hourly output and defect rates are similar. Senior toolmaker posts offer higher pay. Some employers reject qualified applicants from one group because of assumptions about their background. Explain how this hiring practice can contribute to a gap in average hourly pay.",
+      "answer": "Discrimination reduces access to higher-paid senior posts for members of the affected group even when they meet the job requirements. If a greater share of that group stays in lower-paid roles, its average hourly pay can be lower despite comparable productivity.",
+      "explanation": "A wage gap can arise from unequal access to job grades even if both groups are paid the same rate within any one grade.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the biased hiring decision as discrimination."
+        },
+        {
+          "marks": 1,
+          "description": "Link rejection to reduced access to senior toolmaker posts."
+        },
+        {
+          "marks": 1,
+          "description": "Explain that affected workers are consequently more likely to be in lower-paid grades."
+        },
+        {
+          "marks": 1,
+          "description": "Link the distribution across grades to a lower group average despite comparable productivity."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Consequences of occupational mobility",
+      "learningObjective": "Analyse how improved occupational mobility can change recruitment and employment across two industries.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-280-004",
+      "objectiveId": "igcse-0455-280-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "An appliance manufacturer reduces its assembly workforce. Nearby food processors have vacancies for maintenance technicians. A training partnership teaches displaced assembly workers to diagnose and maintain the processors’ machines. Analyse the likely effects on the displaced workers and on the food processors if employers recognise the new qualification.",
+      "answer": "Training gives workers skills that qualify them for a different occupation. More displaced workers can apply successfully for technician posts and may spend less time unemployed. The processors face a larger pool of qualified applicants, so they may fill vacancies sooner and lose fewer production hours to machinery faults.",
+      "explanation": "The training reduces the skills mismatch. The effects depend on successful completion and actual recruitment into the available vacancies.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connect training to skills required in a different occupation."
+        },
+        {
+          "marks": 1,
+          "description": "Identify improved occupational mobility."
+        },
+        {
+          "marks": 1,
+          "description": "Link matching to vacancies to a shorter spell of unemployment or greater re-employment prospects."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why the pool of qualified applicants expands for the processors."
+        },
+        {
+          "marks": 1,
+          "description": "Link the larger pool to faster vacancy filling."
+        },
+        {
+          "marks": 1,
+          "description": "Link more timely maintenance to reduced downtime or higher output."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Specialisation and skill breadth",
+      "learningObjective": "Explain a productivity advantage and a skills disadvantage of division of labour for workers.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-280-005",
+      "objectiveId": "igcse-0455-280-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A workshop that repairs water pumps moves from assigning each technician a whole pump to assigning one technician to fault finding, another to replacing worn parts, and a third to final testing. Explain one advantage of this arrangement for labour productivity and one disadvantage for a technician seeking work elsewhere.",
+      "answer": "By repeating the same operation, workers become faster and can complete more repairs per labour hour. A worker who performs only final tests may gain little recent experience in diagnosis and repair, making it harder to take a job that requires handling all stages.",
+      "explanation": "The same repeated practice that develops speed within a task can narrow the range of tasks a worker is ready to perform.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify task repetition or reduced task switching."
+        },
+        {
+          "marks": 1,
+          "description": "Link it to more completed repairs per labour hour."
+        },
+        {
+          "marks": 1,
+          "description": "Identify narrower experience for a technician."
+        },
+        {
+          "marks": 1,
+          "description": "Explain why it disadvantages the technician when applying for broader repair roles."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Job security and occupational choice",
+      "learningObjective": "Explain how employment stability can outweigh a higher quoted wage for a worker.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-280-006",
+      "objectiveId": "igcse-0455-280-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A trainee weighing two jobs can take a permanent salaried post maintaining clinic equipment or a higher hourly rate preparing equipment for exhibitions, with no guaranteed assignments between events. Explain one reason why the trainee might choose the clinic post.",
+      "answer": "The clinic job provides more secure employment and a predictable income. A worker with regular expenses may prefer guaranteed pay because gaps between exhibitions could make income too uncertain.",
+      "explanation": "The hourly wage is only one part of the decision. Continuity of employment changes the risk attached to the worker’s income.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify security, guaranteed work or predictability of pay."
+        },
+        {
+          "marks": 1,
+          "description": "Explain its value in the context of irregular assignments or regular expenses."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

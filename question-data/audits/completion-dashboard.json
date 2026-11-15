@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5242,
-    "validDrafts": 3563,
+    "raw": 5248,
+    "validDrafts": 3569,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1810,6 +1810,12 @@
       "actual": 8
     },
     {
+      "path": "original-multisubject-batch-280.json",
+      "sha256": "29fb5c4a5167d76ade6bfb82e4bea1915e1f9260b1872d45d95fed1a5277e801",
+      "declared": 6,
+      "actual": 6
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2679,20 +2685,20 @@
       "additionalSpecificationIds": [
         "cambridge-0455-2027-2029-v1"
       ],
-      "raw": 77,
-      "validDrafts": 77,
+      "raw": 83,
+      "validDrafts": 83,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 33,
-        "structured": 44
+        "structured": 50
       },
       "difficulty": {
-        "standard": 50,
-        "difficult": 27
+        "standard": 53,
+        "difficult": 30
       },
-      "remaining": 923,
-      "mappedObjectives": 32,
-      "representedObjectives": 32,
+      "remaining": 917,
+      "mappedObjectives": 38,
+      "representedObjectives": 38,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7709,17 +7715,17 @@
   ],
   "errorCounts": {
     "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
+    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 527,
@@ -43677,6 +43683,42 @@
       "id": "ndv-279-008",
       "file": "original-multisubject-batch-279.json",
       "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-280-001",
+      "file": "original-multisubject-batch-280.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-280-002",
+      "file": "original-multisubject-batch-280.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-280-003",
+      "file": "original-multisubject-batch-280.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-280-004",
+      "file": "original-multisubject-batch-280.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-280-005",
+      "file": "original-multisubject-batch-280.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-280-006",
+      "file": "original-multisubject-batch-280.json",
+      "index": 5,
       "errors": []
     },
     {
@@ -107349,6 +107391,240 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-280-01-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Labour supply and equilibrium",
+      "learningObjective": "Use a labour-market diagram to analyse the effects of an increase in the supply of qualified workers.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.2, printed p. 16",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-280-02-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "National minimum wage",
+      "learningObjective": "Use a labour-market diagram to identify the quantity employed and excess labour supply under a binding wage floor.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.2, printed p. 16",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-280-03-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Wage discrimination",
+      "learningObjective": "Explain how discrimination can cause a wage difference between workers with comparable productivity.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.3, printed p. 17",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-280-04-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Consequences of occupational mobility",
+      "learningObjective": "Analyse how improved occupational mobility can change recruitment and employment across two industries.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.4, printed p. 17",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-280-05-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Specialisation and skill breadth",
+      "learningObjective": "Explain a productivity advantage and a skills disadvantage of division of labour for workers.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.5, printed p. 17",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-280-06-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Job security and occupational choice",
+      "learningObjective": "Explain how employment stability can outweigh a higher quoted wage for a worker.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.1, printed p. 16",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -107424,6 +107700,7 @@
     "IELTS Academic Reading batch 276 adds table completion using original passages and exact two-word keys. Diagram labelling, rendered table delivery and full timed test assembly remain open.",
     "Batch 277 adds IELTS Academic Reading diagram label completion with an original repository SVG and a text alternative. The asset is for offline drafts. App rendering, full test assembly and independent review remain open.",
     "IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open.",
-    "Batch 279 adds Cambridge IGCSE Economics 0455 2027–2029 Workers Paper 1 practice for sections 3.3.1–3.3.5. Labour-market diagram interpretation, structured Paper 2 coverage and independent review remain open."
+    "Batch 279 adds Cambridge IGCSE Economics 0455 2027–2029 Workers Paper 1 practice for sections 3.3.1–3.3.5. Labour-market diagram interpretation, structured Paper 2 coverage and independent review remain open.",
+    "Batch 280 adds selected Cambridge IGCSE Economics 0455 2027–2029 Paper 2 Section B Workers parts, including two candidate-drawn labour-market diagrams. Complete structured sets, AO3 discussion tasks on Workers and independent review remain open."
   ]
 }

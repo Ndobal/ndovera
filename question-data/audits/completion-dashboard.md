@@ -32,7 +32,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IELTS | Writing | 1000 | 21 | 18 | 0 | 982 | partial_objective_register |
 | IGCSE | Biology [0610] | 1000 | 78 | 74 | 0 | 926 | partial_objective_register |
 | IGCSE | Chemistry [0620] | 1000 | 76 | 74 | 0 | 926 | partial_objective_register |
-| IGCSE | Economics [0455] | 1000 | 77 | 77 | 0 | 923 | partial_objective_register |
+| IGCSE | Economics [0455] | 1000 | 83 | 83 | 0 | 917 | partial_objective_register |
 | IGCSE | Mathematics | 1000 | 26 | 12 | 0 | 988 | partial_objective_register |
 | IGCSE | Physics [0625] | 1000 | 61 | 60 | 0 | 940 | partial_objective_register |
 | JAMB | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
@@ -216,7 +216,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 |---|---:|---:|---:|---:|---:|
 | BECE | 153 | 153 | 0 | 18000 | 17847 |
 | IELTS | 221 | 212 | 0 | 4000 | 3788 |
-| IGCSE | 318 | 297 | 0 | 5000 | 4703 |
+| IGCSE | 324 | 303 | 0 | 5000 | 4697 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 279 | 250 | 0 | 9000 | 8750 |
 | NECO | 482 | 447 | 0 | 36000 | 35553 |
@@ -225,7 +225,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 171 | 162 | 0 | 4000 | 3838 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5242, "validDrafts": 3563, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5248, "validDrafts": 3569, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -304,3 +304,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 277 adds IELTS Academic Reading diagram label completion with an original repository SVG and a text alternative. The asset is for offline drafts. App rendering, full test assembly and independent review remain open.
 - IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open.
 - Batch 279 adds Cambridge IGCSE Economics 0455 2027–2029 Workers Paper 1 practice for sections 3.3.1–3.3.5. Labour-market diagram interpretation, structured Paper 2 coverage and independent review remain open.
+- Batch 280 adds selected Cambridge IGCSE Economics 0455 2027–2029 Paper 2 Section B Workers parts, including two candidate-drawn labour-market diagrams. Complete structured sets, AO3 discussion tasks on Workers and independent review remain open.
