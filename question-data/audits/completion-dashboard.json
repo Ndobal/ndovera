@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5248,
-    "validDrafts": 3569,
+    "raw": 5254,
+    "validDrafts": 3575,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1816,6 +1816,12 @@
       "actual": 6
     },
     {
+      "path": "original-multisubject-batch-281.json",
+      "sha256": "cfbb8adb841b0a7fc095538b8a83f667b176c34bd81cb92b8073ba7ddc44bf01",
+      "declared": 6,
+      "actual": 6
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2685,20 +2691,20 @@
       "additionalSpecificationIds": [
         "cambridge-0455-2027-2029-v1"
       ],
-      "raw": 83,
-      "validDrafts": 83,
+      "raw": 89,
+      "validDrafts": 89,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 33,
-        "structured": 50
+        "structured": 56
       },
       "difficulty": {
-        "standard": 53,
-        "difficult": 30
+        "standard": 55,
+        "difficult": 34
       },
-      "remaining": 917,
-      "mappedObjectives": 38,
-      "representedObjectives": 38,
+      "remaining": 911,
+      "mappedObjectives": 44,
+      "representedObjectives": 44,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7714,18 +7720,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
-    "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 527,
@@ -43718,6 +43724,42 @@
     {
       "id": "ndv-280-006",
       "file": "original-multisubject-batch-280.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-281-001",
+      "file": "original-multisubject-batch-281.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-281-002",
+      "file": "original-multisubject-batch-281.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-281-003",
+      "file": "original-multisubject-batch-281.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-281-004",
+      "file": "original-multisubject-batch-281.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-281-005",
+      "file": "original-multisubject-batch-281.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-281-006",
+      "file": "original-multisubject-batch-281.json",
       "index": 5,
       "errors": []
     },
@@ -107625,6 +107667,240 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-281-01-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Geographical mobility definition",
+      "learningObjective": "Define geographical mobility of labour in terms of changing work location.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.4, printed p. 17",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO1": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-281-02-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Job amenities and incentives",
+      "learningObjective": "Explain how two non-wage job characteristics can affect an occupational choice at equal pay.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.1, printed p. 16",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-281-03-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Derived demand and wage bargaining",
+      "learningObjective": "Analyse how a product-demand shock may affect wages through derived demand and bargaining.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.2, printed p. 16",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-281-04-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Transport and local recruitment",
+      "learningObjective": "Evaluate whether lower commuting costs will resolve vacancies where both location and skills restrict mobility.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.4, printed p. 17",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-281-05-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Public and private sector pay",
+      "learningObjective": "Evaluate whether a public-sector pay freeze will widen a wage gap across sectors.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.3, printed p. 17",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "igcse-0455-281-06-v1",
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Specialisation and service quality",
+      "learningObjective": "Evaluate the effect of deeper division of labour on the speed and reliability of a service.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tiers": {
+        "Untiered": 1
+      },
+      "sourceSections": [
+        "3.3.5, printed p. 17",
+        "Paper 2 Section B, printed pp. 27–28"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -107701,6 +107977,7 @@
     "Batch 277 adds IELTS Academic Reading diagram label completion with an original repository SVG and a text alternative. The asset is for offline drafts. App rendering, full test assembly and independent review remain open.",
     "IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open.",
     "Batch 279 adds Cambridge IGCSE Economics 0455 2027–2029 Workers Paper 1 practice for sections 3.3.1–3.3.5. Labour-market diagram interpretation, structured Paper 2 coverage and independent review remain open.",
-    "Batch 280 adds selected Cambridge IGCSE Economics 0455 2027–2029 Paper 2 Section B Workers parts, including two candidate-drawn labour-market diagrams. Complete structured sets, AO3 discussion tasks on Workers and independent review remain open."
+    "Batch 280 adds selected Cambridge IGCSE Economics 0455 2027–2029 Paper 2 Section B Workers parts, including two candidate-drawn labour-market diagrams. Complete structured sets, AO3 discussion tasks on Workers and independent review remain open.",
+    "Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open."
   ]
 }

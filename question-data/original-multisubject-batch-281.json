@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Economics 0455 Workers — Paper 2 Section B",
+  "questionCount": 6,
+  "note": "Original 2027–2029 practice. For the assembled set, display its context followed by parts (a) to (d) in order. The other discussion tasks are standalone. Marking guides are original. Independent academic review pending.",
+  "sectionBPracticeSet": {
+    "id": "0455-281-workers-section-b",
+    "context": "A new cold-storage estate needs warehouse assistants and certified refrigeration technicians. Orders for refrigerated storage are growing. The estate’s employers are assessing pay, work schedules and a proposed commuter service.",
+    "parts": {
+      "a": "ndv-281-001",
+      "b": "ndv-281-002",
+      "c": "ndv-281-003",
+      "d": "ndv-281-004"
+    },
+    "totalMarks": 20
+  },
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Geographical mobility definition",
+      "learningObjective": "Define geographical mobility of labour in terms of changing work location.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-281-001",
+      "objectiveId": "igcse-0455-281-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "Define geographical mobility of labour.",
+      "answer": "The ability of workers to move between locations to take up employment.",
+      "explanation": "The concept concerns the location of employment. A worker can change location while continuing in the same occupation.",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identify the ability of workers to move between different locations."
+        },
+        {
+          "marks": 1,
+          "description": "Link the move to taking up work or responding to employment opportunities."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Job amenities and incentives",
+      "learningObjective": "Explain how two non-wage job characteristics can affect an occupational choice at equal pay.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-281-002",
+      "objectiveId": "igcse-0455-281-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "Explain two non-wage reasons why a worker choosing between equally paid occupations might prefer a daytime packaging post to a refrigeration technician post that includes emergency call-outs.",
+      "answer": "Regular daytime hours make it easier to arrange childcare or other commitments. Packaging work may also involve less travel if technicians are required to attend breakdowns at multiple sites, reducing time away from home.",
+      "explanation": "Equal wages leave room for differences in job conditions to determine the choice. These conditions may be valued differently by different workers.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Award 1 for predictable hours or the absence of call-outs and 1 for explaining the benefit, such as coordinating childcare."
+        },
+        {
+          "marks": 2,
+          "description": "Award 1 for a second distinct plausible non-wage factor, such as location, working conditions or training requirements, and 1 for its explained effect on the individual’s choice. Accept a stated reasonable assumption."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Derived demand and wage bargaining",
+      "learningObjective": "Analyse how a product-demand shock may affect wages through derived demand and bargaining.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-281-003",
+      "objectiveId": "igcse-0455-281-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A rise in orders for refrigerated storage services is expected to last several years. Refrigeration technicians are already hard to recruit, and firms need them to maintain the extra equipment. Analyse how the rise in orders could affect technicians’ pay, including the role of worker bargaining power.",
+      "answer": "Growing orders encourage firms to run or install more equipment. Maintaining it raises derived demand for technicians. With a limited supply of qualified applicants, firms may bid up wage offers to fill vacancies. Existing technicians can credibly seek higher pay because competing firms have more vacancies and employers face costly downtime if workers leave.",
+      "explanation": "The additional demand is for technicians’ contribution to service output. A slow supply response makes wage pressure and outside options stronger.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Link sustained orders to expansion of the relevant service or equipment."
+        },
+        {
+          "marks": 1,
+          "description": "Explain the rise in derived demand for technicians."
+        },
+        {
+          "marks": 1,
+          "description": "Identify limited short-run supply of qualified applicants."
+        },
+        {
+          "marks": 1,
+          "description": "Link the tighter labour market to upward pressure on wage offers."
+        },
+        {
+          "marks": 1,
+          "description": "Explain how credible alternatives or high replacement costs increase bargaining power."
+        },
+        {
+          "marks": 1,
+          "description": "Link stronger bargaining power to improved pay for existing technicians."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Transport and local recruitment",
+      "learningObjective": "Evaluate whether lower commuting costs will resolve vacancies where both location and skills restrict mobility.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-281-004",
+      "objectiveId": "igcse-0455-281-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "Discuss whether introducing a reliable low-fare commuter service to a new cold-storage estate is likely to solve its recruitment difficulties. Employers have vacancies for both warehouse assistants and certified refrigeration technicians.",
+      "answer": "The service can lower the time and money cost of reaching the estate, enlarge the pool of applicants and help fill warehouse vacancies. It could also bring in certified technicians who previously could not commute. However, easier travel leaves the certification barrier in place for workers who lack the required training, and route coverage or shift times may restrict access. It is more likely to address vacancies caused by transport than those caused by a shortage of people with the relevant skills.",
+      "explanation": "Lower travel costs can increase geographical mobility. Their effect depends on whether the accessible area contains available workers with the right qualifications and whether the service covers work schedules.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "marks": 8,
+          "description": "Original holistic practice rubric. Award 0 for no creditable economics. Award 1–2 for a relevant assertion or isolated concept, 3–4 for one developed causal argument or two brief relevant arguments, 5–6 for causal analysis on both sides with uneven development, and 7–8 for well-developed reasoning on both sides with a justified, conditional judgment. Possible arguments include lower travel costs expanding the number of reachable jobseekers and certification, route coverage or shift constraints limiting recruitment. A possible basis for judgment is which barrier is binding for each occupation. Accept other valid economic reasoning."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Public and private sector pay",
+      "learningObjective": "Evaluate whether a public-sector pay freeze will widen a wage gap across sectors.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-281-005",
+      "objectiveId": "igcse-0455-281-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A city health authority freezes the basic pay of laboratory technicians for one year. Technicians with similar qualifications also work for independent laboratories. Discuss whether the pay freeze is likely to widen the difference in total money earnings between the two groups.",
+      "answer": "If private laboratories compete for scarce technicians and raise wages while the authority freezes basic pay, private earnings can rise faster. The gap could widen if private technicians already earn more. But private demand could weaken or public technicians could earn more overtime or allowances despite the freeze. If public technicians originally earned more, private pay increases might narrow the gap initially. Starting earnings and changes in total compensation across both sectors determine the outcome.",
+      "explanation": "A freeze fixes one component of one group’s earnings. For example, a rise in the lower-paid group’s wages closes part of an existing gap until that group catches up.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "marks": 8,
+          "description": "Original holistic practice rubric. Award 0 for no creditable economics. Award 1–2 for a relevant assertion or isolated concept, 3–4 for one developed causal argument or two brief relevant arguments, 5–6 for causal analysis on both sides with uneven development, and 7–8 for well-developed reasoning on both sides with a justified, conditional judgment. Possible arguments include private pay rising because of competition for scarce technicians while public basic pay is fixed and offsetting overtime, private pay restraint or an initial public-sector earnings lead. A possible basis for judgment is initial relative earnings and the movement of basic pay and supplements. Accept other valid economic reasoning."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Economics",
+      "topic": "Workers",
+      "subtopic": "Specialisation and service quality",
+      "learningObjective": "Evaluate the effect of deeper division of labour on the speed and reliability of a service.",
+      "specificationId": "cambridge-0455-2027-2029-v1",
+      "qualificationCode": "0455",
+      "syllabusVersion": "1",
+      "id": "ndv-281-006",
+      "objectiveId": "igcse-0455-281-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2027,
+      "applicableExaminationYears": [
+        2027,
+        2028,
+        2029
+      ],
+      "tier": "Untiered",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 2,
+      "type": "structured",
+      "prompt": "A bus depot plans to assign separate teams to vehicle inspections, fault diagnosis and mechanical repairs. Previously, each team handled all three stages for the buses allocated to it. Discuss whether the new division of labour is likely to make the service more reliable.",
+      "answer": "Repeated tasks can improve diagnostic accuracy and inspection speed. Specialist teams may also become familiar with recurring faults, helping prevent breakdowns. However, a diagnosis backlog can delay the whole process, and lost details at handovers can cause missed faults or repeated work. If workloads are balanced and teams transfer clear records, specialisation may improve reliability. Where faults are varied and coordination weak, keeping teams responsible for the full process may be more reliable.",
+      "explanation": "Reliability depends on the performance of the whole process. Gains within one stage can be outweighed by queues or communication errors between stages.",
+      "score": 8,
+      "maxMarks": 8,
+      "markingGuide": [
+        {
+          "marks": 8,
+          "description": "Original holistic practice rubric. Award 0 for no creditable economics. Award 1–2 for a relevant assertion or isolated concept, 3–4 for one developed causal argument or two brief relevant arguments, 5–6 for causal analysis on both sides with uneven development, and 7–8 for well-developed reasoning on both sides with a justified, conditional judgment. Possible arguments include practice and specialist expertise improving detection or repair quality and bottlenecks or incomplete handovers delaying repairs or increasing errors. A possible basis for judgment is whether task consistency, balanced staffing and handover quality sustain the gains. Accept other valid economic reasoning."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

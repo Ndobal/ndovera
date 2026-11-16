@@ -1570,3 +1570,8 @@ Batch 280 adds six Cambridge IGCSE Economics (0455) Paper 2 Section B
 practice parts on Workers for 2027–2029. Two ask candidates to draw and
 explain labour-market diagrams. All six have original marking guides.
 Full structured sets and Workers evaluation tasks remain open.
+
+Batch 281 adds six Cambridge IGCSE Economics (0455) Paper 2 Workers
+drafts for 2027–2029. Four form one 20-mark Section B practice set with
+a common stimulus. Two further discussion parts have original holistic
+marking guides. Full-paper assembly and academic review remain open.
