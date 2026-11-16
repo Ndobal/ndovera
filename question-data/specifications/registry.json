@@ -791,6 +791,17 @@
           "Primary Six English Studies, pp. 40 and 48, visually checked"
         ],
         "limits": "Historical guidance only. Current adoption, official NCEE topic specification and actual option count remain unverified."
+      },
+      "icpcGuideRecheck": {
+        "date": "2026-11-16",
+        "method": "OCR of official scanned PDF pages",
+        "sha256": "0fe296ed444f79b9208c0469b0a5438aed42fb96cddb9edda40b8a19def6cc89",
+        "pdfPagesChecked": [
+          134,
+          136,
+          137
+        ],
+        "scope": "Primary Six Social Studies, provisional cross-curricular teaching guidance. Current adoption and NCEE objectives and option count remain unverified."
       }
     },
     {
@@ -37832,6 +37843,63 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-nve-p6-283-conflict-v1",
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Group conflict",
+      "subtopic": "Fair resolution and cooperation",
+      "learningObjective": "Analyse causes of group disagreements and choose fair ways to resolve them.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "Historical ICPC teaching guide: Primary Six Social Studies, Group conflict, PDF page 136"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-nve-p6-283-work-v1",
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Attitude to work",
+      "subtopic": "Quality and honest commitments",
+      "learningObjective": "Apply responsibility and honesty in making and selling goods.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "Historical ICPC teaching guide: Primary Six Social Studies, Nigerian and foreign made goods, PDF page 134"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "ncee-nve-p6-283-international-v1",
+      "exam": "NCEE",
+      "subject": "National Values Education",
+      "specificationId": "ncee-nve-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "International conflict",
+      "subtopic": "Cooperation and consideration across borders",
+      "learningObjective": "Identify disputes between countries and assess cooperative responses that consider both sides.",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper I Part B (component only)",
+        "Historical ICPC teaching guide: Primary Six Social Studies, International conflict and organizations, PDF page 137"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -37910,6 +37978,7 @@
     "Batch 279 adds Cambridge IGCSE Economics 0455 2027–2029 Workers Paper 1 practice for sections 3.3.1–3.3.5. Labour-market diagram interpretation, structured Paper 2 coverage and independent review remain open.",
     "Batch 280 adds selected Cambridge IGCSE Economics 0455 2027–2029 Paper 2 Section B Workers parts, including two candidate-drawn labour-market diagrams. Complete structured sets, AO3 discussion tasks on Workers and independent review remain open.",
     "Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open.",
-    "Batch 282 extends NCEE National Values Education self-discipline and good-neighbourliness practice. The 2026 NECO notice confirms the component and age/eligibility only. Historical Primary Six English Studies pp. 40 and 48 guide context selection. The practice format is author-selected and the official topic and option-count specification remains open."
+    "Batch 282 extends NCEE National Values Education self-discipline and good-neighbourliness practice. The 2026 NECO notice confirms the component and age/eligibility only. Historical Primary Six English Studies pp. 40 and 48 guide context selection. The practice format is author-selected and the official topic and option-count specification remains open.",
+    "Batch 283 maps provisional NCEE National Values Education practice to historical ICPC Primary Six Social Studies guidance on attitude to work, group conflict and international conflict. NECO 2026 confirms the component and eligibility. Current adoption, the full NCEE specification, and the actual option count remain unverified."
   ]
 }

@@ -1580,3 +1580,8 @@ Batch 282 adds twelve NCEE National Values Education practice drafts
 on self-discipline and good neighbourliness. The 2026 NECO notice confirms
 the Paper I component and eligibility. Historical Primary Six materials
 guide topic selection provisionally. Official topic and format details remain open.
+
+Batch 283 adds twelve NCEE National Values Education drafts on attitudes
+to work, group conflict and international conflict. Historical ICPC
+Primary Six Social Studies guidance supports the provisional mappings.
+The official NCEE topic and option-count specification remains open.

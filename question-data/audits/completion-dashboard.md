@@ -64,7 +64,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NCEE | Basic Science and Technology | 1000 | 53 | 53 | 0 | 947 | partial_objective_register |
 | NCEE | English Studies | 1000 | 76 | 73 | 0 | 927 | partial_objective_register |
 | NCEE | Mathematics | 1000 | 35 | 20 | 0 | 980 | partial_objective_register |
-| NCEE | National Values Education | 1000 | 36 | 36 | 0 | 964 | partial_objective_register |
+| NCEE | National Values Education | 1000 | 48 | 48 | 0 | 952 | partial_objective_register |
 | NCEE | Quantitative Reasoning | 1000 | 5 | 0 | 0 | 1000 | specification_unresolved |
 | NCEE | Quantitative and Vocational Aptitude | 1000 | 44 | 44 | 0 | 956 | partial_objective_register |
 | NCEE | Verbal Aptitude | 1000 | 36 | 36 | 0 | 964 | partial_objective_register |
@@ -218,14 +218,14 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IELTS | 221 | 212 | 0 | 4000 | 3788 |
 | IGCSE | 330 | 309 | 0 | 5000 | 4691 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
-| NCEE | 291 | 262 | 0 | 9000 | 8738 |
+| NCEE | 303 | 274 | 0 | 9000 | 8726 |
 | NECO | 482 | 447 | 0 | 36000 | 35553 |
 | NERDC | 1082 | 1017 | 0 | 35000 | 33983 |
 | SAT | 91 | 82 | 0 | 2000 | 1918 |
 | TOEFL | 171 | 162 | 0 | 4000 | 3838 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5266, "validDrafts": 3587, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5278, "validDrafts": 3599, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -307,3 +307,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 280 adds selected Cambridge IGCSE Economics 0455 2027–2029 Paper 2 Section B Workers parts, including two candidate-drawn labour-market diagrams. Complete structured sets, AO3 discussion tasks on Workers and independent review remain open.
 - Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open.
 - Batch 282 extends NCEE National Values Education self-discipline and good-neighbourliness practice. The 2026 NECO notice confirms the component and age/eligibility only. Historical Primary Six English Studies pp. 40 and 48 guide context selection. The practice format is author-selected and the official topic and option-count specification remains open.
+- Batch 283 maps provisional NCEE National Values Education practice to historical ICPC Primary Six Social Studies guidance on attitude to work, group conflict and international conflict. NECO 2026 confirms the component and eligibility. Current adoption, the full NCEE specification, and the actual option count remain unverified.
