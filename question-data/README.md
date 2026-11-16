@@ -1575,3 +1575,8 @@ Batch 281 adds six Cambridge IGCSE Economics (0455) Paper 2 Workers
 drafts for 2027–2029. Four form one 20-mark Section B practice set with
 a common stimulus. Two further discussion parts have original holistic
 marking guides. Full-paper assembly and academic review remain open.
+
+Batch 282 adds twelve NCEE National Values Education practice drafts
+on self-discipline and good neighbourliness. The 2026 NECO notice confirms
+the Paper I component and eligibility. Historical Primary Six materials
+guide topic selection provisionally. Official topic and format details remain open.

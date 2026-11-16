@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5254,
-    "validDrafts": 3575,
+    "raw": 5266,
+    "validDrafts": 3587,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1822,6 +1822,12 @@
       "actual": 6
     },
     {
+      "path": "original-multisubject-batch-282.json",
+      "sha256": "374cf553380a8200f3f75e4eb952c177bca2a45c995e118b165c1e276d52b121",
+      "declared": 12,
+      "actual": 12
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -3391,17 +3397,17 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_2026_component_with_provisional_primary_six_reference",
-      "raw": 24,
-      "validDrafts": 24,
+      "raw": 36,
+      "validDrafts": 36,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 24
+        "mcq": 36
       },
       "difficulty": {
-        "standard": 23,
-        "difficult": 1
+        "standard": 29,
+        "difficult": 7
       },
-      "remaining": 976,
+      "remaining": 964,
       "mappedObjectives": 7,
       "representedObjectives": 7,
       "coverage": "partial_objective_register",
@@ -7720,10 +7726,10 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -43764,6 +43770,78 @@
       "errors": []
     },
     {
+      "id": "ndv-282-001",
+      "file": "original-multisubject-batch-282.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-002",
+      "file": "original-multisubject-batch-282.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-003",
+      "file": "original-multisubject-batch-282.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-004",
+      "file": "original-multisubject-batch-282.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-005",
+      "file": "original-multisubject-batch-282.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-006",
+      "file": "original-multisubject-batch-282.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-007",
+      "file": "original-multisubject-batch-282.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-008",
+      "file": "original-multisubject-batch-282.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-009",
+      "file": "original-multisubject-batch-282.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-010",
+      "file": "original-multisubject-batch-282.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-011",
+      "file": "original-multisubject-batch-282.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-282-012",
+      "file": "original-multisubject-batch-282.json",
+      "index": 11,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -64024,7 +64102,7 @@
       "learningObjective": "Explain and apply self-control and responsible habits in school situations.",
       "specificationId": "ncee-nve-primary-six-reference-2026",
       "questionTypes": {
-        "mcq": 4
+        "mcq": 10
       },
       "sourceSections": [
         "NECO 2026 Paper I Part B",
@@ -64033,13 +64111,14 @@
       "level": "Primary 6",
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 4,
-      "validDrafts": 4,
+      "questionCount": 10,
+      "validDrafts": 10,
       "difficulty": {
-        "standard": 4
+        "standard": 7,
+        "difficult": 3
       },
       "tiers": {
-        "not_specified": 4
+        "not_specified": 10
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -64055,7 +64134,7 @@
       "learningObjective": "Choose considerate actions and reason about effects on neighbours.",
       "specificationId": "ncee-nve-primary-six-reference-2026",
       "questionTypes": {
-        "mcq": 4
+        "mcq": 10
       },
       "sourceSections": [
         "NECO 2026 Paper I Part B",
@@ -64064,13 +64143,14 @@
       "level": "Primary 6",
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 4,
-      "validDrafts": 4,
+      "questionCount": 10,
+      "validDrafts": 10,
       "difficulty": {
-        "standard": 4
+        "standard": 7,
+        "difficult": 3
       },
       "tiers": {
-        "not_specified": 4
+        "not_specified": 10
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -107978,6 +108058,7 @@
     "IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open.",
     "Batch 279 adds Cambridge IGCSE Economics 0455 2027–2029 Workers Paper 1 practice for sections 3.3.1–3.3.5. Labour-market diagram interpretation, structured Paper 2 coverage and independent review remain open.",
     "Batch 280 adds selected Cambridge IGCSE Economics 0455 2027–2029 Paper 2 Section B Workers parts, including two candidate-drawn labour-market diagrams. Complete structured sets, AO3 discussion tasks on Workers and independent review remain open.",
-    "Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open."
+    "Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open.",
+    "Batch 282 extends NCEE National Values Education self-discipline and good-neighbourliness practice. The 2026 NECO notice confirms the component and age/eligibility only. Historical Primary Six English Studies pp. 40 and 48 guide context selection. The practice format is author-selected and the official topic and option-count specification remains open."
   ]
 }

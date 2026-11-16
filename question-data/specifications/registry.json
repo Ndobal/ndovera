@@ -782,6 +782,15 @@
         "pdfPages": 138,
         "contentRecheckStatus": "image_based_pdf_no_extractable_text_full_recheck_requires_visual_or_ocr",
         "note": "Download succeeded; this run adds no NVE questions and makes no claim to have reread the image-based lesson pages."
+      },
+      "latestRecheck": {
+        "date": "2026-11-16",
+        "component": "NECO 2026 notice, Paper I Part B and final-year primary eligibility",
+        "historicalAgeAndTopicReference": "https://www.nerdc.gov.ng/content_manager/primary/pri4-6_english_studies.pdf",
+        "sourceSections": [
+          "Primary Six English Studies, pp. 40 and 48, visually checked"
+        ],
+        "limits": "Historical guidance only. Current adoption, official NCEE topic specification and actual option count remain unverified."
       }
     },
     {
@@ -37900,6 +37909,7 @@
     "IELTS Academic Reading batch 278 represents note completion with two original passages. Full timed test assembly and independent review remain open.",
     "Batch 279 adds Cambridge IGCSE Economics 0455 2027–2029 Workers Paper 1 practice for sections 3.3.1–3.3.5. Labour-market diagram interpretation, structured Paper 2 coverage and independent review remain open.",
     "Batch 280 adds selected Cambridge IGCSE Economics 0455 2027–2029 Paper 2 Section B Workers parts, including two candidate-drawn labour-market diagrams. Complete structured sets, AO3 discussion tasks on Workers and independent review remain open.",
-    "Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open."
+    "Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open.",
+    "Batch 282 extends NCEE National Values Education self-discipline and good-neighbourliness practice. The 2026 NECO notice confirms the component and age/eligibility only. Historical Primary Six English Studies pp. 40 and 48 guide context selection. The practice format is author-selected and the official topic and option-count specification remains open."
   ]
 }
