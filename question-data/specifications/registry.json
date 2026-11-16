@@ -818,7 +818,13 @@
       "curriculumBytes": 1278662,
       "sourceSections": [
         "Historical NERDC Primary 6 English, printed/PDF pp. 42 and 61, synonyms/antonyms"
-      ]
+      ],
+      "latestRecheck": {
+        "date": "2026-11-16",
+        "component": "NECO 2026 Paper II Part B, Verbal Aptitude",
+        "historicalTopic": "NERDC Primary Six English Studies, printed/PDF p. 42, same-spelling homonyms",
+        "limits": "Historical vocabulary guidance only. Official task families, option count and current curriculum adoption remain unverified."
+      }
     },
     {
       "id": "ncee-qva-primary-six-reference-2026",
@@ -37900,6 +37906,25 @@
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Verbal Aptitude",
+      "specificationId": "ncee-verbal-aptitude-primary-six-reference-2026",
+      "level": "Primary 6",
+      "topic": "Word relationships",
+      "subtopic": "Homonyms in context",
+      "learningObjective": "Use the surrounding words to distinguish meanings of words with the same spelling.",
+      "id": "ncee-verbal-p6-homonyms-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part B (component only)",
+        "Historical NERDC Primary Six English Studies, printed/PDF p. 42, word formation: homonyms"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -37979,6 +38004,7 @@
     "Batch 280 adds selected Cambridge IGCSE Economics 0455 2027–2029 Paper 2 Section B Workers parts, including two candidate-drawn labour-market diagrams. Complete structured sets, AO3 discussion tasks on Workers and independent review remain open.",
     "Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open.",
     "Batch 282 extends NCEE National Values Education self-discipline and good-neighbourliness practice. The 2026 NECO notice confirms the component and age/eligibility only. Historical Primary Six English Studies pp. 40 and 48 guide context selection. The practice format is author-selected and the official topic and option-count specification remains open.",
-    "Batch 283 maps provisional NCEE National Values Education practice to historical ICPC Primary Six Social Studies guidance on attitude to work, group conflict and international conflict. NECO 2026 confirms the component and eligibility. Current adoption, the full NCEE specification, and the actual option count remain unverified."
+    "Batch 283 maps provisional NCEE National Values Education practice to historical ICPC Primary Six Social Studies guidance on attitude to work, group conflict and international conflict. NECO 2026 confirms the component and eligibility. Current adoption, the full NCEE specification, and the actual option count remain unverified.",
+    "Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified."
   ]
 }

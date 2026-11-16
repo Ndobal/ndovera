@@ -1585,3 +1585,8 @@ Batch 283 adds twelve NCEE National Values Education drafts on attitudes
 to work, group conflict and international conflict. Historical ICPC
 Primary Six Social Studies guidance supports the provisional mappings.
 The official NCEE topic and option-count specification remains open.
+
+Batch 284 adds twelve NCEE Verbal Aptitude drafts on words with the same
+spelling and different meanings. Historical Primary Six English Studies
+supports the provisional mapping. The official task and option blueprint
+remains open.

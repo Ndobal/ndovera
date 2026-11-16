@@ -2,31 +2,31 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_283_automated_validation_passed",
+  "phase": "batch_284_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-284.json",
+  "nextBatch": "original-multisubject-batch-285.json",
   "nextPriorities": [
-    "Move to another underrepresented NCEE component with documented source support and retain the official topic and format gaps. Cambridge 0455 full-paper assembly remains open. Check remaining IELTS Academic Reading response formats during assembly. Diagram delivery in the app remains open. Table rendering and full test assembly remain open. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
+    "Check the historical Primary Six source for an underrepresented Quantitative and Vocational Aptitude objective and retain the official NCEE topic and format gaps. Cambridge 0455 full-paper assembly remains open. Check remaining IELTS Academic Reading response formats during assembly. Diagram delivery in the app remains open. Table rendering and full test assembly remain open. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify current NERDC exact class-subject-objective adoption; current pages previously returned 403 and older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-283.json",
-  "lastRemoteVerifiedCommit": "99967916116275692370d6c5d482e5093b492e64",
+  "lastValidatedBatch": "original-multisubject-batch-284.json",
+  "lastRemoteVerifiedCommit": "3dede39e9f683d9a7c42fdbbd02c199e894d97b1",
   "verifiedTotals": {
-    "raw": 5278,
-    "validDrafts": 3599,
+    "raw": 5290,
+    "validDrafts": 3611,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-283.json",
+  "lastPopulatedBatch": "original-multisubject-batch-284.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 5278,
+  "inventoryRaw": 5290,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
-    "id": "ncee-nve-primary-six-reference-2026",
+    "id": "ncee-verbal-aptitude-primary-six-reference-2026",
     "date": "2026-11-16"
   }
 }
