@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5290,
-    "validDrafts": 3611,
+    "raw": 5302,
+    "validDrafts": 3623,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1840,6 +1840,12 @@
       "actual": 12
     },
     {
+      "path": "original-multisubject-batch-285.json",
+      "sha256": "5b733e5555f2795e4b30907b12e0e4d9d25af1b282a1614e8bdd021deafe6adf",
+      "declared": 12,
+      "actual": 12
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -3453,18 +3459,19 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_2026_component_with_provisional_primary_six_reference",
-      "raw": 44,
-      "validDrafts": 44,
+      "raw": 56,
+      "validDrafts": 56,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 44
+        "mcq": 56
       },
       "difficulty": {
-        "standard": 44
+        "standard": 50,
+        "difficult": 6
       },
-      "remaining": 956,
-      "mappedObjectives": 7,
-      "representedObjectives": 7,
+      "remaining": 944,
+      "mappedObjectives": 9,
+      "representedObjectives": 9,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7739,20 +7746,20 @@
   ],
   "errorCounts": {
     "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 527,
+    "explicitArithmeticClaims": 533,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 2
@@ -43994,6 +44001,78 @@
     {
       "id": "ndv-284-012",
       "file": "original-multisubject-batch-284.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-001",
+      "file": "original-multisubject-batch-285.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-002",
+      "file": "original-multisubject-batch-285.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-003",
+      "file": "original-multisubject-batch-285.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-004",
+      "file": "original-multisubject-batch-285.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-005",
+      "file": "original-multisubject-batch-285.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-006",
+      "file": "original-multisubject-batch-285.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-007",
+      "file": "original-multisubject-batch-285.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-008",
+      "file": "original-multisubject-batch-285.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-009",
+      "file": "original-multisubject-batch-285.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-010",
+      "file": "original-multisubject-batch-285.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-011",
+      "file": "original-multisubject-batch-285.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-285-012",
+      "file": "original-multisubject-batch-285.json",
       "index": 11,
       "errors": []
     },
@@ -108264,6 +108343,70 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Average speed and elapsed time",
+      "learningObjective": "Relate total distance and elapsed time to average speed and compare journey plans.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ncee-qva-285-speed-v1",
+      "questionTypes": {
+        "mcq": 6
+      },
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical NERDC Primary Six Mathematics, printed/PDF p. 64"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 3
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Purpose and principles of produce preservation",
+      "learningObjective": "Recognise purposes and familiar preservation methods and interpret observations about storage losses.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ncee-qva-285-storage-v1",
+      "questionTypes": {
+        "mcq": 6
+      },
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical NERDC Primary Six Pre-Vocational Studies, printed/PDF p. 18"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 3,
+        "difficult": 3
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -108344,6 +108487,7 @@
     "Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open.",
     "Batch 282 extends NCEE National Values Education self-discipline and good-neighbourliness practice. The 2026 NECO notice confirms the component and age/eligibility only. Historical Primary Six English Studies pp. 40 and 48 guide context selection. The practice format is author-selected and the official topic and option-count specification remains open.",
     "Batch 283 maps provisional NCEE National Values Education practice to historical ICPC Primary Six Social Studies guidance on attitude to work, group conflict and international conflict. NECO 2026 confirms the component and eligibility. Current adoption, the full NCEE specification, and the actual option count remain unverified.",
-    "Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified."
+    "Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified.",
+    "Batch 285 adds provisional NCEE Quantitative and Vocational Aptitude mappings for average speed and the principles of produce preservation. NECO confirms the 2026 component, while historical NERDC pp. 64 and 18 guide topic selection. The official topic blueprint, option count and practical assessment details remain open."
   ]
 }

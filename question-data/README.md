@@ -1590,3 +1590,8 @@ Batch 284 adds twelve NCEE Verbal Aptitude drafts on words with the same
 spelling and different meanings. Historical Primary Six English Studies
 supports the provisional mapping. The official task and option blueprint
 remains open.
+
+Batch 285 adds twelve NCEE Quantitative and Vocational Aptitude practice
+drafts covering average speed and produce preservation. The historical
+Primary Six topic mappings are provisional. The official task and option
+specification remains open.

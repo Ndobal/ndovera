@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 2,
+  "collection": "NCEE Quantitative and Vocational Aptitude: journeys and produce preservation",
+  "questionCount": 12,
+  "note": "Original four-option practice for final-year primary pupils. Historical topic references are provisional. Preservation items are conceptual. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Average speed and elapsed time",
+      "learningObjective": "Relate total distance and elapsed time to average speed and compare journey plans.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-001",
+      "objectiveId": "ncee-qva-285-speed-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A minibus travelled 24 km before a stop and 36 km after it. From departure to arrival, including the stop, it took 90 minutes. What was its average speed for the whole trip?",
+      "answer": "40 km/h",
+      "options": [
+        "40 km/h",
+        "30 km/h",
+        "60 km/h",
+        "90 km/h"
+      ],
+      "correctOption": "A",
+      "explanation": "The distance was 60 km and 90 minutes is 1½ hours. Dividing 60 by 1½ gives 40 km/h.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(24+36)/(90/60)",
+          "expected": 40,
+          "purpose": "Verify the stated journey calculation"
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Average speed and elapsed time",
+      "learningObjective": "Relate total distance and elapsed time to average speed and compare journey plans.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-002",
+      "objectiveId": "ncee-qva-285-speed-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Two riders travelled from the same starting point to the same finish along the same route. Hauwa left at 07:15 and arrived at 08:05. Timi left at 07:30 and arrived at 08:10. Which statement is correct?",
+      "answer": "Timi had the greater average speed because he covered the same distance in less time.",
+      "options": [
+        "Hauwa had the greater average speed because she arrived first.",
+        "Timi had the greater average speed because he covered the same distance in less time.",
+        "Their average speeds were equal because they covered the same distance.",
+        "Hauwa had the greater average speed because she left earlier."
+      ],
+      "correctOption": "B",
+      "explanation": "Hauwa took 50 minutes and Timi took 40 minutes. For equal distances, the shorter elapsed time gives the greater average speed.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(8*60+5)-(7*60+15)-((8*60+10)-(7*60+30))",
+          "expected": 10,
+          "purpose": "Verify the stated journey calculation"
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Average speed and elapsed time",
+      "learningObjective": "Relate total distance and elapsed time to average speed and compare journey plans.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-003",
+      "objectiveId": "ncee-qva-285-speed-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A food delivery van must complete an 84 km route in 2 hours. It covers the first 36 km in 1 hour. What average speed must it maintain over the remaining distance to finish on time?",
+      "answer": "48 km/h",
+      "options": [
+        "36 km/h",
+        "42 km/h",
+        "48 km/h",
+        "84 km/h"
+      ],
+      "correctOption": "C",
+      "explanation": "The remaining distance is 84 − 36 = 48 km. There is one hour left, so the required average is 48 km/h.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(84-36)/(2-1)",
+          "expected": 48,
+          "purpose": "Verify the stated journey calculation"
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Average speed and elapsed time",
+      "learningObjective": "Relate total distance and elapsed time to average speed and compare journey plans.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-004",
+      "objectiveId": "ncee-qva-285-speed-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A pupil records a complete bicycle trip as 9 km at an average of 18 km/h. Which line belongs in the trip log for elapsed time?",
+      "answer": "30 minutes",
+      "options": [
+        "9 minutes",
+        "18 minutes",
+        "120 minutes",
+        "30 minutes"
+      ],
+      "correctOption": "D",
+      "explanation": "Elapsed time equals distance divided by average speed. The result is ½ hour, or 30 minutes.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "9/18*60",
+          "expected": 30,
+          "purpose": "Verify the stated journey calculation"
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Average speed and elapsed time",
+      "learningObjective": "Relate total distance and elapsed time to average speed and compare journey plans.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-005",
+      "objectiveId": "ncee-qva-285-speed-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A bus takes 2 hours to cover 120 km. An extra stop would make the same journey last 2½ hours. By how much would the average speed fall?",
+      "answer": "12 km/h",
+      "options": [
+        "12 km/h",
+        "6 km/h",
+        "24 km/h",
+        "48 km/h"
+      ],
+      "correctOption": "A",
+      "explanation": "The original average is 60 km/h. The new average is 48 km/h, a fall of 12 km/h.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "120/2-120/(5/2)",
+          "expected": 12,
+          "purpose": "Verify the stated journey calculation"
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Average speed and elapsed time",
+      "learningObjective": "Relate total distance and elapsed time to average speed and compare journey plans.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-006",
+      "objectiveId": "ncee-qva-285-speed-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A courier cycles at a steady 12 km/h for 45 minutes, then walks beside the bicycle at 4 km/h for 15 minutes. How far does the courier travel altogether?",
+      "answer": "10 km",
+      "options": [
+        "8 km",
+        "10 km",
+        "12 km",
+        "16 km"
+      ],
+      "correctOption": "B",
+      "explanation": "The cycling distance is 12 × ¾ = 9 km. The walking distance is 4 × ¼ = 1 km. Together they make 10 km.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "12*45/60+4*15/60",
+          "expected": 10,
+          "purpose": "Verify the stated journey calculation"
+        }
+      ]
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Purpose and principles of produce preservation",
+      "learningObjective": "Recognise purposes and familiar preservation methods and interpret observations about storage losses.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-007",
+      "objectiveId": "ncee-qva-285-storage-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A pepper grower expects to sell only part of a large harvest on market day. Why plan to preserve some of the harvest?",
+      "answer": "It can reduce losses and make some produce available after market day.",
+      "options": [
+        "It increases the number of peppers already harvested.",
+        "It makes the remaining peppers grow faster after picking.",
+        "It can reduce losses and make some produce available after market day.",
+        "It removes all costs of transporting the harvest."
+      ],
+      "correctOption": "C",
+      "explanation": "Preservation can slow spoilage, leaving more of the existing harvest available for later use.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Purpose and principles of produce preservation",
+      "learningObjective": "Recognise purposes and familiar preservation methods and interpret observations about storage losses.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-008",
+      "objectiveId": "ncee-qva-285-storage-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A class compares an illustration of fresh sliced okra with one of dried okra. Which change is most directly related to drying as a preservation method?",
+      "answer": "Less water remains in the okra.",
+      "options": [
+        "The slices gain water from the air.",
+        "The seeds inside the okra become larger.",
+        "The colour alone keeps the okra from changing.",
+        "Less water remains in the okra."
+      ],
+      "correctOption": "D",
+      "explanation": "Drying removes moisture. The reduction in moisture, rather than a colour change, explains its role in preservation.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Purpose and principles of produce preservation",
+      "learningObjective": "Recognise purposes and familiar preservation methods and interpret observations about storage losses.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-009",
+      "objectiveId": "ncee-qva-285-storage-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "Two equal batches of dry maize were put into similar stores. The store with a damaged door had more grains showing signs of pest damage. Which observation would best help check whether the damaged door mattered?",
+      "answer": "Look for openings around the door and signs of pests near them.",
+      "options": [
+        "Look for openings around the door and signs of pests near them.",
+        "Compare the paint colours on the roofs.",
+        "Measure how far each store is from the market.",
+        "Count how many sacks were delivered last year."
+      ],
+      "correctOption": "A",
+      "explanation": "Openings and pest signs would help establish whether pests might have entered through the damaged door. The difference in damage alone does not prove the route.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Purpose and principles of produce preservation",
+      "learningObjective": "Recognise purposes and familiar preservation methods and interpret observations about storage losses.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-010",
+      "objectiveId": "ncee-qva-285-storage-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A farm is comparing two ways to store produce. One batch was already bruised and the other was undamaged before storage. What makes this a poor comparison?",
+      "answer": "Initial damage could affect the results as well as the storage methods.",
+      "options": [
+        "The two methods must always give identical results.",
+        "Initial damage could affect the results as well as the storage methods.",
+        "Bruising can only occur after produce enters storage.",
+        "Counting spoiled pieces would conceal the storage methods entirely."
+      ],
+      "correctOption": "B",
+      "explanation": "A difference observed later cannot be attributed confidently to storage if the batches started in different conditions.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Purpose and principles of produce preservation",
+      "learningObjective": "Recognise purposes and familiar preservation methods and interpret observations about storage losses.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-011",
+      "objectiveId": "ncee-qva-285-storage-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A display describes a cool store used to hold vegetables before delivery. What does refrigeration chiefly do in that example?",
+      "answer": "It keeps produce at a lower temperature, slowing many changes that cause spoilage.",
+      "options": [
+        "It dries the vegetables completely while they are in the store.",
+        "It restores freshness to vegetables that have already spoiled.",
+        "It keeps produce at a lower temperature, slowing many changes that cause spoilage.",
+        "It makes vegetables keep indefinitely at any temperature."
+      ],
+      "correctOption": "C",
+      "explanation": "Cooling can slow deterioration. It does not reverse spoilage or make storage time unlimited.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Purpose and principles of produce preservation",
+      "learningObjective": "Recognise purposes and familiar preservation methods and interpret observations about storage losses.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ndv-285-012",
+      "objectiveId": "ncee-qva-285-storage-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "type": "mcq",
+      "prompt": "A cooperative wants to compare how much produce was lost under two storage plans. The plans started with different quantities. What should it compare?",
+      "answer": "The share of the starting quantity lost under each plan.",
+      "options": [
+        "Only the weight of the largest crate.",
+        "Only the number of crates left, regardless of starting stock.",
+        "The amount of floor space under each stack of crates.",
+        "The share of the starting quantity lost under each plan."
+      ],
+      "correctOption": "D",
+      "explanation": "Expressing the loss as a share of each starting quantity puts the two plans on a comparable basis.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

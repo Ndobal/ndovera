@@ -844,7 +844,16 @@
       "preVocationalPages": 26,
       "verifiedReferenceSections": [
         "Historical Primary Six Pre-Vocational Studies pp19–23: packaging/farm records, cleaning, stitches, seams, meal planning"
-      ]
+      ],
+      "latestRecheck": {
+        "date": "2026-11-16",
+        "component": "NECO 2026 notice, Paper II Part A",
+        "historicalReferences": [
+          "Primary Six Mathematics p. 64: average speed and time",
+          "Primary Six Pre-Vocational Studies p. 18: reasons for preservation and familiar methods"
+        ],
+        "limits": "Historical guidance only. Official task families, option count and current curriculum adoption remain unverified."
+      }
     },
     {
       "id": "neco-ssce-internal-timetable-2026",
@@ -37925,6 +37934,44 @@
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Quantitative aptitude",
+      "subtopic": "Average speed and elapsed time",
+      "learningObjective": "Relate total distance and elapsed time to average speed and compare journey plans.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ncee-qva-285-speed-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical NERDC Primary Six Mathematics, printed/PDF p. 64"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NCEE",
+      "subject": "Quantitative and Vocational Aptitude",
+      "topic": "Vocational aptitude",
+      "subtopic": "Purpose and principles of produce preservation",
+      "learningObjective": "Recognise purposes and familiar preservation methods and interpret observations about storage losses.",
+      "specificationId": "ncee-qva-primary-six-reference-2026",
+      "level": "Primary 6",
+      "id": "ncee-qva-285-storage-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2026 Paper II Part A (component only)",
+        "Historical NERDC Primary Six Pre-Vocational Studies, printed/PDF p. 18"
+      ],
+      "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -38005,6 +38052,7 @@
     "Batch 281 adds one 20-mark Section B Workers practice set and two standalone discussion drafts for Cambridge 0455 (2027–2029). The official format was checked against https://www.cambridgeinternational.org/Images/718809-2027-specimen-paper-2.pdf and https://www.cambridgeinternational.org/Images/718805-2027-specimen-paper-2-mark-scheme.pdf. Full-paper assembly and academic review remain open.",
     "Batch 282 extends NCEE National Values Education self-discipline and good-neighbourliness practice. The 2026 NECO notice confirms the component and age/eligibility only. Historical Primary Six English Studies pp. 40 and 48 guide context selection. The practice format is author-selected and the official topic and option-count specification remains open.",
     "Batch 283 maps provisional NCEE National Values Education practice to historical ICPC Primary Six Social Studies guidance on attitude to work, group conflict and international conflict. NECO 2026 confirms the component and eligibility. Current adoption, the full NCEE specification, and the actual option count remain unverified.",
-    "Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified."
+    "Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified.",
+    "Batch 285 adds provisional NCEE Quantitative and Vocational Aptitude mappings for average speed and the principles of produce preservation. NECO confirms the 2026 component, while historical NERDC pp. 64 and 18 guide topic selection. The official topic blueprint, option count and practical assessment details remain open."
   ]
 }
