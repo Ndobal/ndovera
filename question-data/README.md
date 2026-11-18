@@ -1627,3 +1627,7 @@ assessment precedent. The current full specification remains open.
 Batch 293 adds five structured WAEC Commerce drafts on trade documents
 and reconciliation. Historical WAEC examiner resources support topic
 precedent. The full current Nigerian specification remains open.
+
+Batch 294 adds five Cambridge IGCSE Chemistry (0620) Extended Theory
+drafts on reversible reactions and dynamic equilibrium for 2026–2028.
+Each uses a model system and includes an original marking guide.

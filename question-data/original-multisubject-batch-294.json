@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Chemistry 0620: equilibrium reasoning",
+  "questionCount": 5,
+  "note": "Original Extended Theory Paper 4 practice for 2026–2028, using idealised systems. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Equilibrium with equal gas coefficients",
+      "learningObjective": "Explain why a pressure increase need not shift an equilibrium.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-294-001",
+      "objectiveId": "igcse-0620-294-equilibrium-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A sealed simulator contains an ideal gaseous system X(g) + Y(g) ⇌ Z(g) + W(g) at equilibrium. The volume is suddenly halved while temperature stays constant. Predict whether the equilibrium composition shifts. Explain your prediction and distinguish composition from concentration immediately after compression.",
+      "answer": "There is no shift. Each side has two gas molecules per reaction event, so compression favours neither side. Each concentration increases immediately because the same amount of each species occupies half the volume. Their amounts and proportions do not change as a result of a shift.",
+      "explanation": "Compression changes concentrations without favouring either side when their total gaseous coefficients are equal.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Predicts no shift."
+        },
+        {
+          "marks": 1,
+          "description": "Counts equal totals of gaseous coefficients."
+        },
+        {
+          "marks": 1,
+          "description": "States concentrations increase immediately."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the increase using unchanged amounts in a smaller volume."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Selective product removal",
+      "learningObjective": "Predict how withdrawing a product affects a reversible reaction.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-294-002",
+      "objectiveId": "igcse-0620-294-equilibrium-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "In a model closed vessel, dissolved A and B interconvert as A(aq) ⇌ B(aq). At equilibrium, a membrane briefly removes some B while keeping the solution volume effectively unchanged. The membrane is then closed. Predict the initial direction of net reaction and explain why the net reaction eventually stops.",
+      "answer": "The concentration of B initially decreases, so the system reacts net forwards and forms more B. As the mixture adjusts, the forward and reverse rates become equal again. The reactions continue, but concentrations become constant.",
+      "explanation": "Removing B disturbs the existing balance. Once the vessel is closed again, the forward and reverse processes establish a new dynamic equilibrium.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a drop in B concentration."
+        },
+        {
+          "marks": 1,
+          "description": "Predicts net reaction towards B."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies renewed equality of forward and reverse rates."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes no net change from reactions stopping."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Unequal equilibrium concentrations",
+      "learningObjective": "Interpret apparently unequal concentrations in a system at equilibrium.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-294-003",
+      "objectiveId": "igcse-0620-294-equilibrium-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A model reaction P(aq) ⇌ Q(aq) in a sealed vessel has concentrations of 0.18 mol/dm³ for P and 0.42 mol/dm³ for Q. Both readings remain constant. Independent observations show that P continues changing into Q and Q continues changing into P. A pupil concludes the forward rate is higher because more Q is present. Evaluate the conclusion.",
+      "answer": "The conclusion does not follow. The concentrations of P and Q can be unequal at dynamic equilibrium. Since each conversion consumes one particle and produces one, the continued reactions at constant concentrations require their rates to be equal.",
+      "explanation": "Concentrations describe how much of each species is present. Rates describe change per unit time. Equal opposing rates permit constant but unequal concentrations.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the inference that the forward rate is greater."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes concentration from reaction rate."
+        },
+        {
+          "marks": 1,
+          "description": "Uses constant concentrations and continuing conversion to infer equal rates."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Opposing temperature and pressure changes",
+      "learningObjective": "Explain two competing equilibrium effects without assuming which is larger.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-294-004",
+      "objectiveId": "igcse-0620-294-equilibrium-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A model equilibrium converts two molecules of a gas into one molecule of another gas. The forward reaction releases thermal energy. An operator reduces the volume and raises the temperature at the same time. State the direction each change would favour on its own and explain why the overall composition change cannot be decided from this information.",
+      "answer": "Increasing pressure by reducing the volume favours the forward direction because it produces fewer gas molecules. Increasing temperature favours the endothermic reverse direction. The effects oppose each other, and their relative sizes are unspecified.",
+      "explanation": "Comparing separate disturbances gives their directions. A prediction for the combined effect would also require information about the magnitude of each effect.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies higher pressure as favouring the forward reaction."
+        },
+        {
+          "marks": 1,
+          "description": "Links pressure to fewer gas molecules on the product side."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies heating as favouring the endothermic reverse reaction."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the net direction is underdetermined."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Adding an inert gas at fixed volume",
+      "learningObjective": "Reason from unchanged reactant and product concentrations when total pressure rises.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-294-005",
+      "objectiveId": "igcse-0620-294-equilibrium-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A rigid sealed vessel contains an ideal gaseous equilibrium described by 2M(g) ⇌ N(g). An inert gas is added while temperature and vessel volume are held constant. Total pressure rises. Explain whether this change favours formation of N.",
+      "answer": "There is no shift. The inert gas adds to the total pressure but does not change the amount of M or N per unit volume. Their partial pressures therefore stay the same at fixed temperature. This differs from compressing the reacting mixture.",
+      "explanation": "For this application, the change that would disturb equilibrium is a change in the reacting gases’ concentrations or partial pressures. The extra inert gas does not produce it.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Predicts no shift."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that concentrations or partial pressures of M and N remain unchanged."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes increased total pressure from compression of the reacting gases."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

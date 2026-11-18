@@ -205,7 +205,8 @@
       "lastRecheckedOn": "2026-11-08",
       "sourceSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
       "sourceBytes": 1121078,
-      "pageCount": 59
+      "pageCount": 59,
+      "latestRecheck": "2026-11-18: Official Chemistry 0620 version 2 syllabus checked for section 6.3 (printed p. 20) and Extended Theory Paper 4 (printed p. 9)."
     },
     {
       "id": "waec-commerce-compilation-2026",
@@ -38642,6 +38643,146 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Equilibrium with equal gas coefficients",
+      "learningObjective": "Explain why a pressure increase need not shift an equilibrium.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-01-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Selective product removal",
+      "learningObjective": "Predict how withdrawing a product affects a reversible reaction.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-02-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Unequal equilibrium concentrations",
+      "learningObjective": "Interpret apparently unequal concentrations in a system at equilibrium.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-03-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Opposing temperature and pressure changes",
+      "learningObjective": "Explain two competing equilibrium effects without assuming which is larger.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-04-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Adding an inert gas at fixed volume",
+      "learningObjective": "Reason from unchanged reactant and product concentrations when total pressure rises.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-05-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -38731,6 +38872,7 @@
     "Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open.",
     "Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open.",
     "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified.",
-    "Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open."
+    "Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open.",
+    "Batch 294 adds selected Cambridge 0620 section 6.3 Extended Theory questions. Complete syllabus coverage, full paper assembly and independent review remain open."
   ]
 }

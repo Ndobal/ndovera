@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5347,
-    "validDrafts": 3668,
+    "raw": 5352,
+    "validDrafts": 3673,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1894,6 +1894,12 @@
       "actual": 5
     },
     {
+      "path": "original-multisubject-batch-294.json",
+      "sha256": "8cc0a87cb33425ad1bdb9fe1c563baea3831511cbe73d0d233c29c2ec76125aa",
+      "declared": 5,
+      "actual": 5
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2733,22 +2739,22 @@
         2028
       ],
       "note": "Only code-specific questions may count; legacy unassigned entries remain held. Other Cambridge codes are separate unresolved scope.",
-      "raw": 76,
-      "validDrafts": 74,
+      "raw": 81,
+      "validDrafts": 79,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 32,
-        "structured": 44
+        "structured": 49
       },
       "difficulty": {
-        "standard": 49,
+        "standard": 51,
         "easy": 17,
-        "difficult": 8,
+        "difficult": 11,
         "missing": 2
       },
-      "remaining": 926,
-      "mappedObjectives": 15,
-      "representedObjectives": 15,
+      "remaining": 921,
+      "mappedObjectives": 20,
+      "representedObjectives": 20,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7802,9 +7808,9 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 560,
@@ -44391,6 +44397,36 @@
     {
       "id": "ndv-293-005",
       "file": "original-multisubject-batch-293.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-294-001",
+      "file": "original-multisubject-batch-294.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-294-002",
+      "file": "original-multisubject-batch-294.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-294-003",
+      "file": "original-multisubject-batch-294.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-294-004",
+      "file": "original-multisubject-batch-294.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-294-005",
+      "file": "original-multisubject-batch-294.json",
       "index": 4,
       "errors": []
     },
@@ -109710,6 +109746,201 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Equilibrium with equal gas coefficients",
+      "learningObjective": "Explain why a pressure increase need not shift an equilibrium.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-01-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Extended": 1
+      },
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Selective product removal",
+      "learningObjective": "Predict how withdrawing a product affects a reversible reaction.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-02-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Extended": 1
+      },
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Unequal equilibrium concentrations",
+      "learningObjective": "Interpret apparently unequal concentrations in a system at equilibrium.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-03-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Extended": 1
+      },
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Opposing temperature and pressure changes",
+      "learningObjective": "Explain two competing equilibrium effects without assuming which is larger.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-04-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Extended": 1
+      },
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Reversible reactions and equilibrium",
+      "subtopic": "Adding an inert gas at fixed volume",
+      "learningObjective": "Reason from unchanged reactant and product concentrations when total pressure rises.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-294-equilibrium-05-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Extended": 1
+      },
+      "sourceSections": [
+        "6.3 Supplement: dynamic equilibrium and disturbances, printed p. 20",
+        "Paper 4 Extended Theory, printed p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO2": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -109799,6 +110030,7 @@
     "Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open.",
     "Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open.",
     "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified.",
-    "Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open."
+    "Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open.",
+    "Batch 294 adds selected Cambridge 0620 section 6.3 Extended Theory questions. Complete syllabus coverage, full paper assembly and independent review remain open."
   ]
 }
