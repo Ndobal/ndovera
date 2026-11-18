@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Christian Religious Studies James 2 practice",
+  "questionCount": 8,
+  "note": "Original textual interpretation and application drafts under existing provisional mappings. Original practice marks and rubrics. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith and deeds in James 2:14–26",
+      "learningObjective": "Interpret how examples and analogies relate professed faith to conduct.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "objectiveId": "neco-crs-074-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-306-001",
+      "prompt": "James places Abraham and Rahab within the same argument in James 2:21–25. Identify the action attributed to each and explain why their different social positions do not prevent either example from supporting his point.",
+      "answer": "Abraham offers Isaac, while Rahab receives the messengers and directs them away by another route. Both examples concern conduct through which faith is expressed. The contrast between an honoured ancestor and Rahab broadens the illustration beyond one social position.",
+      "explanation": "The answer should explain what the two examples do in the argument while remaining grounded in the actions James names.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "biblicalReference": "James 2:21–25",
+      "type": "structured",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Abraham’s action involving Isaac."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies Rahab’s reception and onward direction of the messengers."
+        },
+        {
+          "marks": 1,
+          "description": "Relates both actions to the expression of faith."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the shared function applies across their different social positions."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith and deeds in James 2:14–26",
+      "learningObjective": "Interpret how examples and analogies relate professed faith to conduct.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "objectiveId": "neco-crs-074-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-306-002",
+      "prompt": "In James 2:22–23, explain the relationship among Abraham’s faith, his action and the statement about his belief being counted as righteousness. How does this sequence develop the argument?",
+      "answer": "James describes Abraham’s faith as active together with his action and brought to completion through it. The statement about his belief being counted as righteousness is presented as fulfilled. His action therefore develops and expresses the faith already attributed to him.",
+      "explanation": "Credit interpretations that connect the clauses rather than treating them as disconnected statements about Abraham.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "biblicalReference": "James 2:22–23",
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects faith with action working together."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the completion or fulfilment language."
+        },
+        {
+          "marks": 1,
+          "description": "Relates the scriptural statement about belief to the example’s conclusion."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith and deeds in James 2:14–26",
+      "learningObjective": "Interpret how examples and analogies relate professed faith to conduct.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "objectiveId": "neco-crs-074-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-306-003",
+      "prompt": "What is the argumentative purpose of the challenge to show faith in James 2:18?",
+      "answer": "It asks how a claim to faith becomes observable through conduct.",
+      "explanation": "The challenge turns a profession into a question about the evidence through which it can be demonstrated.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "biblicalReference": "James 2:18",
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "It asks for a list of ancestors who held public office.",
+        "It replaces the discussion of conduct with a test of family descent.",
+        "It asks how a claim to faith becomes observable through conduct.",
+        "It makes visible wealth the evidence for the strength of faith."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Faith and deeds in James 2:14–26",
+      "learningObjective": "Interpret how examples and analogies relate professed faith to conduct.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "objectiveId": "neco-crs-074-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-306-004",
+      "prompt": "A commentary on James 2:14–26 focuses entirely on the financial return a person can earn from employment. Which change would most improve its account of James’s argument?",
+      "answer": "Explain deeds as conduct that expresses faith, using the examples in the passage.",
+      "explanation": "The argument concerns faith and the conduct that demonstrates it. The commentary needs to account for the examples James actually uses.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "biblicalReference": "James 2:14–26",
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Explain deeds as conduct that expresses faith, using the examples in the passage.",
+        "Calculate how the speaker’s earnings compare with the earnings of the needy person.",
+        "Classify Abraham and Rahab according to the wages paid for their work.",
+        "Explain how the word faith describes confidence that an investment will increase."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Partiality in James 2:1–13",
+      "learningObjective": "Analyse James’s account of favouritism and apply its reasoning to comparable situations.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "objectiveId": "neco-crs-074-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-306-005",
+      "prompt": "Explain the role of James’s references to wealthy people taking believers to court and dishonouring the name associated with them in James 2:6–7. How do these references challenge the assembly’s behaviour?",
+      "answer": "James sets the assembly’s preference for wealth against the conduct he attributes to wealthy oppressors. The assembly is dishonouring poor people while honouring the social group he describes as mistreating believers. This exposes a contradiction in its basis for granting honour.",
+      "explanation": "The answer should interpret the contrast within James’s address without turning it into an unsupported statement about every wealthy person.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "biblicalReference": "James 2:6–7",
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies oppression or court action and dishonour as the conduct mentioned."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the assembly’s preference for wealthy visitors over poor visitors."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the contradiction in the assembly’s choice of whom to honour."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Partiality in James 2:1–13",
+      "learningObjective": "Analyse James’s account of favouritism and apply its reasoning to comparable situations.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "objectiveId": "neco-crs-074-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-306-006",
+      "prompt": "A fellowship plans to distribute donated schoolbooks. Its committee wants donors’ children to choose first, even when other children have the same need. Using James 2:1–9, explain the problem with that rule and propose a rule the committee could justify.",
+      "answer": "The rule makes a family’s financial contribution the basis for preferential treatment. This conflicts with James’s criticism of honour based on wealth and his appeal to love one’s neighbour. The committee could distribute by demonstrated need and use a transparent lottery among children with equal need.",
+      "explanation": "Other fair rules are acceptable if they address comparable needs and explain how the donor preference would be removed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "biblicalReference": "James 2:1–9",
+      "type": "structured",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the preference based on financial contribution."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the criticism to James’s treatment of partiality or neighbour-love."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a workable allocation rule."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the rule treats comparable needs consistently."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Partiality in James 2:1–13",
+      "learningObjective": "Analyse James’s account of favouritism and apply its reasoning to comparable situations.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "objectiveId": "neco-crs-074-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-306-007",
+      "prompt": "In James 2:5, which conclusion follows from the contrast between material poverty and richness in faith?",
+      "answer": "Visible economic standing is an inadequate measure of a person’s standing in the argument.",
+      "explanation": "James’s contrast undermines the use of outward wealth as the assembly’s measure of honour.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "biblicalReference": "James 2:5",
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Material poverty prevents anyone from possessing faith.",
+        "A change in clothing automatically changes a person’s relationship with God.",
+        "Every person with faith must possess the same amount of property.",
+        "Visible economic standing is an inadequate measure of a person’s standing in the argument."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Christian Religious Studies",
+      "topic": "Selected Epistles",
+      "subtopic": "Partiality in James 2:1–13",
+      "learningObjective": "Analyse James’s account of favouritism and apply its reasoning to comparable situations.",
+      "specificationId": "neco-crs-james-reference-2026",
+      "objectiveId": "neco-crs-074-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-306-008",
+      "prompt": "How does James 2:12–13 extend the discussion of partiality?",
+      "answer": "It calls the readers to consider their own speech and actions in relation to judgment and mercy.",
+      "explanation": "James brings the readers themselves under the moral standard they must consider when treating other people.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "biblicalReference": "James 2:12–13",
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "It changes the test of fair treatment into a calculation of donations.",
+        "It calls the readers to consider their own speech and actions in relation to judgment and mercy.",
+        "It permits speakers to judge others solely by the quality of their clothes.",
+        "It says that public statements remove the need to act mercifully."
+      ],
+      "correctOption": "B"
+    }
+  ]
+}

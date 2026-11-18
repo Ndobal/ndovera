@@ -75,7 +75,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Biology | 1000 | 14 | 12 | 0 | 988 | partial_objective_register |
 | NECO | Catering Craft | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
 | NECO | Chemistry | 1000 | 16 | 12 | 0 | 988 | partial_objective_register |
-| NECO | Christian Religious Studies | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
+| NECO | Christian Religious Studies | 1000 | 16 | 16 | 0 | 984 | partial_objective_register |
 | NECO | Civic Education | 1000 | 12 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Commerce | 1000 | 12 | 10 | 0 | 990 | partial_objective_register |
 | NECO | Computer Hardware and GSM Repairs | 1000 | 14 | 14 | 0 | 986 | partial_objective_register |
@@ -219,13 +219,13 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | 364 | 343 | 0 | 5000 | 4657 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
-| NECO | 508 | 473 | 0 | 36000 | 35527 |
+| NECO | 516 | 481 | 0 | 36000 | 35519 |
 | NERDC | 1082 | 1017 | 0 | 35000 | 33983 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
 | TOEFL | 247 | 238 | 0 | 4000 | 3762 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 5466, "validDrafts": 3787, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5474, "validDrafts": 3795, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 

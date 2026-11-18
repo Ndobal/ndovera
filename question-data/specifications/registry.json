@@ -1196,7 +1196,11 @@
         "https://bible.usccb.org/bible/james/2"
       ],
       "retrievedOn": "2026-11-05",
-      "note": "The NECO timetable lists Christian Religious Studies Papers II (4022, essay) and III (4023, objective). Historical WAEC evidence supports James 2 faith and deeds. Partiality is adjacent practice based directly on James 2 and remains provisional. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
+      "lastSourceRecheck": "2026-11-18",
+      "formatRecheck": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
+      "textRecheck": "https://www.biblegateway.com/passage/?search=James%202&version=KJV",
+      "retrievalNote": "USCCB direct retrieval returned 403 on 18 November 2026. James 2 was read in the public-domain KJV on Bible Gateway. Historical WAEC 2020 observations were accessible.",
+      "note": "The NECO timetable lists Christian Religious Studies Papers II (4022, essay) and III (4023, objective). The published 2027 timetable retains these codes in a combined two-hour-thirty-minute sitting. Historical WAEC evidence supports James 2 faith and deeds. Partiality is adjacent practice based directly on James 2 and remains provisional. Four options and practice marking allocations are local design choices. Official NECO topic objectives remain unavailable to this project."
     },
     {
       "id": "neco-islamic-quran-reference-2026",
