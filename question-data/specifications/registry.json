@@ -1212,10 +1212,13 @@
         "https://waeconline.org.ng/e-learning/Islamic/IRK240mq1.html",
         "https://waeconline.org.ng/e-learning/Islamic/IRK230mq2.html",
         "https://quran.com/al-ikhlas",
-        "https://quran.com/an-nas"
+        "https://quran.com/an-nas",
+        "https://quran.com/al-falaq"
       ],
       "retrievedOn": "2026-11-05",
-      "note": "NECO lists Islamic Studies Paper II (4082, essay) and Paper III (4083, objective). Historical WAEC examiner materials and the Qur’an support provisional topic mapping. Official NECO objectives and marking specifications remain unverified."
+      "note": "NECO lists Islamic Studies Paper II (4082, essay) and Paper III (4083, objective). Historical WAEC examiner materials and the Qur’an support provisional topic mapping. Official NECO objectives and marking specifications remain unverified. The published 2027 timetable retains codes 4082 and 4083 in a combined two-hour-thirty-minute sitting. The 2020 WAEC commentary explicitly pairs Al-Falaq with An-Nas. Al-Falaq is added as provisional adjacent textual interpretation, checked directly against Qur’an 113 on 18 November 2026. This does not establish adoption in the current NECO syllabus.",
+      "lastSourceRecheck": "2026-11-18",
+      "formatRecheck": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf"
     },
     {
       "id": "neco-history-independence-reference-2026",
@@ -39135,6 +39138,25 @@
         "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "neco-islamic-307-falaq-v1",
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Falaq (113)",
+      "learningObjective": "Interpret the appeal for refuge and its stated dangers, including its relation to An-Nās.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "NECO 2027 SSCE Internal timetable: Islamic Studies paper formats",
+        "Historical WAEC Islamic Studies 2020 commentary pairing Al-Falaq and An-Nas; Qur’an 113 and 114"
+      ],
+      "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
     }
   ],

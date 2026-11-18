@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Islamic Studies Al-Falaq practice",
+  "questionCount": 6,
+  "note": "Original textual interpretation and comparison under a provisional adjacent-content mapping. Independent academic review pending. Practice marks have no official NECO equivalence.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Falaq (113)",
+      "learningObjective": "Interpret the appeal for refuge and its stated dangers, including its relation to An-Nās.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-307-001",
+      "objectiveId": "neco-islamic-307-falaq-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Explain how the general request in Al-Falaq 113:2 relates to the more specific dangers named in verses 3–5.",
+      "answer": "Verse 2 gives the appeal a broad scope. The later verses identify particular dangers within that appeal.",
+      "explanation": "The progression moves from a general request to named instances.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises the general scope of verse 2."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the later verses as specific dangers."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Falaq (113)",
+      "learningObjective": "Interpret the appeal for refuge and its stated dangers, including its relation to An-Nās.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-307-002",
+      "objectiveId": "neco-islamic-307-falaq-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A learner says that the speaker in Al-Falaq asks the night itself to provide protection. Correct the reading using verses 1 and 3.",
+      "answer": "Refuge is sought in Allah, addressed as Lord of daybreak. The night is mentioned in connection with danger.",
+      "explanation": "The object of the appeal and the danger have different roles.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the addressee in verse 1."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the role of night in verse 3."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Falaq (113)",
+      "learningObjective": "Interpret the appeal for refuge and its stated dangers, including its relation to An-Nās.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-307-003",
+      "objectiveId": "neco-islamic-307-falaq-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "Which feature of Al-Falaq 113:5 adds a danger connected with a person’s attitude towards another?",
+      "answer": "Its reference to the harm of envy.",
+      "explanation": "The final verse names envy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "Its description of a route taken by travellers.",
+        "Its list of rules for dividing property.",
+        "Its reference to the harm of envy.",
+        "Its description of the clothing of a visitor."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Falaq (113)",
+      "learningObjective": "Interpret the appeal for refuge and its stated dangers, including its relation to An-Nās.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-307-004",
+      "objectiveId": "neco-islamic-307-falaq-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "mcq",
+      "prompt": "What role does the reference to blowing on knots have in Al-Falaq?",
+      "answer": "It identifies a harmful practice from which refuge is requested.",
+      "explanation": "The verse forms part of the appeal for protection.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 1,
+      "options": [
+        "It identifies a harmful practice from which refuge is requested.",
+        "It instructs the speaker to perform the practice.",
+        "It names the one to whom the request is addressed.",
+        "It gives a method for choosing a community leader."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Falaq (113)",
+      "learningObjective": "Interpret the appeal for refuge and its stated dangers, including its relation to An-Nās.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-307-005",
+      "objectiveId": "neco-islamic-307-falaq-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Compare the descriptions used for the one addressed in Al-Falaq 113:1 and An-Nās 114:1–3. State one shared function and one difference in emphasis.",
+      "answer": "Both establish whom the speaker turns to for refuge. Al-Falaq invokes Allah in relation to daybreak, while An-Nas names His lordship, sovereignty and divinity in relation to humankind.",
+      "explanation": "The comparison concerns the openings of both surahs.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains their shared role in the appeal."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the daybreak reference."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the threefold human-related address."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Islamic Studies",
+      "topic": "Qur’an",
+      "subtopic": "Al-Falaq (113)",
+      "learningObjective": "Interpret the appeal for refuge and its stated dangers, including its relation to An-Nās.",
+      "specificationId": "neco-islamic-quran-reference-2026",
+      "id": "ndv-307-006",
+      "objectiveId": "neco-islamic-307-falaq-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Both Al-Falaq and An-Nās ask for refuge. Explain how the dangers they describe give the two appeals different emphases.",
+      "answer": "Al-Falaq names several dangers, including darkness, harmful knot-blowing and envy. An-Nas focuses on whispering into human hearts from jinn and humans.",
+      "explanation": "The common purpose is developed through different descriptions of harm.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the range of dangers in Al-Falaq."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the focus on whispering in An-Nas."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the difference to their common appeal for refuge."
+        }
+      ]
+    }
+  ]
+}
