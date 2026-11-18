@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Hausa composition practice",
+  "questionCount": 6,
+  "note": "Original letter and argumentative writing tasks with illustrative responses and practice rubrics. Historical cross-board evidence supports provisional mapping. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Wasiƙu",
+      "learningObjective": "Rubuta wasiƙa mai maƙasudi da salo da ya dace da wanda zai karanta ta.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-303-001",
+      "objectiveId": "neco-hausa-102-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Kun ga cewa sunan wata unguwa ya ɓace daga jerin wuraren da motar makaranta ke tsayawa. A madadin iyayen unguwar, rubuta wasiƙa zuwa ga mai kula da jigilar ɗalibai. Bayyana abin da kuka lura da shi, yadda abin ya shafi ɗalibai da abin da kuke son a tabbatar muku.",
+      "answer": "Unguwar Rimi, Zariya.\n18 ga Nuwamba, 2026.\n\nZuwa ga Mai Kula da Jigilar Ɗalibai,\n\nNeman bayani game da wurin tsayawar mota\n\nIna rubuto muku a madadin iyayen Unguwar Rimi. A sabon jerin wuraren da motar makaranta ke tsayawa, ba mu ga sunan unguwarmu ba. A ranar Litinin wasu yara sun jira a bakin hanya, amma motar ba ta tsaya ba. Daga baya iyayensu suka kai su makaranta, suka isa bayan an fara darasi.\n\nMuna roƙon ku tabbatar mana ko an soke tsayawar motar a unguwarmu, ko kuwa an bar sunan ne bisa kuskure. Idan an canja wurin tsayawar, don Allah ku sanar da mu sabon wurin da lokacin da ya kamata yara su isa can.\n\nNa gode da kulawarku.\nAmina Sani,\nWakiliyar iyayen Unguwar Rimi.",
+      "explanation": "Wasiƙar ta bambanta abin da iyayen suka gani da abin da suke son a tabbatar. Za a iya amincewa da wani misali mai ma’ana.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Yi amfani da tsari da salo na wasiƙar hukuma."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana cewa sunan unguwar ya ɓace daga jerin wuraren tsayawa."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana wani tasiri a kan ɗalibai."
+        },
+        {
+          "marks": 1,
+          "description": "Nemi tabbataccen bayani game da wurin tsayawa."
+        },
+        {
+          "marks": 1,
+          "description": "Rubuta jimloli masu ma’ana da alaƙa."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Wasiƙu",
+      "learningObjective": "Rubuta wasiƙa mai maƙasudi da salo da ya dace da wanda zai karanta ta.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-303-002",
+      "objectiveId": "neco-hausa-102-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Rubuta wa abokinka wasiƙar ƙin gayyatar da ya yi maka zuwa taron ƙungiyarsu. Ka nuna godiya, ka faɗi dalilin da ya sa ba za ka iya zuwa ba, sannan ka ba da wata takamaiman hanyar da za ka taimaka wa ƙungiyar.",
+      "answer": "Sabon Gari, Kaduna.\n18 ga Nuwamba, 2026.\n\nAbokina Kabiru,\n\nNa gode da ka gayyace ni zuwa taron ƙungiyarku na Asabar. Na yi farin ciki da kuka tuna da ni. Ba zan iya zuwa ba domin a wannan lokaci zan raka ƙanwata zuwa gasar karatu. Na riga na yi mata alkawari, kuma babu wanda zai iya raka ta a madadina.\n\nIdan ya yi muku, zan taimaka wajen tsara takardar sanarwar taron. Ka turo mini wurin taron da lokacinsa kafin yammacin Alhamis. Zan dawo maka da takardar ranar Juma’a domin ku sami lokacin duba ta.\n\nIna fatan taron zai yi kyau. Ka gai da sauran abokanmu.\nAbokinka,\nMusa.",
+      "explanation": "Rubutun ya nuna godiya da girmamawa duk da cewa marubucin ba zai halarci taron ba.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Yi amfani da gaisuwa da rufewar wasiƙar zumunci."
+        },
+        {
+          "marks": 1,
+          "description": "Nuna godiya bisa gayyatar."
+        },
+        {
+          "marks": 1,
+          "description": "Faɗi dalilin rashin halarta a sarari."
+        },
+        {
+          "marks": 1,
+          "description": "Ba da takamaiman taimako da ya dace."
+        },
+        {
+          "marks": 1,
+          "description": "Yi amfani da Hausa mai fahimta."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Wasiƙu",
+      "learningObjective": "Rubuta wasiƙa mai maƙasudi da salo da ya dace da wanda zai karanta ta.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-303-003",
+      "objectiveId": "neco-hausa-102-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A matsayinka na sakataren ƙungiyar ɗalibai, ka rubuta wa mai kula da gidan tarihi wasiƙar neman bayani kafin ziyararku. Ka faɗi manufar ziyarar da adadin masu zuwa, ka tambayi ko akwai jagora da zai yi bayani cikin Hausa, sannan ka nemi mafita idan babu jagora a ranar da kuka zaɓa.",
+      "answer": "Makarantar Sakandare ta Gari, Katsina.\n18 ga Nuwamba, 2026.\n\nZuwa ga Mai Kula da Gidan Tarihi,\n\nNeman bayani kafin ziyarar ɗalibai\n\nƘungiyarmu tana shirin ziyartar gidan tarihin ranar 4 ga Disamba. Za mu zo da ɗalibai ashirin da malamai biyu. Muna son mu fahimci yadda aka yi amfani da tsofaffin kayayyakin gida, domin za mu shirya baje koli a makarantarmu.\n\nMuna son sanin ko za a sami jagora da zai iya yi mana bayani cikin Hausa. Idan babu jagora a ranar, shin za ku iya ba mu wata rana a makon da ke biye? Idan ba za mu iya canja ranar ba, muna roƙon ku sanar da mu ko za mu iya samun takardar bayani da za mu karanta kafin mu iso.\n\nNa gode. Muna jiran amsarku domin mu kammala shirin tafiya.\nNaku mai biyayya,\nIbrahim Bello, Sakataren Ƙungiyar Ɗalibai.",
+      "explanation": "A lura da yadda wasiƙar ta ba mai karatu bayanan da yake buƙata kafin ya amsa.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Yi amfani da tsarin wasiƙar hukuma."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana manufar ziyarar da adadin masu zuwa."
+        },
+        {
+          "marks": 1,
+          "description": "Tambayi ko za a sami jagoran da zai yi bayani cikin Hausa."
+        },
+        {
+          "marks": 1,
+          "description": "Nemi hanyar da za ta dace idan babu jagora."
+        },
+        {
+          "marks": 1,
+          "description": "Tsara buƙatun cikin Hausa mai fahimta."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Muƙalar ra’ayi",
+      "learningObjective": "Bayyana ra’ayi tare da dalilai da tsari mai ma’ana.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-303-004",
+      "objectiveId": "neco-hausa-102-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Makarantarku ta samu kuɗin sayen kayan karatu. Wasu ɗalibai suna so a sayi ƙarin littattafan da ake amfani da su a jarrabawa. Wasu suna so a sayi labarai da littattafan tarihi. Rubuta muƙala da za ta bayyana amfanin kowace shawara. Ka kuma ba da hanyar raba kuɗin da ta yi la’akari da bukatun ɗalibai.",
+      "answer": "Littattafan da ake amfani da su a jarrabawa suna taimaka wa ɗalibai su yi bitar darasi. Idan kwafi ɗaya ne a ɗakin karatu, ɗalibai da yawa za su jira kafin su samu damar karanta shi. Sayen ƙarin kwafi zai rage wannan jira.\n\nLittattafan labarai da na tarihi suna ba ɗalibai damar karanta abubuwan da ba su saba gani a littafin darasi ba. Labari na iya sa wanda ba ya yawan karatu ya fara sha’awar karatu, tarihi kuma yana sa ɗalibi ya fahimci yadda rayuwar mutane ta canja.\n\nIna ganin ya dace a fara duba littattafan da aka fi nema amma ba a samun su. A sayi isassun kwafin waɗanda ɗalibai ke jira domin su yi bita, sannan a ware wani kaso ga labarai da tarihi. Bayan zangon karatu ɗaya, mai kula da ɗakin karatu ya duba littattafan da aka fi aro kafin a sake kashe kuɗi.",
+      "explanation": "Za a iya amincewa da tsarin rabo dabam idan an bayyana yadda zai biya bukatu biyu.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Bayyana wata fa’ida ta ƙarin kwafin littattafan jarrabawa."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana wata fa’ida ta labarai ko littattafan tarihi."
+        },
+        {
+          "marks": 1,
+          "description": "Ba da hanyar raba kuɗin da za a iya bi."
+        },
+        {
+          "marks": 1,
+          "description": "Haɗa shawarar da bukatun ɗalibai."
+        },
+        {
+          "marks": 1,
+          "description": "Tsara hujjojin cikin sakin layi masu alaƙa."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Muƙalar ra’ayi",
+      "learningObjective": "Bayyana ra’ayi tare da dalilai da tsari mai ma’ana.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-303-005",
+      "objectiveId": "neco-hausa-102-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Kwamitin kasuwa yana so ya rage ɓarnar kayan marmari. Wata shawara ita ce a kafa rumfar inuwa ta bai ɗaya. Wata kuma ita ce ’yan kasuwa su riƙa kawo kaya kaɗan sau da yawa. Kwatanta shawarwarin ta fuskar kuɗi da sauƙin aiwatarwa. Ka bayyana wadda za ka fara gwadawa da dalilinka.",
+      "answer": "Rumfar inuwa za ta kare kaya daga zafin rana. Idan aka yi ta tare, kowane ɗan kasuwa zai iya bayar da kuɗi kaɗan. Sai dai sai an sami fili da tsarin kula da rumfar, kuma masu sayarwa a nesa da ita ba lallai su ci moriyarta ba.\n\nKawo kaya kaɗan sau da yawa zai rage yawan abin da ya rage a ƙarshen rana. Wannan ya fi sauƙi ga masu sayen kayansu a kusa. Ga wanda ke kawo kaya daga wata jiha, ƙarin tafiye-tafiye za su iya cinye ribar da ya samu.\n\nZan fara gwada rumfar inuwa a ƙaramin sashe na kasuwa. Idan kwamitin ya lissafa kayan da suka lalace kafin gwajin da bayan sa, zai iya ganin ko amfanin ya kai kuɗin da aka kashe kafin a faɗaɗa rumfar.",
+      "explanation": "A duba ko an tantance kuɗin da kuma abin da ake buƙata domin aiwatar da kowace shawara.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Kwatanta kuɗin hanyoyin biyu."
+        },
+        {
+          "marks": 1,
+          "description": "Kwatanta abubuwan da ake buƙata domin aiwatar da kowace hanya."
+        },
+        {
+          "marks": 1,
+          "description": "Zaɓi hanyar da za a fara gwadawa."
+        },
+        {
+          "marks": 1,
+          "description": "Ba da dalili da ya fito daga kwatancen."
+        },
+        {
+          "marks": 1,
+          "description": "Rubuta muƙala mai tsari da fahimta."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NECO",
+      "subject": "Hausa",
+      "topic": "Rubutun Hausa",
+      "subtopic": "Muƙalar ra’ayi",
+      "learningObjective": "Bayyana ra’ayi tare da dalilai da tsari mai ma’ana.",
+      "specificationId": "neco-hausa-written-reference-2026",
+      "id": "ndv-303-006",
+      "objectiveId": "neco-hausa-102-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Akwai shawarar a riƙa karanta sanarwar makaranta a taron safe kawai. Ka rubuta muƙala da za ta nuna amfanin sanarwa ta baki da matsalar da ɗaliban da ba su halarci taron za su fuskanta. Ka ba da tsarin da zai taimaka musu su samu saƙon.",
+      "answer": "Karanta sanarwa a taron safe yana sa ɗalibai da yawa su ji saƙo a lokaci guda. Idan akwai wani sabon tsari, malami zai iya jaddada abin da ya fi muhimmanci. Amma wanda bai halarci taron ba saboda rashin lafiya ko wani dalili zai iya rasa saƙon gaba ɗaya. Wannan na iya sa ya zo ba tare da kayan da ake buƙata ba ko ya rasa wani sabon lokaci.\n\nIna ganin a ci gaba da karanta sanarwar a taron safe, sannan a liƙa ta a allon sanarwa. A rubuta ranar da aka bayar da sanarwar da kuma ranar da za a fara bin sabon tsari. Idan ɗalibi ya dawo, zai iya duba sanarwar da ya rasa. Wakilan aji za su iya tunatar da shi inda zai sami saƙon.",
+      "explanation": "Tsarin da aka ba da shawara ya dace idan ɗalibai za su sami saƙon bayan taron safe.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Nuna amfanin sanarwa ta baki."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana wahalar da rashin halarta zai haifar."
+        },
+        {
+          "marks": 1,
+          "description": "Ba da hanya mai yiwuwa ta samun saƙon daga baya."
+        },
+        {
+          "marks": 1,
+          "description": "Bayyana yadda hanyar za ta magance matsalar."
+        },
+        {
+          "marks": 1,
+          "description": "Tsara hujja cikin Hausa mai fahimta."
+        }
+      ],
+      "requiresManualReview": true
+    }
+  ]
+}

@@ -1567,7 +1567,9 @@
         "https://www.waeconline.org.ng/e-learning/Hausa/Hausa221mq1.html"
       ],
       "retrievedOn": "2026-11-06",
-      "note": "NECO 2026 Internal timetable confirms Hausa objective and essay papers 4053 and 4052, and notes a literature component. Historical WAEC Hausa Paper 2 provides provisional composition evidence. Official NECO prescribed texts and marking remain unverified."
+      "formatRecheck": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
+      "lastSourceRecheck": "2026-11-18",
+      "note": "NECO 2026 Internal timetable lists Hausa objective and essay papers 4053 and 4052 and notes a literature component. The published 2027 timetable also lists these paper codes, with a combined three-hour sitting. The timetable does not establish composition task details. Historical WAEC Hausa Paper 2 provides provisional composition evidence. Official NECO prescribed texts and marking remain unverified."
     },
     {
       "id": "neco-igbo-written-reference-2026",

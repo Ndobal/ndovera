@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5452,
-    "validDrafts": 3773,
+    "raw": 5458,
+    "validDrafts": 3779,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1946,6 +1946,12 @@
       "sha256": "962104c8fe272454b9383764ab90f2d6c93f7138884736668de18b1fba985e13",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-303.json",
+      "sha256": "c4236ec3565d16043ddf9e09e08e8729fb37ccde56bfd22b2ffea538a2158f10",
+      "declared": 6,
+      "actual": 6
     },
     {
       "path": "original-practice-batch-001.json",
@@ -4784,17 +4790,17 @@
           ]
         }
       },
-      "raw": 4,
-      "validDrafts": 4,
+      "raw": 10,
+      "validDrafts": 10,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 4
+        "structured": 10
       },
       "difficulty": {
-        "standard": 2,
-        "difficult": 2
+        "standard": 5,
+        "difficult": 5
       },
-      "remaining": 996,
+      "remaining": 990,
       "mappedObjectives": 2,
       "representedObjectives": 2,
       "coverage": "partial_objective_register",
@@ -7857,8 +7863,8 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 590,
@@ -45079,6 +45085,42 @@
       "errors": []
     },
     {
+      "id": "ndv-303-001",
+      "file": "original-multisubject-batch-303.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-303-002",
+      "file": "original-multisubject-batch-303.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-303-003",
+      "file": "original-multisubject-batch-303.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-303-004",
+      "file": "original-multisubject-batch-303.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-303-005",
+      "file": "original-multisubject-batch-303.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-303-006",
+      "file": "original-multisubject-batch-303.json",
+      "index": 5,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -69352,21 +69394,21 @@
       "learningObjective": "Rubuta wasiƙa mai maƙasudi da salo da ya dace da wanda zai karanta ta.",
       "specificationId": "neco-hausa-written-reference-2026",
       "questionTypes": {
-        "structured": 2
+        "structured": 5
       },
       "sourceSections": [
         "NECO Paper II (format only); WAEC Hausa Paper 2 examiner material, 2012"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 2,
-      "validDrafts": 2,
+      "questionCount": 5,
+      "validDrafts": 5,
       "difficulty": {
-        "standard": 1,
-        "difficult": 1
+        "standard": 3,
+        "difficult": 2
       },
       "tiers": {
-        "not_specified": 2
+        "not_specified": 5
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -69382,21 +69424,21 @@
       "learningObjective": "Bayyana ra’ayi tare da dalilai da tsari mai ma’ana.",
       "specificationId": "neco-hausa-written-reference-2026",
       "questionTypes": {
-        "structured": 2
+        "structured": 5
       },
       "sourceSections": [
         "NECO Paper II (format only); WAEC Hausa Paper 2 examiner material, 2012"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 2,
-      "validDrafts": 2,
+      "questionCount": 5,
+      "validDrafts": 5,
       "difficulty": {
-        "difficult": 1,
-        "standard": 1
+        "difficult": 3,
+        "standard": 2
       },
       "tiers": {
-        "not_specified": 2
+        "not_specified": 5
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
